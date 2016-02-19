@@ -1,0 +1,15 @@
+{
+  "name": "SavageWorldsWebTools",
+  "version": "2.0.0",
+  "devDependencies": {
+    "grunt": "latest",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-jshint": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-contrib-concat": "latest",
+    "grunt-sass": "latest",
+    "grunt-contrib-cssmin": "~0.7.0",
+    "grunt-concat-sourcemap": "~0.4.1",
+    "node-bourbon": "latest"
+  }
+}

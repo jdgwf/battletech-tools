@@ -1,0 +1,190 @@
+$fontColor: #fdfde3;
+$headerFooterBackground: #111;
+$bodyBackground: #333;
+
+$primaryBG: #dfab2d;
+$primaryBGHover: #b48a25;
+$primaryTextColor: #fff;
+
+$secondaryBG: #fdfde3;
+$secondaryBGHover: #e4e4ce;
+$secondaryTextColor: #333;
+
+body {
+	background: $bodyBackground;
+	color: $fontColor;
+	font-family: 'Ubuntu', sans-serif !important;
+
+	a {
+		color: $primaryBG;
+		&:active,
+		&:visited {
+			color: $primaryBG;
+		}
+		&:hover {
+			color: $primaryBGHover;
+		}
+	}
+
+	.button {
+		background-color: $primaryBG;
+		color: $primaryTextColor;
+
+		&:active,
+		&:visited {
+			background-color: $primaryBG;
+			color: $primaryTextColor;
+		}
+		&:hover {
+			background-color: $primaryBGHover;
+			color: $primaryTextColor;
+		}
+		&.primary {
+			background-color: $primaryBG;
+			color: $primaryTextColor;
+
+			&:active,
+			&:visited {
+				background-color: $primaryBG;
+				color: $primaryTextColor;
+			}
+			&:hover {
+				background-color: $primaryBGHover;
+				color: $primaryTextColor;
+			}
+		}
+		&.secondary {
+			background-color: $secondaryBG;
+			color: $secondaryTextColor;
+			&:active,
+			&:visited {
+				background-color: $secondaryBG;
+				color: $secondaryTextColor;
+			}
+			&:hover {
+				background-color: $secondaryBGHover;
+				color: $secondaryTextColor;
+			}
+		}
+	}
+	select,
+	input[type=text],
+	input[type=number] {
+		background-color: $secondaryBG;
+	}
+
+
+
+	header {
+		background: $headerFooterBackground;
+		padding: 0 1rem .5rem 1rem;
+		color: $fontColor;
+		margin: 0 0 1rem 0;
+		h1 {
+			a {
+				color: $fontColor;
+			}
+			font-size: 2rem;
+			padding: 0;
+			margin: 0;
+		}
+		h2 {
+			a {
+				color: $fontColor;
+			}
+			font-size: 1rem;
+			padding: 0;
+			margin: 0;
+		}
+	}
+
+	footer {
+		background: $headerFooterBackground;
+		padding: 1rem;
+		margin: 1rem 0 0 0;
+		color: $fontColor;
+	}
+	label {
+		color: $fontColor;
+	}
+	.fieldset {
+		color: $fontColor;
+		legend {
+			background: $bodyBackground;
+			color: $fontColor;
+			padding: 0 1rem;
+			font-size: 1.4rem;
+			font-weight: 500;
+		}
+
+	}
+	.small-text {
+		font-size: .7em;
+	}
+	.sidebar-menu {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		li {
+			a {
+				.title {
+					font-size: 20px;
+				}
+				.subtitle {
+					font-size: 11px;
+				}
+			}
+		}
+	}
+	.mech-status-bar {
+		text-align: right;
+		margin-bottom: 5px;
+		font-size: 12px;
+	}
+	.next-button {
+		margin: 2rem 0 0 0;
+		float: right;
+	}
+	.mech-tro {
+		background: $bodyBackground;
+		color: $fontColor;
+		width: 100%;
+
+		border: none;
+		font-size: 12px;
+		tbody {
+			border: none;
+		}
+
+		tr {
+			td, th {
+				margin: auto;
+				padding: 0 5px 0 0;
+				background: $bodyBackground;
+				color: $fontColor;
+
+			}
+			th {
+				vertical-align: bottom;
+				font-weight: 700;
+			}
+			td {
+				vertical-align: top;
+			}
+		}
+	}
+}
+
+.ng-cloak {
+	display: none;
+}
+.no-outline  {
+	outline: 0 !important;
+}
+
+button.radius, .button.radius {
+    border-radius: 3px;
+}
+button.round, .button.round {
+    border-radius: 1000px;
+}

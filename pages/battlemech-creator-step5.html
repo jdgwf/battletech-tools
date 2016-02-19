@@ -1,0 +1,25 @@
+<div class="row">
+	<div class="column small-12 medium-4 large-2">
+		<div ng-include="'pages/battlemech-creator-sidebar.html'"></div>
+	</div>
+
+	<div class="column small-12 medium-8 large-10">
+		<div class="row">
+			<div class="column small-12">
+				<div class="mech-status-bar" ng-bind-html="mech_status_bar"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="column medium-12 large-8">
+				<h3 ng-bind-html="h3_title">Step 5</h3>
+
+
+				<a class="button primary radius next-button" href="#/battlemech-creator-step6/" translate="BM_NEXT_STEP">Next Step</a>
+			</div>
+			<div class="column show-for-large large-4">
+				<div ng-bind-html="mech_summary_html"></div>
+			</div>
+		</div>
+	</div>
+
+</div>

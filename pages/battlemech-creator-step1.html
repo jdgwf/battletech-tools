@@ -1,0 +1,50 @@
+<div class="row">
+	<div class="column small-12 medium-4 large-2">
+		<div ng-include="'pages/battlemech-creator-sidebar.html'"></div>
+	</div>
+	<div class="column small-12 medium-8 large-10">
+		<div class="row">
+			<div class="column small-12">
+				<div class="mech-status-bar" ng-bind-html="mech_status_bar"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="column medium-12 large-8">
+				<h3 ng-bind-html="h3_title">Step 1</h3>
+
+				<label>
+					<span translate="BM_STEP1_MECH_NAME">Mech name</span>:
+					<input type="text" ng-keyup="update_mech_name()" ng-model="mech_name" />
+				</label>
+
+				<label>
+					<span translate="BM_STEP1_MECH_TECH">Mech tech</span>:
+					<select ng-change="update_mech_tech()" ng-options="option.name for option in mech_tech.availableOptions track by option.id" ng-model="mech_tech.selectedOption">
+					</select>
+				</label>
+
+				<label>
+					<span translate="BM_STEP1_MECH_TYPE">Mech type</span>:
+					<select  ng-change="update_mech_type()" ng-options="option.name for option in mech_type.availableOptions track by option.id" ng-model="mech_type.selectedOption">
+					</select>
+				</label>
+				<label>
+					<span translate="BM_STEP1_MECH_ERA">Mech era</span>:
+					<select ng-change="update_mech_era()" ng-options="option.name for option in mech_era.availableOptions track by option.id" ng-model="mech_era.selectedOption">
+					</select>
+				</label>
+				<label>
+					<span translate="BM_STEP1_MECH_TONNAGE">Mech tonnage</span>:
+					<select ng-change="update_mech_tonnage()" ng-options="ton for ton in mech_tonnage_options" ng-model="mech_tonnage.selectedOption">
+					</select>
+				</label>
+
+				<a class="button primary radius next-button" href="#/battlemech-creator-step2/" translate="BM_NEXT_STEP">Next Step</a>
+			</div>
+
+			<div class="column show-for-large large-4">
+				<div ng-bind-html="mech_summary_html"></div>
+			</div>
+		</div>
+	</div>
+</div>
