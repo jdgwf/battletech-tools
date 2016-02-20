@@ -14,6 +14,7 @@ body {
 	background: $bodyBackground;
 	color: $fontColor;
 	font-family: 'Ubuntu', sans-serif !important;
+	padding: .5rem 0 0 0;
 
 	a {
 		color: $primaryBG;
@@ -97,7 +98,9 @@ body {
 			margin: 0;
 		}
 	}
-
+	h1, h2, h3, h4 {
+		color: $primaryBG;
+	}
 	footer {
 		background: $headerFooterBackground;
 		padding: 1rem;
@@ -109,14 +112,18 @@ body {
 	}
 	.fieldset {
 		color: $fontColor;
+		border-color: $primaryBG;
 		legend {
 			background: $bodyBackground;
-			color: $fontColor;
+			color: $primaryBG;
 			padding: 0 1rem;
 			font-size: 1.4rem;
 			font-weight: 500;
 		}
 
+	}
+	strong {
+		color: $primaryBG;
 	}
 	.small-text {
 		font-size: .7em;
@@ -145,6 +152,10 @@ body {
 		margin: 2rem 0 0 0;
 		float: right;
 	}
+	.previous-button {
+		margin: 2rem 0 0 0;
+		float: left;
+	}
 	.mech-tro {
 		background: $bodyBackground;
 		color: $fontColor;
@@ -170,6 +181,31 @@ body {
 			}
 			td {
 				vertical-align: top;
+			}
+		}
+	}
+	.armor-chart {
+		background: transparent;
+		border: 0 !important;
+		tbody {
+			background: transparent !important;
+			border: 0 !important;
+		}
+		tr {
+			background: transparent !important;
+			td {
+				width: 20%;
+				margin: 0;
+				vertical-align: top;
+				text-align: center;
+				padding: 1rem 0.5rem;
+				border: 1px solid $primaryBG !important;
+				background: rgba(0,0,0,.25);
+				&.blank {
+					background: transparent !important;
+					border: none !important;
+				}
+
 			}
 		}
 	}

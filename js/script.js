@@ -142,26 +142,41 @@ var btEraOptions = Array(
 	{
 		id: 1,
 		name: {
-			'en-US': "Early Succession Wars",
-			'de-DE': "de - Early Succession Wars"
+			'en-US': "Age of War/Star League",
+			'de-DE': "de - Age of War/Star League"
 		},
-		year_start: 2781,
-		year_end: 2900,
+		year_start: 2400,
+		year_end: 2780,
 	},
 	{
 		id: 2,
 		name: {
-			'en-US': "Late Succession Wars",
-			'de-DE': "de - Late Succession Wars"
+			'en-US': "Succession Wars",
+			'de-DE': "de - Succession Wars"
 		},
-		year_start: 2901,
+		year_start: 2781,
 		year_end: 3049,
+	}/*,,
+	{
+		id: 3,
+		name: {
+			'en-US': "Clan Invasion",
+			'de-DE': "de - Clan Invasion"
+		},
+		year_start: 3050,
+		year_end: 3085,
 	}
-	// {
-	// 	name: "Clan Invasion",
-	// 	year_start: 3050,
-	// 	year_start: 3067,
-	// }
+
+	{
+		id: 4,
+		name: {
+			'en-US': "Dark Ages",
+			'de-DE': "de - Dark Ages"
+		},
+		year_start: 3085,
+		year_end: 4000,
+	}
+	*/
 );
 var mechClanEquipment = Array(
 );
@@ -1204,8 +1219,8 @@ var mechISEquipment = Array(
 		},
 		tag: "small-laser",
 		category: {
-			'en-US': "Laser Weapons",
-			'de-DE': "de - Laser Weapons",
+			'en-US': "Energy Weapons",
+			'de-DE': "de - Energy Weapons",
 		},
 		damage: 3,
 		cbills: 11250,
@@ -1252,8 +1267,8 @@ var mechISEquipment = Array(
 		},
 		tag: "medium-laser",
 		category: {
-			'en-US': "Laser Weapons",
-			'de-DE': "de - Laser Weapons",
+			'en-US': "Energy Weapons",
+			'de-DE': "de - Energy Weapons",
 		},
 		damage: 5,
 		cbills: 40000,
@@ -1300,8 +1315,8 @@ var mechISEquipment = Array(
 		},
 		tag: "large-laser",
 		category: {
-			'en-US': "Laser Weapons",
-			'de-DE': "de - Laser Weapons",
+			'en-US': "Energy Weapons",
+			'de-DE': "de - Energy Weapons",
 		},
 		damage: 8,
 		cbills: 100000,
@@ -1852,7 +1867,7 @@ class_dice.prototype = {
 function Mech (type) {
 	this.mech_type = mechTypeOptions[0];
 	this.tech = btTechOptions[0];
-	this.era = btEraOptions[0];
+	this.era = btEraOptions[1]; // Default to Succession Wars
 	this.make = "";
 	this.model = "";
 	this.uuid = "";
@@ -1941,8 +1956,10 @@ function Mech (type) {
 
 	this.max_armor_tonnage = 0;
 
+	this.cbillCost = "n/a";
 	this.battleValue = "n/a";
 	this.alphaStrikeValue = "n/a";
+
 	this.alphaStrikeForceStats = {
 		make: "",
 		model: "",
@@ -2264,12 +2281,24 @@ Mech.prototype._calcBattleValue = function() {
 	this.battleValue = 0;
 }
 
+Mech.prototype._calcCBillCost = function() {
+	// TODO Calculations
+
+
+
+	this.cbillCost = 0;
+}
+
 Mech.prototype.getBattleValue = function() {
 	return this.battleValue;
 }
 
 Mech.prototype.getAlphaStrikeValue = function() {
 	return this.alphaStrikeValue;
+}
+
+Mech.prototype.getCBillCost = function() {
+	return this.cbillCost;
 }
 
 Mech.prototype.getEngineWeight = function() {
@@ -2375,12 +2404,13 @@ Mech.prototype.makeTROHTML = function() {
 	html = "<table class=\"mech-tro\">";
 
 	// Header Info
-	html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_TYPE") + ": <strong>" + this.getName() + "</strong></td></tr>";
+	html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_TYPE") + ": " + this.getName() + "</td></tr>";
 	html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_TECHNOLOGY_BASE") + ": " + this.getTech().name[ this.useLang ] + "</td></tr>";
 	html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_ERA") + ": " + this.getEra().name[ this.useLang ] + "</td></tr>";
 	html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_TONNAGE") + ": " + this.getTonnage() + "</td></tr>";
 	html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_BATTLE_VALUE") + ": " + this.getBattleValue() + "</td></tr>";
 	html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_ALPHA_STRIKE_VALUE") + ": " + this.getAlphaStrikeValue() + "</td></tr>";
+	html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_CBILL_COST") + ": $" + this.getCBillCost() + "</td></tr>";
 	html += "<tr><td colspan=\"4\">&nbsp;</td></tr>";
 
 	// Equipment
@@ -2417,23 +2447,41 @@ Mech.prototype.makeTROHTML = function() {
 		html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_LT") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.leftTorso + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.leftTorso + "</td><td>&nbsp;</td></tr>";
 		html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_LTR") + "</td><td class=\"text-center\" colspan=\"1\">&nbsp;</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.leftTorsoRear + "</td><td>&nbsp;</td></tr>";
 	}
-	if( this.armorAllocation.rightArm == this.armorAllocation.leftArm) {
-		html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RLA") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.rightArm + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.rightArm + "</td><td>&nbsp;</td></tr>";
+	if( this.mech_type.class == "biped") {
+
+		if( this.armorAllocation.rightArm == this.armorAllocation.leftArm) {
+			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RLA") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.rightArm + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.rightArm + "</td><td>&nbsp;</td></tr>";
+		} else {
+			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RA") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.rightArm + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.rightArm + "</td><td>&nbsp;</td></tr>";
+			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_LA") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.leftArm + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.leftArm + "</td><td>&nbsp;</td></tr>";
+		}
+
+		if( this.armorAllocation.rightLeg == this.armorAllocation.leftLeg) {
+			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RLL") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.rightLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.rightLeg + "</td><td>&nbsp;</td></tr>";
+		} else {
+			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RL") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.rightLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.rightLeg + "</td><td>&nbsp;</td></tr>";
+			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_LL") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.leftLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.leftLeg + "</td><td>&nbsp;</td></tr>";
+		}
 	} else {
-		html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RA") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.rightArm + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.rightArm + "</td><td>&nbsp;</td></tr>";
-		html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_LA") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.leftArm + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.leftArm + "</td><td>&nbsp;</td></tr>";
-	}
-	if( this.armorAllocation.rightLeg == this.armorAllocation.leftLeg) {
-		html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RLL") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.rightLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.rightLeg + "</td><td>&nbsp;</td></tr>";
-	} else {
-		html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RL") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.rightLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.rightLeg + "</td><td>&nbsp;</td></tr>";
-		html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_LL") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.leftLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.leftLeg + "</td><td>&nbsp;</td></tr>";
+		if( this.armorAllocation.rightArm == this.armorAllocation.leftArm) {
+			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RLFL") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.rightArm + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.rightArm + "</td><td>&nbsp;</td></tr>";
+		} else {
+			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RFL") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.rightArm + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.rightArm + "</td><td>&nbsp;</td></tr>";
+			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_LFL") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.leftArm + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.leftArm + "</td><td>&nbsp;</td></tr>";
+		}
+
+		if( this.armorAllocation.rightLeg == this.armorAllocation.leftLeg) {
+			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RLRL") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.rightLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.rightLeg + "</td><td>&nbsp;</td></tr>";
+		} else {
+			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RRL") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.rightLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.rightLeg + "</td><td>&nbsp;</td></tr>";
+			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RLL") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.leftLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.leftLeg + "</td><td>&nbsp;</td></tr>";
+		}
 	}
 	// End Factor Table
 	html += "</table>";
 	html += "<br />";
 	html += "<table class=\"mech-tro\">";
-	html += "<tr><th class=\"text-left\">" + this.getTranslation("TRO_WEAPONS_AND_AMMO") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_LOCATION") + "</th><th class=\"text-center\"><strong>" + this.getTranslation("TRO_CRITICAL") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_TONNAGE") + "</th></tr>";
+	html += "<tr><th class=\"text-left\">" + this.getTranslation("TRO_WEAPONS_AND_AMMO") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_LOCATION") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_CRITICAL") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_TONNAGE") + "</th></tr>";
 
 	for( eq_count = 0; eq_count < this.equipmentList.length; eq_count++) {
 		html += "<tr><td class=\"text-left\">" + this.equipmentList[eq_count].name[ this.useLang ] + "</td><td class=\"text-center\">" + this.equipmentList[eq_count].location[ this.useLang ]  + "</strong></td><td class=\"text-center\">" + this.equipmentList[eq_count].space.battlemech + "</td><td class=\"text-center\">" + this.equipmentList[eq_count].weight + "</td></tr>";
@@ -2558,19 +2606,22 @@ Mech.prototype._calc = function() {
 			this.heat_sink_criticals.slots_type = "triple slot";
 			this.heat_sink_criticals.slots_each = 3;
 		}
+		this.heat_dissipation = (this.additional_heat_sinks + 10) * 2;
 	} else {
 		this.heat_sink_criticals.slots_type = "single";
 		this.heat_sink_criticals.slots_each = 1;
+		this.heat_dissipation = this.additional_heat_sinks + 10;
 	}
 
-
-	if( this.getEngine().rating )
+	if( this.getEngine().rating ) {
 		this.heat_sink_criticals.number =  this.additional_heat_sinks + 10  -  Math.floor(this.getEngine().rating / 25);
-	else
+	} else {
 		this.heat_sink_criticals.number = 0
+	}
 
 	this._calcAlphaStrike();
 	this._calcBattleValue();
+	this._calcCBillCost();
 }
 
 Mech.prototype.getHeatSinksType = function() {
@@ -3158,6 +3209,7 @@ Mech.prototype.exportJSON = function() {
 	export_object.tech = this.tech.id;
 
 	export_object.additional_heat_sinks = this.additional_heat_sinks;
+	export_object.heat_sink_type = this.heat_sink_type;
 
 	export_object.armor_weight = this.armorWeight;
 	if(!this.uuid)
@@ -3208,6 +3260,9 @@ Mech.prototype.importJSON = function(json_string) {
 
 			if( import_object.additional_heat_sinks )
 				this.setAdditionalHeatSinks( import_object.additional_heat_sinks );
+
+			if( import_object.heat_sink_type )
+				this.setHeatSinksType( import_object.heat_sink_type );
 
 			if( import_object.era )
 				this.setEra( import_object.era );
@@ -3405,8 +3460,6 @@ angular.module("baseApp").controller(
 
 				$rootScope.subtitle_tag = "&raquo; " + translation.WELCOME_BUTTON_MECH_CREATOR;
 			});
-
-
 
 			// create mech object, load from localStorage if exists
 			current_mech = new Mech();
@@ -3676,10 +3729,18 @@ angular.module("baseApp").controller(
 
 			update_mech_status_bar_and_tro($scope, $translate, current_mech);
 			// make tro for sidebar
-
+			$scope.selected_heat_sink_tech = current_mech.getHeatSinksType();
 
 			$scope.update_selected_heat_sinks = function() {
 				current_mech.setAdditionalHeatSinks( $scope.selected_heat_sinks.id );
+				update_heat_sink_dropdown($scope, $translate, current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+			}
+
+			$scope.update_selected_heat_sink_tech = function() {
+				console.log( "$scope.selected_heat_sink_tech", $scope.selected_heat_sink_tech);
+				current_mech.setHeatSinksType( $scope.selected_heat_sink_tech );
 				update_heat_sink_dropdown($scope, $translate, current_mech);
 				update_mech_status_bar_and_tro($scope, $translate, current_mech);
 				localStorage["tmp.current_mech"] = current_mech.exportJSON();
@@ -3768,14 +3829,332 @@ angular.module("baseApp").controller(
 
 			current_mech.useLang = localStorage["tmp.preferred_language"];
 
+			update_step4_page_items($scope, $translate, current_mech);
+
 			update_mech_status_bar_and_tro($scope, $translate, current_mech);
 
-			// make tro for sidebar
+			$scope.update_armor_weight = function() {
+				current_mech.setArmorWeight( $scope.selected_armor_weight.id );
+				update_step4_page_items($scope, $translate, current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+			}
+
+
+
+			$scope.allocate_max = function() {
+
+				internal_structure = current_mech.getInteralStructure();
+				//console.log( "internal_structure", internal_structure);
+				centerTorsoArmor = internal_structure.centerTorso * 2;
+				lrTorsoArmor = internal_structure.rightTorso * 2;
+
+				centerTorsoArmorRear = Math.ceil(centerTorsoArmor * .2);
+				centerTorsoArmor = centerTorsoArmor - centerTorsoArmorRear;
+
+				lrTorsoArmorRear = Math.ceil(lrTorsoArmor * .2);
+				lrTorsoArmor = lrTorsoArmor - lrTorsoArmorRear;
+
+				current_mech.setRightTorsoArmor( lrTorsoArmor );
+				current_mech.setCenterTorsoArmor( centerTorsoArmor );
+				current_mech.setLeftTorsoArmor( lrTorsoArmor );
+
+				current_mech.setRightTorsoRearArmor( lrTorsoArmorRear );
+				current_mech.setCenterTorsoRearArmor( centerTorsoArmorRear );
+				current_mech.setLeftTorsoRearArmor( lrTorsoArmorRear );
+
+				current_mech.setRightLegArmor( internal_structure.rightLeg * 2 );
+				current_mech.setLeftLegArmor( internal_structure.leftLeg * 2 );
+
+				current_mech.setHeadArmor( 9 );
+
+				if( current_mech.getType().class.toLowerCase() == "biped") {
+					current_mech.setRightArmArmor( internal_structure.leftArm * 2 );
+					current_mech.setLeftArmArmor( internal_structure.leftArm * 2 );
+				} else {
+					// quad
+					current_mech.setRightArmArmor( internal_structure.rightLeg * 2 );
+					current_mech.setLeftArmArmor( internal_structure.leftLeg * 2 );
+				}
+
+				update_step4_page_items($scope, $translate, current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+			}
+
+			$scope.allocate_sanely = function() {
+
+				total_armor = current_mech.getTotalArmor();
+				internal_structure = current_mech.getInteralStructure();
+				maximum_armor = current_mech.getMaxArmor();
+				percentage = total_armor / maximum_armor;
+
+
+				arm_armor = Math.floor(internal_structure.rightArm * 2 * percentage);
+				torso_armor = Math.floor(internal_structure.rightTorso * 1.75 * percentage);
+				leg_armor = Math.floor(internal_structure.rightLeg * 2 * percentage);
+				rear_armor = Math.floor(internal_structure.rightTorso * .25 * percentage);;
+
+				centerTorsoArmor = Math.floor(internal_structure.centerTorso * 1.75 * percentage);
+				centerTorsoArmorRear = Math.floor(internal_structure.centerTorso * .25 * percentage);
+
+				if( total_armor > arm_armor) {
+					head_armor = arm_armor;
+					if( head_armor > 9)
+						head_armor = 9;
+					if( total_armor >= head_armor) {
+					   current_mech.setHeadArmor(head_armor);
+					   total_armor -= head_armor;
+					} else {
+						current_mech.setHeadArmor(0);
+					}
+				}
+
+
+				if( total_armor > torso_armor) {
+				   current_mech.setRightTorsoArmor( torso_armor );
+				   total_armor -= torso_armor;
+				}
+
+				if( total_armor > rear_armor) {
+				   current_mech.setRightTorsoRearArmor( rear_armor );
+					total_armor -= rear_armor;
+				}
+
+				if( total_armor > torso_armor) {
+					current_mech.setLeftTorsoArmor( torso_armor );
+					total_armor -= torso_armor;
+				}
+				if( total_armor > rear_armor) {
+					current_mech.setLeftTorsoRearArmor( rear_armor );
+				   total_armor -= rear_armor;
+				}
+
+				if( total_armor > leg_armor) {
+					current_mech.setRightLegArmor( leg_armor );
+					total_armor -= leg_armor;
+				}
+
+				if( total_armor > leg_armor) {
+				   current_mech.setLeftLegArmor( leg_armor );
+				   total_armor -= leg_armor;
+				}
+
+				if( total_armor > arm_armor) {
+					current_mech.setRightArmArmor( arm_armor );
+				   total_armor -= arm_armor;
+				}
+				if( total_armor > arm_armor) {
+				   current_mech.setLeftArmArmor( arm_armor );
+				   total_armor -= arm_armor;
+				}
+
+				if( total_armor > rear_armor) {
+				   current_mech.setCenterTorsoRearArmor( centerTorsoArmorRear );
+				   total_armor -= rear_armor;
+				}
+
+				current_mech.setCenterTorsoArmor( centerTorsoArmor ); // everything else goes to center torso! :)
+
+				update_step4_page_items($scope, $translate, current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+			}
+
+			$scope.clear_armor = function() {
+
+				current_mech.setHeadArmor( 0 );
+
+				current_mech.setRightTorsoArmor( 0 );
+				current_mech.setRightTorsoRearArmor( 0 );
+
+
+				current_mech.setLeftTorsoArmor( 0 );
+				current_mech.setLeftTorsoRearArmor( 0 );
+
+				current_mech.setRightLegArmor( 0 );
+				current_mech.setLeftLegArmor( 0 );
+
+
+				current_mech.setRightArmArmor( 0 );
+				current_mech.setLeftArmArmor( 0 );
+
+				current_mech.setCenterTorsoRearArmor( 0 );
+				current_mech.setCenterTorsoArmor( 0 );
+
+				update_step4_page_items($scope, $translate, current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+			}
+
+			$scope.update_armor_allocation = function(armor_location) {
+
+				if( armor_location == "hd ") {
+					current_mech.setHeadArmor( $scope.armor_current_hd.id );
+
+				} else if( armor_location == "ra") {
+					current_mech.setRightArmArmor( $scope.armor_current_ra.id );
+
+				} else if( armor_location == "la") {
+					current_mech.setLeftArmArmor( $scope.armor_current_la.id );
+
+				} else if( armor_location == "rt") {
+					current_mech.setRightTorsoArmor( $scope.armor_current_rt.id );
+
+				} else if( armor_location == "ct") {
+					current_mech.setCenterTorsoArmor( $scope.armor_current_ct.id );
+
+				} else if( armor_location == "lt") {
+					current_mech.setLeftTorsoArmor( $scope.armor_current_lt.id );
+
+				} else if( armor_location == "rtr") {
+					current_mech.setRightTorsoRearArmor( $scope.armor_current_rtr.id );
+
+				} else if( armor_location == "ctr") {
+					current_mech.setCenterTorsoRearArmor( $scope.armor_current_ctr.id );
+
+				} else if( armor_location == "ltr") {
+					current_mech.setLeftTorsoRearArmor( $scope.armor_current_ltr.id );
+
+				} else if( armor_location == "rl") {
+					current_mech.setRightLegArmor( $scope.armor_current_rl.id );
+
+				} else if( armor_location == "ll") {
+					current_mech.setLeftLegArmor( $scope.armor_current_ll.id );
+
+				}
+				update_step4_page_items($scope, $translate, current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+
+			}
 
 		}
 	]
 );
 
+function make_armor_select_dd_options(max_armor) {
+
+	var return_armor = [];
+	for( var ascount = 0; ascount <= max_armor; ascount++) {
+		return_armor.push( {
+				id: ascount,
+				label: ascount
+			}
+		);
+	}
+
+	return return_armor;
+}
+
+function make_current_option(current_value) {
+	var return_current = {
+				id: current_value,
+				label: current_value
+			};
+	return return_current;
+}
+
+
+function update_step4_page_items($scope, $translate, current_mech) {
+
+	$translate([ 'BM_NO_ARMOR','BM_TON', 'BM_TONS', 'BM_STEP3_CRITICAL_REQUIRED',
+		'BM_STEP3_CRITICAL_REQUIRED_NONE' , 'BM_STEP3_CRITICAL_REQUIRED_SINGLE',
+		'BM_STEP4_MAX_ARMOR', 'BM_STEP4_TOTAL_ARMOR','BM_STEP4_UNALLOCATED_ARMOR'
+	]).then(function (translation) {
+
+		$scope.for_quad = false;
+		$scope.for_biped = false;
+		if( current_mech.getType().class == "quad")
+			$scope.for_quad = true;
+		else
+			$scope.for_biped = true;
+
+		// Update Armor Weight Selection Dropdown....
+		current_armor_weight = current_mech.getArmorWeight();
+
+		$scope.armor_weight_list = [];
+		$scope.armor_weight_list.push( {
+				id: 0,
+				label: translation.BM_NO_ARMOR
+			}
+		);
+
+		if( 0 == current_armor_weight) {
+				$scope.selected_armor_weight = {
+				id: 0,
+				label: translation.BM_NO_ARMOR
+				};
+		}
+
+		for( var hscount = 1; hscount <= current_mech.getMaxArmorTonnage() + 0.5; hscount = hscount + 0.5) {
+			if( hscount == 1)
+				tons_label = translation.BM_TON;
+			else
+				tons_label = translation.BM_TONS;
+
+			$scope.armor_weight_list.push( {
+					id: hscount,
+					label: hscount + " " + tons_label
+				}
+			);
+
+			if( hscount == current_armor_weight) {
+				$scope.selected_armor_weight = {
+					id: hscount,
+					label: hscount + " " + tons_label
+				};
+			}
+
+		}
+
+		// Armor Stats Label...
+		label_armor_stats = translation.BM_STEP4_MAX_ARMOR + ": " + current_mech.getMaxArmor() + "<br />";
+		label_armor_stats += translation.BM_STEP4_TOTAL_ARMOR + ": " + current_mech.getTotalArmor() + "<br />";
+		label_armor_stats += translation.BM_STEP4_UNALLOCATED_ARMOR + ": " + current_mech.getUnallocatedArmor() + "<br />";
+
+		// Update Armor Select Dropdowns....
+		armor_allocations = current_mech.getArmorAllocations();
+		internal_structure = current_mech.getInteralStructure();
+
+
+		$scope.armor_alloc_hd = make_armor_select_dd_options( 9 );
+		$scope.armor_current_hd = make_current_option( armor_allocations.head );
+
+		$scope.armor_alloc_ct = make_armor_select_dd_options( internal_structure.centerTorso * 2   - armor_allocations.centerTorsoRear);
+		$scope.armor_current_ct = make_current_option( armor_allocations.centerTorso );
+
+		$scope.armor_alloc_rt = make_armor_select_dd_options( internal_structure.rightTorso * 2  - armor_allocations.rightTorsoRear );
+		$scope.armor_current_rt = make_current_option( armor_allocations.rightTorso );
+
+		$scope.armor_alloc_lt = make_armor_select_dd_options( internal_structure.leftTorso * 2  - armor_allocations.leftTorsoRear );
+		$scope.armor_current_lt = make_current_option( armor_allocations.leftTorso );
+
+		$scope.armor_alloc_ctr = make_armor_select_dd_options( internal_structure.centerTorso * 2  - armor_allocations.centerTorso);
+		$scope.armor_current_ctr = make_current_option( armor_allocations.centerTorsoRear );
+
+		$scope.armor_alloc_rtr = make_armor_select_dd_options( internal_structure.rightTorso * 2 - armor_allocations.rightTorso);
+		$scope.armor_current_rtr = make_current_option( armor_allocations.rightTorsoRear );
+
+		$scope.armor_alloc_ltr = make_armor_select_dd_options( internal_structure.leftTorso * 2 - armor_allocations.leftTorso);
+		$scope.armor_current_ltr = make_current_option( armor_allocations.leftTorsoRear );
+
+		$scope.armor_alloc_ll = make_armor_select_dd_options( internal_structure.leftLeg * 2 );
+		$scope.armor_current_ll = make_current_option( armor_allocations.leftLeg );
+
+		$scope.armor_alloc_la = make_armor_select_dd_options( internal_structure.leftArm * 2 );
+		$scope.armor_current_la = make_current_option( armor_allocations.leftArm );
+
+		$scope.armor_alloc_rl = make_armor_select_dd_options( internal_structure.rightLeg * 2 );
+		$scope.armor_current_rl = make_current_option( armor_allocations.rightLeg );
+
+		$scope.armor_alloc_ra = make_armor_select_dd_options( internal_structure.rightArm * 2 );
+		$scope.armor_current_ra = make_current_option( armor_allocations.rightArm );
+
+		$scope.label_armor_stats = label_armor_stats;
+
+	});
+}
 
 angular.module("baseApp").controller(
 	"battlemechCreatorControllerStep5",
@@ -3891,14 +4270,13 @@ angular.module("baseApp").controller(
 		'$scope',
 		function ($rootScope, $translate, $scope) {
 			// Set Page Title Tag
-			$translate(['APP_TITLE', 'BM_WELCOME_TITLE', 'BM_WELCOME_DESC', 'WELCOME_BUTTON_MECH_CREATOR', 'BM_WELCOME_TEXT' ]).then(function (translation) {
-				$rootScope.title_tag = translation.BM_WELCOME_TITLE + " | " + translation.APP_TITLE;
+			$translate(['APP_TITLE', 'BM_INTRO_TITLE', 'BM_INTRO_DESC', 'WELCOME_BUTTON_MECH_CREATOR' ]).then(function (translation) {
+				$rootScope.title_tag = translation.BM_INTRO_TITLE + " | " + translation.APP_TITLE;
 				if( translation.BM_WELCOME_DESC )
-					$scope.h3_title = translation.BM_WELCOME_TITLE + ": " + translation.BM_WELCOME_DESC;
+					$scope.h3_title = translation.BM_INTRO_TITLE + ": " + translation.BM_INTRO_DESC;
 				else
-					$scope.h3_title = translation.BM_WELCOME_TITLE;
+					$scope.h3_title = translation.BM_INTRO_TITLE;
 				$rootScope.subtitle_tag = "&raquo; " + translation.WELCOME_BUTTON_MECH_CREATOR;
-				$rootScope.welcome_text = translation.BM_WELCOME_TEXT;
 			});
 
 		}
@@ -3993,6 +4371,12 @@ available_languages.push ({
 		INDEX_H3_CORE: 'Jeff\'s BattleTech Werkzeug',
 		INDEX_BUTTON_MECH_CREATOR: 'BattleMech Hersteller',
 
+		BM_MP_ABBR: "BP",
+
+		BM_TONS: "tonnen",
+		BM_TON: "tonne",
+		BM_NO_ARMOR: "Keine rüstung",
+
 		BM_WELCOME_TITLE: "Willkommen",
 		BM_WELCOME_DESC: "",
 
@@ -4046,13 +4430,20 @@ available_languages.push ({
 		BM_MP_ABBR: "MP",
 
 		BM_NEXT_STEP: "Next Step",
+		BM_PREVIOUS_STEP: "Previous Step",
 		BM_SUMMARY: "Summary",
+		BM_BACK_TO_WELCOME: "Welcome",
 
+		BUTTON_HOME_TITLE: "Home",
+		BUTTON_HOME_DESC: "Back to the main screen",
 
+		BM_INTRO_TITLE: "Welcome",
+		BM_INTRO_DESC: "",
+		BM_INTRO_TEXT: "<p>Welcome to a BattleTech 'mech builder.</p><p>This tool attempts to closely follow the steps in the BattleTech tech manual and the steps in that book should be referenced during 'mech creation</p>",
 
-		BM_WELCOME_TITLE: "Welcome",
-		BM_WELCOME_DESC: "",
-		BM_WELCOME_TEXT: "<p>Welcome to a BattleTech 'mech builder.</p><p>This tool attempts to closely follow the steps in the BattleTech tech manual and the steps in that book should be referenced during 'mech creation</p>",
+		BM_TONS: "tons",
+		BM_TON: "ton",
+		BM_NO_ARMOR: "No Armor",
 
 		BM_REMAINING_TONS: "Remaining Tons",
 		BM_UNALLOCATED_ARMOR: "Unallocated Armor",
@@ -4074,15 +4465,27 @@ available_languages.push ({
 
 		BM_STEP3_TITLE: "Step 3",
 		BM_STEP3_DESC: "Add additional heat sinks",
+		BM_STEP3_HS_TECH: "Heat Sink Technology",
+		BM_STEP3_HS_ADD: "Add additional heat sinks",
 		BM_STEP3_BM_INC_10_HS: "Your BattleMech includes 10 heat sinks.",
 		BM_STEP3_BM_INC_10_DOUBLE_HS: "Your BattleMech includes 10 double heat sinks.",
 		BM_STEP3_ADD_LABEL: "Additional heat sinks",
 		BM_STEP3_CRITICAL_REQUIRED: "{hs_crits_required} critical slots are required for your engine class and selected heat sinks",
 		BM_STEP3_CRITICAL_REQUIRED_NONE: "No additional critical slots are required for your engine class and selected heat sinks",
 		BM_STEP3_CRITICAL_REQUIRED_SINGLE: "One critical slot is required for your engine class and selected heat sinks",
+		BM_STEP3_SINGLE_HS: "Single Heat Sinks",
+		BM_STEP3_DOUBLE_HS: "Double Heat Sinks",
 
 		BM_STEP4_TITLE: "Step 4",
 		BM_STEP4_DESC: "Add armor",
+		BM_STEP4_ARMOR_WEIGHT: "Armor Weight",
+		BM_STEP4_ARMOR_ALLOCATION: "Armor Allocation",
+		BM_STEP4_MAX_ARMOR: "Maximum Armor",
+		BM_STEP4_TOTAL_ARMOR: "Total Armor",
+		BM_STEP4_UNALLOCATED_ARMOR: "Unallocated Armor",
+		BM_STEP4_ALLOCATE_NONE: "Clear Armor",
+		BM_STEP4_ALLOCATE_SANELY: "Allocate Sanely",
+		BM_STEP4_ALLOCATE_MAX: "Allocate Max",
 
 		BM_STEP5_TITLE: "Step 5",
 		BM_STEP5_DESC: "Add weapons, ammunition and other equipment",
@@ -4103,6 +4506,7 @@ available_languages.push ({
 		TRO_TONNAGE: "Tonnage",
 		TRO_BATTLE_VALUE: "Battle Value",
 		TRO_ALPHA_STRIKE_VALUE: "Alpha Strike Value",
+		TRO_CBILL_COST: "C-Bill Cost",
 
 		TRO_EQUIPMENT: "Equipment",
 		TRO_MASS: "Mass",
@@ -4138,6 +4542,12 @@ available_languages.push ({
 		TRO_ARMOR_RLL: "R/L Leg",
 		TRO_ARMOR_RL: "Right Leg",
 		TRO_ARMOR_LL: "Left Leg",
+		TRO_ARMOR_RLFL: "R/L Front Leg",
+		TRO_ARMOR_RLRL: "R/L Rear Leg",
+		TRO_ARMOR_RFL: "Right Front Leg",
+		TRO_ARMOR_LFL: "Left Front Leg",
+		TRO_ARMOR_RRL: "Right Rear Leg",
+		TRO_ARMOR_LRL: "Left Rear Leg",
 
 		TRO_WEAPONS_AND_AMMO: "Weapons<br />and Ammo",
 		TRO_LOCATION: "Location",

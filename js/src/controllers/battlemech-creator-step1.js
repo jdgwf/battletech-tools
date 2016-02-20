@@ -20,8 +20,6 @@ angular.module("baseApp").controller(
 				$rootScope.subtitle_tag = "&raquo; " + translation.WELCOME_BUTTON_MECH_CREATOR;
 			});
 
-
-
 			// create mech object, load from localStorage if exists
 			current_mech = new Mech();
 

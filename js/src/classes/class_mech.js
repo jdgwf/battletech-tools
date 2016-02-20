@@ -1,7 +1,7 @@
 function Mech (type) {
 	this.mech_type = mechTypeOptions[0];
 	this.tech = btTechOptions[0];
-	this.era = btEraOptions[0];
+	this.era = btEraOptions[1]; // Default to Succession Wars
 	this.make = "";
 	this.model = "";
 	this.uuid = "";
@@ -90,8 +90,10 @@ function Mech (type) {
 
 	this.max_armor_tonnage = 0;
 
+	this.cbillCost = "n/a";
 	this.battleValue = "n/a";
 	this.alphaStrikeValue = "n/a";
+
 	this.alphaStrikeForceStats = {
 		make: "",
 		model: "",
@@ -413,12 +415,24 @@ Mech.prototype._calcBattleValue = function() {
 	this.battleValue = 0;
 }
 
+Mech.prototype._calcCBillCost = function() {
+	// TODO Calculations
+
+
+
+	this.cbillCost = 0;
+}
+
 Mech.prototype.getBattleValue = function() {
 	return this.battleValue;
 }
 
 Mech.prototype.getAlphaStrikeValue = function() {
 	return this.alphaStrikeValue;
+}
+
+Mech.prototype.getCBillCost = function() {
+	return this.cbillCost;
 }
 
 Mech.prototype.getEngineWeight = function() {
@@ -524,12 +538,13 @@ Mech.prototype.makeTROHTML = function() {
 	html = "<table class=\"mech-tro\">";
 
 	// Header Info
-	html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_TYPE") + ": <strong>" + this.getName() + "</strong></td></tr>";
+	html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_TYPE") + ": " + this.getName() + "</td></tr>";
 	html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_TECHNOLOGY_BASE") + ": " + this.getTech().name[ this.useLang ] + "</td></tr>";
 	html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_ERA") + ": " + this.getEra().name[ this.useLang ] + "</td></tr>";
 	html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_TONNAGE") + ": " + this.getTonnage() + "</td></tr>";
 	html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_BATTLE_VALUE") + ": " + this.getBattleValue() + "</td></tr>";
 	html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_ALPHA_STRIKE_VALUE") + ": " + this.getAlphaStrikeValue() + "</td></tr>";
+	html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_CBILL_COST") + ": $" + this.getCBillCost() + "</td></tr>";
 	html += "<tr><td colspan=\"4\">&nbsp;</td></tr>";
 
 	// Equipment
@@ -566,23 +581,41 @@ Mech.prototype.makeTROHTML = function() {
 		html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_LT") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.leftTorso + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.leftTorso + "</td><td>&nbsp;</td></tr>";
 		html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_LTR") + "</td><td class=\"text-center\" colspan=\"1\">&nbsp;</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.leftTorsoRear + "</td><td>&nbsp;</td></tr>";
 	}
-	if( this.armorAllocation.rightArm == this.armorAllocation.leftArm) {
-		html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RLA") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.rightArm + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.rightArm + "</td><td>&nbsp;</td></tr>";
+	if( this.mech_type.class == "biped") {
+
+		if( this.armorAllocation.rightArm == this.armorAllocation.leftArm) {
+			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RLA") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.rightArm + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.rightArm + "</td><td>&nbsp;</td></tr>";
+		} else {
+			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RA") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.rightArm + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.rightArm + "</td><td>&nbsp;</td></tr>";
+			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_LA") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.leftArm + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.leftArm + "</td><td>&nbsp;</td></tr>";
+		}
+
+		if( this.armorAllocation.rightLeg == this.armorAllocation.leftLeg) {
+			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RLL") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.rightLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.rightLeg + "</td><td>&nbsp;</td></tr>";
+		} else {
+			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RL") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.rightLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.rightLeg + "</td><td>&nbsp;</td></tr>";
+			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_LL") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.leftLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.leftLeg + "</td><td>&nbsp;</td></tr>";
+		}
 	} else {
-		html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RA") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.rightArm + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.rightArm + "</td><td>&nbsp;</td></tr>";
-		html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_LA") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.leftArm + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.leftArm + "</td><td>&nbsp;</td></tr>";
-	}
-	if( this.armorAllocation.rightLeg == this.armorAllocation.leftLeg) {
-		html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RLL") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.rightLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.rightLeg + "</td><td>&nbsp;</td></tr>";
-	} else {
-		html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RL") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.rightLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.rightLeg + "</td><td>&nbsp;</td></tr>";
-		html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_LL") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.leftLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.leftLeg + "</td><td>&nbsp;</td></tr>";
+		if( this.armorAllocation.rightArm == this.armorAllocation.leftArm) {
+			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RLFL") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.rightArm + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.rightArm + "</td><td>&nbsp;</td></tr>";
+		} else {
+			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RFL") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.rightArm + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.rightArm + "</td><td>&nbsp;</td></tr>";
+			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_LFL") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.leftArm + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.leftArm + "</td><td>&nbsp;</td></tr>";
+		}
+
+		if( this.armorAllocation.rightLeg == this.armorAllocation.leftLeg) {
+			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RLRL") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.rightLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.rightLeg + "</td><td>&nbsp;</td></tr>";
+		} else {
+			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RRL") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.rightLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.rightLeg + "</td><td>&nbsp;</td></tr>";
+			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RLL") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.leftLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.leftLeg + "</td><td>&nbsp;</td></tr>";
+		}
 	}
 	// End Factor Table
 	html += "</table>";
 	html += "<br />";
 	html += "<table class=\"mech-tro\">";
-	html += "<tr><th class=\"text-left\">" + this.getTranslation("TRO_WEAPONS_AND_AMMO") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_LOCATION") + "</th><th class=\"text-center\"><strong>" + this.getTranslation("TRO_CRITICAL") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_TONNAGE") + "</th></tr>";
+	html += "<tr><th class=\"text-left\">" + this.getTranslation("TRO_WEAPONS_AND_AMMO") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_LOCATION") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_CRITICAL") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_TONNAGE") + "</th></tr>";
 
 	for( eq_count = 0; eq_count < this.equipmentList.length; eq_count++) {
 		html += "<tr><td class=\"text-left\">" + this.equipmentList[eq_count].name[ this.useLang ] + "</td><td class=\"text-center\">" + this.equipmentList[eq_count].location[ this.useLang ]  + "</strong></td><td class=\"text-center\">" + this.equipmentList[eq_count].space.battlemech + "</td><td class=\"text-center\">" + this.equipmentList[eq_count].weight + "</td></tr>";
@@ -707,19 +740,22 @@ Mech.prototype._calc = function() {
 			this.heat_sink_criticals.slots_type = "triple slot";
 			this.heat_sink_criticals.slots_each = 3;
 		}
+		this.heat_dissipation = (this.additional_heat_sinks + 10) * 2;
 	} else {
 		this.heat_sink_criticals.slots_type = "single";
 		this.heat_sink_criticals.slots_each = 1;
+		this.heat_dissipation = this.additional_heat_sinks + 10;
 	}
 
-
-	if( this.getEngine().rating )
+	if( this.getEngine().rating ) {
 		this.heat_sink_criticals.number =  this.additional_heat_sinks + 10  -  Math.floor(this.getEngine().rating / 25);
-	else
+	} else {
 		this.heat_sink_criticals.number = 0
+	}
 
 	this._calcAlphaStrike();
 	this._calcBattleValue();
+	this._calcCBillCost();
 }
 
 Mech.prototype.getHeatSinksType = function() {
@@ -1307,6 +1343,7 @@ Mech.prototype.exportJSON = function() {
 	export_object.tech = this.tech.id;
 
 	export_object.additional_heat_sinks = this.additional_heat_sinks;
+	export_object.heat_sink_type = this.heat_sink_type;
 
 	export_object.armor_weight = this.armorWeight;
 	if(!this.uuid)
@@ -1357,6 +1394,9 @@ Mech.prototype.importJSON = function(json_string) {
 
 			if( import_object.additional_heat_sinks )
 				this.setAdditionalHeatSinks( import_object.additional_heat_sinks );
+
+			if( import_object.heat_sink_type )
+				this.setHeatSinksType( import_object.heat_sink_type );
 
 			if( import_object.era )
 				this.setEra( import_object.era );

@@ -1,8 +1,14 @@
-<ul class="sidebar-menu" ng-controller="battlemechCreatorControllerSidebar">
+<ul class="sidebar-menu hide-for-small-only" ng-controller="battlemechCreatorControllerSidebar">
+	<li>
+		<a class="button radius expanded primary"  href="#/">
+			<div class="title" translate="BUTTON_HOME_TITLE">Home</div>
+			<div class="subtitle" translate="BUTTON_HOME_DESC"></div>
+		</a>
+	</li>
 	<li>
 		<a class="button radius expanded" ng-class="{primary: button_welcome_current == true,secondary: button_welcome_current == false}" href="#/battlemech-creator/">
-			<div class="title" translate="BM_WELCOME_TITLE">Welcome</div>
-			<div class="subtitle" translate="BM_WELCOME_DESC"></div>
+			<div class="title" translate="BM_INTRO_TITLE">Introduction</div>
+			<div class="subtitle" translate="BM_INTRO_DESC"></div>
 		</a>
 	</li>
 	<li>

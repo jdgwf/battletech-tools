@@ -37,10 +37,18 @@ angular.module("baseApp").controller(
 
 			update_mech_status_bar_and_tro($scope, $translate, current_mech);
 			// make tro for sidebar
-
+			$scope.selected_heat_sink_tech = current_mech.getHeatSinksType();
 
 			$scope.update_selected_heat_sinks = function() {
 				current_mech.setAdditionalHeatSinks( $scope.selected_heat_sinks.id );
+				update_heat_sink_dropdown($scope, $translate, current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+			}
+
+			$scope.update_selected_heat_sink_tech = function() {
+				console.log( "$scope.selected_heat_sink_tech", $scope.selected_heat_sink_tech);
+				current_mech.setHeatSinksType( $scope.selected_heat_sink_tech );
 				update_heat_sink_dropdown($scope, $translate, current_mech);
 				update_mech_status_bar_and_tro($scope, $translate, current_mech);
 				localStorage["tmp.current_mech"] = current_mech.exportJSON();

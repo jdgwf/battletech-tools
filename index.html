@@ -5,9 +5,11 @@
 		<meta http-equiv="x-ua-compatible" content="ie=edge">
 		<title ng-bind="title_tag">>@Gauthic's BattleTech Tools</title>
 		<meta name="description" content="">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1">
 
 		<link rel="apple-touch-icon" href="apple-touch-icon.png">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
 		<!-- Place favicon.ico in the root directory -->
 
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -18,23 +20,6 @@
 	<body>
 		<div class="ng-hide"><br />Loading...</div>
 		<div class="ng-cloak">
-			<header>
-				<div class="row">
-					<div class="column small-10 medium-10 large-10">
-
-						<h1><a href="#/"><img alt="BattleTech Logo" style="height: 30px" src="./images/BATTLETECH-BoardGame-Logo-Official-600px.png" class="float:left" /> </a></h1>
-						<h2><span translate="APP_TITLE">@Gauthic's BattleTech Tools</span> <span ng-bind-html="subtitle_tag">Welcome</span></h2>
-					</div>
-					<div class="column small-2 medium 2 large-2 text-right">
-						<div ng-controller="select_language" class="tiny button-group">
-							<button id="lng-btn-en-US" class="lang-button " ng-click="change_language('en-US')"><img src="images/flags/64/US.png" width="32px" /> </button>
-							<button id="lng-btn-de" class="lang-button " ng-click="change_language('de-DE')"><img src="images/flags/64/DE.png" width="32px" /></button>
-
-						</div>
-					</div>
-				</div>
-			</header>
-
 			<div>
 				<div ng-view></div>
 			</div>

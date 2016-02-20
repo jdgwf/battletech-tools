@@ -6,8 +6,8 @@ var mechISEquipment = Array(
 		},
 		tag: "small-laser",
 		category: {
-			'en-US': "Laser Weapons",
-			'de-DE': "de - Laser Weapons",
+			'en-US': "Energy Weapons",
+			'de-DE': "de - Energy Weapons",
 		},
 		damage: 3,
 		cbills: 11250,
@@ -54,8 +54,8 @@ var mechISEquipment = Array(
 		},
 		tag: "medium-laser",
 		category: {
-			'en-US': "Laser Weapons",
-			'de-DE': "de - Laser Weapons",
+			'en-US': "Energy Weapons",
+			'de-DE': "de - Energy Weapons",
 		},
 		damage: 5,
 		cbills: 40000,
@@ -102,8 +102,8 @@ var mechISEquipment = Array(
 		},
 		tag: "large-laser",
 		category: {
-			'en-US': "Laser Weapons",
-			'de-DE': "de - Laser Weapons",
+			'en-US': "Energy Weapons",
+			'de-DE': "de - Energy Weapons",
 		},
 		damage: 8,
 		cbills: 100000,

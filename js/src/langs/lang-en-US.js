@@ -21,13 +21,20 @@ available_languages.push ({
 		BM_MP_ABBR: "MP",
 
 		BM_NEXT_STEP: "Next Step",
+		BM_PREVIOUS_STEP: "Previous Step",
 		BM_SUMMARY: "Summary",
+		BM_BACK_TO_WELCOME: "Welcome",
 
+		BUTTON_HOME_TITLE: "Home",
+		BUTTON_HOME_DESC: "Back to the main screen",
 
+		BM_INTRO_TITLE: "Welcome",
+		BM_INTRO_DESC: "",
+		BM_INTRO_TEXT: "<p>Welcome to a BattleTech 'mech builder.</p><p>This tool attempts to closely follow the steps in the BattleTech tech manual and the steps in that book should be referenced during 'mech creation</p>",
 
-		BM_WELCOME_TITLE: "Welcome",
-		BM_WELCOME_DESC: "",
-		BM_WELCOME_TEXT: "<p>Welcome to a BattleTech 'mech builder.</p><p>This tool attempts to closely follow the steps in the BattleTech tech manual and the steps in that book should be referenced during 'mech creation</p>",
+		BM_TONS: "tons",
+		BM_TON: "ton",
+		BM_NO_ARMOR: "No Armor",
 
 		BM_REMAINING_TONS: "Remaining Tons",
 		BM_UNALLOCATED_ARMOR: "Unallocated Armor",
@@ -49,15 +56,27 @@ available_languages.push ({
 
 		BM_STEP3_TITLE: "Step 3",
 		BM_STEP3_DESC: "Add additional heat sinks",
+		BM_STEP3_HS_TECH: "Heat Sink Technology",
+		BM_STEP3_HS_ADD: "Add additional heat sinks",
 		BM_STEP3_BM_INC_10_HS: "Your BattleMech includes 10 heat sinks.",
 		BM_STEP3_BM_INC_10_DOUBLE_HS: "Your BattleMech includes 10 double heat sinks.",
 		BM_STEP3_ADD_LABEL: "Additional heat sinks",
 		BM_STEP3_CRITICAL_REQUIRED: "{hs_crits_required} critical slots are required for your engine class and selected heat sinks",
 		BM_STEP3_CRITICAL_REQUIRED_NONE: "No additional critical slots are required for your engine class and selected heat sinks",
 		BM_STEP3_CRITICAL_REQUIRED_SINGLE: "One critical slot is required for your engine class and selected heat sinks",
+		BM_STEP3_SINGLE_HS: "Single Heat Sinks",
+		BM_STEP3_DOUBLE_HS: "Double Heat Sinks",
 
 		BM_STEP4_TITLE: "Step 4",
 		BM_STEP4_DESC: "Add armor",
+		BM_STEP4_ARMOR_WEIGHT: "Armor Weight",
+		BM_STEP4_ARMOR_ALLOCATION: "Armor Allocation",
+		BM_STEP4_MAX_ARMOR: "Maximum Armor",
+		BM_STEP4_TOTAL_ARMOR: "Total Armor",
+		BM_STEP4_UNALLOCATED_ARMOR: "Unallocated Armor",
+		BM_STEP4_ALLOCATE_NONE: "Clear Armor",
+		BM_STEP4_ALLOCATE_SANELY: "Allocate Sanely",
+		BM_STEP4_ALLOCATE_MAX: "Allocate Max",
 
 		BM_STEP5_TITLE: "Step 5",
 		BM_STEP5_DESC: "Add weapons, ammunition and other equipment",
@@ -78,6 +97,7 @@ available_languages.push ({
 		TRO_TONNAGE: "Tonnage",
 		TRO_BATTLE_VALUE: "Battle Value",
 		TRO_ALPHA_STRIKE_VALUE: "Alpha Strike Value",
+		TRO_CBILL_COST: "C-Bill Cost",
 
 		TRO_EQUIPMENT: "Equipment",
 		TRO_MASS: "Mass",
@@ -113,6 +133,12 @@ available_languages.push ({
 		TRO_ARMOR_RLL: "R/L Leg",
 		TRO_ARMOR_RL: "Right Leg",
 		TRO_ARMOR_LL: "Left Leg",
+		TRO_ARMOR_RLFL: "R/L Front Leg",
+		TRO_ARMOR_RLRL: "R/L Rear Leg",
+		TRO_ARMOR_RFL: "Right Front Leg",
+		TRO_ARMOR_LFL: "Left Front Leg",
+		TRO_ARMOR_RRL: "Right Rear Leg",
+		TRO_ARMOR_LRL: "Left Rear Leg",
 
 		TRO_WEAPONS_AND_AMMO: "Weapons<br />and Ammo",
 		TRO_LOCATION: "Location",

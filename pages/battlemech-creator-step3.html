@@ -15,13 +15,21 @@
 				<div ng-bind-html="label_included_heatsinks">Your BattleMech includes 10 heat sinks</div>
 				<br />
 				<label>
-					<span translate="">Add additional heat sinks</span>
+					<span translate="BM_STEP3_HS_TECH">Heat Sink Technology</span>
+					<select ng-change="update_selected_heat_sink_tech()" ng-model="selected_heat_sink_tech">
+						<option value="single" translate="BM_STEP3_SINGLE_HS">Single Heat Sink</option>
+						<option value="double" translate="BM_STEP3_DOUBLE_HS">Double Heat Sink</option>
+					</select>
+				</label>
+				<label>
+					<span translate="BM_STEP3_HS_ADD">Add additional heat sinks</span>
 					<select ng-change="update_selected_heat_sinks()" ng-options="item as item.label for item in heat_sink_list track by item.id" ng-model="selected_heat_sinks">
 					</select>
 				</label>
 				<br />
 				<div ng-bind-html="label_criticals_required">Your BattleMech includes 10 heat sinks</div>
 
+				<a class="button primary radius previous-button" href="#/battlemech-creator-step2/" translate="BM_PREVIOUS_STEP">Last Step</a>
 				<a class="button primary radius next-button" href="#/battlemech-creator-step4/" translate="BM_NEXT_STEP">Next Step</a>
 			</div>
 			<div class="column show-for-large large-4">

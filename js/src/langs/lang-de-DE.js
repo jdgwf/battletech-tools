@@ -13,6 +13,12 @@ available_languages.push ({
 		INDEX_H3_CORE: 'Jeff\'s BattleTech Werkzeug',
 		INDEX_BUTTON_MECH_CREATOR: 'BattleMech Hersteller',
 
+		BM_MP_ABBR: "BP",
+
+		BM_TONS: "tonnen",
+		BM_TON: "tonne",
+		BM_NO_ARMOR: "Keine rüstung",
+
 		BM_WELCOME_TITLE: "Willkommen",
 		BM_WELCOME_DESC: "",
 
