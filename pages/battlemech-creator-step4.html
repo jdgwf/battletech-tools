@@ -39,7 +39,7 @@
 								<table class="armor-chart" style="display: table;">
 									<tbody><tr>
 
-										<td colspan="1">
+										<td colspan="1" class="align-bottom">
 											<label>
 												<span translate="TRO_ARMOR_LFL">Left Front Leg</span><br />
 												<select ng-change="update_armor_allocation('la')" ng-options="item as item.label for item in armor_alloc_la track by item.id" ng-model="armor_current_la"></select>
@@ -48,14 +48,14 @@
 										<td colspan="1" class="blank">
 											&nbsp;
 										</td>
-										<td>
+										<td class="align-bottom">
 											<label>
 												<span translate="TRO_ARMOR_HD">Head</span><br />
 												<select ng-change="update_armor_allocation('hd')" ng-options="item as item.label for item in armor_alloc_hd track by item.id" ng-model="armor_current_hd"></select>
 											</label>
 										</td>
 										<td colspan="1" class="blank">&nbsp;</td>
-										<td rowspan="1">
+										<td rowspan="1" class="align-bottom">
 											<label>
 												<span translate="TRO_ARMOR_RFL">Right Front Leg</span><br />
 												<select ng-change="update_armor_allocation('ra')" ng-options="item as item.label for item in armor_alloc_ra track by item.id" ng-model="armor_current_ra"></select>
@@ -64,19 +64,19 @@
 									</tr>
 									<tr>
 										<td colspan="1" class="blank">&nbsp;</td>
-										<td>
+										<td class="align-bottom">
 											<label>
 												<span translate="TRO_ARMOR_LT">Left Torso</span><br />
 												<select ng-change="update_armor_allocation('lt')" ng-options="item as item.label for item in armor_alloc_lt track by item.id" ng-model="armor_current_lt"></select>
 											</label>
 										</td>
-										<td>
+										<td class="align-bottom">
 											<label>
 												<span translate="TRO_ARMOR_CT">Center Torso</span><br />
 												<select ng-change="update_armor_allocation('ct')" ng-options="item as item.label for item in armor_alloc_ct track by item.id" ng-model="armor_current_ct"></select>
 											</label>
 										</td>
-										<td>
+										<td class="align-bottom">
 											<label>
 												<span translate="TRO_ARMOR_RT">Right Torso</span><br />
 												<select ng-change="update_armor_allocation('rt')" ng-options="item as item.label for item in armor_alloc_rt track by item.id" ng-model="armor_current_rt"></select>
@@ -86,19 +86,19 @@
 									</tr>
 									<tr>
 										<td colspan="1" class="blank">&nbsp;</td>
-										<td>
+										<td class="align-bottom">
 											<label>
 												<span translate="TRO_ARMOR_LTR">Left Torso (Rear)</span><br />
 												<select ng-change="update_armor_allocation('ltr')" ng-options="item as item.label for item in armor_alloc_ltr track by item.id" ng-model="armor_current_ltr"></select>
 											</label>
 										</td>
-										<td>
+										<td class="align-bottom">
 											<label>
 												<span translate="TRO_ARMOR_CTR">Center Torso (Rear)</span><br />
 												<select ng-change="update_armor_allocation('ctr')" ng-options="item as item.label for item in armor_alloc_ctr track by item.id" ng-model="armor_current_ctr"></select>
 											</label>
 										</td>
-										<td>
+										<td class="align-bottom">
 											<label>
 												<span translate="TRO_ARMOR_RTR">Right Torso (Rear)</span><br />
 												<select ng-change="update_armor_allocation('rtr')" ng-options="item as item.label for item in armor_alloc_rtr track by item.id" ng-model="armor_current_rtr"></select>
@@ -108,7 +108,7 @@
 									</tr>
 									<tr>
 
-										<td>
+										<td class="align-bottom">
 											<label>
 												<span translate="TRO_ARMOR_LRL">Left Rear Leg</span><br />
 												<select ng-change="update_armor_allocation('ll')" ng-options="item as item.label for item in armor_alloc_ll track by item.id" ng-model="armor_current_ll"></select>
@@ -118,7 +118,7 @@
 											<div class="text-right" ng-bind-html="label_armor_stats"></div>
 										</td>
 										<td colspan="1" class="blank">&nbsp;</td>
-										<td>
+										<td class="align-bottom">
 											<label>
 												<span translate="TRO_ARMOR_RRL">Right Rear Leg</span><br />
 												<select ng-change="update_armor_allocation('rl')" ng-options="item as item.label for item in armor_alloc_rl track by item.id" ng-model="armor_current_rl"></select>
@@ -135,7 +135,7 @@
 										<td colspan="2" class="blank">
 											<div class="text-right" ng-bind-html="label_armor_stats"></div>
 										</td>
-										<td>
+										<td class="align-bottom">
 											<label>
 												<span translate="TRO_ARMOR_HD">Head</span><br />
 												<select ng-change="update_armor_allocation('hd')" ng-options="item as item.label for item in armor_alloc_hd track by item.id" ng-model="armor_current_hd"></select>
@@ -150,19 +150,19 @@
 												<select ng-change="update_armor_allocation('la')" ng-options="item as item.label for item in armor_alloc_la track by item.id" ng-model="armor_current_la"></select>
 											</label>
 										</td>
-										<td>
+										<td class="align-bottom">
 											<label>
 												<span translate="TRO_ARMOR_LT">Left Torso</span><br />
 												<select ng-change="update_armor_allocation('lt')" ng-options="item as item.label for item in armor_alloc_lt track by item.id" ng-model="armor_current_lt"></select>
 											</label>
 										</td>
-										<td>
+										<td class="align-bottom">
 											<label>
 												<span translate="TRO_ARMOR_CT">Center Torso</span><br />
 												<select ng-change="update_armor_allocation('ct')" ng-options="item as item.label for item in armor_alloc_ct track by item.id" ng-model="armor_current_ct"></select>
 											</label>
 										</td>
-										<td>
+										<td class="align-bottom">
 											<label>
 												<span translate="TRO_ARMOR_RT">Right Torso</span><br />
 												<select ng-change="update_armor_allocation('rt')" ng-options="item as item.label for item in armor_alloc_rt track by item.id" ng-model="armor_current_rt"></select>
@@ -176,19 +176,19 @@
 										</td>
 									</tr>
 									<tr>
-										<td>
+										<td class="align-bottom">
 											<label>
 												<span translate="TRO_ARMOR_LTR">Left Torso (Rear)</span><br />
 												<select ng-change="update_armor_allocation('ltr')" ng-options="item as item.label for item in armor_alloc_ltr track by item.id" ng-model="armor_current_ltr"></select>
 											</label>
 										</td>
-										<td>
+										<td class="align-bottom">
 											<label>
 												<span translate="TRO_ARMOR_CTR">Center Torso (Rear)</span><br />
 												<select ng-change="update_armor_allocation('ctr')" ng-options="item as item.label for item in armor_alloc_ctr track by item.id" ng-model="armor_current_ctr"></select>
 											</label>
 										</td>
-										<td>
+										<td class="align-bottom">
 											<label>
 												<span translate="TRO_ARMOR_RTR">Right Torso (Rear)</span><br />
 												<select ng-change="update_armor_allocation('rtr')" ng-options="item as item.label for item in armor_alloc_rtr track by item.id" ng-model="armor_current_rtr"></select>

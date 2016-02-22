@@ -1,41 +1,35 @@
-			<div class="row">
-				<div class="column small-10 medium-10 large-10">
+<div class="row">
+	<div class="column small-12 medium-4 large-2">
+		<ul class="sidebar-menu hide-for-small-only" ng-controller="battlemechCreatorControllerSidebar">
+			<li>
+				<a class="button radius expanded primary"  href="#/">
+					<div class="title" translate="BUTTON_HOME_TITLE">Home</div>
+					<div class="subtitle" translate="BUTTON_HOME_DESC"></div>
+				</a>
+			</li>
+			<li>
+					<a class="button radius expanded front-button"  href="#/battlemech-creator/">
+					<div class="title" translate="WELCOME_BUTTON_MECH_CREATOR">BattleMech Creator</div>
+					<div class="subtitle" translate="WELCOME_BUTTON_MECH_CREATOR_DESC"></div>
+					</a>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="column small-12 medium-8 large-10">
+		<div class="row">
+			<div class="column small-10 medium-10 large-10">
+				<h1><img alt="BattleTech Logo" style="height: 100px" src="./images/BATTLETECH-BoardGame-Logo-Official-600px.png" class="float:left" /></h1>
 
-					<h1><a href="#/"><img alt="BattleTech Logo" style="height: 30px" src="./images/BATTLETECH-BoardGame-Logo-Official-600px.png" class="float:left" /> </a></h1>
-					<!-- <h2><span translate="APP_TITLE">@Gauthic's BattleTech Tools</span> <span ng-bind-html="subtitle_tag">Welcome</span></h2> -->
-				</div>
-				<div class="column small-2 medium 2 large-2 text-right">
-					<div ng-controller="select_language" class="tiny button-group">
-						<button id="lng-btn-en-US" class="lang-button " ng-click="change_language('en-US')"><img src="images/flags/64/US.png" width="32px" /> </button>
-						<button id="lng-btn-de" class="lang-button " ng-click="change_language('de-DE')"><img src="images/flags/64/DE.png" width="32px" /></button>
+				<h3><span translate="APP_TITLE">@Gauthic's BattleTech Tools</span></h3>
+			</div>
+			<div class="column small-2 medium 2 large-2 text-right">
+				<div ng-controller="select_language" class="tiny button-group">
+					<button id="lng-btn-en-US" class="lang-button " ng-click="change_language('en-US')"><img src="images/flags/64/US.png" width="32px" /> </button>
+					<button id="lng-btn-de" class="lang-button " ng-click="change_language('de-DE')"><img src="images/flags/64/DE.png" width="32px" /></button>
 
-					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="columns small-12 medium-12 large-12 text-center">
-					<h3 translate="WELCOME_H3_CREATORS_CORE" class="text-center">BattleTech Creator Tools</h3>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="columns small-6 medium-3 large-2 text-center">
-					<a translate="WELCOME_BUTTON_MECH_CREATOR" class="button radius expanded front-button"  href="#/battlemech-creator/">BattleMech Creator</a>
-				</div>
-				<div class="columns small-6 medium-9 large-10 text-center">
-					( more goes here)
-				</div>
-
-			</div>
-			<div class="row">
-				<div class="columns small-12 medium-12 large-12 text-center">
-					<h3 translate="WELCOME_H3_FORCE_BUILDERS_CORE" class="text-center">BattleTech Force Builders</h3>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="columns small-12 medium-12 large-12 text-center">
-					( more goes here)
-				</div>
-
-			</div>
+		</div>
+	</div>
+</div>

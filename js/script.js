@@ -178,6 +178,152 @@ var btEraOptions = Array(
 	}
 	*/
 );
+battlemechLocations = Array(
+	{
+		tag: "hd",
+		rear: true,
+		name: {
+			"en-US": "Head",
+			"de-DE": "de-Head",
+		},
+		abbr: {
+			"en-US": "hd",
+			"de-DE": "de-hd",
+		}
+	},
+	{
+		tag: "hdr",
+		rear: true,
+		name: {
+			"en-US": "Head (Rear)",
+			"de-DE": "de-Head (Rear)",
+		},
+		abbr: {
+			"en-US": "hd(r)",
+			"de-DE": "de-hd(r)",
+		}
+	},
+	{
+		tag: "rt",
+		rear: false,
+		name: {
+			"en-US": "Right Torso",
+			"de-DE": "de-Right Torso",
+		},
+		abbr: {
+			"en-US": "rt",
+			"de-DE": "de-rt",
+		}
+	},
+	{
+		tag: "ct",
+		rear: false,
+		name: {
+			"en-US": "Center Torso",
+			"de-DE": "de-Center Torso",
+		},
+		abbr: {
+			"en-US": "ct",
+			"de-DE": "de-ct",
+		}
+	},
+	{
+		tag: "lt",
+		rear: false,
+		name: {
+			"en-US": "Left Torso",
+			"de-DE": "de-Left Torso",
+		},
+		abbr: {
+			"en-US": "lt",
+			"de-DE": "de-lt",
+		}
+	},
+	{
+		tag: "rtr",
+		rear: true,
+		name: {
+			"en-US": "Right Torso (Rear)",
+			"de-DE": "de-Right Torso (Rear)",
+		},
+		abbr: {
+			"en-US": "rt(r)",
+			"de-DE": "de-rt(r)",
+		}
+	},
+	{
+		tag: "ctr",
+		rear: true,
+		name: {
+			"en-US": "Center Torso (Rear)",
+			"de-DE": "de-Center Torso (Rear)",
+		},
+		abbr: {
+			"en-US": "ct(r)",
+			"de-DE": "de-ct(r)",
+		}
+	},
+	{
+		tag: "ltr",
+		rear: true,
+		name: {
+			"en-US": "Left Torso (Rear)",
+			"de-DE": "de-Left Torso (Rear)",
+		},
+		abbr: {
+			"en-US": "lt(r)",
+			"de-DE": "de-lt(r)",
+		}
+	},
+	{
+		tag: "ra",
+		rear: false,
+		name: {
+			"en-US": "Right Arm",
+			"de-DE": "de-Right Arm",
+		},
+		abbr: {
+			"en-US": "ra",
+			"de-DE": "de-ra",
+		}
+	},
+	{
+		tag: "la",
+		rear: false,
+		name: {
+			"en-US": "Left Arm",
+			"de-DE": "de-Left Arm",
+		},
+		abbr: {
+			"en-US": "la",
+			"de-DE": "de-la",
+		}
+	},
+	{
+		tag: "rl",
+		rear: false,
+		name: {
+			"en-US": "Right Leg",
+			"de-DE": "de-Right Leg",
+		},
+		abbr: {
+			"en-US": "rl",
+			"de-DE": "de-rl",
+		}
+	},
+	{
+		tag: "ll",
+		rear: false,
+		name: {
+			"en-US": "Left Leg",
+			"de-DE": "de-Left Leg",
+		},
+		abbr: {
+			"en-US": "ll",
+			"de-DE": "de-ll",
+		}
+	}
+);
 var mechClanEquipment = Array(
 );
 var mechEngineOptions = Array(
@@ -1378,6 +1524,7 @@ var mechTypeOptions = Array(
 var btTechOptions = Array(
 	{
 		id: 1,
+		tag: "is",
 		name: {
 			'en-US':'Inner Sphere',
 			'de-DE': "de - Inner Sphere"
@@ -1385,6 +1532,7 @@ var btTechOptions = Array(
 	},
 	{
 		id: 2,
+		tag: "clan",
 		name: {
 			'en-US':'Clan',
 			'de-DE': "de - Clan"
@@ -2484,13 +2632,31 @@ Mech.prototype.makeTROHTML = function() {
 	html += "<tr><th class=\"text-left\">" + this.getTranslation("TRO_WEAPONS_AND_AMMO") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_LOCATION") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_CRITICAL") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_TONNAGE") + "</th></tr>";
 
 	for( eq_count = 0; eq_count < this.equipmentList.length; eq_count++) {
-		html += "<tr><td class=\"text-left\">" + this.equipmentList[eq_count].name[ this.useLang ] + "</td><td class=\"text-center\">" + this.equipmentList[eq_count].location[ this.useLang ]  + "</strong></td><td class=\"text-center\">" + this.equipmentList[eq_count].space.battlemech + "</td><td class=\"text-center\">" + this.equipmentList[eq_count].weight + "</td></tr>";
+		if( typeof( this.equipmentList[eq_count].location ) == "undefined" )
+			this.equipmentList[eq_count].location = "n/a";
+
+		item_location = "";
+		item_location = this.getLocationAbbr( this.equipmentList[eq_count].location );
+		html += "<tr><td class=\"text-left\">" + this.equipmentList[eq_count].name[ this.useLang ] + "</td><td class=\"text-center\">" + item_location + "</strong></td><td class=\"text-center\">" + this.equipmentList[eq_count].space.battlemech + "</td><td class=\"text-center\">" + this.equipmentList[eq_count].weight + "</td></tr>";
 	}
 
 	// TODO Weapons and Ammo
 	html += "</table>";
 
 	return html;
+}
+Mech.prototype.getLocationAbbr = function(location_tag) {
+
+
+	for(loc_count = 0; loc_count < battlemechLocations.length; loc_count++) {
+		if( location_tag == battlemechLocations[loc_count].tag ) {
+			if( battlemechLocations[loc_count].abbr[ this.useLang ] != "undefined" )
+				return battlemechLocations[loc_count].abbr[ this.useLang ];
+			else
+				return battlemechLocations[loc_count].abbr[ "en-US" ];
+		}
+	}
+	return this.getTranslation("TRO_NOT_AVAILABLE") ;
 }
 
 Mech.prototype.clearMech = function() {
@@ -2599,7 +2765,7 @@ Mech.prototype._calc = function() {
 	this.heat_sink_criticals.slots_each = 1;
 
 	if( this.heat_sink_type == "double") {
-		if( this.tech.name == "Clan") {
+		if( this.tech.tag == "clan") {
 			this.heat_sink_criticals.slots_type = "double slot";
 			this.heat_sink_criticals.slots_each = 2;
 		} else {
@@ -3283,10 +3449,11 @@ Mech.prototype.importJSON = function(json_string) {
 				for( eq_count = 0; eq_count < import_object.equipment.length; eq_count++) {
 
 					import_item = import_object.equipment[eq_count];
-					if( this.getTech().name == "Inner Sphere")
-						this.addEquipmentFromTag( import_item.tag, "is", import_item.loc );
-					if( this.getTech().name == "Clan")
-						this.addEquipmentFromTag( import_item.tag, "clan", import_item.loc );
+					// if( this.getTech().tag == "is")
+					// 	this.addEquipmentFromTag( import_item.tag, import_item.loc );
+					// if( this.getTech().tag == "clan")
+					// 	this.addEquipmentFromTag( import_item.tag), null, import_item.loc );
+					this.addEquipmentFromTag( import_item.tag, this.getTech().tag, import_item.loc );
 				}
 			}
 
@@ -3385,8 +3552,14 @@ Mech.prototype.addEquipment = function(equipment_index, equipment_list_tag, loca
 	}
 
 	if( equipment_list[equipment_index] ) {
-		equipment_item = jQuery.extend({}, equipment_list[equipment_index]);
-		equipment_item.location = location;
+		if( typeof(jQuery) != "undefined" ) {
+			equipment_item = jQuery.extend({}, equipment_list[equipment_index]);
+		}
+		if( typeof(angular) != "undefined" ) {
+			equipment_item = angular.copy(equipment_list[add_counter] );
+		}
+		if( typeof(location) != "undefined" )
+			equipment_item.location = location;
 		this.equipmentList.push( equipment_item );
 		return equipment_item;
 	}
@@ -3396,6 +3569,11 @@ Mech.prototype.addEquipment = function(equipment_index, equipment_list_tag, loca
 
 Mech.prototype.addEquipmentFromTag = function(equipment_tag, equipment_list_tag, location) {
 	equipment_list = Array();
+
+	if( !equipment_list_tag ) {
+		equipment_list_tag = this.tech.tag;
+	}
+
 	if( equipment_list_tag == "is") {
 		equipment_list = mechISEquipment;
 
@@ -3407,8 +3585,14 @@ Mech.prototype.addEquipmentFromTag = function(equipment_tag, equipment_list_tag,
 
 	for( add_counter = 0; add_counter < equipment_list.length; add_counter++) {
 		if( equipment_tag == equipment_list[add_counter].tag ) {
-			equipment_item = jQuery.extend({}, equipment_list[add_counter]);
-			equipment_item.location = location;
+			if( typeof(jQuery) != "undefined" ) {
+				equipment_item = jQuery.extend({}, equipment_list[equipment_index]);
+			}
+			if( typeof(angular) != "undefined" ) {
+				equipment_item = angular.copy(equipment_list[add_counter] );
+			}
+			if( typeof(location) != "undefined" )
+				equipment_item.location = location;
 			this.equipmentList.push( equipment_item );
 			return equipment_item;
 		}
@@ -3439,6 +3623,9 @@ Mech.prototype.setAdditionalHeatSinks = function(newValue) {
 	return this.additional_heat_sinks;
 };
 
+Mech.prototype.getInstalledEquipment = function() {
+	return this.equipmentList;
+};
 angular.module("baseApp").controller(
 	"battlemechCreatorControllerStep1",
 	[
@@ -3791,6 +3978,8 @@ function update_heat_sink_dropdown($scope, $translate, current_mech) {
 		//console.log( "heat_sinks_required", heat_sinks_required);
 		$scope.hs_crits_required = heat_sinks_required.number * heat_sinks_required.slots_each;
 		hs_crit_count = heat_sinks_required.number * heat_sinks_required.slots_each;
+		if( hs_crit_count < 0)
+			hs_crit_count = 0;
 		if( hs_crit_count == 1) {
 			$scope.label_criticals_required = the_label_single.replace("{hs_crits_required}", hs_crit_count);
 		} else if ( hs_crit_count == 0) {
@@ -3988,8 +4177,9 @@ angular.module("baseApp").controller(
 			}
 
 			$scope.update_armor_allocation = function(armor_location) {
-
-				if( armor_location == "hd ") {
+				console.log("armor_location", armor_location);
+				if( armor_location == "hd") {
+					console.log("setHeadArmor", $scope.armor_current_hd.id);
 					current_mech.setHeadArmor( $scope.armor_current_hd.id );
 
 				} else if( armor_location == "ra") {
@@ -4163,6 +4353,8 @@ angular.module("baseApp").controller(
 		'$translate',
 		'$scope',
 		function ($rootScope, $translate, $scope) {
+
+
 			// Set Page Title Tag
 			$translate(['APP_TITLE', 'BM_STEP5_TITLE', 'BM_STEP5_DESC', 'WELCOME_BUTTON_MECH_CREATOR' ]).then(function (translation) {
 				$rootScope.title_tag = translation.BM_STEP5_TITLE + " | " + translation.APP_TITLE;
@@ -4181,15 +4373,120 @@ angular.module("baseApp").controller(
 				current_mech.uuid = generateUUID();
 
 			current_mech.useLang = localStorage["tmp.preferred_language"];
+			// make tro for sidebar
 			update_mech_status_bar_and_tro($scope, $translate, current_mech);
 
-			// make tro for sidebar
+			$scope.equipment_table =[];
 
+			if( current_mech.getTech().tag == "clan") {
+				// Use Clan Equipment Table...
+				$scope.equipment_table = mechClanEquipment;
+			} else {
+				// Use Inner Sphere Equipment Table...
+				$scope.equipment_table = mechISEquipment;
+			}
+			for(var eqc = 0; eqc < $scope.equipment_table.length; eqc++ ) {
+				if( $scope.equipment_table[eqc].name[ localStorage["tmp.preferred_language"] ])
+					$scope.equipment_table[eqc].local_name = $scope.equipment_table[eqc].name[ localStorage["tmp.preferred_language"] ];
+				else
+					$scope.equipment_table[eqc].local_name = $scope.equipment_table[eqc].name[ "en-US" ];
+
+				if( $scope.equipment_table[eqc].category[ localStorage["tmp.preferred_language"] ])
+					$scope.equipment_table[eqc].local_category = $scope.equipment_table[eqc].category[ localStorage["tmp.preferred_language"] ];
+				else
+					$scope.equipment_table[eqc].local_category = $scope.equipment_table[eqc].category[ "en-US" ];
+
+				$scope.equipment_table[eqc].local_space = $scope.equipment_table[eqc].space.battlemech;
+
+			}
+
+
+			$translate(['BM_STEP5_SELECT_LOCATION' ]).then(function (translation) {
+
+
+				$scope.item_locations = [];
+
+				$scope.installed_equipment_table = current_mech.getInstalledEquipment();
+
+				for(var eqc = 0; eqc < $scope.installed_equipment_table.length; eqc++ ) {
+					if( $scope.installed_equipment_table[eqc].name[ localStorage["tmp.preferred_language"] ])
+						$scope.installed_equipment_table[eqc].local_name = $scope.installed_equipment_table[eqc].name[ localStorage["tmp.preferred_language"] ];
+					else
+						$scope.installed_equipment_table[eqc].local_name = $scope.installed_equipment_table[eqc].name[ "en-US" ];
+
+					if( $scope.installed_equipment_table[eqc].category[ localStorage["tmp.preferred_language"] ])
+						$scope.installed_equipment_table[eqc].local_category = $scope.installed_equipment_table[eqc].category[ localStorage["tmp.preferred_language"] ];
+					else
+						$scope.installed_equipment_table[eqc].local_category = $scope.installed_equipment_table[eqc].category[ "en-US" ];
+
+					$scope.installed_equipment_table[eqc].local_space = $scope.installed_equipment_table[eqc].space.battlemech;
+
+					$scope.item_locations[eqc] = make_select_object($scope.installed_equipment_table[eqc].location);
+				}
+
+
+				var location_list = [];
+				location_list.push( {
+					id: "undefined",
+					name: "- " + translation.BM_STEP5_SELECT_LOCATION + " -"
+				} );
+				for(loccount = 0; loccount < battlemechLocations.length; loccount++) {
+					location_list.push( {
+						id: battlemechLocations[loccount].tag,
+						name: battlemechLocations[loccount].name[ localStorage["tmp.preferred_language"] ]
+					} );
+
+				}
+				$scope.bm_location_list = {
+					availableOptions: location_list //,
+					// selectedOption: selected_jumping_mp
+				};
+			});
+
+
+
+
+			$scope.addItem = function( index_number ) {
+				if( $scope.equipment_table[index_number].tag ) {
+					current_mech.addEquipmentFromTag( $scope.equipment_table[index_number].tag );
+					update_mech_status_bar_and_tro($scope, $translate, current_mech);
+					localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				}
+
+			};
+
+			$scope.removeItem = function( index_number ) {
+				current_mech.removeEquipment( index_number );
+				$scope.item_locations.splice(index_number, 1);
+				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+			};
+
+			$scope.updateLocation = function( index_number ) {
+				//console.log( "updateLocation", index_number );
+	//			current_mech.removeEquipment( index_number );
+				//console.log( "updateLocation", $scope.item_locations[index_number] );
+				current_mech.setEquipmentLocation( index_number, $scope.item_locations[index_number].id );
+				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+
+
+			};
 		}
 	]
 );
 
-
+function make_select_object(current_tag) {
+	for(loccount = 0; loccount < battlemechLocations.length; loccount++) {
+		if(  battlemechLocations[loccount].tag == current_tag ) {
+			return {
+				id: battlemechLocations[loccount].tag,
+				name: battlemechLocations[loccount].name[ localStorage["tmp.preferred_language"] ]
+			} ;
+		}
+	}
+	return null
+}
 angular.module("baseApp").controller(
 	"battlemechCreatorControllerStep6",
 	[
@@ -4421,9 +4718,11 @@ available_languages.push ({
 		INDEX_WELCOME: 'Welcome',
 		INDEX_H3_CORE: 'Jeff\'s BattleTech Tools',
 
-		WELCOME_BUTTON_MECH_CREATOR: 'BattleMech Creator',
+		WELCOME_BUTTON_MECH_CREATOR: '\'Mech Creator',
+		WELCOME_BUTTON_MECH_CREATOR_DESC: 'Create a BattleMech',
 		WELCOME_H3_CORE: 'Jeff\'s BattleTech Tools',
 		WELCOME_H3_CREATORS_CORE: 'BattleTech Creators',
+
 		WELCOME_H3_FORCE_BUILDERS_CORE: 'BattleTech Force Builders',
 
 
@@ -4489,6 +4788,17 @@ available_languages.push ({
 
 		BM_STEP5_TITLE: "Step 5",
 		BM_STEP5_DESC: "Add weapons, ammunition and other equipment",
+		BM_STEP5_ITEM_NAME: "Name",
+		BM_STEP5_ITEM_CATEGORY: "Category",
+		BM_STEP5_ITEM_SPACE: "Criticals",
+		BM_STEP5_ITEM_WEIGHT: "Weight",
+		BM_STEP5_ADD: "Add",
+		BM_STEP5_ITEM_LOCATION: "Location",
+		BM_STEP5_REMOVE: "Remove",
+		BM_STEP5_INSTALLED_EQUIPMENT: "Installed Equipment",
+		BM_STEP5_NO_EQUIPMENT_INSTALLED: "No equipment has been installed",
+		BM_STEP5_SELECT_LOCATION: "Select Location",
+		BM_STEP5_AVAILABLE_EQUIPMENT: "Available Equipment",
 
 		BM_STEP6_TITLE: "Step 6",
 		BM_STEP6_DESC: "Complete the record sheet",
@@ -4510,6 +4820,8 @@ available_languages.push ({
 
 		TRO_EQUIPMENT: "Equipment",
 		TRO_MASS: "Mass",
+
+		TRO_NOT_AVAILABLE: "n/a",
 
 		TRO_INTERNAL_STRUCTURE: "Internal Structure",
 		TRO_ENGINE: "Engine",

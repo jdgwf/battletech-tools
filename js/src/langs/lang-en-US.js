@@ -12,9 +12,11 @@ available_languages.push ({
 		INDEX_WELCOME: 'Welcome',
 		INDEX_H3_CORE: 'Jeff\'s BattleTech Tools',
 
-		WELCOME_BUTTON_MECH_CREATOR: 'BattleMech Creator',
+		WELCOME_BUTTON_MECH_CREATOR: '\'Mech Creator',
+		WELCOME_BUTTON_MECH_CREATOR_DESC: 'Create a BattleMech',
 		WELCOME_H3_CORE: 'Jeff\'s BattleTech Tools',
 		WELCOME_H3_CREATORS_CORE: 'BattleTech Creators',
+
 		WELCOME_H3_FORCE_BUILDERS_CORE: 'BattleTech Force Builders',
 
 
@@ -80,6 +82,17 @@ available_languages.push ({
 
 		BM_STEP5_TITLE: "Step 5",
 		BM_STEP5_DESC: "Add weapons, ammunition and other equipment",
+		BM_STEP5_ITEM_NAME: "Name",
+		BM_STEP5_ITEM_CATEGORY: "Category",
+		BM_STEP5_ITEM_SPACE: "Criticals",
+		BM_STEP5_ITEM_WEIGHT: "Weight",
+		BM_STEP5_ADD: "Add",
+		BM_STEP5_ITEM_LOCATION: "Location",
+		BM_STEP5_REMOVE: "Remove",
+		BM_STEP5_INSTALLED_EQUIPMENT: "Installed Equipment",
+		BM_STEP5_NO_EQUIPMENT_INSTALLED: "No equipment has been installed",
+		BM_STEP5_SELECT_LOCATION: "Select Location",
+		BM_STEP5_AVAILABLE_EQUIPMENT: "Available Equipment",
 
 		BM_STEP6_TITLE: "Step 6",
 		BM_STEP6_DESC: "Complete the record sheet",
@@ -101,6 +114,8 @@ available_languages.push ({
 
 		TRO_EQUIPMENT: "Equipment",
 		TRO_MASS: "Mass",
+
+		TRO_NOT_AVAILABLE: "n/a",
 
 		TRO_INTERNAL_STRUCTURE: "Internal Structure",
 		TRO_ENGINE: "Engine",

@@ -618,13 +618,31 @@ Mech.prototype.makeTROHTML = function() {
 	html += "<tr><th class=\"text-left\">" + this.getTranslation("TRO_WEAPONS_AND_AMMO") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_LOCATION") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_CRITICAL") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_TONNAGE") + "</th></tr>";
 
 	for( eq_count = 0; eq_count < this.equipmentList.length; eq_count++) {
-		html += "<tr><td class=\"text-left\">" + this.equipmentList[eq_count].name[ this.useLang ] + "</td><td class=\"text-center\">" + this.equipmentList[eq_count].location[ this.useLang ]  + "</strong></td><td class=\"text-center\">" + this.equipmentList[eq_count].space.battlemech + "</td><td class=\"text-center\">" + this.equipmentList[eq_count].weight + "</td></tr>";
+		if( typeof( this.equipmentList[eq_count].location ) == "undefined" )
+			this.equipmentList[eq_count].location = "n/a";
+
+		item_location = "";
+		item_location = this.getLocationAbbr( this.equipmentList[eq_count].location );
+		html += "<tr><td class=\"text-left\">" + this.equipmentList[eq_count].name[ this.useLang ] + "</td><td class=\"text-center\">" + item_location + "</strong></td><td class=\"text-center\">" + this.equipmentList[eq_count].space.battlemech + "</td><td class=\"text-center\">" + this.equipmentList[eq_count].weight + "</td></tr>";
 	}
 
 	// TODO Weapons and Ammo
 	html += "</table>";
 
 	return html;
+}
+Mech.prototype.getLocationAbbr = function(location_tag) {
+
+
+	for(loc_count = 0; loc_count < battlemechLocations.length; loc_count++) {
+		if( location_tag == battlemechLocations[loc_count].tag ) {
+			if( battlemechLocations[loc_count].abbr[ this.useLang ] != "undefined" )
+				return battlemechLocations[loc_count].abbr[ this.useLang ];
+			else
+				return battlemechLocations[loc_count].abbr[ "en-US" ];
+		}
+	}
+	return this.getTranslation("TRO_NOT_AVAILABLE") ;
 }
 
 Mech.prototype.clearMech = function() {
@@ -733,7 +751,7 @@ Mech.prototype._calc = function() {
 	this.heat_sink_criticals.slots_each = 1;
 
 	if( this.heat_sink_type == "double") {
-		if( this.tech.name == "Clan") {
+		if( this.tech.tag == "clan") {
 			this.heat_sink_criticals.slots_type = "double slot";
 			this.heat_sink_criticals.slots_each = 2;
 		} else {
@@ -1417,10 +1435,11 @@ Mech.prototype.importJSON = function(json_string) {
 				for( eq_count = 0; eq_count < import_object.equipment.length; eq_count++) {
 
 					import_item = import_object.equipment[eq_count];
-					if( this.getTech().name == "Inner Sphere")
-						this.addEquipmentFromTag( import_item.tag, "is", import_item.loc );
-					if( this.getTech().name == "Clan")
-						this.addEquipmentFromTag( import_item.tag, "clan", import_item.loc );
+					// if( this.getTech().tag == "is")
+					// 	this.addEquipmentFromTag( import_item.tag, import_item.loc );
+					// if( this.getTech().tag == "clan")
+					// 	this.addEquipmentFromTag( import_item.tag), null, import_item.loc );
+					this.addEquipmentFromTag( import_item.tag, this.getTech().tag, import_item.loc );
 				}
 			}
 
@@ -1519,8 +1538,14 @@ Mech.prototype.addEquipment = function(equipment_index, equipment_list_tag, loca
 	}
 
 	if( equipment_list[equipment_index] ) {
-		equipment_item = jQuery.extend({}, equipment_list[equipment_index]);
-		equipment_item.location = location;
+		if( typeof(jQuery) != "undefined" ) {
+			equipment_item = jQuery.extend({}, equipment_list[equipment_index]);
+		}
+		if( typeof(angular) != "undefined" ) {
+			equipment_item = angular.copy(equipment_list[add_counter] );
+		}
+		if( typeof(location) != "undefined" )
+			equipment_item.location = location;
 		this.equipmentList.push( equipment_item );
 		return equipment_item;
 	}
@@ -1530,6 +1555,11 @@ Mech.prototype.addEquipment = function(equipment_index, equipment_list_tag, loca
 
 Mech.prototype.addEquipmentFromTag = function(equipment_tag, equipment_list_tag, location) {
 	equipment_list = Array();
+
+	if( !equipment_list_tag ) {
+		equipment_list_tag = this.tech.tag;
+	}
+
 	if( equipment_list_tag == "is") {
 		equipment_list = mechISEquipment;
 
@@ -1541,8 +1571,14 @@ Mech.prototype.addEquipmentFromTag = function(equipment_tag, equipment_list_tag,
 
 	for( add_counter = 0; add_counter < equipment_list.length; add_counter++) {
 		if( equipment_tag == equipment_list[add_counter].tag ) {
-			equipment_item = jQuery.extend({}, equipment_list[add_counter]);
-			equipment_item.location = location;
+			if( typeof(jQuery) != "undefined" ) {
+				equipment_item = jQuery.extend({}, equipment_list[equipment_index]);
+			}
+			if( typeof(angular) != "undefined" ) {
+				equipment_item = angular.copy(equipment_list[add_counter] );
+			}
+			if( typeof(location) != "undefined" )
+				equipment_item.location = location;
 			this.equipmentList.push( equipment_item );
 			return equipment_item;
 		}
@@ -1571,4 +1607,8 @@ Mech.prototype.setAdditionalHeatSinks = function(newValue) {
 	this.additional_heat_sinks = newValue / 1;
 	this._calc();
 	return this.additional_heat_sinks;
+};
+
+Mech.prototype.getInstalledEquipment = function() {
+	return this.equipmentList;
 };

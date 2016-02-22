@@ -99,6 +99,8 @@ function update_heat_sink_dropdown($scope, $translate, current_mech) {
 		//console.log( "heat_sinks_required", heat_sinks_required);
 		$scope.hs_crits_required = heat_sinks_required.number * heat_sinks_required.slots_each;
 		hs_crit_count = heat_sinks_required.number * heat_sinks_required.slots_each;
+		if( hs_crit_count < 0)
+			hs_crit_count = 0;
 		if( hs_crit_count == 1) {
 			$scope.label_criticals_required = the_label_single.replace("{hs_crits_required}", hs_crit_count);
 		} else if ( hs_crit_count == 0) {

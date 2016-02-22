@@ -30,8 +30,10 @@ body {
 	.button {
 		background-color: $primaryBG;
 		color: $primaryTextColor;
+		outline: none !important;
 
 		&:active,
+		&:focus,
 		&:visited {
 			background-color: $primaryBG;
 			color: $primaryTextColor;
@@ -40,24 +42,28 @@ body {
 			background-color: $primaryBGHover;
 			color: $primaryTextColor;
 		}
+
 		&.primary {
 			background-color: $primaryBG;
 			color: $primaryTextColor;
 
 			&:active,
+			&:focus,
 			&:visited {
-				background-color: $primaryBG;
-				color: $primaryTextColor;
+				background-color: $primaryBG !important;
+				color: $primaryTextColor !important;
 			}
 			&:hover {
 				background-color: $primaryBGHover;
 				color: $primaryTextColor;
 			}
 		}
+
 		&.secondary {
 			background-color: $secondaryBG;
 			color: $secondaryTextColor;
 			&:active,
+			&:focus,
 			&:visited {
 				background-color: $secondaryBG;
 				color: $secondaryTextColor;
@@ -72,6 +78,7 @@ body {
 	input[type=text],
 	input[type=number] {
 		background-color: $secondaryBG;
+		outline: none;
 	}
 
 
@@ -166,7 +173,10 @@ body {
 		tbody {
 			border: none;
 		}
-
+		thead {
+			background: transparent !important;
+			border: 0 !important;
+		}
 		tr {
 			td, th {
 				margin: auto;
@@ -184,10 +194,53 @@ body {
 			}
 		}
 	}
+	.equipment-list {
+		background: transparent;
+		border: 0 !important;
+		tbody {
+			background: transparent !important;
+			border: 0 !important;
+			tr {
+				padding: 0;
+				margin: 0;
+				background: transparent !important;
+
+				td {
+					padding: 2px;
+					margin: 0;
+					text-align: left;
+					.button {
+						margin: 0;
+					}
+				}
+			}
+		}
+		thead {
+			background: transparent !important;
+			border: 0 !important;
+			tr {
+				padding: 0;
+				margin: 0;
+				background: transparent !important;
+				th {
+					padding: 0;
+					margin: 0;
+					color: $primaryBG;
+					text-align: left;
+					border-bottom: 1px solid $primaryBG;
+				}
+			}
+		}
+
+	}
 	.armor-chart {
 		background: transparent;
 		border: 0 !important;
 		tbody {
+			background: transparent !important;
+			border: 0 !important;
+		}
+		thead {
 			background: transparent !important;
 			border: 0 !important;
 		}
@@ -209,6 +262,19 @@ body {
 			}
 		}
 	}
+	.sidebar-header {
+		margin: 0;
+		padding: 0;
+		h4 {
+			font-weight: 700;
+			padding: 0;
+			font-size: 1rem;
+			text-align: center;
+		}
+	}
+}
+.align-bottom {
+	vertical-align: bottom !important;
 }
 
 .ng-cloak {

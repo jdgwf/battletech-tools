@@ -183,8 +183,9 @@ angular.module("baseApp").controller(
 			}
 
 			$scope.update_armor_allocation = function(armor_location) {
-
-				if( armor_location == "hd ") {
+				console.log("armor_location", armor_location);
+				if( armor_location == "hd") {
+					console.log("setHeadArmor", $scope.armor_current_hd.id);
 					current_mech.setHeadArmor( $scope.armor_current_hd.id );
 
 				} else if( armor_location == "ra") {
