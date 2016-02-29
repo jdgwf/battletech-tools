@@ -6,6 +6,8 @@ $primaryBG: #dfab2d;
 $primaryBGHover: #b48a25;
 $primaryTextColor: #fff;
 
+$darkenedBG: rgba( 0, 0, 0, .25);
+
 $secondaryBG: #fdfde3;
 $secondaryBGHover: #e4e4ce;
 $secondaryTextColor: #333;
@@ -116,6 +118,9 @@ body {
 	}
 	label {
 		color: $fontColor;
+		[type=checkbox], [type=file], [type=radio] {
+			margin-bottom: 0;
+		}
 	}
 	.fieldset {
 		color: $fontColor;
@@ -124,7 +129,7 @@ body {
 			background: $bodyBackground;
 			color: $primaryBG;
 			padding: 0 1rem;
-			font-size: 1.4rem;
+			font-size: 1.1rem;
 			font-weight: 500;
 		}
 
@@ -253,7 +258,7 @@ body {
 				text-align: center;
 				padding: 1rem 0.5rem;
 				border: 1px solid $primaryBG !important;
-				background: rgba(0,0,0,.25);
+				background: $darkenedBG;
 				&.blank {
 					background: transparent !important;
 					border: none !important;
@@ -270,6 +275,83 @@ body {
 			padding: 0;
 			font-size: 1rem;
 			text-align: center;
+		}
+	}
+	.critical-assignment-container {
+		margin: 0 0 10px 0;
+		padding: 0;
+		li {
+			background: $darkenedBG;
+			display: block;
+			margin: 0;
+			padding: 0 5px;
+			border: 1px solid $primaryBG;
+			border-radius: 5px;
+			margin: 2px;
+			font-size: 11px;
+			// &:nth-child(6) {
+			// 	margin-bottom: 17px;
+			// }
+			&.critical-placeholder {
+				display: none !important;
+			}
+			&.critical-height- {
+				border: 1px solid $secondaryBG;
+				.card-title {
+					display: block;
+					height: 15px;
+				}
+			}
+			&.critical-height-1 .card-title {
+				display: block;
+				height: 15px;
+				margin: 2px 2px 2px 2px;
+			}
+			&.critical-height-2 .card-title {
+				display: block;
+				height: 30px;
+				margin: 2px 2px 4px 2px;
+			}
+			&.critical-height-3 .card-title {
+				display: block;
+				height: 45px;
+				margin: 2px 2px 6px 2px;
+			}
+			&.critical-height-4 .card-title {
+				display: block;
+				height: 60px;
+				margin: 2px 2px 8px 2px;
+			}
+			&.critical-height-5 .card-title {
+				display: block;
+				height: 75px;
+				margin: 2px 2px 10px 2px;
+			}
+			&.critical-height-6 .card-title {
+				display: block;
+				height: 90px;
+				margin: 2px 2px 12px 2px;
+			}
+			&.critical-height-7 .card-title {
+				display: block;
+				height: 105px;
+				margin: 2px 2px 14px 2px;
+			}
+			&.critical-height-8 .card-title {
+				display: block;
+				height: 120px;
+				margin: 2px 2px 16px 2px;
+			}
+			&.critical-height-9 .card-title {
+				display: block;
+				height: 135px;
+				margin: 2px 2px 18px 2px;
+			}
+			&.critical-height-10 .card-title {
+				display: block;
+				height: 150px;
+				margin: 2px 2px 20px 2px;
+			}
 		}
 	}
 }

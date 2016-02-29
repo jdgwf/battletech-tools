@@ -6,7 +6,7 @@ function Mech (type) {
 	this.model = "";
 	this.uuid = "";
 	this.tonnage = 20;
-	this.useLang = "en-US";
+	this.useLang = this.useLang;
 
 	this.max_armor = 0;
 
@@ -17,6 +17,9 @@ function Mech (type) {
 	this.internalStructure.centerTorso = 0;
 	this.internalStructure.leftTorso = 0;
 	this.internalStructure.rightTorso = 0;
+
+	this.small_cockpit = false;
+	this.cockpit_weight = 3;
 
 	this.internalStructure.rightArm = 0;
 	this.internalStructure.leftArm = 0;
@@ -54,21 +57,21 @@ function Mech (type) {
 
 	this.equipmentList = Array();
 
+	this.criticalAllocationTable = Array();
 
 	this.weights = Array();
 
 
-	this.critical_items = Array();
+
+	this.unallocatedCriticals = Array();
 
 	this.criticals = {};
+
+	this.criticals.head = Array();
 
 	this.criticals.centerTorso = Array();
 	this.criticals.leftTorso = Array();
 	this.criticals.rightTorso = Array();
-
-	this.criticals.centerTorsoRear = Array();
-	this.criticals.leftTorsoRear = Array();
-	this.criticals.rightTorsoRear = Array();
 
 	this.criticals.rightArm = Array();
 	this.criticals.leftArm = Array();
@@ -78,11 +81,11 @@ function Mech (type) {
 
 	this.weights = Array();
 
-	this.gyro = "Standard";
+	this.gyro = mechGyroTypes[0];
 
 	this.engine = 0;
-	this.engineType = "Standard";
-	this.jumpJetType = "Standard";
+	this.engineType = mechEngineTypes[0];
+	this.jumpJetType = mechJumpJetTypes[0];
 
 	this.walkSpeed = 0;
 	this.runSpeed = 0;
@@ -157,9 +160,8 @@ Mech.prototype._calcAlphaStrike = function() {
 	if( this.getTech().name == "Inner Sphere") {
 
 
-		switch( this.engineType ) {
-			case "Compact":
-			case "Compact Fusion":
+		switch( this.engineType.tag ) {
+			case "compact":
 				// Compact
 				if( this.tonnage == 100) {
 					this.alphaStrikeForceStats.structure = 10;
@@ -201,8 +203,7 @@ Mech.prototype._calcAlphaStrike = function() {
 					this.alphaStrikeForceStats.structure = 1;
 				}
 				break;
-			case "Light":
-			case "Light Fusion":
+			case "light":
 				// Compact
 				if( this.tonnage == 100) {
 					this.alphaStrikeForceStats.structure = 5;
@@ -289,9 +290,8 @@ Mech.prototype._calcAlphaStrike = function() {
 				break;
 		}
 	} else {
-		switch( this.engineType ) {
-			case "XL":
-			case "XL Fusion":
+		switch( this.engineType.tag ) {
+			case "xl":
 				// Compact
 				if( this.tonnage == 100) {
 					this.alphaStrikeForceStats.structure = 5;
@@ -437,7 +437,7 @@ Mech.prototype.getCBillCost = function() {
 
 Mech.prototype.getEngineWeight = function() {
 	if( this.engine && this.engine.weight )
-		return this.engine.weight.standard;
+		return this.engine.weight[ this.engineType.tag ];
 	else
 		return 0;
 }
@@ -459,58 +459,34 @@ Mech.prototype.getHeatSinksWeight = function() {
 }
 
 Mech.prototype.getGyroWeight = function() {
-	switch( this.gyro ) {
-		case "Compact":
-			return Math.ceil(this.engine.rating / 100) * 1.5;
-			break
-		case "Heavy Duty":
-			return Math.ceil(this.engine.rating / 100) * 2;
-
-			break
-		case "Extra-Light (XL)":
-			return Math.ceil(this.engine.rating / 100) * 0.5;
-			break
-		default:
-			return Math.ceil(this.engine.rating / 100);
-			// TODO 4 slots to center torso
-			break
-	}
-	return Math.ceil(this.engine.rating / 100);
+	return Math.ceil(  Math.ceil(this.engine.rating / 100) * this.gyro.weight_multiplier  );
 }
 Mech.prototype.getCockpitWeight = function() {
-	return 3;
+	return this.cockpit_weight;
 }
+
+Mech.prototype.setCockpitWeight = function(new_weight) {
+	this.cockpit_weight = new_weight;
+	return this.cockpit_weight;
+}
+
 
 Mech.prototype.getInteralStructureWeight = function() {
 	return this.tonnage / 10;
 }
 
 Mech.prototype.getJumpJetWeight = function() {
-	if( this.jumpJetType == "Standard" ) {
-		// standard
-		if( this.tonnage <= 55) {
-			// 10-55 tons
-			return this.jumpSpeed * 0.5;
-		} else if(this.tonnage <= 85) {
-			// 60 - 85 tons
-			return this.jumpSpeed * 1;
-		} else {
-			// 90+ tons
-			return this.jumpSpeed * 2;
-		}
+	if( this.tonnage <= 55) {
+		// 10-55 tons
+		return this.jumpSpeed * this.jumpJetType.weight_multiplier.light;
+	} else if(this.tonnage <= 85) {
+		// 60 - 85 tons
+		return this.jumpSpeed * this.jumpJetType.weight_multiplier.medium;
 	} else {
-		// improved
-		if( this.tonnage <= 55) {
-			// 10-55 tons
-			return this.jumpSpeed * 1;
-		} else if(this.tonnage <= 85) {
-			// 60 - 85 tons
-			return this.jumpSpeed * 2;
-		} else {
-			// 90+ tons
-			return this.jumpSpeed * 4;
-		}
+		// 90+ tons
+		return this.jumpSpeed * this.jumpJetType.weight_multiplier.heavy;
 	}
+
 }
 
 Mech.prototype.getTranslation = function(langKey) {
@@ -558,7 +534,11 @@ Mech.prototype.makeTROHTML = function() {
 
 	html += "<tr><td colspan=\"1\">" + this.getTranslation("TRO_HEAT_SINKS") + "</td><td class=\"text-center\" colspan=\"2\">" + this.getHeatSinks() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getHeatSinksWeight() + "</td></tr>";
 	html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_GYRO") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getGyroWeight() + "</td></tr>";
-	html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_COCKPIT") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getCockpitWeight() + "</td></tr>";
+	if( this.small_cockpit ) {
+		html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_SMALL_COCKPIT") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getCockpitWeight() + "</td></tr>";
+	} else {
+		html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_COCKPIT") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getCockpitWeight() + "</td></tr>";
+	}
 
 	if( this.getJumpJetWeight() > 0 )
 		html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_JUMP_JETS") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getJumpJetWeight() + "</td></tr>";
@@ -639,7 +619,7 @@ Mech.prototype.getLocationAbbr = function(location_tag) {
 			if( battlemechLocations[loc_count].abbr[ this.useLang ] != "undefined" )
 				return battlemechLocations[loc_count].abbr[ this.useLang ];
 			else
-				return battlemechLocations[loc_count].abbr[ "en-US" ];
+				return battlemechLocations[loc_count].abbr[ this.useLang ];
 		}
 	}
 	return this.getTranslation("TRO_NOT_AVAILABLE") ;
@@ -655,7 +635,14 @@ Mech.prototype._calc = function() {
 
 	this.weights = Array();
 	this.weights.push( {name:"Internal Structure", weight: this.getInteralStructureWeight() } );
-	this.weights.push( {name: "Cockpit", weight: this.getCockpitWeight() } );
+
+	if( this.small_cockpit ) {
+		this.setCockpitWeight( 2 );
+		this.weights.push( {name: "Small Cockpit", weight: this.getCockpitWeight() } );
+	} else {
+		this.setCockpitWeight( 3 );
+		this.weights.push( {name: "Cockpit", weight: this.getCockpitWeight() } );
+	}
 
 	this.runSpeed = Math.ceil(this.walkSpeed * 1.5);
 
@@ -673,28 +660,9 @@ Mech.prototype._calc = function() {
 
 
 	if( this.engine ) {
-		this.weights.push( {name: "Standard Engine - " + this.engine.rating, weight: this.engine.weight.standard} );
+		this.weights.push( {name: this.engineType.name[this.useLang] + " - " + this.engineType.rating, weight: this.engine.weight[this.engineType.tag]} );
 
-
-		switch( this.gyro ) {
-			case "Compact":
-				this.weights.push( {name: "Compact Gyro", weight: this.getGyroWeight()} );
-				// TODO 2 slots to center torso
-				break
-			case "Heavy Duty":
-				this.weights.push( {name: "Heavy Duty Gyro", weight: Math.ceil(this.engine.rating / 100) * 2} );
-				// TODO 4 slots to center torso
-				break
-			case "Extra-Light (XL)":
-				this.weights.push( {name: "Extra-Light (XL) Gyro", weight: Math.ceil(this.engine.rating / 100) * 0.5} );
-				// TODO 6 slots to center torso
-				break
-			default:
-				this.weights.push( {name: "Standard Gyro", weight: Math.ceil(this.engine.rating / 100)} );
-				// TODO 4 slots to center torso
-				break
-		}
-
+		this.weights.push( {name: this.gyro.name[this.useLang], weight: this.getGyroWeight()} );
 
 	}
 
@@ -740,8 +708,9 @@ Mech.prototype._calc = function() {
 	}
 
 	this.current_tonnage = 0;
-	for( weight_counter = 0; weight_counter < this.weights.length; weight_counter++)
+	for( weight_counter = 0; weight_counter < this.weights.length; weight_counter++) {
 		this.current_tonnage += this.weights[weight_counter].weight;
+	}
 
 	this.remaining_tonnage = this.tonnage - this.current_tonnage;
 
@@ -771,9 +740,341 @@ Mech.prototype._calc = function() {
 		this.heat_sink_criticals.number = 0
 	}
 
+	this._calcCriticals();
+
 	this._calcAlphaStrike();
 	this._calcBattleValue();
 	this._calcCBillCost();
+}
+
+Mech.prototype._calcCriticals = function() {
+	// WORK IN PROGRESS
+	this.criticals.head = Array(6);
+
+	this.criticals.centerTorso = Array(12);
+	this.criticals.leftTorso = Array(12);
+	this.criticals.rightTorso = Array(12);
+
+	this.criticals.rightArm = Array(12);
+	this.criticals.leftArm = Array(12);
+
+	this.criticals.rightLeg = Array(6);
+	this.criticals.leftLeg = Array(6);
+
+	this.unallocatedCriticals = Array();
+
+
+	// Add required components....
+	if( this.small_cockpit ) {
+		this._addCriticalItem( "life-support", "Life Support", 1, "hd", 0);
+		this._addCriticalItem( "sensors", "Sensors", 1, "hd", 1);
+		this._addCriticalItem( "cockpit", "Cockpit", 1, "hd", 2);
+		this._addCriticalItem( "sensors", "Sensors", 1, "hd", 3);
+	} else {
+		this._addCriticalItem( "life-support", "Life Support", 1, "hd", 0);
+		this._addCriticalItem( "sensors", "Sensors", 1, "hd", 1);
+		this._addCriticalItem( "cockpit", "Cockpit", 1, "hd", 2);
+		this._addCriticalItem( "sensors", "Sensors", 1, "hd", 4);
+		this._addCriticalItem( "life-support", "Life Support", 1, "hd", 5);
+	}
+
+	// Left Arm Components
+	this._addCriticalItem( "shoulder", "Shoulder", 1, "la", 0);
+	this._addCriticalItem( "hand-actuator", "Upper Arm Actuator", 1, "la", 1);
+	if( this.hasLowerArmActuator("la") ) {
+		this._addCriticalItem( "lower-arm-actuator", "Lower Arm Actuator", 1, "la", 2);
+		if( this.hasHandActuator("la") ) {
+
+			this._addCriticalItem( "hand-actuator", "Hand Actuator", 1, "la", 3);
+		}
+	}
+
+
+	// Right Arm Components
+	this._addCriticalItem( "shoulder", "Shoulder", 1, "ra", 0);
+	this._addCriticalItem( "hand-actuator", "Upper Arm Actuator", 1, "ra", 1);
+	if( this.hasLowerArmActuator("ra") ) {
+		this._addCriticalItem( "lower-arm-actuator", "Lower Arm Actuator", 1, "ra", 2);
+		if( this.hasHandActuator("ra") ) {
+
+			this._addCriticalItem( "hand-actuator", "Hand Actuator", 1, "ra", 3);
+		}
+	}
+
+	// Engine
+	if( this.engineType.criticals[ this.getTech().tag ].ct > 3 ) {
+		this._addCriticalItem(
+			"engine", 									// item_tag
+			this.engineType.name[this.useLang], 		// item_name
+			3, 											// critical_count
+			"ct" 										// location
+														// slot
+		);
+	} else {
+		this._addCriticalItem(
+			"engine", 												// item_tag
+			this.engineType.name[this.useLang], 					// item_name
+			this.engineType.criticals[ this.getTech().tag ].ct, 	// critical_count
+			"ct" 													// location
+																	// slot
+		);
+	}
+
+	if( this.engineType.criticals.rt )
+		this._addCriticalItem( "engine", this.engineType.name[this.useLang], this.engineType.criticals[ this.getTech().tag ].rt, "rt");
+	if( this.engineType.criticals.lt )
+		this._addCriticalItem( "engine", this.engineType.name[this.useLang], this.engineType.criticals[ this.getTech().tag ].lt, "lt");
+
+	// Gyro
+	this._addCriticalItem(
+		"gyro", 										// item_tag
+		this.gyro.name[this.useLang], 					// item_name
+		this.gyro.criticals, 							// critical_count
+		"ct"											// location
+	);
+
+	// Extra engine bits....
+	if( this.engineType.criticals[ this.getTech().tag ].ct > 3 ){
+		this._addCriticalItem(
+			"engine", 													// item_tag
+			this.engineType.name[this.useLang], 						// item_name
+			this.engineType.criticals[ this.getTech().tag ].ct - 3, 	// critical_count
+			"ct"														// location
+		);
+	}
+
+	// Left Leg Components
+	this._addCriticalItem( "hip", "Hip", 1, "ll", 0);
+	this._addCriticalItem( "upper-leg-actuator", "Upper Leg Actuator", 1, "ll", 1);
+	this._addCriticalItem( "lower-leg-actuator", "Lower Leg Actuator", 1, "ll", 2);
+	this._addCriticalItem( "foot-actuator", "Foot Actuator", 1, "ll", 3);
+
+	// Right Leg Components
+	this._addCriticalItem( "hip", "Hip", 1, "rl", 0);
+	this._addCriticalItem( "upper-leg-actuator", "Upper Leg Actuator", 1, "rl", 1);
+	this._addCriticalItem( "lower-leg-actuator", "Lower Leg Actuator", 1, "rl", 2);
+	this._addCriticalItem( "foot-actuator", "Foot Actuator", 1, "rl", 3);
+
+	// Jump Jets
+	jump_move = this.getJumpSpeed();
+	for(var jmc = 0; jmc < jump_move; jmc++ ) {
+		this.unallocatedCriticals.push(
+			{
+				name: this.jumpJetType.name[this.useLang],
+				tag: "jj-" + this.jumpJetType.tag,
+				movable: true,
+				crits: this.jumpJetType.criticals
+			}
+		);
+	}
+
+	// Get optional equipment...
+	for(var elc = 0; elc < this.equipmentList.length; elc++ ) {
+		this.unallocatedCriticals.push(
+			{
+				name: this.equipmentList[elc].name[this.useLang] + " (" + this.localizeLocationAbbreviation(this.equipmentList[elc].location) + ")",
+				tag: this.equipmentList[elc].tag,
+				crits: this.equipmentList[elc].space.battlemech,
+				obj: this.equipmentList[elc],
+				movable: true
+			} );
+	}
+
+
+	// Heat Sink Requirements
+	hs_requirements = this.getHeatSinkCriticalRequirements();
+	for(var hsc = 0; hsc < hs_requirements.number; hsc++ ) {
+		this.unallocatedCriticals.push( {
+			name: "Heat Sink",
+			tag: "heat-sink",
+			crits: hs_requirements.slots_each,
+			movable: true
+		} );
+	}
+
+	// Allocate items per allocation table.
+	for( alt_c = 0; alt_c < this.criticalAllocationTable.length; alt_c++) {
+		this._allocateCritical(
+			this.criticalAllocationTable[alt_c].tag,
+			this.criticalAllocationTable[alt_c].loc,
+			this.criticalAllocationTable[alt_c].slot,
+			true
+		)
+	}
+
+}
+
+Mech.prototype.hasHandActuator = function( location ){
+	if( location == "ra" )
+		if( this._no_right_arm_hand_actuator )
+			return false;
+	if( location == "la" )
+		if( this._no_left_arm_hand_actuator )
+			return false;
+	return true;
+}
+
+Mech.prototype.localizeLocationAbbreviation = function( locationAbbr ) {
+	// TODO
+	return locationAbbr;
+}
+
+Mech.prototype.hasLowerArmActuator = function( location ){
+	if( location == "ra" )
+		if( this._no_right_arm_lower_actuator )
+			return false;
+	if( location == "la" )
+		if( this._no_left_arm_lower_actuator )
+			return false;
+	return true;
+}
+
+
+Mech.prototype.removeHandActuator = function( location ) {
+	if( location == "ra" ) {
+		this._no_right_arm_hand_actuator = true;
+	}
+	if( location == "la" ) {
+		this._no_left_arm_hand_actuator = true;
+	}
+	this._calc();
+
+}
+
+Mech.prototype.removeLowerArmActuator = function( location ) {
+	if( location == "ra" ) {
+		this._no_right_arm_hand_actuator = true;
+		this._no_right_arm_lower_actuator = true;
+
+	}
+	if( location == "la" ) {
+		this._no_left_arm_hand_actuator = true;
+		this._no_left_arm_lower_actuator = true;
+	}
+	this._calc();
+}
+
+Mech.prototype.addHandActuator = function( location ) {
+	if( location == "ra" ) {
+		this._no_right_arm_hand_actuator = false;
+		this._no_right_arm_lower_actuator = false;
+
+	}
+	if( location == "la" ) {
+		this._no_left_arm_hand_actuator = false;
+		this._no_left_arm_lower_actuator = false;
+	}
+	this._calc();
+}
+
+Mech.prototype.addLowerArmActuator = function( location ) {
+	if( location == "ra" ) {
+	//	this._no_right_arm_hand_actuator = false;
+		this._no_right_arm_lower_actuator = false;
+
+	}
+	if( location == "la" ) {
+	//	this._no_left_arm_hand_actuator = false;
+		this._no_left_arm_lower_actuator = false;
+	}
+	this._calc();
+}
+
+Mech.prototype._addCriticalItem = function( item_tag, item_name, critical_count, location, slot, movable ) {
+	uuid = generateUUID();
+	if( movable != "undefined" && movable != null)
+		item = { tag: item_tag, name: item_name, crits: critical_count, movable: true, uuid: uuid };
+	else
+		item = { tag: item_tag, name: item_name, crits: critical_count, movable: false, uuid: uuid };
+
+	if( typeof(slot) == "undefined" || slot == null)
+		slot = null;
+
+	if( typeof(location) != "undefined" && location != null) {
+		if( location == "hd" ) {
+			this._assignItemToArea( this.criticals.head, item, critical_count, slot );
+
+		} else if( location == "ct" ) {
+			this._assignItemToArea( this.criticals.centerTorso, item, critical_count, slot );
+
+		} else if( location == "lt" ) {
+			this._assignItemToArea( this.criticals.leftTorso, item, critical_count, slot );
+
+		} else if( location == "rt" ) {
+			this._assignItemToArea( this.criticals.rightTorso, item, critical_count, slot );
+
+		} else if( location == "ra" ) {
+			this._assignItemToArea( this.criticals.rightArm, item, critical_count, slot );
+
+		} else if( location == "la" ) {
+			this._assignItemToArea( this.criticals.leftArm, item, critical_count, slot );
+
+		} else if( location == "rl" ) {
+			this._assignItemToArea( this.criticals.rightLeg, item, critical_count, slot );
+
+		} else if( location == "ll" ) {
+			this._assignItemToArea( this.criticals.leftLeg, item, critical_count, slot );
+
+		} else  {
+			return item;
+		}
+
+	} else {
+		return item;
+	}
+}
+
+Mech.prototype._isNextXCritsAvailable = function( area_array, critical_count, begin_slot ) {
+	returnValue = true;
+	for( isca_c = 0; isca_c < critical_count; isca_c++ ) {
+		if( area_array[begin_slot + isca_c] != null) {
+			returnValue = false;
+		}
+	}
+	return returnValue;
+}
+
+Mech.prototype._assignItemToArea = function( area_array, new_item, critical_count, slot_number ) {
+	var placeholder = {
+		uuid: new_item.uuid,
+		name: "placeholder",
+		placeholder: true
+	};
+
+	if( typeof(slot_number) == "undefined" || slot_number === null) {
+		// place anywhere available
+		for( array_count = 0; array_count < area_array.length; array_count++) {
+			if(area_array[array_count] == null ) {
+				if( this._isNextXCritsAvailable( area_array, critical_count - 1, array_count + 1) ) {
+					for( var aita_c = 0; aita_c < critical_count; aita_c++ ) {
+						if( aita_c == 0) {
+							area_array[aita_c + array_count] = new_item;
+						} else {
+							area_array[aita_c + array_count] = placeholder;
+						}
+					}
+					return true;
+				}
+			}
+		}
+	} else {
+		// at specified slot
+		if(area_array[slot_number] == null ) {
+			if( this._isNextXCritsAvailable( area_array, critical_count - 1, slot_number + 1) ) {
+
+				for( var aita_c = 0; aita_c < critical_count; aita_c++ ) {
+					if( aita_c == 0) {
+						area_array[aita_c + slot_number] = new_item;
+					} else {
+						area_array[aita_c + slot_number] = placeholder;
+					}
+				}
+				return true;
+			}
+		}
+	}
+
+	return false;
 }
 
 Mech.prototype.getHeatSinksType = function() {
@@ -930,9 +1231,16 @@ Mech.prototype.setMechType = function( typeID )  {
 }
 
 Mech.prototype.setEngineType = function(engineType) {
-	this.engineType = engineType;
-	this._calc();
-	return this.engine;
+	for( lcounter = 0; lcounter < mechEngineTypes.length; lcounter++) {
+		if( engineType.toLowerCase() == mechEngineTypes[lcounter].tag) {
+			this.engineType = mechEngineTypes[lcounter];
+			this._calc();
+			return this.engineType;
+		}
+	}
+	// default to Military Standard if tag not found.
+	this.engineType = engineType[0];
+	return this.engineType;
 }
 
 Mech.prototype.getEngineType = function() {
@@ -1354,7 +1662,7 @@ Mech.prototype.exportJSON = function() {
 	export_object.tonnage = this.getTonnage();
 	export_object.walkSpeed = this.walkSpeed;
 	export_object.jumpSpeed = this.jumpSpeed;
-	export_object.engineType = this.getEngineType();
+	export_object.engineType = this.getEngineType().tag;
 
 	export_object.mech_type = this.mech_type.id;
 	export_object.era = this.era.id;
@@ -1382,6 +1690,18 @@ Mech.prototype.exportJSON = function() {
 			}
 		);
 	}
+	export_object.allocation = this.criticalAllocationTable;
+	export_object.features = Array();
+	if( !this.hasLowerArmActuator("la") )
+		export_object.features.push("no_lala");
+	if( !this.hasLowerArmActuator("ra") )
+		export_object.features.push("no_rala");
+	if( !this.hasHandActuator("la") )
+		export_object.features.push("no_laha");
+	if( !this.hasHandActuator("ra") )
+		export_object.features.push("no_raha");
+	if( this.small_cockpit )
+		export_object.features.push("sm_cockpit");
 
 	return JSON.stringify(export_object);
 }
@@ -1431,6 +1751,29 @@ Mech.prototype.importJSON = function(json_string) {
 			if( import_object.uuid )
 				this.uuid = import_object.uuid;
 
+
+			if( import_object.features ) {
+
+
+				// Lower Arm Actuators
+				if ( import_object.features.indexOf( "no_rala" ) > -1 )
+					this.removeLowerArmActuator( "ra" );
+				if ( import_object.features.indexOf( "no_lala" ) > -1)
+					this.removeLowerArmActuator( "la" );
+
+				// Hand Actuators
+				if ( import_object.features.indexOf( "no_raha" ) > -1 )
+					this.removeHandActuator( "ra" );
+				if ( import_object.features.indexOf( "no_laha" ) > -1)
+					this.removeHandActuator( "la" );
+
+				// Small Cockpit
+				if ( import_object.features.indexOf( "sm_cockpit" ) > -1)
+					this.small_cockpit = true;
+
+				// Other features
+			}
+
 			if( import_object.equipment ) {
 				for( eq_count = 0; eq_count < import_object.equipment.length; eq_count++) {
 
@@ -1442,6 +1785,13 @@ Mech.prototype.importJSON = function(json_string) {
 					this.addEquipmentFromTag( import_item.tag, this.getTech().tag, import_item.loc );
 				}
 			}
+
+			if( import_object.allocation ) {
+				this.criticalAllocationTable = import_object.allocation;
+			}
+
+			if( !this.useLang && localStorage["tmp.preferred_language"] )
+				this.useLang = localStorage["tmp.preferred_language"];
 
 			this._calc();
 			return true;
@@ -1593,6 +1943,97 @@ Mech.prototype.removeEquipment = function(equipment_index) {
 		return 1;
 	}
 	return null;
+};
+
+Mech.prototype.updateCriticalAllocationTable = function() {
+	this.criticalAllocationTable = Array();
+	for( mech_location in this.criticals ) {
+
+		for( crit_item_counter = 0; crit_item_counter < this.criticals[mech_location].length; crit_item_counter++) {
+			if(
+				this.criticals[mech_location] &&
+				this.criticals[mech_location][crit_item_counter] &&
+				this.criticals[mech_location][crit_item_counter].movable
+			) {
+
+				short_loc = "";
+				if(mech_location == "Head" ) {
+					short_loc = "hd";
+				} else if( mech_location == "centerTorso" ) {
+					short_loc = "ct";
+				} else if( mech_location == "rightTorso" ) {
+					short_loc = "rt";
+				} else if( mech_location == "rightLeg" ) {
+					short_loc = "rl";
+				} else if( mech_location == "rightArm" ) {
+					short_loc = "ra";
+				} else if( mech_location == "leftTorso" ) {
+					short_loc = "lt";
+				} else if( mech_location == "leftLeg" ) {
+					short_loc = "ll";
+				} else if( mech_location == "leftArm" ) {
+					short_loc = "la";
+				}
+
+				if(this.criticals[mech_location][crit_item_counter] && this.criticals[mech_location][crit_item_counter].obj)
+					this.criticals[mech_location][crit_item_counter].obj.location = short_loc;
+
+				this.criticalAllocationTable.push(
+					{
+						tag: this.criticals[mech_location][crit_item_counter].tag,
+						loc: short_loc,
+						slot: crit_item_counter
+					}
+				);
+			}
+		}
+	}
+	// this._calc();
+};
+
+Mech.prototype._allocateCritical = function(equipment_tag, mech_location, slot_number, remove_from_unallocated) {
+
+	for(uaet_c = 0; uaet_c < this.unallocatedCriticals.length; uaet_c++) {
+		if( equipment_tag == this.unallocatedCriticals[uaet_c].tag ) {
+			if(  this.unallocatedCriticals[uaet_c] && this.unallocatedCriticals[uaet_c].obj )
+				this.unallocatedCriticals[uaet_c].obj.location = mech_location;
+
+			if(mech_location == "hd" ) {
+				this._assignItemToArea( this.criticals.Head, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slot_number );
+			} else if( mech_location == "ct" ) {
+				this._assignItemToArea( this.criticals.centerTorso, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slot_number );
+			} else if( mech_location == "rt" ) {
+				this._assignItemToArea( this.criticals.rightTorso, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slot_number );
+			} else if( mech_location == "rl" ) {
+				this._assignItemToArea( this.criticals.rightLeg, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slot_number );
+			} else if( mech_location == "ra" ) {
+				this._assignItemToArea( this.criticals.rightArm, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slot_number );
+			} else if( mech_location == "lt" ) {
+				this._assignItemToArea( this.criticals.leftTorso, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slot_number );
+			} else if( mech_location == "ll" ) {
+				this._assignItemToArea( this.criticals.leftLeg, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slot_number );
+			} else if( mech_location == "la" ) {
+				this._assignItemToArea( this.criticals.leftArm, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slot_number );
+			}
+
+
+			if( remove_from_unallocated ) {
+				this.unallocatedCriticals.splice(uaet_c, 1);
+			}
+
+			return true;
+		}
+	}
+	return null;
+};
+
+Mech.prototype.clearHeatSinkCriticals = function() {
+	for( alloc_c = this.criticalAllocationTable.length; alloc_c >= 0; alloc_c--) {
+		if( this.criticalAllocationTable[alloc_c] && this.criticalAllocationTable[alloc_c].tag == "heat-sink" )
+			this.criticalAllocationTable.splice(alloc_c, 1);
+	}
+
+	this._calc();
 };
 
 Mech.prototype.setEquipmentLocation = function(equipment_index, location) {

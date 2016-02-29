@@ -49,6 +49,7 @@ angular.module("baseApp").controller(
 			$scope.update_selected_heat_sink_tech = function() {
 				console.log( "$scope.selected_heat_sink_tech", $scope.selected_heat_sink_tech);
 				current_mech.setHeatSinksType( $scope.selected_heat_sink_tech );
+				current_mech.clearHeatSinkCriticals();
 				update_heat_sink_dropdown($scope, $translate, current_mech);
 				update_mech_status_bar_and_tro($scope, $translate, current_mech);
 				localStorage["tmp.current_mech"] = current_mech.exportJSON();
@@ -77,7 +78,10 @@ function update_heat_sink_dropdown($scope, $translate, current_mech) {
 				};
 		}
 
-		for( var hscount = 1; hscount <= Math.floor(current_mech.getRemainingTonnage()) + current_heat_sinks; hscount++) {
+		remaining_tonnage = Math.floor( current_mech.getRemainingTonnage() )
+		if( remaining_tonnage < 0)
+			remaining_tonnage = 0;
+		for( var hscount = 1; hscount <= remaining_tonnage + current_heat_sinks; hscount++) {
 			$scope.heat_sink_list.push( {
 					id: hscount,
 					label: hscount
