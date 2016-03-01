@@ -2036,6 +2036,11 @@ Mech.prototype.clearHeatSinkCriticals = function() {
 	this._calc();
 };
 
+Mech.prototype.clearCriticalAllocationTable = function() {
+	this.criticalAllocationTable = Array();
+	this._calc();
+}
+
 Mech.prototype.setEquipmentLocation = function(equipment_index, location) {
 	if( this.equipmentList[equipment_index] ) {
 		this.equipmentList[equipment_index].location = location;

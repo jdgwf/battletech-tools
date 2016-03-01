@@ -1,5 +1,5 @@
 var mechISEquipment = Array(
-	{
+{
 		name: {
 			'en-US': "Small Laser",
 			'de-DE': "de - Small Laser",
@@ -139,6 +139,102 @@ var mechISEquipment = Array(
 			range_long: 0,
 			range_extreme: 0,
 			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Machine Gun",
+			'de-DE': "de - Machine Gun",
+		},
+		tag: "machine-gun",
+		category: {
+			'en-US': "Ballistic Weapons",
+			'de-DE': "de - Ballistic Weapons",
+		},
+		damage: 2,
+		damage_aero: 2,
+		cbills: 0,
+		introduced: 1950,
+		extinct: 0,
+		battlevalue: 5,
+		heat: 1,
+		weight: 0.5,
+		range_min: {
+			min: 0,
+			short: 1,
+			medium: 2,
+			long: 3,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 0,
+		min_ammo_tons: 1,
+		tech_rating: "e",
+		page: 227,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Machine Gun)",
+			'de-DE': "de - Ammo (Machine Gun)",
+		},
+		tag: "ammo-machine-gun",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		cbills: 11250,
+		introduced: 2400,
+		extinct: 0,
+		battlevalue: 1,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 1,
+			medium: 2,
+			long: 3,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 200,
+		min_ammo_tons: 1,
+		tech_rating: "e",
+		page: 227,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
 			notes: Array(
 			)
 		}

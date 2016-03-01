@@ -74,6 +74,13 @@ angular.module("baseApp").controller(
 				update_mech_status_bar_and_tro($scope, $translate, current_mech);
 			}
 
+			$scope.resetAllocations = function() {
+				current_mech.clearCriticalAllocationTable();
+				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				update_step_6_items($scope, current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+			}
+
 			$scope.updateCrticialController = {
 				accept: function (sourceItemHandleScope, destSortableScope) {
 					//console.log("unallocatedControl - accept");
