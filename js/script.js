@@ -113,10 +113,12 @@ angular.module('baseApp').controller(
 function update_mech_status_bar_and_tro($scope, $translate, current_mech) {
 	$translate(
 		[
-			'BM_REMAINING_TONS', 'BM_UNALLOCATED_ARMOR'
+			'BM_REMAINING_TONS', 'BM_UNALLOCATED_ARMOR', 'BM_UNALLOCATED_CRITS',
 		]
 	).then(function (translation) {
-		$scope.mech_status_bar = "<strong>" + translation.BM_REMAINING_TONS + "</strong>: " + current_mech.getRemainingTonnage() + " | <strong>" + translation.BM_UNALLOCATED_ARMOR + "</strong>: " + current_mech.getUnallocatedArmor();
+		$scope.mech_status_bar = "<strong>" + translation.BM_REMAINING_TONS + "</strong>: " + current_mech.getRemainingTonnage();
+		$scope.mech_status_bar += " | <strong>" + translation.BM_UNALLOCATED_ARMOR + "</strong>: " + current_mech.getUnallocatedArmor();
+		$scope.mech_status_bar += " | <strong>" + translation.BM_UNALLOCATED_CRITS + "</strong>: " + current_mech.getUnallocatedCritCount();
 
 		$scope.mech_summary_html = current_mech.makeTROHTML();
 	});
@@ -4285,6 +4287,10 @@ Mech.prototype.setAdditionalHeatSinks = function(newValue) {
 	return this.additional_heat_sinks;
 };
 
+Mech.prototype.getUnallocatedCritCount = function() {
+	return this.unallocatedCriticals.length;
+}
+
 Mech.prototype.getInstalledEquipment = function() {
 	return this.equipmentList;
 };
@@ -5518,6 +5524,7 @@ available_languages.push ({
 
 		BM_REMAINING_TONS: "Remaining Tons",
 		BM_UNALLOCATED_ARMOR: "Unallocated Armor",
+		BM_UNALLOCATED_CRITS: "Unallocated Criticals",
 
 		BM_STEP1_TITLE: "Step 1",
 		BM_STEP1_DESC: "Design the Chassis",

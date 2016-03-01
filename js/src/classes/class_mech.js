@@ -2055,6 +2055,10 @@ Mech.prototype.setAdditionalHeatSinks = function(newValue) {
 	return this.additional_heat_sinks;
 };
 
+Mech.prototype.getUnallocatedCritCount = function() {
+	return this.unallocatedCriticals.length;
+}
+
 Mech.prototype.getInstalledEquipment = function() {
 	return this.equipmentList;
 };
