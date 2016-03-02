@@ -6044,9 +6044,9 @@ available_languages.push ({
 		TRO_HEAT_SINKS: "Heat Sinks",
 
 		TRO_ARM_ACTUATORS: "Actuators",
-		TRO_LOWER_LEFT: "LL",
+		TRO_LOWER_LEFT: "LLA",
 		TRO_LEFT_HAND: "LH",
-		TRO_LOWER_RIGHT: "LR",
+		TRO_LOWER_RIGHT: "RLA",
 		TRO_RIGHT_HAND: "RH",
 		TRO_NO_LOWER_ARM_ACTUATORS: "No lower arm actuators",
 
