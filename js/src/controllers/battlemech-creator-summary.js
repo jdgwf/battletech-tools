@@ -31,6 +31,8 @@ angular.module("baseApp").controller(
 			$scope.mech_bv_calc = current_mech.getBVCalcHTML();
 			$scope.mech_as_calc = current_mech.getASCalcHTML();
 
+
+
 		}
 	]
 );

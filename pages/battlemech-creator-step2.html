@@ -11,6 +11,7 @@
 		<div class="row">
 			<div class="column medium-12 large-8">
 				<h3 ng-bind-html="h3_title">Step 2</h3>
+				<p class="dev-note">I'll add options for XL engines, etc later. Everything here works like butter.</p>
 				<label>
 					<span translate="BM_STEP2_WALKING_MP">Walking mp</span>:
 					<select ng-change="update_mech_walking()" ng-options="option.name for option in mech_walking.availableOptions track by option.id" ng-model="mech_walking.selectedOption">

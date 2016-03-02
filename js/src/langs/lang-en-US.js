@@ -26,13 +26,15 @@ available_languages.push ({
 		BM_PREVIOUS_STEP: "Previous Step",
 		BM_SUMMARY: "Summary",
 		BM_BACK_TO_WELCOME: "Welcome",
+		BM_EXPORTS: "Exporting and Printing",
+
 
 		BUTTON_HOME_TITLE: "Home",
 		BUTTON_HOME_DESC: "Back to the main screen",
 
 		BM_INTRO_TITLE: "Welcome",
 		BM_INTRO_DESC: "",
-		BM_INTRO_TEXT: "<p>Welcome to a BattleTech 'mech builder.</p><p>This tool attempts to closely follow the steps in the BattleTech tech manual and the steps in that book should be referenced during 'mech creation</p>",
+		BM_INTRO_TEXT: "<p>Welcome to a BattleTech 'mech builder.</p><p>This tool attempts to closely follow the steps in the <a href='http://bg.battletech.com/?wpsc-product=1095-2'>BattleTech TechManual</a> and the steps in that book should be referenced during 'mech creation</p>",
 
 		BM_TONS: "tons",
 		BM_TON: "ton",
@@ -104,6 +106,14 @@ available_languages.push ({
 		BM_SUMMARY_BV_CALC: "Battle Value Calculations",
 		BM_SUMMARY_AS_CALC: "Alpha Strike Calculations",
 
+
+		BM_EXPORTS_TITLE: "Exports",
+		BM_EXPORTS_DESC: "",
+		BM_EXPORTS_OUTPUT: "Exporting and Printing",
+		BM_EXPORTS_EXPORT_RECORD_SHEET: "Export Record Sheet",
+		BM_EXPORTS_EXPORT_TRO: "Export TRO",
+		BM_EXPORTS_EXPORT_FULL: "Export Both",
+
 		TRO_TYPE: "Type",
 
 		TRO_TECHNOLOGY_BASE: "Technology Base",
@@ -119,11 +129,20 @@ available_languages.push ({
 		TRO_NOT_AVAILABLE: "n/a",
 
 		TRO_INTERNAL_STRUCTURE: "Internal Structure",
+		TRO_INTERNAL: "Internal",  // separate lines
+		TRO_STRUCTURE: "Structure", // separate lines
 		TRO_ENGINE: "Engine",
 		TRO_WALKING: "Walking",
 		TRO_RUNNING: "Running",
 		TRO_JUMPING: "Jumping",
 		TRO_HEAT_SINKS: "Heat Sinks",
+
+		TRO_ARM_ACTUATORS: "Actuators",
+		TRO_LOWER_LEFT: "LL",
+		TRO_LEFT_HAND: "LH",
+		TRO_LOWER_RIGHT: "LR",
+		TRO_RIGHT_HAND: "RH",
+		TRO_NO_LOWER_ARM_ACTUATORS: "No lower arm actuators",
 
 		TRO_GYRO: "Gyro",
 		TRO_COCKPIT: "Cockpit",
@@ -133,6 +152,8 @@ available_languages.push ({
 
 		TRO_ARMOR_IS: "Internal Structure",
 		TRO_ARMOR_VALUE: "Armor Value",
+		TRO_ARMOR: "Armor", // split into 2 lines
+		TRO_VALUE: "Value", // 2nd line
 
 		TRO_ARMOR_HD: "Head",
 		TRO_ARMOR_CT: "Center Torso",
@@ -157,6 +178,8 @@ available_languages.push ({
 		TRO_ARMOR_LRL: "Left Rear Leg",
 
 		TRO_WEAPONS_AND_AMMO: "Weapons<br />and Ammo",
+		TRO_WEAPONS: "Weapons",
+		TRO_AND_AMMO: "and Ammo",
 		TRO_LOCATION: "Location",
 		TRO_CRITICAL: "Critical",
 

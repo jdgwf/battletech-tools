@@ -16,6 +16,7 @@ angular.module("baseApp").controller(
 			$scope.button_step5_current = false;
 			$scope.button_step6_current = false;
 			$scope.button_summary_current = false;
+			$scope.button_exports_current = false;
 
 			if( $route.current.originalPath == "/battlemech-creator/") {
 				$scope.button_welcome_current = true;
@@ -33,6 +34,8 @@ angular.module("baseApp").controller(
 				$scope.button_step6_current = true;
 			} else if( $route.current.originalPath == "/battlemech-creator-summary/") {
 				$scope.button_summary_current = true;
+			} else if( $route.current.originalPath == "/battlemech-creator-exports/") {
+				$scope.button_exports_current = true;
 			}
 
 		}

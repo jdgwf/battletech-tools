@@ -1,0 +1,29 @@
+<div class="row">
+	<div class="column small-12 medium-4 large-2">
+		<div ng-include="'pages/battlemech-creator-sidebar.html'"></div>
+	</div>
+	<div class="column small-12 medium-8 large-10">
+
+		<div class="row">
+			<div class="column small-12 ">
+				<h3 translate="BM_EXPORTS_OUTPUT">Output</h3>
+				<p class="dev-note">Also a work in progress.... right now the TRO Export is the only thing remotely working.</p>
+				<p class="dev-note">Remember that the PDF generation here is all on the client's computer. Nothing here (with the exception of the initial HTML, CSS and JS loading) is using server processing power. No personal or user information is stored anywhere except for the client's browser.</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="column small-12 medium-v large-4">
+				<button class="button expanded radius primary" ng-click="makeRecordSheet()" translate="BM_EXPORTS_EXPORT_RECORD_SHEET">Record Sheet</button>
+			</div>
+			<div class="column small-12 medium-v large-4">
+				<button class="button expanded radius primary" ng-click="makeTROSheet()" translate="BM_EXPORTS_EXPORT_TRO">TRO</button>
+			</div>
+			<div class="column small-12 medium-v large-4">
+				<button class="button expanded radius primary" ng-click="makeCombinedSheet()" translate="BM_EXPORTS_EXPORT_FULL">Full Print Out</button>
+			</div>
+		</div>
+
+
+		<a class="button primary radius previous-button" href="#/battlemech-creator-summary/" translate="BM_SUMMARY">Last Step</a>
+	</div>
+</div>

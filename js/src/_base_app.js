@@ -1,5 +1,7 @@
 var available_languages = [];
 
+var appVersion = "0.01Alpha";
+
 baseApp = angular.module(
 	'baseApp',
 	['ngRoute', 'ngResource', 'ngSanitize','pascalprecht.translate', 'as.sortable'],
@@ -83,7 +85,11 @@ baseApp = angular.module(
 				templateUrl : 'pages/battlemech-creator-summary.html',
 				controller  : 'battlemechCreatorControllerSummary'
 			})
-
+			// route for the battlemech creator page
+			.when('/battlemech-creator-exports/', {
+				templateUrl : 'pages/battlemech-creator-exports.html',
+				controller  : 'battlemechCreatorControllerExports'
+			})
 
 			;
 		}

@@ -12,7 +12,7 @@
 		<div class="row">
 			<div class="column medium-12 large-8">
 				<h3 ng-bind-html="h3_title">Step 4</h3>
-
+				<p class="dev-note">Everything here works great. A checkbox or dropdown for armor type will be added just below the tonnage of the armor later</p>
 				<label>
 					<span translate="BM_STEP4_ARMOR_WEIGHT">Armor Weight</span>
 					<select ng-change="update_armor_weight()" ng-options="item as item.label for item in armor_weight_list track by item.id" ng-model="selected_armor_weight"></select>

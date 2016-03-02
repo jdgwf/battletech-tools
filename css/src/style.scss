@@ -28,7 +28,13 @@ body {
 			color: $primaryBGHover;
 		}
 	}
-
+	.dev-note {
+		color: #fff;
+		background: $darkenedBG;
+		border-left: 10px green solid;
+		border-radius: 3px;
+		padding: 3px 10px 3px 20px;
+	}
 	.button {
 		background-color: $primaryBG;
 		color: $primaryTextColor;

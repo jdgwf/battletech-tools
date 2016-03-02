@@ -534,14 +534,46 @@ Mech.prototype.makeTROHTML = function() {
 
 	html += "<tr><td colspan=\"1\">" + this.getTranslation("TRO_HEAT_SINKS") + "</td><td class=\"text-center\" colspan=\"2\">" + this.getHeatSinks() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getHeatSinksWeight() + "</td></tr>";
 	html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_GYRO") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getGyroWeight() + "</td></tr>";
+
 	if( this.small_cockpit ) {
 		html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_SMALL_COCKPIT") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getCockpitWeight() + "</td></tr>";
 	} else {
 		html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_COCKPIT") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getCockpitWeight() + "</td></tr>";
 	}
 
-	if( this.getJumpJetWeight() > 0 )
+	if( this.getJumpJetWeight() > 0 ) {
 		html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_JUMP_JETS") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getJumpJetWeight() + "</td></tr>";
+	}
+
+	if( this.mech_type.class == "biped") {
+		html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_ARM_ACTUATORS") + ": ";
+		actuator_html = "";
+
+		if( this.hasLowerArmActuator("ra") )
+			actuator_html += this.getTranslation("TRO_LOWER_RIGHT") + ", ";
+		if( this.hasLowerArmActuator("la") )
+			actuator_html += this.getTranslation("TRO_LOWER_LEFT") + ", ";
+		if( this.hasHandActuator("ra") )
+			actuator_html += this.getTranslation("TRO_RIGHT_HAND") + ", ";
+		if( this.hasHandActuator("la") )
+			actuator_html += this.getTranslation("TRO_LEFT_HAND") + ", ";
+
+		if( actuator_html == "")
+			actuator_html = this.getTranslation("TRO_NO_LOWER_ARM_ACTUATORS");
+		else
+			actuator_html = actuator_html.substring(0, actuator_html.length - 2);
+
+		html += actuator_html;
+		html += "</td></tr>";
+	}
+/*
+	TRO_ACTUATORS: "Actuators",
+		TRO_LOWER_LEFT: "Lower Left",
+		TRO_LEFT_HAND: "Left Hand",
+		TRO_LOWER_RIGHT: "Lower Right",
+		TRO_RIGHT_HAND: "Right Hand",
+*/
+
 
 	html += "<tr><td colspan=\"1\">" + this.getTranslation("TRO_ARMOR_FACTOR") + "</td><td class=\"text-center\" colspan=\"2\">" + this.getTotalArmor() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getArmorWeight() + "</td></tr>";
 
@@ -595,7 +627,7 @@ Mech.prototype.makeTROHTML = function() {
 	html += "</table>";
 	html += "<br />";
 	html += "<table class=\"mech-tro\">";
-	html += "<tr><th class=\"text-left\">" + this.getTranslation("TRO_WEAPONS_AND_AMMO") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_LOCATION") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_CRITICAL") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_TONNAGE") + "</th></tr>";
+	html += "<tr><th class=\"text-left\">" + this.getTranslation("TRO_WEAPONS") + "<br />" + this.getTranslation("TRO_AND_AMMO") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_LOCATION") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_CRITICAL") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_TONNAGE") + "</th></tr>";
 
 	for( eq_count = 0; eq_count < this.equipmentList.length; eq_count++) {
 		if( typeof( this.equipmentList[eq_count].location ) == "undefined" )
