@@ -4,7 +4,7 @@ var appVersion = "0.01Alpha";
 
 baseApp = angular.module(
 	'baseApp',
-	['ngRoute', 'ngResource', 'ngSanitize','pascalprecht.translate', 'as.sortable'],
+	['ngRoute', 'ngResource', 'ngSanitize','pascalprecht.translate', 'as.sortable', 'mm.foundation'],
 	[
 		'$routeProvider',
 		'$translateProvider',

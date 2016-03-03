@@ -1,7 +1,6 @@
 CACHE MANIFEST
-# 2016-03-02:v15
-# Broken Cache on March 3rd oola da fourteenish
-
+# 2016-03-03:v-72
+# Broken Cache on March 3rd - Seven-Two
 CACHE:
 #HTML Files
 pages/battlemech-creator-step5.html
@@ -316,7 +315,7 @@ images/favicons/ms-icon-310x310.png
 js/script.min.js
 js/ng-sortable.min.js
 js/angular-translate.min.js
-js/jspdf.min.js
+js/jspdf.debug.js
 
 # CSS Files
 # Eventually we need to copy foundation and angular js files to local directories for hosted apps

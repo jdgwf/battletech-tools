@@ -4,7 +4,7 @@ var appVersion = "0.01Alpha";
 
 baseApp = angular.module(
 	'baseApp',
-	['ngRoute', 'ngResource', 'ngSanitize','pascalprecht.translate', 'as.sortable'],
+	['ngRoute', 'ngResource', 'ngSanitize','pascalprecht.translate', 'as.sortable', 'mm.foundation'],
 	[
 		'$routeProvider',
 		'$translateProvider',
@@ -132,11 +132,13 @@ function update_mech_status_bar_and_tro($scope, $translate, current_mech) {
 }
 
 function makeBattlemechRecordSheetPDF(battlemech_object) {
+
 	var pdfDoc = new jsPDF('portrait', 'mm', 'letter');
 	pdfDoc.setFontSize( pdfFontSize );
 	pdfDoc = createRecordSheetPDF(pdfDoc, battlemech_object);
 
 	return pdfDoc;
+
 }
 
 function makeBattlemechCombinedPDF(battlemech_object) {
@@ -147,6 +149,7 @@ function makeBattlemechCombinedPDF(battlemech_object) {
 	pdfDoc = createRecordSheetPDF(pdfDoc, battlemech_object);
 
 	return pdfDoc;
+
 }
 
 function makeBattlemechTROPDF(battlemech_object) {
@@ -437,10 +440,43 @@ C-Bill Cost: $0
 
 function createRecordSheetPDF( pdfDoc, battlemech_object ) {
 
-	pdfDoc.text(10, 10, "One small step with a really, really big metal and composite foot.....");
+	pdfDoc = battlemech_record_sheet(pdfDoc);
+	//pdfDoc.text(10, 10, "One small step with a really, really big metal and composite foot.....");
 	pdfDoc.text(10, 25, battlemech_object.getName());
 	pdfDoc = makeFooter(pdfDoc);
 	return pdfDoc;
+
+}
+
+function convertImgToDataURLviaCanvas(url, callback, outputFormat){
+    var img = new Image();
+    img.crossOrigin = 'Anonymous';
+    img.onload = function(){
+        var canvas = document.createElement('CANVAS');
+        var ctx = canvas.getContext('2d');
+        var dataURL;
+        canvas.height = this.height;
+        canvas.width = this.width;
+        ctx.drawImage(this, 0, 0);
+        dataURL = canvas.toDataURL(outputFormat);
+        callback(dataURL);
+        canvas = null;
+    };
+    img.src = url;
+}
+
+function convertFileToDataURLviaFileReader(url, callback){
+    var xhr = new XMLHttpRequest();
+    xhr.responseType = 'blob';
+    xhr.onload = function() {
+        var reader  = new FileReader();
+        reader.onloadend = function () {
+            callback(reader.result);
+        }
+        reader.readAsDataURL(xhr.response);
+    };
+    xhr.open('GET', url);
+    xhr.send();
 }
 
 function makeFooter(pdfDoc) {
@@ -457,6 +493,11 @@ function makeFooter(pdfDoc) {
 
 
 
+function battlemech_record_sheet(jsDoc) {
+
+	return jsDoc;
+
+}
 
 
 
@@ -4692,10 +4733,14 @@ angular.module("baseApp").controller(
 			$scope.mech_bv_calc = current_mech.getBVCalcHTML();
 			$scope.mech_as_calc = current_mech.getASCalcHTML();
 
-
 			$scope.makeRecordSheet = function() {
-				pdf = makeBattlemechRecordSheetPDF(current_mech);
-				pdf.output('dataurlnewwindow');
+				// convertImgToDataURLviaCanvas(
+				// 	'./images/pdf/blank-mech-sheet-smaller.png',
+				// 	function(base64Img) {
+						pdf = makeBattlemechRecordSheetPDF(current_mech);
+						pdf.output('dataurlnewwindow');
+					// }
+				 // );
 			}
 
 			$scope.makeTROSheet = function() {
@@ -4703,8 +4748,13 @@ angular.module("baseApp").controller(
 				pdf.output('dataurlnewwindow');
 			}
 			$scope.makeCombinedSheet = function() {
-				pdf = makeBattlemechCombinedPDF(current_mech);
-				pdf.output('dataurlnewwindow');
+				// convertFileToDataURLviaFileReader(
+				// 	'./images/pdf/blank-mech-sheet.png',
+				// 	function(base64Img) {
+						pdf = makeBattlemechCombinedPDF(current_mech);
+				// 		pdf.output('dataurlnewwindow');
+				// 	}
+				// );
 			}
 		}
 	]

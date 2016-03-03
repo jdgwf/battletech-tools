@@ -7,6 +7,7 @@ $primaryBGHover: #b48a25;
 $primaryTextColor: #fff;
 
 $darkenedBG: rgba( 0, 0, 0, .25);
+$darkenedGreenBG: rgba( 0, 33, 0, .25);
 
 $secondaryBG: #fdfde3;
 $secondaryBGHover: #e4e4ce;
@@ -16,7 +17,7 @@ body {
 	background: $bodyBackground;
 	color: $fontColor;
 	font-family: 'Ubuntu', sans-serif !important;
-	padding: .5rem 0 0 0;
+	padding: .5rem 0 2rem 0;
 
 	a {
 		color: $primaryBG;
@@ -30,10 +31,31 @@ body {
 	}
 	.dev-note {
 		color: #fff;
-		background: $darkenedBG;
-		border-left: 10px green solid;
+		background: $darkenedGreenBG;
 		border-radius: 3px;
-		padding: 3px 10px 3px 20px;
+		margin: 0 0 1rem 0;
+		padding: 3px 10px 3px 45px;
+		overflow: hidden;
+		position: relative;
+		min-height: 90px;
+		&::before {
+			content: 'Dev Note';
+			background: green;
+			color: #fff;
+			transform: rotate(270deg);
+		    position: absolute;
+		    left: 0;
+		    bottom: 0;
+		    padding: 3px 3px 3px 8px;
+			left: -435px;
+			bottom: 435px;
+			width: 900px;
+    		border-bottom-left-radius: 3px;
+    		border-top-left-radius: 3px;
+		}
+	}
+	.dev-note-header {
+
 	}
 	.button {
 		background-color: $primaryBG;
@@ -146,9 +168,16 @@ body {
 	.small-text {
 		font-size: .7em;
 	}
+	.worksheet-area {
+		margin: 0 0 40px 0;
+		overflow: hidden;
+	}
+	.mech-summary {
+		margin: 0 0 40px 0;
+	}
 	.sidebar-menu {
 		list-style: none;
-		margin: 0;
+		margin: 0 0 40px 0;
 		padding: 0;
 		li {
 			a {
@@ -162,9 +191,16 @@ body {
 		}
 	}
 	.mech-status-bar {
-		text-align: right;
-		margin-bottom: 5px;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		background: #111;
+		border-top: 2px solid $primaryBG;
+		text-align: left;
+		padding: 3px 0;
 		font-size: 12px;
+		text-align: right;
 	}
 	.next-button {
 		margin: 2rem 0 0 0;

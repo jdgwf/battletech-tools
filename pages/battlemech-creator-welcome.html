@@ -3,12 +3,44 @@
 		<div ng-include="'pages/battlemech-creator-sidebar.html'"></div>
 	</div>
 	<div class="column small-12 medium-8 large-10">
-		<h3 ng-bind-html="h3_title">Welcome to the Battletech Creator Page!</h3>
-		<p class="dev-note">No 'mech or user information is stored anywhere except for the client's browser. A thousand people could use this at the same time with no lags, delays or slowness unless their computers are very poor.</p>
-		<p class="dev-note">I've tested this app on machines as slow as a <a href="https://www.raspberrypi.org/products/raspberry-pi-2-model-b/">Raspberry Pi 2</a> running an old version of Chromium and the distribution version of <a href="https://wiki.gnome.org/Apps/Web">Epiphany</a> with good performance for that machine. This works <strong><em>fantasticly</em></strong> on an <a href="http://www.apple.com/ipad/">iPad</a>.</p>
+		<div class="worksheet-area">
+			<h3 ng-bind-html="h3_title">Welcome to the Battletech Creator Page!</h3>
+			<div translate="BM_INTRO_TEXT"></div>
 
-		<div translate="BM_INTRO_TEXT"></div>
+			<div class="dev-note">No 'mech or user information is stored anywhere except for the client's browser. A thousand people could use this at the same time with no lags, delays or slowness unless their computers are very poor.</div>
+			<div class="dev-note">I've tested this app on machines as slow as a <a href="https://www.raspberrypi.org/products/raspberry-pi-2-model-b/">Raspberry Pi 2</a> running an old version of Chromium and the distribution version of <a href="https://wiki.gnome.org/Apps/Web">Epiphany</a> with good performance for that machine. This works <strong><em>fantasticly</em></strong> on an <a href="http://www.apple.com/ipad/">iPad</a>.</div>
 
-		<a class="button primary radius next-button" href="#/battlemech-creator-step1/" translate="BM_NEXT_STEP">Next Step</a>
+			<div class="dev-note">
+				<h4>Bugs/Things I am aware of:</h4>
+				<ol>
+					<li><blockquote>Critical allocation issues - mainly the ability to place criticals where one should not</blockquote></li>
+
+					<li><blockquote><strike>No point allocating weapons to locations when a) you have to move them yourself, and b) it updates the location on the weapon automatically when you do</strike></blockquote> - That dropdown was a relic from development and is now removed - thanks! :)</li>
+
+					<li><blockquote>Show remaining tonnage, remaining crits, total heat dissapation, maximum heat generated on every step - things I ALWAYS look at</blockquote> Great idea! I already had a status bar with some of this, but it was at the top of the page and may not have been immediately noticable. I've moved the status bar via CSS to the bottom and made it a bit more prominent on the edit screens. I'll add heat variables later. I intentionally avoided SSW as I'm looking to create a fresh alternative and I'm working straight off the Tech Manual. :)</li>
+
+					<li><blockquote>He'll need more than a simple list of weapons for all BT weaponry; the SSW way (energy/ballistic/etc/etc/ammo (for those weapons mounted) is ideal.</blockquote> - yep I was already aware of this... I had it in my dev note on that page before it was shared :)</li>
+				</ol>
+				<p>
+					It has been suggested that I should place equipment before armor. The vision of this software is to as closely match the canoical method outlined in the Tech Manual.
+				</p>
+			</div>
+
+			<div class="dev-note">
+				<h4>Looking Forward:</h4>
+				<ul>
+					<li>Loading and Saving of 'mechs</li>
+					<li>Import/Export of 'mechs from JSON</li>
+					<li>Calculation of Alpha Strike Card and Values</li>
+					<li>Calculation of Battle Strike Values</li>
+					<li>BB Code Export of TRO (very nicely formatted TRO for sharing on a forum)</li>
+					<li>PDF Export of Record Sheet</li>
+					<li>PDF Export of Alpha Strike Card</li>
+					<li>Move tech up to 3050/3055 then test with Clan tech and all the endo-steel critical allocations</li>
+				</ul>
+			</div>
+
+			<a class="button primary radius next-button" href="#/battlemech-creator-step1/" translate="BM_NEXT_STEP">Next Step</a>
+		</div>
 	</div>
 </div>

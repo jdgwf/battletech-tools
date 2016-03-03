@@ -31,10 +31,14 @@ angular.module("baseApp").controller(
 			$scope.mech_bv_calc = current_mech.getBVCalcHTML();
 			$scope.mech_as_calc = current_mech.getASCalcHTML();
 
-
 			$scope.makeRecordSheet = function() {
-				pdf = makeBattlemechRecordSheetPDF(current_mech);
-				pdf.output('dataurlnewwindow');
+				// convertImgToDataURLviaCanvas(
+				// 	'./images/pdf/blank-mech-sheet-smaller.png',
+				// 	function(base64Img) {
+						pdf = makeBattlemechRecordSheetPDF(current_mech);
+						pdf.output('dataurlnewwindow');
+					// }
+				 // );
 			}
 
 			$scope.makeTROSheet = function() {
@@ -42,8 +46,13 @@ angular.module("baseApp").controller(
 				pdf.output('dataurlnewwindow');
 			}
 			$scope.makeCombinedSheet = function() {
-				pdf = makeBattlemechCombinedPDF(current_mech);
-				pdf.output('dataurlnewwindow');
+				// convertFileToDataURLviaFileReader(
+				// 	'./images/pdf/blank-mech-sheet.png',
+				// 	function(base64Img) {
+						pdf = makeBattlemechCombinedPDF(current_mech);
+				// 		pdf.output('dataurlnewwindow');
+				// 	}
+				// );
 			}
 		}
 	]
