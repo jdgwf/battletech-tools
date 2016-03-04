@@ -165,6 +165,7 @@ body {
 	strong {
 		color: $primaryBG;
 	}
+
 	.small-text {
 		font-size: .7em;
 	}
@@ -192,6 +193,7 @@ body {
 	}
 	.mech-status-bar {
 		position: fixed;
+		z-index: 999;
 		bottom: 0;
 		left: 0;
 		width: 100%;
@@ -331,9 +333,9 @@ body {
 			border-radius: 5px;
 			margin: 2px;
 			font-size: 11px;
-			// &:nth-child(6) {
-			// 	margin-bottom: 17px;
-			// }
+			&:nth-child(7) {
+				margin-top: 17px;
+			}
 			&.critical-placeholder {
 				display: none !important;
 			}
@@ -395,6 +397,12 @@ body {
 				margin: 2px 2px 20px 2px;
 			}
 		}
+	// 	.as-sortable-dragging + li {
+	// 	//	&.critical-height-1 {
+	// 			display: none;
+	// 	//	}
+
+	// 	}
 	}
 }
 .align-bottom {

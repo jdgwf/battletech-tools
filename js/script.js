@@ -114,7 +114,8 @@ angular.module('baseApp').controller(
 		}
 	]
 );
-var pdfFontSize = 12;
+var pdfFontSize = 10;
+var pdfFontFace = "helvetica";
 
 function update_mech_status_bar_and_tro($scope, $translate, current_mech) {
 	$translate(
@@ -183,7 +184,7 @@ C-Bill Cost: $0
 	col5Loc = 90;
 
 	var lineNumber = 1;
-	pdfDoc.setFontType("");
+	pdfDoc.setFont(pdfFontFace, "");
 	pdfDoc.text(10, 10, battlemech_object.getTranslation("TRO_TYPE") + ": " + battlemech_object.getName() );
 	pdfDoc.text(10, 10 + lineHeight , battlemech_object.getTranslation("TRO_TECHNOLOGY_BASE") + ": " + battlemech_object.getTech().name[ battlemech_object.useLang ] );
 	lineNumber++;
@@ -199,12 +200,12 @@ C-Bill Cost: $0
 	lineNumber++;
 	// pdfDoc.text(10, 10 + lineHeight * 7);
 	lineNumber++;
-	pdfDoc.setFontType("bold");
+	pdfDoc.setFont(pdfFontFace, "bold");
 	pdfDoc.text(col1Loc, 10 + lineHeight * lineNumber , battlemech_object.getTranslation("TRO_EQUIPMENT")  );
 	pdfDoc.text(col5Loc, 10 + lineHeight * lineNumber , battlemech_object.getTranslation("TRO_MASS")  );
 	lineNumber++;
 
-	pdfDoc.setFontType("");
+	pdfDoc.setFont(pdfFontFace, "");
 	pdfDoc.text(col1Loc, 10 + lineHeight * lineNumber , battlemech_object.getTranslation("TRO_INTERNAL_STRUCTURE")  );
 	pdfDoc.text(col5Loc, 10 + lineHeight * lineNumber , battlemech_object.getInteralStructureWeight() + "" );
 	lineNumber++;
@@ -275,7 +276,7 @@ C-Bill Cost: $0
 	pdfDoc.text(col5Loc, 10 + lineHeight * lineNumber , battlemech_object.getArmorWeight() + "" );
 	lineNumber++;
 
-	pdfDoc.setFontType("bold");
+	pdfDoc.setFont(pdfFontFace, "bold");
 	// pdfDoc.setFontSize(9);
 	pdfDoc.text(col1Loc, 10 + lineHeight * lineNumber  , ""  );
 	pdfDoc.text(col3Loc, 10 + lineHeight * lineNumber, battlemech_object.getTranslation("TRO_INTERNAL")  );
@@ -286,7 +287,7 @@ C-Bill Cost: $0
 	pdfDoc.text(col3Loc, 10 + lineHeight * lineNumber , battlemech_object.getTranslation("TRO_STRUCTURE")  );
 	pdfDoc.text(col4Loc, 10 + lineHeight * lineNumber , battlemech_object.getTranslation("TRO_VALUE") );
 	lineNumber++;
-	pdfDoc.setFontType("");
+	pdfDoc.setFont(pdfFontFace, "");
 	pdfDoc.text(col3Loc - battlemech_object.getTranslation("TRO_ARMOR_HD").length - 10, 10 + lineHeight * lineNumber , battlemech_object.getTranslation("TRO_ARMOR_HD")  );
 	pdfDoc.text(col3Loc, 10 + lineHeight * lineNumber , "     " + battlemech_object.internalStructure.head  + ""  );
 	pdfDoc.text(col4Loc, 10 + lineHeight * lineNumber , "     " + battlemech_object.armorAllocation.head  + "");
@@ -412,7 +413,7 @@ C-Bill Cost: $0
 	col3Loc = 55;
 	col4Loc = 75;
 	col5Loc = 90;
-	pdfDoc.setFontType("bold");
+	pdfDoc.setFont(pdfFontFace, "bold");
 	pdfDoc.text(col1Loc, 10 + lineHeight * lineNumber , battlemech_object.getTranslation("TRO_WEAPONS")  );
 	lineNumber++;
 	pdfDoc.text(col1Loc, 10 + lineHeight * lineNumber , battlemech_object.getTranslation("TRO_AND_AMMO")  );
@@ -421,7 +422,7 @@ C-Bill Cost: $0
 	pdfDoc.text(col5Loc, 10 + lineHeight * lineNumber , battlemech_object.getTranslation("TRO_TONNAGE"));
 
 	lineNumber++;
-	pdfDoc.setFontType("");
+	pdfDoc.setFont(pdfFontFace, "");
 
 	for( eq_count = 0; eq_count < battlemech_object.equipmentList.length; eq_count++) {
 		pdfDoc.text(col1Loc, 10 + lineHeight * lineNumber , battlemech_object.equipmentList[eq_count].name[ battlemech_object.useLang ]   );
@@ -3416,28 +3417,47 @@ Mech.prototype._calcCriticals = function() {
 		this._addCriticalItem( "life-support", "Life Support", 1, "hd", 5);
 	}
 
-	// Left Arm Components
-	this._addCriticalItem( "shoulder", "Shoulder", 1, "la", 0);
-	this._addCriticalItem( "hand-actuator", "Upper Arm Actuator", 1, "la", 1);
-	if( this.hasLowerArmActuator("la") ) {
-		this._addCriticalItem( "lower-arm-actuator", "Lower Arm Actuator", 1, "la", 2);
-		if( this.hasHandActuator("la") ) {
+	if( this.mech_type.class.toLowerCase() == "quad") {
+		// quad
+		// Left Leg Components
+		this._addCriticalItem( "hip", "Hip", 1, "ra", 0);
+		this._addCriticalItem( "upper-leg-actuator", "Upper Leg Actuator", 1, "ra", 1);
+		this._addCriticalItem( "lower-leg-actuator", "Lower Leg Actuator", 1, "ra", 2);
+		this._addCriticalItem( "foot-actuator", "Foot Actuator", 1, "ra", 3);
 
-			this._addCriticalItem( "hand-actuator", "Hand Actuator", 1, "la", 3);
+		// Right Leg Components
+		this._addCriticalItem( "hip", "Hip", 1, "la", 0);
+		this._addCriticalItem( "upper-leg-actuator", "Upper Leg Actuator", 1, "la", 1);
+		this._addCriticalItem( "lower-leg-actuator", "Lower Leg Actuator", 1, "la", 2);
+		this._addCriticalItem( "foot-actuator", "Foot Actuator", 1, "la", 3);
+
+	} else {
+		// biped
+		// Left Arm Components
+		this._addCriticalItem( "shoulder", "Shoulder", 1, "la", 0);
+		this._addCriticalItem( "hand-actuator", "Upper Arm Actuator", 1, "la", 1);
+		if( this.hasLowerArmActuator("la") ) {
+			this._addCriticalItem( "lower-arm-actuator", "Lower Arm Actuator", 1, "la", 2);
+			if( this.hasHandActuator("la") ) {
+
+				this._addCriticalItem( "hand-actuator", "Hand Actuator", 1, "la", 3);
+			}
+		}
+
+
+		// Right Arm Components
+		this._addCriticalItem( "shoulder", "Shoulder", 1, "ra", 0);
+		this._addCriticalItem( "hand-actuator", "Upper Arm Actuator", 1, "ra", 1);
+		if( this.hasLowerArmActuator("ra") ) {
+			this._addCriticalItem( "lower-arm-actuator", "Lower Arm Actuator", 1, "ra", 2);
+			if( this.hasHandActuator("ra") ) {
+
+				this._addCriticalItem( "hand-actuator", "Hand Actuator", 1, "ra", 3);
+			}
 		}
 	}
 
 
-	// Right Arm Components
-	this._addCriticalItem( "shoulder", "Shoulder", 1, "ra", 0);
-	this._addCriticalItem( "hand-actuator", "Upper Arm Actuator", 1, "ra", 1);
-	if( this.hasLowerArmActuator("ra") ) {
-		this._addCriticalItem( "lower-arm-actuator", "Lower Arm Actuator", 1, "ra", 2);
-		if( this.hasHandActuator("ra") ) {
-
-			this._addCriticalItem( "hand-actuator", "Hand Actuator", 1, "ra", 3);
-		}
-	}
 
 	// Engine
 	if( this.engineType.criticals[ this.getTech().tag ].ct > 3 ) {
@@ -3713,6 +3733,51 @@ Mech.prototype._assignItemToArea = function( area_array, new_item, critical_coun
 	}
 
 	return false;
+}
+
+
+Mech.prototype.canBeAssignedToArea = function( area_array, new_item, critical_count, slot_number ) {
+
+	if( typeof(slot_number) == "undefined" || slot_number === null) {
+		// place anywhere available
+		for( array_count = 0; array_count < area_array.length; array_count++) {
+			if(area_array[array_count] == null ) {
+				if( this._isNextXCritsAvailable( area_array, critical_count - 1, array_count + 1) ) {
+					return true;
+				}
+			}
+		}
+	} else {
+		// at specified slot
+		if(area_array[slot_number] == null ) {
+			if( this._isNextXCritsAvailable( area_array, critical_count - 1, slot_number + 1) ) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+Mech.prototype.trimCriticals = function() {
+	this.criticals.head = this.criticals.head.slice(0, 6);
+
+	this.criticals.centerTorso = this.criticals.centerTorso.slice(0, 12);
+	this.criticals.leftTorso = this.criticals.leftTorso.slice(0, 12);
+	this.criticals.rightTorso = this.criticals.rightTorso.slice(0, 12);
+
+
+
+	this.criticals.rightLeg = this.criticals.rightLeg.slice(0, 6);
+	this.criticals.leftLeg = this.criticals.leftLeg.slice(0, 6);
+
+	if( this.mech_type.class.toLowerCase() == "quad") {
+		this.criticals.rightArm = this.criticals.rightArm.slice(0, 6);
+		this.criticals.leftArm = this.criticals.leftArm.slice(0, 6);
+	} else {
+		this.criticals.rightArm = this.criticals.rightArm.slice(0, 12);
+		this.criticals.leftArm = this.criticals.leftArm.slice(0, 12);
+	}
 }
 
 Mech.prototype.getHeatSinksType = function() {
@@ -4674,6 +4739,19 @@ Mech.prototype.clearHeatSinkCriticals = function() {
 	this._calc();
 };
 
+Mech.prototype.clearArmCriticalAllocationTable = function() {
+	for( alloc_c = this.criticalAllocationTable.length; alloc_c >= 0; alloc_c--) {
+		if(
+			this.criticalAllocationTable[alloc_c] && this.criticalAllocationTable[alloc_c].loc == "ra"
+				||
+			this.criticalAllocationTable[alloc_c] && this.criticalAllocationTable[alloc_c].loc == "la"
+		) {
+			this.criticalAllocationTable.splice(alloc_c, 1);
+		}
+	}
+	this._calc();
+}
+
 Mech.prototype.clearCriticalAllocationTable = function() {
 	this.criticalAllocationTable = Array();
 	this._calc();
@@ -4882,6 +4960,8 @@ angular.module("baseApp").controller(
 
 			$scope.update_mech_type = function() {
 				current_mech.setMechType( $scope.mech_type.selectedOption.id );
+				// Remove any assigned criticals in the arms...
+				current_mech.clearArmCriticalAllocationTable();
 				localStorage["tmp.current_mech"] = current_mech.exportJSON();
 
 				update_mech_status_bar_and_tro($scope, $translate, current_mech);
@@ -5656,6 +5736,36 @@ angular.module("baseApp").controller(
 
 			update_step_6_items($scope, current_mech);
 
+			$translate(
+				[
+					'TRO_ARMOR_HD', 'TRO_ARMOR_CT', 'TRO_ARMOR_RT', 'TRO_ARMOR_LT',
+					'TRO_ARMOR_RA', 'TRO_ARMOR_LA', 'TRO_ARMOR_RL', 'TRO_ARMOR_LL',
+					'TRO_ARMOR_RFL', 'TRO_ARMOR_LFL', 'TRO_ARMOR_RRL', 'TRO_ARMOR_LRL'
+				]
+			).then(function (translation) {
+
+				$scope.label_head = translation.TRO_ARMOR_HD;
+				$scope.label_center_torso = translation.TRO_ARMOR_CT;
+				$scope.label_right_torso = translation.TRO_ARMOR_RT;
+				$scope.label_left_torso = translation.TRO_ARMOR_LT;
+
+				if( current_mech.mech_type.class.toLowerCase() == "quad") {
+					$scope.battlemech_is_quad = true;
+					$scope.label_right_arm = translation.TRO_ARMOR_RFL;
+					$scope.label_left_arm = translation.TRO_ARMOR_LFL;
+					$scope.label_right_leg = translation.TRO_ARMOR_RRL;
+					$scope.label_left_leg = translation.TRO_ARMOR_LRL;
+				} else {
+					$scope.battlemech_is_quad = false;
+					$scope.label_right_arm = translation.TRO_ARMOR_RA;
+					$scope.label_left_arm = translation.TRO_ARMOR_LA;
+					$scope.label_right_leg = translation.TRO_ARMOR_RL;
+					$scope.label_left_leg = translation.TRO_ARMOR_LL;
+				}
+
+			});
+
+
 			// make tro for sidebar
 			$scope.clickLowerRightArmActuator = function() {
 				if( $scope.has_ra_lower_arm_actuator )
@@ -5704,31 +5814,91 @@ angular.module("baseApp").controller(
 
 			$scope.resetAllocations = function() {
 				current_mech.clearCriticalAllocationTable();
+				current_mech._calc();
 				localStorage["tmp.current_mech"] = current_mech.exportJSON();
 				update_step_6_items($scope, current_mech);
 				update_mech_status_bar_and_tro($scope, $translate, current_mech);
 			}
 
-			$scope.updateCrticialController = {
-				accept: function (sourceItemHandleScope, destSortableScope) {
-					//console.log("unallocatedControl - accept");
-					return true;
-				},	//override to determine drag is allowed or not. default is true.
-				itemMoved: function (event) {
-					//console.log(event);
-					current_mech.updateCriticalAllocationTable();
-					localStorage["tmp.current_mech"] = current_mech.exportJSON();
-					current_mech._calc();
-					update_step_6_items($scope, current_mech);
-					update_mech_status_bar_and_tro($scope, $translate, current_mech);
+			$scope.updateCriticialController = {
+				accept: function (sourceItemHandleScope, destSortableScope, destItemScope) {
+					// console.log("sourceItemHandleScope", sourceItemHandleScope);
+					// console.log("destSortableScope", destSortableScope);
+					// console.log("destItemScope", destItemScope);
+
+					// this should work if I can ever get the destination slot number...
+
+					// deny access to 'write over' other items
+					if( typeof(destItemScope) == "undefined" || typeof(destItemScope.modelValue) == "undefined") {
+
+
+
+						if( sourceItemHandleScope && sourceItemHandleScope.modelValue && sourceItemHandleScope.modelValue.tag) {
+							//return current_mech.canBeAssignedToArea(
+							//	destSortableScope.modelValue,
+							//	sourceItemHandleScope.modelValue,
+							//	sourceItemHandleScope.modelValue.crits,
+							//	slot_number
+							//);
+							can_be_assigned = true;
+						//	console.log( sourceItemHandleScope.modelValue.tag );
+							if ( sourceItemHandleScope.modelValue.tag == "jj-standard" || sourceItemHandleScope.modelValue.tag == "jj-enhanced"  ) {
+								// Jump Jets can only be put on Torsos and Legs
+								if(
+								 	destSortableScope.element[0].classList.contains("location-lt")
+									 	||
+								 	destSortableScope.element[0].classList.contains("location-rt")
+									 	||
+								 	destSortableScope.element[0].classList.contains("location-ct")
+								 		||
+								 	destSortableScope.element[0].classList.contains("location-ll")
+								 		||
+								 	destSortableScope.element[0].classList.contains("location-rl")
+								) {
+									// Yep, user put it in the right place.
+								//console.log( "accept", "Good placement of JJ");
+								 	return can_be_assigned;
+								} else {
+									// DENIED This mech is not Iron Man.
+									//console.log( "accept", "DENIED This mech is not Iron Man.");
+								 	return false;
+								}
+							} else {
+								// Not a jump jet...
+								//console.log( "accept", "Not a jump jet");
+								return can_be_assigned;
+							}
+						} else {
+							// empty item - modelValue disappears after being moved more than once.
+							//console.log( "accept", "Empty Item.");
+							return true;
+						}
+					} else {
+						// deny "placing over" existing items
+						return true;
+					}
+					//return true;
 				},
-				orderChanged: function(event) {
+				itemMoved: function (eventObj) {
+					//console.log("moving it...");
 					current_mech.updateCriticalAllocationTable();
-					localStorage["tmp.current_mech"] = current_mech.exportJSON();
 					current_mech._calc();
+					localStorage["tmp.current_mech"] = current_mech.exportJSON();
+
 					update_step_6_items($scope, current_mech);
 					update_mech_status_bar_and_tro($scope, $translate, current_mech);
-					return false;
+					return true;
+
+				},
+				orderChanged: function(eventObj) {
+					current_mech.updateCriticalAllocationTable();
+					current_mech._calc();
+					localStorage["tmp.current_mech"] = current_mech.exportJSON();
+
+					update_step_6_items($scope, current_mech);
+					update_mech_status_bar_and_tro($scope, $translate, current_mech);
+					return true;
+
 				},
 				//containment: '#board'//optional param.
 				//clone: true, //optional param for clone feature.
@@ -5745,6 +5915,7 @@ function update_step_6_items($scope, current_mech) {
 	$scope.has_la_lower_arm_actuator = current_mech.hasLowerArmActuator("la");
 	$scope.has_ra_lower_arm_actuator = current_mech.hasLowerArmActuator("ra");
 
+	current_mech.trimCriticals();
 
 	$scope.battlemech_head = current_mech.criticals.head;
 
@@ -5763,6 +5934,7 @@ function update_step_6_items($scope, current_mech) {
 	$scope.battlemech_right_torso = current_mech.criticals.rightTorso;
 
 	$scope.battlemech_unallocated_items = current_mech.unallocatedCriticals;
+	console.log( $scope.battlemech_right_arm );
 }
 
 

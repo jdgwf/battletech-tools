@@ -28,6 +28,36 @@ angular.module("baseApp").controller(
 
 			update_step_6_items($scope, current_mech);
 
+			$translate(
+				[
+					'TRO_ARMOR_HD', 'TRO_ARMOR_CT', 'TRO_ARMOR_RT', 'TRO_ARMOR_LT',
+					'TRO_ARMOR_RA', 'TRO_ARMOR_LA', 'TRO_ARMOR_RL', 'TRO_ARMOR_LL',
+					'TRO_ARMOR_RFL', 'TRO_ARMOR_LFL', 'TRO_ARMOR_RRL', 'TRO_ARMOR_LRL'
+				]
+			).then(function (translation) {
+
+				$scope.label_head = translation.TRO_ARMOR_HD;
+				$scope.label_center_torso = translation.TRO_ARMOR_CT;
+				$scope.label_right_torso = translation.TRO_ARMOR_RT;
+				$scope.label_left_torso = translation.TRO_ARMOR_LT;
+
+				if( current_mech.mech_type.class.toLowerCase() == "quad") {
+					$scope.battlemech_is_quad = true;
+					$scope.label_right_arm = translation.TRO_ARMOR_RFL;
+					$scope.label_left_arm = translation.TRO_ARMOR_LFL;
+					$scope.label_right_leg = translation.TRO_ARMOR_RRL;
+					$scope.label_left_leg = translation.TRO_ARMOR_LRL;
+				} else {
+					$scope.battlemech_is_quad = false;
+					$scope.label_right_arm = translation.TRO_ARMOR_RA;
+					$scope.label_left_arm = translation.TRO_ARMOR_LA;
+					$scope.label_right_leg = translation.TRO_ARMOR_RL;
+					$scope.label_left_leg = translation.TRO_ARMOR_LL;
+				}
+
+			});
+
+
 			// make tro for sidebar
 			$scope.clickLowerRightArmActuator = function() {
 				if( $scope.has_ra_lower_arm_actuator )
@@ -76,31 +106,91 @@ angular.module("baseApp").controller(
 
 			$scope.resetAllocations = function() {
 				current_mech.clearCriticalAllocationTable();
+				current_mech._calc();
 				localStorage["tmp.current_mech"] = current_mech.exportJSON();
 				update_step_6_items($scope, current_mech);
 				update_mech_status_bar_and_tro($scope, $translate, current_mech);
 			}
 
-			$scope.updateCrticialController = {
-				accept: function (sourceItemHandleScope, destSortableScope) {
-					//console.log("unallocatedControl - accept");
-					return true;
-				},	//override to determine drag is allowed or not. default is true.
-				itemMoved: function (event) {
-					//console.log(event);
-					current_mech.updateCriticalAllocationTable();
-					localStorage["tmp.current_mech"] = current_mech.exportJSON();
-					current_mech._calc();
-					update_step_6_items($scope, current_mech);
-					update_mech_status_bar_and_tro($scope, $translate, current_mech);
+			$scope.updateCriticialController = {
+				accept: function (sourceItemHandleScope, destSortableScope, destItemScope) {
+					// console.log("sourceItemHandleScope", sourceItemHandleScope);
+					// console.log("destSortableScope", destSortableScope);
+					// console.log("destItemScope", destItemScope);
+
+					// this should work if I can ever get the destination slot number...
+
+					// deny access to 'write over' other items
+					if( typeof(destItemScope) == "undefined" || typeof(destItemScope.modelValue) == "undefined") {
+
+
+
+						if( sourceItemHandleScope && sourceItemHandleScope.modelValue && sourceItemHandleScope.modelValue.tag) {
+							//return current_mech.canBeAssignedToArea(
+							//	destSortableScope.modelValue,
+							//	sourceItemHandleScope.modelValue,
+							//	sourceItemHandleScope.modelValue.crits,
+							//	slot_number
+							//);
+							can_be_assigned = true;
+						//	console.log( sourceItemHandleScope.modelValue.tag );
+							if ( sourceItemHandleScope.modelValue.tag == "jj-standard" || sourceItemHandleScope.modelValue.tag == "jj-enhanced"  ) {
+								// Jump Jets can only be put on Torsos and Legs
+								if(
+								 	destSortableScope.element[0].classList.contains("location-lt")
+									 	||
+								 	destSortableScope.element[0].classList.contains("location-rt")
+									 	||
+								 	destSortableScope.element[0].classList.contains("location-ct")
+								 		||
+								 	destSortableScope.element[0].classList.contains("location-ll")
+								 		||
+								 	destSortableScope.element[0].classList.contains("location-rl")
+								) {
+									// Yep, user put it in the right place.
+								//console.log( "accept", "Good placement of JJ");
+								 	return can_be_assigned;
+								} else {
+									// DENIED This mech is not Iron Man.
+									//console.log( "accept", "DENIED This mech is not Iron Man.");
+								 	return false;
+								}
+							} else {
+								// Not a jump jet...
+								//console.log( "accept", "Not a jump jet");
+								return can_be_assigned;
+							}
+						} else {
+							// empty item - modelValue disappears after being moved more than once.
+							//console.log( "accept", "Empty Item.");
+							return true;
+						}
+					} else {
+						// deny "placing over" existing items
+						return true;
+					}
+					//return true;
 				},
-				orderChanged: function(event) {
+				itemMoved: function (eventObj) {
+					//console.log("moving it...");
 					current_mech.updateCriticalAllocationTable();
-					localStorage["tmp.current_mech"] = current_mech.exportJSON();
 					current_mech._calc();
+					localStorage["tmp.current_mech"] = current_mech.exportJSON();
+
 					update_step_6_items($scope, current_mech);
 					update_mech_status_bar_and_tro($scope, $translate, current_mech);
-					return false;
+					return true;
+
+				},
+				orderChanged: function(eventObj) {
+					current_mech.updateCriticalAllocationTable();
+					current_mech._calc();
+					localStorage["tmp.current_mech"] = current_mech.exportJSON();
+
+					update_step_6_items($scope, current_mech);
+					update_mech_status_bar_and_tro($scope, $translate, current_mech);
+					return true;
+
 				},
 				//containment: '#board'//optional param.
 				//clone: true, //optional param for clone feature.
@@ -117,6 +207,7 @@ function update_step_6_items($scope, current_mech) {
 	$scope.has_la_lower_arm_actuator = current_mech.hasLowerArmActuator("la");
 	$scope.has_ra_lower_arm_actuator = current_mech.hasLowerArmActuator("ra");
 
+	current_mech.trimCriticals();
 
 	$scope.battlemech_head = current_mech.criticals.head;
 
@@ -135,5 +226,6 @@ function update_step_6_items($scope, current_mech) {
 	$scope.battlemech_right_torso = current_mech.criticals.rightTorso;
 
 	$scope.battlemech_unallocated_items = current_mech.unallocatedCriticals;
+	console.log( $scope.battlemech_right_arm );
 }
 

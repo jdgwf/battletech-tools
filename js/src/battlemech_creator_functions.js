@@ -1,4 +1,5 @@
-var pdfFontSize = 12;
+var pdfFontSize = 10;
+var pdfFontFace = "helvetica";
 
 function update_mech_status_bar_and_tro($scope, $translate, current_mech) {
 	$translate(
@@ -67,7 +68,7 @@ C-Bill Cost: $0
 	col5Loc = 90;
 
 	var lineNumber = 1;
-	pdfDoc.setFontType("");
+	pdfDoc.setFont(pdfFontFace, "");
 	pdfDoc.text(10, 10, battlemech_object.getTranslation("TRO_TYPE") + ": " + battlemech_object.getName() );
 	pdfDoc.text(10, 10 + lineHeight , battlemech_object.getTranslation("TRO_TECHNOLOGY_BASE") + ": " + battlemech_object.getTech().name[ battlemech_object.useLang ] );
 	lineNumber++;
@@ -83,12 +84,12 @@ C-Bill Cost: $0
 	lineNumber++;
 	// pdfDoc.text(10, 10 + lineHeight * 7);
 	lineNumber++;
-	pdfDoc.setFontType("bold");
+	pdfDoc.setFont(pdfFontFace, "bold");
 	pdfDoc.text(col1Loc, 10 + lineHeight * lineNumber , battlemech_object.getTranslation("TRO_EQUIPMENT")  );
 	pdfDoc.text(col5Loc, 10 + lineHeight * lineNumber , battlemech_object.getTranslation("TRO_MASS")  );
 	lineNumber++;
 
-	pdfDoc.setFontType("");
+	pdfDoc.setFont(pdfFontFace, "");
 	pdfDoc.text(col1Loc, 10 + lineHeight * lineNumber , battlemech_object.getTranslation("TRO_INTERNAL_STRUCTURE")  );
 	pdfDoc.text(col5Loc, 10 + lineHeight * lineNumber , battlemech_object.getInteralStructureWeight() + "" );
 	lineNumber++;
@@ -159,7 +160,7 @@ C-Bill Cost: $0
 	pdfDoc.text(col5Loc, 10 + lineHeight * lineNumber , battlemech_object.getArmorWeight() + "" );
 	lineNumber++;
 
-	pdfDoc.setFontType("bold");
+	pdfDoc.setFont(pdfFontFace, "bold");
 	// pdfDoc.setFontSize(9);
 	pdfDoc.text(col1Loc, 10 + lineHeight * lineNumber  , ""  );
 	pdfDoc.text(col3Loc, 10 + lineHeight * lineNumber, battlemech_object.getTranslation("TRO_INTERNAL")  );
@@ -170,7 +171,7 @@ C-Bill Cost: $0
 	pdfDoc.text(col3Loc, 10 + lineHeight * lineNumber , battlemech_object.getTranslation("TRO_STRUCTURE")  );
 	pdfDoc.text(col4Loc, 10 + lineHeight * lineNumber , battlemech_object.getTranslation("TRO_VALUE") );
 	lineNumber++;
-	pdfDoc.setFontType("");
+	pdfDoc.setFont(pdfFontFace, "");
 	pdfDoc.text(col3Loc - battlemech_object.getTranslation("TRO_ARMOR_HD").length - 10, 10 + lineHeight * lineNumber , battlemech_object.getTranslation("TRO_ARMOR_HD")  );
 	pdfDoc.text(col3Loc, 10 + lineHeight * lineNumber , "     " + battlemech_object.internalStructure.head  + ""  );
 	pdfDoc.text(col4Loc, 10 + lineHeight * lineNumber , "     " + battlemech_object.armorAllocation.head  + "");
@@ -296,7 +297,7 @@ C-Bill Cost: $0
 	col3Loc = 55;
 	col4Loc = 75;
 	col5Loc = 90;
-	pdfDoc.setFontType("bold");
+	pdfDoc.setFont(pdfFontFace, "bold");
 	pdfDoc.text(col1Loc, 10 + lineHeight * lineNumber , battlemech_object.getTranslation("TRO_WEAPONS")  );
 	lineNumber++;
 	pdfDoc.text(col1Loc, 10 + lineHeight * lineNumber , battlemech_object.getTranslation("TRO_AND_AMMO")  );
@@ -305,7 +306,7 @@ C-Bill Cost: $0
 	pdfDoc.text(col5Loc, 10 + lineHeight * lineNumber , battlemech_object.getTranslation("TRO_TONNAGE"));
 
 	lineNumber++;
-	pdfDoc.setFontType("");
+	pdfDoc.setFont(pdfFontFace, "");
 
 	for( eq_count = 0; eq_count < battlemech_object.equipmentList.length; eq_count++) {
 		pdfDoc.text(col1Loc, 10 + lineHeight * lineNumber , battlemech_object.equipmentList[eq_count].name[ battlemech_object.useLang ]   );

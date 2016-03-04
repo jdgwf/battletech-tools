@@ -810,28 +810,47 @@ Mech.prototype._calcCriticals = function() {
 		this._addCriticalItem( "life-support", "Life Support", 1, "hd", 5);
 	}
 
-	// Left Arm Components
-	this._addCriticalItem( "shoulder", "Shoulder", 1, "la", 0);
-	this._addCriticalItem( "hand-actuator", "Upper Arm Actuator", 1, "la", 1);
-	if( this.hasLowerArmActuator("la") ) {
-		this._addCriticalItem( "lower-arm-actuator", "Lower Arm Actuator", 1, "la", 2);
-		if( this.hasHandActuator("la") ) {
+	if( this.mech_type.class.toLowerCase() == "quad") {
+		// quad
+		// Left Leg Components
+		this._addCriticalItem( "hip", "Hip", 1, "ra", 0);
+		this._addCriticalItem( "upper-leg-actuator", "Upper Leg Actuator", 1, "ra", 1);
+		this._addCriticalItem( "lower-leg-actuator", "Lower Leg Actuator", 1, "ra", 2);
+		this._addCriticalItem( "foot-actuator", "Foot Actuator", 1, "ra", 3);
 
-			this._addCriticalItem( "hand-actuator", "Hand Actuator", 1, "la", 3);
+		// Right Leg Components
+		this._addCriticalItem( "hip", "Hip", 1, "la", 0);
+		this._addCriticalItem( "upper-leg-actuator", "Upper Leg Actuator", 1, "la", 1);
+		this._addCriticalItem( "lower-leg-actuator", "Lower Leg Actuator", 1, "la", 2);
+		this._addCriticalItem( "foot-actuator", "Foot Actuator", 1, "la", 3);
+
+	} else {
+		// biped
+		// Left Arm Components
+		this._addCriticalItem( "shoulder", "Shoulder", 1, "la", 0);
+		this._addCriticalItem( "hand-actuator", "Upper Arm Actuator", 1, "la", 1);
+		if( this.hasLowerArmActuator("la") ) {
+			this._addCriticalItem( "lower-arm-actuator", "Lower Arm Actuator", 1, "la", 2);
+			if( this.hasHandActuator("la") ) {
+
+				this._addCriticalItem( "hand-actuator", "Hand Actuator", 1, "la", 3);
+			}
+		}
+
+
+		// Right Arm Components
+		this._addCriticalItem( "shoulder", "Shoulder", 1, "ra", 0);
+		this._addCriticalItem( "hand-actuator", "Upper Arm Actuator", 1, "ra", 1);
+		if( this.hasLowerArmActuator("ra") ) {
+			this._addCriticalItem( "lower-arm-actuator", "Lower Arm Actuator", 1, "ra", 2);
+			if( this.hasHandActuator("ra") ) {
+
+				this._addCriticalItem( "hand-actuator", "Hand Actuator", 1, "ra", 3);
+			}
 		}
 	}
 
 
-	// Right Arm Components
-	this._addCriticalItem( "shoulder", "Shoulder", 1, "ra", 0);
-	this._addCriticalItem( "hand-actuator", "Upper Arm Actuator", 1, "ra", 1);
-	if( this.hasLowerArmActuator("ra") ) {
-		this._addCriticalItem( "lower-arm-actuator", "Lower Arm Actuator", 1, "ra", 2);
-		if( this.hasHandActuator("ra") ) {
-
-			this._addCriticalItem( "hand-actuator", "Hand Actuator", 1, "ra", 3);
-		}
-	}
 
 	// Engine
 	if( this.engineType.criticals[ this.getTech().tag ].ct > 3 ) {
@@ -1107,6 +1126,51 @@ Mech.prototype._assignItemToArea = function( area_array, new_item, critical_coun
 	}
 
 	return false;
+}
+
+
+Mech.prototype.canBeAssignedToArea = function( area_array, new_item, critical_count, slot_number ) {
+
+	if( typeof(slot_number) == "undefined" || slot_number === null) {
+		// place anywhere available
+		for( array_count = 0; array_count < area_array.length; array_count++) {
+			if(area_array[array_count] == null ) {
+				if( this._isNextXCritsAvailable( area_array, critical_count - 1, array_count + 1) ) {
+					return true;
+				}
+			}
+		}
+	} else {
+		// at specified slot
+		if(area_array[slot_number] == null ) {
+			if( this._isNextXCritsAvailable( area_array, critical_count - 1, slot_number + 1) ) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+Mech.prototype.trimCriticals = function() {
+	this.criticals.head = this.criticals.head.slice(0, 6);
+
+	this.criticals.centerTorso = this.criticals.centerTorso.slice(0, 12);
+	this.criticals.leftTorso = this.criticals.leftTorso.slice(0, 12);
+	this.criticals.rightTorso = this.criticals.rightTorso.slice(0, 12);
+
+
+
+	this.criticals.rightLeg = this.criticals.rightLeg.slice(0, 6);
+	this.criticals.leftLeg = this.criticals.leftLeg.slice(0, 6);
+
+	if( this.mech_type.class.toLowerCase() == "quad") {
+		this.criticals.rightArm = this.criticals.rightArm.slice(0, 6);
+		this.criticals.leftArm = this.criticals.leftArm.slice(0, 6);
+	} else {
+		this.criticals.rightArm = this.criticals.rightArm.slice(0, 12);
+		this.criticals.leftArm = this.criticals.leftArm.slice(0, 12);
+	}
 }
 
 Mech.prototype.getHeatSinksType = function() {
@@ -2067,6 +2131,19 @@ Mech.prototype.clearHeatSinkCriticals = function() {
 
 	this._calc();
 };
+
+Mech.prototype.clearArmCriticalAllocationTable = function() {
+	for( alloc_c = this.criticalAllocationTable.length; alloc_c >= 0; alloc_c--) {
+		if(
+			this.criticalAllocationTable[alloc_c] && this.criticalAllocationTable[alloc_c].loc == "ra"
+				||
+			this.criticalAllocationTable[alloc_c] && this.criticalAllocationTable[alloc_c].loc == "la"
+		) {
+			this.criticalAllocationTable.splice(alloc_c, 1);
+		}
+	}
+	this._calc();
+}
 
 Mech.prototype.clearCriticalAllocationTable = function() {
 	this.criticalAllocationTable = Array();

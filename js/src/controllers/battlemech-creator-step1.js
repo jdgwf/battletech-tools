@@ -119,6 +119,8 @@ angular.module("baseApp").controller(
 
 			$scope.update_mech_type = function() {
 				current_mech.setMechType( $scope.mech_type.selectedOption.id );
+				// Remove any assigned criticals in the arms...
+				current_mech.clearArmCriticalAllocationTable();
 				localStorage["tmp.current_mech"] = current_mech.exportJSON();
 
 				update_mech_status_bar_and_tro($scope, $translate, current_mech);
