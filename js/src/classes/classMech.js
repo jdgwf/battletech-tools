@@ -626,6 +626,8 @@ Mech.prototype.makeTROHTML = function() {
 	// End Factor Table
 	html += "</table>";
 	html += "<br />";
+	
+	// TODO Weapons and Ammo	
 	html += "<table class=\"mech-tro\">";
 	html += "<tr><th class=\"text-left\">" + this.getTranslation("TRO_WEAPONS") + "<br />" + this.getTranslation("TRO_AND_AMMO") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_LOCATION") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_CRITICAL") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_TONNAGE") + "</th></tr>";
 
@@ -637,8 +639,10 @@ Mech.prototype.makeTROHTML = function() {
 		item_location = this.getLocationAbbr( this.equipmentList[eq_count].location );
 		html += "<tr><td class=\"text-left\">" + this.equipmentList[eq_count].name[ this.useLang ] + "</td><td class=\"text-center\">" + item_location + "</strong></td><td class=\"text-center\">" + this.equipmentList[eq_count].space.battlemech + "</td><td class=\"text-center\">" + this.equipmentList[eq_count].weight + "</td></tr>";
 	}
+	
+	// TODO List Jump Jets Allocations...
 
-	// TODO Weapons and Ammo
+	// END Weapons and Ammo
 	html += "</table>";
 
 	return html;
@@ -798,54 +802,54 @@ Mech.prototype._calcCriticals = function() {
 
 	// Add required components....
 	if( this.small_cockpit ) {
-		this._addCriticalItem( "life-support", "Life Support", 1, "hd", 0);
-		this._addCriticalItem( "sensors", "Sensors", 1, "hd", 1);
-		this._addCriticalItem( "cockpit", "Cockpit", 1, "hd", 2);
-		this._addCriticalItem( "sensors", "Sensors", 1, "hd", 3);
+		this._addCriticalItem( "life-support", this.getTranslation("BM_CRITS_LIFE_SUPPORT"), 1, "hd", 0);
+		this._addCriticalItem( "sensors", this.getTranslation("BM_CRITS_SENSORS"), 1, "hd", 1);
+		this._addCriticalItem( "cockpit", this.getTranslation("BM_CRITS_COCKPIT"), 1, "hd", 2);
+		this._addCriticalItem( "sensors", this.getTranslation("BM_CRITS_SENSORS"), 1, "hd", 3);
 	} else {
-		this._addCriticalItem( "life-support", "Life Support", 1, "hd", 0);
-		this._addCriticalItem( "sensors", "Sensors", 1, "hd", 1);
-		this._addCriticalItem( "cockpit", "Cockpit", 1, "hd", 2);
-		this._addCriticalItem( "sensors", "Sensors", 1, "hd", 4);
-		this._addCriticalItem( "life-support", "Life Support", 1, "hd", 5);
+		this._addCriticalItem( "life-support", this.getTranslation("BM_CRITS_LIFE_SUPPORT"), 1, "hd", 0);
+		this._addCriticalItem( "sensors", this.getTranslation("BM_CRITS_SENSORS"), 1, "hd", 1);
+		this._addCriticalItem( "cockpit", this.getTranslation("BM_CRITS_COCKPIT"), 1, "hd", 2);
+		this._addCriticalItem( "sensors", this.getTranslation("BM_CRITS_SENSORS"), 1, "hd", 4);
+		this._addCriticalItem( "life-support", this.getTranslation("BM_CRITS_LIFE_SUPPORT"), 1, "hd", 5);
 	}
 
 	if( this.mech_type.class.toLowerCase() == "quad") {
 		// quad
 		// Left Leg Components
-		this._addCriticalItem( "hip", "Hip", 1, "ra", 0);
-		this._addCriticalItem( "upper-leg-actuator", "Upper Leg Actuator", 1, "ra", 1);
-		this._addCriticalItem( "lower-leg-actuator", "Lower Leg Actuator", 1, "ra", 2);
-		this._addCriticalItem( "foot-actuator", "Foot Actuator", 1, "ra", 3);
+		this._addCriticalItem( "hip", this.getTranslation("BM_CRITS_ACTUATOR_HIP"), 1, "ra", 0);
+		this._addCriticalItem( "upper-leg-actuator", this.getTranslation("BM_CRITS_ACTUATOR_UPPER_LEG"), 1, "ra", 1);
+		this._addCriticalItem( "lower-leg-actuator", this.getTranslation("BM_CRITS_ACTUATOR_LOWER_LEG"), 1, "ra", 2);
+		this._addCriticalItem( "foot-actuator", this.getTranslation("BM_CRITS_ACTUATOR_FOOT"), 1, "ra", 3);
 
 		// Right Leg Components
-		this._addCriticalItem( "hip", "Hip", 1, "la", 0);
-		this._addCriticalItem( "upper-leg-actuator", "Upper Leg Actuator", 1, "la", 1);
-		this._addCriticalItem( "lower-leg-actuator", "Lower Leg Actuator", 1, "la", 2);
-		this._addCriticalItem( "foot-actuator", "Foot Actuator", 1, "la", 3);
+		this._addCriticalItem( "hip", this.getTranslation("BM_CRITS_ACTUATOR_HIP"), 1, "la", 0);
+		this._addCriticalItem( "upper-leg-actuator", this.getTranslation("BM_CRITS_ACTUATOR_UPPER_LEG"), 1, "la", 1);
+		this._addCriticalItem( "lower-leg-actuator", this.getTranslation("BM_CRITS_ACTUATOR_LOWER_LEG"), 1, "la", 2);
+		this._addCriticalItem( "foot-actuator", this.getTranslation("BM_CRITS_ACTUATOR_FOOT"), 1, "la", 3);
 
 	} else {
 		// biped
 		// Left Arm Components
-		this._addCriticalItem( "shoulder", "Shoulder", 1, "la", 0);
-		this._addCriticalItem( "hand-actuator", "Upper Arm Actuator", 1, "la", 1);
+		this._addCriticalItem( "shoulder", this.getTranslation("BM_CRITS_ACTUATOR_SHOULDER") , 1, "la", 0);
+		this._addCriticalItem( "upper-arm-actuator", this.getTranslation("BM_CRITS_ACTUATOR_UPPER_ARM"), 1, "la", 1);
 		if( this.hasLowerArmActuator("la") ) {
-			this._addCriticalItem( "lower-arm-actuator", "Lower Arm Actuator", 1, "la", 2);
+			this._addCriticalItem( "lower-arm-actuator", this.getTranslation("BM_CRITS_ACTUATOR_LOWER_ARM"), 1, "la", 2);
 			if( this.hasHandActuator("la") ) {
 
-				this._addCriticalItem( "hand-actuator", "Hand Actuator", 1, "la", 3);
+				this._addCriticalItem( "hand-actuator", this.getTranslation("BM_CRITS_ACTUATOR_HAND"), 1, "la", 3);
 			}
 		}
 
 
 		// Right Arm Components
-		this._addCriticalItem( "shoulder", "Shoulder", 1, "ra", 0);
-		this._addCriticalItem( "hand-actuator", "Upper Arm Actuator", 1, "ra", 1);
+		this._addCriticalItem( "shoulder", this.getTranslation("BM_CRITS_ACTUATOR_SHOULDER"), 1, "ra", 0);
+		this._addCriticalItem( "upper-arm-actuator", this.getTranslation("BM_CRITS_ACTUATOR_UPPER_ARM"), 1, "ra", 1);
 		if( this.hasLowerArmActuator("ra") ) {
-			this._addCriticalItem( "lower-arm-actuator", "Lower Arm Actuator", 1, "ra", 2);
+			this._addCriticalItem( "lower-arm-actuator", this.getTranslation("BM_CRITS_ACTUATOR_LOWER_ARM"), 1, "ra", 2);
 			if( this.hasHandActuator("ra") ) {
 
-				this._addCriticalItem( "hand-actuator", "Hand Actuator", 1, "ra", 3);
+				this._addCriticalItem( "hand-actuator", this.getTranslation("BM_CRITS_ACTUATOR_HAND"), 1, "ra", 3);
 			}
 		}
 	}
@@ -895,16 +899,16 @@ Mech.prototype._calcCriticals = function() {
 	}
 
 	// Left Leg Components
-	this._addCriticalItem( "hip", "Hip", 1, "ll", 0);
-	this._addCriticalItem( "upper-leg-actuator", "Upper Leg Actuator", 1, "ll", 1);
-	this._addCriticalItem( "lower-leg-actuator", "Lower Leg Actuator", 1, "ll", 2);
-	this._addCriticalItem( "foot-actuator", "Foot Actuator", 1, "ll", 3);
+	this._addCriticalItem( "hip", this.getTranslation("BM_CRITS_ACTUATOR_HIP"), 1, "ll", 0);
+	this._addCriticalItem( "upper-leg-actuator", this.getTranslation("BM_CRITS_ACTUATOR_UPPER_LEG"), 1, "ll", 1);
+	this._addCriticalItem( "lower-leg-actuator", this.getTranslation("BM_CRITS_ACTUATOR_LOWER_LEG"), 1, "ll", 2);
+	this._addCriticalItem( "foot-actuator", this.getTranslation("BM_CRITS_ACTUATOR_FOOT"), 1, "ll", 3);
 
 	// Right Leg Components
-	this._addCriticalItem( "hip", "Hip", 1, "rl", 0);
-	this._addCriticalItem( "upper-leg-actuator", "Upper Leg Actuator", 1, "rl", 1);
-	this._addCriticalItem( "lower-leg-actuator", "Lower Leg Actuator", 1, "rl", 2);
-	this._addCriticalItem( "foot-actuator", "Foot Actuator", 1, "rl", 3);
+	this._addCriticalItem( "hip", this.getTranslation("BM_CRITS_ACTUATOR_HIP"), 1, "rl", 0);
+	this._addCriticalItem( "upper-leg-actuator", this.getTranslation("BM_CRITS_ACTUATOR_UPPER_LEG"), 1, "rl", 1);
+	this._addCriticalItem( "lower-leg-actuator", this.getTranslation("BM_CRITS_ACTUATOR_LOWER_LEG"), 1, "rl", 2);
+	this._addCriticalItem( "foot-actuator", this.getTranslation("BM_CRITS_ACTUATOR_FOOT"), 1, "rl", 3);
 
 	// Jump Jets
 	jump_move = this.getJumpSpeed();
@@ -934,9 +938,14 @@ Mech.prototype._calcCriticals = function() {
 
 	// Heat Sink Requirements
 	hs_requirements = this.getHeatSinkCriticalRequirements();
+	if( hs_requirements.slots_each > 1 )
+		hs_name = this.getTranslation("BM_CRITS_DOUBLE_HEAT_SINK");
+	else
+		hs_name = this.getTranslation("BM_CRITS_HEAT_SINK");
 	for(var hsc = 0; hsc < hs_requirements.number; hsc++ ) {
+
 		this.unallocatedCriticals.push( {
-			name: "Heat Sink",
+			name: hs_name,
 			tag: "heat-sink",
 			crits: hs_requirements.slots_each,
 			movable: true

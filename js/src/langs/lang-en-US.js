@@ -99,6 +99,9 @@ available_languages.push ({
 
 		BM_STEP6_TITLE: "Step 6",
 		BM_STEP6_DESC: "Complete the record sheet",
+		BM_STEP6_UNALLOCATED_EQUIPMENT: "Unallocated Equipment",
+		BM_STEP6_CRITICAL_TABLE: "Critical Table",
+		BM_STEP6_RESET_ALLOCATIONS: "Reset Allocations",
 
 		BM_SUMMARY_TITLE: "Summary",
 		BM_SUMMARY_DESC: "",
@@ -113,6 +116,21 @@ available_languages.push ({
 		BM_EXPORTS_EXPORT_RECORD_SHEET: "Export Record Sheet",
 		BM_EXPORTS_EXPORT_TRO: "Export TRO",
 		BM_EXPORTS_EXPORT_FULL: "Export Both",
+
+		BM_CRITS_LIFE_SUPPORT: "Life Support",
+		BM_CRITS_HEAT_SINK: "Heat Sink",
+		BM_CRITS_DOUBLE_HEAT_SINK: "Double Heat Sink",
+		BM_CRITS_COCKPIT: "Cockpit",
+		BM_CRITS_SENSORS: "Sensors",
+
+		BM_CRITS_ACTUATOR_SHOULDER: "Shoulder",
+		BM_CRITS_ACTUATOR_UPPER_ARM: "Upper Arm Actuator",
+		BM_CRITS_ACTUATOR_LOWER_ARM: "Lower Arm Actuator",
+		BM_CRITS_ACTUATOR_HAND: "Hand Actuator",
+		BM_CRITS_ACTUATOR_HIP: "Hip",
+		BM_CRITS_ACTUATOR_UPPER_LEG: "Upper Leg Actuator",
+		BM_CRITS_ACTUATOR_LOWER_LEG: "Lower Leg Actuator",
+		BM_CRITS_ACTUATOR_FOOT: "Foot Actuator",
 
 		TRO_TYPE: "Type",
 

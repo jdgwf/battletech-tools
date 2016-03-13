@@ -14,7 +14,7 @@
 					<div class="dev-note">
 						<p><strong>NOTE</strong>: Currently a work in progress. However, this DOES work. There still are some UI annoyances, but if you hold your tongue right allocation works and is persistent!</p>
 						<p><strike>I am aware of the slightly altnernate layout for Quads. I hope to have this layout done soon. (got the backend done, halfway there)</strike> This should be complete now :)</p>
-						<p><strong>Update Mar 3:</strong> I've started work on the drag and drop validation function. Slowly this should not allow you to put things in the wrong places or "lose them" when putting "over" multi-sized items. This is a slow process, but you can't assign jump jets to arms or head anymore at least :)</p>
+						<p><strong>Update Mar 3:</strong> I've started work on the drag and drop validation function. Slowly this should not allow you to put things in the wrong places or "lose them" when putting "over" multi-sized items. This is a slow process (I think the Drag and Drop library I'm using may have a bug when moving items twice before a page reload, but I'm not going to point fingers until I test *my* code more). At least I now have it so that you can't assign jump jets to arms or head anymore</p>
 					</div>
 
 				</div>
@@ -22,7 +22,7 @@
 			<div class="row">
 				<div class="column medium-12 large-4">
 					<fieldset class="fieldset">
-						<legend>Unallocated Equipment</legend>
+						<legend translate="BM_STEP6_UNALLOCATED_EQUIPMENT">Unallocated Equipment</legend>
 
 						<ul class="critical-assignment-container" data-location-"unalloc" data-as-sortable="updateCriticialController" data-ng-model="battlemech_unallocated_items">
 							<li class="critical-height-{{assignment.crits}}" data-as-sortable-item ng-repeat="assignment in battlemech_unallocated_items" ng-include="'pages/battlemech-creator-step6-unallocated-item.html'">
@@ -31,7 +31,7 @@
 
 						<div class="row">
 							<div class="column large-12">
-								<button class="button radius small primary expanded " ng-click="resetAllocations()">Reset Allocations</button>
+								<button class="button radius small primary expanded " ng-click="resetAllocations()" translate="BM_STEP6_RESET_ALLOCATIONS">Reset Allocations</button>
 							</div>
 						</div>
 					</fieldset>
@@ -40,14 +40,14 @@
 				<div class="column large-8">
 					<fieldset class="fieldset">
 
-						<legend>Critical Table</legend>
+						<legend translate="BM_STEP6_CRITICAL_TABLE">Critical Table</legend>
 						<div class="row">
 							<div class="column small-4">
 								<h5 ng-bind="label_left_arm">Left Arm</h5>
 
 								<div ng-hide="battlemech_is_quad">
-									<label><input ng-click="clickLowerLeftArmActuator()" ng-true-value="true" ng-false-value="false" checked="checked" ng-model="has_la_lower_arm_actuator" type="checkbox"> Lower Arm Actuator</label>
-									<label><input ng-click="clickLeftHandActuator()" ng-true-value="true" ng-false-value="false" checked="checked" ng-model="has_la_hand_actuator" type="checkbox"> Hand Actuator</label>
+									<label><input ng-click="clickLowerLeftArmActuator()" ng-true-value="true" ng-false-value="false" checked="checked" ng-model="has_la_lower_arm_actuator" type="checkbox"> <span translate="BM_CRITS_ACTUATOR_LOWER_ARM">Lower Arm Actuator</span></label>
+									<label><input ng-click="clickLeftHandActuator()" ng-true-value="true" ng-false-value="false" checked="checked" ng-model="has_la_hand_actuator" type="checkbox"> <span translate="BM_CRITS_ACTUATOR_HAND">Hand Actuator</span></label>
 								</div>
 
 								<ul data-as-sortable="updateCriticialController" data-ng-model="battlemech_left_arm" class="critical-assignment-container location-la">
@@ -87,8 +87,8 @@
 								<h5 ng-bind="label_right_arm">Right Arm</h5>
 
 								<div ng-hide="battlemech_is_quad">
-									<label><input ng-click="clickLowerRightArmActuator()" ng-true-value="true" ng-false-value="false" checked="checked" ng-model="has_ra_lower_arm_actuator" type="checkbox"> Lower Arm Actuator</label>
-									<label><input ng-click="clickRightHandActuator()" ng-true-value="true" ng-false-value="false" checked="checked" ng-model="has_ra_hand_actuator" type="checkbox"> Hand Actuator</label>
+									<label><input ng-click="clickLowerRightArmActuator()" ng-true-value="true" ng-false-value="false" checked="checked" ng-model="has_ra_lower_arm_actuator" type="checkbox"> <span translate="BM_CRITS_ACTUATOR_LOWER_ARM">Lower Arm Actuator</span></label>
+									<label><input ng-click="clickRightHandActuator()" ng-true-value="true" ng-false-value="false" checked="checked" ng-model="has_ra_hand_actuator" type="checkbox"> <span translate="BM_CRITS_ACTUATOR_HAND">Hand Actuator</span></label>
 								</div>
 								<ul data-as-sortable="updateCriticialController" data-ng-model="battlemech_right_arm" class="critical-assignment-container location-ra">
 									<li class="critical-height-{{assignment.crits}}" ng-class="{'critical-placeholder': assignment.placeholder}" data-as-sortable-item ng-repeat="assignment in battlemech_right_arm track by $index" ng-include="'pages/battlemech-creator-step6-critical-item.html'">
