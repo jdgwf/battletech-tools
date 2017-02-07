@@ -2309,11 +2309,12 @@ function asGroup () {
 
 	this.getActiveMembers = function() {
 		this.activeMembers = 0;
+		this.groupPoints = 0;
 		for( var memCount = 0; memCount < this.members.length; memCount++ ) {
 			this.members[memCount].calcCurrentVals();
 			if( this.members[memCount].active )
 				this.activeMembers++;
-			this.groupPoints += this.members[memCount].currentPoints;
+			this.groupPoints += this.members[memCount].currentPoints / 1;
 		}
 
 		this.membersLabel = " (" + this.activeMembers + "/" + this.members.length + ")";
@@ -2461,7 +2462,7 @@ function asMech (incomingMechData) {
 
 			this.currentSkill = 4;
 			this.currentHeat = 0;
-			this.currentPoints = this.basePoints;
+			this.currentPoints = this.basePoints / 1;
 		} else {
 			// Interally Processed Data
 
@@ -5603,8 +5604,8 @@ var asBuilderArray = [
 			}
 		}
 
-		$scope.changeSkillValues = function(indexNumber, newSkillValue) {
-			$scope.currentLance[indexNumber].setSkill( newSkillValue );
+		$scope.changeSkillValues = function(currentLance, indexValue, newSkillValue) {
+			currentLance.members[indexValue].setSkill( newSkillValue );
 			$scope.saveToLS();
 		}
 

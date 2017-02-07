@@ -138,7 +138,7 @@ function asMech (incomingMechData) {
 
 			this.currentSkill = 4;
 			this.currentHeat = 0;
-			this.currentPoints = this.basePoints;
+			this.currentPoints = this.basePoints / 1;
 		} else {
 			// Interally Processed Data
 

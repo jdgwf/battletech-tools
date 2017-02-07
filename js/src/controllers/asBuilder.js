@@ -70,8 +70,8 @@ var asBuilderArray = [
 			}
 		}
 
-		$scope.changeSkillValues = function(indexNumber, newSkillValue) {
-			$scope.currentLance[indexNumber].setSkill( newSkillValue );
+		$scope.changeSkillValues = function(currentLance, indexValue, newSkillValue) {
+			currentLance.members[indexValue].setSkill( newSkillValue );
 			$scope.saveToLS();
 		}
 
