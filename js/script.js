@@ -7571,6 +7571,11 @@ available_languages.push ({
 
 		WELCOME_H3_FORCE_BUILDERS_CORE: 'BattleTech Force Builders',
 
+		GENERAL_SELECT_LANGUAGE: "Select Langage",
+		GENERAL_SETTINGS: "Seetings",
+		GENERAL_CREDITS: 'Credits',
+		GENERAL_COPYRIGHT: 'Copyright',
+		GENERAL_WELCOME: 'Welcome',
 		GENERAL_TECHNOLOGY: 'Technology',
 		GENERAL_TECH: 'Tech',
 		GENERAL_POINTS: 'Points',
