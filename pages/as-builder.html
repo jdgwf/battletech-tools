@@ -1,9 +1,17 @@
 <div ng-include="'pages/global-header.html'"></div>
 
 <div  ng-show="viewingMech != null">
-	<button ng-click="closeViewMech()" class="button primary small pull-right">Close</button>
-	<h3>Viewing Card </h3>
-	<div ng-include="'pages/as-card.html'"></div>
+	<div class="row">
+		<div class="columns medium-12">
+			<fieldset class="fieldset">
+				<legend translate="AS_VIEWING_CARD">Viewing Card </legend>
+				<div class="text-right">
+				<button ng-click="closeViewMech()" class="button primary small" translate="GENERAL_CLOSE">Close</button>
+				</div>
+				<div ng-include="'pages/as-card.html'"></div>
+			</fieldset>
+		</div>
+	</div>
 </div>
 <div class="row" ng-show="viewingMech == null">
 	<div class="columns medium-4">
@@ -34,11 +42,12 @@
 	<div class="show-for-small hide-for-medium hide-for-large columns medium-8">
 		<fieldset class="fieldset">
 			<legend translate="GENERAL_SEARCH_RESULTS">Search Results</legend>
-				<div class="text-right">
+				<div class="float-right">
 					<label><span translate="AS_ADD_TO_GROUP">Add To Group</span>:&nbsp;
 						<select style="display: inline-block;width: auto;paddin" ng-options="item as item.label for item in addToOptions track by item.id" ng-model="addToGroup"></select></select>
 					</label>
 				</div>
+				<div class="text-center"><span translate="AS_RESULTS_PROVIDED_BY_MUL">Search results provided by the Master Unit List</span><br /><a href="http://masterunitlist.info" target="_blank">masterunitlist.info</a></div>
 				<table class="equipment-list">
 					<thead>
 						<tr>
@@ -67,7 +76,7 @@
 		<fieldset class="fieldset">
 			<legend translate="AS_CURRENT_FORCE">Current Force</legend>
 
-			<div class="dev-note">I hate the way this area looks and works. It's really the only <strong>major</strong> part of this apps's section I want to fix.</div>
+
 		<div ng-repeat="currentLance in currentLances track by $index">
 			<fieldset class="fieldset">
 				<legend><span translate="GENERAL_GROUP">Group</span> {{$index +1 }}</legend>
@@ -127,17 +136,33 @@
 			</div>
 			<a class="button primary expanded" ng-click="newGroup()" translate="AS_ADD_NEW_GROUP">Add New Group</a>
 		</div>
+
+			<div class="dev-note">
+				I hate the way this area looks and works (it's better now than it was). It's really the only <strong>major</strong> part of this apps's section I want to fix.
+				<br />
+				<br />Also I'll want to eventually add a "Favorites" for groups which will save a Group
+				into memory. It'll save the MUL ID, Custom Group Name, Custom Unit Designations and Skill
+				 Level for each unit.<br />
+<br />
+				 When a "Favorite" is recalled, it'll pull the latest stats and PVs from the MUL just in case
+				 the stats were updated. Unfortunately I foresee that this will probably take a moment or two.
+<br />
+<br />
+				 Lots of us tend to play with our favorite named units :)
+			</div>
 		</fieldset>
 	</div>
 
 	<div class="show-for-medium columns medium-8">
 		<fieldset class="fieldset">
 			<legend translate="GENERAL_SEARCH_RESULTS">Search Results</legend>
-			<div class="text-right">
+			<div class="float-right">
 				<label><span translate="AS_ADD_TO_GROUP">Add To Group</span>:&nbsp;
 					<select style="display: inline-block;width: auto" ng-options="item as item.label for item in addToOptions track by item.id" ng-model="addToGroup"></select></select>
 				</label>
 			</div>
+			<div class="text-center"><span translate="AS_RESULTS_PROVIDED_BY_MUL">Search results provided by the Master Unit List</span><br /><a href="http://masterunitlist.info" target="_blank">masterunitlist.info</a></div>
+
 			<table class="equipment-list">
 				<thead>
 					<tr>

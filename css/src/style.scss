@@ -270,10 +270,14 @@ body {
 		color: $fontColor;
 		border: 2px solid $primaryBG;
 		margin: 0 0 1rem 0;
+		border-radius: 10px;
+		background: $headerFooterBackground;
 		padding: .5rem 1rem;
 		legend {
-			background: $bodyBackground;
-			color: $primaryBG;
+			background: $primaryBG;
+			border: 2px solid $primaryBG;
+			border-radius: 10px;
+			color: #fff;
 			padding: 0 1rem;
 			font-size: 1.1rem;
 			font-weight: 500;
@@ -380,17 +384,18 @@ body {
 		}
 	}
 	.equipment-list {
-		background: transparent;
+		background: $headerFooterBackground;
 		border: 0 !important;
 		tbody {
-			background: transparent !important;
+			background: $headerFooterBackground;
 			border: 0 !important;
 			tr {
 				padding: 0;
 				margin: 0;
-				background: transparent !important;
+				background: $headerFooterBackground;
 
 				td {
+					background: $headerFooterBackground;
 					padding: 2px;
 					margin: 0;
 					text-align: left;
@@ -401,13 +406,14 @@ body {
 			}
 		}
 		thead {
-			background: transparent !important;
+			background: $headerFooterBackground;
 			border: 0 !important;
 			tr {
 				padding: 0;
 				margin: 0;
-				background: transparent !important;
+				background: $headerFooterBackground;
 				th {
+					background: $headerFooterBackground;
 					padding: 0;
 					margin: 0;
 					color: $primaryBG;

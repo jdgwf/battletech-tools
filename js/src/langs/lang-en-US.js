@@ -24,7 +24,7 @@ available_languages.push ({
 		WELCOME_H3_FORCE_BUILDERS_CORE: 'BattleTech Force Builders',
 
 		GENERAL_SELECT_LANGUAGE: "Select Langage",
-		GENERAL_SETTINGS: "Seetings",
+		GENERAL_SETTINGS: "Settings",
 		GENERAL_CREDITS: 'Credits',
 		GENERAL_COPYRIGHT: 'Copyright',
 		GENERAL_WELCOME: 'Welcome',
@@ -53,6 +53,7 @@ available_languages.push ({
 		GENERAL_INTRODUCTORY: "Introductory",
 		GENERAL_STANDARD: "Standard",
 		GENERAL_ADVANCED: "Advanced",
+		GENERAL_CLOSE: "Close",
 
 		AS_ADD_TO_GROUP: "Add to Group",
 		AS_GROUP_POINTS: "Group Points",
@@ -65,8 +66,10 @@ available_languages.push ({
 		AS_GROUP_EMPTY: "This group is empty",
 		AS_SEARCH_NO_MATCHES: "Sorry, there are no matches with those parameters",
 		AS_PLAY_VIEW: "Play View",
-		AS_CUSTOM_UNIT_NAME: "Custom Unit Designation",
-		AS_CUSTOM_GROUP_NAME: "Custom Star/Lance Designation",
+		AS_CUSTOM_UNIT_NAME: "Custom Unit Name",
+		AS_CUSTOM_GROUP_NAME: "Custom Star/Lance Name",
+		AS_RESULTS_PROVIDED_BY_MUL: "Search results provided by the Master Unit List Website",
+		AS_VIEWING_CARD: "Viewing Card",
 
 		BM_MP_ABBR: "MP",
 
