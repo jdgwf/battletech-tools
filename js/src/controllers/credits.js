@@ -1,5 +1,4 @@
-angular.module("baseApp").controller(
-	"creditsController",
+var creditsArray =
 	[
 		'$rootScope',
 		'$translate',
@@ -11,4 +10,16 @@ angular.module("baseApp").controller(
 			});
 		}
 	]
+;
+
+
+
+angular.module("webApp").controller(
+	"creditsController",
+	creditsArray
+);
+
+angular.module("cordovaApp").controller(
+	"creditsController",
+	creditsArray
 );

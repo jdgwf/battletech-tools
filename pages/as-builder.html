@@ -1,0 +1,141 @@
+<div ng-include="'pages/global-header.html'"></div>
+
+<div  ng-show="viewingMech != null">
+	<button ng-click="closeViewMech()" class="button primary small pull-right">Close</button>
+	<h3>Viewing Card </h3>
+	<div ng-include="'pages/as-card.html'"></div>
+</div>
+<div class="row" ng-show="viewingMech == null">
+	<div class="columns medium-4">
+		<input autocomplete="off" autocorrect="off" placeholder="Search for Unit Name" autocapitalize="off" ng-keyup="searchOnEnter($event)" spellcheck="false" type="text" value="battle" ng-model="currentSearch" />
+		<div class="row">
+			<div class="columns small-6">
+				<h4 class="text-center">Rules</h4>
+
+				<label><input name="rulesFilter" ng-click="setRulesFilter('Introductory')" type="radio" ng-model="rulesFilter" ng-checked="rulesFilter == 'Introductory'" value="" /> Introductory</label>
+				<label><input name="rulesFilter" ng-click="setRulesFilter('Standard')" type="radio" ng-model="rulesFilter" ng-checked="rulesFilter == 'Standard'" value="" /> Standard</label>
+				<label><input name="rulesFilter" ng-click="setRulesFilter('Advanced')" type="radio" ng-model="rulesFilter" ng-checked="rulesFilter == 'Advanced'" value="" /> Advanced</label>
+				<label><input name="rulesFilter" ng-click="setRulesFilter('all')" type="radio" ng-model="rulesFilter" ng-checked="rulesFilter == 'all'" value="" /> All</label>
+			</div>
+			<div class="columns small-6">
+				<h4 class="text-center">Technology</h4>
+
+				<label><input name="techFilter" ng-click="setTechFilter('Inner Sphere')" type="radio" ng-model="techFilter" ng-checked="techFilter == 'Inner Sphere'" value="" /> Inner Sphere</label>
+				<label><input name="techFilter" ng-click="setTechFilter('Clan')" type="radio" ng-model="techFilter" ng-checked="techFilter == 'Clan'" value="" /> Clan</label>
+
+				<label><input name="techFilter" ng-click="setTechFilter('all')" type="radio" ng-model="techFilter" ng-checked="techFilter == 'all'" value="" /> All</label>
+			</div>
+		</div>
+		<button ng-disabled="currentSearch.length < 3" class="button expanded secondary small radius" ng-click="updateMULList()">Search</button>
+
+
+	<div class="show-for-small hide-for-medium hide-for-large columns medium-8">
+		<hr />
+
+		<div class="text-right">
+			<label>Add To Group:&nbsp;
+				<select style="display: inline-block;width: auto;paddin" ng-options="item as item.label for item in addToOptions track by item.id" ng-model="addToGroup"></select></select>
+			</label>
+		</div>
+		<table class="equipment-list">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Rules</th>
+					<th>Tech</th>
+					<th>Points</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="(key, mulObject) in foundMULItems.Units">
+					<td><button ng-click="viewSearchMech($index)" class="button secondary tiny radius"><i class="fa fa-search"></i></button> {{mulObject["Name"]}}
+					</td>
+					<td>{{mulObject["Rules"]}}</td>
+					<td>{{mulObject["Technology"].Name}}</td>
+					<td>{{mulObject["BFPointValue"]}}</td>
+					<td><button ng-click="addToLance($index)" class="button primary tiny">Add</button></td>
+				</tr>
+			</tbody>
+			<div class="text-center" ng-show="foundMULItems.Units.length == 0">Sorry, there are no matches with those parameters.</div>
+		</table>
+	</div>
+
+		<hr />
+
+		<div ng-repeat="currentLance in currentLances track by $index">
+			<button class="button primary tiny pull-right" ng-click="removeGroup($index)" ng-show="currentLances.length > 1">Del</button>
+			<h3>Group {{$index +1 }}</h3>
+			<input type="text" style="width: 100%" placeholder="Custom Lance Designation" ng-model="currentLance.customName" ng-keyup="saveToLS()" />
+			<table class="equipment-list">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Skill</th>
+						<th>Points</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<tr ng-repeat="mulObject in currentLance.members">
+						<td>
+							<button ng-click="viewMech(currentLance, $index)" class="button secondary tiny radius"><i class="fa fa-search"></i></button> {{mulObject.name}}<br />
+							<input type="text" style="width: 100%" placeholder="Custom Designation" ng-model="mulObject.customName" ng-keyup="saveToLS()" />
+
+						</td>
+						<td>
+							<select ng-change="changeSkillValues($index, mulObject.currentSkillString)" ng-model="mulObject.currentSkillString">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+							</select>
+						</td>
+						<td>{{mulObject.currentPoints}}</td>
+						<td><button ng-click="removefFromLance(currentLance, $index)" class="button primary tiny">-</button></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="text-center" ng-show="currentLance.members.length == 0">This group is empty.</div>
+		</div>
+		<div>
+			<a class="button primary expanded" ng-click="newGroup()">Add New Group</a>
+		</div>
+
+	</div>
+
+	<div class="show-for-medium columns medium-8">
+		<div class="text-right">
+			<label>Add To Group:&nbsp;
+				<select style="display: inline-block;width: auto" ng-options="item as item.label for item in addToOptions track by item.id" ng-model="addToGroup"></select></select>
+			</label>
+		</div>
+		<table class="equipment-list">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Rules</th>
+					<th>Tech</th>
+					<th>Points</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<tr ng-repeat="(key, mulObject) in foundMULItems.Units">
+					<td><button ng-click="viewSearchMech($index)" class="button secondary tiny radius"><i class="fa fa-search"></i></button> {{mulObject["Name"]}}</td>
+					<td>{{mulObject["Rules"]}}</td>
+					<td>{{mulObject["Technology"].Name}}</td>
+					<td>{{mulObject["BFPointValue"]}}</td>
+					<td><button ng-click="addToLance($index)" class="button primary tiny">Add</button></td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="text-center" ng-show="foundMULItems.Units.length == 0">Sorry, there are no matches with those parameters.</div>
+	</div>
+</div>

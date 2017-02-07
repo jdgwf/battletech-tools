@@ -2,8 +2,8 @@ var available_languages = [];
 
 var appVersion = "0.01Alpha";
 
-baseApp = angular.module(
-	'baseApp',
+webApp = angular.module(
+	'cordovaApp',
 	['ngRoute', 'ngResource', 'ngSanitize','pascalprecht.translate', 'as.sortable', 'mm.foundation'],
 	[
 		'$routeProvider',
@@ -43,6 +43,9 @@ baseApp = angular.module(
 				controller  : 'creditsController'
 			})
 
+			/*
+			 * BattleMech Creator Page
+			 */
 			// route for the battlemech creator page
 			.when('/battlemech-creator/', {
 				templateUrl : 'pages/battlemech-creator-welcome.html',
@@ -91,13 +94,33 @@ baseApp = angular.module(
 				controller  : 'battlemechCreatorControllerExports'
 			})
 
+			/*
+			 * Alpha Strike Builder/Play Tools
+			 */
+			// route for the home/welcome page
+			.when('/as/', {
+				templateUrl : 'pages/as-builder.html',
+				controller  : 'asBuilderController'
+			})
+
+			.when('/as/play-view', {
+				templateUrl : 'pages/as-play-view.html',
+				controller  : 'asPlayViewController'
+			})
+
+			// route for the credits page
+			.when('/settings', {
+				templateUrl : 'pages/settings.html',
+				controller  : 'settingsController'
+			})
+
 			;
 		}
 	]
 );
 
 
-angular.module('baseApp').controller(
+angular.module('cordovaApp').controller(
 	'select_language',
 	[
 		'$translate',
@@ -114,6 +137,147 @@ angular.module('baseApp').controller(
 		}
 	]
 );
+
+var available_languages = [];
+
+var appVersion = "0.01Alpha";
+
+webApp = angular.module(
+	'webApp',
+	['ngRoute', 'ngResource', 'ngSanitize','pascalprecht.translate', 'as.sortable', 'mm.foundation'],
+	[
+		'$routeProvider',
+		'$translateProvider',
+		function ($routeProvider, $translateProvider, $scope, $http) {
+
+			for( lang_count = 0; lang_count < available_languages.length; lang_count++) {
+				if( available_languages[lang_count].active ) {
+					$translateProvider.translations(
+						available_languages[lang_count].short_code ,
+						available_languages[lang_count].translations
+					);
+				}
+			}
+
+			$translateProvider.useSanitizeValueStrategy('sanitize');
+
+			preferred_language = "en-US";
+			if( localStorage && localStorage["tmp.preferred_language"] ) {
+				preferred_language = localStorage["tmp.preferred_language"];
+			} else {
+				localStorage["tmp.preferred_language"] = "en-US";
+			}
+			$translateProvider.preferredLanguage(preferred_language);
+
+			$routeProvider
+
+			// route for the home/welcome page
+			.when('/', {
+				templateUrl : 'pages/welcome.html',
+				controller  : 'welcomeController'
+			})
+
+			// route for the credits page
+			.when('/credits', {
+				templateUrl : 'pages/credits.html',
+				controller  : 'creditsController'
+			})
+
+			/*
+			 * BattleMech Creator Page
+			 */
+			// route for the battlemech creator page
+			.when('/battlemech-creator/', {
+				templateUrl : 'pages/battlemech-creator-welcome.html',
+				controller  : 'battlemechCreatorControllerWelcome'
+			})
+
+			// route for the battlemech creator page
+			.when('/battlemech-creator-step1/', {
+				templateUrl : 'pages/battlemech-creator-step1.html',
+				controller  : 'battlemechCreatorControllerStep1'
+			})
+
+			// route for the battlemech creator page
+			.when('/battlemech-creator-step2/', {
+				templateUrl : 'pages/battlemech-creator-step2.html',
+				controller  : 'battlemechCreatorControllerStep2'
+			})
+			// route for the battlemech creator page
+			.when('/battlemech-creator-step3/', {
+				templateUrl : 'pages/battlemech-creator-step3.html',
+				controller  : 'battlemechCreatorControllerStep3'
+			})
+			// route for the battlemech creator page
+			.when('/battlemech-creator-step4/', {
+				templateUrl : 'pages/battlemech-creator-step4.html',
+				controller  : 'battlemechCreatorControllerStep4'
+			})
+			// route for the battlemech creator page
+			.when('/battlemech-creator-step5/', {
+				templateUrl : 'pages/battlemech-creator-step5.html',
+				controller  : 'battlemechCreatorControllerStep5'
+			})
+			// route for the battlemech creator page
+			.when('/battlemech-creator-step6/', {
+				templateUrl : 'pages/battlemech-creator-step6.html',
+				controller  : 'battlemechCreatorControllerStep6'
+			})
+			// route for the battlemech creator page
+			.when('/battlemech-creator-summary/', {
+				templateUrl : 'pages/battlemech-creator-summary.html',
+				controller  : 'battlemechCreatorControllerSummary'
+			})
+			// route for the battlemech creator page
+			.when('/battlemech-creator-exports/', {
+				templateUrl : 'pages/battlemech-creator-exports.html',
+				controller  : 'battlemechCreatorControllerExports'
+			})
+
+			/*
+			 * Alpha Strike Builder/Play Tools
+			 */
+			// route for the home/welcome page
+			.when('/as/', {
+				templateUrl : 'pages/as-builder.html',
+				controller  : 'asBuilderController'
+			})
+
+			.when('/as/play-view', {
+				templateUrl : 'pages/as-play-view.html',
+				controller  : 'asPlayViewController'
+			})
+
+			// route for the credits page
+			.when('/settings', {
+				templateUrl : 'pages/settings.html',
+				controller  : 'settingsController'
+			})
+
+			;
+		}
+	]
+);
+
+
+angular.module('webApp').controller(
+	'select_language',
+	[
+		'$translate',
+		'$scope',
+		'$route',
+		function ($translate, $scope, $route) {
+
+			$scope.change_language = function (key) {
+				$translate.use(key);
+				localStorage["tmp.preferred_language"] = key;
+				$route.reload();
+			};
+
+		}
+	]
+);
+
 var pdfFontSize = 10;
 var pdfFontFace = "helvetica";
 
@@ -2132,6 +2296,572 @@ var btTechOptions = Array(
 		}
 	}
 );
+
+function asGroup () {
+
+	this.members = Array();
+
+	this.customName = "";
+
+	this.activeMembers = 0;
+	this.membersLabel = "";
+
+	this.getActiveMembers = function() {
+		this.activeMembers = 0;
+		for( var memCount = 0; memCount < this.members.length; memCount++ ) {
+			this.members[memCount].calcCurrentVals();
+			if( this.members[memCount].active )
+				this.activeMembers++;
+		}
+
+		this.membersLabel = " (" + this.activeMembers + "/" + this.members.length + ")";
+		//console.log( this.membersLevel );
+	}
+}
+
+function asMech (incomingMechData) {
+	this.originalStats = null;
+
+	this.class = "";
+	this.costCR = 0;
+
+
+	this.variant = "";
+	this.name = "";
+	this.dateIntroduced = "";
+	this.era = "";
+
+	this.tro = "";
+
+	this.active = true;
+
+	this.tonnage = 0;
+
+	this.currentSkill = 4;
+	this.type = "BattleMech";
+	this.size = 0;
+	this.tmm = 0;
+
+	this.armor = 0;
+	this.structure = 0;
+
+	this.threshold = 0;
+
+	this.damage = {
+		short: 0,
+		medium: 0,
+		long: 0,
+		extreme: 0
+	};
+
+	this.move = 0;
+
+	this.abilities = "";
+
+	this.overheat = 0;
+	this.role = "";
+
+	this.basePoints = 0;
+	this.currentPoints = 0;
+	this.currentHeat = 0;
+
+	this.currentDamage = 0;
+
+	this.currentArmor = Array();
+	this.currentStructure = Array();
+	this.engineHits = Array();
+	this.fireControlHits = Array();
+	this.mpControlHits = Array();
+	this.weaponHits = Array();
+
+	this.customName = "";
+
+
+	if( typeof(incomingMechData) != "undefined" && incomingMechData != null ) {
+
+		if( typeof(incomingMechData["BFPointValue"]) != "undefined") {
+			// RAW Data From MUL
+
+			this.class = incomingMechData["Marauder"];
+			this.costCR = incomingMechData["Cost"] / 1;
+
+
+			this.variant = incomingMechData["Variant"];
+			this.name = incomingMechData["Name"];
+			this.dateIntroduced = incomingMechData["DateIntroduced"];
+			//this.era = incomingMechData["XXXX"];
+
+			this.tro = incomingMechData["TRO"];
+
+			this.tonnage = incomingMechData["Tonnage"] / 1;
+
+			this.role = incomingMechData["Role"]["Name"];
+
+			this.type = incomingMechData["BFType"];
+			this.size = incomingMechData["BFSize"];
+			this.move = incomingMechData["BFMove"];
+			//this.tmm = incomingMechData["XXXX"];
+
+			this.armor = incomingMechData["BFArmor"] / 1;
+			this.structure = incomingMechData["BFStructure"] / 1;
+
+			this.threshold = incomingMechData["BTThreshold"] / 1;
+
+			this.damage = {
+				short: incomingMechData["BFDamageShort"] / 1,
+				medium: incomingMechData["BFDamageMedium"] / 1,
+				long: incomingMechData["BFDamageLong"] / 1,
+			};
+
+			if( incomingMechData["BFDamamgeExtreme"] )
+				this.damage.extreme = incomingMechData["BFDamamgeExtreme"] / 1
+			else
+				this.damage.extreme = 0;
+
+			this.abilities = incomingMechData["BFAbilities"];
+
+			this.overheat = incomingMechData["BFOverheat"] / 1;
+
+			this.basePoints = incomingMechData["BFPointValue"] / 1;
+
+
+			this.imageURL = incomingMechData["ImageUrl"];
+
+			this.jumpMove = "0";
+			//~ console.log( "orig move", this.move );
+			while( this.move.indexOf('"') > 0 )
+				this.move = this.move.replace('"', "");
+			if( this.move.indexOf("/") > 0 ) {
+				//split move....
+				var moveArray = this.move.split( "/" );
+				this.move = moveArray[0].trim();
+
+				this.jumpMove = moveArray[1].replace('J', "");
+				this.jumpMove = moveArray[1].replace('j', "");
+
+			} else {
+
+				if( this.move.indexOf("j") > 0 || this.move.indexOf("J") > 0) {
+					this.move = this.move.replace('J', "");
+					this.move = this.move.replace('j', "");
+					this.jumpMove = this.move;
+				} else {
+					this.jumpMove = "0";
+				}
+
+			}
+
+			this.jumpMove = this.jumpMove.trim() / 1;
+			this.move = this.move.trim() / 1;
+
+			//~ console.log( "after move", this.move );
+			//~ console.log( "after jumpMove", this.jumpMove );
+
+			this.currentSkill = 4;
+			this.currentPoints = this.basePoints;
+		} else {
+			// Interally Processed Data
+
+			this.class = incomingMechData.class;
+			this.costCR = incomingMechData.costCR / 1;
+
+			this.imageURL = incomingMechData.imageURL;
+
+			this.currentHeat = incomingMechData.currentHeat;
+
+			this.variant = incomingMechData.variant;
+			this.name = incomingMechData.name;
+			this.dateIntroduced = incomingMechData.dateIntroduced;
+			//this.era = incomingMechData["XXXX"];
+
+			this.tro = incomingMechData.tro;
+
+			this.role =  incomingMechData.role;
+
+			this.tonnage = incomingMechData.tonnage / 1;
+
+
+			this.type = incomingMechData.type;
+			this.size = incomingMechData.size / 1;
+			//this.tmm = incomingMechData["XXXX"];
+
+			this.armor = incomingMechData.armor / 1;
+			this.structure = incomingMechData.structure / 1;
+
+			this.threshold = incomingMechData.threshold / 1;
+
+
+			this.move = incomingMechData.move;
+			this.jumpMove = incomingMechData.jumpMove;
+
+			this.damage = {
+				short: incomingMechData.damage.short / 1,
+				medium: incomingMechData.damage.medium / 1,
+				long: incomingMechData.damage.long / 1,
+				extreme: incomingMechData.damage.extreme / 1
+			};
+
+			if( this.damage.extreme = "NaN" )
+				this.damage.extreme = 0;
+
+			this.move = incomingMechData.move / 1;
+
+			this.abilities = incomingMechData.abilities;
+
+			this.overheat = incomingMechData.overheat / 1;
+
+			this.basePoints = incomingMechData.basePoints / 1;
+
+
+			if( incomingMechData.currentSkill > 0  )
+				this.currentSkill = incomingMechData.currentSkill;
+			else
+				this.currentSkill = 4;
+
+			this.currentPoints = this.basePoints;
+
+
+
+			if( incomingMechData.currentArmor )
+				this.currentArmor = incomingMechData.currentArmor;
+
+			if( incomingMechData.currentStructure )
+				this.currentStructure = incomingMechData.currentStructure;
+
+			if( incomingMechData.engineHits )
+				this.engineHits = incomingMechData.engineHits;
+
+			if( incomingMechData.fireControlHits )
+				this.fireControlHits = incomingMechData.fireControlHits;
+
+			if( incomingMechData.mpControlHits )
+				this.mpControlHits = incomingMechData.mpControlHits;
+
+			if( incomingMechData.weaponHits )
+				this.weaponHits = incomingMechData.weaponHits;
+
+			if( incomingMechData.customName )
+				this.customName = incomingMechData.customName;
+		}
+
+	}
+
+
+	this.setSkill = function( newSkillValue ) {
+		this.currentSkill = newSkillValue / 1;
+		this.calcCurrentVals();
+	}
+
+	this.calcCurrentVals = function() {
+
+
+		if( this.currentSkill < 4) {
+			// improved skill....
+			var pvDifference = 0;
+
+			if( this.basePoints <= 7) {
+				pvDifference = 1;
+			} else if( this.basePoints <= 12) {
+				pvDifference = 2;
+			} else if( this.basePoints <= 17) {
+				pvDifference = 3;
+			} else if( this.basePoints <= 22) {
+				pvDifference = 4;
+			} else if( this.basePoints <= 27) {
+				pvDifference = 5;
+			} else if( this.basePoints <= 32) {
+				pvDifference = 6;
+			} else if( this.basePoints <= 37) {
+				pvDifference = 7;
+			} else if( this.basePoints <= 42) {
+				pvDifference = 8;
+			} else if( this.basePoints <= 47) {
+				pvDifference = 9;
+			} else if( this.basePoints <= 52) {
+				pvDifference = 10;
+			} else {
+				pvDifference = 10 + Math.floor( ( this.basePoints - 52) / 5 );
+			}
+			this.currentPoints = this.basePoints + ( pvDifference * ( 4 - this.currentSkill ) ) ;
+		} else if( this.currentSkill > 4) {
+			// low skill....
+
+			if( this.basePoints <= 14) {
+				pvDifference = 1;
+			} else if( this.basePoints <= 24) {
+				pvDifference = 2;
+			} else if( this.basePoints <= 34) {
+				pvDifference = 3;
+			} else if( this.basePoints <= 44) {
+				pvDifference = 4;
+			} else if( this.basePoints <= 54) {
+				pvDifference = 5;
+			} else if( this.basePoints <= 64) {
+				pvDifference = 6;
+			} else if( this.basePoints <= 74) {
+				pvDifference = 7;
+			} else if( this.basePoints <= 84) {
+				pvDifference = 8;
+			} else if( this.basePoints <= 94) {
+				pvDifference = 9;
+			} else if( this.basePoints <= 104) {
+				pvDifference = 10;
+			} else {
+				pvDifference = 10 + Math.floor( ( this.basePoints - 104) / 10 );
+			}
+			this.currentPoints = this.basePoints - ( pvDifference * ( this.currentSkill - 4) );
+		} else {
+			this.currentSkill = 4;
+			this.currentPoints = this.basePoints;
+		}
+		this.currentSkillString = this.currentSkill.toString();
+
+
+
+		this.currentMove = this.move;
+		this.currentJump = this.jumpMove;
+		this.currentMoveTMM = "";
+		this.currentJumpTMM = "";
+
+
+
+		if( typeof( this.currentArmor ) == "undefined" || this.currentArmor.length == 0 ) {
+			this.currentArmor = Array();
+			for( var armorCount = 0; armorCount < this.armor; armorCount++)
+				this.currentArmor.push( false );
+		}
+
+		if( typeof( this.currentStructure ) == "undefined" || this.currentStructure.length == 0 ) {
+			this.currentStructure = Array();
+			for( var structureCount = 0; structureCount < this.structure; structureCount++)
+				this.currentStructure.push( false );
+		}
+
+		if( typeof( this.engineHits ) == "undefined"  || this.engineHits.length == 0  ) {
+			this.engineHits = Array();
+			for( var engineHitsCount = 0; engineHitsCount < 2; engineHitsCount++)
+				this.engineHits.push( false );
+		}
+
+		if( typeof( this.fireControlHits ) == "undefined"  || this.fireControlHits.length == 0  ) {
+			this.fireControlHits = Array();
+			for( var fcHitsCount = 0; fcHitsCount < 4; fcHitsCount++)
+				this.fireControlHits.push( false );
+		}
+
+		if( typeof( this.mpControlHits ) == "undefined"  || this.mpControlHits.length == 0  ) {
+			this.mpControlHits = Array();
+			for( var mpHitsCount = 0; mpHitsCount < 4; mpHitsCount++)
+				this.mpControlHits.push( false );
+		}
+
+		if( typeof( this.weaponHits ) == "undefined"  || this.weaponHits.length == 0  ) {
+			this.weaponHits = Array();
+			for( var weaponHitsCount = 0; weaponHitsCount < 4; weaponHitsCount++)
+				this.weaponHits.push( false );
+		}
+
+		var currentWeaponHits = 0;
+		for( var weaponHitsCount = 0; weaponHitsCount < this.weaponHits.length; weaponHitsCount++) {
+			if( this.weaponHits[ weaponHitsCount ] )
+				currentWeaponHits++;
+		}
+
+		var currentFCHits = 0;
+		for( var fcHitsCount = 0; fcHitsCount < this.fireControlHits.length; fcHitsCount++) {
+			if( this.fireControlHits[ fcHitsCount ] )
+				currentFCHits++;
+		}
+
+		var currentMPHits = 0;
+		for( var mpHitsCount = 0; mpHitsCount < this.mpControlHits.length; mpHitsCount++) {
+			if( this.mpControlHits[ mpHitsCount ] )
+				currentMPHits++;
+		}
+
+
+		var currentEngineHits = 0;
+		for( var engineHitsCount = 0; engineHitsCount < this.engineHits.length; engineHitsCount++) {
+			if( this.engineHits[ engineHitsCount ] )
+				currentEngineHits++;
+		}
+
+		// Calculate Current Damage Values from Crits...
+
+		var shortDamage = this.damage.short;
+		var mediumDamage = this.damage.medium;
+		var longDamage = this.damage.long;
+		var extremeDamage = this.damage.extreme;
+
+		shortDamage = shortDamage - currentWeaponHits;
+		mediumDamage = mediumDamage - currentWeaponHits;
+		longDamage = longDamage - currentWeaponHits;
+		extremeDamage = extremeDamage - currentWeaponHits;
+
+		if( shortDamage < 0 )
+			shortDamage = 0;
+
+		if( mediumDamage < 0 )
+			mediumDamage = 0;
+
+		if( longDamage < 0 )
+			longDamage = 0;
+
+		if( extremeDamage < 0 )
+			extremeDamage = 0;
+
+
+		this.currentDamage = {
+			short: shortDamage,
+			medium: mediumDamage,
+			long: longDamage,
+			extreme: extremeDamage
+		};
+
+
+		// Calculate Critical Movement
+		for( var mpHitsCount = 0; mpHitsCount < this.mpControlHits.length; mpHitsCount++) {
+			if( this.mpControlHits[ mpHitsCount ] ) {
+				var movePenalty = Math.round(this.currentMove / 2);
+				if( movePenalty < 2 )
+					movePenalty = 2;
+				this.currentMove = this.currentMove - movePenalty;
+
+				if( this.currentMove < 0 )
+					this.currentMove = 0;
+
+				var movePenalty = Math.round(this.currentJump / 2);
+				if( movePenalty < 2 )
+					movePenalty = 2;
+				this.currentJump = this.currentJump - movePenalty;
+
+				if( this.currentJump < 0 )
+					this.currentJump = 0;
+			}
+		}
+
+		if( this.currentMove < 5 ) {
+			this.currentMoveTMM = 0;
+		} else if( this.currentMove < 9 ) {
+			this.currentMoveTMM = 1;
+		} else if( this.currentMove < 13 ) {
+			this.currentMoveTMM = 2;
+		} else if( this.currentMove < 19 ) {
+			this.currentMoveTMM = 3;
+		} else if( this.currentMove < 35 ) {
+			this.currentMoveTMM = 4;
+		} else {
+			this.currentMoveTMM = 5;
+		}
+
+		if( this.currentJump < 1 ) {
+			this.currentJumpTMM = 0;
+		}
+		else  if( this.currentJump < 5 ) {
+			this.currentJumpTMM = 1;
+		} else if( this.currentJump < 9 ) {
+			this.currentJumpTMM = 2;
+		} else if( this.currentJump < 13 ) {
+			this.currentJumpTMM = 3;
+		} else if( this.currentJump < 19 ) {
+			this.currentJumpTMM = 4;
+		} else if( this.currentJump < 35 ) {
+			this.currentJumpTMM = 5;
+		} else {
+			this.currentJumpTMM = 6;
+		}
+
+
+		// Calculate To-Hits with Criticals
+		this.currentToHitShort = this.currentSkill + this.currentHeat + currentFCHits * 2 + currentEngineHits;
+		this.currentToHitMedium = this.currentSkill + 2 + this.currentHeat + currentFCHits * 2 + currentEngineHits;
+		this.currentToHitLong = this.currentSkill + 4 + this.currentHeat + currentFCHits * 2 + currentEngineHits;
+		this.currentToHitExtreme = this.currentSkill + 6 + this.currentHeat + currentFCHits * 2 + currentEngineHits;
+
+
+		// Engine Hit Heat Effects
+		if( currentEngineHits == 1 )
+			if( this.currentHeat < 1)
+			this.currentHeat = 1;
+
+		this.getCurrentStructure();
+
+		if( currentEngineHits > 1 )
+			this.active = false;
+
+	}
+
+	this.setHeat = function( newHeatValue ) {
+		this.currentHeat = newHeatValue;
+		this.calcCurrentVals();
+	}
+
+	this.takeDamage = function( numberOfPoints ) {
+		leftOverPoints = numberOfPoints;
+		console.log("TODO: takeDamage();", numberOfPoints);
+		for( var pointCounter = 0; pointCounter < numberOfPoints; pointCounter++ ) {
+			for( var armorCounter = 0; armorCounter < this.currentArmor.length; armorCounter++ ) {
+				if( this.currentArmor[armorCounter] == false ) {
+					if( leftOverPoints > 0 ) {
+						this.currentArmor[armorCounter] = true;
+						leftOverPoints--;
+					}
+
+				}
+			}
+
+
+			for( var structureCounter = 0; structureCounter < this.currentStructure.length; structureCounter++ ) {
+				if( this.currentStructure[structureCounter] == false ) {
+					if( leftOverPoints > 0 ) {
+						this.currentStructure[structureCounter] = true;
+						leftOverPoints--;
+
+						if( this.getCurrentStructure() == 0 )
+							this.active = false;
+						else
+							this.active = true;
+					}
+				}
+			}
+		}
+
+		//~ console.log("this.currentArmor", this.currentArmor);
+		//~ console.log("this.currentStructure", this.currentStructure);
+		//~ console.log("this.getCurrentStructure()", this.getCurrentStructure());
+		//~ console.log("this.getCurrentArmor()", this.getCurrentArmor());
+		//~ console.log("this.active", this.active);
+		this.calcCurrentVals();
+	}
+
+	this.getCurrentArmor = function() {
+		var armorPoints = 0;
+		for( var armorCounter = 0; armorCounter < this.currentArmor.length; armorCounter++ ) {
+			if( this.currentArmor[armorCounter] == false ) {
+				armorPoints++;
+			}
+		}
+		return armorPoints;
+	}
+
+	this.getCurrentStructure = function() {
+		var structPoints = 0;
+		for( var structureCounter = 0; structureCounter < this.currentStructure.length; structureCounter++ ) {
+			if( this.currentStructure[structureCounter] == false ) {
+				structPoints++;
+			}
+		}
+
+		if( structPoints < 1 )
+			this.active = false;
+		else
+			this.active = true;
+
+		return structPoints;
+	}
+
+	this.calcCurrentVals();
+}
 
 var class_dice = function() {};
 
@@ -4788,8 +5518,445 @@ Mech.prototype.getInstalledEquipment = function() {
 	return this.equipmentList;
 };
 
-angular.module("baseApp").controller(
-	"battlemechCreatorControllerExports",
+var asBuilderArray = [
+	'$rootScope',
+	'$translate',
+	'$scope',
+	'$http',
+	function ($rootScope, $translate, $scope, $http) {
+		$rootScope.showSciFiCreatorMenu = false;
+		$rootScope.showChargenMenu = false;
+		$translate(['APP_TITLE', 'WELCOME_BUTTON_ALPHA_STRIKE']).then(function (translation) {
+			$rootScope.title_tag = translation.WELCOME_BUTTON_ALPHA_STRIKE + " | " + translation.APP_TITLE;
+			$rootScope.subtitle_tag = translation.WELCOME_BUTTON_ALPHA_STRIKE;
+		});
+
+		$scope.activeView = false;
+
+		$scope.rulesFilter = "Standard";
+		$scope.techFilter = "";
+
+		$scope.setRulesFilter = function(newFilter) {
+			$scope.rulesFilter = newFilter;
+			$scope.updateMULList();
+		}
+
+		$scope.setTechFilter = function(newFilter) {
+			$scope.techFilter = newFilter;
+			$scope.updateMULList();
+		}
+
+		$scope.filterMechRules = function() {
+			//~ console.log( '$scope.rulesFilter', $scope.rulesFilter );
+			//~ console.log( '$scope.foundMULItems.Units.length', $scope.foundMULItems.Units.length );
+			for( mechCounter = $scope.foundMULItems.Units.length - 1; mechCounter > -1; mechCounter--) {
+				switch( $scope.rulesFilter ) {
+					case "Introductory":
+						if( $scope.foundMULItems.Units[mechCounter]["Rules"] != "Introductory" )
+							$scope.foundMULItems.Units.splice( mechCounter, 1 );
+						break;
+					case "Standard":
+						if(
+							$scope.foundMULItems.Units[mechCounter]["Rules"] != "Introductory"
+								&&
+							$scope.foundMULItems.Units[mechCounter]["Rules"] != "Standard"
+						 )
+							$scope.foundMULItems.Units.splice( mechCounter, 1 );
+						break;
+					case "Advanced":
+						if(
+							$scope.foundMULItems.Units[mechCounter]["Rules"] != "Introductory"
+								&&
+							$scope.foundMULItems.Units[mechCounter]["Rules"] != "Standard"
+								&&
+							$scope.foundMULItems.Units[mechCounter]["Rules"] != "Advanced"
+						 )
+							$scope.foundMULItems.Units.splice( mechCounter, 1 );
+						break;
+				}
+
+			}
+		}
+
+		$scope.changeSkillValues = function(indexNumber, newSkillValue) {
+			$scope.currentLance[indexNumber].setSkill( newSkillValue );
+			$scope.saveToLS();
+		}
+
+		//~ $scope.recalcMechs = function(indexNumber, event) {
+			//~ for( var mechCount = 0; mechCount < $scope.currentLance.length; mechCount++)
+				//~ $scope.currentLance[mechCount].calcCurrentVals();
+		//~ }
+
+		$scope.filterMechTech = function() {
+			//~ console.log( '$scope.rulesFilter', $scope.rulesFilter );
+			//~ console.log( '$scope.foundMULItems.Units.length', $scope.foundMULItems.Units.length );
+			for( mechCounter = $scope.foundMULItems.Units.length - 1; mechCounter > -1; mechCounter--) {
+
+				switch( $scope.techFilter ) {
+					case "Inner Sphere":
+						if( $scope.foundMULItems.Units[mechCounter]["Technology"].Name != "Inner Sphere" )
+							$scope.foundMULItems.Units.splice( mechCounter, 1 );
+						break;
+					case "Clan":
+						if( $scope.foundMULItems.Units[mechCounter]["Technology"].Name != "Clan" )
+							$scope.foundMULItems.Units.splice( mechCounter, 1 );
+						break;
+				}
+			}
+		}
+		/* Endpoints:
+
+			QuickList
+			QuickCount
+			QuickRandom
+		*/
+		$scope.updateMULList = function() {
+			// http://masterunitlist.info//Unit/QuickList?MinPV=1&MaxPV=999&Name=
+			if( $scope.currentSearch.length > 3 ) {
+				$scope.foundMULItems = Array();
+				$http.get("http://masterunitlist.info//Unit/QuickList?MinPV=1&MaxPV=999&Name=" + $scope.currentSearch)
+					.then(function(response) {
+						$scope.foundMULItems = response.data;
+						$scope.filterMechRules();
+						$scope.filterMechTech();
+						// console.log( $scope.foundMULItems );
+					});
+			}
+			$scope.saveToLS();
+		}
+
+		$scope.searchOnEnter = function(event) {
+			//console.log( event );
+			if( event.keyCode == 13 )
+				$scope.updateMULList();
+		}
+
+		$scope.saveToLS = function() {
+			localStorage["tmp_current_search"] = $scope.currentSearch;
+			localStorage["tmp_current_rules"] = $scope.rulesFilter;
+			localStorage["tmp_current_tech"] = $scope.techFilter;
+			localStorage["tmp_current_lances"] = JSON.stringify( $scope.currentLances) ;
+
+			$scope.totalCount = 0;
+			for( var lanceCount = 0; lanceCount < $scope.currentLances.length; lanceCount++) {
+				$scope.totalCount += $scope.currentLances[lanceCount].members.length;
+			}
+			//console.log( $scope.totalCount  ) ;
+			$scope.makeAddToOptions();
+
+
+
+
+		}
+
+		$scope.makeAddToOptions = function() {
+			$scope.addToOptions = Array();
+			for( var lanceCount = 0; lanceCount < $scope.currentLances.length; lanceCount++) {
+				if(  $scope.currentLances[lanceCount].customName != "" ) {
+					$scope.addToOptions.push(
+						{
+							id: lanceCount,
+							label: $scope.currentLances[lanceCount].customName + " (Group " + (lanceCount + 1 ) + ")"
+						}
+					);
+				} else {
+					$scope.addToOptions.push(
+						{
+							id: lanceCount,
+							label: "Group " + (lanceCount + 1 )
+						}
+					);
+				}
+			}
+		}
+
+		incomingLance = Array();
+		$scope.currentLances = Array()
+		if( localStorage["tmp_current_lances"] ) {
+			incomingLances = JSON.parse(localStorage["tmp_current_lances"]);
+			for( var lanceCount = 0; lanceCount < incomingLances.length; lanceCount++) {
+				var incomingLance = new asGroup();
+
+				if( incomingLances[lanceCount].customName )
+					incomingLance.customName = incomingLances[lanceCount].customName;
+				//incomingLance[lanceCount];
+
+				for( var mechCount = 0; mechCount < incomingLances[lanceCount].members.length; mechCount++) {
+					if( incomingLances[lanceCount].members[mechCount] != null ) {
+						var incomingMech = new asMech( incomingLances[lanceCount].members[mechCount] );
+						incomingLance.members.push( incomingMech );
+					}
+				}
+
+				$scope.currentLances.push( incomingLance );
+			}
+		}
+
+		if( $scope.currentLances.length == 0) {
+			$scope.currentLances.push( new asGroup() );
+		}
+
+		$scope.makeAddToOptions();
+
+		$scope.addToGroup = $scope.addToOptions[0];
+
+		//~ console.log("incomingLance", incomingLance);
+		//~ console.log("$scope.currentLance", $scope.currentLance);
+
+		$scope.viewingMech = null;
+		$scope.foundMULItems = Array();
+		if( localStorage["tmp_current_search"] ) {
+			if( localStorage["tmp_current_rules"] ) {
+				$scope.rulesFilter = localStorage["tmp_current_rules"];
+			}
+			if( localStorage["tmp_current_tech"] ) {
+				$scope.techFilter = localStorage["tmp_current_tech"];
+			}
+			$scope.currentSearch = localStorage["tmp_current_search"];
+			$scope.updateMULList();
+		} else {
+			$scope.currentSearch = "";
+		}
+
+		$scope.newGroup = function() {
+			$scope.currentLances.push( new asGroup() );
+			$scope.saveToLS();
+		}
+
+		$scope.removeGroup = function(groupIndex) {
+			$scope.currentLances.splice( groupIndex, 1 );
+
+			$scope.saveToLS();
+			$scope.saveToLS();
+		}
+
+		$scope.viewMech = function(currentLance, viewIndex) {
+			$scope.viewingMech = currentLance.members[viewIndex];
+			console.log( $scope.viewingMech );
+		}
+
+		$scope.viewSearchMech = function(viewIndex) {
+			$scope.viewingMech = new asMech( $scope.foundMULItems.Units[viewIndex] );
+			//~ console.log( $scope.viewingMech );
+		}
+
+		$scope.closeViewMech = function(addIndex) {
+			$scope.viewingMech = null;
+		}
+
+		$scope.addToLance = function(addIndex) {
+			var incomingMech = new asMech(  $scope.foundMULItems.Units[addIndex] );
+			//~ console.log("Add", incomingMech );
+			$scope.currentLances[ $scope.addToGroup.id ].members.push( incomingMech );
+			$scope.saveToLS();
+		}
+
+		$scope.removefFromLance = function( currentLance, removeIndex ) {
+			currentLance.members.splice( removeIndex, 1 );
+
+			$scope.saveToLS();
+		}
+
+		$scope.range = function(min, max, step) {
+			step = step || 1;
+			var input = [];
+			for (var i = min; i <= max; i += step) {
+				input.push(i);
+			}
+			return input;
+		};
+	}
+];
+angular.module("webApp").controller(
+	"asBuilderController",
+	asBuilderArray
+);
+
+angular.module("cordovaApp").controller(
+	"asBuilderController",
+	asBuilderArray
+);
+
+
+var asPlayViewArray = [
+	'$rootScope',
+	'$translate',
+	'$scope',
+	'$http',
+	function ($rootScope, $translate, $scope, $http) {
+		$rootScope.showSciFiCreatorMenu = false;
+		$rootScope.showChargenMenu = false;
+		$translate(['APP_TITLE', 'INDEX_WELCOME']).then(function (translation) {
+			$rootScope.title_tag = translation.INDEX_WELCOME + " | " + translation.APP_TITLE;
+			$rootScope.subtitle_tag = translation.INDEX_WELCOME;
+		});
+
+
+
+		$scope.activeView = true;
+
+		incomingLance = Array();
+		$scope.currentLances = Array()
+		if( localStorage["tmp_current_lances"] ) {
+			incomingLances = JSON.parse(localStorage["tmp_current_lances"]);
+			for( var lanceCount = 0; lanceCount < incomingLances.length; lanceCount++) {
+				var incomingLance = new asGroup();
+
+				if( incomingLances[lanceCount].customName )
+					incomingLance.customName = incomingLances[lanceCount].customName;
+				//incomingLance[lanceCount];
+
+				for( var mechCount = 0; mechCount < incomingLances[lanceCount].members.length; mechCount++) {
+					if( incomingLances[lanceCount].members[mechCount] != null ) {
+						var incomingMech = new asMech( incomingLances[lanceCount].members[mechCount] );
+						incomingLance.members.push( incomingMech );
+					}
+				}
+
+				$scope.currentLances.push( incomingLance );
+			}
+		}
+
+		if( $scope.currentLances.length == 0) {
+			$scope.currentLances.push( new asGroup() );
+		}
+
+		$scope.viewingLance = 0;
+		if( localStorage["tmp_current_play_page"] && localStorage["tmp_current_play_page"] < $scope.currentLances.length )
+			$scope.viewingLance = localStorage["tmp_current_play_page"];
+
+
+
+		$scope.setHeat = function(mechObject, newValue) {
+			mechObject.setHeat( newValue );
+
+			$scope.saveToLS();
+
+		}
+
+		$scope.changePage = function(newPage) {
+			$scope.viewingLance = newPage;
+		}
+
+		$scope.toggleStructure = function(mechObject, indexValue) {
+
+			if( mechObject.currentStructure[indexValue] )
+				mechObject.currentStructure[indexValue] = false;
+			else
+				mechObject.currentStructure[indexValue] = true;
+
+			mechObject.calcCurrentVals();
+
+			$scope.saveToLS();
+
+		}
+
+		$scope.toggleArmor = function(mechObject, indexValue) {
+
+			if( mechObject.currentArmor[indexValue] )
+				mechObject.currentArmor[indexValue] = false;
+			else
+				mechObject.currentArmor[indexValue] = true;
+
+			mechObject.calcCurrentVals();
+
+			$scope.saveToLS();
+
+		}
+
+
+		$scope.toggleEngineCrit = function(mechObject, indexValue) {
+
+			if( mechObject.engineHits[indexValue] )
+				mechObject.engineHits[indexValue] = false;
+			else
+				mechObject.engineHits[indexValue] = true;
+
+			mechObject.calcCurrentVals();
+
+			$scope.saveToLS();
+
+		}
+
+		$scope.toggleFireControlCrit = function(mechObject, indexValue) {
+
+			if( mechObject.fireControlHits[indexValue] )
+				mechObject.fireControlHits[indexValue] = false;
+			else
+				mechObject.fireControlHits[indexValue] = true;
+
+			mechObject.calcCurrentVals();
+
+			$scope.saveToLS();
+
+		}
+
+		$scope.toggleMPCrit = function(mechObject, indexValue) {
+
+			if( mechObject.mpControlHits[indexValue] )
+				mechObject.mpControlHits[indexValue] = false;
+			else
+				mechObject.mpControlHits[indexValue] = true;
+
+			mechObject.calcCurrentVals();
+
+			$scope.saveToLS();
+
+		}
+
+		$scope.toggleWeaponCrit = function(mechObject, indexValue) {
+
+			if( mechObject.weaponHits[indexValue] )
+				mechObject.weaponHits[indexValue] = false;
+			else
+				mechObject.weaponHits[indexValue] = true;
+
+			mechObject.calcCurrentVals();
+
+			console.log( mechObject.weaponHits );
+
+			$scope.saveToLS();
+
+		}
+
+		$scope.takeDamage = function(mechObject) {
+			mechObject.takeDamage( 1 );
+
+			$scope.saveToLS();
+
+		}
+
+		$scope.updateMemberCounts = function() {
+			for( lanceCount = 0; lanceCount < $scope.currentLances.length; lanceCount++ ) {
+				$scope.currentLances[lanceCount].getActiveMembers();
+			}
+		}
+
+		$scope.saveToLS = function() {
+
+			$scope.updateMemberCounts();
+
+			localStorage["tmp_current_lances"] = JSON.stringify( $scope.currentLances) ;
+			localStorage["tmp_current_play_page"] = $scope.viewingLance;
+		}
+
+		//~ console.log($scope.currentLance);
+		$scope.updateMemberCounts();
+	}
+];
+angular.module("webApp").controller(
+	"asPlayViewController",
+	asPlayViewArray
+);
+
+angular.module("cordovaApp").controller(
+	"asPlayViewController",
+	asPlayViewArray
+);
+
+
+var battlemechCreatorControllerExportsArray =
 	[
 		'$rootScope',
 		'$translate',
@@ -4846,11 +6013,19 @@ angular.module("baseApp").controller(
 			}
 		}
 	]
+;
+
+angular.module("webApp").controller(
+	"battlemechCreatorControllerExports",
+	battlemechCreatorControllerExportsArray
 );
 
+angular.module("cordovaApp").controller(
+	"battlemechCreatorControllerExports",
+	battlemechCreatorControllerExportsArray
+);
 
-angular.module("baseApp").controller(
-	"battlemechCreatorControllerStep1",
+var battlemechCreatorControllerStep1Array =
 	[
 		'$rootScope',
 		'$translate',
@@ -4993,10 +6168,21 @@ angular.module("baseApp").controller(
 
 		}
 	]
+;
+
+
+
+angular.module("webApp").controller(
+	"battlemechCreatorControllerStep1",
+	battlemechCreatorControllerStep1Array
 );
 
-angular.module("baseApp").controller(
-	"battlemechCreatorControllerStep2",
+angular.module("cordovaApp").controller(
+	"battlemechCreatorControllerStep1",
+	battlemechCreatorControllerStep1Array
+);
+
+var battlemechCreatorControllerStep2Array =
 	[
 		'$rootScope',
 		'$translate',
@@ -5047,7 +6233,7 @@ angular.module("baseApp").controller(
 			}
 		}
 	]
-);
+;
 
 function update_walking_jumping_dropdowns( $scope, $translate, current_mech ) {
 
@@ -5102,8 +6288,19 @@ function update_walking_jumping_dropdowns( $scope, $translate, current_mech ) {
 }
 
 
-angular.module("baseApp").controller(
-	"battlemechCreatorControllerStep3",
+angular.module("webApp").controller(
+	"battlemechCreatorControllerStep2",
+	battlemechCreatorControllerStep2Array
+);
+
+angular.module("cordovaApp").controller(
+	"battlemechCreatorControllerStep2",
+	battlemechCreatorControllerStep2Array
+);
+
+
+
+var battlemechCreatorControllerStep3Array =
 	[
 		'$rootScope',
 		'$translate',
@@ -5160,7 +6357,7 @@ angular.module("baseApp").controller(
 			}
 		}
 	]
-);
+;
 
 function update_heat_sink_dropdown($scope, $translate, current_mech) {
 
@@ -5200,29 +6397,42 @@ function update_heat_sink_dropdown($scope, $translate, current_mech) {
 			}
 
 		}
-		heat_sinks_required = current_mech.getHeatSinkCriticalRequirements();
-		the_label = translation.BM_STEP3_CRITICAL_REQUIRED;
-		the_label_single = translation.BM_STEP3_CRITICAL_REQUIRED_SINGLE;
-		the_label_none = translation.BM_STEP3_CRITICAL_REQUIRED_NONE;
-		//console.log( "heat_sinks_required", heat_sinks_required);
-		$scope.hs_crits_required = heat_sinks_required.number * heat_sinks_required.slots_each;
-		hs_crit_count = heat_sinks_required.number * heat_sinks_required.slots_each;
-		if( hs_crit_count < 0)
-			hs_crit_count = 0;
-		if( hs_crit_count == 1) {
-			$scope.label_criticals_required = the_label_single.replace("{hs_crits_required}", hs_crit_count);
-		} else if ( hs_crit_count == 0) {
-			$scope.label_criticals_required = the_label_none.replace("{hs_crits_required}", hs_crit_count);
-		} else {
-			$scope.label_criticals_required = the_label.replace("{hs_crits_required}", hs_crit_count);
+		var heat_sinks_required = current_mech.getHeatSinkCriticalRequirements();
+		if( heat_sinks_required ) {
+			the_label = translation.BM_STEP3_CRITICAL_REQUIRED;
+			the_label_single = translation.BM_STEP3_CRITICAL_REQUIRED_SINGLE;
+			the_label_none = translation.BM_STEP3_CRITICAL_REQUIRED_NONE;
+			//~ console.log( "heat_sinks_required", heat_sinks_required);
+			$scope.hs_crits_required = heat_sinks_required.number * heat_sinks_required.slots_each;
+			hs_crit_count = heat_sinks_required.number * heat_sinks_required.slots_each;
+			if( hs_crit_count < 0)
+				hs_crit_count = 0;
+			if( hs_crit_count == 1) {
+				$scope.label_criticals_required = the_label_single.replace("{hs_crits_required}", hs_crit_count);
+			} else if ( hs_crit_count == 0) {
+				$scope.label_criticals_required = the_label_none.replace("{hs_crits_required}", hs_crit_count);
+			} else {
+				$scope.label_criticals_required = the_label.replace("{hs_crits_required}", hs_crit_count);
+			}
 		}
 
 
 	});
 }
 
-angular.module("baseApp").controller(
-	"battlemechCreatorControllerStep4",
+
+angular.module("webApp").controller(
+	"battlemechCreatorControllerStep3",
+	battlemechCreatorControllerStep3Array
+);
+
+angular.module("cordovaApp").controller(
+	"battlemechCreatorControllerStep3",
+	battlemechCreatorControllerStep3Array
+);
+
+
+var battlemechCreatorControllerStep4Array =
 	[
 		'$rootScope',
 		'$translate',
@@ -5450,7 +6660,7 @@ angular.module("baseApp").controller(
 
 		}
 	]
-);
+;
 
 function make_armor_select_dd_options(max_armor) {
 
@@ -5575,8 +6785,19 @@ function update_step4_page_items($scope, $translate, current_mech) {
 	});
 }
 
-angular.module("baseApp").controller(
-	"battlemechCreatorControllerStep5",
+
+angular.module("webApp").controller(
+	"battlemechCreatorControllerStep4",
+	battlemechCreatorControllerStep4Array
+);
+
+angular.module("cordovaApp").controller(
+	"battlemechCreatorControllerStep4",
+	battlemechCreatorControllerStep4Array
+);
+
+
+var battlemechCreatorControllerStep5Array =
 	[
 		'$rootScope',
 		'$translate',
@@ -5703,7 +6924,7 @@ angular.module("baseApp").controller(
 			};
 		}
 	]
-);
+;
 
 function make_select_object(current_tag) {
 	for(loccount = 0; loccount < battlemechLocations.length; loccount++) {
@@ -5716,8 +6937,21 @@ function make_select_object(current_tag) {
 	}
 	return null
 }
-angular.module("baseApp").controller(
-	"battlemechCreatorControllerStep6",
+
+
+
+angular.module("webApp").controller(
+	"battlemechCreatorControllerStep5",
+	battlemechCreatorControllerStep5Array
+);
+
+angular.module("cordovaApp").controller(
+	"battlemechCreatorControllerStep5",
+	battlemechCreatorControllerStep5Array
+);
+
+
+var battlemechCreatorControllerStep6Array =
 	[
 		'$rootScope',
 		'$translate',
@@ -5916,7 +7150,7 @@ angular.module("baseApp").controller(
 			};
 		}
 	]
-);
+;
 
 function update_step_6_items($scope, current_mech) {
 
@@ -5947,9 +7181,19 @@ function update_step_6_items($scope, current_mech) {
 	console.log( $scope.battlemech_right_arm );
 }
 
+angular.module("webApp").controller(
+	"battlemechCreatorControllerStep6",
+	battlemechCreatorControllerStep6Array
+);
 
-angular.module("baseApp").controller(
-	"battlemechCreatorControllerSummary",
+angular.module("cordovaApp").controller(
+	"battlemechCreatorControllerStep6",
+	battlemechCreatorControllerStep6Array
+);
+
+
+
+var battlemechCreatorControllerSummaryArray =
 	[
 		'$rootScope',
 		'$translate',
@@ -5985,11 +7229,19 @@ angular.module("baseApp").controller(
 
 		}
 	]
+;
+
+angular.module("webApp").controller(
+	"battlemechCreatorControllerSummary",
+	battlemechCreatorControllerSummaryArray
 );
 
+angular.module("cordovaApp").controller(
+	"battlemechCreatorControllerSummary",
+	battlemechCreatorControllerSummaryArray
+);
 
-angular.module("baseApp").controller(
-	"battlemechCreatorControllerWelcome",
+var battlemechCreatorControllerWelcomeArray =
 	[
 		'$rootScope',
 		'$translate',
@@ -6007,11 +7259,19 @@ angular.module("baseApp").controller(
 
 		}
 	]
+;
+
+angular.module("webApp").controller(
+	"battlemechCreatorControllerWelcome",
+	battlemechCreatorControllerWelcomeArray
 );
 
+angular.module("cordovaApp").controller(
+	"battlemechCreatorControllerWelcome",
+	battlemechCreatorControllerWelcomeArray
+);
 
-angular.module("baseApp").controller(
-	"battlemechCreatorControllerSidebar",
+var battlemechCreatorControllerSidebarArray =
 	[
 		'$rootScope',
 		'$translate',
@@ -6052,11 +7312,19 @@ angular.module("baseApp").controller(
 
 		}
 	]
+;
+
+angular.module("webApp").controller(
+	"battlemechCreatorControllerSidebar",
+	battlemechCreatorControllerSidebarArray
 );
 
+angular.module("cordovaApp").controller(
+	"battlemechCreatorControllerSidebar",
+	battlemechCreatorControllerSidebarArray
+);
 
-angular.module("baseApp").controller(
-	"creditsController",
+var creditsArray =
 	[
 		'$rootScope',
 		'$translate',
@@ -6068,10 +7336,98 @@ angular.module("baseApp").controller(
 			});
 		}
 	]
+;
+
+
+
+angular.module("webApp").controller(
+	"creditsController",
+	creditsArray
 );
 
-angular.module("baseApp").controller(
-	"welcomeController",
+angular.module("cordovaApp").controller(
+	"creditsController",
+	creditsArray
+);
+
+var settingsArray = [
+	'$rootScope',
+	'$translate',
+	'$scope',
+	'$route',
+	function ($rootScope, $translate,  $scope, $route) {
+		$rootScope.showSciFiCreatorMenu = false;
+		$rootScope.showChargenMenu = false;
+
+		$translate(['APP_TITLE', 'GENERAL_SETTINGS']).then(function (translation) {
+			$rootScope.title_tag = translation.GENERAL_SETTINGS + " | " + translation.APP_TITLE;
+			$rootScope.subtitle_tag = translation.GENERAL_SETTINGS;
+		});
+
+
+		$scope.available_languages = Array();
+		$scope.users_language = {};
+		for( lang_count = 0; lang_count < available_languages.length; lang_count++) {
+			if( available_languages[lang_count].active ) {
+				language_object = {
+					id: available_languages[lang_count].short_code,
+					label: available_languages[lang_count].native_name
+				};
+				$scope.available_languages.push(
+					language_object
+				);
+				if(localStorage["users_preferred_language"] == available_languages[lang_count].short_code ) {
+					$scope.users_language = language_object;
+					$scope.background_image_url = "url(images/flags/64/" + available_languages[lang_count].icon_file + ")";
+				}
+			}
+		}
+
+		$scope.chargen_pdf_layout = localStorage["users_chargen_pdf_layout"];
+
+		$scope.updateLanguage = function( language_selected ) {
+
+			$translate.use($scope.users_language.id);
+			localStorage["users_preferred_language"] = $scope.users_language.id;
+			for( lang_count = 0; lang_count < available_languages.length; lang_count++) {
+				if( available_languages[lang_count].active ) {
+					if(localStorage["users_preferred_language"] == available_languages[lang_count].short_code ) {
+						$scope.background_image_url = "url(images/flags/64/" + available_languages[lang_count].icon_file + ")";
+					}
+				}
+			}
+
+			$route.reload();
+		}
+
+		$scope.updateChargenPDF = function( pdf_selected ) {
+			//console.log( "updateChargenPDF", pdf_selected );
+			localStorage["users_chargen_pdf_layout"] = pdf_selected;
+			$scope.chargen_pdf_layout = pdf_selected;
+			$route.reload();
+		}
+
+		// $scope.change_language = function (key) {
+		// 	$translate.use(key);
+		// 	localStorage["users_preferred_language"] = key;
+
+		// 	$route.reload();
+		// };
+
+	}
+];
+angular.module("webApp").controller(
+	"settingsController",
+	settingsArray
+);
+
+angular.module("cordovaApp").controller(
+	"settingsController",
+	settingsArray
+);
+
+
+var welcomeArray =
 	[
 		'$rootScope',
 		'$translate',
@@ -6083,6 +7439,17 @@ angular.module("baseApp").controller(
 			});
 		}
 	]
+;
+
+
+angular.module("webApp").controller(
+	"welcomeController",
+	welcomeArray
+);
+
+angular.module("cordovaApp").controller(
+	"welcomeController",
+	welcomeArray
 );
 
 available_languages.push ({
@@ -6145,18 +7512,37 @@ available_languages.push ({
 
 	translations: {
 
-		APP_TITLE: 'Jeff\'s BattleTech Tools',
+		APP_TITLE: '@Gauthic\'s BattleTech Tools',
 
 		INDEX_WELCOME: 'Welcome',
-		INDEX_H3_CORE: 'Jeff\'s BattleTech Tools',
+		INDEX_H3_CORE: '@Gauthic\'s BattleTech Tools',
 
 		WELCOME_BUTTON_MECH_CREATOR: '\'Mech Creator',
 		WELCOME_BUTTON_MECH_CREATOR_DESC: 'Create a BattleMech',
+
+		WELCOME_BUTTON_ALPHA_STRIKE: 'Alpha Strike',
+		WELCOME_BUTTON_ALPHA_STRIKE_DESC: 'Alpha Strike Force Builder and In-Play App',
+
 		WELCOME_H3_CORE: 'Jeff\'s BattleTech Tools',
 		WELCOME_H3_CREATORS_CORE: 'BattleTech Creators',
 
 		WELCOME_H3_FORCE_BUILDERS_CORE: 'BattleTech Force Builders',
 
+		GENERAL_TECHNOLOGY: 'Technology',
+		GENERAL_TECH: 'Tech',
+		GENERAL_POINTS: 'Points',
+		GENERAL_POINT: 'Point',
+		GENERAL_POINT_VALUE: 'Point Value',
+		GENERAL_RULES: 'Rules',
+		GENERAL_BATTLETECH: 'BattleTech',
+		GENERAL_MECH: '\'Mech',
+		GENERAL_TON: 'Ton',
+		GENERAL_TONS: 'Tons',
+		GENERAL_CLAN: 'Clan',
+		GENERAL_CLANS: 'Clans',
+		GENERAL_INNER_SPHERE: 'Inner Sphere',
+		GENERAL_ALL: 'All',
+		GENERAL_SEARCH: 'Search',
 
 		BM_MP_ABBR: "MP",
 

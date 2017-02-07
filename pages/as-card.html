@@ -1,0 +1,228 @@
+<div class="as-card" ng-class="{wrecked:!viewingMech.active}">
+	<div ng-show="viewingMech.imageURL != ''">
+		<img class="mech-image" ng-src="{{viewingMech.imageURL}}" />
+	</div>
+	<div class="content">
+		<div class="row">
+			<div class="columns small-7">
+				<h3 ng-show="viewingMech.customName">{{viewingMech.customName}}</h3>
+				<h4>{{viewingMech.name}}<span ng-hide="viewingMech.active"> (WRECKED)</span></h4>
+
+				<div class="shaded-box uppercase">
+					<div class="row">
+						<div class="columns small-2 text-left">
+							TP: {{viewingMech.type}}
+						</div>
+						<div class="columns small-2 no-lr-padding text-center">
+							SZ: {{viewingMech.size}}
+						</div>
+						<div class="columns small-4 no-lr-padding text-center">
+							TMM: {{viewingMech.currentMoveTMM}}<span ng-show="viewingMech.currentJumpTMM > 0">/{{viewingMech.currentJumpTMM}}J</span>
+						</div>
+						<div class="columns small-4 text-right">
+							MV: {{viewingMech.currentMove}}"<span ng-show="viewingMech.currentJump > 0">/{{viewingMech.currentJump}}J"</span>
+
+						</div>
+					</div>
+					<div class="row">
+						<div class="columns small-8 text-left">
+							ROLE: {{viewingMech.role}}
+						</div>
+						<div class="columns small-4 text-right">
+							<div ng-show="viewingMech.currentSkill > 0">
+								SKILL: {{viewingMech.currentSkill}}
+							</div>
+							<div ng-hide="viewingMech.currentSkill > 0">
+								SKILL: 4
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+			<div class="columns small-4 text-right">
+				<div class="point-box">
+					PV: {{viewingMech.currentPoints}}
+				</div>
+
+			</div>
+		</div>
+		<div class="row">
+			<div class="columns small-7">
+
+
+				<div class="shaded-box uppercase">
+					<div class="damage-label">
+						Damage
+					</div>
+	<div ng-show="viewingMech.damage.extreme < 1">
+					<div class="row">
+						<div class="columns small-4 text-center damage-entry">
+							S (+0 | <strong>{{viewingMech.currentToHitShort}}+</strong>) <br />
+							{{viewingMech.currentDamage.short}}
+						</div>
+						<div class="columns small-4 text-center damage-entry">
+							M (+2 | <strong>{{viewingMech.currentToHitMedium}}+</strong>) <br />
+							{{viewingMech.currentDamage.medium}}
+						</div>
+
+						<div class="columns small-4 text-center damage-entry">
+							L (+4 | <strong>{{viewingMech.currentToHitLong}}+</strong>) <br />
+							{{viewingMech.currentDamage.long}}
+						</div>
+					</div>
+	</div>
+	<div ng-show="viewingMech.damage.extreme > 0">
+					<div class="row">
+
+						<div class="columns small-3 text-center damage-entry">
+							S (+0 | <strong>{{viewingMech.currentToHitShort}}+</strong>) <br />
+							{{viewingMech.currentDamage.short}}
+						</div>
+						<div class="columns small-3 text-center damage-entry">
+							M (+2 | <strong>{{viewingMech.currentToHitMedium}}+</strong>) <br />
+							{{viewingMech.currentDamage.medium}}
+						</div>
+
+						<div class="columns small-3 text-center damage-entry">
+							L (+4 | <strong>{{viewingMech.currentToHitLong}}+</strong>) <br />
+							{{viewingMech.currentDamage.long}}
+						</div>
+						<div class="columns small-3 text-center damage-entry">
+							E (+6 | <strong>{{viewingMech.currentToHitExtreme}}+</strong>) <br />
+							{{viewingMech.currentDamage.extreme}}
+						</div>
+					</div>
+	</div>
+				</div>
+
+
+				<div class="shaded-box uppercase">
+					<div class="row">
+						<div class="columns small-3 uppercase  hs-top-padding">
+							OV: {{viewingMech.overheat}}
+						</div>
+						<div class="columns small-4 text-right uppercase no-lr-padding hs-top-padding">
+							Heat Scale
+						</div>
+						<div class="columns small-5 text-left no-lr-padding ">
+							<ul class="heat-scale">
+								<li><label><input ng-checked="viewingMech.currentHeat == 0" ng-click="setHeat(viewingMech, 0)" name="heatradio{{$index}}" type="radio" /><div class="heat-label green">0</div></label></li>
+								<li><label><input ng-checked="viewingMech.currentHeat == 1" ng-click="setHeat(viewingMech, 1)" name="heatradio{{$index}}" type="radio" /><div class="heat-label yellow">1</div></label></li>
+								<li><label><input ng-checked="viewingMech.currentHeat == 2" ng-click="setHeat(viewingMech, 2)" name="heatradio{{$index}}" type="radio" /><div class="heat-label orange">2</div></label></li>
+								<li><label><input ng-checked="viewingMech.currentHeat == 3" ng-click="setHeat(viewingMech, 3)" name="heatradio{{$index}}" type="radio" /><div class="heat-label red">3</div></label></li>
+								<li><label><input ng-checked="viewingMech.currentHeat > 3" ng-click="setHeat(viewingMech, 4)"  name="heatradio{{$index}}" type="radio" /><div class="heat-label black">S</div></label></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="shaded-box uppercase">
+					<table class="plain-table full-width">
+						<tr>
+							<td>
+								<div class="row">
+									<div class="columns small-1 no-lr-padding text-right">
+										A&nbsp;
+									</div>
+									<div class="columns small-11 no-lr-padding text-left">
+										<input ng-repeat="n in viewingMech.currentArmor track by $index" ng-click="toggleArmor(viewingMech, $index)" ng-checked="viewingMech.currentArmor[$index]" type="checkbox" />
+									</div>
+								</div>
+								<div class="row">
+									<div class="columns small-1 no-lr-padding text-right">
+										S&nbsp;
+									</div>
+									<div class="columns small-11 no-lr-padding text-left">
+										<input ng-repeat="n in viewingMech.currentStructure track by $index" ng-click="toggleStructure(viewingMech, $index)" ng-checked="viewingMech.currentStructure[$index]" type="checkbox" />
+									</div>
+								</div>
+							</td>
+							<td ng-show="activeView" style="text-align: right;vertical-align: bottom;">
+								<button ng-click="takeDamage(viewingMech);" class="button primary no-bottom-margin">Take&nbsp;Hit</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+
+			</div>
+
+			<div class="columns small-5">
+				<div class="shaded-box smaller-font crit-box transparent-box">
+					<h5 class="text-center uppercase">Critical Hits</h5>
+					<div class="row">
+						<div class="columns small-4 text-right no-lr-padding uppercase">
+							<strong>Engine</strong>
+						</div>
+						<div class="columns small-8">
+							<input ng-repeat="n in viewingMech.engineHits track by $index" ng-click="toggleEngineCrit(viewingMech, $index)" ng-checked="viewingMech.engineHits[$index]" type="checkbox" />
+							<br />
+							+1 Heat/Firing Weapons
+						</div>
+					</div>
+					<div class="row">
+						<div class="columns small-4 text-right no-lr-padding uppercase">
+							<strong>Fire Control</strong>
+						</div>
+						<div class="columns small-8">
+							<input ng-repeat="n in viewingMech.fireControlHits track by $index" ng-click="toggleFireControlCrit(viewingMech, $index)" ng-checked="viewingMech.fireControlHits[$index]" type="checkbox" />
+							<br />
+							+2 To Hit Each
+						</div>
+					</div>
+					<div class="row">
+						<div class="columns small-4 text-right no-lr-padding uppercase">
+							<strong>MP</strong>
+						</div>
+						<div class="columns small-8">
+							<input ng-repeat="n in viewingMech.mpControlHits track by $index" ng-click="toggleMPCrit(viewingMech, $index)" ng-checked="viewingMech.mpControlHits[$index]" type="checkbox" />
+							<br />
+							&frac12; Move Each
+						</div>
+					</div>
+					<div class="row">
+						<div class="columns small-4 text-right no-lr-padding uppercase">
+							<strong>Weapons</strong>
+						</div>
+						<div class="columns small-8">
+							<input ng-repeat="n in viewingMech.weaponHits track by $index" ng-click="toggleWeaponCrit(viewingMech, $index)" ng-checked="viewingMech.weaponHits[$index]" type="checkbox" />
+							<br />
+							-1 Damage Each
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="columns small-12">
+				<div class="shaded-box uppercase transparent-box">
+					<div class="row">
+						<div class="columns small-2 text-right">
+							SPECIAL:
+						</div>
+						<div class="columns small-10 text-left">
+							{{viewingMech.abilities}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="columns small-7">
+				<div class="as-stats-label">
+					Alpha Strike Stats
+				</div>
+			</div>
+			<div class="columns small-7 text-right">
+				<div class="bt-logo">
+					Battletech
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="decorative-bolt bolt-1"><i class="fa fa-remove"></i></div>
+	<div class="decorative-bolt bolt-2"><i class="fa fa-remove"></i></div>
+	<div class="decorative-bolt bolt-3"><i class="fa fa-remove"></i></div>
+	<div class="decorative-bolt bolt-4"><i class="fa fa-remove"></i></div>
+</div>

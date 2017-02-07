@@ -1,5 +1,4 @@
-angular.module("baseApp").controller(
-	"battlemechCreatorControllerStep5",
+var battlemechCreatorControllerStep5Array =
 	[
 		'$rootScope',
 		'$translate',
@@ -126,7 +125,7 @@ angular.module("baseApp").controller(
 			};
 		}
 	]
-);
+;
 
 function make_select_object(current_tag) {
 	for(loccount = 0; loccount < battlemechLocations.length; loccount++) {
@@ -139,3 +138,16 @@ function make_select_object(current_tag) {
 	}
 	return null
 }
+
+
+
+angular.module("webApp").controller(
+	"battlemechCreatorControllerStep5",
+	battlemechCreatorControllerStep5Array
+);
+
+angular.module("cordovaApp").controller(
+	"battlemechCreatorControllerStep5",
+	battlemechCreatorControllerStep5Array
+);
+

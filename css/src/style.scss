@@ -1,3 +1,5 @@
+$fontSize: 14px;
+
 $fontColor: #fdfde3;
 $headerFooterBackground: #111;
 $bodyBackground: #333;
@@ -17,7 +19,7 @@ body {
 	background: $bodyBackground;
 	color: $fontColor;
 	font-family: 'Ubuntu', sans-serif !important;
-	padding: .5rem 0 2rem 0;
+	padding: 0 0 2rem 0;
 
 	a {
 		color: $primaryBG;
@@ -29,6 +31,125 @@ body {
 			color: $primaryBGHover;
 		}
 	}
+
+	.main-menu {
+		a {
+			font-size: 2vw;
+		}
+		.bt-logo {
+			height: 2vw;
+			margin: -.4vw 1vw 0 0;
+			padding-right: 1vw;
+			border-right: 2px solid #fff;
+		}
+	}
+
+	.no-bottom-margin {
+		margin-bottom: 0 !important;
+	}
+
+	table {
+		background: $headerFooterBackground;
+		color: $primaryTextColor;
+		width: 100%;
+
+		border: none;
+		font-size: $fontSize;
+		tbody {
+			border: none;
+			padding: 3px;
+		}
+		thead {
+			background: transparent !important;
+			border: 0 !important;
+			padding: 3px;
+		}
+		tr {
+			td, th {
+				margin: 0;
+				padding: 2px 3px;
+				background: $bodyBackground;
+				border-bottom: 1px solid $headerFooterBackground;
+				color: $primaryTextColor;
+				text-align: left;
+			}
+			th {
+				vertical-align: bottom;
+				font-weight: 700;
+			}
+			td {
+				vertical-align: top;
+				&.button-container {
+					width: 60px;
+					height: 30px;
+					button {
+						margin: 0;
+					}
+				}
+			}
+			&.right-answer {
+				background: #090;
+				color: #fff;
+				td {
+					background: #090;
+					color: #fff;
+				}
+			}
+			&.wrong-answer {
+				background: #900;
+				color: #fff;
+				td {
+					background: #900;
+					color: #fff;
+				}
+			}
+		}
+		&.installed-weapons {
+			background: transparent;
+			tbody {
+				background: transparent;
+				margin: 0;
+				padding: 0;
+				tr {
+					padding: .25rem;
+					border: 1px solid $primaryBG;
+					background: $bodyBackground;
+					color: $fontColor;
+					margin-bottom: .25em !important;
+					td {
+						border: none;
+					}
+				}
+			}
+
+		}
+		&.gear-list {
+			background: transparent;
+			tbody {
+				margin: 0;
+				padding: 0;
+				tr {
+					border-bottom: 3px solid $bodyBackground;
+					background: $headerFooterBackground;
+					color: #fff;
+					margin: 0 0 3px 0;
+					td {
+						background: transparent !important;
+						color: #fff;
+						.equip-message {
+							font-style: italic;
+							color: $fontColor;
+						}
+					}
+
+					&.no-bottom-border {
+						border-bottom: 0 !important;
+					}
+				}
+			}
+		}
+	}
+
 	.dev-note {
 		color: #fff;
 		background: $darkenedGreenBG;
@@ -115,7 +236,7 @@ body {
 
 	header {
 		background: $headerFooterBackground;
-		padding: 0 1rem .5rem 1rem;
+		padding: .5rem 1rem;
 		color: $fontColor;
 		margin: 0 0 1rem 0;
 		h1 {
@@ -191,6 +312,23 @@ body {
 			}
 		}
 	}
+
+	.sticky-top {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		background: $headerFooterBackground;
+		border-bottom: solid 2px $primaryBG;
+		color: #fff;
+		height: 3em;
+		z-index: 100000;
+	}
+	.top-bar-padding {
+		height: 3em;
+		margin: 0 0 .5em 0;
+	}
+
 	.mech-status-bar {
 		position: fixed;
 		z-index: 999;
@@ -421,4 +559,299 @@ button.radius, .button.radius {
 }
 button.round, .button.round {
     border-radius: 1000px;
+}
+
+
+
+.as-card {
+	background: #fff;
+	border: solid .5vw #000;
+	margin: 0 5%;
+	color: #000;
+	font-size: 1.7vw;
+	position: relative;
+	strong {
+		color: #000 !important;
+	}
+	&.wrecked {
+		background: #600 !important;
+		color: #fff;
+		.shaded-box {
+			color: #333;
+		}
+	}
+	h3, h2, h4 {
+		color: #333;
+	}
+
+	.decorative-bolt {
+		position: absolute;
+		z-index: 0;
+		font-size: 2.75vw;
+		height: 3vw;
+		width: 3vw;
+		text-align: center;
+		background: #CBCCCE;
+		color: #999;
+		display: inline-block;
+		border-radius: 2vw;
+		padding: 0;
+		margin: 0;
+		.fa {
+			position: absolute;
+			top: .125vw;
+			left: .45vw;
+		}
+	}
+
+	.bolt-1 {
+		top: 1vw;
+		right: 20vw;
+		transform: rotate(31deg);
+		z-index: 2000;
+	}
+
+	.bolt-2 {
+		top: 5vw;
+		right: 1vw;
+		transform: rotate(72deg);
+		z-index: 2000;
+	}
+
+	.bolt-3 {
+		bottom: 7vw;
+		left: 2vw;
+		transform: rotate(14deg);
+	}
+
+	.bolt-4 {
+		bottom: 1vw;
+		left: 67vw;
+		transform: rotate(53deg);
+	}
+
+	.mech-image {
+		max-height: 90%;
+		max-width: 100%;
+		position: absolute;
+		right: 4vw;
+		top: 2vw;
+		z-index: 0;
+	}
+
+	.content {
+		z-index: 1000;
+		position: relative;
+		h3 {
+			margin: 0;
+			padding: 0;
+			line-height: 4vw;
+			font-size: 4vw;
+		}
+		h4 {
+			text-transform: uppercase;
+			margin: 0;
+			padding: 0;
+			line-height: 3vw;
+			font-size: 3vw;
+		}
+
+		.heat-scale {
+			position: relative;
+			background: #58595B;
+			border: .5vw solid #000;
+			border-radius: 2.5vw;
+			margin: 0 1vw 0 0;
+			padding: 0;
+			display: inline-block;
+			overflow: hidden;
+			float: right;
+
+			li {
+				display: block;
+				float: left;
+				list-style: none;
+				margin: 0;
+				label {
+					display: block;
+					width: 100%;
+					height: 100%;
+					margin: 0;
+					padding: 0;
+				}
+				.heat-label {
+					color: #fff;
+					font-size: 2.5vw;
+					line-height: 4vw;
+					border-left: .5vw solid #000;
+					padding: 0 .8vw;
+					display: inline-block;
+					margin: 0;
+					cursor: pointer;
+				}
+				input[type=radio] {
+					display: none;
+
+					&:checked ~ .heat-label   {
+						background: #c00;
+						&.green {
+							background: #0c0;
+						}
+
+						&.yellow {
+							background: #cb0;
+						}
+
+						&.orange {
+							background: #ec5710;
+						}
+
+						&.red {
+							background: #c00;
+						}
+
+						&.black {
+							background: #000;
+						}
+					}
+				}
+				&:first-child {
+					.heat-label {
+						border-left: none !important;
+					}
+				}
+			}
+
+
+
+		}
+
+
+
+
+		.damage-label {
+			transform: rotate(-90deg);
+	    	text-transform: uppercase;
+			position: absolute;
+			left: -0.5vw;
+			top: 2.5vw;
+			font-size: 1.2vw;
+		}
+
+		input[type=checkbox] {
+
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+
+			outline: none !important;
+
+			margin: 0 .25vw 0 0;
+			height: 2.0vw;
+			width: 2.0vw;
+			padding: 0;
+
+			border: solid .125vw #000;
+
+			background: #fff;
+			border-radius: 1.5vw;
+
+			&.structure {
+				background: #666;
+			}
+			&:checked {
+				background-color: #c00 !important;
+			}
+		}
+		.shaded-box {
+			z-index: 1000;
+			position: relative;
+			background: #cbccce;
+			border: .5vw solid #000;
+			border-radius: 2.5vw;
+			padding: .5vw 1.5vw;
+			margin-bottom: 1vw;
+			&.transparent-box {
+				background: rgba(200,200,200,.8);
+			}
+			input[type=checkbox] {
+				cursor: pointer;
+				margin: 0 .25vw 0 0;
+				height: 2.5vw;
+				width: 2.5vw;
+			}
+			// &.crit-box {
+			// 	input[type=checkbox] {
+			// 		height: 2.5vw;
+			// 		width: 2.5vw;
+			// 	}
+			// }
+			h5 {
+				font-size: 2vw;
+			}
+			&.uppercase {
+				text-transform: uppercase;
+			}
+			&.smaller-font {
+				font-size:  1.3vw;
+			}
+			.no-lr-padding {
+				padding-right: 0;
+				padding-left: 0;
+			}
+		}
+		.uppercase {
+			text-transform: uppercase !important;
+		}
+
+		.no-lr-padding {
+			padding-right: 0;
+			padding-left: 0;
+		}
+		.hs-top-padding {
+			padding-top: .5vw;
+		}
+	}
+	.plain-table {
+		background: #cbccce !important;
+		color: #333 !important;
+		border: 0px !important;
+		padding: 0 !important;
+		margin: 0 !important;
+		tbody {
+			border: 0px !important;
+			background: #cbccce !important;
+		}
+		td {
+			padding: 0 0 0 .5vw !important;
+
+			color: #333 !important;
+			margin: 0 !important;
+			background: #cbccce !important;
+			border: 0px !important;
+		}
+	}
+	.full-width {
+		width: 100%;
+	}
+}
+
+.landscape-view-please {
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: #333;
+	color: #fff;
+	z-index: 999999;
+	display: none;
+	position: fixed;
+	padding: 45% 5%;
+	text-align: center;
+}
+
+@media only screen and (max-device-width: 400px) and (orientation: portrait) {
+	.landscape-view-please {
+		display: block;
+	}
 }

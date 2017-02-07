@@ -1,0 +1,16 @@
+<div ng-include="'pages/global-header.html'"></div>
+
+<div class="row">
+	<div class="columns small-12 text-left">
+		<fieldset class="fieldset">
+		<legend>Settings</legend>
+		<h5>Select Language</h5>
+		<div ng-controller="select_language" class="tiny button-group">
+			<button id="lng-btn-en-US" class="lang-button " ng-click="change_language('en-US')"><img src="images/flags/64/US.png" width="32px" /> </button>
+			<button id="lng-btn-de" class="lang-button " ng-click="change_language('de-DE')"><img src="images/flags/64/DE.png" width="32px" /></button>
+
+		</div>
+
+		</fieldset>
+	</div>
+</div>

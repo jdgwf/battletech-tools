@@ -1,5 +1,4 @@
-angular.module("baseApp").controller(
-	"battlemechCreatorControllerSummary",
+var battlemechCreatorControllerSummaryArray =
 	[
 		'$rootScope',
 		'$translate',
@@ -35,5 +34,14 @@ angular.module("baseApp").controller(
 
 		}
 	]
+;
+
+angular.module("webApp").controller(
+	"battlemechCreatorControllerSummary",
+	battlemechCreatorControllerSummaryArray
 );
 
+angular.module("cordovaApp").controller(
+	"battlemechCreatorControllerSummary",
+	battlemechCreatorControllerSummaryArray
+);

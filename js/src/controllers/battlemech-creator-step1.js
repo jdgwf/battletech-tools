@@ -1,5 +1,4 @@
-angular.module("baseApp").controller(
-	"battlemechCreatorControllerStep1",
+var battlemechCreatorControllerStep1Array =
 	[
 		'$rootScope',
 		'$translate',
@@ -142,4 +141,16 @@ angular.module("baseApp").controller(
 
 		}
 	]
+;
+
+
+
+angular.module("webApp").controller(
+	"battlemechCreatorControllerStep1",
+	battlemechCreatorControllerStep1Array
+);
+
+angular.module("cordovaApp").controller(
+	"battlemechCreatorControllerStep1",
+	battlemechCreatorControllerStep1Array
 );

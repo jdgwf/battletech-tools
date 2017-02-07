@@ -1,5 +1,4 @@
-angular.module("baseApp").controller(
-	"battlemechCreatorControllerStep2",
+var battlemechCreatorControllerStep2Array =
 	[
 		'$rootScope',
 		'$translate',
@@ -50,7 +49,7 @@ angular.module("baseApp").controller(
 			}
 		}
 	]
-);
+;
 
 function update_walking_jumping_dropdowns( $scope, $translate, current_mech ) {
 
@@ -103,4 +102,16 @@ function update_walking_jumping_dropdowns( $scope, $translate, current_mech ) {
 		}
 	});
 }
+
+
+angular.module("webApp").controller(
+	"battlemechCreatorControllerStep2",
+	battlemechCreatorControllerStep2Array
+);
+
+angular.module("cordovaApp").controller(
+	"battlemechCreatorControllerStep2",
+	battlemechCreatorControllerStep2Array
+);
+
 

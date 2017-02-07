@@ -1,5 +1,4 @@
-angular.module("baseApp").controller(
-	"battlemechCreatorControllerWelcome",
+var battlemechCreatorControllerWelcomeArray =
 	[
 		'$rootScope',
 		'$translate',
@@ -17,5 +16,14 @@ angular.module("baseApp").controller(
 
 		}
 	]
+;
+
+angular.module("webApp").controller(
+	"battlemechCreatorControllerWelcome",
+	battlemechCreatorControllerWelcomeArray
 );
 
+angular.module("cordovaApp").controller(
+	"battlemechCreatorControllerWelcome",
+	battlemechCreatorControllerWelcomeArray
+);

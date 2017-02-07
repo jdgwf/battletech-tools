@@ -1,5 +1,4 @@
-angular.module("baseApp").controller(
-	"battlemechCreatorControllerStep3",
+var battlemechCreatorControllerStep3Array =
 	[
 		'$rootScope',
 		'$translate',
@@ -56,7 +55,7 @@ angular.module("baseApp").controller(
 			}
 		}
 	]
-);
+;
 
 function update_heat_sink_dropdown($scope, $translate, current_mech) {
 
@@ -96,23 +95,37 @@ function update_heat_sink_dropdown($scope, $translate, current_mech) {
 			}
 
 		}
-		heat_sinks_required = current_mech.getHeatSinkCriticalRequirements();
-		the_label = translation.BM_STEP3_CRITICAL_REQUIRED;
-		the_label_single = translation.BM_STEP3_CRITICAL_REQUIRED_SINGLE;
-		the_label_none = translation.BM_STEP3_CRITICAL_REQUIRED_NONE;
-		//console.log( "heat_sinks_required", heat_sinks_required);
-		$scope.hs_crits_required = heat_sinks_required.number * heat_sinks_required.slots_each;
-		hs_crit_count = heat_sinks_required.number * heat_sinks_required.slots_each;
-		if( hs_crit_count < 0)
-			hs_crit_count = 0;
-		if( hs_crit_count == 1) {
-			$scope.label_criticals_required = the_label_single.replace("{hs_crits_required}", hs_crit_count);
-		} else if ( hs_crit_count == 0) {
-			$scope.label_criticals_required = the_label_none.replace("{hs_crits_required}", hs_crit_count);
-		} else {
-			$scope.label_criticals_required = the_label.replace("{hs_crits_required}", hs_crit_count);
+		var heat_sinks_required = current_mech.getHeatSinkCriticalRequirements();
+		if( heat_sinks_required ) {
+			the_label = translation.BM_STEP3_CRITICAL_REQUIRED;
+			the_label_single = translation.BM_STEP3_CRITICAL_REQUIRED_SINGLE;
+			the_label_none = translation.BM_STEP3_CRITICAL_REQUIRED_NONE;
+			//~ console.log( "heat_sinks_required", heat_sinks_required);
+			$scope.hs_crits_required = heat_sinks_required.number * heat_sinks_required.slots_each;
+			hs_crit_count = heat_sinks_required.number * heat_sinks_required.slots_each;
+			if( hs_crit_count < 0)
+				hs_crit_count = 0;
+			if( hs_crit_count == 1) {
+				$scope.label_criticals_required = the_label_single.replace("{hs_crits_required}", hs_crit_count);
+			} else if ( hs_crit_count == 0) {
+				$scope.label_criticals_required = the_label_none.replace("{hs_crits_required}", hs_crit_count);
+			} else {
+				$scope.label_criticals_required = the_label.replace("{hs_crits_required}", hs_crit_count);
+			}
 		}
 
 
 	});
 }
+
+
+angular.module("webApp").controller(
+	"battlemechCreatorControllerStep3",
+	battlemechCreatorControllerStep3Array
+);
+
+angular.module("cordovaApp").controller(
+	"battlemechCreatorControllerStep3",
+	battlemechCreatorControllerStep3Array
+);
+

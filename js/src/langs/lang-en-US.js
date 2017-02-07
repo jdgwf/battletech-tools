@@ -7,18 +7,37 @@ available_languages.push ({
 
 	translations: {
 
-		APP_TITLE: 'Jeff\'s BattleTech Tools',
+		APP_TITLE: '@Gauthic\'s BattleTech Tools',
 
 		INDEX_WELCOME: 'Welcome',
-		INDEX_H3_CORE: 'Jeff\'s BattleTech Tools',
+		INDEX_H3_CORE: '@Gauthic\'s BattleTech Tools',
 
 		WELCOME_BUTTON_MECH_CREATOR: '\'Mech Creator',
 		WELCOME_BUTTON_MECH_CREATOR_DESC: 'Create a BattleMech',
+
+		WELCOME_BUTTON_ALPHA_STRIKE: 'Alpha Strike',
+		WELCOME_BUTTON_ALPHA_STRIKE_DESC: 'Alpha Strike Force Builder and In-Play App',
+
 		WELCOME_H3_CORE: 'Jeff\'s BattleTech Tools',
 		WELCOME_H3_CREATORS_CORE: 'BattleTech Creators',
 
 		WELCOME_H3_FORCE_BUILDERS_CORE: 'BattleTech Force Builders',
 
+		GENERAL_TECHNOLOGY: 'Technology',
+		GENERAL_TECH: 'Tech',
+		GENERAL_POINTS: 'Points',
+		GENERAL_POINT: 'Point',
+		GENERAL_POINT_VALUE: 'Point Value',
+		GENERAL_RULES: 'Rules',
+		GENERAL_BATTLETECH: 'BattleTech',
+		GENERAL_MECH: '\'Mech',
+		GENERAL_TON: 'Ton',
+		GENERAL_TONS: 'Tons',
+		GENERAL_CLAN: 'Clan',
+		GENERAL_CLANS: 'Clans',
+		GENERAL_INNER_SPHERE: 'Inner Sphere',
+		GENERAL_ALL: 'All',
+		GENERAL_SEARCH: 'Search',
 
 		BM_MP_ABBR: "MP",
 

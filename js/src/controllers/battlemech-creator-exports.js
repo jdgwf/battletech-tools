@@ -1,5 +1,4 @@
-angular.module("baseApp").controller(
-	"battlemechCreatorControllerExports",
+var battlemechCreatorControllerExportsArray =
 	[
 		'$rootScope',
 		'$translate',
@@ -56,5 +55,14 @@ angular.module("baseApp").controller(
 			}
 		}
 	]
+;
+
+angular.module("webApp").controller(
+	"battlemechCreatorControllerExports",
+	battlemechCreatorControllerExportsArray
 );
 
+angular.module("cordovaApp").controller(
+	"battlemechCreatorControllerExports",
+	battlemechCreatorControllerExportsArray
+);

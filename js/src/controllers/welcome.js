@@ -1,5 +1,4 @@
-angular.module("baseApp").controller(
-	"welcomeController",
+var welcomeArray =
 	[
 		'$rootScope',
 		'$translate',
@@ -11,4 +10,15 @@ angular.module("baseApp").controller(
 			});
 		}
 	]
+;
+
+
+angular.module("webApp").controller(
+	"welcomeController",
+	welcomeArray
+);
+
+angular.module("cordovaApp").controller(
+	"welcomeController",
+	welcomeArray
 );

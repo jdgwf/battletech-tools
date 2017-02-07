@@ -1,5 +1,4 @@
-angular.module("baseApp").controller(
-	"battlemechCreatorControllerSidebar",
+var battlemechCreatorControllerSidebarArray =
 	[
 		'$rootScope',
 		'$translate',
@@ -40,5 +39,14 @@ angular.module("baseApp").controller(
 
 		}
 	]
+;
+
+angular.module("webApp").controller(
+	"battlemechCreatorControllerSidebar",
+	battlemechCreatorControllerSidebarArray
 );
 
+angular.module("cordovaApp").controller(
+	"battlemechCreatorControllerSidebar",
+	battlemechCreatorControllerSidebarArray
+);

@@ -1,3 +1,4 @@
+<div ng-include="'pages/global-header.html'"></div>
 <div class="row">
 	<div class="column small-12 medium-4 large-2">
 		<div ng-include="'pages/battlemech-creator-sidebar.html'"></div>
@@ -8,7 +9,10 @@
 			<div translate="BM_INTRO_TEXT"></div>
 
 			<div class="dev-note">No 'mech or user information is stored anywhere except for the client's browser. A thousand people could use this at the same time with no lags, delays or slowness unless their computers are very poor.</div>
-			<div class="dev-note">I've tested this app on machines as slow as a <a href="https://www.raspberrypi.org/products/raspberry-pi-2-model-b/">Raspberry Pi 2</a> running an old version of Chromium and the distribution version of <a href="https://wiki.gnome.org/Apps/Web">Epiphany</a> with good performance for that machine. This works <strong><em>fantasticly</em></strong> on an <a href="http://www.apple.com/ipad/">iPad</a>.</div>
+
+			<div class="dev-note">I've tested this app on machines as slow as a <a href="https://www.raspberrypi.org/products/raspberry-pi-2-model-b/">Raspberry Pi 2</a> running an old version of Chromium and the distribution version of <a href="https://wiki.gnome.org/Apps/Web">Epiphany</a> with good performance for that machine. This works <strong><em>fantasticly</em></strong> on an <a href="http://www.apple.com/ipad/">iPad</a> (even the drag an drop elements).</div>
+
+			<div class="dev-note">Drag and drop on an iPhone works, but the screen is too small to take advantage of the feature. I cannot drag any unallocated criticals to anything but the center torso arms and head.</div>
 
 			<div class="dev-note">
 				<h4>Bugs/Things I am aware of:</h4>
@@ -32,7 +36,8 @@
 					<li>Loading and Saving of 'mechs</li>
 					<li>Import/Export of 'mechs from JSON</li>
 					<li>Calculation of Alpha Strike Card and Values</li>
-					<li>Calculation of Battle Strike Values</li>
+					<li>Calculation of Battle Values</li>
+					<li>Calculation of CBill Costs</li>
 					<li>BB Code Export of TRO (very nicely formatted TRO for sharing on a forum)</li>
 					<li>PDF Export of Record Sheet</li>
 					<li>PDF Export of Alpha Strike Card</li>

@@ -1,5 +1,4 @@
-angular.module("baseApp").controller(
-	"battlemechCreatorControllerStep4",
+var battlemechCreatorControllerStep4Array =
 	[
 		'$rootScope',
 		'$translate',
@@ -227,7 +226,7 @@ angular.module("baseApp").controller(
 
 		}
 	]
-);
+;
 
 function make_armor_select_dd_options(max_armor) {
 
@@ -351,3 +350,15 @@ function update_step4_page_items($scope, $translate, current_mech) {
 
 	});
 }
+
+
+angular.module("webApp").controller(
+	"battlemechCreatorControllerStep4",
+	battlemechCreatorControllerStep4Array
+);
+
+angular.module("cordovaApp").controller(
+	"battlemechCreatorControllerStep4",
+	battlemechCreatorControllerStep4Array
+);
+

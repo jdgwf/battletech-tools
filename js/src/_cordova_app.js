@@ -2,8 +2,8 @@ var available_languages = [];
 
 var appVersion = "0.01Alpha";
 
-baseApp = angular.module(
-	'baseApp',
+webApp = angular.module(
+	'cordovaApp',
 	['ngRoute', 'ngResource', 'ngSanitize','pascalprecht.translate', 'as.sortable', 'mm.foundation'],
 	[
 		'$routeProvider',
@@ -43,6 +43,9 @@ baseApp = angular.module(
 				controller  : 'creditsController'
 			})
 
+			/*
+			 * BattleMech Creator Page
+			 */
 			// route for the battlemech creator page
 			.when('/battlemech-creator/', {
 				templateUrl : 'pages/battlemech-creator-welcome.html',
@@ -91,13 +94,33 @@ baseApp = angular.module(
 				controller  : 'battlemechCreatorControllerExports'
 			})
 
+			/*
+			 * Alpha Strike Builder/Play Tools
+			 */
+			// route for the home/welcome page
+			.when('/as/', {
+				templateUrl : 'pages/as-builder.html',
+				controller  : 'asBuilderController'
+			})
+
+			.when('/as/play-view', {
+				templateUrl : 'pages/as-play-view.html',
+				controller  : 'asPlayViewController'
+			})
+
+			// route for the credits page
+			.when('/settings', {
+				templateUrl : 'pages/settings.html',
+				controller  : 'settingsController'
+			})
+
 			;
 		}
 	]
 );
 
 
-angular.module('baseApp').controller(
+angular.module('cordovaApp').controller(
 	'select_language',
 	[
 		'$translate',

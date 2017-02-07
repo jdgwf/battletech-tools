@@ -1,5 +1,4 @@
-angular.module("baseApp").controller(
-	"battlemechCreatorControllerStep6",
+var battlemechCreatorControllerStep6Array =
 	[
 		'$rootScope',
 		'$translate',
@@ -198,7 +197,7 @@ angular.module("baseApp").controller(
 			};
 		}
 	]
-);
+;
 
 function update_step_6_items($scope, current_mech) {
 
@@ -228,4 +227,15 @@ function update_step_6_items($scope, current_mech) {
 	$scope.battlemech_unallocated_items = current_mech.unallocatedCriticals;
 	console.log( $scope.battlemech_right_arm );
 }
+
+angular.module("webApp").controller(
+	"battlemechCreatorControllerStep6",
+	battlemechCreatorControllerStep6Array
+);
+
+angular.module("cordovaApp").controller(
+	"battlemechCreatorControllerStep6",
+	battlemechCreatorControllerStep6Array
+);
+
 
