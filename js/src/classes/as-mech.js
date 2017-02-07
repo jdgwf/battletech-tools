@@ -137,6 +137,7 @@ function asMech (incomingMechData) {
 			//~ console.log( "after jumpMove", this.jumpMove );
 
 			this.currentSkill = 4;
+			this.currentHeat = 0;
 			this.currentPoints = this.basePoints;
 		} else {
 			// Interally Processed Data
@@ -458,10 +459,20 @@ function asMech (incomingMechData) {
 		this.currentToHitExtreme = this.currentSkill + 6 + this.currentHeat + currentFCHits * 2 + currentEngineHits;
 
 
+		this.currentHeat = this.currentHeat / 1;
+
 		// Engine Hit Heat Effects
 		if( currentEngineHits == 1 )
 			if( this.currentHeat < 1)
 			this.currentHeat = 1;
+
+		if( this.currentHeat < 0 )
+			this.currentHeat = 0;
+
+		if( this.currentHeat > 4 )
+			this.currentHeat = 4;
+
+
 
 		this.getCurrentStructure();
 

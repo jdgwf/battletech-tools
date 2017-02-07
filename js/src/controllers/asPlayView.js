@@ -56,6 +56,7 @@ var asPlayViewArray = [
 
 		$scope.changePage = function(newPage) {
 			$scope.viewingLance = newPage;
+			$scope.saveToLS();
 		}
 
 		$scope.toggleStructure = function(mechObject, indexValue) {

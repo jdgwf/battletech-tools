@@ -19,7 +19,7 @@ body {
 	background: $bodyBackground;
 	color: $fontColor;
 	font-family: 'Ubuntu', sans-serif !important;
-	padding: 0 0 2rem 0;
+	padding: 3.5rem 0 3rem 0;
 
 	a {
 		color: $primaryBG;
@@ -32,18 +32,17 @@ body {
 		}
 	}
 
+
 	.main-menu {
 		a {
-			font-size: 2vw;
+			font-size: 1.8rem;
 		}
-		.bt-logo {
-			height: 2vw;
-			margin: -.4vw 1vw 0 0;
-			padding-right: 1vw;
-			border-right: 2px solid #fff;
-		}
-	}
 
+	}
+		.bt-logo {
+			height: 1.6rem;
+			margin: .5rem 0 0 0;
+		}
 	.no-bottom-margin {
 		margin-bottom: 0 !important;
 	}
@@ -232,30 +231,26 @@ body {
 		outline: none;
 	}
 
-
-
-	header {
-		background: $headerFooterBackground;
-		padding: .5rem 1rem;
-		color: $fontColor;
-		margin: 0 0 1rem 0;
-		h1 {
-			a {
-				color: $fontColor;
-			}
-			font-size: 2rem;
-			padding: 0;
-			margin: 0;
-		}
-		h2 {
-			a {
-				color: $fontColor;
-			}
-			font-size: 1rem;
-			padding: 0;
-			margin: 0;
-		}
+	.no-margins {
+		margin: 0 !important;
 	}
+
+	select {
+		/*for firefox*/
+		-moz-appearance: none;
+		/*for chrome*/
+		-webkit-appearance:none;
+	    padding-right: 1rem;
+	    background-position: right -.75rem center;
+	    min-width: 3rem;
+	}
+
+	/*for IE10*/
+	select::-ms-expand {
+		display: none;
+	}
+
+
 	h1, h2, h3, h4 {
 		color: $primaryBG;
 	}
@@ -273,7 +268,9 @@ body {
 	}
 	.fieldset {
 		color: $fontColor;
-		border-color: $primaryBG;
+		border: 2px solid $primaryBG;
+		margin: 0 0 1rem 0;
+		padding: .5rem 1rem;
 		legend {
 			background: $bodyBackground;
 			color: $primaryBG;
@@ -318,10 +315,11 @@ body {
 		top: 0;
 		left: 0;
 		width: 100%;
+		padding: .25rem;
 		background: $headerFooterBackground;
 		border-bottom: solid 2px $primaryBG;
 		color: #fff;
-		height: 3em;
+		height: 3rem;
 		z-index: 100000;
 	}
 	.top-bar-padding {
@@ -689,6 +687,7 @@ button.round, .button.round {
 					margin: 0;
 					cursor: pointer;
 				}
+				input[type=checkbox],
 				input[type=radio] {
 					display: none;
 

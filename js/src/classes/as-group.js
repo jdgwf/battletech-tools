@@ -5,6 +5,7 @@ function asGroup () {
 	this.customName = "";
 
 	this.activeMembers = 0;
+	this.groupPoints = 0;
 	this.membersLabel = "";
 
 	this.getActiveMembers = function() {
@@ -13,6 +14,7 @@ function asGroup () {
 			this.members[memCount].calcCurrentVals();
 			if( this.members[memCount].active )
 				this.activeMembers++;
+			this.groupPoints += this.members[memCount].currentPoints;
 		}
 
 		this.membersLabel = " (" + this.activeMembers + "/" + this.members.length + ")";

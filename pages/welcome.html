@@ -1,12 +1,24 @@
 <div ng-include="'pages/global-header.html'"></div>
 <div class="row">
 
-	<div class="column small-12 medium-12 large-12">
+	<div class="column small-12 medium-10 large-8 medium-offset-1 large-offset-2">
 
+			<h2><span translate="APP_TITLE">@Gauthic's BattleTech Tools</span></h2>
+			<fieldset class="fieldset">
+				<legend>Welcome</legend>
 
-				<h2><span translate="APP_TITLE">@Gauthic's BattleTech Tools</span></h2>
+			<div class="dev-note">
+				I'm currently merging a separate project into this project so I can have
+				"one app to rule them all".
+				The Alpha Strike tools are actually much further along than the BM creator
+				 (while, ironically, the BM creator is further along look-n-feel wise),
+				 but the styling may look funny until integration is complete. :)
+				 <br /><br />Gauthic - Feb 7, 2017
 
-			<div class="dev-note">I'm currently merging a separate project into this project so I can have "one app to rule them all". The Alpha Strike tools are actually much further along than the BM creator (while, ironically, the BM creator is further along look-n-feel wise), but the styling may look funny until integration is complete. :)<br /><br />Gauthic - Feb 7, 2017</div>
+				 <br />
+				 <strong>Update</strong>: The merging and most of the styling fixes should be complete.
+
+		</div>
 
 
 						<ul class="sidebar-menu hide-for-small-only" ng-controller="battlemechCreatorControllerSidebar">
@@ -26,6 +38,7 @@
 				</a>
 			</li>
 		</ul>
+		</fieldset>
 
 	</div>
 </div>

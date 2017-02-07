@@ -2304,6 +2304,7 @@ function asGroup () {
 	this.customName = "";
 
 	this.activeMembers = 0;
+	this.groupPoints = 0;
 	this.membersLabel = "";
 
 	this.getActiveMembers = function() {
@@ -2312,6 +2313,7 @@ function asGroup () {
 			this.members[memCount].calcCurrentVals();
 			if( this.members[memCount].active )
 				this.activeMembers++;
+			this.groupPoints += this.members[memCount].currentPoints;
 		}
 
 		this.membersLabel = " (" + this.activeMembers + "/" + this.members.length + ")";
@@ -2458,6 +2460,7 @@ function asMech (incomingMechData) {
 			//~ console.log( "after jumpMove", this.jumpMove );
 
 			this.currentSkill = 4;
+			this.currentHeat = 0;
 			this.currentPoints = this.basePoints;
 		} else {
 			// Interally Processed Data
@@ -2779,10 +2782,20 @@ function asMech (incomingMechData) {
 		this.currentToHitExtreme = this.currentSkill + 6 + this.currentHeat + currentFCHits * 2 + currentEngineHits;
 
 
+		this.currentHeat = this.currentHeat / 1;
+
 		// Engine Hit Heat Effects
 		if( currentEngineHits == 1 )
 			if( this.currentHeat < 1)
 			this.currentHeat = 1;
+
+		if( this.currentHeat < 0 )
+			this.currentHeat = 0;
+
+		if( this.currentHeat > 4 )
+			this.currentHeat = 4;
+
+
 
 		this.getCurrentStructure();
 
@@ -5526,15 +5539,21 @@ var asBuilderArray = [
 	function ($rootScope, $translate, $scope, $http) {
 		$rootScope.showSciFiCreatorMenu = false;
 		$rootScope.showChargenMenu = false;
+
 		$translate(['APP_TITLE', 'WELCOME_BUTTON_ALPHA_STRIKE']).then(function (translation) {
 			$rootScope.title_tag = translation.WELCOME_BUTTON_ALPHA_STRIKE + " | " + translation.APP_TITLE;
 			$rootScope.subtitle_tag = translation.WELCOME_BUTTON_ALPHA_STRIKE;
+
 		});
 
+
+		$scope.addToOptions = Array();
 		$scope.activeView = false;
 
 		$scope.rulesFilter = "Standard";
 		$scope.techFilter = "";
+
+		$scope.addToGroup = null;
 
 		$scope.setRulesFilter = function(newFilter) {
 			$scope.rulesFilter = newFilter;
@@ -5544,6 +5563,12 @@ var asBuilderArray = [
 		$scope.setTechFilter = function(newFilter) {
 			$scope.techFilter = newFilter;
 			$scope.updateMULList();
+		}
+
+		$scope.updateMemberCounts = function() {
+			for( lanceCount = 0; lanceCount < $scope.currentLances.length; lanceCount++ ) {
+				$scope.currentLances[lanceCount].getActiveMembers();
+			}
 		}
 
 		$scope.filterMechRules = function() {
@@ -5638,10 +5663,15 @@ var asBuilderArray = [
 			localStorage["tmp_current_tech"] = $scope.techFilter;
 			localStorage["tmp_current_lances"] = JSON.stringify( $scope.currentLances) ;
 
+			$scope.updateMemberCounts();
+			$scope.forceTotalPoints = 0;
+
 			$scope.totalCount = 0;
 			for( var lanceCount = 0; lanceCount < $scope.currentLances.length; lanceCount++) {
 				$scope.totalCount += $scope.currentLances[lanceCount].members.length;
+				$scope.forceTotalPoints += $scope.currentLances[lanceCount].groupPoints;
 			}
+			$scope.totalGroups = $scope.currentLances.length;
 			//console.log( $scope.totalCount  ) ;
 			$scope.makeAddToOptions();
 
@@ -5651,24 +5681,35 @@ var asBuilderArray = [
 		}
 
 		$scope.makeAddToOptions = function() {
+
 			$scope.addToOptions = Array();
-			for( var lanceCount = 0; lanceCount < $scope.currentLances.length; lanceCount++) {
-				if(  $scope.currentLances[lanceCount].customName != "" ) {
-					$scope.addToOptions.push(
-						{
-							id: lanceCount,
-							label: $scope.currentLances[lanceCount].customName + " (Group " + (lanceCount + 1 ) + ")"
-						}
-					);
-				} else {
-					$scope.addToOptions.push(
-						{
-							id: lanceCount,
-							label: "Group " + (lanceCount + 1 )
-						}
-					);
+
+			$translate(['GENERAL_GROUP']).then(function (translation) {
+
+				groupName = translation.GENERAL_GROUP;
+
+				$scope.addToOptions = Array();
+				for( var lanceCount = 0; lanceCount < $scope.currentLances.length; lanceCount++) {
+					if(  $scope.currentLances[lanceCount].customName != "" ) {
+						$scope.addToOptions.push(
+							{
+								id: lanceCount,
+								label: $scope.currentLances[lanceCount].customName + " (Group " + (lanceCount + 1 ) + ")"
+							}
+						);
+					} else {
+						$scope.addToOptions.push(
+							{
+								id: lanceCount,
+								label: groupName + " " + (lanceCount + 1 )
+							}
+						);
+					}
 				}
-			}
+
+				if( !$scope.addToGroup )
+					$scope.addToGroup = $scope.addToOptions[0];
+			});
 		}
 
 		incomingLance = Array();
@@ -5699,7 +5740,7 @@ var asBuilderArray = [
 
 		$scope.makeAddToOptions();
 
-		$scope.addToGroup = $scope.addToOptions[0];
+
 
 		//~ console.log("incomingLance", incomingLance);
 		//~ console.log("$scope.currentLance", $scope.currentLance);
@@ -5733,7 +5774,7 @@ var asBuilderArray = [
 
 		$scope.viewMech = function(currentLance, viewIndex) {
 			$scope.viewingMech = currentLance.members[viewIndex];
-			console.log( $scope.viewingMech );
+			//~ console.log( $scope.viewingMech );
 		}
 
 		$scope.viewSearchMech = function(viewIndex) {
@@ -5837,6 +5878,7 @@ var asPlayViewArray = [
 
 		$scope.changePage = function(newPage) {
 			$scope.viewingLance = newPage;
+			$scope.saveToLS();
 		}
 
 		$scope.toggleStructure = function(mechObject, indexValue) {
@@ -7536,13 +7578,37 @@ available_languages.push ({
 		GENERAL_RULES: 'Rules',
 		GENERAL_BATTLETECH: 'BattleTech',
 		GENERAL_MECH: '\'Mech',
+		GENERAL_GROUP: 'Group',
 		GENERAL_TON: 'Ton',
 		GENERAL_TONS: 'Tons',
 		GENERAL_CLAN: 'Clan',
+		GENERAL_SKILL: 'Skill',
+		GENERAL_SKILL_PILOTING: 'Piloting Skill',
+		GENERAL_SKILL_GUNNERY: 'Gunnery Skill',
+		GENERAL_NAME: 'Name',
 		GENERAL_CLANS: 'Clans',
 		GENERAL_INNER_SPHERE: 'Inner Sphere',
 		GENERAL_ALL: 'All',
 		GENERAL_SEARCH: 'Search',
+		GENERAL_SEARCH_RESULTS: 'Search Results',
+
+		GENERAL_INTRODUCTORY: "Introductory",
+		GENERAL_STANDARD: "Standard",
+		GENERAL_ADVANCED: "Advanced",
+
+		AS_ADD_TO_GROUP: "Add to Group",
+		AS_GROUP_POINTS: "Group Points",
+		AS_GROUP_NUM_UNITS: "Group # Units",
+		AS_TOTAL_POINTS: "Total Points",
+		AS_TOTAL_UNITS: "Total Units",
+		AS_TOTAL_GROUPS: "Total Groups",
+		AS_CURRENT_FORCE: "Current Force",
+		AS_ADD_NEW_GROUP: "Add New Group",
+		AS_GROUP_EMPTY: "This group is empty",
+		AS_SEARCH_NO_MATCHES: "Sorry, there are no matches with those parameters",
+		AS_PLAY_VIEW: "Play View",
+		AS_CUSTOM_UNIT_NAME: "Custom Unit Designation",
+		AS_CUSTOM_GROUP_NAME: "Custom Star/Lance Designation",
 
 		BM_MP_ABBR: "MP",
 

@@ -5,30 +5,33 @@
 	</div>
 	<div class="column small-12 medium-8 large-10">
 		<div class="worksheet-area">
-			<div class="row">
-				<div class="column small-12 ">
-					<h3 ng-bind-html="h3_title">Summary Page!</h3>
-					<div class="dev-note">I need to calculate and document the calculations for BV and AS value, obviously. The TRO should be spot on.</div>
-				</div>
-			</div>
+			<fieldset class="fieldset">
+				<legend ng-bind-html="h3_title">Summary Page!</legend>
+				<div class="row">
+					<div class="column small-12 ">
 
-			<div class="row">
-				<div class="column small-12 medium-v large-4">
-					<h4 translate="BM_SUMMARY_TRO">TRO</h4>
-					<div ng-bind-html="mech_tro"></div>
+						<div class="dev-note">I need to calculate and document the calculations for BV and AS value, obviously. The TRO should be spot on.</div>
+					</div>
 				</div>
-				<div class="column small-12 medium-12 large-4">
-					<h4 translate="BM_SUMMARY_BV_CALC">Battle Value Math</h4>
-					<div ng-bind-html="mech_bv_calc"></div>
-				</div>
-				<div class="column small-12 medium-12 large-4">
-					<h4 translate="BM_SUMMARY_AS_CALC">Alpha Strike Math</h4>
-					<div ng-bind-html="mech_as_calc"></div>
-				</div>
-			</div>
 
-			<a class="button primary radius previous-button" href="#/battlemech-creator-step6/" translate="BM_PREVIOUS_STEP">Last Step</a>
-			<a class="button primary radius next-button" href="#/battlemech-creator-exports/" translate="BM_EXPORTS">Exporting</a>
+				<div class="row">
+					<div class="column small-12 medium-v large-4">
+						<h4 translate="BM_SUMMARY_TRO">TRO</h4>
+						<div ng-bind-html="mech_tro"></div>
+					</div>
+					<div class="column small-12 medium-12 large-4">
+						<h4 translate="BM_SUMMARY_BV_CALC">Battle Value Math</h4>
+						<div ng-bind-html="mech_bv_calc"></div>
+					</div>
+					<div class="column small-12 medium-12 large-4">
+						<h4 translate="BM_SUMMARY_AS_CALC">Alpha Strike Math</h4>
+						<div ng-bind-html="mech_as_calc"></div>
+					</div>
+				</div>
+
+				<a class="button primary radius previous-button" href="#/battlemech-creator-step6/" translate="BM_PREVIOUS_STEP">Last Step</a>
+				<a class="button primary radius next-button" href="#/battlemech-creator-exports/" translate="BM_EXPORTS">Exporting</a>
+			</fieldset>
 		</div>
 	</div>
 </div>

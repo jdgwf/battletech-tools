@@ -6,15 +6,21 @@ var asBuilderArray = [
 	function ($rootScope, $translate, $scope, $http) {
 		$rootScope.showSciFiCreatorMenu = false;
 		$rootScope.showChargenMenu = false;
+
 		$translate(['APP_TITLE', 'WELCOME_BUTTON_ALPHA_STRIKE']).then(function (translation) {
 			$rootScope.title_tag = translation.WELCOME_BUTTON_ALPHA_STRIKE + " | " + translation.APP_TITLE;
 			$rootScope.subtitle_tag = translation.WELCOME_BUTTON_ALPHA_STRIKE;
+
 		});
 
+
+		$scope.addToOptions = Array();
 		$scope.activeView = false;
 
 		$scope.rulesFilter = "Standard";
 		$scope.techFilter = "";
+
+		$scope.addToGroup = null;
 
 		$scope.setRulesFilter = function(newFilter) {
 			$scope.rulesFilter = newFilter;
@@ -24,6 +30,12 @@ var asBuilderArray = [
 		$scope.setTechFilter = function(newFilter) {
 			$scope.techFilter = newFilter;
 			$scope.updateMULList();
+		}
+
+		$scope.updateMemberCounts = function() {
+			for( lanceCount = 0; lanceCount < $scope.currentLances.length; lanceCount++ ) {
+				$scope.currentLances[lanceCount].getActiveMembers();
+			}
 		}
 
 		$scope.filterMechRules = function() {
@@ -118,10 +130,15 @@ var asBuilderArray = [
 			localStorage["tmp_current_tech"] = $scope.techFilter;
 			localStorage["tmp_current_lances"] = JSON.stringify( $scope.currentLances) ;
 
+			$scope.updateMemberCounts();
+			$scope.forceTotalPoints = 0;
+
 			$scope.totalCount = 0;
 			for( var lanceCount = 0; lanceCount < $scope.currentLances.length; lanceCount++) {
 				$scope.totalCount += $scope.currentLances[lanceCount].members.length;
+				$scope.forceTotalPoints += $scope.currentLances[lanceCount].groupPoints;
 			}
+			$scope.totalGroups = $scope.currentLances.length;
 			//console.log( $scope.totalCount  ) ;
 			$scope.makeAddToOptions();
 
@@ -131,24 +148,35 @@ var asBuilderArray = [
 		}
 
 		$scope.makeAddToOptions = function() {
+
 			$scope.addToOptions = Array();
-			for( var lanceCount = 0; lanceCount < $scope.currentLances.length; lanceCount++) {
-				if(  $scope.currentLances[lanceCount].customName != "" ) {
-					$scope.addToOptions.push(
-						{
-							id: lanceCount,
-							label: $scope.currentLances[lanceCount].customName + " (Group " + (lanceCount + 1 ) + ")"
-						}
-					);
-				} else {
-					$scope.addToOptions.push(
-						{
-							id: lanceCount,
-							label: "Group " + (lanceCount + 1 )
-						}
-					);
+
+			$translate(['GENERAL_GROUP']).then(function (translation) {
+
+				groupName = translation.GENERAL_GROUP;
+
+				$scope.addToOptions = Array();
+				for( var lanceCount = 0; lanceCount < $scope.currentLances.length; lanceCount++) {
+					if(  $scope.currentLances[lanceCount].customName != "" ) {
+						$scope.addToOptions.push(
+							{
+								id: lanceCount,
+								label: $scope.currentLances[lanceCount].customName + " (Group " + (lanceCount + 1 ) + ")"
+							}
+						);
+					} else {
+						$scope.addToOptions.push(
+							{
+								id: lanceCount,
+								label: groupName + " " + (lanceCount + 1 )
+							}
+						);
+					}
 				}
-			}
+
+				if( !$scope.addToGroup )
+					$scope.addToGroup = $scope.addToOptions[0];
+			});
 		}
 
 		incomingLance = Array();
@@ -179,7 +207,7 @@ var asBuilderArray = [
 
 		$scope.makeAddToOptions();
 
-		$scope.addToGroup = $scope.addToOptions[0];
+
 
 		//~ console.log("incomingLance", incomingLance);
 		//~ console.log("$scope.currentLance", $scope.currentLance);
@@ -213,7 +241,7 @@ var asBuilderArray = [
 
 		$scope.viewMech = function(currentLance, viewIndex) {
 			$scope.viewingMech = currentLance.members[viewIndex];
-			console.log( $scope.viewingMech );
+			//~ console.log( $scope.viewingMech );
 		}
 
 		$scope.viewSearchMech = function(viewIndex) {

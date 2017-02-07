@@ -5,28 +5,43 @@
 	</div>
 	<div class="column small-12 medium-8 large-10">
 		<div class="worksheet-area">
-			<div class="row">
-				<div class="column small-12 ">
-					<h3 translate="BM_EXPORTS_OUTPUT">Output</h3>
-					<div class="dev-note">This is also a work in progress. Two of these buttons are essentially placeholders. Right now the TRO Export is the only thing remotely working.<br />
-					<br />Remember that the PDF generation here is all on the client's computer. Nothing here (with the exception of the initial HTML, CSS and JS loading) is using server processing power.</div>
+			<fieldset class="fieldset">
+				<legend translate="BM_EXPORTS_OUTPUT">Output</legend>
+				<div class="row">
+					<div class="column small-12 ">
 
+						<div class="dev-note">
+							This is also a work in progress.
+							Two of these buttons are essentially placeholders.
+							 Right now the TRO Export is the only thing remotely working.<br />
+							<br />
+							Remember that the PDF generation here is all on the client's computer.
+							 Nothing here (with the exception of the initial HTML, CSS and JS loading)
+							  is using server processing power.<br />
+							  <br />
+					<strong>Update Feb 7, 2017</strong>: I am well aware that IE and Edge do not display the PDFs.
+					 I think a work-around will be to have the PDFs downloaded straight
+					  instead of displaying in a new window. This is a known limitation in jsPDF
+					  and so far no workaround has been posted.
+
+							 </div>
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="column small-12 medium-v large-4">
-					<button class="button expanded radius primary" ng-click="makeRecordSheet()" translate="BM_EXPORTS_EXPORT_RECORD_SHEET">Record Sheet</button>
+				<div class="row">
+					<div class="column small-12 medium-v large-4">
+						<button class="button expanded radius primary" ng-click="makeRecordSheet()" translate="BM_EXPORTS_EXPORT_RECORD_SHEET">Record Sheet</button>
+					</div>
+					<div class="column small-12 medium-v large-4">
+						<button class="button expanded radius primary" ng-click="makeTROSheet()" translate="BM_EXPORTS_EXPORT_TRO">TRO</button>
+					</div>
+					<div class="column small-12 medium-v large-4">
+						<button class="button expanded radius primary" ng-click="makeCombinedSheet()" translate="BM_EXPORTS_EXPORT_FULL">Full Print Out</button>
+					</div>
 				</div>
-				<div class="column small-12 medium-v large-4">
-					<button class="button expanded radius primary" ng-click="makeTROSheet()" translate="BM_EXPORTS_EXPORT_TRO">TRO</button>
-				</div>
-				<div class="column small-12 medium-v large-4">
-					<button class="button expanded radius primary" ng-click="makeCombinedSheet()" translate="BM_EXPORTS_EXPORT_FULL">Full Print Out</button>
-				</div>
-			</div>
 
 
-			<a class="button primary radius previous-button" href="#/battlemech-creator-summary/" translate="BM_SUMMARY">Last Step</a>
+				<a class="button primary radius previous-button" href="#/battlemech-creator-summary/" translate="BM_SUMMARY">Last Step</a>
+			</fieldset>
 		</div>
 	</div>
 </div>

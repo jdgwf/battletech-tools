@@ -7,135 +7,160 @@
 </div>
 <div class="row" ng-show="viewingMech == null">
 	<div class="columns medium-4">
-		<input autocomplete="off" autocorrect="off" placeholder="Search for Unit Name" autocapitalize="off" ng-keyup="searchOnEnter($event)" spellcheck="false" type="text" value="battle" ng-model="currentSearch" />
-		<div class="row">
-			<div class="columns small-6">
-				<h4 class="text-center">Rules</h4>
+		<fieldset class="fieldset">
+			<legend translate="GENERAL_SEARCH">Search</legend>
+			<input autocomplete="off" autocorrect="off" placeholder="Search for Unit Name" autocapitalize="off" ng-keyup="searchOnEnter($event)" spellcheck="false" type="text" value="battle" ng-model="currentSearch" />
+			<div class="row">
+				<div class="columns small-6">
+					<h4 class="text-center" translate="GENERAL_RULES">Rules</h4>
 
-				<label><input name="rulesFilter" ng-click="setRulesFilter('Introductory')" type="radio" ng-model="rulesFilter" ng-checked="rulesFilter == 'Introductory'" value="" /> Introductory</label>
-				<label><input name="rulesFilter" ng-click="setRulesFilter('Standard')" type="radio" ng-model="rulesFilter" ng-checked="rulesFilter == 'Standard'" value="" /> Standard</label>
-				<label><input name="rulesFilter" ng-click="setRulesFilter('Advanced')" type="radio" ng-model="rulesFilter" ng-checked="rulesFilter == 'Advanced'" value="" /> Advanced</label>
-				<label><input name="rulesFilter" ng-click="setRulesFilter('all')" type="radio" ng-model="rulesFilter" ng-checked="rulesFilter == 'all'" value="" /> All</label>
+					<label><input name="rulesFilter" ng-click="setRulesFilter('Introductory')" type="radio" ng-model="rulesFilter" ng-checked="rulesFilter == 'Introductory'" value="" /> <span translate="GENERAL_INTRODUCTORY">Introductory</span></label>
+					<label><input name="rulesFilter" ng-click="setRulesFilter('Standard')" type="radio" ng-model="rulesFilter" ng-checked="rulesFilter == 'Standard'" value="" /> <span translate="GENERAL_STANDARD">Standard</span></label>
+					<label><input name="rulesFilter" ng-click="setRulesFilter('Advanced')" type="radio" ng-model="rulesFilter" ng-checked="rulesFilter == 'Advanced'" value="" /> <span translate="GENERAL_ADVANCED">Advanced</span></label>
+					<label><input name="rulesFilter" ng-click="setRulesFilter('all')" type="radio" ng-model="rulesFilter" ng-checked="rulesFilter == 'all'" value="" /> <span translate="GENERAL_ALL">All</span></label>
+				</div>
+				<div class="columns small-6">
+					<h4 class="text-center" translate="GENERAL_TECHNOLOGY">Technology</h4>
+
+					<label><input name="techFilter" ng-click="setTechFilter('Inner Sphere')" type="radio" ng-model="techFilter" ng-checked="techFilter == 'Inner Sphere'" value="" /> <span translate="GENERAL_INNER_SPHERE">Inner Sphere</span></label>
+					<label><input name="techFilter" ng-click="setTechFilter('Clan')" type="radio" ng-model="techFilter" ng-checked="techFilter == 'Clan'" value="" /> <span translate="GENERAL_CLAN">Clan</span></label>
+
+					<label><input name="techFilter" ng-click="setTechFilter('all')" type="radio" ng-model="techFilter" ng-checked="techFilter == 'all'" value="" /> <span translate="GENERAL_ALL">All</span></label>
+				</div>
 			</div>
-			<div class="columns small-6">
-				<h4 class="text-center">Technology</h4>
-
-				<label><input name="techFilter" ng-click="setTechFilter('Inner Sphere')" type="radio" ng-model="techFilter" ng-checked="techFilter == 'Inner Sphere'" value="" /> Inner Sphere</label>
-				<label><input name="techFilter" ng-click="setTechFilter('Clan')" type="radio" ng-model="techFilter" ng-checked="techFilter == 'Clan'" value="" /> Clan</label>
-
-				<label><input name="techFilter" ng-click="setTechFilter('all')" type="radio" ng-model="techFilter" ng-checked="techFilter == 'all'" value="" /> All</label>
-			</div>
-		</div>
-		<button ng-disabled="currentSearch.length < 3" class="button expanded secondary small radius" ng-click="updateMULList()">Search</button>
-
+			<button ng-disabled="currentSearch.length < 3" class="button expanded primary small radius" ng-click="updateMULList()" translate="GENERAL_SEARCH">Search</button>
+		</fieldset>
 
 	<div class="show-for-small hide-for-medium hide-for-large columns medium-8">
-		<hr />
+		<fieldset class="fieldset">
+			<legend translate="GENERAL_SEARCH_RESULTS">Search Results</legend>
+				<div class="text-right">
+					<label><span translate="AS_ADD_TO_GROUP">Add To Group</span>:&nbsp;
+						<select style="display: inline-block;width: auto;paddin" ng-options="item as item.label for item in addToOptions track by item.id" ng-model="addToGroup"></select></select>
+					</label>
+				</div>
+				<table class="equipment-list">
+					<thead>
+						<tr>
+							<th translate="GENERAL_NAME">Name</th>
+							<th translate="GENERAL_RULES">Rules</th>
+							<th translate="GENERAL_TECH">Tech</th>
+							<th translate="GENERAL_POINTS">Points</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="(key, mulObject) in foundMULItems.Units">
+							<td><button ng-click="viewSearchMech($index)" class="button secondary tiny radius"><i class="fa fa-search"></i></button> {{mulObject["Name"]}}
+							</td>
+							<td>{{mulObject["Rules"]}}</td>
+							<td>{{mulObject["Technology"].Name}}</td>
+							<td>{{mulObject["BFPointValue"]}}</td>
+							<td><button ng-click="addToLance($index)" class="button primary tiny"><i class="fa fa-plus"></i></button></td>
+						</tr>
+					</tbody>
+					<div class="text-center" ng-show="foundMULItems.Units.length == 0" translate="AS_SEARCH_NO_MATCHES">Sorry, there are no matches with those parameters.</div>
+				</table>
+			</div>
+		</fieldset>
 
-		<div class="text-right">
-			<label>Add To Group:&nbsp;
-				<select style="display: inline-block;width: auto;paddin" ng-options="item as item.label for item in addToOptions track by item.id" ng-model="addToGroup"></select></select>
-			</label>
+		<fieldset class="fieldset">
+			<legend translate="AS_CURRENT_FORCE">Current Force</legend>
+
+			<div class="dev-note">I hate the way this area looks and works. It's really the only <strong>major</strong> part of this apps's section I want to fix.</div>
+		<div ng-repeat="currentLance in currentLances track by $index">
+			<fieldset class="fieldset">
+				<legend><span translate="GENERAL_GROUP">Group</span> {{$index +1 }}</legend>
+				<button class="button primary tiny pull-right" ng-click="removeGroup($index)" ng-show="currentLances.length > 1"><i class="fa fa-minus"></i></button>
+
+				<input type="text" style="display: block;width:80%;" placeholder="{{ 'AS_CUSTOM_GROUP_NAME' | translate }}" ng-model="currentLance.customName" ng-keyup="saveToLS()" />
+				<table class="equipment-list">
+					<thead>
+						<tr>
+							<th translate="GENERAL_NAME">Name</th>
+							<th>Skill</th>
+							<th translate="GENERAL_POINTS">Points</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<tr ng-repeat="mulObject in currentLance.members">
+							<td>
+								<button ng-click="viewMech(currentLance, $index)" class="button secondary tiny radius"><i class="fa fa-search"></i></button> {{mulObject.name}}<br />
+								<input type="text" style="width: 100%" placeholder="{{ 'AS_CUSTOM_UNIT_NAME' | translate }}" ng-model="mulObject.customName" ng-keyup="saveToLS()" />
+
+							</td>
+							<td>
+								<select ng-change="changeSkillValues($index, mulObject.currentSkillString)" ng-model="mulObject.currentSkillString">
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+								</select>
+							</td>
+							<td>{{mulObject.currentPoints}}</td>
+							<td><button ng-click="removefFromLance(currentLance, $index)" class="button primary tiny">-</button></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="text-center" ng-show="currentLance.members.length == 0" translate="AS_GROUP_EMPTY">This group is empty.</div>
+
+				<div class="text-right">
+					<span translate="AS_GROUP_NUM_UNITS">Group # Units</span>:
+					{{currentLance.members.length}}<br />
+					<span translate="AS_GROUP_POINTS">Group Points</span>:
+					{{currentLance.groupPoints}}<br />
+				</div>
+			</fieldset>
 		</div>
-		<table class="equipment-list">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Rules</th>
-					<th>Tech</th>
-					<th>Points</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="(key, mulObject) in foundMULItems.Units">
-					<td><button ng-click="viewSearchMech($index)" class="button secondary tiny radius"><i class="fa fa-search"></i></button> {{mulObject["Name"]}}
-					</td>
-					<td>{{mulObject["Rules"]}}</td>
-					<td>{{mulObject["Technology"].Name}}</td>
-					<td>{{mulObject["BFPointValue"]}}</td>
-					<td><button ng-click="addToLance($index)" class="button primary tiny">Add</button></td>
-				</tr>
-			</tbody>
-			<div class="text-center" ng-show="foundMULItems.Units.length == 0">Sorry, there are no matches with those parameters.</div>
-		</table>
+
+		<div>
+			<div class="text-right">
+				<strong><span translate="AS_TOTAL_GROUPS">Total Groups</span>: {{totalGroups}}</strong><br />
+				<strong><span translate="AS_TOTAL_UNITS">Total Units</span>: {{totalCount}}</strong><br />
+				<strong><span translate="AS_TOTAL_POINTS">Total Points</span>: {{forceTotalPoints}}</strong><br />
+			</div>
+			<a class="button primary expanded" ng-click="newGroup()" translate="AS_ADD_NEW_GROUP">Add New Group</a>
+		</div>
+		</fieldset>
 	</div>
 
-		<hr />
-
-		<div ng-repeat="currentLance in currentLances track by $index">
-			<button class="button primary tiny pull-right" ng-click="removeGroup($index)" ng-show="currentLances.length > 1">Del</button>
-			<h3>Group {{$index +1 }}</h3>
-			<input type="text" style="width: 100%" placeholder="Custom Lance Designation" ng-model="currentLance.customName" ng-keyup="saveToLS()" />
+	<div class="show-for-medium columns medium-8">
+		<fieldset class="fieldset">
+			<legend translate="GENERAL_SEARCH_RESULTS">Search Results</legend>
+			<div class="text-right">
+				<label><span translate="AS_ADD_TO_GROUP">Add To Group</span>:&nbsp;
+					<select style="display: inline-block;width: auto" ng-options="item as item.label for item in addToOptions track by item.id" ng-model="addToGroup"></select></select>
+				</label>
+			</div>
 			<table class="equipment-list">
 				<thead>
 					<tr>
-						<th>Name</th>
-						<th>Skill</th>
-						<th>Points</th>
+						<th translate="GENERAL_NAME">Name</th>
+						<th translate="GENERAL_RULES">Rules</th>
+						<th translate="GENERAL_TECH">Tech</th>
+						<th translate="GENERAL_POINTS">Points</th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 
-					<tr ng-repeat="mulObject in currentLance.members">
-						<td>
-							<button ng-click="viewMech(currentLance, $index)" class="button secondary tiny radius"><i class="fa fa-search"></i></button> {{mulObject.name}}<br />
-							<input type="text" style="width: 100%" placeholder="Custom Designation" ng-model="mulObject.customName" ng-keyup="saveToLS()" />
+					<tr ng-repeat="(key, mulObject) in foundMULItems.Units">
+						<td><button ng-click="viewSearchMech($index)" class="button secondary tiny radius"><i class="fa fa-search"></i></button> {{mulObject["Name"]}}</td>
+						<td>{{mulObject["Rules"]}}</td>
+						<td>{{mulObject["Technology"].Name}}</td>
+						<td>{{mulObject["BFPointValue"]}}</td>
+						<td><button ng-click="addToLance($index)" class="button primary tiny"><i class="fa fa-plus"></i></button></td>
 
-						</td>
-						<td>
-							<select ng-change="changeSkillValues($index, mulObject.currentSkillString)" ng-model="mulObject.currentSkillString">
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-							</select>
-						</td>
-						<td>{{mulObject.currentPoints}}</td>
-						<td><button ng-click="removefFromLance(currentLance, $index)" class="button primary tiny">-</button></td>
 					</tr>
 				</tbody>
 			</table>
-			<div class="text-center" ng-show="currentLance.members.length == 0">This group is empty.</div>
-		</div>
-		<div>
-			<a class="button primary expanded" ng-click="newGroup()">Add New Group</a>
-		</div>
-
-	</div>
-
-	<div class="show-for-medium columns medium-8">
-		<div class="text-right">
-			<label>Add To Group:&nbsp;
-				<select style="display: inline-block;width: auto" ng-options="item as item.label for item in addToOptions track by item.id" ng-model="addToGroup"></select></select>
-			</label>
-		</div>
-		<table class="equipment-list">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Rules</th>
-					<th>Tech</th>
-					<th>Points</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-
-				<tr ng-repeat="(key, mulObject) in foundMULItems.Units">
-					<td><button ng-click="viewSearchMech($index)" class="button secondary tiny radius"><i class="fa fa-search"></i></button> {{mulObject["Name"]}}</td>
-					<td>{{mulObject["Rules"]}}</td>
-					<td>{{mulObject["Technology"].Name}}</td>
-					<td>{{mulObject["BFPointValue"]}}</td>
-					<td><button ng-click="addToLance($index)" class="button primary tiny">Add</button></td>
-				</tr>
-			</tbody>
-		</table>
-		<div class="text-center" ng-show="foundMULItems.Units.length == 0">Sorry, there are no matches with those parameters.</div>
+			<div class="text-center" ng-show="foundMULItems.Units.length == 0" translate="AS_SEARCH_NO_MATCHES">Sorry, there are no matches with those parameters.</div>
+		</fieldset>
 	</div>
 </div>
