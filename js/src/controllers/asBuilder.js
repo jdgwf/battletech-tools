@@ -20,6 +20,8 @@ var asBuilderArray = [
 		$scope.rulesFilter = "Standard";
 		$scope.techFilter = "";
 
+		$scope.favoriteGroups = Array();
+
 		$scope.addToGroup = null;
 
 		$scope.setRulesFilter = function(newFilter) {
@@ -125,10 +127,11 @@ var asBuilderArray = [
 		}
 
 		$scope.saveToLS = function() {
-			localStorage["tmp_current_search"] = $scope.currentSearch;
-			localStorage["tmp_current_rules"] = $scope.rulesFilter;
-			localStorage["tmp_current_tech"] = $scope.techFilter;
-			localStorage["tmp_current_lances"] = JSON.stringify( $scope.currentLances) ;
+			localStorage["as_builder_current_search"] = $scope.currentSearch;
+			localStorage["as_builder_current_rules"] = $scope.rulesFilter;
+			localStorage["as_builder_current_tech"] = $scope.techFilter;
+			localStorage["as_builder_current_lances"] = JSON.stringify( $scope.currentLances) ;
+			localStorage["as_builder_favorites"] = JSON.stringify( $scope.favoriteGroups) ;
 
 			$scope.updateMemberCounts();
 			$scope.forceTotalPoints = 0;
@@ -181,8 +184,8 @@ var asBuilderArray = [
 
 		incomingLance = Array();
 		$scope.currentLances = Array()
-		if( localStorage["tmp_current_lances"] ) {
-			incomingLances = JSON.parse(localStorage["tmp_current_lances"]);
+		if( localStorage["as_builder_current_lances"] ) {
+			incomingLances = JSON.parse(localStorage["as_builder_current_lances"]);
 			for( var lanceCount = 0; lanceCount < incomingLances.length; lanceCount++) {
 				var incomingLance = new asGroup();
 
@@ -212,16 +215,22 @@ var asBuilderArray = [
 		//~ console.log("incomingLance", incomingLance);
 		//~ console.log("$scope.currentLance", $scope.currentLance);
 
+		if( !localStorage["as_builder_favorites"] ) {
+			localStorage["as_builder_favorites"] = "[]";
+		}
+
+		$scope.favoriteGroups = JSON.parse(localStorage["as_builder_favorites"]);
+
 		$scope.viewingMech = null;
 		$scope.foundMULItems = Array();
-		if( localStorage["tmp_current_search"] ) {
-			if( localStorage["tmp_current_rules"] ) {
-				$scope.rulesFilter = localStorage["tmp_current_rules"];
+		if( localStorage["as_builder_current_search"] ) {
+			if( localStorage["as_builder_current_rules"] ) {
+				$scope.rulesFilter = localStorage["as_builder_current_rules"];
 			}
-			if( localStorage["tmp_current_tech"] ) {
-				$scope.techFilter = localStorage["tmp_current_tech"];
+			if( localStorage["as_builder_current_tech"] ) {
+				$scope.techFilter = localStorage["as_builder_current_tech"];
 			}
-			$scope.currentSearch = localStorage["tmp_current_search"];
+			$scope.currentSearch = localStorage["as_builder_current_search"];
 			$scope.updateMULList();
 		} else {
 			$scope.currentSearch = "";
@@ -234,8 +243,6 @@ var asBuilderArray = [
 
 		$scope.removeGroup = function(groupIndex) {
 			$scope.currentLances.splice( groupIndex, 1 );
-
-			$scope.saveToLS();
 			$scope.saveToLS();
 		}
 
@@ -266,14 +273,67 @@ var asBuilderArray = [
 			$scope.saveToLS();
 		}
 
-		$scope.range = function(min, max, step) {
-			step = step || 1;
-			var input = [];
-			for (var i = min; i <= max; i += step) {
-				input.push(i);
+		$scope.removeFromFavorites = function(groupIndex) {
+			$scope.favoriteGroups.splice( groupIndex, 1 );
+
+			$scope.saveToLS();
+		}
+
+		$scope.addGroupToFavorites = function( groupIndex ) {
+			console.log( groupIndex );
+			console.log( $scope.currentLances );
+			if( $scope.currentLances[groupIndex] ) {
+				var today = new Date();
+				var dd = today.getDate();
+				var mm = today.getMonth()+1; //January is 0!
+				var yyyy = today.getFullYear();
+
+				if(dd<10) {
+				    dd='0'+dd
+				}
+
+				if(mm<10) {
+				    mm='0'+mm
+				}
+
+				today = mm+'/'+dd+'/'+yyyy;
+
+				groupName = "Saved Group";
+
+				if( $scope.currentLances[groupIndex].customName != "")
+					groupName = $scope.currentLances[groupIndex].customName;
+
+				var favoriteObject = {
+					savedOn: today,
+					customName: groupName,
+					members: Array()
+				};
+
+				for( var itemC = 0; itemC < $scope.currentLances[groupIndex].members.length; itemC++) {
+					var memObj = {
+						name: $scope.currentLances[groupIndex].members[itemC].name,
+						customName: $scope.currentLances[groupIndex].members[itemC].customName,
+						currentSkill: $scope.currentLances[groupIndex].members[itemC].currentSkill,
+						mulID: $scope.currentLances[groupIndex].members[itemC].mulID,
+					}
+					favoriteObject.members.push( memObj );
+				}
+
+				$scope.favoriteGroups.push( favoriteObject );
+
+				$scope.saveToLS();
+				console.log( $scope.favoriteGroups );
 			}
-			return input;
-		};
+
+			$scope.range = function(min, max, step) {
+				step = step || 1;
+				var input = [];
+				for (var i = min; i <= max; i += step) {
+					input.push(i);
+				}
+				return input;
+			};
+		}
 	}
 ];
 angular.module("webApp").controller(

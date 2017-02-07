@@ -73,14 +73,50 @@
 			</div>
 		</fieldset>
 
+		<fieldset class="fieldset" ng-show="favoriteGroups.length > 0">
+			<legend><span translate="AS_FAVORITE_GROUPS">Favorite Groups</span></legend>
+				<div ng-repeat="favGroup in favoriteGroups track by $index">
+
+					<button class="margin-left small pull-right button primary" onclick="alert('Not yet, but soon!');"><i class="fa fa-plus"></i></button>
+					<button class="margin-left small pull-right button primary" ng-click="removeFromFavorites($index);"><i class="fa fa-trash"></i></button>
+
+					<h4>{{favGroup.customName}}</h4>
+						<table class="equipment-list">
+							<thead>
+								<tr>
+									<th translate="GENERAL_NAME">Name</th>
+									<th translate="GENERAL_SKILL">Skill</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="(key, mulObject) in favGroup.members">
+									<td>
+										<span ng-show="mulObject.customName != ''">{{mulObject.customName}}<br /></span>
+										{{mulObject.name}}<br />
+
+									</td>
+									<td>{{mulObject.currentSkill}}</td>
+									<td class="text-right">
+										<button class="tiny button primary" onclick="alert('Not yet, but soon!');"><i class="fa fa-plus"></i></button>
+
+									</td>
+								</tr>
+							</tbody>
+							<div class="text-center" ng-show="foundMULItems.Units.length == 0" translate="AS_SEARCH_NO_MATCHES">Sorry, there are no matches with those parameters.</div>
+						</table>
+						<hr />
+				</div>
+		</fieldset>
+
 		<fieldset class="fieldset">
-			<legend translate="AS_CURRENT_FORCE">Current Force</legend>
+			<legend><span translate="AS_CURRENT_FORCE">Current Force</span></legend>
 
 
 		<div ng-repeat="currentLance in currentLances track by $index">
 			<fieldset class="fieldset">
-				<legend><span translate="GENERAL_GROUP">Group</span> {{$index +1 }}</legend>
-				<button class="button primary tiny pull-right" ng-click="removeGroup($index)" ng-show="currentLances.length > 1"><i class="fa fa-minus"></i></button>
+				<legend><a ng-click="addGroupToFavorites($index)"><i class="fa fa-heart"></i></a> <span translate="GENERAL_GROUP">Group</span> {{$index +1 }}</legend>
+				<button class="button primary tiny pull-right" ng-click="removeGroup($index)" ng-show="currentLances.length > 1"><i class="fa fa-trash"></i></button>
 
 				<input type="text" style="display: block;width:80%;" placeholder="{{ 'AS_CUSTOM_GROUP_NAME' | translate }}" ng-model="currentLance.customName" ng-keyup="saveToLS()" />
 				<table class="equipment-list">

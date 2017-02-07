@@ -9,7 +9,7 @@ $primaryBGHover: #b48a25;
 $primaryTextColor: #fff;
 
 $darkenedBG: rgba( 0, 0, 0, .25);
-$darkenedGreenBG: rgba( 0, 33, 0, .25);
+$darkenedGreenBG: rgba( 0, 66, 0, .25);
 
 $secondaryBG: #fdfde3;
 $secondaryBGHover: #e4e4ce;
@@ -152,12 +152,13 @@ body {
 	.dev-note {
 		color: #fff;
 		background: $darkenedGreenBG;
-		border-radius: 3px;
+		border-radius: 5px;
 		margin: 0 0 1rem 0;
 		padding: 3px 10px 3px 45px;
 		overflow: hidden;
 		position: relative;
 		min-height: 90px;
+		border: solid 2px green;
 		&::before {
 			content: 'Dev Note';
 			background: green;
@@ -266,6 +267,9 @@ body {
 			margin-bottom: 0;
 		}
 	}
+	.text-right {
+		text-align: right !important;
+	}
 	.fieldset {
 		color: $fontColor;
 		border: 2px solid $primaryBG;
@@ -281,8 +285,14 @@ body {
 			padding: 0 1rem;
 			font-size: 1.1rem;
 			font-weight: 500;
+			i {
+				color: #fff;
+			}
 		}
 
+	}
+	.margin-left {
+		margin-left: 2px;
 	}
 	strong {
 		color: $primaryBG;

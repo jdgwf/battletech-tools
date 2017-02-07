@@ -35,6 +35,8 @@ function asMech (incomingMechData) {
 
 	this.move = 0;
 
+	this.mulID = 0;
+
 	this.abilities = "";
 
 	this.overheat = 0;
@@ -61,6 +63,8 @@ function asMech (incomingMechData) {
 		if( typeof(incomingMechData["BFPointValue"]) != "undefined") {
 			// RAW Data From MUL
 
+			console.log( incomingMechData );
+
 			this.class = incomingMechData["Marauder"];
 			this.costCR = incomingMechData["Cost"] / 1;
 
@@ -71,6 +75,8 @@ function asMech (incomingMechData) {
 			//this.era = incomingMechData["XXXX"];
 
 			this.tro = incomingMechData["TRO"];
+
+			this.mulID = incomingMechData["Id"];
 
 			this.tonnage = incomingMechData["Tonnage"] / 1;
 
@@ -144,6 +150,8 @@ function asMech (incomingMechData) {
 
 			this.class = incomingMechData.class;
 			this.costCR = incomingMechData.costCR / 1;
+
+			this.mulID = incomingMechData.mulID / 1;
 
 			this.imageURL = incomingMechData.imageURL;
 

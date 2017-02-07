@@ -17,8 +17,8 @@ var asPlayViewArray = [
 
 		incomingLance = Array();
 		$scope.currentLances = Array()
-		if( localStorage["tmp_current_lances"] ) {
-			incomingLances = JSON.parse(localStorage["tmp_current_lances"]);
+		if( localStorage["as_builder_current_lances"] ) {
+			incomingLances = JSON.parse(localStorage["as_builder_current_lances"]);
 			for( var lanceCount = 0; lanceCount < incomingLances.length; lanceCount++) {
 				var incomingLance = new asGroup();
 
@@ -42,8 +42,8 @@ var asPlayViewArray = [
 		}
 
 		$scope.viewingLance = 0;
-		if( localStorage["tmp_current_play_page"] && localStorage["tmp_current_play_page"] < $scope.currentLances.length )
-			$scope.viewingLance = localStorage["tmp_current_play_page"];
+		if( localStorage["as_builder_current_play_page"] && localStorage["as_builder_current_play_page"] < $scope.currentLances.length )
+			$scope.viewingLance = localStorage["as_builder_current_play_page"];
 
 
 
@@ -157,8 +157,8 @@ var asPlayViewArray = [
 
 			$scope.updateMemberCounts();
 
-			localStorage["tmp_current_lances"] = JSON.stringify( $scope.currentLances) ;
-			localStorage["tmp_current_play_page"] = $scope.viewingLance;
+			localStorage["as_builder_current_lances"] = JSON.stringify( $scope.currentLances) ;
+			localStorage["as_builder_current_play_page"] = $scope.viewingLance;
 		}
 
 		//~ console.log($scope.currentLance);

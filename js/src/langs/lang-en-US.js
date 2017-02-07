@@ -55,6 +55,7 @@ available_languages.push ({
 		GENERAL_ADVANCED: "Advanced",
 		GENERAL_CLOSE: "Close",
 
+		AS_FAVORITE_GROUPS: "Favorite Groups",
 		AS_ADD_TO_GROUP: "Add to Group",
 		AS_GROUP_POINTS: "Group Points",
 		AS_GROUP_NUM_UNITS: "Group # Units",
