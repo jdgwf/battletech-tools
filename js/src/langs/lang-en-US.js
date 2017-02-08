@@ -41,6 +41,7 @@ available_languages.push ({
 		GENERAL_TONS: 'Tons',
 		GENERAL_CLAN: 'Clan',
 		GENERAL_SKILL: 'Skill',
+		GENERAL_SKILL_LEVEL: 'Skill Level',
 		GENERAL_SKILL_PILOTING: 'Piloting Skill',
 		GENERAL_SKILL_GUNNERY: 'Gunnery Skill',
 		GENERAL_NAME: 'Name',
@@ -50,12 +51,14 @@ available_languages.push ({
 		GENERAL_SEARCH: 'Search',
 		GENERAL_SEARCH_RESULTS: 'Search Results',
 		GENERAL_IMMOBILE: "Immobile",
+		GENERAL_CANCEL: "Cancel",
 
 		GENERAL_INTRODUCTORY: "Introductory",
 		GENERAL_STANDARD: "Standard",
 		GENERAL_ADVANCED: "Advanced",
 		GENERAL_CLOSE: "Close",
 
+		AS_PLEASE_WAIT: "Please wait while information is retrieved from the master unit list.",
 		AS_FAVORITE_GROUPS: "Favorite Groups",
 		AS_ADD_TO_GROUP: "Add to Group",
 		AS_GROUP_POINTS: "Group Points",
@@ -72,6 +75,10 @@ available_languages.push ({
 		AS_CUSTOM_GROUP_NAME: "Custom Star/Lance Name",
 		AS_RESULTS_PROVIDED_BY_MUL: "Search results provided by the Master Unit List Website",
 		AS_VIEWING_CARD: "Viewing Card",
+		AS_ADD_TO_SELECTED_GROUP_NOTED_IN_DROPDOWN: "Add this unit to the group selected in the drop down in the top right of the search results",
+		AS_UNIT_CUSTOMIZATION: "Unit Customization",
+		AS_SELECT_DAMAGE_TAKEN: "Select Damage Taken",
+
 
 		BM_MP_ABBR: "MP",
 

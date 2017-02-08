@@ -799,7 +799,46 @@ button.round, .button.round {
   .as-card .full-width {
     width: 100%; }
 
-/* line 907, /srv/www/jdgwf.com/bt/public_html/css/src/style.scss */
+/* line 906, /srv/www/jdgwf.com/bt/public_html/css/src/style.scss */
+.damage-select {
+  position: relative;
+  z-index: 1000;
+  margin-top: 1vw;
+  background: #c11;
+  color: #fff !important;
+  border: solid 5px #333;
+  padding: .5vw 1vw;
+  border-radius: 5px;
+  text-align: center;
+  margin: -.5vw 0 .5vw 0; }
+  /* line 919, /srv/www/jdgwf.com/bt/public_html/css/src/style.scss */
+  .damage-select button {
+    text-transform: none !important; }
+  /* line 922, /srv/www/jdgwf.com/bt/public_html/css/src/style.scss */
+  .damage-select h4 {
+    text-transform: none !important;
+    margin: 0 0 5px 0 !important;
+    color: #fff; }
+
+/* line 928, /srv/www/jdgwf.com/bt/public_html/css/src/style.scss */
+.please-wait {
+  position: absolute;
+  z-index: 999999;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  padding: 40% 10%;
+  text-align: center;
+  color: #fff;
+  font-size: 3vw;
+  background: rgba(0, 0, 0, 0.7); }
+
+/* line 941, /srv/www/jdgwf.com/bt/public_html/css/src/style.scss */
+.no-wrap-whitespace {
+  white-space: nowrap; }
+
+/* line 945, /srv/www/jdgwf.com/bt/public_html/css/src/style.scss */
 .landscape-view-please {
   top: 0;
   left: 0;
@@ -813,7 +852,11 @@ button.round, .button.round {
   padding: 45% 5%;
   text-align: center; }
 
+/* line 959, /srv/www/jdgwf.com/bt/public_html/css/src/style.scss */
+.inline-block {
+  display: inline-block; }
+
 @media only screen and (max-device-width: 400px) and (orientation: portrait) {
-  /* line 922, /srv/www/jdgwf.com/bt/public_html/css/src/style.scss */
+  /* line 964, /srv/www/jdgwf.com/bt/public_html/css/src/style.scss */
   .landscape-view-please {
     display: block; } }

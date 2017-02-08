@@ -18,7 +18,7 @@ var asBuilderArray = [
 		$scope.activeView = false;
 
 		$scope.rulesFilter = "Standard";
-		$scope.techFilter = "";
+		$scope.techFilter = "Inner Sphere";
 
 		$scope.favoriteGroups = Array();
 
@@ -38,6 +38,54 @@ var asBuilderArray = [
 			for( lanceCount = 0; lanceCount < $scope.currentLances.length; lanceCount++ ) {
 				$scope.currentLances[lanceCount].getActiveMembers();
 			}
+		}
+
+		$scope.addFavoriteUnit = function( favoriteGroupIndex, favoriteMechIndex, addToGroup ) {
+
+			if( typeof(addToGroup) == "undefined")
+				addToGroup = $scope.addToGroup.id / 1;
+
+			//~ console.log("addFavoriteUnit TODO:" + favoriteGroupIndex + "/" + favoriteMechIndex + "/" + addToGroup);
+
+			addUnitInfo = $scope.favoriteGroups[favoriteGroupIndex].members[ favoriteMechIndex ];
+			//~ console.log("addFavoriteUnit TODO:", addUnitInfo );
+			//~ addUnitInfo.customName
+			//~ addUnitInfo.currentSkill
+			//~ addUnitInfo.mulID
+			$scope.tempFavCurrentSkill = addUnitInfo.currentSkill;
+			$scope.tempFavCustomName = addUnitInfo.customName;
+			$scope.pleaseWait = true;
+			$http.get("http://masterunitlist.info/Unit/QuickList?MinPV=1&MaxPV=999&Name=" + addUnitInfo.mulID)
+				.then(function(response) {
+					foundMULItem = response.data;
+
+					console.log( foundMULItem );
+
+
+
+					$scope.pleaseWait = false;
+
+					//~ this.currentLances[ favoriteGroupIndex ].members.push( new asUnit( foundMULItem ) );
+					//~ $scope.currentLances[ favoriteGroupIndex ].members[ this.currentLances[ favoriteGroupIndex ].members.length - 1 ].setSkill( $scope.tempFavCurrentSkill );
+					//~ $scope.currentLances[ favoriteGroupIndex ].members[ this.currentLances[ favoriteGroupIndex ].members.length - 1 ].customName = $scope.tempFavCustomName;
+					//~ $scope.saveToLS();
+					$scope.tempFavCurrentSkill = null;
+					$scope.tempFavCustomName = null;
+				});
+
+
+			return null;
+		}
+
+		$scope.addFavoriteGroup = function( favoriteGroupIndex ) {
+			var newGroup = new asGroup();
+			newGroup.customName = $scope.favoriteGroups[favoriteGroupIndex].customName;
+
+			this.currentLances.push(newGroup);
+			for( var mCount = 0; mCount < $scope.favoriteGroups[favoriteGroupIndex].members.length; mCount++) {
+				$scope.addFavoriteUnit( favoriteGroupIndex, mCount, this.currentLances.length - 1);
+			}
+
 		}
 
 		$scope.filterMechRules = function() {
@@ -72,8 +120,9 @@ var asBuilderArray = [
 			}
 		}
 
-		$scope.changeSkillValues = function(currentLance, indexValue, newSkillValue) {
-			currentLance.members[indexValue].setSkill( newSkillValue );
+		$scope.changeSkillValues = function( newSkillValue) {
+			console.log( newSkillValue );
+			$scope.viewingLance.members[$scope.viewingMechIndex].setSkill( newSkillValue );
 			$scope.saveToLS();
 		}
 
@@ -106,14 +155,16 @@ var asBuilderArray = [
 			QuickRandom
 		*/
 		$scope.updateMULList = function() {
-			// http://masterunitlist.info//Unit/QuickList?MinPV=1&MaxPV=999&Name=
-			if( $scope.currentSearch.length > 3 ) {
+			// http://masterunitlist.info/Unit/QuickList?MinPV=1&MaxPV=999&Name=
+			if( $scope.currentSearch.length >= 3 ) {
 				$scope.foundMULItems = Array();
-				$http.get("http://masterunitlist.info//Unit/QuickList?MinPV=1&MaxPV=999&Name=" + $scope.currentSearch)
+				$scope.pleaseWait = true;
+				$http.get("http://masterunitlist.info/Unit/QuickList?MinPV=1&MaxPV=999&Name=" + $scope.currentSearch)
 					.then(function(response) {
 						$scope.foundMULItems = response.data;
 						$scope.filterMechRules();
 						$scope.filterMechTech();
+						$scope.pleaseWait = false;
 						// console.log( $scope.foundMULItems );
 					});
 			}
@@ -222,6 +273,9 @@ var asBuilderArray = [
 		$scope.favoriteGroups = JSON.parse(localStorage["as_builder_favorites"]);
 
 		$scope.viewingMech = null;
+		$scope.viewingLance = null;
+		$scope.viewingMechIndex = -1;
+
 		$scope.foundMULItems = Array();
 		if( localStorage["as_builder_current_search"] ) {
 			if( localStorage["as_builder_current_rules"] ) {
@@ -248,6 +302,14 @@ var asBuilderArray = [
 
 		$scope.viewMech = function(currentLance, viewIndex) {
 			$scope.viewingMech = currentLance.members[viewIndex];
+			$scope.viewingLance = currentLance;
+			$scope.viewingMechIndex = viewIndex;
+			//~ console.log( $scope.viewingMech );
+		}
+
+		$scope.toggleDetails = function(currentLance, viewIndex) {
+			currentLance.members[viewIndex].toggleShowingDetails();
+			$scope.saveToLS();
 			//~ console.log( $scope.viewingMech );
 		}
 
@@ -258,6 +320,8 @@ var asBuilderArray = [
 
 		$scope.closeViewMech = function(addIndex) {
 			$scope.viewingMech = null;
+			$scope.viewingLance = null;
+			$scope.viewingMechIndex = -1;
 		}
 
 		$scope.addToLance = function(addIndex) {

@@ -50,6 +50,8 @@ var asPlayViewArray = [
 
 		}
 
+
+
 		$scope.changePage = function(newPage) {
 			$scope.viewingLance = newPage;
 			$scope.saveToLS();
@@ -136,11 +138,18 @@ var asPlayViewArray = [
 
 		}
 
-		$scope.takeDamage = function(mechObject) {
-			mechObject.takeDamage( 1 );
+		$scope.takeDamage = function(mechObject, damageAmount) {
+			if( typeof(damageAmount) == "undefined")
+				damageAmount = 1;
+			mechObject.takeDamage( damageAmount );
 
+			mechObject.showDamageBar = false;
 			$scope.saveToLS();
 
+		}
+
+		$scope.showDamageSelect = function( mechObject ) {
+			mechObject.showDamageBar = true;
 		}
 
 		$scope.updateMemberCounts = function() {

@@ -2336,6 +2336,8 @@ function asUnit (incomingMechData) {
 
 	this.tro = "";
 
+	this.showDetails = 0;
+
 	this.active = true;
 
 	this.tonnage = 0;
@@ -2392,6 +2394,15 @@ function asUnit (incomingMechData) {
 		return myString.toLowerCase().trim();
 	}
 
+	this.toggleShowingDetails = function() {
+
+		if( this.showDetails > 0)
+			this.showDetails = 0;
+		else
+			this.showDetails = 1;
+
+	}
+
 	if( typeof(incomingMechData) != "undefined" && incomingMechData != null ) {
 
 		if( typeof(incomingMechData["BFPointValue"]) != "undefined") {
@@ -2414,6 +2425,8 @@ function asUnit (incomingMechData) {
 
 			this.tonnage = incomingMechData["Tonnage"] / 1;
 
+			this.threshold = incomingMechData["BFThreshold"] / 1;
+
 			this.role = incomingMechData["Role"]["Name"];
 
 			this.type = incomingMechData["BFType"];
@@ -2423,8 +2436,6 @@ function asUnit (incomingMechData) {
 
 			this.armor = incomingMechData["BFArmor"] / 1;
 			this.structure = incomingMechData["BFStructure"] / 1;
-
-			this.threshold = incomingMechData["BTThreshold"] / 1;
 
 			this.damage = {
 				short: incomingMechData["BFDamageShort"] / 1,
@@ -2512,6 +2523,8 @@ function asUnit (incomingMechData) {
 
 			this.tonnage = incomingMechData.tonnage / 1;
 
+			this.threshold = incomingMechData.threshold / 1;
+
 
 			this.type = incomingMechData.type;
 			this.size = incomingMechData.size / 1;
@@ -2519,8 +2532,6 @@ function asUnit (incomingMechData) {
 
 			this.armor = incomingMechData.armor / 1;
 			this.structure = incomingMechData.structure / 1;
-
-			this.threshold = incomingMechData.threshold / 1;
 
 
 			this.move = incomingMechData.move;
@@ -2539,6 +2550,8 @@ function asUnit (incomingMechData) {
 			this.move = incomingMechData.move;
 
 			this.abilities = incomingMechData.abilities;
+
+			this.showDetails = incomingMechData.showDetails;
 
 			this.overheat = incomingMechData.overheat / 1;
 
@@ -2595,6 +2608,24 @@ function asUnit (incomingMechData) {
 			while( this.mpControlHits.length < 5 )
 				this.mpControlHits.push( false );
 
+		}
+
+		this.isAerospace = false;
+		if(
+			this.type.trim().toLowerCase() == "af"
+				||
+			this.type.trim().toLowerCase() == "cf"
+		) {
+			this.isAerospace = true;
+		}
+
+		this.isInfantry = false;
+		if(
+			this.type.trim().toLowerCase() == "ba"
+				||
+			this.type.trim().toLowerCase() == "ci"
+		) {
+			this.isInfantry = true;
 		}
 
 
@@ -2760,8 +2791,11 @@ function asUnit (incomingMechData) {
 		}
 
 		// Calculate Critical Movement
-		console.log( "this.move", this.move );
-		if( this.type.toLowerCase() == "bm" ) {
+		if(
+			this.type.toLowerCase() == "bm"
+				||
+			this.type.toLowerCase() == "im"
+		) {
 			// for BattleMechs
 			for( var mpHitsCount = 0; mpHitsCount < this.mpControlHits.length; mpHitsCount++) {
 				if( this.mpControlHits[ mpHitsCount ] ) {
@@ -2863,9 +2897,6 @@ function asUnit (incomingMechData) {
 		}
 
 
-		console.log( "this.move", this.move );
-		console.log( "this.currentTMM", this.currentTMM );
-		console.log( "this.currentMove", this.currentMove );
 
 
 
@@ -2906,7 +2937,7 @@ function asUnit (incomingMechData) {
 
 	this.takeDamage = function( numberOfPoints ) {
 		leftOverPoints = numberOfPoints;
-		console.log("TODO: takeDamage();", numberOfPoints);
+		//~ console.log("TODO: takeDamage();", numberOfPoints);
 		for( var pointCounter = 0; pointCounter < numberOfPoints; pointCounter++ ) {
 			for( var armorCounter = 0; armorCounter < this.currentArmor.length; armorCounter++ ) {
 				if( this.currentArmor[armorCounter] == false ) {
@@ -5646,7 +5677,7 @@ var asBuilderArray = [
 		$scope.activeView = false;
 
 		$scope.rulesFilter = "Standard";
-		$scope.techFilter = "";
+		$scope.techFilter = "Inner Sphere";
 
 		$scope.favoriteGroups = Array();
 
@@ -5666,6 +5697,54 @@ var asBuilderArray = [
 			for( lanceCount = 0; lanceCount < $scope.currentLances.length; lanceCount++ ) {
 				$scope.currentLances[lanceCount].getActiveMembers();
 			}
+		}
+
+		$scope.addFavoriteUnit = function( favoriteGroupIndex, favoriteMechIndex, addToGroup ) {
+
+			if( typeof(addToGroup) == "undefined")
+				addToGroup = $scope.addToGroup.id / 1;
+
+			//~ console.log("addFavoriteUnit TODO:" + favoriteGroupIndex + "/" + favoriteMechIndex + "/" + addToGroup);
+
+			addUnitInfo = $scope.favoriteGroups[favoriteGroupIndex].members[ favoriteMechIndex ];
+			//~ console.log("addFavoriteUnit TODO:", addUnitInfo );
+			//~ addUnitInfo.customName
+			//~ addUnitInfo.currentSkill
+			//~ addUnitInfo.mulID
+			$scope.tempFavCurrentSkill = addUnitInfo.currentSkill;
+			$scope.tempFavCustomName = addUnitInfo.customName;
+			$scope.pleaseWait = true;
+			$http.get("http://masterunitlist.info/Unit/QuickList?MinPV=1&MaxPV=999&Name=" + addUnitInfo.mulID)
+				.then(function(response) {
+					foundMULItem = response.data;
+
+					console.log( foundMULItem );
+
+
+
+					$scope.pleaseWait = false;
+
+					//~ this.currentLances[ favoriteGroupIndex ].members.push( new asUnit( foundMULItem ) );
+					//~ $scope.currentLances[ favoriteGroupIndex ].members[ this.currentLances[ favoriteGroupIndex ].members.length - 1 ].setSkill( $scope.tempFavCurrentSkill );
+					//~ $scope.currentLances[ favoriteGroupIndex ].members[ this.currentLances[ favoriteGroupIndex ].members.length - 1 ].customName = $scope.tempFavCustomName;
+					//~ $scope.saveToLS();
+					$scope.tempFavCurrentSkill = null;
+					$scope.tempFavCustomName = null;
+				});
+
+
+			return null;
+		}
+
+		$scope.addFavoriteGroup = function( favoriteGroupIndex ) {
+			var newGroup = new asGroup();
+			newGroup.customName = $scope.favoriteGroups[favoriteGroupIndex].customName;
+
+			this.currentLances.push(newGroup);
+			for( var mCount = 0; mCount < $scope.favoriteGroups[favoriteGroupIndex].members.length; mCount++) {
+				$scope.addFavoriteUnit( favoriteGroupIndex, mCount, this.currentLances.length - 1);
+			}
+
 		}
 
 		$scope.filterMechRules = function() {
@@ -5700,8 +5779,9 @@ var asBuilderArray = [
 			}
 		}
 
-		$scope.changeSkillValues = function(currentLance, indexValue, newSkillValue) {
-			currentLance.members[indexValue].setSkill( newSkillValue );
+		$scope.changeSkillValues = function( newSkillValue) {
+			console.log( newSkillValue );
+			$scope.viewingLance.members[$scope.viewingMechIndex].setSkill( newSkillValue );
 			$scope.saveToLS();
 		}
 
@@ -5734,14 +5814,16 @@ var asBuilderArray = [
 			QuickRandom
 		*/
 		$scope.updateMULList = function() {
-			// http://masterunitlist.info//Unit/QuickList?MinPV=1&MaxPV=999&Name=
-			if( $scope.currentSearch.length > 3 ) {
+			// http://masterunitlist.info/Unit/QuickList?MinPV=1&MaxPV=999&Name=
+			if( $scope.currentSearch.length >= 3 ) {
 				$scope.foundMULItems = Array();
-				$http.get("http://masterunitlist.info//Unit/QuickList?MinPV=1&MaxPV=999&Name=" + $scope.currentSearch)
+				$scope.pleaseWait = true;
+				$http.get("http://masterunitlist.info/Unit/QuickList?MinPV=1&MaxPV=999&Name=" + $scope.currentSearch)
 					.then(function(response) {
 						$scope.foundMULItems = response.data;
 						$scope.filterMechRules();
 						$scope.filterMechTech();
+						$scope.pleaseWait = false;
 						// console.log( $scope.foundMULItems );
 					});
 			}
@@ -5850,6 +5932,9 @@ var asBuilderArray = [
 		$scope.favoriteGroups = JSON.parse(localStorage["as_builder_favorites"]);
 
 		$scope.viewingMech = null;
+		$scope.viewingLance = null;
+		$scope.viewingMechIndex = -1;
+
 		$scope.foundMULItems = Array();
 		if( localStorage["as_builder_current_search"] ) {
 			if( localStorage["as_builder_current_rules"] ) {
@@ -5876,6 +5961,14 @@ var asBuilderArray = [
 
 		$scope.viewMech = function(currentLance, viewIndex) {
 			$scope.viewingMech = currentLance.members[viewIndex];
+			$scope.viewingLance = currentLance;
+			$scope.viewingMechIndex = viewIndex;
+			//~ console.log( $scope.viewingMech );
+		}
+
+		$scope.toggleDetails = function(currentLance, viewIndex) {
+			currentLance.members[viewIndex].toggleShowingDetails();
+			$scope.saveToLS();
 			//~ console.log( $scope.viewingMech );
 		}
 
@@ -5886,6 +5979,8 @@ var asBuilderArray = [
 
 		$scope.closeViewMech = function(addIndex) {
 			$scope.viewingMech = null;
+			$scope.viewingLance = null;
+			$scope.viewingMechIndex = -1;
 		}
 
 		$scope.addToLance = function(addIndex) {
@@ -6028,6 +6123,8 @@ var asPlayViewArray = [
 
 		}
 
+
+
 		$scope.changePage = function(newPage) {
 			$scope.viewingLance = newPage;
 			$scope.saveToLS();
@@ -6114,11 +6211,18 @@ var asPlayViewArray = [
 
 		}
 
-		$scope.takeDamage = function(mechObject) {
-			mechObject.takeDamage( 1 );
+		$scope.takeDamage = function(mechObject, damageAmount) {
+			if( typeof(damageAmount) == "undefined")
+				damageAmount = 1;
+			mechObject.takeDamage( damageAmount );
 
+			mechObject.showDamageBar = false;
 			$scope.saveToLS();
 
+		}
+
+		$scope.showDamageSelect = function( mechObject ) {
+			mechObject.showDamageBar = true;
 		}
 
 		$scope.updateMemberCounts = function() {
@@ -7740,6 +7844,7 @@ available_languages.push ({
 		GENERAL_TONS: 'Tons',
 		GENERAL_CLAN: 'Clan',
 		GENERAL_SKILL: 'Skill',
+		GENERAL_SKILL_LEVEL: 'Skill Level',
 		GENERAL_SKILL_PILOTING: 'Piloting Skill',
 		GENERAL_SKILL_GUNNERY: 'Gunnery Skill',
 		GENERAL_NAME: 'Name',
@@ -7749,12 +7854,14 @@ available_languages.push ({
 		GENERAL_SEARCH: 'Search',
 		GENERAL_SEARCH_RESULTS: 'Search Results',
 		GENERAL_IMMOBILE: "Immobile",
+		GENERAL_CANCEL: "Cancel",
 
 		GENERAL_INTRODUCTORY: "Introductory",
 		GENERAL_STANDARD: "Standard",
 		GENERAL_ADVANCED: "Advanced",
 		GENERAL_CLOSE: "Close",
 
+		AS_PLEASE_WAIT: "Please wait while information is retrieved from the master unit list.",
 		AS_FAVORITE_GROUPS: "Favorite Groups",
 		AS_ADD_TO_GROUP: "Add to Group",
 		AS_GROUP_POINTS: "Group Points",
@@ -7771,6 +7878,10 @@ available_languages.push ({
 		AS_CUSTOM_GROUP_NAME: "Custom Star/Lance Name",
 		AS_RESULTS_PROVIDED_BY_MUL: "Search results provided by the Master Unit List Website",
 		AS_VIEWING_CARD: "Viewing Card",
+		AS_ADD_TO_SELECTED_GROUP_NOTED_IN_DROPDOWN: "Add this unit to the group selected in the drop down in the top right of the search results",
+		AS_UNIT_CUSTOMIZATION: "Unit Customization",
+		AS_SELECT_DAMAGE_TAKEN: "Select Damage Taken",
+
 
 		BM_MP_ABBR: "MP",
 
