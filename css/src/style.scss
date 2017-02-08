@@ -611,6 +611,35 @@ button.round, .button.round {
 		color: #333;
 	}
 
+	.bt-logo {
+		font-size: 3vw;
+		border-top: 6px solid  $headerFooterBackground;
+		border-left: 6px solid  $headerFooterBackground;
+		display: inline-block;
+		padding: 0 1vw 0 3vw;
+		height: auto;
+		margin: 0;
+		border-top-left-radius: 7vw;
+		background: $headerFooterBackground;
+		height: 5vw;
+		img {
+			height: 2.5vw;
+			margin: 0;
+		}
+	}
+
+	.as-stats-label {
+		height: 5vw;
+		font-size: 3vw;
+		border-top: 6px solid $headerFooterBackground;
+		border-right: 6px solid $headerFooterBackground;
+		display: inline-block;
+		padding: 0 3vw 0 1vw;
+		background: $headerFooterBackground;
+		color: #fff;
+		margin: 0;
+		border-top-right-radius: 7vw;
+	}
 	.decorative-bolt {
 		position: absolute;
 		z-index: 0;
@@ -653,9 +682,20 @@ button.round, .button.round {
 
 	.bolt-4 {
 		bottom: 1vw;
-		left: 67vw;
+		left: 47vw;
 		transform: rotate(53deg);
 	}
+
+	.point-box {
+		font-size: 3vw;
+		border-left: 6px solid #333;
+		border-bottom: 6px solid #333;
+		display: inline-block;
+		padding: 0 1vw 0 3vw;
+		border-bottom-left-radius: 7vw;
+	}
+
+
 
 	.mech-image {
 		max-height: 90%;
