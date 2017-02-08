@@ -16,12 +16,19 @@
 						<div class="columns small-2 no-lr-padding text-center">
 							SZ: {{viewingMech.size}}
 						</div>
-						<div class="columns small-4 no-lr-padding text-center">
-							TMM: {{viewingMech.currentMoveTMM}}<span ng-show="viewingMech.currentJumpTMM > 0">/{{viewingMech.currentJumpTMM}}J</span>
+						<div ng-show="viewingMech.immobile">
+							<div class="columns small-8 no-lr-padding text-center">
+								<strong><span translate="GENERAL_IMMOBILE">Immobile</span></strong>
+							</div>
 						</div>
-						<div class="columns small-4 text-right">
-							MV: {{viewingMech.currentMove}}"<span ng-show="viewingMech.currentJump > 0">/{{viewingMech.currentJump}}J"</span>
+						<div ng-hide="viewingMech.immobile">
+							<div class="columns small-4 no-lr-padding text-center">
+								TMM: {{viewingMech.currentTMM}}</span>
+							</div>
+							<div class="columns small-4 text-right">
+								MV: {{viewingMech.currentMove}}</span>
 
+							</div>
 						</div>
 					</div>
 					<div class="row">
@@ -172,7 +179,7 @@
 							+2 To Hit Each
 						</div>
 					</div>
-					<div class="row">
+					<div class="row" ng-show="viewingMech.type.toLowerCase() == 'bm'">
 						<div class="columns small-4 text-right no-lr-padding uppercase">
 							<strong>MP</strong>
 						</div>
@@ -190,6 +197,33 @@
 							<input ng-repeat="n in viewingMech.weaponHits track by $index" ng-click="toggleWeaponCrit(viewingMech, $index)" ng-checked="viewingMech.weaponHits[$index]" type="checkbox" />
 							<br />
 							-1 Damage Each
+						</div>
+					</div>
+					<div class="row" ng-show="viewingMech.type.toLowerCase() == 'cv'||viewingMech.type.toLowerCase() == 'sv'">
+
+						<div class="columns small-4 text-right no-lr-padding uppercase">
+							<strong>Motive</strong>
+						</div>
+						<div class="columns small-8">
+							<div class="row">
+								<div class="columns small-5 no-r-padding">
+									<input ng-click="toggleMPCrit(viewingMech, 0)" ng-checked="viewingMech.mpControlHits[0]" type="checkbox" />
+									<input ng-click="toggleMPCrit(viewingMech, 1)" ng-checked="viewingMech.mpControlHits[1]" type="checkbox" />
+									<br />
+									-2 MV
+								</div>
+								<div class="columns small-4 no-lr-padding">
+									<input ng-click="toggleMPCrit(viewingMech, 2)" ng-checked="viewingMech.mpControlHits[2]" type="checkbox" />
+									<input ng-click="toggleMPCrit(viewingMech, 3)" ng-checked="viewingMech.mpControlHits[3]" type="checkbox" />
+									<br />
+									&frac12; Move
+								</div>
+								<div class="columns small-3 no-lr-padding">
+									<input ng-click="toggleMPCrit(viewingMech, 4)" ng-checked="viewingMech.mpControlHits[4]" type="checkbox" />
+									<br />0 MV
+								</div>
+							</div>
+
 						</div>
 					</div>
 				</div>

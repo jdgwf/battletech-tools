@@ -2322,7 +2322,7 @@ function asGroup () {
 	}
 }
 
-function asMech (incomingMechData) {
+function asUnit (incomingMechData) {
 	this.originalStats = null;
 
 	this.class = "";
@@ -2357,7 +2357,7 @@ function asMech (incomingMechData) {
 		extreme: 0
 	};
 
-	this.move = 0;
+	this.move = Array();
 
 	this.mulID = 0;
 
@@ -2381,6 +2381,16 @@ function asMech (incomingMechData) {
 
 	this.customName = "";
 
+
+	this.getRawNumber = function( incomingString ) {
+		myString = incomingString.replace(/\D/g,'');
+		return myString / 1;
+	}
+
+	this.getRawAlpha = function( incomingString ) {
+		myString = incomingString.replace(/\d/g,'');
+		return myString.toLowerCase().trim();
+	}
 
 	if( typeof(incomingMechData) != "undefined" && incomingMechData != null ) {
 
@@ -2408,7 +2418,7 @@ function asMech (incomingMechData) {
 
 			this.type = incomingMechData["BFType"];
 			this.size = incomingMechData["BFSize"];
-			this.move = incomingMechData["BFMove"];
+
 			//this.tmm = incomingMechData["XXXX"];
 
 			this.armor = incomingMechData["BFArmor"] / 1;
@@ -2436,32 +2446,42 @@ function asMech (incomingMechData) {
 
 			this.imageURL = incomingMechData["ImageUrl"];
 
-			this.jumpMove = "0";
-			//~ console.log( "orig move", this.move );
-			while( this.move.indexOf('"') > 0 )
-				this.move = this.move.replace('"', "");
-			if( this.move.indexOf("/") > 0 ) {
+			var tmpMove = incomingMechData["BFMove"];
+			this.move = Array();
+			while( tmpMove.indexOf('"') > 0 )
+				tmpMove = tmpMove.replace('"', "");
+			if( tmpMove.indexOf("/") > 0 ) {
 				//split move....
-				var moveArray = this.move.split( "/" );
-				this.move = moveArray[0].trim();
+				var moveArray = tmpMove.split( "/" );
 
-				this.jumpMove = moveArray[1].replace('J', "");
-				this.jumpMove = moveArray[1].replace('j', "");
+				for( var moveCount = 0; moveCount < moveArray.length; moveCount++ ) {
+					var tmpMoveObj = {
+						move: 0,
+						type: ""
+					};
+
+					tmpMoveObj.move = this.getRawNumber( moveArray[moveCount] );
+					tmpMoveObj.type = this.getRawAlpha( moveArray[moveCount] );
+
+					this.move.push( tmpMoveObj );
+				}
 
 			} else {
 
-				if( this.move.indexOf("j") > 0 || this.move.indexOf("J") > 0) {
-					this.move = this.move.replace('J', "");
-					this.move = this.move.replace('j', "");
-					this.jumpMove = this.move;
-				} else {
-					this.jumpMove = "0";
-				}
+				var tmpMoveObj = {
+					move: 0,
+					type: ""
+				};
+
+				tmpMoveObj.move = this.getRawNumber( tmpMove );
+				tmpMoveObj.type = this.getRawAlpha( tmpMove );
+
+				this.move.push( tmpMoveObj );
 
 			}
 
-			this.jumpMove = this.jumpMove.trim() / 1;
-			this.move = this.move.trim() / 1;
+			//~ this.jumpMove = this.jumpMove.trim() / 1;
+			//~ this.move = this.move.trim() / 1;
 
 			//~ console.log( "after move", this.move );
 			//~ console.log( "after jumpMove", this.jumpMove );
@@ -2516,7 +2536,7 @@ function asMech (incomingMechData) {
 			if( this.damage.extreme = "NaN" )
 				this.damage.extreme = 0;
 
-			this.move = incomingMechData.move / 1;
+			this.move = incomingMechData.move;
 
 			this.abilities = incomingMechData.abilities;
 
@@ -2559,12 +2579,23 @@ function asMech (incomingMechData) {
 	}
 
 
+
 	this.setSkill = function( newSkillValue ) {
 		this.currentSkill = newSkillValue / 1;
 		this.calcCurrentVals();
 	}
 
 	this.calcCurrentVals = function() {
+
+		if(
+			this.type.trim().toLowerCase() == "sv"
+				||
+			this.type.trim().toLowerCase() == "cv"
+		) {
+			while( this.mpControlHits.length < 5 )
+				this.mpControlHits.push( false );
+
+		}
 
 
 		if( this.currentSkill < 4) {
@@ -2627,13 +2658,6 @@ function asMech (incomingMechData) {
 			this.currentPoints = this.basePoints;
 		}
 		this.currentSkillString = this.currentSkill.toString();
-
-
-
-		this.currentMove = this.move;
-		this.currentJump = this.jumpMove;
-		this.currentMoveTMM = "";
-		this.currentJumpTMM = "";
 
 
 
@@ -2731,57 +2755,119 @@ function asMech (incomingMechData) {
 		};
 
 
+		for( var moveC = 0; moveC < this.move.length; moveC++ ) {
+			this.move[moveC].currentMove = this.move[moveC].move;
+		}
+
 		// Calculate Critical Movement
-		for( var mpHitsCount = 0; mpHitsCount < this.mpControlHits.length; mpHitsCount++) {
-			if( this.mpControlHits[ mpHitsCount ] ) {
-				var movePenalty = Math.round(this.currentMove / 2);
-				if( movePenalty < 2 )
-					movePenalty = 2;
-				this.currentMove = this.currentMove - movePenalty;
+		console.log( "this.move", this.move );
+		if( this.type.toLowerCase() == "bm" ) {
+			// for BattleMechs
+			for( var mpHitsCount = 0; mpHitsCount < this.mpControlHits.length; mpHitsCount++) {
+				if( this.mpControlHits[ mpHitsCount ] ) {
 
-				if( this.currentMove < 0 )
-					this.currentMove = 0;
+					for( var moveC = 0; moveC < this.move.length; moveC++ ) {
+						var movePenalty = Math.round(this.move[moveC].currentMove / 2);
+						if( movePenalty < 2 )
+							movePenalty = 2;
 
-				var movePenalty = Math.round(this.currentJump / 2);
-				if( movePenalty < 2 )
-					movePenalty = 2;
-				this.currentJump = this.currentJump - movePenalty;
+						this.move[moveC].currentMove = this.move[moveC].currentMove - movePenalty;
 
-				if( this.currentJump < 0 )
-					this.currentJump = 0;
+						if( this.move[moveC].currentMove < 0 )
+							this.move[moveC].currentMove = 0;
+					}
+
+				}
 			}
 		}
 
-		if( this.currentMove < 5 ) {
-			this.currentMoveTMM = 0;
-		} else if( this.currentMove < 9 ) {
-			this.currentMoveTMM = 1;
-		} else if( this.currentMove < 13 ) {
-			this.currentMoveTMM = 2;
-		} else if( this.currentMove < 19 ) {
-			this.currentMoveTMM = 3;
-		} else if( this.currentMove < 35 ) {
-			this.currentMoveTMM = 4;
-		} else {
-			this.currentMoveTMM = 5;
+		if(
+			this.type.trim().toLowerCase() == "sv"
+				||
+			this.type.trim().toLowerCase() == "cv"
+		) {
+			var numMPHits = 0;
+			for( var mpHitsCount = 0; mpHitsCount < this.mpControlHits.length; mpHitsCount++) {
+				if( this.mpControlHits[ mpHitsCount ] ) {
+					numMPHits++;
+				}
+			}
+
+			if( numMPHits > 0 ) {
+				if( numMPHits < 3 ) {
+					for( var moveC = 0; moveC < this.move.length; moveC++ ) {
+
+						this.move[moveC].currentMove = this.move[moveC].currentMove - 2;
+
+						if( this.move[moveC].currentMove < 0 )
+							this.move[moveC].currentMove = 0;
+					}
+				} else if( numMPHits < 5 ) {
+					for( var moveC = 0; moveC < this.move.length; moveC++ ) {
+
+						this.move[moveC].currentMove = Math.round(this.move[moveC].currentMove / 2);
+
+						if( this.move[moveC].currentMove < 0 )
+							this.move[moveC].currentMove = 0;
+					}
+				} else {
+					for( var moveC = 0; moveC < this.move.length; moveC++ ) {
+						this.move[moveC].currentMove = 0;
+					}
+				}
+			}
+
+
 		}
 
-		if( this.currentJump < 1 ) {
-			this.currentJumpTMM = 0;
+		this.currentMove = "";
+		this.currentTMM = "";
+
+		this.immobile = true;
+		for( var moveC = 0; moveC < this.move.length; moveC++ ) {
+			this.currentMove += "" + this.move[moveC].currentMove + "\"" + this.move[moveC].type;
+			tmpTMM = 0;
+			if( this.move[moveC].currentMove < 5 ) {
+				tmpTMM = 0;
+			} else if( this.move[moveC].currentMove < 9 ) {
+				tmpTMM = 1;
+			} else if( this.move[moveC].currentMove < 13 ) {
+				tmpTMM = 2;
+			} else if( this.move[moveC].currentMove < 19 ) {
+				tmpTMM = 3;
+			} else if( this.move[moveC].currentMove < 35 ) {
+				tmpTMM = 4;
+			} else {
+				tmpTMM = 5;
+			}
+
+
+
+			if( this.move[moveC].type == "j" ) {
+				tmpTMM++;
+			}
+
+			if( this.move[moveC].currentMove == 0 )
+				tmpTMM = 0;
+
+			if( this.move[moveC].currentMove > 0 )
+				this.immobile = false;
+
+			this.currentTMM += "" + tmpTMM + this.move[moveC].type;
+
+			if( moveC != this.move.length - 1 ) {
+				this.currentTMM += "/";
+				this.currentMove += "/";
+			}
+
 		}
-		else  if( this.currentJump < 5 ) {
-			this.currentJumpTMM = 1;
-		} else if( this.currentJump < 9 ) {
-			this.currentJumpTMM = 2;
-		} else if( this.currentJump < 13 ) {
-			this.currentJumpTMM = 3;
-		} else if( this.currentJump < 19 ) {
-			this.currentJumpTMM = 4;
-		} else if( this.currentJump < 35 ) {
-			this.currentJumpTMM = 5;
-		} else {
-			this.currentJumpTMM = 6;
-		}
+
+
+		console.log( "this.move", this.move );
+		console.log( "this.currentTMM", this.currentTMM );
+		console.log( "this.currentMove", this.currentMove );
+
+
 
 
 		// Calculate To-Hits with Criticals
@@ -5737,7 +5823,7 @@ var asBuilderArray = [
 
 				for( var mechCount = 0; mechCount < incomingLances[lanceCount].members.length; mechCount++) {
 					if( incomingLances[lanceCount].members[mechCount] != null ) {
-						var incomingMech = new asMech( incomingLances[lanceCount].members[mechCount] );
+						var incomingMech = new asUnit( incomingLances[lanceCount].members[mechCount] );
 						incomingLance.members.push( incomingMech );
 					}
 				}
@@ -5794,7 +5880,7 @@ var asBuilderArray = [
 		}
 
 		$scope.viewSearchMech = function(viewIndex) {
-			$scope.viewingMech = new asMech( $scope.foundMULItems.Units[viewIndex] );
+			$scope.viewingMech = new asUnit( $scope.foundMULItems.Units[viewIndex] );
 			//~ console.log( $scope.viewingMech );
 		}
 
@@ -5803,8 +5889,9 @@ var asBuilderArray = [
 		}
 
 		$scope.addToLance = function(addIndex) {
-			var incomingMech = new asMech(  $scope.foundMULItems.Units[addIndex] );
-			//~ console.log("Add", incomingMech );
+			var incomingMech = new asUnit(  $scope.foundMULItems.Units[addIndex] );
+			console.log("Add Raw", $scope.foundMULItems.Units[addIndex] );
+			console.log("Add", incomingMech );
 			$scope.currentLances[ $scope.addToGroup.id ].members.push( incomingMech );
 			$scope.saveToLS();
 		}
@@ -5902,8 +5989,6 @@ var asPlayViewArray = [
 			$rootScope.subtitle_tag = translation.INDEX_WELCOME;
 		});
 
-
-
 		$scope.activeView = true;
 
 		incomingLance = Array();
@@ -5919,7 +6004,7 @@ var asPlayViewArray = [
 
 				for( var mechCount = 0; mechCount < incomingLances[lanceCount].members.length; mechCount++) {
 					if( incomingLances[lanceCount].members[mechCount] != null ) {
-						var incomingMech = new asMech( incomingLances[lanceCount].members[mechCount] );
+						var incomingMech = new asUnit( incomingLances[lanceCount].members[mechCount] );
 						incomingLance.members.push( incomingMech );
 					}
 				}
@@ -5935,8 +6020,6 @@ var asPlayViewArray = [
 		$scope.viewingLance = 0;
 		if( localStorage["as_builder_current_play_page"] && localStorage["as_builder_current_play_page"] < $scope.currentLances.length )
 			$scope.viewingLance = localStorage["as_builder_current_play_page"];
-
-
 
 		$scope.setHeat = function(mechObject, newValue) {
 			mechObject.setHeat( newValue );
@@ -7665,6 +7748,7 @@ available_languages.push ({
 		GENERAL_ALL: 'All',
 		GENERAL_SEARCH: 'Search',
 		GENERAL_SEARCH_RESULTS: 'Search Results',
+		GENERAL_IMMOBILE: "Immobile",
 
 		GENERAL_INTRODUCTORY: "Introductory",
 		GENERAL_STANDARD: "Standard",

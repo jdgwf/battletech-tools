@@ -195,7 +195,7 @@ var asBuilderArray = [
 
 				for( var mechCount = 0; mechCount < incomingLances[lanceCount].members.length; mechCount++) {
 					if( incomingLances[lanceCount].members[mechCount] != null ) {
-						var incomingMech = new asMech( incomingLances[lanceCount].members[mechCount] );
+						var incomingMech = new asUnit( incomingLances[lanceCount].members[mechCount] );
 						incomingLance.members.push( incomingMech );
 					}
 				}
@@ -252,7 +252,7 @@ var asBuilderArray = [
 		}
 
 		$scope.viewSearchMech = function(viewIndex) {
-			$scope.viewingMech = new asMech( $scope.foundMULItems.Units[viewIndex] );
+			$scope.viewingMech = new asUnit( $scope.foundMULItems.Units[viewIndex] );
 			//~ console.log( $scope.viewingMech );
 		}
 
@@ -261,8 +261,9 @@ var asBuilderArray = [
 		}
 
 		$scope.addToLance = function(addIndex) {
-			var incomingMech = new asMech(  $scope.foundMULItems.Units[addIndex] );
-			//~ console.log("Add", incomingMech );
+			var incomingMech = new asUnit(  $scope.foundMULItems.Units[addIndex] );
+			console.log("Add Raw", $scope.foundMULItems.Units[addIndex] );
+			console.log("Add", incomingMech );
 			$scope.currentLances[ $scope.addToGroup.id ].members.push( incomingMech );
 			$scope.saveToLS();
 		}

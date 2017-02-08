@@ -49,6 +49,7 @@ available_languages.push ({
 		GENERAL_ALL: 'All',
 		GENERAL_SEARCH: 'Search',
 		GENERAL_SEARCH_RESULTS: 'Search Results',
+		GENERAL_IMMOBILE: "Immobile",
 
 		GENERAL_INTRODUCTORY: "Introductory",
 		GENERAL_STANDARD: "Standard",

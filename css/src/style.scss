@@ -32,7 +32,17 @@ body {
 		}
 	}
 
+	 .no-lr-padding {
+		padding-right: 0 !important;
+		padding-left: 0 !important;
+	 }
 
+	 .no-l-padding {
+		padding-left: 0 !important;
+	 }
+	 .no-4-padding {
+		padding-right: 0 !important;
+	 }
 	.main-menu {
 		a {
 			font-size: 1.8rem;
@@ -590,6 +600,9 @@ button.round, .button.round {
 	&.wrecked {
 		background: #600 !important;
 		color: #fff;
+		h3, h2, h4 {
+			color: #fff;
+		}
 		.shaded-box {
 			color: #333;
 		}

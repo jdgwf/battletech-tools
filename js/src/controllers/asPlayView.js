@@ -11,8 +11,6 @@ var asPlayViewArray = [
 			$rootScope.subtitle_tag = translation.INDEX_WELCOME;
 		});
 
-
-
 		$scope.activeView = true;
 
 		incomingLance = Array();
@@ -28,7 +26,7 @@ var asPlayViewArray = [
 
 				for( var mechCount = 0; mechCount < incomingLances[lanceCount].members.length; mechCount++) {
 					if( incomingLances[lanceCount].members[mechCount] != null ) {
-						var incomingMech = new asMech( incomingLances[lanceCount].members[mechCount] );
+						var incomingMech = new asUnit( incomingLances[lanceCount].members[mechCount] );
 						incomingLance.members.push( incomingMech );
 					}
 				}
@@ -44,8 +42,6 @@ var asPlayViewArray = [
 		$scope.viewingLance = 0;
 		if( localStorage["as_builder_current_play_page"] && localStorage["as_builder_current_play_page"] < $scope.currentLances.length )
 			$scope.viewingLance = localStorage["as_builder_current_play_page"];
-
-
 
 		$scope.setHeat = function(mechObject, newValue) {
 			mechObject.setHeat( newValue );
