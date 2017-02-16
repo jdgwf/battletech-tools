@@ -565,6 +565,11 @@ body {
 				background: $secondaryBG !important;
 				color: $secondaryTextColor !important;
 			}
+			&.unmovable {
+				color: #fff !important;
+				background: #333;
+				border-color: #333;
+			}
 		}
 	// 	.as-sortable-dragging + li {
 	// 	//	&.critical-height-1 {
