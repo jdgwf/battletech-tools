@@ -53,43 +53,43 @@ webApp = angular.module(
 			})
 
 			// route for the battlemech creator page
-			.when('/battlemech-creator-step1/', {
+			.when('/battlemech-creator/step1/', {
 				templateUrl : 'pages/battlemech-creator-step1.html',
 				controller  : 'battlemechCreatorControllerStep1'
 			})
 
 			// route for the battlemech creator page
-			.when('/battlemech-creator-step2/', {
+			.when('/battlemech-creator/step2/', {
 				templateUrl : 'pages/battlemech-creator-step2.html',
 				controller  : 'battlemechCreatorControllerStep2'
 			})
 			// route for the battlemech creator page
-			.when('/battlemech-creator-step3/', {
+			.when('/battlemech-creator/step3/', {
 				templateUrl : 'pages/battlemech-creator-step3.html',
 				controller  : 'battlemechCreatorControllerStep3'
 			})
 			// route for the battlemech creator page
-			.when('/battlemech-creator-step4/', {
+			.when('/battlemech-creator/step4/', {
 				templateUrl : 'pages/battlemech-creator-step4.html',
 				controller  : 'battlemechCreatorControllerStep4'
 			})
 			// route for the battlemech creator page
-			.when('/battlemech-creator-step5/', {
+			.when('/battlemech-creator/step5/', {
 				templateUrl : 'pages/battlemech-creator-step5.html',
 				controller  : 'battlemechCreatorControllerStep5'
 			})
 			// route for the battlemech creator page
-			.when('/battlemech-creator-step6/', {
+			.when('/battlemech-creator/step6/', {
 				templateUrl : 'pages/battlemech-creator-step6.html',
 				controller  : 'battlemechCreatorControllerStep6'
 			})
 			// route for the battlemech creator page
-			.when('/battlemech-creator-summary/', {
+			.when('/battlemech-creator/summary/', {
 				templateUrl : 'pages/battlemech-creator-summary.html',
 				controller  : 'battlemechCreatorControllerSummary'
 			})
 			// route for the battlemech creator page
-			.when('/battlemech-creator-exports/', {
+			.when('/battlemech-creator/exports/', {
 				templateUrl : 'pages/battlemech-creator-exports.html',
 				controller  : 'battlemechCreatorControllerExports'
 			})
@@ -193,43 +193,43 @@ webApp = angular.module(
 			})
 
 			// route for the battlemech creator page
-			.when('/battlemech-creator-step1/', {
+			.when('/battlemech-creator/step1/', {
 				templateUrl : 'pages/battlemech-creator-step1.html',
 				controller  : 'battlemechCreatorControllerStep1'
 			})
 
 			// route for the battlemech creator page
-			.when('/battlemech-creator-step2/', {
+			.when('/battlemech-creator/step2/', {
 				templateUrl : 'pages/battlemech-creator-step2.html',
 				controller  : 'battlemechCreatorControllerStep2'
 			})
 			// route for the battlemech creator page
-			.when('/battlemech-creator-step3/', {
+			.when('/battlemech-creator/step3/', {
 				templateUrl : 'pages/battlemech-creator-step3.html',
 				controller  : 'battlemechCreatorControllerStep3'
 			})
 			// route for the battlemech creator page
-			.when('/battlemech-creator-step4/', {
+			.when('/battlemech-creator/step4/', {
 				templateUrl : 'pages/battlemech-creator-step4.html',
 				controller  : 'battlemechCreatorControllerStep4'
 			})
 			// route for the battlemech creator page
-			.when('/battlemech-creator-step5/', {
+			.when('/battlemech-creator/step5/', {
 				templateUrl : 'pages/battlemech-creator-step5.html',
 				controller  : 'battlemechCreatorControllerStep5'
 			})
 			// route for the battlemech creator page
-			.when('/battlemech-creator-step6/', {
+			.when('/battlemech-creator/step6/', {
 				templateUrl : 'pages/battlemech-creator-step6.html',
 				controller  : 'battlemechCreatorControllerStep6'
 			})
 			// route for the battlemech creator page
-			.when('/battlemech-creator-summary/', {
+			.when('/battlemech-creator/summary/', {
 				templateUrl : 'pages/battlemech-creator-summary.html',
 				controller  : 'battlemechCreatorControllerSummary'
 			})
 			// route for the battlemech creator page
-			.when('/battlemech-creator-exports/', {
+			.when('/battlemech-creator/exports/', {
 				templateUrl : 'pages/battlemech-creator-exports.html',
 				controller  : 'battlemechCreatorControllerExports'
 			})
@@ -329,16 +329,6 @@ function makeBattlemechTROPDF(battlemech_object) {
 
 function createTROPDF( pdfDoc, battlemech_object ) {
 
-	//pdfDoc.text(10, 10, "TRO Data for " + battlemech_object.getName() + ".....");
-	/*
-Type: PHX-1 Phoenix Hawk
-Technology Base: Inner Sphere
-Era: Succession Wars
-Tonnage: 45
-Battle Value: 0
-Alpha Strike Value: 0
-C-Bill Cost: $0
-	*/
 	lineHeight = 5;
 
 	col1Loc = 10;
@@ -606,8 +596,19 @@ C-Bill Cost: $0
 function createRecordSheetPDF( pdfDoc, battlemech_object ) {
 
 	pdfDoc = battlemech_record_sheet(pdfDoc);
+
+	convertImgToDataURLviaCanvas("./images/pdf/Blank-Mech-Sheet.jpg",
+		function(imageData) {
+			if( imageData )
+				pdfDoc.addImage( imageData, 1, 1);
+		}
+	);
+
 	//pdfDoc.text(10, 10, "One small step with a really, really big metal and composite foot.....");
-	pdfDoc.text(10, 25, battlemech_object.getName());
+	//pdfDoc.text(10, 25, battlemech_object.getName());
+
+	//pdfDoc.line( 10, 10, 20, 20);
+
 	pdfDoc = makeFooter(pdfDoc);
 	return pdfDoc;
 
@@ -2859,6 +2860,13 @@ function asUnit (incomingMechData) {
 
 		this.immobile = true;
 		for( var moveC = 0; moveC < this.move.length; moveC++ ) {
+
+			// Subtract Heat from Current Move
+			if( this.move[moveC].type != "j" ) {
+				this.move[moveC].currentMove = this.move[moveC].currentMove - this.currentHeat * 2;
+			}
+
+
 			this.currentMove += "" + this.move[moveC].currentMove + "\"" + this.move[moveC].type;
 			tmpTMM = 0;
 			if( this.move[moveC].currentMove < 5 ) {
@@ -2879,6 +2887,10 @@ function asUnit (incomingMechData) {
 
 			if( this.move[moveC].type == "j" ) {
 				tmpTMM++;
+			}
+
+			if( this.move[moveC].currentMove < 0 ) {
+				this.move[moveC].currentMove = 0;
 			}
 
 			if( this.move[moveC].currentMove == 0 )
@@ -5707,33 +5719,49 @@ var asBuilderArray = [
 			//~ console.log("addFavoriteUnit TODO:" + favoriteGroupIndex + "/" + favoriteMechIndex + "/" + addToGroup);
 
 			addUnitInfo = $scope.favoriteGroups[favoriteGroupIndex].members[ favoriteMechIndex ];
-			//~ console.log("addFavoriteUnit TODO:", addUnitInfo );
+			console.log("addFavoriteUnit TODO:", addUnitInfo );
 			//~ addUnitInfo.customName
 			//~ addUnitInfo.currentSkill
 			//~ addUnitInfo.mulID
-			$scope.tempFavCurrentSkill = addUnitInfo.currentSkill;
-			$scope.tempFavCustomName = addUnitInfo.customName;
+			var tempFavCurrentSkill = addUnitInfo.currentSkill;
+			var tempFavCustomName = addUnitInfo.customName;
 			$scope.pleaseWait = true;
-			$http.get("http://masterunitlist.info/Unit/QuickList?MinPV=1&MaxPV=999&Name=" + addUnitInfo.mulID)
-				.then(function(response) {
-					foundMULItem = response.data;
 
-					console.log( foundMULItem );
+			var mulUnitURL = "http://masterunitlist.info/Unit/QuickDetails/" + addUnitInfo.mulID + "/";
+			//~ console.log("mulUnitURL", mulUnitURL );
 
+			$http.get(mulUnitURL)
+				.then(
+					function(response) {
+						foundMULItem = response.data;
 
+						//~ console.log("addFavoriteUnit MUL response", foundMULItem );
 
-					$scope.pleaseWait = false;
+						//~ console.log("addUnitInfo.mulID", addUnitInfo.mulID);
 
-					//~ this.currentLances[ favoriteGroupIndex ].members.push( new asUnit( foundMULItem ) );
-					//~ $scope.currentLances[ favoriteGroupIndex ].members[ this.currentLances[ favoriteGroupIndex ].members.length - 1 ].setSkill( $scope.tempFavCurrentSkill );
-					//~ $scope.currentLances[ favoriteGroupIndex ].members[ this.currentLances[ favoriteGroupIndex ].members.length - 1 ].customName = $scope.tempFavCustomName;
-					//~ $scope.saveToLS();
-					$scope.tempFavCurrentSkill = null;
-					$scope.tempFavCustomName = null;
-				});
+						$scope.pleaseWait = false;
+						
+						//~ console.log( "$scope.tempFavCurrentSkill", tempFavCurrentSkill );
+						//~ console.log( "$scope.tempFavCustomName", tempFavCustomName );
+ 
+						$scope.currentLances[ addToGroup ].members.push( new asUnit( foundMULItem ) );
+						$scope.currentLances[ addToGroup ].members[ $scope.currentLances[ addToGroup ].members.length - 1 ].setSkill( tempFavCurrentSkill );
+						$scope.currentLances[ addToGroup ].members[ $scope.currentLances[ addToGroup ].members.length - 1 ].customName = tempFavCustomName;
+						$scope.saveToLS();
+						$scope.tempFavCurrentSkill = null;
+						$scope.tempFavCustomName = null;
 
+					}
+				)
+				.catch(
+					function(fallback) {
+						$scope.pleaseWait = false;
+						alert("There was an error retreiving from the MUL. (Are you online?)");
+					}
+				)
 
-			return null;
+				;
+
 		}
 
 		$scope.addFavoriteGroup = function( favoriteGroupIndex ) {
@@ -5808,7 +5836,7 @@ var asBuilderArray = [
 			}
 		}
 		/* Endpoints:
-
+			QuickDetails
 			QuickList
 			QuickCount
 			QuickRandom
@@ -5825,7 +5853,14 @@ var asBuilderArray = [
 						$scope.filterMechTech();
 						$scope.pleaseWait = false;
 						// console.log( $scope.foundMULItems );
-					});
+					})
+					.catch(
+						function(fallback) {
+							$scope.pleaseWait = false;
+							alert("There was an error retreiving from the MUL. Are you online?");
+							//~ console.log("error", fallback);
+						}
+				);
 			}
 			$scope.saveToLS();
 		}
@@ -7590,21 +7625,21 @@ var battlemechCreatorControllerSidebarArray =
 
 			if( $route.current.originalPath == "/battlemech-creator/") {
 				$scope.button_welcome_current = true;
-			} else if( $route.current.originalPath == "/battlemech-creator-step1/") {
+			} else if( $route.current.originalPath == "/battlemech-creator/step1/") {
 				$scope.button_step1_current = true;
-			} else if( $route.current.originalPath == "/battlemech-creator-step2/") {
+			} else if( $route.current.originalPath == "/battlemech-creator/step2/") {
 				$scope.button_step2_current = true;
-			} else if( $route.current.originalPath == "/battlemech-creator-step3/") {
+			} else if( $route.current.originalPath == "/battlemech-creator/step3/") {
 				$scope.button_step3_current = true;
-			} else if( $route.current.originalPath == "/battlemech-creator-step4/") {
+			} else if( $route.current.originalPath == "/battlemech-creator/step4/") {
 				$scope.button_step4_current = true;
-			} else if( $route.current.originalPath == "/battlemech-creator-step5/") {
+			} else if( $route.current.originalPath == "/battlemech-creator/step5/") {
 				$scope.button_step5_current = true;
-			} else if( $route.current.originalPath == "/battlemech-creator-step6/") {
+			} else if( $route.current.originalPath == "/battlemech-creator/step6/") {
 				$scope.button_step6_current = true;
-			} else if( $route.current.originalPath == "/battlemech-creator-summary/") {
+			} else if( $route.current.originalPath == "/battlemech-creator/summary/") {
 				$scope.button_summary_current = true;
-			} else if( $route.current.originalPath == "/battlemech-creator-exports/") {
+			} else if( $route.current.originalPath == "/battlemech-creator/exports/") {
 				$scope.button_exports_current = true;
 			}
 
@@ -7881,7 +7916,7 @@ available_languages.push ({
 		AS_ADD_TO_SELECTED_GROUP_NOTED_IN_DROPDOWN: "Add this unit to the group selected in the drop down in the top right of the search results",
 		AS_UNIT_CUSTOMIZATION: "Unit Customization",
 		AS_SELECT_DAMAGE_TAKEN: "Select Damage Taken",
-
+		AS_ADD_TO_FAVORITES: "Add this force to your favorites",
 
 		BM_MP_ABBR: "MP",
 

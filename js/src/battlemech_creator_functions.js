@@ -49,16 +49,6 @@ function makeBattlemechTROPDF(battlemech_object) {
 
 function createTROPDF( pdfDoc, battlemech_object ) {
 
-	//pdfDoc.text(10, 10, "TRO Data for " + battlemech_object.getName() + ".....");
-	/*
-Type: PHX-1 Phoenix Hawk
-Technology Base: Inner Sphere
-Era: Succession Wars
-Tonnage: 45
-Battle Value: 0
-Alpha Strike Value: 0
-C-Bill Cost: $0
-	*/
 	lineHeight = 5;
 
 	col1Loc = 10;
@@ -326,8 +316,19 @@ C-Bill Cost: $0
 function createRecordSheetPDF( pdfDoc, battlemech_object ) {
 
 	pdfDoc = battlemech_record_sheet(pdfDoc);
+
+	convertImgToDataURLviaCanvas("./images/pdf/Blank-Mech-Sheet.jpg",
+		function(imageData) {
+			if( imageData )
+				pdfDoc.addImage( imageData, 1, 1);
+		}
+	);
+
 	//pdfDoc.text(10, 10, "One small step with a really, really big metal and composite foot.....");
-	pdfDoc.text(10, 25, battlemech_object.getName());
+	//pdfDoc.text(10, 25, battlemech_object.getName());
+
+	//pdfDoc.line( 10, 10, 20, 20);
+
 	pdfDoc = makeFooter(pdfDoc);
 	return pdfDoc;
 

@@ -19,21 +19,21 @@ var battlemechCreatorControllerSidebarArray =
 
 			if( $route.current.originalPath == "/battlemech-creator/") {
 				$scope.button_welcome_current = true;
-			} else if( $route.current.originalPath == "/battlemech-creator-step1/") {
+			} else if( $route.current.originalPath == "/battlemech-creator/step1/") {
 				$scope.button_step1_current = true;
-			} else if( $route.current.originalPath == "/battlemech-creator-step2/") {
+			} else if( $route.current.originalPath == "/battlemech-creator/step2/") {
 				$scope.button_step2_current = true;
-			} else if( $route.current.originalPath == "/battlemech-creator-step3/") {
+			} else if( $route.current.originalPath == "/battlemech-creator/step3/") {
 				$scope.button_step3_current = true;
-			} else if( $route.current.originalPath == "/battlemech-creator-step4/") {
+			} else if( $route.current.originalPath == "/battlemech-creator/step4/") {
 				$scope.button_step4_current = true;
-			} else if( $route.current.originalPath == "/battlemech-creator-step5/") {
+			} else if( $route.current.originalPath == "/battlemech-creator/step5/") {
 				$scope.button_step5_current = true;
-			} else if( $route.current.originalPath == "/battlemech-creator-step6/") {
+			} else if( $route.current.originalPath == "/battlemech-creator/step6/") {
 				$scope.button_step6_current = true;
-			} else if( $route.current.originalPath == "/battlemech-creator-summary/") {
+			} else if( $route.current.originalPath == "/battlemech-creator/summary/") {
 				$scope.button_summary_current = true;
-			} else if( $route.current.originalPath == "/battlemech-creator-exports/") {
+			} else if( $route.current.originalPath == "/battlemech-creator/exports/") {
 				$scope.button_exports_current = true;
 			}
 

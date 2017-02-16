@@ -472,6 +472,9 @@ body {
 
 			}
 		}
+		select {
+			width: auto !important;
+		}
 	}
 	.sidebar-header {
 		margin: 0;

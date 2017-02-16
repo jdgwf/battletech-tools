@@ -53,43 +53,43 @@ webApp = angular.module(
 			})
 
 			// route for the battlemech creator page
-			.when('/battlemech-creator-step1/', {
+			.when('/battlemech-creator/step1/', {
 				templateUrl : 'pages/battlemech-creator-step1.html',
 				controller  : 'battlemechCreatorControllerStep1'
 			})
 
 			// route for the battlemech creator page
-			.when('/battlemech-creator-step2/', {
+			.when('/battlemech-creator/step2/', {
 				templateUrl : 'pages/battlemech-creator-step2.html',
 				controller  : 'battlemechCreatorControllerStep2'
 			})
 			// route for the battlemech creator page
-			.when('/battlemech-creator-step3/', {
+			.when('/battlemech-creator/step3/', {
 				templateUrl : 'pages/battlemech-creator-step3.html',
 				controller  : 'battlemechCreatorControllerStep3'
 			})
 			// route for the battlemech creator page
-			.when('/battlemech-creator-step4/', {
+			.when('/battlemech-creator/step4/', {
 				templateUrl : 'pages/battlemech-creator-step4.html',
 				controller  : 'battlemechCreatorControllerStep4'
 			})
 			// route for the battlemech creator page
-			.when('/battlemech-creator-step5/', {
+			.when('/battlemech-creator/step5/', {
 				templateUrl : 'pages/battlemech-creator-step5.html',
 				controller  : 'battlemechCreatorControllerStep5'
 			})
 			// route for the battlemech creator page
-			.when('/battlemech-creator-step6/', {
+			.when('/battlemech-creator/step6/', {
 				templateUrl : 'pages/battlemech-creator-step6.html',
 				controller  : 'battlemechCreatorControllerStep6'
 			})
 			// route for the battlemech creator page
-			.when('/battlemech-creator-summary/', {
+			.when('/battlemech-creator/summary/', {
 				templateUrl : 'pages/battlemech-creator-summary.html',
 				controller  : 'battlemechCreatorControllerSummary'
 			})
 			// route for the battlemech creator page
-			.when('/battlemech-creator-exports/', {
+			.when('/battlemech-creator/exports/', {
 				templateUrl : 'pages/battlemech-creator-exports.html',
 				controller  : 'battlemechCreatorControllerExports'
 			})

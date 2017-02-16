@@ -143,7 +143,7 @@
 
 		<div ng-repeat="currentLance in currentLances track by $index">
 			<fieldset class="fieldset">
-				<legend><a ng-click="addGroupToFavorites($index)"><i class="fa fa-heart"></i></a> <span translate="GENERAL_GROUP">Group</span> {{$index +1 }}</legend>
+				<legend><a ng-click="addGroupToFavorites($index)" title="{{ 'AS_ADD_TO_FAVORITES'|translate }}"><i class="fa fa-heart"></i></a> <span translate="GENERAL_GROUP">Group</span> {{$index +1 }}</legend>
 				<button class="button primary tiny pull-right" ng-click="removeGroup($index)" ng-show="currentLances.length > 1"><i class="fa fa-trash"></i></button>
 
 				<input type="text" style="display: block;width:80%;" placeholder="{{ 'AS_CUSTOM_GROUP_NAME' | translate }}" ng-model="currentLance.customName" ng-keyup="saveToLS()" />
@@ -196,19 +196,6 @@
 			</div>
 		</div>
 
-			<div class="dev-note">
-				<del>I hate the way this area looks and works (it's better now than it was). It's really the only <strong>major</strong> part of this apps's section I want to fix.</del>
-				<br />
-				<strong>Update</strong>: Much better - the customization now works with an edit button.
-
-<br />
-<br />
-				 When a "Favorite" is recalled, it'll pull the latest stats and PVs from the MUL just in case
-				 the stats were updated. Unfortunately I foresee that this will probably take a moment or two.
-<br />
-<br />
-				 Locally we tend to play with our favorite named units, so I thought it'd be possible that others would like this :)
-			</div>
 		</fieldset>
 	</div>
 

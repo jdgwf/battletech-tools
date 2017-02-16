@@ -78,7 +78,7 @@ available_languages.push ({
 		AS_ADD_TO_SELECTED_GROUP_NOTED_IN_DROPDOWN: "Add this unit to the group selected in the drop down in the top right of the search results",
 		AS_UNIT_CUSTOMIZATION: "Unit Customization",
 		AS_SELECT_DAMAGE_TAKEN: "Select Damage Taken",
-
+		AS_ADD_TO_FAVORITES: "Add this force to your favorites",
 
 		BM_MP_ABBR: "MP",
 

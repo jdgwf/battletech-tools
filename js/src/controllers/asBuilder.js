@@ -48,33 +48,49 @@ var asBuilderArray = [
 			//~ console.log("addFavoriteUnit TODO:" + favoriteGroupIndex + "/" + favoriteMechIndex + "/" + addToGroup);
 
 			addUnitInfo = $scope.favoriteGroups[favoriteGroupIndex].members[ favoriteMechIndex ];
-			//~ console.log("addFavoriteUnit TODO:", addUnitInfo );
+			console.log("addFavoriteUnit TODO:", addUnitInfo );
 			//~ addUnitInfo.customName
 			//~ addUnitInfo.currentSkill
 			//~ addUnitInfo.mulID
-			$scope.tempFavCurrentSkill = addUnitInfo.currentSkill;
-			$scope.tempFavCustomName = addUnitInfo.customName;
+			var tempFavCurrentSkill = addUnitInfo.currentSkill;
+			var tempFavCustomName = addUnitInfo.customName;
 			$scope.pleaseWait = true;
-			$http.get("http://masterunitlist.info/Unit/QuickList?MinPV=1&MaxPV=999&Name=" + addUnitInfo.mulID)
-				.then(function(response) {
-					foundMULItem = response.data;
 
-					console.log( foundMULItem );
+			var mulUnitURL = "http://masterunitlist.info/Unit/QuickDetails/" + addUnitInfo.mulID + "/";
+			//~ console.log("mulUnitURL", mulUnitURL );
 
+			$http.get(mulUnitURL)
+				.then(
+					function(response) {
+						foundMULItem = response.data;
 
+						//~ console.log("addFavoriteUnit MUL response", foundMULItem );
 
-					$scope.pleaseWait = false;
+						//~ console.log("addUnitInfo.mulID", addUnitInfo.mulID);
 
-					//~ this.currentLances[ favoriteGroupIndex ].members.push( new asUnit( foundMULItem ) );
-					//~ $scope.currentLances[ favoriteGroupIndex ].members[ this.currentLances[ favoriteGroupIndex ].members.length - 1 ].setSkill( $scope.tempFavCurrentSkill );
-					//~ $scope.currentLances[ favoriteGroupIndex ].members[ this.currentLances[ favoriteGroupIndex ].members.length - 1 ].customName = $scope.tempFavCustomName;
-					//~ $scope.saveToLS();
-					$scope.tempFavCurrentSkill = null;
-					$scope.tempFavCustomName = null;
-				});
+						$scope.pleaseWait = false;
+						
+						//~ console.log( "$scope.tempFavCurrentSkill", tempFavCurrentSkill );
+						//~ console.log( "$scope.tempFavCustomName", tempFavCustomName );
+ 
+						$scope.currentLances[ addToGroup ].members.push( new asUnit( foundMULItem ) );
+						$scope.currentLances[ addToGroup ].members[ $scope.currentLances[ addToGroup ].members.length - 1 ].setSkill( tempFavCurrentSkill );
+						$scope.currentLances[ addToGroup ].members[ $scope.currentLances[ addToGroup ].members.length - 1 ].customName = tempFavCustomName;
+						$scope.saveToLS();
+						$scope.tempFavCurrentSkill = null;
+						$scope.tempFavCustomName = null;
 
+					}
+				)
+				.catch(
+					function(fallback) {
+						$scope.pleaseWait = false;
+						alert("There was an error retreiving from the MUL. (Are you online?)");
+					}
+				)
 
-			return null;
+				;
+
 		}
 
 		$scope.addFavoriteGroup = function( favoriteGroupIndex ) {
@@ -149,7 +165,7 @@ var asBuilderArray = [
 			}
 		}
 		/* Endpoints:
-
+			QuickDetails
 			QuickList
 			QuickCount
 			QuickRandom
@@ -166,7 +182,14 @@ var asBuilderArray = [
 						$scope.filterMechTech();
 						$scope.pleaseWait = false;
 						// console.log( $scope.foundMULItems );
-					});
+					})
+					.catch(
+						function(fallback) {
+							$scope.pleaseWait = false;
+							alert("There was an error retreiving from the MUL. Are you online?");
+							//~ console.log("error", fallback);
+						}
+				);
 			}
 			$scope.saveToLS();
 		}
