@@ -29,12 +29,22 @@
 				</div>
 			</div>
 			<div class="row">
+				<div class="column medium-12">
+					<fieldset class="fieldset">
+						<legend translate="BM_STEP6_INSTRUCTIONS">Instructions</legend>
+						<p translate="BM_STEP6_INSTRUCTIONS_TEXT"></p>
+					</fieldset>
+					<p class="text-center" ng-show="selectedItem == null" translate="BM_STEP6_SELECT_AN_ITEM_TO_ALLOCATE"></p>
+					<p class="text-center" ng-show="selectedItem != null" translate="BM_STEP6_SELECT_AN_PLACE_TO_ALLOCATE"></p>
+				</div>
+			</div>
+			<div class="row">
 				<div class="column medium-12 large-4">
 					<fieldset class="fieldset">
 						<legend translate="BM_STEP6_UNALLOCATED_EQUIPMENT">Unallocated Equipment</legend>
 
-						<ul class="critical-assignment-container" data-location-"unalloc" data-as-sortable="updateCriticialController" data-ng-model="battlemech_unallocated_items">
-							<li class="critical-height-{{assignment.crits}}" data-as-sortable-item ng-repeat="assignment in battlemech_unallocated_items" ng-include="'pages/battlemech-creator-step6-unallocated-item.html'">
+						<ul class="critical-assignment-container">
+							<li ng-class="{selectedItem:assignment == selectedItem.item}" ng-click="step6ItemClick(assignment, $index, 'un')"  class="critical-height-{{assignment.crits}}" ng-repeat="assignment in battlemech_unallocated_items" ng-include="'pages/battlemech-creator-step6-unallocated-item.html'">
 							</li>
 						</ul>
 
@@ -59,20 +69,20 @@
 									<label><input ng-click="clickLeftHandActuator()" ng-true-value="true" ng-false-value="false" checked="checked" ng-model="has_la_hand_actuator" type="checkbox"> <span translate="BM_CRITS_ACTUATOR_HAND">Hand Actuator</span></label>
 								</div>
 
-								<ul data-as-sortable="updateCriticialController" data-ng-model="battlemech_left_arm" class="critical-assignment-container location-la">
-									<li class="critical-height-{{assignment.crits}}" data-as-sortable-item ng-repeat="assignment in battlemech_left_arm track by $index" ng-class="{'critical-placeholder': assignment.placeholder}" ng-include="'pages/battlemech-creator-step6-critical-item.html'">
+								<ul class="critical-assignment-container location-la">
+									<li ng-click="step6ItemClick(assignment, $index, 'la')" class="critical-height-{{assignment.crits}}" ng-repeat="assignment in battlemech_left_arm track by $index" ng-class="{'critical-placeholder': assignment.placeholder}" ng-include="'pages/battlemech-creator-step6-critical-item.html'">
 									</li>
 								</ul>
 
 								<h5 ng-bind="label_left_torso">Left Torso</h5>
-								<ul data-as-sortable="updateCriticialController" data-ng-model="battlemech_left_torso" class="critical-assignment-container location-lt">
-									<li class="critical-height-{{assignment.crits}}" ng-class="{'critical-placeholder': assignment.placeholder}" data-as-sortable-item ng-repeat="assignment in battlemech_left_torso track by $index" ng-include="'pages/battlemech-creator-step6-critical-item.html'">
+								<ul class="critical-assignment-container location-lt">
+									<li ng-click="step6ItemClick(assignment, $index, 'lt')" class="critical-height-{{assignment.crits}}" ng-class="{'critical-placeholder': assignment.placeholder}" ng-repeat="assignment in battlemech_left_torso track by $index" ng-include="'pages/battlemech-creator-step6-critical-item.html'">
 									</li>
 								</ul>
 
 								<h5 ng-bind="label_left_leg">Left Leg</h5>
-								<ul data-as-sortable="updateCriticialController" data-ng-model="battlemech_left_leg" class="critical-assignment-container location-ll">
-									<li class="critical-height-{{assignment.crits}}" ng-class="{'critical-placeholder': assignment.placeholder}" data-as-sortable-item ng-repeat="assignment in battlemech_left_leg track by $index" ng-include="'pages/battlemech-creator-step6-critical-item.html'">
+								<ul class="critical-assignment-container location-ll">
+									<li ng-click="step6ItemClick(assignment, $index, 'll')" class="critical-height-{{assignment.crits}}" ng-class="{'critical-placeholder': assignment.placeholder}" ng-repeat="assignment in battlemech_left_leg track by $index" ng-include="'pages/battlemech-creator-step6-critical-item.html'">
 									</li>
 								</ul>
 
@@ -80,13 +90,13 @@
 							<div class="column small-4">
 
 								<h5 ng-bind="label_head">Head</h5>
-								<ul data-as-sortable="updateCriticialController" data-ng-model="battlemech_head" class="critical-assignment-container location-hd">
-									<li class="critical-height-{{assignment.crits}}" ng-class="{'critical-placeholder': assignment.placeholder}"  data-as-sortable-item ng-repeat="assignment in battlemech_head track by $index" ng-include="'pages/battlemech-creator-step6-critical-item.html'">
+								<ul class="critical-assignment-container location-hd">
+									<li ng-click="step6ItemClick(assignment, $index, 'hd')" class="critical-height-{{assignment.crits}}" ng-class="{'critical-placeholder': assignment.placeholder}"  ng-repeat="assignment in battlemech_head track by $index" ng-include="'pages/battlemech-creator-step6-critical-item.html'">
 									</li>
 								</ul>
 								<h5 ng-bind="label_center_torso">Center Torso</h5>
-								<ul data-as-sortable="updateCriticialController" data-ng-model="battlemech_center_torso" class="critical-assignment-container location-ct">
-									<li class="critical-height-{{assignment.crits}}" ng-class="{'critical-placeholder': assignment.placeholder}"  data-as-sortable-item ng-repeat="assignment in battlemech_center_torso track by $index" ng-include="'pages/battlemech-creator-step6-critical-item.html'">
+								<ul  class="critical-assignment-container location-ct">
+									<li ng-click="step6ItemClick(assignment, $index, 'ct')" class="critical-height-{{assignment.crits}}" ng-class="{'critical-placeholder': assignment.placeholder}"  ng-repeat="assignment in battlemech_center_torso track by $index" ng-include="'pages/battlemech-creator-step6-critical-item.html'">
 									</li>
 								</ul>
 
@@ -99,20 +109,20 @@
 									<label><input ng-click="clickLowerRightArmActuator()" ng-true-value="true" ng-false-value="false" checked="checked" ng-model="has_ra_lower_arm_actuator" type="checkbox"> <span translate="BM_CRITS_ACTUATOR_LOWER_ARM">Lower Arm Actuator</span></label>
 									<label><input ng-click="clickRightHandActuator()" ng-true-value="true" ng-false-value="false" checked="checked" ng-model="has_ra_hand_actuator" type="checkbox"> <span translate="BM_CRITS_ACTUATOR_HAND">Hand Actuator</span></label>
 								</div>
-								<ul data-as-sortable="updateCriticialController" data-ng-model="battlemech_right_arm" class="critical-assignment-container location-ra">
-									<li class="critical-height-{{assignment.crits}}" ng-class="{'critical-placeholder': assignment.placeholder}" data-as-sortable-item ng-repeat="assignment in battlemech_right_arm track by $index" ng-include="'pages/battlemech-creator-step6-critical-item.html'">
+								<ul class="critical-assignment-container location-ra">
+									<li ng-click="step6ItemClick(assignment, $index, 'ra')" class="critical-height-{{assignment.crits}}" ng-class="{'critical-placeholder': assignment.placeholder}" ng-repeat="assignment in battlemech_right_arm track by $index" ng-include="'pages/battlemech-creator-step6-critical-item.html'">
 									</li>
 								</ul>
 
 								<h5 ng-bind="label_right_torso">Right Torso</h5>
-								<ul data-as-sortable="updateCriticialController" data-ng-model="battlemech_right_torso" class="critical-assignment-container location-rt">
-									<li class="critical-height-{{assignment.crits}}" ng-class="{'critical-placeholder': assignment.placeholder}" data-as-sortable-item ng-repeat="assignment in battlemech_right_torso track by $index" ng-include="'pages/battlemech-creator-step6-critical-item.html'">
+								<ul class="critical-assignment-container location-rt">
+									<li ng-click="step6ItemClick(assignment, $index, 'rt')" class="critical-height-{{assignment.crits}}" ng-class="{'critical-placeholder': assignment.placeholder}" ng-repeat="assignment in battlemech_right_torso track by $index" ng-include="'pages/battlemech-creator-step6-critical-item.html'">
 									</li>
 								</ul>
 
 								<h5 ng-bind="label_right_leg">Right Leg</h5>
-								<ul data-as-sortable="updateCriticialController" data-ng-model="battlemech_right_leg" class="critical-assignment-container location-rl">
-									<li class="critical-height-{{assignment.crits}}" ng-class="{'critical-placeholder': assignment.placeholder}" data-as-sortable-item ng-repeat="assignment in battlemech_right_leg track by $index" ng-include="'pages/battlemech-creator-step6-critical-item.html'">
+								<ul class="critical-assignment-container location-rl">
+									<li ng-click="step6ItemClick(assignment, $index, 'rl')" class="critical-height-{{assignment.crits}}" ng-class="{'critical-placeholder': assignment.placeholder}" ng-repeat="assignment in battlemech_right_leg track by $index" ng-include="'pages/battlemech-creator-step6-critical-item.html'">
 									</li>
 								</ul>
 

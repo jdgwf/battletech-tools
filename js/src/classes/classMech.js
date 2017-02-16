@@ -626,8 +626,8 @@ Mech.prototype.makeTROHTML = function() {
 	// End Factor Table
 	html += "</table>";
 	html += "<br />";
-	
-	// TODO Weapons and Ammo	
+
+	// TODO Weapons and Ammo
 	html += "<table class=\"mech-tro\">";
 	html += "<tr><th class=\"text-left\">" + this.getTranslation("TRO_WEAPONS") + "<br />" + this.getTranslation("TRO_AND_AMMO") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_LOCATION") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_CRITICAL") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_TONNAGE") + "</th></tr>";
 
@@ -639,7 +639,7 @@ Mech.prototype.makeTROHTML = function() {
 		item_location = this.getLocationAbbr( this.equipmentList[eq_count].location );
 		html += "<tr><td class=\"text-left\">" + this.equipmentList[eq_count].name[ this.useLang ] + "</td><td class=\"text-center\">" + item_location + "</strong></td><td class=\"text-center\">" + this.equipmentList[eq_count].space.battlemech + "</td><td class=\"text-center\">" + this.equipmentList[eq_count].weight + "</td></tr>";
 	}
-	
+
 	// TODO List Jump Jets Allocations...
 
 	// END Weapons and Ammo
@@ -2095,6 +2095,141 @@ Mech.prototype.updateCriticalAllocationTable = function() {
 	}
 	// this._calc();
 };
+
+Mech.prototype.moveCritical = function ( itemTag, fromLocation, fromIndex, toLocation, toIndex ) {
+	//~ console.log( "Mech.moveCritical()", itemTag, fromLocation, fromIndex, toLocation, toIndex );
+
+
+
+	fromItem = null
+	fromLocationObj = null;
+	if( fromLocation == "un" ) {
+		if( this.unallocatedCriticals[fromIndex] ) {
+			fromItem = this.unallocatedCriticals[fromIndex];
+
+		}
+		fromLocationObj = this.unallocatedCriticals;
+	} else if(fromLocation == "hd" ) {
+		if( this.criticals.Head[fromIndex] ) {
+			fromItem = this.criticals.Head[fromIndex];
+			fromLocationObj = this.criticals.Head;
+		}
+	} else if( fromLocation == "ct" ) {
+		if( this.criticals.centerTorso[fromIndex] ) {
+			fromItem = this.criticals.centerTorso[fromIndex];
+			fromLocationObj = this.criticals.centerTorso;
+		}
+	} else if( fromLocation == "rt" ) {
+		if( this.criticals.rightTorso[fromIndex] ) {
+			fromItem = this.criticals.rightTorso[fromIndex];
+			fromLocationObj = this.criticals.rightTorso;
+		}
+	} else if( fromLocation == "ra" ) {
+		if( this.criticals.rightArm[fromIndex] ) {
+			fromItem = this.criticals.rightArm[fromIndex];
+			fromLocationObj = this.criticals.rightArm;
+		}
+	} else if( fromLocation == "rl" ) {
+		if( this.criticals.rightLeg[fromIndex] ) {
+			fromItem = this.criticals.rightLeg[fromIndex];
+			fromLocationObj = this.criticals.rightLeg;
+		}
+	} else if( fromLocation == "lt" ) {
+		if( this.criticals.leftTorso[fromIndex] ) {
+			fromItem = this.criticals.leftTorso[fromIndex];
+			fromLocationObj = this.criticals.leftTorso;
+		}
+	} else if( fromLocation == "la" ) {
+		if( this.criticals.leftArm[fromIndex] ) {
+			fromItem = this.criticals.leftArm[fromIndex];
+			fromLocationObj = this.criticals.leftArm;
+		}
+	} else if( fromLocation == "ll" ) {
+		if( this.criticals.leftLeg[fromIndex] ) {
+			fromItem = this.criticals.leftLeg[fromIndex];
+			fromLocationObj = this.criticals.leftLeg;
+		}
+	}
+
+	//~ console.log( "fromItem", fromItem );
+	//~ console.log( "fromLocationObj", fromLocationObj );
+
+	if( fromItem ) {
+
+		if(toLocation == "hd" ) {
+			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.Head, toIndex );
+		} else if( toLocation == "ct" ) {
+			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.centerTorso, toIndex );
+		} else if( toLocation == "rt" ) {
+			return this._moveItemToArea( fromLocationObj,fromItem, fromIndex, this.criticals.rightTorso, toIndex );
+		} else if( toLocation == "rl" ) {
+			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.rightLeg, toIndex );
+		} else if( toLocation == "ra" ) {
+			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.rightArm, toIndex );
+		} else if( toLocation == "lt" ) {
+			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.leftTorso, toIndex );
+		} else if( toLocation == "ll" ) {
+			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.leftLeg, toIndex );
+		} else if( toLocation == "la" ) {
+			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.leftArm, toIndex );
+		}
+	}
+
+	return false;
+};
+
+Mech.prototype._moveItemToArea = function( fromLocation, fromItem, fromIndex, toLocation, toIndex) {
+	//console.log( "Mech._moveItemToArea()", fromLocation, fromItem, fromIndex, toLocation, toIndex);
+	//~ console.log( "Mech._moveItemToArea() fromLocation : ", fromLocation );
+	//~ console.log( "Mech._moveItemToArea() fromItem : ", fromItem );
+	//~ console.log( "Mech._moveItemToArea() fromIndex : ", fromIndex );
+	//~ console.log( "Mech._moveItemToArea() toLocation : ", toLocation );
+	//~ console.log( "Mech._moveItemToArea() toIndex : ", toIndex );
+
+	// Step One check to see if TO has enough slots for item....
+	var placeholder = {
+		uuid: fromItem.uuid,
+		name: "placeholder",
+		placeholder: true
+	};
+
+
+	hasSpace = true;
+	//~ console.log( "toLocation.length > toIndex + fromItem.crits", toLocation.length, toIndex, fromItem.crits );
+	if( toLocation.length < toIndex + fromItem.crits )
+		return false;
+	for( var testC = 0; testC < fromItem.crits; testC++ ) {
+		if( toLocation[ toIndex + testC ] ) {
+			hasSpace = false;
+		}
+	}
+
+	if( hasSpace ) {
+		toLocation[ toIndex ] = fromItem;
+		for( var phC = 1; phC < toLocation[ toIndex ].crits; phC++ ) {
+			toLocation[ toIndex + phC ] = placeholder;
+		}
+
+
+		fromLocation[ fromIndex ] = null;
+		nextCounter = 1;
+		while(
+			fromLocation[ fromIndex + nextCounter]
+				&&
+			fromLocation[ fromIndex + nextCounter].name == "placeholder"
+				&&
+			nextCounter < fromLocation.length
+		) {
+			fromLocation[ fromIndex  + nextCounter ] = null;
+			nextCounter++;
+		}
+		return true;
+
+	}
+
+	return false;
+
+}
 
 Mech.prototype._allocateCritical = function(equipment_tag, mech_location, slot_number, remove_from_unallocated) {
 

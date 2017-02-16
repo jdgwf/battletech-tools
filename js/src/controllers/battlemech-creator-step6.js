@@ -16,6 +16,8 @@ var battlemechCreatorControllerStep6Array =
 			// create mech object, load from localStorage if exists
 			current_mech = new Mech();
 
+			$scope.selectedItem = null;
+
 			if( localStorage["tmp.current_mech"] )
 				current_mech.importJSON( localStorage["tmp.current_mech"] );
 			else
@@ -55,6 +57,64 @@ var battlemechCreatorControllerStep6Array =
 				}
 
 			});
+
+
+			$scope.step6ItemClick = function( criticalItem, indexLocation, locationString ) {
+				if( typeof(criticalItem) == "undefined")
+					criticalItem = null;
+				if( typeof(indexLocation) == "undefined")
+					indexLocation = null;
+				if( typeof(locationString) == "undefined")
+					locationString = null;
+
+				console.log( "step6ItemClick", criticalItem, indexLocation, locationString );
+				if( $scope.selectedItem == null ) {
+					if( criticalItem != null) {
+						if( criticalItem.movable == true ) {
+							 $scope.selectedItem = {
+								 item: criticalItem,
+								 from: locationString,
+								 index: indexLocation
+							};
+						} else {
+							console.log( "Unmovable item selected" );
+						}
+					} else {
+						console.log( "Unallocated area selected" );
+
+					}
+				} else {
+					if( criticalItem ) {
+						console.log( "Slot is already filled" );
+					} else {
+						var itemTag =  $scope.selectedItem.item.tag;
+						var fromLocation =  $scope.selectedItem.from;
+						var fromIndex =  $scope.selectedItem.index;
+						var toLocation = locationString;
+						var toIndex = indexLocation;
+						worked = current_mech.moveCritical(
+							itemTag,
+							fromLocation,
+							fromIndex,
+							toLocation,
+							toIndex
+						);
+
+						if( worked ) {
+
+							current_mech.updateCriticalAllocationTable();
+							current_mech._calc();
+							localStorage["tmp.current_mech"] = current_mech.exportJSON();
+
+							update_step_6_items($scope, current_mech);
+							update_mech_status_bar_and_tro($scope, $translate, current_mech);
+
+							$scope.selectedItem = null;
+						}
+					}
+
+				}
+			}
 
 
 			// make tro for sidebar
@@ -104,6 +164,7 @@ var battlemechCreatorControllerStep6Array =
 			}
 
 			$scope.resetAllocations = function() {
+				$scope.selectedItem = null;
 				current_mech.clearCriticalAllocationTable();
 				current_mech._calc();
 				localStorage["tmp.current_mech"] = current_mech.exportJSON();
@@ -111,90 +172,6 @@ var battlemechCreatorControllerStep6Array =
 				update_mech_status_bar_and_tro($scope, $translate, current_mech);
 			}
 
-			$scope.updateCriticialController = {
-				accept: function (sourceItemHandleScope, destSortableScope, destItemScope) {
-					// console.log("sourceItemHandleScope", sourceItemHandleScope);
-					// console.log("destSortableScope", destSortableScope);
-					// console.log("destItemScope", destItemScope);
-
-					// this should work if I can ever get the destination slot number...
-
-					// deny access to 'write over' other items
-					if( typeof(destItemScope) == "undefined" || typeof(destItemScope.modelValue) == "undefined") {
-
-
-
-						if( sourceItemHandleScope && sourceItemHandleScope.modelValue && sourceItemHandleScope.modelValue.tag) {
-							//return current_mech.canBeAssignedToArea(
-							//	destSortableScope.modelValue,
-							//	sourceItemHandleScope.modelValue,
-							//	sourceItemHandleScope.modelValue.crits,
-							//	slot_number
-							//);
-							can_be_assigned = true;
-						//	console.log( sourceItemHandleScope.modelValue.tag );
-							if ( sourceItemHandleScope.modelValue.tag == "jj-standard" || sourceItemHandleScope.modelValue.tag == "jj-enhanced"  ) {
-								// Jump Jets can only be put on Torsos and Legs
-								if(
-								 	destSortableScope.element[0].classList.contains("location-lt")
-									 	||
-								 	destSortableScope.element[0].classList.contains("location-rt")
-									 	||
-								 	destSortableScope.element[0].classList.contains("location-ct")
-								 		||
-								 	destSortableScope.element[0].classList.contains("location-ll")
-								 		||
-								 	destSortableScope.element[0].classList.contains("location-rl")
-								) {
-									// Yep, user put it in the right place.
-								//console.log( "accept", "Good placement of JJ");
-								 	return can_be_assigned;
-								} else {
-									// DENIED This mech is not Iron Man.
-									//console.log( "accept", "DENIED This mech is not Iron Man.");
-								 	return false;
-								}
-							} else {
-								// Not a jump jet...
-								//console.log( "accept", "Not a jump jet");
-								return can_be_assigned;
-							}
-						} else {
-							// empty item - modelValue disappears after being moved more than once.
-							//console.log( "accept", "Empty Item.");
-							return true;
-						}
-					} else {
-						// deny "placing over" existing items
-						return true;
-					}
-					//return true;
-				},
-				itemMoved: function (eventObj) {
-					//console.log("moving it...");
-					current_mech.updateCriticalAllocationTable();
-					current_mech._calc();
-					localStorage["tmp.current_mech"] = current_mech.exportJSON();
-
-					update_step_6_items($scope, current_mech);
-					update_mech_status_bar_and_tro($scope, $translate, current_mech);
-					return true;
-
-				},
-				orderChanged: function(eventObj) {
-					current_mech.updateCriticalAllocationTable();
-					current_mech._calc();
-					localStorage["tmp.current_mech"] = current_mech.exportJSON();
-
-					update_step_6_items($scope, current_mech);
-					update_mech_status_bar_and_tro($scope, $translate, current_mech);
-					return true;
-
-				},
-				//containment: '#board'//optional param.
-				//clone: true, //optional param for clone feature.
-				allowDuplicates: false //optional param allows duplicates to be dropped.
-			};
 		}
 	]
 ;

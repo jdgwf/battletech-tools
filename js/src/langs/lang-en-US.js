@@ -162,6 +162,10 @@ available_languages.push ({
 		BM_STEP6_UNALLOCATED_EQUIPMENT: "Unallocated Equipment",
 		BM_STEP6_CRITICAL_TABLE: "Critical Table",
 		BM_STEP6_RESET_ALLOCATIONS: "Reset Allocations",
+		BM_STEP6_INSTRUCTIONS: "Instructions",
+		BM_STEP6_INSTRUCTIONS_TEXT: "To assign equipment to your critical allocation table, just click on an assignable item then click on an unallocated location.",
+		BM_STEP6_SELECT_AN_ITEM_TO_ALLOCATE: "Select an item to allocate",
+		BM_STEP6_SELECT_AN_PLACE_TO_ALLOCATE: "Click on an available location",
 
 		BM_SUMMARY_TITLE: "Summary",
 		BM_SUMMARY_DESC: "",

@@ -561,6 +561,10 @@ body {
 				height: 150px;
 				margin: 2px 2px 20px 2px;
 			}
+			&.selectedItem {
+				background: $secondaryBG !important;
+				color: $secondaryTextColor !important;
+			}
 		}
 	// 	.as-sortable-dragging + li {
 	// 	//	&.critical-height-1 {

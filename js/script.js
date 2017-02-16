@@ -4114,8 +4114,8 @@ Mech.prototype.makeTROHTML = function() {
 	// End Factor Table
 	html += "</table>";
 	html += "<br />";
-	
-	// TODO Weapons and Ammo	
+
+	// TODO Weapons and Ammo
 	html += "<table class=\"mech-tro\">";
 	html += "<tr><th class=\"text-left\">" + this.getTranslation("TRO_WEAPONS") + "<br />" + this.getTranslation("TRO_AND_AMMO") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_LOCATION") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_CRITICAL") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_TONNAGE") + "</th></tr>";
 
@@ -4127,7 +4127,7 @@ Mech.prototype.makeTROHTML = function() {
 		item_location = this.getLocationAbbr( this.equipmentList[eq_count].location );
 		html += "<tr><td class=\"text-left\">" + this.equipmentList[eq_count].name[ this.useLang ] + "</td><td class=\"text-center\">" + item_location + "</strong></td><td class=\"text-center\">" + this.equipmentList[eq_count].space.battlemech + "</td><td class=\"text-center\">" + this.equipmentList[eq_count].weight + "</td></tr>";
 	}
-	
+
 	// TODO List Jump Jets Allocations...
 
 	// END Weapons and Ammo
@@ -5583,6 +5583,141 @@ Mech.prototype.updateCriticalAllocationTable = function() {
 	}
 	// this._calc();
 };
+
+Mech.prototype.moveCritical = function ( itemTag, fromLocation, fromIndex, toLocation, toIndex ) {
+	//~ console.log( "Mech.moveCritical()", itemTag, fromLocation, fromIndex, toLocation, toIndex );
+
+
+
+	fromItem = null
+	fromLocationObj = null;
+	if( fromLocation == "un" ) {
+		if( this.unallocatedCriticals[fromIndex] ) {
+			fromItem = this.unallocatedCriticals[fromIndex];
+
+		}
+		fromLocationObj = this.unallocatedCriticals;
+	} else if(fromLocation == "hd" ) {
+		if( this.criticals.Head[fromIndex] ) {
+			fromItem = this.criticals.Head[fromIndex];
+			fromLocationObj = this.criticals.Head;
+		}
+	} else if( fromLocation == "ct" ) {
+		if( this.criticals.centerTorso[fromIndex] ) {
+			fromItem = this.criticals.centerTorso[fromIndex];
+			fromLocationObj = this.criticals.centerTorso;
+		}
+	} else if( fromLocation == "rt" ) {
+		if( this.criticals.rightTorso[fromIndex] ) {
+			fromItem = this.criticals.rightTorso[fromIndex];
+			fromLocationObj = this.criticals.rightTorso;
+		}
+	} else if( fromLocation == "ra" ) {
+		if( this.criticals.rightArm[fromIndex] ) {
+			fromItem = this.criticals.rightArm[fromIndex];
+			fromLocationObj = this.criticals.rightArm;
+		}
+	} else if( fromLocation == "rl" ) {
+		if( this.criticals.rightLeg[fromIndex] ) {
+			fromItem = this.criticals.rightLeg[fromIndex];
+			fromLocationObj = this.criticals.rightLeg;
+		}
+	} else if( fromLocation == "lt" ) {
+		if( this.criticals.leftTorso[fromIndex] ) {
+			fromItem = this.criticals.leftTorso[fromIndex];
+			fromLocationObj = this.criticals.leftTorso;
+		}
+	} else if( fromLocation == "la" ) {
+		if( this.criticals.leftArm[fromIndex] ) {
+			fromItem = this.criticals.leftArm[fromIndex];
+			fromLocationObj = this.criticals.leftArm;
+		}
+	} else if( fromLocation == "ll" ) {
+		if( this.criticals.leftLeg[fromIndex] ) {
+			fromItem = this.criticals.leftLeg[fromIndex];
+			fromLocationObj = this.criticals.leftLeg;
+		}
+	}
+
+	//~ console.log( "fromItem", fromItem );
+	//~ console.log( "fromLocationObj", fromLocationObj );
+
+	if( fromItem ) {
+
+		if(toLocation == "hd" ) {
+			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.Head, toIndex );
+		} else if( toLocation == "ct" ) {
+			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.centerTorso, toIndex );
+		} else if( toLocation == "rt" ) {
+			return this._moveItemToArea( fromLocationObj,fromItem, fromIndex, this.criticals.rightTorso, toIndex );
+		} else if( toLocation == "rl" ) {
+			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.rightLeg, toIndex );
+		} else if( toLocation == "ra" ) {
+			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.rightArm, toIndex );
+		} else if( toLocation == "lt" ) {
+			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.leftTorso, toIndex );
+		} else if( toLocation == "ll" ) {
+			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.leftLeg, toIndex );
+		} else if( toLocation == "la" ) {
+			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.leftArm, toIndex );
+		}
+	}
+
+	return false;
+};
+
+Mech.prototype._moveItemToArea = function( fromLocation, fromItem, fromIndex, toLocation, toIndex) {
+	//console.log( "Mech._moveItemToArea()", fromLocation, fromItem, fromIndex, toLocation, toIndex);
+	//~ console.log( "Mech._moveItemToArea() fromLocation : ", fromLocation );
+	//~ console.log( "Mech._moveItemToArea() fromItem : ", fromItem );
+	//~ console.log( "Mech._moveItemToArea() fromIndex : ", fromIndex );
+	//~ console.log( "Mech._moveItemToArea() toLocation : ", toLocation );
+	//~ console.log( "Mech._moveItemToArea() toIndex : ", toIndex );
+
+	// Step One check to see if TO has enough slots for item....
+	var placeholder = {
+		uuid: fromItem.uuid,
+		name: "placeholder",
+		placeholder: true
+	};
+
+
+	hasSpace = true;
+	//~ console.log( "toLocation.length > toIndex + fromItem.crits", toLocation.length, toIndex, fromItem.crits );
+	if( toLocation.length < toIndex + fromItem.crits )
+		return false;
+	for( var testC = 0; testC < fromItem.crits; testC++ ) {
+		if( toLocation[ toIndex + testC ] ) {
+			hasSpace = false;
+		}
+	}
+
+	if( hasSpace ) {
+		toLocation[ toIndex ] = fromItem;
+		for( var phC = 1; phC < toLocation[ toIndex ].crits; phC++ ) {
+			toLocation[ toIndex + phC ] = placeholder;
+		}
+
+
+		fromLocation[ fromIndex ] = null;
+		nextCounter = 1;
+		while(
+			fromLocation[ fromIndex + nextCounter]
+				&&
+			fromLocation[ fromIndex + nextCounter].name == "placeholder"
+				&&
+			nextCounter < fromLocation.length
+		) {
+			fromLocation[ fromIndex  + nextCounter ] = null;
+			nextCounter++;
+		}
+		return true;
+
+	}
+
+	return false;
+
+}
 
 Mech.prototype._allocateCritical = function(equipment_tag, mech_location, slot_number, remove_from_unallocated) {
 
@@ -7302,6 +7437,8 @@ var battlemechCreatorControllerStep6Array =
 			// create mech object, load from localStorage if exists
 			current_mech = new Mech();
 
+			$scope.selectedItem = null;
+
 			if( localStorage["tmp.current_mech"] )
 				current_mech.importJSON( localStorage["tmp.current_mech"] );
 			else
@@ -7341,6 +7478,64 @@ var battlemechCreatorControllerStep6Array =
 				}
 
 			});
+
+
+			$scope.step6ItemClick = function( criticalItem, indexLocation, locationString ) {
+				if( typeof(criticalItem) == "undefined")
+					criticalItem = null;
+				if( typeof(indexLocation) == "undefined")
+					indexLocation = null;
+				if( typeof(locationString) == "undefined")
+					locationString = null;
+
+				console.log( "step6ItemClick", criticalItem, indexLocation, locationString );
+				if( $scope.selectedItem == null ) {
+					if( criticalItem != null) {
+						if( criticalItem.movable == true ) {
+							 $scope.selectedItem = {
+								 item: criticalItem,
+								 from: locationString,
+								 index: indexLocation
+							};
+						} else {
+							console.log( "Unmovable item selected" );
+						}
+					} else {
+						console.log( "Unallocated area selected" );
+
+					}
+				} else {
+					if( criticalItem ) {
+						console.log( "Slot is already filled" );
+					} else {
+						var itemTag =  $scope.selectedItem.item.tag;
+						var fromLocation =  $scope.selectedItem.from;
+						var fromIndex =  $scope.selectedItem.index;
+						var toLocation = locationString;
+						var toIndex = indexLocation;
+						worked = current_mech.moveCritical(
+							itemTag,
+							fromLocation,
+							fromIndex,
+							toLocation,
+							toIndex
+						);
+
+						if( worked ) {
+
+							current_mech.updateCriticalAllocationTable();
+							current_mech._calc();
+							localStorage["tmp.current_mech"] = current_mech.exportJSON();
+
+							update_step_6_items($scope, current_mech);
+							update_mech_status_bar_and_tro($scope, $translate, current_mech);
+
+							$scope.selectedItem = null;
+						}
+					}
+
+				}
+			}
 
 
 			// make tro for sidebar
@@ -7390,6 +7585,7 @@ var battlemechCreatorControllerStep6Array =
 			}
 
 			$scope.resetAllocations = function() {
+				$scope.selectedItem = null;
 				current_mech.clearCriticalAllocationTable();
 				current_mech._calc();
 				localStorage["tmp.current_mech"] = current_mech.exportJSON();
@@ -7397,90 +7593,6 @@ var battlemechCreatorControllerStep6Array =
 				update_mech_status_bar_and_tro($scope, $translate, current_mech);
 			}
 
-			$scope.updateCriticialController = {
-				accept: function (sourceItemHandleScope, destSortableScope, destItemScope) {
-					// console.log("sourceItemHandleScope", sourceItemHandleScope);
-					// console.log("destSortableScope", destSortableScope);
-					// console.log("destItemScope", destItemScope);
-
-					// this should work if I can ever get the destination slot number...
-
-					// deny access to 'write over' other items
-					if( typeof(destItemScope) == "undefined" || typeof(destItemScope.modelValue) == "undefined") {
-
-
-
-						if( sourceItemHandleScope && sourceItemHandleScope.modelValue && sourceItemHandleScope.modelValue.tag) {
-							//return current_mech.canBeAssignedToArea(
-							//	destSortableScope.modelValue,
-							//	sourceItemHandleScope.modelValue,
-							//	sourceItemHandleScope.modelValue.crits,
-							//	slot_number
-							//);
-							can_be_assigned = true;
-						//	console.log( sourceItemHandleScope.modelValue.tag );
-							if ( sourceItemHandleScope.modelValue.tag == "jj-standard" || sourceItemHandleScope.modelValue.tag == "jj-enhanced"  ) {
-								// Jump Jets can only be put on Torsos and Legs
-								if(
-								 	destSortableScope.element[0].classList.contains("location-lt")
-									 	||
-								 	destSortableScope.element[0].classList.contains("location-rt")
-									 	||
-								 	destSortableScope.element[0].classList.contains("location-ct")
-								 		||
-								 	destSortableScope.element[0].classList.contains("location-ll")
-								 		||
-								 	destSortableScope.element[0].classList.contains("location-rl")
-								) {
-									// Yep, user put it in the right place.
-								//console.log( "accept", "Good placement of JJ");
-								 	return can_be_assigned;
-								} else {
-									// DENIED This mech is not Iron Man.
-									//console.log( "accept", "DENIED This mech is not Iron Man.");
-								 	return false;
-								}
-							} else {
-								// Not a jump jet...
-								//console.log( "accept", "Not a jump jet");
-								return can_be_assigned;
-							}
-						} else {
-							// empty item - modelValue disappears after being moved more than once.
-							//console.log( "accept", "Empty Item.");
-							return true;
-						}
-					} else {
-						// deny "placing over" existing items
-						return true;
-					}
-					//return true;
-				},
-				itemMoved: function (eventObj) {
-					//console.log("moving it...");
-					current_mech.updateCriticalAllocationTable();
-					current_mech._calc();
-					localStorage["tmp.current_mech"] = current_mech.exportJSON();
-
-					update_step_6_items($scope, current_mech);
-					update_mech_status_bar_and_tro($scope, $translate, current_mech);
-					return true;
-
-				},
-				orderChanged: function(eventObj) {
-					current_mech.updateCriticalAllocationTable();
-					current_mech._calc();
-					localStorage["tmp.current_mech"] = current_mech.exportJSON();
-
-					update_step_6_items($scope, current_mech);
-					update_mech_status_bar_and_tro($scope, $translate, current_mech);
-					return true;
-
-				},
-				//containment: '#board'//optional param.
-				//clone: true, //optional param for clone feature.
-				allowDuplicates: false //optional param allows duplicates to be dropped.
-			};
 		}
 	]
 ;
@@ -8000,6 +8112,10 @@ available_languages.push ({
 		BM_STEP6_UNALLOCATED_EQUIPMENT: "Unallocated Equipment",
 		BM_STEP6_CRITICAL_TABLE: "Critical Table",
 		BM_STEP6_RESET_ALLOCATIONS: "Reset Allocations",
+		BM_STEP6_INSTRUCTIONS: "Instructions",
+		BM_STEP6_INSTRUCTIONS_TEXT: "To assign equipment to your critical allocation table, just click on an assignable item then click on an unallocated location.",
+		BM_STEP6_SELECT_AN_ITEM_TO_ALLOCATE: "Select an item to allocate",
+		BM_STEP6_SELECT_AN_PLACE_TO_ALLOCATE: "Click on an available location",
 
 		BM_SUMMARY_TITLE: "Summary",
 		BM_SUMMARY_DESC: "",
