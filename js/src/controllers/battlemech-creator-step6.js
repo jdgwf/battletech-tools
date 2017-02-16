@@ -67,7 +67,10 @@ var battlemechCreatorControllerStep6Array =
 				if( typeof(locationString) == "undefined")
 					locationString = null;
 
-				console.log( "step6ItemClick", criticalItem, indexLocation, locationString );
+				$scope.errorCannotPlace = false;
+				$scope.errorCannotMove = false;
+
+				//~ console.log( "step6ItemClick", criticalItem, indexLocation, locationString );
 				if( $scope.selectedItem == null ) {
 					if( criticalItem != null) {
 						if( criticalItem.movable == true ) {
@@ -77,15 +80,18 @@ var battlemechCreatorControllerStep6Array =
 								 index: indexLocation
 							};
 						} else {
-							console.log( "Unmovable item selected" );
+							//~ console.log( "Unmovable item selected" );
+							$scope.errorCannotMove = true;
 						}
 					} else {
-						console.log( "Unallocated area selected" );
+						//~ console.log( "Unallocated area selected" );
+
 
 					}
 				} else {
 					if( criticalItem ) {
-						console.log( "Slot is already filled" );
+						//~ console.log( "Slot is already filled" );
+						$scope.errorCannotPlace = true;
 					} else {
 						var itemTag =  $scope.selectedItem.item.tag;
 						var fromLocation =  $scope.selectedItem.from;
@@ -101,15 +107,19 @@ var battlemechCreatorControllerStep6Array =
 						);
 
 						if( worked ) {
-
+							//console.log( "a", current_mech.criticals.head )
 							current_mech.updateCriticalAllocationTable();
+							//console.log("b", current_mech.criticals.head )
 							current_mech._calc();
+							//console.log("c", current_mech.criticals.head )
 							localStorage["tmp.current_mech"] = current_mech.exportJSON();
 
 							update_step_6_items($scope, current_mech);
 							update_mech_status_bar_and_tro($scope, $translate, current_mech);
 
 							$scope.selectedItem = null;
+						} else {
+							$scope.errorCannotPlace = true;
 						}
 					}
 
@@ -183,6 +193,7 @@ function update_step_6_items($scope, current_mech) {
 	$scope.has_la_lower_arm_actuator = current_mech.hasLowerArmActuator("la");
 	$scope.has_ra_lower_arm_actuator = current_mech.hasLowerArmActuator("ra");
 
+//~ console.log(current_mech.criticals.head );
 	current_mech.trimCriticals();
 
 	$scope.battlemech_head = current_mech.criticals.head;
@@ -202,7 +213,7 @@ function update_step_6_items($scope, current_mech) {
 	$scope.battlemech_right_torso = current_mech.criticals.rightTorso;
 
 	$scope.battlemech_unallocated_items = current_mech.unallocatedCriticals;
-	console.log( $scope.battlemech_right_arm );
+	//~ console.log( $scope.battlemech_head );
 }
 
 angular.module("webApp").controller(

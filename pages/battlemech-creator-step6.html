@@ -15,15 +15,8 @@
 				<div class="column small-12 medium-12 large-12">
 
 					<div class="dev-note">
-						<p><strong>NOTE</strong>: Currently a work in progress. However, this DOES work. There still are some UI annoyances, but if you hold your tongue right allocation works and is persistent!</p>
-						<p><strike>I am aware of the slightly altnernate layout for Quads. I hope to have this layout done soon. (got the backend done, halfway there)</strike> This should be complete now :)</p>
-						<p><strong>Update Mar 3, 2016:</strong> I've started work on the drag and drop validation function. Slowly this should not allow you to put things in the wrong places or "lose them" when putting "over" multi-sized items. This is a slow process (I think the Drag and Drop library I'm using may have a bug when moving items twice before a page reload, but I'm not going to point fingers until I test *my* code more). At least I now have it so that you can't assign jump jets to arms or head anymore</p>
-						<p><strong>Update Feb 7, 2017:</strong> After a long perioid of inactivity due to other priorities I'm on this again. I'll be removing the drag and drop functionality because Windows Touch
-						Devices, Android Devices and iOS Devices just don't mesh very well with web-standard drag and dropping. I'd rather drop the drag and drop code than have 2-3 codebases or exceptions.
-						I plan on addressing this within the week.<br />
-						<br />
-						I've done two other projects since working on this one in angular, so work on this shouldn't be as slow as before if/when I have time to work on it.</p>
-
+						<p><strong>Update Feb 16</strong>: I've removed the terribly buggy across devices drag and drop functionality. It now works via item click then placement. It seems to work well for me... and allows me to allocate items on an iPhone sized screen (although the font sizes and wrapping do strange things at that level ).
+						</p>
 					</div>
 
 				</div>
@@ -34,8 +27,13 @@
 						<legend translate="BM_STEP6_INSTRUCTIONS">Instructions</legend>
 						<p translate="BM_STEP6_INSTRUCTIONS_TEXT"></p>
 					</fieldset>
-					<p class="text-center" ng-show="selectedItem == null" translate="BM_STEP6_SELECT_AN_ITEM_TO_ALLOCATE"></p>
-					<p class="text-center" ng-show="selectedItem != null" translate="BM_STEP6_SELECT_AN_PLACE_TO_ALLOCATE"></p>
+					<p class="text-center">
+						<span ng-show="selectedItem == null" translate="BM_STEP6_SELECT_AN_ITEM_TO_ALLOCATE">Select Item</span>
+						<span ng-show="selectedItem != null" translate="BM_STEP6_SELECT_AN_PLACE_TO_ALLOCATE">Select Place</span>
+
+						<span ng-show="errorCannotMove"> - <strong><span translate="BM_STEP6_CANNOT_MOVE_THAT_ITEM">Cannot move item</span></strong></span>
+						<span ng-show="errorCannotPlace"> - <strong><span translate="BM_STEP6_CANNOT_BE_PLACED">Cannot place item there.</span></strong></span>
+					</p>
 				</div>
 			</div>
 			<div class="row">

@@ -4440,6 +4440,8 @@ Mech.prototype._calcCriticals = function() {
 		} );
 	}
 
+	//~ console.log( this.criticalAllocationTable );
+
 	// Allocate items per allocation table.
 	for( alt_c = 0; alt_c < this.criticalAllocationTable.length; alt_c++) {
 		this._allocateCritical(
@@ -5548,9 +5550,9 @@ Mech.prototype.updateCriticalAllocationTable = function() {
 				this.criticals[mech_location][crit_item_counter] &&
 				this.criticals[mech_location][crit_item_counter].movable
 			) {
-
+				//~ console.log( mech_location );
 				short_loc = "";
-				if(mech_location == "Head" ) {
+				if(mech_location == "head" ) {
 					short_loc = "hd";
 				} else if( mech_location == "centerTorso" ) {
 					short_loc = "ct";
@@ -5598,9 +5600,9 @@ Mech.prototype.moveCritical = function ( itemTag, fromLocation, fromIndex, toLoc
 		}
 		fromLocationObj = this.unallocatedCriticals;
 	} else if(fromLocation == "hd" ) {
-		if( this.criticals.Head[fromIndex] ) {
-			fromItem = this.criticals.Head[fromIndex];
-			fromLocationObj = this.criticals.Head;
+		if( this.criticals.head[fromIndex] ) {
+			fromItem = this.criticals.head[fromIndex];
+			fromLocationObj = this.criticals.head;
 		}
 	} else if( fromLocation == "ct" ) {
 		if( this.criticals.centerTorso[fromIndex] ) {
@@ -5644,12 +5646,12 @@ Mech.prototype.moveCritical = function ( itemTag, fromLocation, fromIndex, toLoc
 
 	if( fromItem ) {
 
-		if(toLocation == "hd" ) {
-			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.Head, toIndex );
+		if( toLocation == "hd" ) {
+			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.head, toIndex );
 		} else if( toLocation == "ct" ) {
 			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.centerTorso, toIndex );
 		} else if( toLocation == "rt" ) {
-			return this._moveItemToArea( fromLocationObj,fromItem, fromIndex, this.criticals.rightTorso, toIndex );
+			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.rightTorso, toIndex );
 		} else if( toLocation == "rl" ) {
 			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.rightLeg, toIndex );
 		} else if( toLocation == "ra" ) {
@@ -5667,7 +5669,7 @@ Mech.prototype.moveCritical = function ( itemTag, fromLocation, fromIndex, toLoc
 };
 
 Mech.prototype._moveItemToArea = function( fromLocation, fromItem, fromIndex, toLocation, toIndex) {
-	//console.log( "Mech._moveItemToArea()", fromLocation, fromItem, fromIndex, toLocation, toIndex);
+	//~ //console.log( "Mech._moveItemToArea()", fromLocation, fromItem, fromIndex, toLocation, toIndex);
 	//~ console.log( "Mech._moveItemToArea() fromLocation : ", fromLocation );
 	//~ console.log( "Mech._moveItemToArea() fromItem : ", fromItem );
 	//~ console.log( "Mech._moveItemToArea() fromIndex : ", fromIndex );
@@ -5693,10 +5695,13 @@ Mech.prototype._moveItemToArea = function( fromLocation, fromItem, fromIndex, to
 	}
 
 	if( hasSpace ) {
+		//~ console.log( "toa", toLocation );
 		toLocation[ toIndex ] = fromItem;
 		for( var phC = 1; phC < toLocation[ toIndex ].crits; phC++ ) {
 			toLocation[ toIndex + phC ] = placeholder;
 		}
+
+		//~ console.log( "tob",toLocation );
 
 
 		fromLocation[ fromIndex ] = null;
@@ -5727,7 +5732,7 @@ Mech.prototype._allocateCritical = function(equipment_tag, mech_location, slot_n
 				this.unallocatedCriticals[uaet_c].obj.location = mech_location;
 
 			if(mech_location == "hd" ) {
-				this._assignItemToArea( this.criticals.Head, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slot_number );
+				this._assignItemToArea( this.criticals.head, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slot_number );
 			} else if( mech_location == "ct" ) {
 				this._assignItemToArea( this.criticals.centerTorso, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slot_number );
 			} else if( mech_location == "rt" ) {
@@ -7488,7 +7493,10 @@ var battlemechCreatorControllerStep6Array =
 				if( typeof(locationString) == "undefined")
 					locationString = null;
 
-				console.log( "step6ItemClick", criticalItem, indexLocation, locationString );
+				$scope.errorCannotPlace = false;
+				$scope.errorCannotMove = false;
+
+				//~ console.log( "step6ItemClick", criticalItem, indexLocation, locationString );
 				if( $scope.selectedItem == null ) {
 					if( criticalItem != null) {
 						if( criticalItem.movable == true ) {
@@ -7498,15 +7506,18 @@ var battlemechCreatorControllerStep6Array =
 								 index: indexLocation
 							};
 						} else {
-							console.log( "Unmovable item selected" );
+							//~ console.log( "Unmovable item selected" );
+							$scope.errorCannotMove = true;
 						}
 					} else {
-						console.log( "Unallocated area selected" );
+						//~ console.log( "Unallocated area selected" );
+
 
 					}
 				} else {
 					if( criticalItem ) {
-						console.log( "Slot is already filled" );
+						//~ console.log( "Slot is already filled" );
+						$scope.errorCannotPlace = true;
 					} else {
 						var itemTag =  $scope.selectedItem.item.tag;
 						var fromLocation =  $scope.selectedItem.from;
@@ -7522,15 +7533,19 @@ var battlemechCreatorControllerStep6Array =
 						);
 
 						if( worked ) {
-
+							//console.log( "a", current_mech.criticals.head )
 							current_mech.updateCriticalAllocationTable();
+							//console.log("b", current_mech.criticals.head )
 							current_mech._calc();
+							//console.log("c", current_mech.criticals.head )
 							localStorage["tmp.current_mech"] = current_mech.exportJSON();
 
 							update_step_6_items($scope, current_mech);
 							update_mech_status_bar_and_tro($scope, $translate, current_mech);
 
 							$scope.selectedItem = null;
+						} else {
+							$scope.errorCannotPlace = true;
 						}
 					}
 
@@ -7604,6 +7619,7 @@ function update_step_6_items($scope, current_mech) {
 	$scope.has_la_lower_arm_actuator = current_mech.hasLowerArmActuator("la");
 	$scope.has_ra_lower_arm_actuator = current_mech.hasLowerArmActuator("ra");
 
+//~ console.log(current_mech.criticals.head );
 	current_mech.trimCriticals();
 
 	$scope.battlemech_head = current_mech.criticals.head;
@@ -7623,7 +7639,7 @@ function update_step_6_items($scope, current_mech) {
 	$scope.battlemech_right_torso = current_mech.criticals.rightTorso;
 
 	$scope.battlemech_unallocated_items = current_mech.unallocatedCriticals;
-	console.log( $scope.battlemech_right_arm );
+	//~ console.log( $scope.battlemech_head );
 }
 
 angular.module("webApp").controller(
@@ -8116,6 +8132,8 @@ available_languages.push ({
 		BM_STEP6_INSTRUCTIONS_TEXT: "To assign equipment to your critical allocation table, just click on an assignable item then click on an unallocated location.",
 		BM_STEP6_SELECT_AN_ITEM_TO_ALLOCATE: "Select an item to allocate",
 		BM_STEP6_SELECT_AN_PLACE_TO_ALLOCATE: "Click on an available location",
+		BM_STEP6_CANNOT_MOVE_THAT_ITEM: "You cannot move that item",
+		BM_STEP6_CANNOT_BE_PLACED: "Item cannot be placed there",
 
 		BM_SUMMARY_TITLE: "Summary",
 		BM_SUMMARY_DESC: "",

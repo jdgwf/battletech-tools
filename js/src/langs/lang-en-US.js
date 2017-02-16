@@ -166,6 +166,8 @@ available_languages.push ({
 		BM_STEP6_INSTRUCTIONS_TEXT: "To assign equipment to your critical allocation table, just click on an assignable item then click on an unallocated location.",
 		BM_STEP6_SELECT_AN_ITEM_TO_ALLOCATE: "Select an item to allocate",
 		BM_STEP6_SELECT_AN_PLACE_TO_ALLOCATE: "Click on an available location",
+		BM_STEP6_CANNOT_MOVE_THAT_ITEM: "You cannot move that item",
+		BM_STEP6_CANNOT_BE_PLACED: "Item cannot be placed there",
 
 		BM_SUMMARY_TITLE: "Summary",
 		BM_SUMMARY_DESC: "",
