@@ -56,7 +56,7 @@ var asBuilderArray = [
 			var tempFavCustomName = addUnitInfo.customName;
 			$scope.pleaseWait = true;
 
-			var mulUnitURL = "http://masterunitlist.info/Unit/QuickDetails/" + addUnitInfo.mulID + "/";
+			var mulUnitURL = "https://masterunitlist.azurewebsites.net/Unit/QuickDetails/" + addUnitInfo.mulID + "/";
 			//~ console.log("mulUnitURL", mulUnitURL );
 
 			$http.get(mulUnitURL)
@@ -170,12 +170,13 @@ var asBuilderArray = [
 			QuickCount
 			QuickRandom
 		*/
+		
 		$scope.updateMULList = function() {
-			// http://masterunitlist.info/Unit/QuickList?MinPV=1&MaxPV=999&Name=
+			// https://masterunitlist.azurewebsites.net/Unit/QuickList?MinPV=1&MaxPV=999&Name=
 			if( $scope.currentSearch.length >= 3 ) {
 				$scope.foundMULItems = Array();
 				$scope.pleaseWait = true;
-				$http.get("http://masterunitlist.info/Unit/QuickList?MinPV=1&MaxPV=999&Name=" + $scope.currentSearch)
+				$http.get("https://masterunitlist.azurewebsites.net/Unit/QuickList?MinPV=1&MaxPV=999&Name=" + $scope.currentSearch)
 					.then(function(response) {
 						$scope.foundMULItems = response.data;
 						$scope.filterMechRules();
