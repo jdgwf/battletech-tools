@@ -149,6 +149,155 @@ var mechISEquipment = Array(
 			)
 		}
 	},
+		name: {
+			'en-US': "ER Small Laser",
+			'de-DE': "de - ER Small Laser",
+		},
+		tag: "er-small-laser",
+		category: {
+			'en-US': "Energy Weapons",
+			'de-DE': "de - Energy Weapons",
+		},
+		damage: 3,
+		cbills: 11250,
+		introduced: 3058,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 17,
+		ammo_battlevalue: 0,
+		heat: 2,
+		weight: 0.5,
+		range_min: {
+			min: 0,
+			short: 2,
+			medium: 4,
+			long: 5,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 0,
+		min_ammo_tons: 1,
+		tech_rating: "e",
+		book: "TechManual",
+		page: 226,
+		alpha_strike: {
+			heat: 3,
+			range_short: 0.3,
+			range_medium: 0.3,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "ER Medium Laser",
+			'de-DE': "de - ER Medium Laser",
+		},
+		tag: "er-medium-laser",
+		category: {
+			'en-US': "Energy Weapons",
+			'de-DE': "de - Energy Weapons",
+		},
+		damage: 5,
+		cbills: 80000,
+		introduced: 3058,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 62,
+		ammo_battlevalue: 0,
+		heat: 5,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 4,
+			medium: 8,
+			long: 12,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 0,
+		min_ammo_tons: 1,
+		tech_rating: "e",
+		book: "TechManual",
+		page: 226,
+		alpha_strike: {
+			heat: 5,
+			range_short: 0.5,
+			range_medium: 0.5,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "ER Large Laser",
+			'de-DE': "de - ER Large Laser",
+		},
+		tag: "large-laser",
+		category: {
+			'en-US': "Energy Weapons",
+			'de-DE': "de - Energy Weapons",
+		},
+		damage: 8,
+		cbills: 200000,
+		introduced: 2620,
+		extinct: 2950,
+		reintroduced: 3037,
+		battlevalue: 163,
+		ammo_battlevalue: 0,
+		heat: 12,
+		weight: 5,
+		range_min: {
+			min: 0,
+			short: 7,
+			medium: 14,
+			long: 19,
+		},
+		space: {
+			battlemech: 2,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 2,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 0,
+		min_ammo_tons: 1,
+		tech_rating: "c",
+		book: "TechManual",
+		page: 226,
+		alpha_strike: {
+			heat: 12,
+			range_short: 0.8,
+			range_medium: 0.8,
+			range_long: 0.8,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
 	{
 		name: {
 			'en-US': "Machine Gun",
