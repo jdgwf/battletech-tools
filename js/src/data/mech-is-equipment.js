@@ -10,6 +10,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 3,
+		accuracy_modifier: 0,
 		cbills: 11250,
 		introduced: 2300,
 		extinct: 0,
@@ -35,8 +36,11 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		weapon_type: Array(
+			"DE"
+		),
 		tech_rating: "c",
-		book: "TechManual",
+		book: "TM",
 		page: 227,
 		alpha_strike: {
 			heat: 1,
@@ -60,6 +64,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 5,
+		accuracy_modifier: 0,
 		cbills: 40000,
 		introduced: 2300,
 		extinct: 0,
@@ -85,8 +90,11 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		weapon_type: Array(
+			"DE"
+		),
 		tech_rating: "c",
-		book: "TechManual",
+		book: "TM",
 		page: 227,
 		alpha_strike: {
 			heat: 3,
@@ -110,6 +118,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 8,
+		accuracy_modifier: 0,
 		cbills: 100000,
 		introduced: 2316,
 		extinct: 0,
@@ -135,8 +144,11 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		weapon_type: Array(
+			"DE"
+		),
 		tech_rating: "c",
-		book: "TechManual",
+		book: "TM",
 		page: 227,
 		alpha_strike: {
 			heat: 8,
@@ -149,6 +161,7 @@ var mechISEquipment = Array(
 			)
 		}
 	},
+	{
 		name: {
 			'en-US': "ER Small Laser",
 			'de-DE': "de - ER Small Laser",
@@ -159,6 +172,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 3,
+		accuracy_modifier: 0,
 		cbills: 11250,
 		introduced: 3058,
 		extinct: 0,
@@ -184,8 +198,11 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		weapon_type: Array(
+			"DE"
+		),
 		tech_rating: "e",
-		book: "TechManual",
+		book: "TM",
 		page: 226,
 		alpha_strike: {
 			heat: 3,
@@ -209,6 +226,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 5,
+		accuracy_modifier: 0,
 		cbills: 80000,
 		introduced: 3058,
 		extinct: 0,
@@ -234,8 +252,11 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		weapon_type: Array(
+			"DE"
+		),
 		tech_rating: "e",
-		book: "TechManual",
+		book: "TM",
 		page: 226,
 		alpha_strike: {
 			heat: 5,
@@ -259,6 +280,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 8,
+		accuracy_modifier: 0,
 		cbills: 200000,
 		introduced: 2620,
 		extinct: 2950,
@@ -284,8 +306,11 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		weapon_type: Array(
+			"DE"
+		),
 		tech_rating: "c",
-		book: "TechManual",
+		book: "TM",
 		page: 226,
 		alpha_strike: {
 			heat: 12,
@@ -310,7 +335,8 @@ var mechISEquipment = Array(
 		},
 		damage: 2,
 		damage_aero: 2,
-		cbills: 0,
+		accuracy_modifier: 0,
+		cbills: 5000,
 		introduced: 1950,
 		extinct: 0,
 		reintroduced: 0,
@@ -333,9 +359,13 @@ var mechISEquipment = Array(
 			drop_ship: 1
 		},
 		ammo_per_ton: 200,
-		min_ammo_tons: 1,
+		min_ammo_tons: 0.5,
+		weapon_type: Array(
+			"DB",
+			"AI"
+		),
 		tech_rating: "b",
-		book: "TechManual",
+		book: "TM",
 		page: 227,
 		alpha_strike: {
 			heat: 0,
@@ -360,6 +390,7 @@ var mechISEquipment = Array(
 		},
 		damage: 0,
 		damage_aero: 0,
+		accuracy_modifier: 0,
 		cbills: 1000,
 		introduced: 1950,
 		extinct: 0,
@@ -383,9 +414,13 @@ var mechISEquipment = Array(
 			drop_ship: 1
 		},
 		ammo_per_ton: 200,
-		min_ammo_tons: 1,
+		min_ammo_tons: 0.5,
+		weapon_type: Array(
+			"DB",
+			"AI"
+		),
 		tech_rating: "b",
-		book: "TechManual",
+		book: "TM",
 		page: 227,
 		alpha_strike: {
 			heat: 0,
