@@ -15,17 +15,23 @@
 				</div>
 
 				<div class="row">
-					<div class="column small-12 medium-v large-4">
+					<div class="column small-12 medium-6 large-6">
 						<h4 translate="BM_SUMMARY_TRO">TRO</h4>
-						<div ng-bind-html="mech_tro"></div>
+						<div class="summary-block" ng-bind-html="mech_tro"></div>
 					</div>
-					<div class="column small-12 medium-12 large-4">
+					<div class="column small-12 medium-6 large-6">
+						<h4 translate="BM_SUMMARY_CBILL_CALC">CBill Cost Math</h4>
+						<div class="summary-block" ng-bind-html="mech_cbill_calc"></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="column small-12 medium-6 large-6">
 						<h4 translate="BM_SUMMARY_BV_CALC">Battle Value Math</h4>
-						<div ng-bind-html="mech_bv_calc"></div>
+						<div class="summary-block" ng-bind-html="mech_bv_calc"></div>
 					</div>
-					<div class="column small-12 medium-12 large-4">
+					<div class="column small-12 medium-6 large-6">
 						<h4 translate="BM_SUMMARY_AS_CALC">Alpha Strike Math</h4>
-						<div ng-bind-html="mech_as_calc"></div>
+						<div class="summary-block" ng-bind-html="mech_as_calc"></div>
 					</div>
 				</div>
 

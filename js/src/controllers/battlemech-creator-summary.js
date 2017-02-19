@@ -29,6 +29,7 @@ var battlemechCreatorControllerSummaryArray =
 			$scope.mech_tro = current_mech.makeTROHTML();
 			$scope.mech_bv_calc = current_mech.getBVCalcHTML();
 			$scope.mech_as_calc = current_mech.getASCalcHTML();
+			$scope.mech_cbill_calc = current_mech.getCBillCalcHTML();
 
 
 

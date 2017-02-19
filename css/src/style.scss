@@ -597,6 +597,18 @@ button.round, .button.round {
     border-radius: 1000px;
 }
 
+.summary-block {
+	background: $bodyBackground;
+	padding: .25rem;
+
+}
+.mech-tro {
+		tr {
+			td, th {
+				border: 0;
+			}
+		}
+}
 
 
 .as-card {

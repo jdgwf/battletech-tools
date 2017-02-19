@@ -3585,6 +3585,10 @@ function Mech (type) {
 	this.battleValue = "n/a";
 	this.alphaStrikeValue = "n/a";
 
+	this.calcLogBV = "";
+	this.calcLogAS = "";
+	this.calcLogCBill = "";
+
 	this.alphaStrikeForceStats = {
 		make: "",
 		model: "",
@@ -3606,6 +3610,7 @@ function Mech (type) {
 }
 
 Mech.prototype._calcAlphaStrike = function() {
+
 	this.alphaStrikeForceStats.make  = this.make;
 	this.alphaStrikeForceStats.model  = this.model;
 	this.alphaStrikeForceStats.move  = this.getWalkSpeed() * 2;
@@ -3623,34 +3628,71 @@ Mech.prototype._calcAlphaStrike = function() {
 	this.alphaStrikeForceStats.size_class = "";
 	this.alphaStrikeForceStats.size_class_name = "";
 	this.alphaStrikeForceStats.special_unit_abilities = Array();
+	this.alphaStrikeForceStats.heat = 0;
+	this.alphaStrikeForceStats.longHeat = 0;
+	this.alphaStrikeForceStats.abilityCodes = Array()
+
+	this.alphaStrikeForceStats.getAbilityCode = function( abilityCode ) {
+		for( var abiC = 0; abiC < this.alphaStrikeForceStats.abilityCodes.length; abiC++ ) {
+			if( abilityCode.toLowerCase().trim() == this.alphaStrikeForceStats.abilityCodes[ abiC ].toLowerCase().trim() ) {
+				return this.alphaStrikeForceStats.abilityCodes[ abiC ];
+			}
+		}
+
+		return null;
+	}
+
+	this.alphaStrikeForceStats.addAbilityCode = function( abilityCode, abilityValue ) {
+
+		 this.alphaStrikeForceStats.abilityCodes.push(
+			{
+				code: abilityCode,
+				value: abilityValue
+			}
+		);
+
+
+	}
+
+
+	this.calcLogAS = "";
 
 	// TODO - calculations
+	this.calcLogAS += "Tonnage is " + this.tonnage + "<br />\n";
 	if( this.tonnage > 100) {
 		this.alphaStrikeForceStats.size_class = 4;
 		this.alphaStrikeForceStats.size_class_name = "Superheavy";
 		this.alphaStrikeForceStats.special_unit_abilities.push("LG");
+		this.calcLogAS += "<strong>Setting Size to 4 (Superheavy)</strong><br />\n";
 	} else if( this.tonnage >= 80) {
 		this.alphaStrikeForceStats.size_class = 4;
 		this.alphaStrikeForceStats.size_class_name = "Assault";
+		this.calcLogAS += "<strong>Setting Size to 4 (Assault)</strong><br />\n";
 	} else if( this.tonnage >= 60) {
 		this.alphaStrikeForceStats.size_class = 3;
 		this.alphaStrikeForceStats.size_class_name = "Heavy";
+		this.calcLogAS += "<strong>Setting Size to 3 (Heavy)</strong><br />\n";
 	} else if( this.tonnage >= 40) {
 		this.alphaStrikeForceStats.size_class = 2;
 		this.alphaStrikeForceStats.size_class_name = "Medium";
+		this.calcLogAS += "<strong>Setting Size to 2 (Medium)</strong><br />\n";
 	} else {
 		this.alphaStrikeForceStats.size_class = 1;
 		this.alphaStrikeForceStats.size_class_name = "Light";
+		this.calcLogAS += "<strong>Setting Size to 1 (Light)</strong><br />\n";
 	}
 
 	this.alphaStrikeForceStats.armor = ( this.getTotalArmor() / 30).toFixed(0);
+	this.calcLogAS += "Converting total armor of " + this.getTotalArmor() + "<br />\n";
+	this.calcLogAS += "<strong>Setting Armor to " + this.alphaStrikeForceStats.armor + "</strong><br />\n";
 
-	if( this.getTech().name == "Inner Sphere") {
+	if( this.getTech().tag == "is") {
 
 
 		switch( this.engineType.tag ) {
 			case "compact":
 				// Compact
+
 				if( this.tonnage == 100) {
 					this.alphaStrikeForceStats.structure = 10;
 				} else if( this.tonnage >= 95 ) {
@@ -3690,6 +3732,7 @@ Mech.prototype._calcAlphaStrike = function() {
 				} else if( this.tonnage >= 10 ) {
 					this.alphaStrikeForceStats.structure = 1;
 				}
+				this.calcLogAS += "Engine is an IS Compact Engine <strong>setting structure to " + this.alphaStrikeForceStats.structure + "</strong><br />\n";
 				break;
 			case "light":
 				// Compact
@@ -3732,6 +3775,7 @@ Mech.prototype._calcAlphaStrike = function() {
 				} else if( this.tonnage >= 10 ) {
 					this.alphaStrikeForceStats.structure = 1;
 				}
+				this.calcLogAS += "Engine is an IS Light Engine <strong>setting structure to " + this.alphaStrikeForceStats.structure + "</strong><br />\n";
 				break;
 			default:
 				// Standard
@@ -3774,10 +3818,11 @@ Mech.prototype._calcAlphaStrike = function() {
 				} else if( this.tonnage >= 10 ) {
 					this.alphaStrikeForceStats.structure = 1;
 				}
-
+				this.calcLogAS += "Engine is an IS Standard Engine <strong>setting structure to " + this.alphaStrikeForceStats.structure + "</strong><br />\n";
 				break;
 		}
 	} else {
+		// Clan Engines...
 		switch( this.engineType.tag ) {
 			case "xl":
 				// Compact
@@ -3820,6 +3865,7 @@ Mech.prototype._calcAlphaStrike = function() {
 				} else if( this.tonnage >= 10 ) {
 					this.alphaStrikeForceStats.structure = 1;
 				}
+				this.calcLogAS += "Engine is a Clan XL Engine <strong>setting structure to " + this.alphaStrikeForceStats.structure + "</strong><br />\n";
 				break;
 			default:
 				// Standard / Standard Fusion
@@ -3862,35 +3908,303 @@ Mech.prototype._calcAlphaStrike = function() {
 				} else if( this.tonnage >= 10 ) {
 					this.alphaStrikeForceStats.structure = 1;
 				}
+				this.calcLogAS += "Engine is a Clan Standard Engine <strong>setting structure to " + this.alphaStrikeForceStats.structure + "</strong><br />\n";
 
 				break;
 		}
 	}
 
-	total_weapon_heat = 0;
+	// Heat Modified Damage, p115 AS companion
+	var total_weapon_heat = 0;
+	var total_weapon_heat_long = 0;
 	for( weapon_counter = 0; weapon_counter < this.equipmentList.length; weapon_counter++) {
 		if( this.equipmentList[weapon_counter].alpha_strike ) {
-			total_weapon_heat += this.alphaStrikeForceStats.heat
+			if( this.equipmentList[weapon_counter].alpha_strike.range_long > 0){
+				total_weapon_heat_long += this.equipmentList[weapon_counter].alpha_strike.heat;
+			}
+
+			total_weapon_heat += this.equipmentList[weapon_counter].alpha_strike.heat;
+
 			this.alphaStrikeForceStats.range_short += this.equipmentList[weapon_counter].alpha_strike.range_short;
 			this.alphaStrikeForceStats.range_medium += this.equipmentList[weapon_counter].alpha_strike.range_medium;
 			this.alphaStrikeForceStats.range_long += this.equipmentList[weapon_counter].alpha_strike.range_long;
 			this.alphaStrikeForceStats.range_extreme += this.equipmentList[weapon_counter].alpha_strike.range_extreme;
+
+			this.calcLogAS += "Adding Weapon " + this.equipmentList[weapon_counter].tag;
+			this.calcLogAS += " (" + this.equipmentList[weapon_counter].alpha_strike.range_short + ", ";
+			this.calcLogAS += this.equipmentList[weapon_counter].alpha_strike.range_medium + ", ";
+			this.calcLogAS += this.equipmentList[weapon_counter].alpha_strike.range_long + ", ";
+			this.calcLogAS += this.equipmentList[weapon_counter].alpha_strike.range_extreme + ")<br />\n";
+
 		}
 	}
+	var move_heat = 0;
 	if( this.getJumpSpeed() > 0 ) {
-		if( this.getJumpSpeed() / 2 < 3 )
-			total_weapon_heat += 3;
+		if( this.getJumpSpeed() < 3 )
+			move_heat += 3;
 		else
-			total_weapon_heat += this.getJumpSpeed() / 2;
+			move_heat += this.getJumpSpeed();
 
+		this.calcLogAS += "<strong>Move Is " + this.alphaStrikeForceStats.move + "\"/" + this.alphaStrikeForceStats.jump_move + "\"J</strong><br />\n";
 	} else {
-		total_weapon_heat += 2;
+		move_heat += 2;
+		this.calcLogAS += "<strong>Move Is " + this.alphaStrikeForceStats.move + "\"</strong><br />\n";
 	}
 
+
+
+
+	var heat_dissipation = 0;
+	//~ console.log( "this.heat_sink_type", this.heat_sink_type );
+	if( this.heat_sink_type == "single" ) {
+		heat_dissipation += (10 + this.additional_heat_sinks) * 1;
+	} else if( this.heat_sink_type == "double" ) {
+		heat_dissipation += (10 + this.additional_heat_sinks) * 2;
+	}
+
+	var max_heat_output = move_heat + total_weapon_heat;
+	var overheat_value = move_heat + total_weapon_heat - heat_dissipation;
+	var long_overheat_value = move_heat + total_weapon_heat_long - heat_dissipation;
+
+
+
+	var before_heat_range_short = this.alphaStrikeForceStats.range_short.toFixed(0) /1;
+	var before_heat_range_medium = this.alphaStrikeForceStats.range_medium.toFixed(0) /1;
+	var before_heat_range_long = this.alphaStrikeForceStats.range_long.toFixed(0) /1;
+	var before_heat_range_extreme = this.alphaStrikeForceStats.range_extreme.toFixed(0) /1;
+	//~ console.log( "ba", this.alphaStrikeForceStats );
+	if( overheat_value > 3) {
+		// Heat Modified Damage, p115 AS companion
+		this.alphaStrikeForceStats.range_short = ( this.alphaStrikeForceStats.range_short * heat_dissipation ) / (max_heat_output - 4);
+		this.alphaStrikeForceStats.range_medium = ( this.alphaStrikeForceStats.range_medium * heat_dissipation ) / (max_heat_output - 4);
+	}
+
+	if( long_overheat_value > 4) {
+		this.alphaStrikeForceStats.range_long = ( this.alphaStrikeForceStats.range_long * heat_dissipation ) / (max_heat_output - 4);
+
+	}
+	//~ console.log( "ba", this.alphaStrikeForceStats );
 	this.alphaStrikeForceStats.range_short = this.alphaStrikeForceStats.range_short.toFixed(0) /1;
 	this.alphaStrikeForceStats.range_medium = this.alphaStrikeForceStats.range_medium.toFixed(0) /1;
 	this.alphaStrikeForceStats.range_long = this.alphaStrikeForceStats.range_long.toFixed(0) /1;
 	this.alphaStrikeForceStats.range_extreme = this.alphaStrikeForceStats.range_extreme.toFixed(0) /1;
+	//~ console.log( "fa", this.alphaStrikeForceStats );
+
+	// Determine Overheat Values - p116 AS Companion
+	var final_overheat_value = 0;
+	//~ console.log( "before_heat_range_medium", before_heat_range_medium );
+	//~ console.log( "this.alphaStrikeForceStats.range_medium", this.alphaStrikeForceStats.range_medium );
+	//~ console.log( "before_heat_range_short", before_heat_range_short );
+	//~ console.log( "this.alphaStrikeForceStats.range_short", this.alphaStrikeForceStats.range_short );
+	if( before_heat_range_medium - this.alphaStrikeForceStats.range_medium > 0) {
+		final_overheat_value = before_heat_range_medium - this.alphaStrikeForceStats.range_medium;
+	} else {
+		// try short range bracket since the med range is low.
+		final_overheat_value = before_heat_range_short - this.alphaStrikeForceStats.range_short;
+	}
+	if( final_overheat_value > 4 )
+		final_overheat_value = 4;
+
+	//~ console.log( "before_heat_range_long", before_heat_range_long );
+	//~ console.log( "this.alphaStrikeForceStats.range_long", this.alphaStrikeForceStats.range_long );
+
+	// Determine Overheat Values - ASC - p116
+	var final_long_overheat_value = 0;
+	if( before_heat_range_long - this.alphaStrikeForceStats.range_long > 0) {
+		final_long_overheat_value = before_heat_range_long - this.alphaStrikeForceStats.range_long;
+	}
+
+	if( final_long_overheat_value > 4 )
+		final_long_overheat_value = 4;
+
+	this.alphaStrikeForceStats.ov = final_overheat_value;
+
+	this.calcLogAS += "Move Heat: " + move_heat + "<br />\n";
+	this.calcLogAS += "Weapon Heat: " + total_weapon_heat + "<br />\n";
+	this.calcLogAS += "Long Weapon Heat: " + total_weapon_heat_long + "<br />\n";
+	this.calcLogAS += "Heat Dissipation: " + heat_dissipation + "<br />\n";
+
+	this.calcLogAS += "Overheat Value: " + overheat_value + "<br />\n";
+	this.calcLogAS += "Long Overheat Value: " + long_overheat_value + "<br />\n";
+
+	this.calcLogAS += "<strong>Short Damage: " + this.alphaStrikeForceStats.range_short + "</strong><br />\n";
+	this.calcLogAS += "<strong>Medium Damage: " + this.alphaStrikeForceStats.range_medium + "</strong><br />\n";
+	this.calcLogAS += "<strong>Long Damage: " + this.alphaStrikeForceStats.range_long + "</strong><br />\n";
+	this.calcLogAS += "<strong>Extreme Damage: " + this.alphaStrikeForceStats.range_extreme + "</strong><br />\n";
+
+	// Overheat Value is
+	this.calcLogAS += "<strong>Final Overheat Value: " + final_overheat_value + "</strong><br />\n";
+	this.calcLogAS += "<strong>Final Long Overheat Value: " + final_long_overheat_value + "</strong><br />\n";
+
+	/* *********************************
+	 *
+	 * Alpha Strike Point Value ASC - p138
+	 *
+	 * ******************************** */
+
+	this.alphaStrikeForceStats.pv = 0;
+	this.calcLogAS += "<div class=\"text-center\"><strong> - Calculating Point Value - </strong></div>\n";
+	/* *********************************
+	 * Step 1: Determine Unit’s Offensive Value ASC - p138
+	 * ******************************** */
+
+	this.calcLogAS += "<strong>Step 1: Determine Unit’s Offensive Value ASC - p138</strong><br />\n";
+	var offensive_value = 0;
+	// Attack Damage Factor
+	offensive_value += this.alphaStrikeForceStats.range_short + this.alphaStrikeForceStats.range_medium + this.alphaStrikeForceStats.range_long + this.alphaStrikeForceStats.range_extreme;
+	this.calcLogAS += "Attack Damage Factor: " + offensive_value + " ( " + this.alphaStrikeForceStats.range_short + " + " + this.alphaStrikeForceStats.range_medium + " + " + this.alphaStrikeForceStats.range_long + " + " + this.alphaStrikeForceStats.range_extreme + " )<br />\n";
+
+	// Unit Size Factor
+	offensive_value += this.alphaStrikeForceStats.size_class / 2;
+	this.calcLogAS += "Unit Size Factor: " + (this.alphaStrikeForceStats.size_class / 2) + " (" + this.alphaStrikeForceStats.size_class + " / 2))<br />\n";
+
+	// Overheat Factor
+	var overHeatFactor = 0;
+	if( this.alphaStrikeForceStats.ov > 1 ) {
+		offensive_value += 1;
+		offensive_value += ( this.alphaStrikeForceStats.ov - 1 ) / 2;
+		overHeatFactor += 1;
+		overHeatFactor +=  ( this.alphaStrikeForceStats.ov - 1 ) / 2;
+	} else {
+		offensive_value += this.alphaStrikeForceStats.ov;
+		overHeatFactor += this.alphaStrikeForceStats.ov;
+
+	}
+	this.calcLogAS += "Overheat Factor: " + overHeatFactor + "<br />\n";
+
+
+	// Offensive Special Ability Factor
+	// TODO
+
+	/* *********************************
+	 * Step 1a: Apply Blanket Offensive Modifiers ASC - p139
+	 * ******************************** */
+	this.calcLogAS += "<strong>Step 1a: Apply Blanket Offensive Modifiers ASC - p139</strong><br />\n";
+	// TODO
+
+	/* *********************************
+	 * Step 2: Determine Unit’s Defensive Value ASC - p139
+	 * ******************************** */
+	this.calcLogAS += "<strong>Step 2: Determine Unit’s Defensive Value ASC - p139</strong><br />\n";
+	var defensive_value = 0;
+
+	// Movement Factor:
+	var movementDefenseValue = 0;
+	var bestMovement = 0;
+	if( this.alphaStrikeForceStats.move > this.alphaStrikeForceStats.jump_move ) {
+		movementDefenseValue += this.alphaStrikeForceStats.move * .25;
+		bestMovement = this.alphaStrikeForceStats.move;
+	} else {
+		movementDefenseValue += this.alphaStrikeForceStats.jump_move * .25;
+		bestMovement = this.alphaStrikeForceStats.move;
+	}
+	defensive_value += movementDefenseValue;
+
+	if(this.alphaStrikeForceStats.jump_move > 0 ) {
+		movementDefenseValue += .5;
+		this.calcLogAS += "Movement Factor: " + movementDefenseValue + " (" + bestMovement + " * .25 + .5)<br />\n";
+	} else {
+		this.calcLogAS += "Movement Factor: " + movementDefenseValue + " (" + bestMovement + " * .25)<br />\n";
+	}
+
+
+	// Defensive Special Abilities Factor
+	// TODO
+
+	// Defensive Interaction Rating
+	// TODO
+
+	/* *********************************
+	 * Step 2a: Calculating Defensive Interaction Rating (DIR) ASC - p141
+	 * ******************************* */
+	this.calcLogAS += "<strong>Step 2a: Calculating Defensive Interaction Rating (DIR) ASC - p141</strong><br />\n";
+	var bmDIR = 0;
+	// Armor Factor
+	this.calcLogAS += "Armor Factor: " + (this.alphaStrikeForceStats.armor * 2) + " (" + this.alphaStrikeForceStats.armor + " * 2)<br />\n";
+	bmDIR += this.alphaStrikeForceStats.armor * 2;  // No need to do other types of armor, since this is BM only.
+
+	// Structure Factor
+	this.calcLogAS += "Structure Factor: " + (this.alphaStrikeForceStats.structure * 1) + " (" + this.alphaStrikeForceStats.structure + " * 1)<br />\n";
+	bmDIR += this.alphaStrikeForceStats.structure * 1; // TODO IndustrialMechs
+
+	// Defense Factor
+
+	if( bestMovement > 34 ) {
+		this.calcLogAS += "Defense Factor: +5 (movement 35\"+)<br />\n";
+		bmDIR += 5;
+	} else if( bestMovement > 18 ) {
+		this.calcLogAS += "Defense Factor: +4 (movement 19\"-34\"+)<br />\n";
+		bmDIR += 4;
+	} else if( bestMovement > 12 ) {
+		this.calcLogAS += "Defense Factor: +3 (movement 13\"-18\"+)<br />\n";
+		bmDIR += 3;
+	} else if( bestMovement > 8 ) {
+		this.calcLogAS += "Defense Factor: +2 (movement 9\"-12\"+)<br />\n";
+		bmDIR += 2;
+	} else if( bestMovement > 4 ) {
+		this.calcLogAS += "Defense Factor: +1 (movement 4\"-8\"+)<br />\n";
+		bmDIR += 1;
+	} else {
+		this.calcLogAS += "Defense Factor: +0 (movement 0\"-4\"+)<br />\n";
+		bmDIR += 0;
+	}
+
+	bmDIR += defensive_value;
+	this.calcLogAS += "Adding Defense Value from Step 2 above: " + defensive_value + "<br />\n";
+	// Calculate the DIR
+	this.calcLogAS += "Total DIR: " + bmDIR + "<br />\n";
+
+	/* *********************************
+	 * Step 3: Determine Unit’s Final Point Value ASC - p141
+	 *
+	 * ******************************* */
+	this.calcLogAS += "<strong>Step 3: Determine Unit’s Final Point Value ASC - p141</strong><br />\n";
+	baseFinalValue = offensive_value + bmDIR;
+	this.calcLogAS += "Base Point Value: " + baseFinalValue  + " (" + offensive_value + " + " + bmDIR + ")<br />\n";
+
+	finalValue = baseFinalValue;
+	if(
+		bestMovement >= 6
+		&& bestMovement <= 10
+		&& this.alphaStrikeForceStats.range_medium == 0
+		&& this.alphaStrikeForceStats.range_long == 0
+		&& this.alphaStrikeForceStats.range_extreme == 0
+	) {
+		this.calcLogAS += "Unit has 6 to 10\" of Move, but only delivers damage at Short range. Point Value * .75<br />\n";
+		this.calcLogAS += "Modified Point Value: " + baseFinalValue * .75  + " (" + offensive_value + " + " + bmDIR + ")<br />\n";
+		finalValue = baseFinalValue * .75;
+	}
+
+	if(
+		bestMovement >= 2
+		&& bestMovement <= 5
+		&& this.alphaStrikeForceStats.range_medium == 0
+		&& this.alphaStrikeForceStats.range_long == 0
+		&& this.alphaStrikeForceStats.range_extreme == 0
+	) {
+		this.calcLogAS += "Unit has 2 to 5\" of Move, but only delivers damage at Short range. Point Value * .5<br />\n";
+		this.calcLogAS += "Modified Point Value: " + baseFinalValue * .5  + " (" + offensive_value + " + " + bmDIR + ")<br />\n";
+		finalValue = baseFinalValue * .5;
+	}
+
+	if(
+		bestMovement >= 2
+		&& bestMovement <= 5
+		&& this.alphaStrikeForceStats.range_long == 0
+		&& this.alphaStrikeForceStats.range_extreme == 0
+	) {
+		this.calcLogAS += "Unit has 2 to 5\" of Move, but only delivers damage at Short and Medium ranges. Point Value * .75<br />\n";
+		this.calcLogAS += "Modified Point Value: " + baseFinalValue * .75  + " (" + offensive_value + " + " + bmDIR + ")<br />\n";
+		finalValue = baseFinalValue * .75;
+	}
+
+	this.calcLogAS += "Final Point Value: " + finalValue + "<br />\n";
+
+	/* *********************************
+	 * Step 3a: Add Force Bonuses ASC - p141
+	 * ******************************* */
+	 this.calcLogAS += "<strong>Step 3a: Add Force Bonuses ASC - p141</strong><br />\n";
+	// TODO
 
 	this.alphaStrikeValue = this.alphaStrikeForceStats.pv;
 }
@@ -3899,16 +4213,17 @@ Mech.prototype._calcBattleValue = function() {
 	// TODO Calculations
 
 
-
 	this.battleValue = 0;
+	this.calcLogBV = "TODO";
+
 }
 
 Mech.prototype._calcCBillCost = function() {
 	// TODO Calculations
 
-
-
 	this.cbillCost = 0;
+	this.calcLogCBill = "TODO";
+
 }
 
 Mech.prototype.getBattleValue = function() {
@@ -3990,12 +4305,17 @@ Mech.prototype.getTranslation = function(langKey) {
 	}
 }
 Mech.prototype.getASCalcHTML = function() {
-	return "<div class=\"callout alert\">TODO</div>";
+	return "<div class=\"mech-tro\">" + this.calcLogAS + "</div>";
 },
 
 Mech.prototype.getBVCalcHTML = function() {
-	return "<div class=\"callout alert\">TODO</div>";
+	return "<div class=\"mech-tro\">" + this.calcLogBV + "</div>";
 },
+
+Mech.prototype.getCBillCalcHTML = function() {
+	return "<div class=\"mech-tro\">" + this.calcLogCBill + "</div>";
+},
+
 
 Mech.prototype.makeTROHTML = function() {
 
@@ -5241,13 +5561,7 @@ Mech.prototype.setType = function(newValue) {
 	return this.mech_type;
 }
 
-Mech.prototype.calcBattleValue = function() {
-	// TODO
-}
 
-Mech.prototype.calcAlphaStrikeValue = function() {
-	// TODO
-}
 
 Mech.prototype.exportJSON = function() {
 	// TODO
@@ -7686,6 +8000,7 @@ var battlemechCreatorControllerSummaryArray =
 			$scope.mech_tro = current_mech.makeTROHTML();
 			$scope.mech_bv_calc = current_mech.getBVCalcHTML();
 			$scope.mech_as_calc = current_mech.getASCalcHTML();
+			$scope.mech_cbill_calc = current_mech.getCBillCalcHTML();
 
 
 
@@ -8141,7 +8456,7 @@ available_languages.push ({
 		BM_SUMMARY_TRO: "Technical Read Out",
 		BM_SUMMARY_BV_CALC: "Battle Value Calculations",
 		BM_SUMMARY_AS_CALC: "Alpha Strike Calculations",
-
+		BM_SUMMARY_CBILL_CALC: "CBill Cost Calculations",
 
 		BM_EXPORTS_TITLE: "Exports",
 		BM_EXPORTS_DESC: "",

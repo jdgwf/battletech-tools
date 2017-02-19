@@ -174,7 +174,7 @@ available_languages.push ({
 		BM_SUMMARY_TRO: "Technical Read Out",
 		BM_SUMMARY_BV_CALC: "Battle Value Calculations",
 		BM_SUMMARY_AS_CALC: "Alpha Strike Calculations",
-
+		BM_SUMMARY_CBILL_CALC: "CBill Cost Calculations",
 
 		BM_EXPORTS_TITLE: "Exports",
 		BM_EXPORTS_DESC: "",
