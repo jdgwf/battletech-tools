@@ -8181,6 +8181,170 @@ var battlemechCreatorControllerWelcomeArray =
 
 			localStorage["backToPath"] = $location.$$path;
 
+			var current_mech = new Mech();
+			if( localStorage["tmp.current_mech"] )
+				current_mech.importJSON( localStorage["tmp.current_mech"] );
+			else
+				current_mech.uuid = generateUUID();
+
+			$scope.confirmDialogQuestion = "";
+			$scope.showConfirmDialog = false;
+
+			$scope.confirmDialog = function( confirmationMessage, onYes ) {
+				$scope.confirmDialogQuestion = confirmationMessage;
+				$scope.showConfirmDialog = true;
+				$scope.confirmDialogYes = onYes;
+			}
+
+			$scope.closeConfirmDialog = function( ) {
+				$scope.showConfirmDialog = false;
+				// reset confirm to nothing...
+				$scope.confirmDialogYes = function() {
+					$scope.showConfirmDialog = false;
+				}
+			}
+
+			// Clear Mech Functions
+			$scope.clearMech = function() {
+				$translate(['BM_CLEAR_MECH']).then( function( translation) {
+					$scope.confirmDialog(
+						translation.BM_CLEAR_MECH,
+						function() {
+							current_mech = new Mech();
+							current_mech.uuid = generateUUID();
+							localStorage["tmp.current_mech"] = current_mech.exportJSON();
+							$scope.showConfirmDialog = false;
+						}
+					);
+				} );
+
+			}
+
+			$scope.removeSavedItem = function( deleteIndex ) {
+				$translate(['BM_DELETE_ITEM']).then( function( translation) {
+					$scope.confirmDialog(
+						translation.BM_DELETE_ITEM,
+						function() {
+
+							$scope.showConfirmDialog = false;
+
+							$scope.saved_items_mechs.splice( deleteIndex, 1);
+
+							localStorage["saved_items_mechs"] = JSON.stringify( $scope.saved_items_mechs );
+						}
+					);
+				} );
+			}
+
+			// Save Mech Functions
+			$scope.saveMechDialogOpen = false;
+			$scope.saveDialog = function() {
+				$scope.save_as_name = current_mech.getName();
+				$scope.save_over = -1;
+
+
+
+
+				$scope.saved_items_mechs = [];
+				if( localStorage["saved_items_mechs"] ) {
+					$scope.saved_items_mechs = JSON.parse( localStorage["saved_items_mechs"] );
+				} else {
+					localStorage["saved_items_mechs"] = "[]";
+					$scope.saved_items_mechs = [];
+				}
+
+				for( var itemC = 0; itemC < $scope.saved_items_mechs.length; itemC++) {
+
+					//var techO = JSON.parse( $scope.saved_items_mechs[ itemC ].tech );
+					$scope.saved_items_mechs[ itemC ].localTechName = $scope.saved_items_mechs[ itemC ].tech.name[ localStorage["tmp.preferred_language"] ];
+				}
+
+				$scope.saveMechDialogOpen = true;
+
+			}
+
+			$scope.updateSave = function( newIndex ) {
+				$scope.save_over = newIndex;
+			}
+
+			$scope.updateSaveName = function( newName ) {
+				$scope.save_as_name = newName;
+			}
+
+
+			$scope.closeSaveDialog = function() {
+				$scope.saveMechDialogOpen = false;
+			}
+
+			$scope.saveMech = function() {
+				if( localStorage["saved_items_mechs"] ) {
+					$scope.saved_items_mechs = JSON.parse( localStorage["saved_items_mechs"] );
+				} else {
+					localStorage["saved_items_mechs"] = "[]";
+					$scope.saved_items_mechs = [];
+				}
+
+				var saveItem = {
+					saveName: $scope.save_as_name,
+					savedOn: new Date(),
+					tonnage: current_mech.getTonnage(),
+					tech: current_mech.getTech(),
+					data: current_mech.exportJSON()
+				};
+
+
+				if( $scope.save_over == -1 ) {
+					$scope.saved_items_mechs.push( saveItem );
+				} else {
+					$scope.saved_items_mechs[ $scope.save_over] = saveItem ;
+				}
+
+
+
+				localStorage["saved_items_mechs"] = JSON.stringify( $scope.saved_items_mechs );
+
+				$scope.saveMechDialogOpen = false;
+			}
+
+			// Load Mech Functions
+			$scope.loadMechDialogOpen = false;
+			$scope.loadDialog = function() {
+
+				$scope.saved_items_mechs = [];
+				if( localStorage["saved_items_mechs"] ) {
+					$scope.saved_items_mechs = JSON.parse( localStorage["saved_items_mechs"] );
+				} else {
+					localStorage["saved_items_mechs"] = "[]";
+					$scope.saved_items_mechs = [];
+				}
+
+				for( var itemC = 0; itemC < $scope.saved_items_mechs.length; itemC++) {
+
+					$scope.saved_items_mechs[ itemC ].localTechName = $scope.saved_items_mechs[ itemC ].tech.name[ localStorage["tmp.preferred_language"] ];
+				}
+
+				$scope.loadMechDialogOpen = true;
+			}
+
+			$scope.loadSavedItem = function( loadIndex ) {
+				$scope.saved_items_mechs = [];
+				if( localStorage["saved_items_mechs"] ) {
+					$scope.saved_items_mechs = JSON.parse( localStorage["saved_items_mechs"] );
+				} else {
+					localStorage["saved_items_mechs"] = "[]";
+					$scope.saved_items_mechs = [];
+				}
+
+				if( $scope.saved_items_mechs[loadIndex] ) {
+					localStorage["tmp.current_mech"] = $scope.saved_items_mechs[loadIndex].data;
+					$location.url( "battlemech-creator/step1" );
+				}
+				$scope.loadMechDialogOpen = false;
+			}
+
+			$scope.closeLoadDialog = function() {
+				$scope.loadMechDialogOpen = false;
+			}
 		}
 	]
 ;
@@ -8499,6 +8663,21 @@ available_languages.push ({
 		GENERAL_SEARCH_RESULTS: 'Search Results',
 		GENERAL_IMMOBILE: "Immobile",
 		GENERAL_CANCEL: "Cancel",
+		GENERAL_YES: "Yes",
+		GENERAL_NO: "No",
+
+		GENERAL_REMOVE: "Remove",
+		GENERAL_SAVED: "Saved",
+
+		GENERAL_SAVE_AS_NEW: "Save as New",
+		GENERAL_SAVED_ITEM_AS: "Save Item As...",
+		GENERAL_SAVE_NAME: "Save Name",
+		GENERAL_SAVE: "Save",
+		GENERAL_LOAD: "Load",
+		GENERAL_SAVE_OVER_WARNING: "The existing item will be replaced.",
+		GENERAL_LOAD_WARNING: "Warning: The loaded item will replace your current item. Please be sure that you have saved your current item.",
+		GENERAL_NO_SAVED_ITEMS: "You have no saved items",
+		GENERAL_LOAD_ITEM: "Load Saved Item",
 
 		GENERAL_INTRODUCTORY: "Introductory",
 		GENERAL_STANDARD: "Standard",
@@ -8542,6 +8721,8 @@ available_languages.push ({
 		BM_INTRO_TITLE: "Welcome",
 		BM_INTRO_DESC: "",
 		BM_INTRO_TEXT: "<p>Welcome to a BattleTech 'mech builder.</p><p>This tool attempts to closely follow the steps in the <a href='http://bg.battletech.com/?wpsc-product=1095-2'>BattleTech TechManual</a> and the steps in that book should be referenced during 'mech creation</p>",
+		BM_CLEAR_MECH: "Are you sure that you want to clear out your current 'mech?",
+		BM_DELETE_ITEM: "Are you sure that you want to delete this item?",
 
 		BM_TONS: "tons",
 		BM_TON: "ton",

@@ -52,6 +52,21 @@ available_languages.push ({
 		GENERAL_SEARCH_RESULTS: 'Search Results',
 		GENERAL_IMMOBILE: "Immobile",
 		GENERAL_CANCEL: "Cancel",
+		GENERAL_YES: "Yes",
+		GENERAL_NO: "No",
+
+		GENERAL_REMOVE: "Remove",
+		GENERAL_SAVED: "Saved",
+
+		GENERAL_SAVE_AS_NEW: "Save as New",
+		GENERAL_SAVED_ITEM_AS: "Save Item As...",
+		GENERAL_SAVE_NAME: "Save Name",
+		GENERAL_SAVE: "Save",
+		GENERAL_LOAD: "Load",
+		GENERAL_SAVE_OVER_WARNING: "The existing item will be replaced.",
+		GENERAL_LOAD_WARNING: "Warning: The loaded item will replace your current item. Please be sure that you have saved your current item.",
+		GENERAL_NO_SAVED_ITEMS: "You have no saved items",
+		GENERAL_LOAD_ITEM: "Load Saved Item",
 
 		GENERAL_INTRODUCTORY: "Introductory",
 		GENERAL_STANDARD: "Standard",
@@ -95,6 +110,8 @@ available_languages.push ({
 		BM_INTRO_TITLE: "Welcome",
 		BM_INTRO_DESC: "",
 		BM_INTRO_TEXT: "<p>Welcome to a BattleTech 'mech builder.</p><p>This tool attempts to closely follow the steps in the <a href='http://bg.battletech.com/?wpsc-product=1095-2'>BattleTech TechManual</a> and the steps in that book should be referenced during 'mech creation</p>",
+		BM_CLEAR_MECH: "Are you sure that you want to clear out your current 'mech?",
+		BM_DELETE_ITEM: "Are you sure that you want to delete this item?",
 
 		BM_TONS: "tons",
 		BM_TON: "ton",

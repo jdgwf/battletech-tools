@@ -2,6 +2,7 @@ $fontSize: 14px;
 
 $fontColor: #fdfde3;
 $headerFooterBackground: #111;
+$headerFontColor: #fff;
 $bodyBackground: #333;
 
 $primaryBG: #dfab2d;
@@ -994,6 +995,45 @@ button.round, .button.round {
 
 .color-blue {
 	color: #00e !important;
+}
+
+
+.modal-container {
+	position: fixed;
+	width: 100%;
+	left: 0;
+	top: 0;
+	height: 100%;
+	background: rgba(0,0,0,.7);
+	z-index: 1000;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	.reveal {
+		color: $headerFontColor;
+		background: $headerFooterBackground;
+		border: 2px solid $headerFontColor;
+		border-radius: 1rem;
+		width: 80%;
+		// max-width: 100%;
+		display: block;
+		top: 30px;
+		left: 50%;
+		margin-top: 3rem;
+		margin-left: -40%;
+		margin-bottom: 30px;
+		label {
+			color: $headerFontColor;
+		}
+	}
+
+}
+
+.reveal-modal{
+    position : fixed;
+}
+// yeah, yeah bad pun is punny
+.even-modaler {
+	z-index: 2000 !important;
 }
 
 @media only screen and (max-device-width: 400px) and (orientation: portrait) {
