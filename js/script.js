@@ -10380,6 +10380,9 @@ available_languages.push ({
 		BM_MOVE_HEAT: "Move Heat",
 		BM_HEAT_DISSIPATION: "Heat Dissipation",
 		BM_HEAT_SUMMARY: "Heat Summary",
+		BM_WELCOME_CLEAR_MECH: "Clear Current 'Mech",
+		BM_WELCOME_LOAD_MECH: "Load 'Mech",
+		BM_WELCOME_SAVE_MECH: "Save Current 'Mech",
 
 		BM_STEP1_TITLE: "Step 1",
 		BM_STEP1_DESC: "Design the Chassis",
