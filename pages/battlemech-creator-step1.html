@@ -33,6 +33,9 @@
 							</select>
 						</label>
 						<label>
+							<input type="checkbox" ng-change="update_mech_era_strict( selectedStrict )" ng-model="selectedStrict" /> <span translate="BM_STEP1_SELECTED_STRICT">Strict Selected Only</span>
+						</label>
+						<label>
 							<span translate="BM_STEP1_MECH_TONNAGE">Mech tonnage</span>:
 							<select ng-change="update_mech_tonnage()" ng-options="ton for ton in mech_tonnage_options" ng-model="mech_tonnage.selectedOption">
 							</select>

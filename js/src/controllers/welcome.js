@@ -11,7 +11,7 @@ var welcomeArray =
 			});
 
 			$scope.goHome = function() {
-				console.log( "goHone called" );
+
 				delete(localStorage["backToPath"]);
 				$location.url("/");
 			}

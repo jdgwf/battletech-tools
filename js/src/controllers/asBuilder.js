@@ -9,7 +9,7 @@ var asBuilderArray = [
 		$rootScope.showChargenMenu = false;
 
 		$scope.goHome = function() {
-			console.log( "goHone called" );
+
 			delete(localStorage["backToPath"]);
 			$location.url("/");
 		}

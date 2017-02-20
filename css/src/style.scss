@@ -422,6 +422,12 @@ body {
 					text-align: left;
 					.button {
 						margin: 0;
+
+				}
+				}
+				&.grayed-out {
+					td {
+						color: #999 !important;
 					}
 				}
 			}

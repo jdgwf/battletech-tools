@@ -18,7 +18,6 @@ var battlemechCreatorControllerStep5Array =
 			});
 
 			$scope.goHome = function() {
-				console.log( "goHone called" );
 				delete(localStorage["backToPath"]);
 				$location.url("/");
 			}
@@ -46,6 +45,13 @@ var battlemechCreatorControllerStep5Array =
 				// Use Inner Sphere Equipment Table...
 				$scope.equipment_table = mechISEquipment;
 			}
+
+
+			$scope.mechIsStrict = false;
+			if( current_mech.strictEra > 0 )
+				$scope.mechIsStrict = true;
+
+			selectedEra = current_mech.era;
 			for(var eqc = 0; eqc < $scope.equipment_table.length; eqc++ ) {
 				if( $scope.equipment_table[eqc].name[ localStorage["tmp.preferred_language"] ])
 					$scope.equipment_table[eqc].local_name = $scope.equipment_table[eqc].name[ localStorage["tmp.preferred_language"] ];
@@ -59,8 +65,31 @@ var battlemechCreatorControllerStep5Array =
 
 				$scope.equipment_table[eqc].local_space = $scope.equipment_table[eqc].space.battlemech;
 
+				$scope.equipment_table[eqc].isInSelectedEra = false;
+
+				if(
+					$scope.equipment_table[eqc].introduced < selectedEra.year_start
+						||
+
+					(
+						$scope.equipment_table[eqc].extinct > 0
+							&&
+						$scope.equipment_table[eqc].extinct >= selectedEra.year_end
+					)
+
+
+
+					||
+
+						$scope.equipment_table[eqc].reintroduced >= selectedEra.year_start
+
+				) {
+					$scope.equipment_table[eqc].isInSelectedEra = true;
+				}
+
 			}
 
+			$scope.equipment_table.sort( sortByCategoryThenName );
 
 			$translate(['BM_STEP5_SELECT_LOCATION' ]).then(function (translation) {
 
@@ -124,9 +153,7 @@ var battlemechCreatorControllerStep5Array =
 			};
 
 			$scope.updateLocation = function( index_number ) {
-				//console.log( "updateLocation", index_number );
-	//			current_mech.removeEquipment( index_number );
-				//console.log( "updateLocation", $scope.item_locations[index_number] );
+
 				current_mech.setEquipmentLocation( index_number, $scope.item_locations[index_number].id );
 				update_mech_status_bar_and_tro($scope, $translate, current_mech);
 				localStorage["tmp.current_mech"] = current_mech.exportJSON();

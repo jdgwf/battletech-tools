@@ -132,6 +132,7 @@ available_languages.push ({
 		BM_STEP1_MECH_ERA: "Mech Era",
 		BM_STEP1_MECH_TONNAGE: "Mech Tonnage",
 		BM_STEP1_MECH_TECH: "Mech Tech",
+		BM_STEP1_SELECTED_STRICT: "Hide non-available weapons (will be gray otherwise)",
 
 		BM_STEP2_TITLE: "Step 2",
 		BM_STEP2_DESC: "Install engine and control systems",

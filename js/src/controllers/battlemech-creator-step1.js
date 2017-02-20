@@ -20,7 +20,7 @@ var battlemechCreatorControllerStep1Array =
 				$rootScope.subtitle_tag = "&raquo; " + translation.WELCOME_BUTTON_MECH_CREATOR;
 			});
 			$scope.goHome = function() {
-				console.log( "goHone called" );
+
 				delete(localStorage["backToPath"]);
 				$location.url("/");
 			}
@@ -38,6 +38,21 @@ var battlemechCreatorControllerStep1Array =
 
 
 			update_mech_status_bar_and_tro($scope, $translate, current_mech);
+
+			$scope.selectedStrict = false;
+
+			if( current_mech.strictEra > 0 )
+				$scope.selectedStrict = true;
+
+			$scope.update_mech_era_strict = function( newValue ) {
+				if( newValue )
+					current_mech.strictEra = 1;
+				else
+					current_mech.strictEra = 0;
+
+				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+			}
 
 			// fill out current data in forms
 			$scope.mech_name = current_mech.getName();

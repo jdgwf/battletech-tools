@@ -61,7 +61,7 @@ function Mech (type) {
 
 	this.weights = Array();
 
-
+	this.strictEra = 0;
 
 	this.unallocatedCriticals = Array();
 
@@ -2181,6 +2181,7 @@ Mech.prototype.exportJSON = function() {
 
 	export_object.uuid = this.uuid;
 
+	export_object.strict_era = this.strictEra;
 
 	export_object.armor_allocation = this.armorAllocation;
 
@@ -2230,6 +2231,9 @@ Mech.prototype.importJSON = function(json_string) {
 
 			if( import_object.jumpSpeed )
 				this.setJumpSpeed( import_object.jumpSpeed );
+
+			if( import_object.strict_era )
+				this.strictEra = import_object.strict_era;
 
 			if( import_object.engineType )
 				this.setEngineType( import_object.engineType );

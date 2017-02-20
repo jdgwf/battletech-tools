@@ -22,3 +22,15 @@ function sortByLocationThenName( a, b ) {
 		return -1;
 	return 0;
 }
+
+function sortByCategoryThenName( a, b ) {
+	if( a.local_category > b.local_category )
+		return 1;
+	if( a.local_category < b.local_category )
+		return -1;
+	//~ if( a.local_name > b.local_name )
+		//~ return 1;
+	//~ if( a.local_name < b.local_name )
+		//~ return -1;
+	return 0;
+}
