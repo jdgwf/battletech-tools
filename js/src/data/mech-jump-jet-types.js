@@ -11,6 +11,7 @@ var mechJumpJetTypes = Array(
 		},
 		criticals: 1
 	},
+
 	{
 		name: {
 			"en-US": "Improved Jump Jets"
