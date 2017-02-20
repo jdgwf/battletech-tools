@@ -24,6 +24,10 @@ function Mech (type) {
 	this.internalStructure.rightArm = 0;
 	this.internalStructure.leftArm = 0;
 
+	this.max_move_heat = 2;
+	this.max_weapon_heat = 0;
+	this.heat_dissipation = 0;
+
 	this.internalStructure.rightLeg = 0;
 	this.internalStructure.leftLeg = 0;
 
