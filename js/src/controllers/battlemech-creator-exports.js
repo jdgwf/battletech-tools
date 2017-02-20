@@ -43,21 +43,28 @@ var battlemechCreatorControllerExportsArray =
 				// convertImgToDataURLviaCanvas(
 				// 	'./images/pdf/blank-mech-sheet-smaller.png',
 				// 	function(base64Img) {
-						pdf = makeBattlemechRecordSheetPDF(current_mech);
-						pdf.output('dataurlnewwindow');
+				pdf = makeBattlemechRecordSheetPDF(current_mech);
+				//~ if( !ifIEOrEdge() )
+					//~ pdf.output('dataurlnewwindow');
+				//~ else
+					pdf.save(current_mech.getName() + ' - Record Sheet.pdf');
 					// }
 				 // );
 			}
 
 			$scope.makeTROSheet = function() {
 				pdf = makeBattlemechTROPDF(current_mech);
-				pdf.output('dataurlnewwindow');
+				//~ if( !ifIEOrEdge() )
+					//~ pdf.output('dataurlnewwindow');
+				//~ else
+					pdf.save(current_mech.getName() + ' - TRO.pdf');
 			}
 			$scope.makeCombinedSheet = function() {
 				// convertFileToDataURLviaFileReader(
 				// 	'./images/pdf/blank-mech-sheet.png',
 				// 	function(base64Img) {
 						pdf = makeBattlemechCombinedPDF(current_mech);
+						pdf.save(current_mech.getName() + ' - Record Sheet and TRO.pdf');
 				// 		pdf.output('dataurlnewwindow');
 				// 	}
 				// );
