@@ -986,10 +986,6 @@ Mech.prototype.makeTROHTML = function() {
 	// TODO List Jump Jets Allocations...
 
 	for( var locC = 0; locC < this.validJJLocations.length; locC++ ) {
-		//console.log( "this.criticals", this.criticals );
-		//~ console.log( "this.validJJLocations[locC].long", this.validJJLocations[locC].long );
-		//~ console.log( "this.validJJLocations[locC].short", this.validJJLocations[locC].short );
-		//~ console.log( "this.criticals[ this.validJJLocations[locC].long ]", this.criticals[ this.validJJLocations[locC].long ] );
 
 		var jjObjs = [];
 		for( var critC = 0; critC < this.criticals[ this.validJJLocations[locC].long ].length; critC++ ) {
@@ -1004,8 +1000,6 @@ Mech.prototype.makeTROHTML = function() {
 
 		if( jjObjs.length > 0 ) {
 			var areaWeight = 0;
-			//~ console.log( "this.jumpJetType", this.jumpJetType );
-			console.log( "jjObjs", jjObjs );
 			if( this.tonnage <= 55) {
 				// 10-55 tons
 				areaWeight = jjObjs.length * this.jumpJetType.weight_multiplier.light;
