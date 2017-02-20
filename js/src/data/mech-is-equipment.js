@@ -908,6 +908,455 @@ var mechISEquipment = Array(
 			)
 		}
 	},
+	// PPCs
+	{
+		name: {
+			'en-US': "Light PPC",
+			'de-DE': "de - Light PPC",
+		},
+		tag: "light-ppc",
+		category: {
+			'en-US': "Energy Weapons",
+			'de-DE': "de - Energy Weapons",
+		},
+		damage: 5,
+		accuracy_modifier: 0,
+		cbills: 150000,
+		introduced: 3067,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 88,
+		ammo_battlevalue: 0,
+		heat: 5,
+		weight: 3,
+		range_min: {
+			min: 3,
+			short: 6,
+			medium: 12,
+			long: 18,
+		},
+		space: {
+			battlemech: 2,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 2,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 0,
+		min_ammo_tons: 1,
+		weapon_type: Array(
+			"DE"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 234,
+		alpha_strike: {
+			heat: 5,
+			range_short: 0.375,
+			range_medium: 0.5,
+			range_long: 0.5,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "PPC",
+			'de-DE': "de - PPC",
+		},
+		tag: "standard-ppc",
+		category: {
+			'en-US': "Energy Weapons",
+			'de-DE': "de - Energy Weapons",
+		},
+		damage: 10,
+		accuracy_modifier: 0,
+		cbills: 200000,
+		introduced: 2460,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 176,
+		ammo_battlevalue: 0,
+		heat: 10,
+		weight: 7,
+		range_min: {
+			min: 3,
+			short: 6,
+			medium: 12,
+			long: 18,
+		},
+		space: {
+			battlemech: 3,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 3,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 0,
+		min_ammo_tons: 1,
+		weapon_type: Array(
+			"DE"
+		),
+		tech_rating: "d",
+		book: "TM",
+		page: 234,
+		alpha_strike: {
+			heat: 10,
+			range_short: 0.75,
+			range_medium: 1,
+			range_long: 1,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Heavy PPC",
+			'de-DE': "de - Heavy PPC",
+		},
+		tag: "heavy-ppc",
+		category: {
+			'en-US': "Energy Weapons",
+			'de-DE': "de - Energy Weapons",
+		},
+		damage: 15,
+		accuracy_modifier: 0,
+		cbills: 250000,
+		introduced: 3067,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 317,
+		ammo_battlevalue: 0,
+		heat: 15,
+		weight: 10,
+		range_min: {
+			min: 3,
+			short: 6,
+			medium: 12,
+			long: 18,
+		},
+		space: {
+			battlemech: 4,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 4,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 0,
+		min_ammo_tons: 1,
+		weapon_type: Array(
+			"DE"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 234,
+		alpha_strike: {
+			heat: 15,
+			range_short: 1.125,
+			range_medium: 1.5,
+			range_long: 1.5,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Snub-Nose PPC",
+			'de-DE': "de - Snub-Nose PPC",
+		},
+		tag: "snub-nose-ppc",
+		category: {
+			'en-US': "Energy Weapons",
+			'de-DE': "de - Energy Weapons",
+		},
+		damage: {
+			short: 10,
+			medium: 8,
+			long: 5,
+			aero_short: 10,
+			aero_medium: 8,
+			aero_long: 0
+		},
+		accuracy_modifier: 0,
+		cbills: 300000,
+		introduced: 2784,
+		extinct: 2790,
+		reintroduced: 3067,
+		battlevalue: 165,
+		ammo_battlevalue: 0,
+		heat: 10,
+		weight: 6,
+		range_min: {
+			min: 0,
+			short: 9,
+			medium: 13,
+			long: 15,
+		},
+		space: {
+			battlemech: 2,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 2,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 0,
+		min_ammo_tons: 1,
+		weapon_type: Array(
+			"DE"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 234,
+		alpha_strike: {
+			heat: 10,
+			range_short: 1,
+			range_medium: 0.65,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Extended-Range PPC",
+			'de-DE': "de - Extended-Range PPC",
+		},
+		tag: "er-ppc",
+		category: {
+			'en-US': "Energy Weapons",
+			'de-DE': "de - Energy Weapons",
+		},
+		damage: 10,
+		accuracy_modifier: 0,
+		cbills: 300000,
+		introduced: 2751,
+		extinct: 2860,
+		reintroduced: 3037,
+		battlevalue: 229,
+		ammo_battlevalue: 0,
+		heat: 15,
+		weight: 7,
+		range_min: {
+			min: 0,
+			short: 7,
+			medium: 14,
+			long: 23,
+		},
+		space: {
+			battlemech: 3,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 3,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 0,
+		min_ammo_tons: 1,
+		weapon_type: Array(
+			"DE"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 233,
+		alpha_strike: {
+			heat: 15,
+			range_short: 1,
+			range_medium: 1,
+			range_long: 1,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	// Plasma Rifle
+	{
+		name: {
+			'en-US': "Plasma Rifle",
+			'de-DE': "de - Plasma Rifle",
+		},
+		tag: "plasma-rifle",
+		category: {
+			'en-US': "Energy Weapons",
+			'de-DE': "de - Energy Weapons",
+		},
+		damage: 10,
+		accuracy_modifier: 0,
+		cbills: 260000,
+		introduced: 3068,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 210,
+		ammo_battlevalue: 26,
+		heat: 10,
+		weight: 6,
+		range_min: {
+			min: 0,
+			short: 5,
+			medium: 10,
+			long: 15,
+		},
+		space: {
+			battlemech: 2,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 2,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 10,
+		min_ammo_tons: 1,
+		weapon_type: Array(
+			"DE",
+			"H"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 235,
+		alpha_strike: {
+			heat: 10,
+			range_short: 1,
+			range_medium: 1,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+				"Heat"
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Plasma Rifle)",
+			'de-DE': "de - Ammo (Plasma Rifle)",
+		},
+		tag: "ammo-plasma-rifle",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 10000,
+		introduced: 3068,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 26,
+		heat: 0,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 5,
+			medium: 10,
+			long: 15,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 10,
+		min_ammo_tons: 1,
+		weapon_type: Array(
+			"DB",
+			"AI"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 235,
+		alpha_strike: {
+			heat: 10,
+			range_short: 1,
+			range_medium: 1,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+				"Heat"
+			)
+		}
+	},
+	// Flamers
+	{
+		name: {
+			'en-US': "Vehicle Flamer",
+			'de-DE': "de - Vehicle Flamer",
+		},
+		tag: "vehicle-flamer",
+		category: {
+			'en-US': "Energy Weapons",
+			'de-DE': "de - Energy Weapons",
+		},
+		damage: 2,
+		accuracy_modifier: 0,
+		cbills: 7500,
+		introduced: 1950,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 5,
+		ammo_battlevalue: 1,
+		heat: 3,
+		weight: 0.5,
+		range_min: {
+			min: 0,
+			short: 1,
+			medium: 2,
+			long: 3,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 20,
+		min_ammo_tons: 1,
+		weapon_type: Array(
+			"DE",
+			"H"
+		),
+		tech_rating: "b",
+		book: "TM",
+		page: 218,
+		alpha_strike: {
+			heat: 3,
+			range_short: 0.2,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+				"Heat",
+				"Point Defense"
+			)
+		}
+	},
 	/*
 		BALLISTIC WEAPONS
 	*/
