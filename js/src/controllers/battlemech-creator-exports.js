@@ -34,6 +34,8 @@ var battlemechCreatorControllerExportsArray =
 			current_mech.useLang = localStorage["tmp.preferred_language"];
 
 
+			$scope.makeTROBBCode = current_mech.makeTROBBCode();
+
 			// make tro for sidebar
 			$scope.mech_tro = current_mech.makeTROHTML();
 			$scope.mech_bv_calc = current_mech.getBVCalcHTML();

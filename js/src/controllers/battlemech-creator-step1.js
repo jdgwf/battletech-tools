@@ -49,7 +49,6 @@ var battlemechCreatorControllerStep1Array =
 					current_mech.strictEra = 1;
 				else
 					current_mech.strictEra = 0;
-
 				localStorage["tmp.current_mech"] = current_mech.exportJSON();
 				update_mech_status_bar_and_tro($scope, $translate, current_mech);
 			}

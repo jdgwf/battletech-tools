@@ -740,6 +740,28 @@ function ifIEOrEdge() {
 }
 
 
+function SelectAll(id)
+{
+    document.getElementById(id).focus();
+    document.getElementById(id).select();
+}
+//pads left
+String.prototype.lpad = function(padString, length) {
+	var str = this;
+    while (str.length < length)
+        str = padString + str;
+    return str;
+}
+
+//pads right
+String.prototype.rpad = function(padString, length) {
+	var str = this;
+    while (str.length < length)
+        str = str + padString;
+    return str;
+}
+
+
 var btEraOptions = Array(
 	{
 		id: 1,
@@ -4843,7 +4865,7 @@ function Mech (type) {
 
 	this.weights = Array();
 
-	this.strictEra = 0;
+	this.strictEra = 1;
 
 	this.unallocatedCriticals = Array();
 
@@ -5636,6 +5658,224 @@ Mech.prototype.getCBillCalcHTML = function() {
 	return "<div class=\"mech-tro\">" + this.calcLogCBill + "</div>";
 },
 
+Mech.prototype.makeTROBBCode = function() {
+	//~ var tro = this.makeTROHTML();
+
+	//~ while( tro.indexOf( "<table class=\"mech-tro\">") > -1 )
+		//~ tro = tro.replace("<table class=\"mech-tro\">", "");
+	//~ while( tro.indexOf( "</table>") > -1 )
+		//~ tro = tro.replace("</table>", "");
+	//~ while( tro.indexOf( "<tr>") > -1 )
+		//~ tro = tro.replace("<tr>", "");
+	//~ while( tro.indexOf( "</tr>") > -1 )
+		//~ tro = tro.replace("</tr>", "\n");
+	//~ while( tro.indexOf( "</td>") > -1 )
+		//~ tro = tro.replace("</td>", "");
+	//~ while( tro.indexOf( "&nbsp;\n") > -1 )
+		//~ tro = tro.replace("&nbsp;\n", "\n");
+	//~ while( tro.indexOf( "<br />") > -1 )
+		//~ tro = tro.replace("<br />", "\n");
+	//~ while( tro.indexOf( "<td colspan=\"4\">") > -1 )
+		//~ tro = tro.replace("<td colspan=\"4\">", "");
+
+	//~ return tro;
+	html = "";
+	// Header Info
+	html +=  this.getTranslation("TRO_TYPE") + ": " + this.getName() + "\n";
+	html += this.getTranslation("TRO_TECHNOLOGY_BASE") + ": " + this.getTech().name[ this.useLang ] + "\n";
+	html += this.getTranslation("TRO_ERA") + ": " + this.getEra().name[ this.useLang ] + "\n";
+	html += this.getTranslation("TRO_TONNAGE") + ": " + this.getTonnage() + "\n";
+	html += this.getTranslation("TRO_BATTLE_VALUE") + ": " + this.getBattleValue() + "\n";
+	html += this.getTranslation("TRO_ALPHA_STRIKE_VALUE") + ": " + this.getAlphaStrikeValue() + "\n";
+	html += this.getTranslation("TRO_CBILL_COST") + ": $" + this.getCBillCost() + "\n";
+	html += "\n";
+
+	var col1Padding = 25;
+	var col2Padding = 15;
+	var col3Padding = 10;
+	var col4Padding = 10;
+
+	// Equipment
+	html += "" + this.getTranslation("TRO_EQUIPMENT").rpad(" ",col1Padding + col2Padding) + "" + this.getTranslation("TRO_MASS") + "\n";
+	html += "" + this.getTranslation("TRO_INTERNAL_STRUCTURE").rpad(" ",col1Padding + col2Padding) + "" + this.getInteralStructureWeight() + "\n";
+	html += "" + this.getTranslation("TRO_ENGINE").rpad(" ",col1Padding) + "" + this.getEngineRating().toString().rpad(" ", col2Padding) + "" + this.getEngineWeight() + "\n";
+
+	html += "" + this.getTranslation("TRO_WALKING").lpad(" ", col1Padding - 10) + " " + this.getWalkSpeed().toString().lpad(" ", 3) + "\n";
+	html += "" + this.getTranslation("TRO_RUNNING").lpad(" ", col1Padding - 10) + " " + this.getRunSpeed().toString().lpad(" ", 3) + "\n";
+	html += "" + this.getTranslation("TRO_JUMPING").lpad(" ", col1Padding - 10) + " " + this.getJumpSpeed().toString().lpad(" ", 3) + "\n";
+
+	html += "" + this.getTranslation("TRO_HEAT_SINKS").rpad(" ",col1Padding) + ""  + this.getHeatSinks().toString().rpad(" ", col2Padding) + "" + this.getHeatSinksWeight() + "\n";
+	html += "" + this.getTranslation("TRO_GYRO").rpad(" ",col1Padding + col2Padding) + "" + this.getGyroWeight() + "\n";
+
+	if( this.small_cockpit ) {
+		html += "" + this.getTranslation("TRO_SMALL_COCKPIT").rpad(" ",col1Padding + col2Padding) + "" + this.getCockpitWeight() + "\n";
+	} else {
+		html += "" + this.getTranslation("TRO_COCKPIT").rpad(" ",col1Padding + col2Padding) + "" + this.getCockpitWeight() + "\n";
+	}
+
+	if( this.getJumpJetWeight() > 0 ) {
+		html += "" + this.getTranslation("TRO_JUMP_JETS").rpad(" ",col1Padding + col2Padding) + "" + this.getJumpJetWeight() + "\n";
+	}
+
+	if( this.mech_type.class == "biped") {
+		html += "" + this.getTranslation("TRO_ARM_ACTUATORS") + ": ";
+		actuator_html = "";
+
+		if( this.hasLowerArmActuator("ra") )
+			actuator_html += this.getTranslation("TRO_LOWER_RIGHT") + ", ";
+		if( this.hasLowerArmActuator("la") )
+			actuator_html += this.getTranslation("TRO_LOWER_LEFT") + ", ";
+		if( this.hasHandActuator("ra") )
+			actuator_html += this.getTranslation("TRO_RIGHT_HAND") + ", ";
+		if( this.hasHandActuator("la") )
+			actuator_html += this.getTranslation("TRO_LEFT_HAND") + ", ";
+
+		if( actuator_html == "")
+			actuator_html = this.getTranslation("TRO_NO_LOWER_ARM_ACTUATORS");
+		else
+			actuator_html = actuator_html.substring(0, actuator_html.length - 2);
+
+		html += actuator_html;
+		html += "\n";
+	}
+
+	html += "" + this.getTranslation("TRO_ARMOR_FACTOR").rpad(" ",col1Padding) + "" + this.getTotalArmor().toString().rpad(" ",col2Padding) + "" + this.getArmorWeight() + "\n";
+
+	var col1Padding = 20;
+	var col2Padding = 10;
+	var col3Padding = 15;
+	var col4Padding = 10;
+
+	// Armor Factor Table
+
+	html += this.getTranslation("TRO_ARMOR_IS").lpad(" ", col1Padding + col2Padding) + "" + this.getTranslation("TRO_ARMOR_VALUE").lpad(" ", col3Padding) + "\n";
+	html += "" + this.getTranslation("TRO_ARMOR_HD").lpad(" ", col1Padding)  + "" + this.internalStructure.head.toString().lpad(" ", col2Padding) + "" + this.armorAllocation.head.toString().lpad(" ", col3Padding) + "\n";
+	html += "" + this.getTranslation("TRO_ARMOR_CT").lpad(" ", col1Padding) + "" + this.internalStructure.centerTorso.toString().lpad(" ", col2Padding) + "" + this.armorAllocation.centerTorso.toString().lpad(" ", col3Padding) + "\n";
+	html += "" + this.getTranslation("TRO_ARMOR_CTR").lpad(" ", col1Padding) + "" + this.armorAllocation.centerTorsoRear.toString().lpad(" ", col2Padding) + "\n";
+	if( this.armorAllocation.rightTorso == this.armorAllocation.leftTorso && this.armorAllocation.rightTorsoRear == this.armorAllocation.leftTorsoRear ) {
+		html += "" + this.getTranslation("TRO_ARMOR_RLT").lpad(" ", col1Padding) + "" + this.internalStructure.rightTorso.toString().lpad(" ", col2Padding) + "" + this.armorAllocation.rightTorso.toString().lpad(" ", col3Padding) + "\n";
+		html += "" + this.getTranslation("TRO_ARMOR_RLTR").lpad(" ", col1Padding) + "" + this.armorAllocation.rightTorsoRear.toString().lpad(" ", col2Padding) + "\n";
+	} else {
+		html += "" + this.getTranslation("TRO_ARMOR_RT").lpad(" ", col1Padding) + "" + this.internalStructure.rightTorso.toString().lpad(" ", col2Padding) + "" + this.armorAllocation.rightTorso.toString().lpad(" ", col3Padding) + "\n";
+		html += "" + this.getTranslation("TRO_ARMOR_RTR").lpad(" ", col1Padding) + "" + this.armorAllocation.rightTorsoRear.toString().lpad(" ", col2Padding) + "\n";
+
+		html += "" + this.getTranslation("TRO_ARMOR_LT").lpad(" ", col1Padding) + "" + this.internalStructure.leftTorso.toString().lpad(" ", col2Padding) + "" + this.armorAllocation.leftTorso.toString().lpad(" ", col3Padding) + "\n";
+		html += "" + this.getTranslation("TRO_ARMOR_LTR").lpad(" ", col1Padding) + "" + this.armorAllocation.leftTorsoRear.toString().lpad(" ", col2Padding) + "\n";
+	}
+	if( this.mech_type.class == "biped") {
+
+		if( this.armorAllocation.rightArm == this.armorAllocation.leftArm) {
+			html += "" + this.getTranslation("TRO_ARMOR_RLA").lpad(" ", col1Padding) + "" + this.internalStructure.rightArm.toString().lpad(" ", col2Padding) + "" + this.armorAllocation.rightArm.toString().lpad(" ", col3Padding) + "\n";
+		} else {
+			html += "" + this.getTranslation("TRO_ARMOR_RA").lpad(" ", col1Padding) + "" + this.internalStructure.rightArm.toString().lpad(" ", col2Padding) + "" + this.armorAllocation.rightArm.toString().lpad(" ", col3Padding) + "\n";
+			html += "" + this.getTranslation("TRO_ARMOR_LA").lpad(" ", col1Padding) + "" + this.internalStructure.leftArm.toString().lpad(" ", col2Padding) + "" + this.armorAllocation.leftArm.toString().lpad(" ", col3Padding) + "\n";
+		}
+
+		if( this.armorAllocation.rightLeg == this.armorAllocation.leftLeg) {
+			html += "" + this.getTranslation("TRO_ARMOR_RLL").lpad(" ", col1Padding) + "" + this.internalStructure.rightLeg.toString().lpad(" ", col2Padding) + "" + this.armorAllocation.rightLeg.toString().lpad(" ", col3Padding) + "\n";
+		} else {
+			html += "" + this.getTranslation("TRO_ARMOR_RL").lpad(" ", col1Padding) + "" + this.internalStructure.rightLeg.toString().lpad(" ", col2Padding) + "" + this.armorAllocation.rightLeg.toString().lpad(" ", col3Padding) + "\n";
+			html += "" + this.getTranslation("TRO_ARMOR_LL").lpad(" ", col1Padding) + "" + this.internalStructure.leftLeg.toString().lpad(" ", col2Padding) + "" + this.armorAllocation.leftLeg.toString().lpad(" ", col3Padding) + "\n";
+		}
+	} else {
+		if( this.armorAllocation.rightArm == this.armorAllocation.leftArm) {
+			html += "" + this.getTranslation("TRO_ARMOR_RLFL").lpad(" ", col1Padding) + "" + this.internalStructure.rightArm.toString().lpad(" ", col2Padding) + "" + this.armorAllocation.rightArm.toString().lpad(" ", col3Padding) + "\n";
+		} else {
+			html += "" + this.getTranslation("TRO_ARMOR_RFL").lpad(" ", col1Padding) + "" + this.internalStructure.rightArm.toString().lpad(" ", col2Padding) + "" + this.armorAllocation.rightArm.toString().lpad(" ", col3Padding) + "\n";
+			html += "" + this.getTranslation("TRO_ARMOR_LFL").lpad(" ", col1Padding) + "" + this.internalStructure.leftArm.toString().lpad(" ", col2Padding) + "" + this.armorAllocation.leftArm.toString().lpad(" ", col3Padding) + "\n";
+		}
+
+		if( this.armorAllocation.rightLeg == this.armorAllocation.leftLeg) {
+			html += "" + this.getTranslation("TRO_ARMOR_RLRL").lpad(" ", col1Padding) + "" + this.internalStructure.rightLeg.toString().lpad(" ", col2Padding) + "" + this.armorAllocation.rightLeg.toString().lpad(" ", col3Padding) + "\n";
+		} else {
+			html += "" + this.getTranslation("TRO_ARMOR_RRL").lpad(" ", col1Padding) + "" + this.internalStructure.rightLeg.toString().lpad(" ", col2Padding) + "" + this.armorAllocation.rightLeg.toString().lpad(" ", col3Padding) + "\n";
+			html += "" + this.getTranslation("TRO_ARMOR_RLL").lpad(" ", col1Padding) + "" + this.internalStructure.leftLeg.toString().lpad(" ", col2Padding) + "" + this.armorAllocation.leftLeg.toString().lpad(" ", col3Padding) + "\n";
+		}
+	}
+	// End Factor Table
+	html += "";
+	html += "\n";
+
+
+	var col1Padding = 20;
+	var col2Padding = 10;
+	var col3Padding = 10;
+	var col4Padding = 10;
+	this.equipmentList.sort( sortByLocationThenName );
+
+	// Weapons and Ammo
+	for( eq_count = 0; eq_count < this.equipmentList.length; eq_count++) {
+		if(this.equipmentList[eq_count].name[ this.useLang ].length  + 3 > col1Padding)
+			col1Padding = this.equipmentList[eq_count].name[ this.useLang ].length  + 3;
+	}
+
+	for( var locC = 0; locC < this.validJJLocations.length; locC++ ) {
+
+		var jjObjs = [];
+		for( var critC = 0; critC < this.criticals[ this.validJJLocations[locC].long ].length; critC++ ) {
+			if(
+				this.criticals[ this.validJJLocations[locC].long ][ critC ]
+				&& this.criticals[ this.validJJLocations[locC].long ][ critC ].tag
+				&& this.criticals[ this.validJJLocations[locC].long ][ critC ].tag.indexOf( "jj-") === 0
+			) {
+				if(this.criticals[ this.validJJLocations[locC].long ][ critC ].name + 3 > col1Padding)
+					col1Padding = this.criticals[ this.validJJLocations[locC].long ][ critC ].name + 3;
+			}
+		}
+	}
+
+
+
+	html += "" + this.getTranslation("TRO_WEAPONS") + "\n";
+
+	html +=this.getTranslation("TRO_AND_AMMO").rpad(" ", col1Padding) + "" + this.getTranslation("TRO_LOCATION").rpad(" ", col2Padding) + "" + this.getTranslation("TRO_CRITICAL").rpad(" ", col3Padding) + "" + this.getTranslation("TRO_TONNAGE").rpad(" ", col4Padding) + "\n";
+
+
+
+	for( eq_count = 0; eq_count < this.equipmentList.length; eq_count++) {
+		if( typeof( this.equipmentList[eq_count].location ) == "undefined" )
+			this.equipmentList[eq_count].location = "n/a";
+
+		item_location = "";
+		item_location = this.getLocationAbbr( this.equipmentList[eq_count].location );
+		html += "" + this.equipmentList[eq_count].name[ this.useLang ].rpad(" ", col1Padding) + "" + item_location.toUpperCase().toString().rpad(" ", col2Padding) + "" + this.equipmentList[eq_count].space.battlemech.toString().rpad(" ", col3Padding) + "" + this.equipmentList[eq_count].weight.toString().rpad(" ", col4Padding) + "\n";
+	}
+
+	// List Jump Jets Allocations...
+
+	for( var locC = 0; locC < this.validJJLocations.length; locC++ ) {
+
+		var jjObjs = [];
+		for( var critC = 0; critC < this.criticals[ this.validJJLocations[locC].long ].length; critC++ ) {
+			if(
+				this.criticals[ this.validJJLocations[locC].long ][ critC ]
+				&& this.criticals[ this.validJJLocations[locC].long ][ critC ].tag
+				&& this.criticals[ this.validJJLocations[locC].long ][ critC ].tag.indexOf( "jj-") === 0
+			) {
+				jjObjs.push( this.criticals[ this.validJJLocations[locC].long ][ critC ] );
+			}
+		}
+
+		if( jjObjs.length > 0 ) {
+			var areaWeight = 0;
+			if( this.tonnage <= 55) {
+				// 10-55 tons
+				areaWeight = jjObjs.length * this.jumpJetType.weight_multiplier.light;
+			} else if(this.tonnage <= 85) {
+				// 60 - 85 tons
+				areaWeight = jjObjs.length * this.jumpJetType.weight_multiplier.medium;
+			} else {
+				// 90+ tons
+				areaWeight = jjObjs.length * this.jumpJetType.weight_multiplier.heavy;
+			}
+			html += "" + jjObjs[0].name.rpad(" ", col1Padding) + "" + this.validJJLocations[locC].short.toUpperCase().rpad(" ", col2Padding) + "" + jjObjs.length.toString().rpad(" ", col3Padding) + "" + areaWeight.toString().rpad(" ", col4Padding) + "\n";
+
+		}
+	}
+
+
+	return "[code]" +  html + "[/code]";
+}
 
 Mech.prototype.makeTROHTML = function() {
 
@@ -5704,7 +5944,7 @@ Mech.prototype.makeTROHTML = function() {
 */
 
 
-	html += "<tr><td colspan=\"1\">" + this.getTranslation("TRO_ARMOR_FACTOR") + "</td><td class=\"text-center\" colspan=\"2\">" + this.getTotalArmor() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getArmorWeight() + "</td></tr>";
+	html += "<tr><th colspan=\"1\">" + this.getTranslation("TRO_ARMOR_FACTOR") + "</th><th class=\"text-center\" colspan=\"2\">" + this.getTotalArmor() + "</th><th class=\"text-center\" colspan=\"1\">" + this.getArmorWeight() + "</th></tr>";
 
 
 	// Armor Factor Table
@@ -5756,7 +5996,7 @@ Mech.prototype.makeTROHTML = function() {
 	html += "</table>";
 	html += "<br />";
 
-	// TODO Weapons and Ammo
+	// Weapons and Ammo
 	html += "<table class=\"mech-tro\">";
 	html += "<tr><th class=\"text-left\">" + this.getTranslation("TRO_WEAPONS") + "<br />" + this.getTranslation("TRO_AND_AMMO") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_LOCATION") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_CRITICAL") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_TONNAGE") + "</th></tr>";
 
@@ -5771,7 +6011,7 @@ Mech.prototype.makeTROHTML = function() {
 		html += "<tr><td class=\"text-left\">" + this.equipmentList[eq_count].name[ this.useLang ] + "</td><td class=\"text-center\">" + item_location.toUpperCase() + "</strong></td><td class=\"text-center\">" + this.equipmentList[eq_count].space.battlemech + "</td><td class=\"text-center\">" + this.equipmentList[eq_count].weight + "</td></tr>";
 	}
 
-	// TODO List Jump Jets Allocations...
+	// List Jump Jets Allocations...
 
 	for( var locC = 0; locC < this.validJJLocations.length; locC++ ) {
 
@@ -7014,8 +7254,12 @@ Mech.prototype.importJSON = function(json_string) {
 			if( import_object.jumpSpeed )
 				this.setJumpSpeed( import_object.jumpSpeed );
 
-			if( import_object.strict_era )
-				this.strictEra = import_object.strict_era;
+			if( typeof(import_object.strict_era) != "undefined" ) {
+				if( import_object.strict_era )
+					this.strictEra = 1;
+				else
+					this.strictEra = 0;
+			}
 
 			if( import_object.engineType )
 				this.setEngineType( import_object.engineType );
@@ -8178,6 +8422,8 @@ var battlemechCreatorControllerExportsArray =
 			current_mech.useLang = localStorage["tmp.preferred_language"];
 
 
+			$scope.makeTROBBCode = current_mech.makeTROBBCode();
+
 			// make tro for sidebar
 			$scope.mech_tro = current_mech.makeTROHTML();
 			$scope.mech_bv_calc = current_mech.getBVCalcHTML();
@@ -8278,7 +8524,6 @@ var battlemechCreatorControllerStep1Array =
 					current_mech.strictEra = 1;
 				else
 					current_mech.strictEra = 0;
-
 				localStorage["tmp.current_mech"] = current_mech.exportJSON();
 				update_mech_status_bar_and_tro($scope, $translate, current_mech);
 			}
@@ -10110,6 +10355,7 @@ available_languages.push ({
 		BM_SUMMARY: "Summary",
 		BM_BACK_TO_WELCOME: "Welcome",
 		BM_EXPORTS: "Exporting and Printing",
+		BM_BBCODE_TRO: "BBCode TRO",
 
 
 		BUTTON_HOME_TITLE: "Home",
@@ -10124,6 +10370,8 @@ available_languages.push ({
 		BM_TONS: "tons",
 		BM_TON: "ton",
 		BM_NO_ARMOR: "No Armor",
+
+		BM_PRINTING_AND_PDF: "Printing and PDFs",
 
 		BM_REMAINING_TONS: "Remaining Tons",
 		BM_UNALLOCATED_ARMOR: "Unallocated Armor",
@@ -10140,7 +10388,7 @@ available_languages.push ({
 		BM_STEP1_MECH_ERA: "Mech Era",
 		BM_STEP1_MECH_TONNAGE: "Mech Tonnage",
 		BM_STEP1_MECH_TECH: "Mech Tech",
-		BM_STEP1_SELECTED_STRICT: "Hide non-available weapons (will be gray otherwise)",
+		BM_STEP1_SELECTED_STRICT: "Hide non-available weapons and equipment (will be gray otherwise)",
 
 		BM_STEP2_TITLE: "Step 2",
 		BM_STEP2_DESC: "Install engine and control systems",

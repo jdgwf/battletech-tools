@@ -102,6 +102,7 @@ available_languages.push ({
 		BM_SUMMARY: "Summary",
 		BM_BACK_TO_WELCOME: "Welcome",
 		BM_EXPORTS: "Exporting and Printing",
+		BM_BBCODE_TRO: "BBCode TRO",
 
 
 		BUTTON_HOME_TITLE: "Home",
@@ -116,6 +117,8 @@ available_languages.push ({
 		BM_TONS: "tons",
 		BM_TON: "ton",
 		BM_NO_ARMOR: "No Armor",
+
+		BM_PRINTING_AND_PDF: "Printing and PDFs",
 
 		BM_REMAINING_TONS: "Remaining Tons",
 		BM_UNALLOCATED_ARMOR: "Unallocated Armor",
@@ -132,7 +135,7 @@ available_languages.push ({
 		BM_STEP1_MECH_ERA: "Mech Era",
 		BM_STEP1_MECH_TONNAGE: "Mech Tonnage",
 		BM_STEP1_MECH_TECH: "Mech Tech",
-		BM_STEP1_SELECTED_STRICT: "Hide non-available weapons (will be gray otherwise)",
+		BM_STEP1_SELECTED_STRICT: "Hide non-available weapons and equipment (will be gray otherwise)",
 
 		BM_STEP2_TITLE: "Step 2",
 		BM_STEP2_DESC: "Install engine and control systems",
