@@ -3,7 +3,8 @@ var settingsArray = [
 	'$translate',
 	'$scope',
 	'$route',
-	function ($rootScope, $translate,  $scope, $route) {
+	'$location',
+	function ($rootScope, $translate,  $scope, $route, $location) {
 		$rootScope.showSciFiCreatorMenu = false;
 		$rootScope.showChargenMenu = false;
 
@@ -12,6 +13,8 @@ var settingsArray = [
 			$rootScope.subtitle_tag = translation.GENERAL_SETTINGS;
 		});
 
+
+			localStorage["backToPath"] = $location.$$path;
 
 		$scope.available_languages = Array();
 		$scope.users_language = {};

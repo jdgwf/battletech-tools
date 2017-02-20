@@ -680,6 +680,19 @@ function generateUUID(){
     return uuid;
 }
 
+function sortByLocationThenName( a, b ) {
+	if( a.location > b.location )
+		return 1;
+	if( a.location < b.location )
+		return -1;
+	if( a.name > b.name )
+		return 1;
+	if( a.name < b.name )
+		return -1;
+	return 0;
+}
+
+
 var btEraOptions = Array(
 	{
 		id: 1,
@@ -4230,7 +4243,10 @@ Mech.prototype._calcAlphaStrike = function() {
 	 this.calcLogAS += "<strong>Step 3a: Add Force Bonuses ASC - p141</strong><br />\n";
 	// TODO
 
-	this.alphaStrikeValue = this.alphaStrikeForceStats.pv;
+	this.alphaStrikeForceStats.pv = finalValue;
+
+	//console.log( this.alphaStrikeForceStats );
+	this.alphaStrikeValue = Math.round(this.alphaStrikeForceStats.pv);
 }
 
 Mech.prototype._calcBattleValue = function() {
@@ -4342,6 +4358,7 @@ Mech.prototype.getCBillCalcHTML = function() {
 
 
 Mech.prototype.makeTROHTML = function() {
+
 
 	html = "<table class=\"mech-tro\">";
 
@@ -4462,6 +4479,8 @@ Mech.prototype.makeTROHTML = function() {
 	// TODO Weapons and Ammo
 	html += "<table class=\"mech-tro\">";
 	html += "<tr><th class=\"text-left\">" + this.getTranslation("TRO_WEAPONS") + "<br />" + this.getTranslation("TRO_AND_AMMO") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_LOCATION") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_CRITICAL") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_TONNAGE") + "</th></tr>";
+
+	this.equipmentList.sort( sortByLocationThenName );
 
 	for( eq_count = 0; eq_count < this.equipmentList.length; eq_count++) {
 		if( typeof( this.equipmentList[eq_count].location ) == "undefined" )
@@ -6184,7 +6203,8 @@ var asBuilderArray = [
 	'$translate',
 	'$scope',
 	'$http',
-	function ($rootScope, $translate, $scope, $http) {
+	'$location',
+	function ($rootScope, $translate, $scope, $http, $location) {
 		$rootScope.showSciFiCreatorMenu = false;
 		$rootScope.showChargenMenu = false;
 
@@ -6194,6 +6214,7 @@ var asBuilderArray = [
 
 		});
 
+			localStorage["backToPath"] = $location.$$path;
 
 		$scope.addToOptions = Array();
 		$scope.activeView = false;
@@ -6250,10 +6271,10 @@ var asBuilderArray = [
 						//~ console.log("addUnitInfo.mulID", addUnitInfo.mulID);
 
 						$scope.pleaseWait = false;
-						
+
 						//~ console.log( "$scope.tempFavCurrentSkill", tempFavCurrentSkill );
 						//~ console.log( "$scope.tempFavCustomName", tempFavCustomName );
- 
+
 						$scope.currentLances[ addToGroup ].members.push( new asUnit( foundMULItem ) );
 						$scope.currentLances[ addToGroup ].members[ $scope.currentLances[ addToGroup ].members.length - 1 ].setSkill( tempFavCurrentSkill );
 						$scope.currentLances[ addToGroup ].members[ $scope.currentLances[ addToGroup ].members.length - 1 ].customName = tempFavCustomName;
@@ -6351,7 +6372,7 @@ var asBuilderArray = [
 			QuickCount
 			QuickRandom
 		*/
-		
+
 		$scope.updateMULList = function() {
 			// https://masterunitlist.azurewebsites.net/Unit/QuickList?MinPV=1&MaxPV=999&Name=
 			if( $scope.currentSearch.length >= 3 ) {
@@ -6622,7 +6643,8 @@ var asPlayViewArray = [
 	'$translate',
 	'$scope',
 	'$http',
-	function ($rootScope, $translate, $scope, $http) {
+	'$location',
+	function ($rootScope, $translate, $scope, $http, $location) {
 		$rootScope.showSciFiCreatorMenu = false;
 		$rootScope.showChargenMenu = false;
 		$translate(['APP_TITLE', 'INDEX_WELCOME']).then(function (translation) {
@@ -6631,6 +6653,8 @@ var asPlayViewArray = [
 		});
 
 		$scope.activeView = true;
+
+			localStorage["backToPath"] = $location.$$path;
 
 		incomingLance = Array();
 		$scope.currentLances = Array()
@@ -6805,7 +6829,8 @@ var battlemechCreatorControllerExportsArray =
 		'$rootScope',
 		'$translate',
 		'$scope',
-		function ($rootScope, $translate, $scope) {
+		'$location',
+		function ($rootScope, $translate, $scope, $location) {
 			// Set Page Title Tag
 			$translate(['APP_TITLE', 'BM_EXPORTS_TITLE', 'BM_EXPORTS_DESC', 'WELCOME_BUTTON_MECH_CREATOR' ]).then(function (translation) {
 				$rootScope.title_tag = translation.BM_EXPORTS_TITLE + " | " + translation.APP_TITLE;
@@ -6815,6 +6840,8 @@ var battlemechCreatorControllerExportsArray =
 					$scope.h3_title = translation.BM_EXPORTS_TITLE;
 				$rootScope.subtitle_tag = "&raquo; " + translation.WELCOME_BUTTON_MECH_CREATOR;
 			});
+
+			localStorage["backToPath"] = $location.$$path;
 
 			// create mech object, load from localStorage if exists
 			current_mech = new Mech();
@@ -6874,7 +6901,8 @@ var battlemechCreatorControllerStep1Array =
 		'$rootScope',
 		'$translate',
 		'$scope',
-		function ($rootScope, $translate, $scope) {
+		'$location',
+		function ($rootScope, $translate, $scope, $location) {
 			// Set Page Title Tag
 			$translate(
 				[
@@ -6892,6 +6920,8 @@ var battlemechCreatorControllerStep1Array =
 
 			// create mech object, load from localStorage if exists
 			current_mech = new Mech();
+
+			localStorage["backToPath"] = $location.$$path;
 
 			if( localStorage["tmp.current_mech"] )
 				current_mech.importJSON( localStorage["tmp.current_mech"] );
@@ -7031,7 +7061,8 @@ var battlemechCreatorControllerStep2Array =
 		'$rootScope',
 		'$translate',
 		'$scope',
-		function ($rootScope, $translate, $scope) {
+		'$location',
+		function ($rootScope, $translate, $scope, $location) {
 
 			// Set Page Title Tag
 			$translate(['APP_TITLE', 'BM_STEP2_TITLE', 'BM_STEP2_DESC', 'WELCOME_BUTTON_MECH_CREATOR' ]).then(function (translation) {
@@ -7053,6 +7084,8 @@ var battlemechCreatorControllerStep2Array =
 				current_mech.uuid = generateUUID();
 
 			current_mech.useLang = localStorage["tmp.preferred_language"];
+
+			localStorage["backToPath"] = $location.$$path;
 
 			update_walking_jumping_dropdowns( $scope, $translate, current_mech );
 			update_mech_status_bar_and_tro($scope, $translate, current_mech);
@@ -7149,7 +7182,8 @@ var battlemechCreatorControllerStep3Array =
 		'$rootScope',
 		'$translate',
 		'$scope',
-		function ($rootScope, $translate, $scope) {
+		'$location',
+		function ($rootScope, $translate, $scope, $location) {
 			// Set Page Title Tag
 			$translate(['APP_TITLE', 'BM_STEP3_TITLE', 'BM_STEP3_DESC', 'WELCOME_BUTTON_MECH_CREATOR' ]).then(function (translation) {
 				$rootScope.title_tag = translation.BM_STEP3_TITLE + " | " + translation.APP_TITLE;
@@ -7172,6 +7206,9 @@ var battlemechCreatorControllerStep3Array =
 			current_mech.useLang = localStorage["tmp.preferred_language"];
 
 			var required_label = "";
+
+
+			localStorage["backToPath"] = $location.$$path;
 
 			$translate(['BM_STEP3_BM_INC_10_HS', 'BM_STEP3_BM_INC_10_DOUBLE_HS', 'BM_STEP3_CRITICAL_REQUIRED' ]).then(function (translation) {
 				$scope.label_included_heatsinks = translation.BM_STEP3_BM_INC_10_HS;
@@ -7281,7 +7318,8 @@ var battlemechCreatorControllerStep4Array =
 		'$rootScope',
 		'$translate',
 		'$scope',
-		function ($rootScope, $translate, $scope) {
+		'$location',
+		function ($rootScope, $translate, $scope, $location) {
 			// Set Page Title Tag
 			$translate(['APP_TITLE', 'BM_STEP4_TITLE', 'BM_STEP4_DESC', 'WELCOME_BUTTON_MECH_CREATOR' ]).then(function (translation) {
 				$rootScope.title_tag = translation.BM_STEP4_TITLE + " | " + translation.APP_TITLE;
@@ -7304,6 +7342,8 @@ var battlemechCreatorControllerStep4Array =
 			update_step4_page_items($scope, $translate, current_mech);
 
 			update_mech_status_bar_and_tro($scope, $translate, current_mech);
+
+			localStorage["backToPath"] = $location.$$path;
 
 			$scope.update_armor_weight = function() {
 				current_mech.setArmorWeight( $scope.selected_armor_weight.id );
@@ -7646,7 +7686,8 @@ var battlemechCreatorControllerStep5Array =
 		'$rootScope',
 		'$translate',
 		'$scope',
-		function ($rootScope, $translate, $scope) {
+		'$location',
+		function ($rootScope, $translate, $scope, $location) {
 
 
 			// Set Page Title Tag
@@ -7665,6 +7706,8 @@ var battlemechCreatorControllerStep5Array =
 				current_mech.importJSON( localStorage["tmp.current_mech"] );
 			else
 				current_mech.uuid = generateUUID();
+
+			localStorage["backToPath"] = $location.$$path;
 
 			current_mech.useLang = localStorage["tmp.preferred_language"];
 			// make tro for sidebar
@@ -7800,7 +7843,8 @@ var battlemechCreatorControllerStep6Array =
 		'$rootScope',
 		'$translate',
 		'$scope',
-		function ($rootScope, $translate, $scope) {
+		'$location',
+		function ($rootScope, $translate, $scope, $location) {
 			// Set Page Title Tag
 			$translate(['APP_TITLE', 'BM_STEP6_TITLE', 'BM_STEP6_DESC', 'WELCOME_BUTTON_MECH_CREATOR' ]).then(function (translation) {
 				$rootScope.title_tag = translation.BM_STEP6_TITLE + " | " + translation.APP_TITLE;
@@ -7812,6 +7856,8 @@ var battlemechCreatorControllerStep6Array =
 			});
 			// create mech object, load from localStorage if exists
 			current_mech = new Mech();
+
+			localStorage["backToPath"] = $location.$$path;
 
 			$scope.selectedItem = null;
 
@@ -8030,7 +8076,8 @@ var battlemechCreatorControllerSummaryArray =
 		'$rootScope',
 		'$translate',
 		'$scope',
-		function ($rootScope, $translate, $scope) {
+		'$location',
+		function ($rootScope, $translate, $scope, $location) {
 			// Set Page Title Tag
 			$translate(['APP_TITLE', 'BM_SUMMARY_TITLE', 'BM_SUMMARY_DESC', 'WELCOME_BUTTON_MECH_CREATOR' ]).then(function (translation) {
 				$rootScope.title_tag = translation.BM_SUMMARY_TITLE + " | " + translation.APP_TITLE;
@@ -8040,6 +8087,8 @@ var battlemechCreatorControllerSummaryArray =
 					$scope.h3_title = translation.BM_SUMMARY_TITLE;
 				$rootScope.subtitle_tag = "&raquo; " + translation.WELCOME_BUTTON_MECH_CREATOR;
 			});
+
+			localStorage["backToPath"] = $location.$$path;
 
 			// create mech object, load from localStorage if exists
 			current_mech = new Mech();
@@ -8079,7 +8128,8 @@ var battlemechCreatorControllerWelcomeArray =
 		'$rootScope',
 		'$translate',
 		'$scope',
-		function ($rootScope, $translate, $scope) {
+		'$location',
+		function ($rootScope, $translate, $scope, $location) {
 			// Set Page Title Tag
 			$translate(['APP_TITLE', 'BM_INTRO_TITLE', 'BM_INTRO_DESC', 'WELCOME_BUTTON_MECH_CREATOR' ]).then(function (translation) {
 				$rootScope.title_tag = translation.BM_INTRO_TITLE + " | " + translation.APP_TITLE;
@@ -8089,6 +8139,9 @@ var battlemechCreatorControllerWelcomeArray =
 					$scope.h3_title = translation.BM_INTRO_TITLE;
 				$rootScope.subtitle_tag = "&raquo; " + translation.WELCOME_BUTTON_MECH_CREATOR;
 			});
+
+
+			localStorage["backToPath"] = $location.$$path;
 
 		}
 	]
@@ -8162,11 +8215,15 @@ var creditsArray =
 		'$rootScope',
 		'$translate',
 		'$scope',
-		function ($rootScope, $translate, $scope) {
+		'$location',
+		function ($rootScope, $translate, $scope, $location) {
 			$translate(['APP_TITLE', 'INDEX_WELCOME']).then(function (translation) {
 				$rootScope.title_tag = translation.INDEX_WELCOME + " | " + translation.APP_TITLE;
 				$rootScope.subtitle_tag = "&raquo; " + translation.INDEX_CREDITS;
 			});
+
+			localStorage["backToPath"] = $location.$$path;
+
 		}
 	]
 ;
@@ -8188,7 +8245,8 @@ var settingsArray = [
 	'$translate',
 	'$scope',
 	'$route',
-	function ($rootScope, $translate,  $scope, $route) {
+	'$location',
+	function ($rootScope, $translate,  $scope, $route, $location) {
 		$rootScope.showSciFiCreatorMenu = false;
 		$rootScope.showChargenMenu = false;
 
@@ -8197,6 +8255,8 @@ var settingsArray = [
 			$rootScope.subtitle_tag = translation.GENERAL_SETTINGS;
 		});
 
+
+			localStorage["backToPath"] = $location.$$path;
 
 		$scope.available_languages = Array();
 		$scope.users_language = {};
@@ -8265,11 +8325,21 @@ var welcomeArray =
 		'$rootScope',
 		'$translate',
 		'$scope',
-		function ($rootScope, $translate, $scope) {
+		'$location',
+		function ($rootScope, $translate, $scope, $location) {
 			$translate(['APP_TITLE', 'INDEX_WELCOME']).then(function (translation) {
 				$rootScope.title_tag = translation.INDEX_WELCOME + " | " + translation.APP_TITLE;
 				$rootScope.subtitle_tag = "&raquo; " + translation.INDEX_WELCOME;
 			});
+
+			if( localStorage["backToPath"] != "" ) {
+				var goto = localStorage["backToPath"];
+				localStorage["backToPath"] = "";
+				$location.url( goto );
+			}
+
+			localStorage["backToPath"] = "";
+
 		}
 	]
 ;

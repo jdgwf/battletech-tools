@@ -3,7 +3,8 @@ var asPlayViewArray = [
 	'$translate',
 	'$scope',
 	'$http',
-	function ($rootScope, $translate, $scope, $http) {
+	'$location',
+	function ($rootScope, $translate, $scope, $http, $location) {
 		$rootScope.showSciFiCreatorMenu = false;
 		$rootScope.showChargenMenu = false;
 		$translate(['APP_TITLE', 'INDEX_WELCOME']).then(function (translation) {
@@ -12,6 +13,8 @@ var asPlayViewArray = [
 		});
 
 		$scope.activeView = true;
+
+			localStorage["backToPath"] = $location.$$path;
 
 		incomingLance = Array();
 		$scope.currentLances = Array()

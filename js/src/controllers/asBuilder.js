@@ -3,7 +3,8 @@ var asBuilderArray = [
 	'$translate',
 	'$scope',
 	'$http',
-	function ($rootScope, $translate, $scope, $http) {
+	'$location',
+	function ($rootScope, $translate, $scope, $http, $location) {
 		$rootScope.showSciFiCreatorMenu = false;
 		$rootScope.showChargenMenu = false;
 
@@ -13,6 +14,7 @@ var asBuilderArray = [
 
 		});
 
+			localStorage["backToPath"] = $location.$$path;
 
 		$scope.addToOptions = Array();
 		$scope.activeView = false;
@@ -69,10 +71,10 @@ var asBuilderArray = [
 						//~ console.log("addUnitInfo.mulID", addUnitInfo.mulID);
 
 						$scope.pleaseWait = false;
-						
+
 						//~ console.log( "$scope.tempFavCurrentSkill", tempFavCurrentSkill );
 						//~ console.log( "$scope.tempFavCustomName", tempFavCustomName );
- 
+
 						$scope.currentLances[ addToGroup ].members.push( new asUnit( foundMULItem ) );
 						$scope.currentLances[ addToGroup ].members[ $scope.currentLances[ addToGroup ].members.length - 1 ].setSkill( tempFavCurrentSkill );
 						$scope.currentLances[ addToGroup ].members[ $scope.currentLances[ addToGroup ].members.length - 1 ].customName = tempFavCustomName;
@@ -170,7 +172,7 @@ var asBuilderArray = [
 			QuickCount
 			QuickRandom
 		*/
-		
+
 		$scope.updateMULList = function() {
 			// https://masterunitlist.azurewebsites.net/Unit/QuickList?MinPV=1&MaxPV=999&Name=
 			if( $scope.currentSearch.length >= 3 ) {

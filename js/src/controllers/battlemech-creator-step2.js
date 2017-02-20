@@ -3,7 +3,8 @@ var battlemechCreatorControllerStep2Array =
 		'$rootScope',
 		'$translate',
 		'$scope',
-		function ($rootScope, $translate, $scope) {
+		'$location',
+		function ($rootScope, $translate, $scope, $location) {
 
 			// Set Page Title Tag
 			$translate(['APP_TITLE', 'BM_STEP2_TITLE', 'BM_STEP2_DESC', 'WELCOME_BUTTON_MECH_CREATOR' ]).then(function (translation) {
@@ -25,6 +26,8 @@ var battlemechCreatorControllerStep2Array =
 				current_mech.uuid = generateUUID();
 
 			current_mech.useLang = localStorage["tmp.preferred_language"];
+
+			localStorage["backToPath"] = $location.$$path;
 
 			update_walking_jumping_dropdowns( $scope, $translate, current_mech );
 			update_mech_status_bar_and_tro($scope, $translate, current_mech);

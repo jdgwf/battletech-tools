@@ -3,7 +3,8 @@ var battlemechCreatorControllerSummaryArray =
 		'$rootScope',
 		'$translate',
 		'$scope',
-		function ($rootScope, $translate, $scope) {
+		'$location',
+		function ($rootScope, $translate, $scope, $location) {
 			// Set Page Title Tag
 			$translate(['APP_TITLE', 'BM_SUMMARY_TITLE', 'BM_SUMMARY_DESC', 'WELCOME_BUTTON_MECH_CREATOR' ]).then(function (translation) {
 				$rootScope.title_tag = translation.BM_SUMMARY_TITLE + " | " + translation.APP_TITLE;
@@ -13,6 +14,8 @@ var battlemechCreatorControllerSummaryArray =
 					$scope.h3_title = translation.BM_SUMMARY_TITLE;
 				$rootScope.subtitle_tag = "&raquo; " + translation.WELCOME_BUTTON_MECH_CREATOR;
 			});
+
+			localStorage["backToPath"] = $location.$$path;
 
 			// create mech object, load from localStorage if exists
 			current_mech = new Mech();

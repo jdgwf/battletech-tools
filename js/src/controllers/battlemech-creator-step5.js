@@ -3,7 +3,8 @@ var battlemechCreatorControllerStep5Array =
 		'$rootScope',
 		'$translate',
 		'$scope',
-		function ($rootScope, $translate, $scope) {
+		'$location',
+		function ($rootScope, $translate, $scope, $location) {
 
 
 			// Set Page Title Tag
@@ -22,6 +23,8 @@ var battlemechCreatorControllerStep5Array =
 				current_mech.importJSON( localStorage["tmp.current_mech"] );
 			else
 				current_mech.uuid = generateUUID();
+
+			localStorage["backToPath"] = $location.$$path;
 
 			current_mech.useLang = localStorage["tmp.preferred_language"];
 			// make tro for sidebar

@@ -3,7 +3,8 @@ var battlemechCreatorControllerStep3Array =
 		'$rootScope',
 		'$translate',
 		'$scope',
-		function ($rootScope, $translate, $scope) {
+		'$location',
+		function ($rootScope, $translate, $scope, $location) {
 			// Set Page Title Tag
 			$translate(['APP_TITLE', 'BM_STEP3_TITLE', 'BM_STEP3_DESC', 'WELCOME_BUTTON_MECH_CREATOR' ]).then(function (translation) {
 				$rootScope.title_tag = translation.BM_STEP3_TITLE + " | " + translation.APP_TITLE;
@@ -26,6 +27,9 @@ var battlemechCreatorControllerStep3Array =
 			current_mech.useLang = localStorage["tmp.preferred_language"];
 
 			var required_label = "";
+
+
+			localStorage["backToPath"] = $location.$$path;
 
 			$translate(['BM_STEP3_BM_INC_10_HS', 'BM_STEP3_BM_INC_10_DOUBLE_HS', 'BM_STEP3_CRITICAL_REQUIRED' ]).then(function (translation) {
 				$scope.label_included_heatsinks = translation.BM_STEP3_BM_INC_10_HS;

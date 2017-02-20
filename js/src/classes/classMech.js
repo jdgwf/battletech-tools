@@ -741,7 +741,10 @@ Mech.prototype._calcAlphaStrike = function() {
 	 this.calcLogAS += "<strong>Step 3a: Add Force Bonuses ASC - p141</strong><br />\n";
 	// TODO
 
-	this.alphaStrikeValue = this.alphaStrikeForceStats.pv;
+	this.alphaStrikeForceStats.pv = finalValue;
+
+	//console.log( this.alphaStrikeForceStats );
+	this.alphaStrikeValue = Math.round(this.alphaStrikeForceStats.pv);
 }
 
 Mech.prototype._calcBattleValue = function() {
@@ -853,6 +856,7 @@ Mech.prototype.getCBillCalcHTML = function() {
 
 
 Mech.prototype.makeTROHTML = function() {
+
 
 	html = "<table class=\"mech-tro\">";
 
@@ -973,6 +977,8 @@ Mech.prototype.makeTROHTML = function() {
 	// TODO Weapons and Ammo
 	html += "<table class=\"mech-tro\">";
 	html += "<tr><th class=\"text-left\">" + this.getTranslation("TRO_WEAPONS") + "<br />" + this.getTranslation("TRO_AND_AMMO") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_LOCATION") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_CRITICAL") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_TONNAGE") + "</th></tr>";
+
+	this.equipmentList.sort( sortByLocationThenName );
 
 	for( eq_count = 0; eq_count < this.equipmentList.length; eq_count++) {
 		if( typeof( this.equipmentList[eq_count].location ) == "undefined" )

@@ -3,7 +3,8 @@ var battlemechCreatorControllerStep1Array =
 		'$rootScope',
 		'$translate',
 		'$scope',
-		function ($rootScope, $translate, $scope) {
+		'$location',
+		function ($rootScope, $translate, $scope, $location) {
 			// Set Page Title Tag
 			$translate(
 				[
@@ -21,6 +22,8 @@ var battlemechCreatorControllerStep1Array =
 
 			// create mech object, load from localStorage if exists
 			current_mech = new Mech();
+
+			localStorage["backToPath"] = $location.$$path;
 
 			if( localStorage["tmp.current_mech"] )
 				current_mech.importJSON( localStorage["tmp.current_mech"] );

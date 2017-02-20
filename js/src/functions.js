@@ -10,3 +10,15 @@ function generateUUID(){
     });
     return uuid;
 }
+
+function sortByLocationThenName( a, b ) {
+	if( a.location > b.location )
+		return 1;
+	if( a.location < b.location )
+		return -1;
+	if( a.name > b.name )
+		return 1;
+	if( a.name < b.name )
+		return -1;
+	return 0;
+}

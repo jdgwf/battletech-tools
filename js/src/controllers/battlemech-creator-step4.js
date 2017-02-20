@@ -3,7 +3,8 @@ var battlemechCreatorControllerStep4Array =
 		'$rootScope',
 		'$translate',
 		'$scope',
-		function ($rootScope, $translate, $scope) {
+		'$location',
+		function ($rootScope, $translate, $scope, $location) {
 			// Set Page Title Tag
 			$translate(['APP_TITLE', 'BM_STEP4_TITLE', 'BM_STEP4_DESC', 'WELCOME_BUTTON_MECH_CREATOR' ]).then(function (translation) {
 				$rootScope.title_tag = translation.BM_STEP4_TITLE + " | " + translation.APP_TITLE;
@@ -26,6 +27,8 @@ var battlemechCreatorControllerStep4Array =
 			update_step4_page_items($scope, $translate, current_mech);
 
 			update_mech_status_bar_and_tro($scope, $translate, current_mech);
+
+			localStorage["backToPath"] = $location.$$path;
 
 			$scope.update_armor_weight = function() {
 				current_mech.setArmorWeight( $scope.selected_armor_weight.id );
