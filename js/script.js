@@ -8332,6 +8332,7 @@ var welcomeArray =
 				$rootScope.subtitle_tag = "&raquo; " + translation.INDEX_WELCOME;
 			});
 
+			// Check to see if a backToPath is set, move to that route if so.
 			if( localStorage["backToPath"] != "" ) {
 				var goto = localStorage["backToPath"];
 				localStorage["backToPath"] = "";
