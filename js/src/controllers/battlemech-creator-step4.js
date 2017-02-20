@@ -14,6 +14,13 @@ var battlemechCreatorControllerStep4Array =
 					$scope.h3_title = translation.BM_STEP4_TITLE;
 				$rootScope.subtitle_tag = "&raquo; " + translation.WELCOME_BUTTON_MECH_CREATOR;
 			});
+
+			$scope.goHome = function() {
+				console.log( "goHone called" );
+				delete(localStorage["backToPath"]);
+				$location.url("/");
+			}
+
 			// create mech object, load from localStorage if exists
 			current_mech = new Mech();
 

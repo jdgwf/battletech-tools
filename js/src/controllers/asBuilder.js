@@ -8,6 +8,12 @@ var asBuilderArray = [
 		$rootScope.showSciFiCreatorMenu = false;
 		$rootScope.showChargenMenu = false;
 
+		$scope.goHome = function() {
+			console.log( "goHone called" );
+			delete(localStorage["backToPath"]);
+			$location.url("/");
+		}
+
 		$translate(['APP_TITLE', 'WELCOME_BUTTON_ALPHA_STRIKE']).then(function (translation) {
 			$rootScope.title_tag = translation.WELCOME_BUTTON_ALPHA_STRIKE + " | " + translation.APP_TITLE;
 			$rootScope.subtitle_tag = translation.WELCOME_BUTTON_ALPHA_STRIKE;

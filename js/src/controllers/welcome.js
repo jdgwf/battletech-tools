@@ -10,6 +10,12 @@ var welcomeArray =
 				$rootScope.subtitle_tag = "&raquo; " + translation.INDEX_WELCOME;
 			});
 
+			$scope.goHome = function() {
+				console.log( "goHone called" );
+				delete(localStorage["backToPath"]);
+				$location.url("/");
+			}
+
 			// Check to see if a backToPath is set, move to that route if so.
 			if( localStorage["backToPath"] != "" ) {
 				var goto = localStorage["backToPath"];

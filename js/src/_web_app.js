@@ -126,7 +126,8 @@ angular.module('webApp').controller(
 		'$translate',
 		'$scope',
 		'$route',
-		function ($translate, $scope, $route) {
+		'$location',
+		function ($translate, $scope, $route, $location) {
 
 			$scope.change_language = function (key) {
 				$translate.use(key);

@@ -19,7 +19,11 @@ var battlemechCreatorControllerStep2Array =
 
 			// create mech object, load from localStorage if exists
 			current_mech = new Mech();
-
+			$scope.goHome = function() {
+				console.log( "goHone called" );
+				delete(localStorage["backToPath"]);
+				$location.url("/");
+			}
 			if( localStorage["tmp.current_mech"] )
 				current_mech.importJSON( localStorage["tmp.current_mech"] );
 			else

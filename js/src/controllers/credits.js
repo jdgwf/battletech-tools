@@ -10,6 +10,13 @@ var creditsArray =
 				$rootScope.subtitle_tag = "&raquo; " + translation.INDEX_CREDITS;
 			});
 
+
+			$scope.goHome = function() {
+				console.log( "goHone called" );
+				delete(localStorage["backToPath"]);
+				$location.url("/");
+			}
+
 			localStorage["backToPath"] = $location.$$path;
 
 		}

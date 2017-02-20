@@ -15,6 +15,12 @@ var battlemechCreatorControllerExportsArray =
 				$rootScope.subtitle_tag = "&raquo; " + translation.WELCOME_BUTTON_MECH_CREATOR;
 			});
 
+			$scope.goHome = function() {
+				console.log( "goHone called" );
+				delete(localStorage["backToPath"]);
+				$location.url("/");
+			}
+
 			localStorage["backToPath"] = $location.$$path;
 
 			// create mech object, load from localStorage if exists

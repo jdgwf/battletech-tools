@@ -266,7 +266,8 @@ angular.module('webApp').controller(
 		'$translate',
 		'$scope',
 		'$route',
-		function ($translate, $scope, $route) {
+		'$location',
+		function ($translate, $scope, $route, $location) {
 
 			$scope.change_language = function (key) {
 				$translate.use(key);
@@ -7478,6 +7479,12 @@ var asBuilderArray = [
 		$rootScope.showSciFiCreatorMenu = false;
 		$rootScope.showChargenMenu = false;
 
+		$scope.goHome = function() {
+			console.log( "goHone called" );
+			delete(localStorage["backToPath"]);
+			$location.url("/");
+		}
+
 		$translate(['APP_TITLE', 'WELCOME_BUTTON_ALPHA_STRIKE']).then(function (translation) {
 			$rootScope.title_tag = translation.WELCOME_BUTTON_ALPHA_STRIKE + " | " + translation.APP_TITLE;
 			$rootScope.subtitle_tag = translation.WELCOME_BUTTON_ALPHA_STRIKE;
@@ -7922,6 +7929,12 @@ var asPlayViewArray = [
 			$rootScope.subtitle_tag = translation.INDEX_WELCOME;
 		});
 
+		$scope.goHome = function() {
+			console.log( "goHone called" );
+			delete(localStorage["backToPath"]);
+			$location.url("/");
+		}
+
 		$scope.activeView = true;
 
 			localStorage["backToPath"] = $location.$$path;
@@ -8111,6 +8124,12 @@ var battlemechCreatorControllerExportsArray =
 				$rootScope.subtitle_tag = "&raquo; " + translation.WELCOME_BUTTON_MECH_CREATOR;
 			});
 
+			$scope.goHome = function() {
+				console.log( "goHone called" );
+				delete(localStorage["backToPath"]);
+				$location.url("/");
+			}
+
 			localStorage["backToPath"] = $location.$$path;
 
 			// create mech object, load from localStorage if exists
@@ -8187,7 +8206,11 @@ var battlemechCreatorControllerStep1Array =
 
 				$rootScope.subtitle_tag = "&raquo; " + translation.WELCOME_BUTTON_MECH_CREATOR;
 			});
-
+			$scope.goHome = function() {
+				console.log( "goHone called" );
+				delete(localStorage["backToPath"]);
+				$location.url("/");
+			}
 			// create mech object, load from localStorage if exists
 			current_mech = new Mech();
 
@@ -8347,7 +8370,11 @@ var battlemechCreatorControllerStep2Array =
 
 			// create mech object, load from localStorage if exists
 			current_mech = new Mech();
-
+			$scope.goHome = function() {
+				console.log( "goHone called" );
+				delete(localStorage["backToPath"]);
+				$location.url("/");
+			}
 			if( localStorage["tmp.current_mech"] )
 				current_mech.importJSON( localStorage["tmp.current_mech"] );
 			else
@@ -8467,7 +8494,11 @@ var battlemechCreatorControllerStep3Array =
 			});
 			// create mech object, load from localStorage if exists
 			current_mech = new Mech();
-
+			$scope.goHome = function() {
+				console.log( "goHone called" );
+				delete(localStorage["backToPath"]);
+				$location.url("/");
+			}
 			if( localStorage["tmp.current_mech"] )
 				current_mech.importJSON( localStorage["tmp.current_mech"] );
 			else
@@ -8599,6 +8630,13 @@ var battlemechCreatorControllerStep4Array =
 					$scope.h3_title = translation.BM_STEP4_TITLE;
 				$rootScope.subtitle_tag = "&raquo; " + translation.WELCOME_BUTTON_MECH_CREATOR;
 			});
+
+			$scope.goHome = function() {
+				console.log( "goHone called" );
+				delete(localStorage["backToPath"]);
+				$location.url("/");
+			}
+
 			// create mech object, load from localStorage if exists
 			current_mech = new Mech();
 
@@ -8969,6 +9007,13 @@ var battlemechCreatorControllerStep5Array =
 					$scope.h3_title = translation.BM_STEP5_TITLE;
 				$rootScope.subtitle_tag = "&raquo; " + translation.WELCOME_BUTTON_MECH_CREATOR;
 			});
+
+			$scope.goHome = function() {
+				console.log( "goHone called" );
+				delete(localStorage["backToPath"]);
+				$location.url("/");
+			}
+
 			// create mech object, load from localStorage if exists
 			current_mech = new Mech();
 
@@ -9124,6 +9169,13 @@ var battlemechCreatorControllerStep6Array =
 					$scope.h3_title = translation.BM_STEP6_TITLE;
 				$rootScope.subtitle_tag = "&raquo; " + translation.WELCOME_BUTTON_MECH_CREATOR;
 			});
+
+			$scope.goHome = function() {
+				console.log( "goHone called" );
+				delete(localStorage["backToPath"]);
+				$location.url("/");
+			}
+
 			// create mech object, load from localStorage if exists
 			current_mech = new Mech();
 
@@ -9358,6 +9410,12 @@ var battlemechCreatorControllerSummaryArray =
 				$rootScope.subtitle_tag = "&raquo; " + translation.WELCOME_BUTTON_MECH_CREATOR;
 			});
 
+			$scope.goHome = function() {
+				console.log( "goHone called" );
+				delete(localStorage["backToPath"]);
+				$location.url("/");
+			}
+
 			localStorage["backToPath"] = $location.$$path;
 
 			// create mech object, load from localStorage if exists
@@ -9410,6 +9468,11 @@ var battlemechCreatorControllerWelcomeArray =
 				$rootScope.subtitle_tag = "&raquo; " + translation.WELCOME_BUTTON_MECH_CREATOR;
 			});
 
+			$scope.goHome = function() {
+				console.log( "goHone called" );
+				delete(localStorage["backToPath"]);
+				$location.url("/");
+			}
 
 			localStorage["backToPath"] = $location.$$path;
 
@@ -9656,6 +9719,13 @@ var creditsArray =
 				$rootScope.subtitle_tag = "&raquo; " + translation.INDEX_CREDITS;
 			});
 
+
+			$scope.goHome = function() {
+				console.log( "goHone called" );
+				delete(localStorage["backToPath"]);
+				$location.url("/");
+			}
+
 			localStorage["backToPath"] = $location.$$path;
 
 		}
@@ -9689,6 +9759,11 @@ var settingsArray = [
 			$rootScope.subtitle_tag = translation.GENERAL_SETTINGS;
 		});
 
+			$scope.goHome = function() {
+				console.log( "goHone called" );
+				delete(localStorage["backToPath"]);
+				$location.url("/");
+			}
 
 			localStorage["backToPath"] = $location.$$path;
 
@@ -9765,6 +9840,12 @@ var welcomeArray =
 				$rootScope.title_tag = translation.INDEX_WELCOME + " | " + translation.APP_TITLE;
 				$rootScope.subtitle_tag = "&raquo; " + translation.INDEX_WELCOME;
 			});
+
+			$scope.goHome = function() {
+				console.log( "goHone called" );
+				delete(localStorage["backToPath"]);
+				$location.url("/");
+			}
 
 			// Check to see if a backToPath is set, move to that route if so.
 			if( localStorage["backToPath"] != "" ) {

@@ -12,6 +12,12 @@ var asPlayViewArray = [
 			$rootScope.subtitle_tag = translation.INDEX_WELCOME;
 		});
 
+		$scope.goHome = function() {
+			console.log( "goHone called" );
+			delete(localStorage["backToPath"]);
+			$location.url("/");
+		}
+
 		$scope.activeView = true;
 
 			localStorage["backToPath"] = $location.$$path;

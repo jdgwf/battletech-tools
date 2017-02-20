@@ -13,6 +13,11 @@ var settingsArray = [
 			$rootScope.subtitle_tag = translation.GENERAL_SETTINGS;
 		});
 
+			$scope.goHome = function() {
+				console.log( "goHone called" );
+				delete(localStorage["backToPath"]);
+				$location.url("/");
+			}
 
 			localStorage["backToPath"] = $location.$$path;
 
