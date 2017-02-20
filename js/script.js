@@ -2243,8 +2243,8 @@ var mechJumpJetTypes = Array(
 		tag: "standard",
 		weight_multiplier: {
 			light: 0.5,
-			medium: 0.5,
-			heavy: 0.5
+			medium: 1,
+			heavy: 2
 		},
 		criticals: 1
 	},
@@ -2261,6 +2261,7 @@ var mechJumpJetTypes = Array(
 		criticals: 2
 	}
 );
+
 var mechTypeOptions = Array(
 	{
 		id: 1,
@@ -3589,6 +3590,29 @@ function Mech (type) {
 	this.calcLogAS = "";
 	this.calcLogCBill = "";
 
+	this.validJJLocations = [
+		{
+			long: "leftTorso",
+			short: "lt"
+		},
+		{
+			long: "leftLeg",
+			short: "ll"
+		},
+		{
+			long:  "rightLeg",
+			short: "rl"
+		},
+		{
+			long:  "rightTorso",
+			short: "rt"
+		},
+		{
+			long:  "centerTorso",
+			short: "ct"
+		},
+	];
+
 	this.alphaStrikeForceStats = {
 		make: "",
 		model: "",
@@ -4445,10 +4469,48 @@ Mech.prototype.makeTROHTML = function() {
 
 		item_location = "";
 		item_location = this.getLocationAbbr( this.equipmentList[eq_count].location );
-		html += "<tr><td class=\"text-left\">" + this.equipmentList[eq_count].name[ this.useLang ] + "</td><td class=\"text-center\">" + item_location + "</strong></td><td class=\"text-center\">" + this.equipmentList[eq_count].space.battlemech + "</td><td class=\"text-center\">" + this.equipmentList[eq_count].weight + "</td></tr>";
+		html += "<tr><td class=\"text-left\">" + this.equipmentList[eq_count].name[ this.useLang ] + "</td><td class=\"text-center\">" + item_location.toUpperCase() + "</strong></td><td class=\"text-center\">" + this.equipmentList[eq_count].space.battlemech + "</td><td class=\"text-center\">" + this.equipmentList[eq_count].weight + "</td></tr>";
 	}
 
 	// TODO List Jump Jets Allocations...
+
+	for( var locC = 0; locC < this.validJJLocations.length; locC++ ) {
+		//console.log( "this.criticals", this.criticals );
+		//~ console.log( "this.validJJLocations[locC].long", this.validJJLocations[locC].long );
+		//~ console.log( "this.validJJLocations[locC].short", this.validJJLocations[locC].short );
+		//~ console.log( "this.criticals[ this.validJJLocations[locC].long ]", this.criticals[ this.validJJLocations[locC].long ] );
+
+		var jjObjs = [];
+		for( var critC = 0; critC < this.criticals[ this.validJJLocations[locC].long ].length; critC++ ) {
+			if(
+				this.criticals[ this.validJJLocations[locC].long ][ critC ]
+				&& this.criticals[ this.validJJLocations[locC].long ][ critC ].tag
+				&& this.criticals[ this.validJJLocations[locC].long ][ critC ].tag.indexOf( "jj-") === 0
+			) {
+				jjObjs.push( this.criticals[ this.validJJLocations[locC].long ][ critC ] );
+			}
+		}
+
+		if( jjObjs.length > 0 ) {
+			var areaWeight = 0;
+			//~ console.log( "this.jumpJetType", this.jumpJetType );
+			console.log( "jjObjs", jjObjs );
+			if( this.tonnage <= 55) {
+				// 10-55 tons
+				areaWeight = jjObjs.length * this.jumpJetType.weight_multiplier.light;
+			} else if(this.tonnage <= 85) {
+				// 60 - 85 tons
+				areaWeight = jjObjs.length * this.jumpJetType.weight_multiplier.medium;
+			} else {
+				// 90+ tons
+				areaWeight = jjObjs.length * this.jumpJetType.weight_multiplier.heavy;
+			}
+			html += "<tr><td class=\"text-left\">" + jjObjs[0].name + "</td><td class=\"text-center\">" + this.validJJLocations[locC].short.toUpperCase() + "</strong></td><td class=\"text-center\">" + jjObjs.length + "</td><td class=\"text-center\">" + areaWeight + "</td></tr>";
+
+		}
+	}
+
+
 
 	// END Weapons and Ammo
 	html += "</table>";

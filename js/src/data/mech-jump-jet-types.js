@@ -6,8 +6,8 @@ var mechJumpJetTypes = Array(
 		tag: "standard",
 		weight_multiplier: {
 			light: 0.5,
-			medium: 0.5,
-			heavy: 0.5
+			medium: 1,
+			heavy: 2
 		},
 		criticals: 1
 	},
