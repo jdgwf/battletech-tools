@@ -984,6 +984,18 @@ button.round, .button.round {
 	display: inline-block;
 }
 
+.color-red {
+	color: #e00 !important;
+}
+
+.color-green {
+	color: #0e0 !important;
+}
+
+.color-blue {
+	color: #00e !important;
+}
+
 @media only screen and (max-device-width: 400px) and (orientation: portrait) {
 	.landscape-view-please {
 		display: block;

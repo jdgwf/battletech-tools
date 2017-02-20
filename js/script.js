@@ -285,9 +285,24 @@ function update_mech_status_bar_and_tro($scope, $translate, current_mech) {
 	$translate(
 		[
 			'BM_REMAINING_TONS', 'BM_UNALLOCATED_ARMOR', 'BM_UNALLOCATED_CRITS',
+			'BM_MOVE_HEAT', 'BM_WEAPON_HEAT', 'BM_HEAT_DISSIPATION',
+			'BM_HEAT_SUMMARY',
 		]
 	).then(function (translation) {
-		$scope.mech_status_bar = "<strong>" + translation.BM_REMAINING_TONS + "</strong>: " + current_mech.getRemainingTonnage();
+		$scope.mech_status_bar = "";
+
+		$scope.mech_status_bar += "<strong>" + translation.BM_MOVE_HEAT + "</strong>: " + current_mech.getMoveHeat();
+		$scope.mech_status_bar += " | <strong>" + translation.BM_WEAPON_HEAT + "</strong>: " + current_mech.getWeaponHeat();
+		$scope.mech_status_bar += " | <strong>" + translation.BM_HEAT_DISSIPATION + "</strong>: " + current_mech.getHeatDissipation();
+
+		var heatSummary = current_mech.getMoveHeat() + current_mech.getWeaponHeat() - current_mech.getHeatDissipation()
+		if( heatSummary > 0  ) {
+			$scope.mech_status_bar += " | <strong>" + translation.BM_HEAT_SUMMARY + "</strong>: <span class=\"color-red\">" + heatSummary + "</span>";
+		} else {
+			$scope.mech_status_bar += " | <strong>" + translation.BM_HEAT_SUMMARY + "</strong>: <span class=\"color-green\">" + heatSummary + "</span>";
+		}
+
+		$scope.mech_status_bar += " | <strong>" + translation.BM_REMAINING_TONS + "</strong>: " + current_mech.getRemainingTonnage();
 		$scope.mech_status_bar += " | <strong>" + translation.BM_UNALLOCATED_ARMOR + "</strong>: " + current_mech.getUnallocatedArmor();
 		$scope.mech_status_bar += " | <strong>" + translation.BM_UNALLOCATED_CRITS + "</strong>: " + current_mech.getUnallocatedCritCount();
 
@@ -4552,6 +4567,12 @@ Mech.prototype.clearMech = function() {
 
 Mech.prototype._calc = function() {
 
+
+	this.max_move_heat = 2;
+	this.max_weapon_heat = 0;
+	this.heat_dissipation = 0;
+
+
 	this.weights = Array();
 	this.weights.push( {name:"Internal Structure", weight: this.getInteralStructureWeight() } );
 
@@ -4586,6 +4607,7 @@ Mech.prototype._calc = function() {
 	}
 
 	if( this.jumpSpeed > 0) {
+		this.max_move_heat = this.jumpSpeed;
 		if( this.jumpJetType == "Standard" ) {
 			// standard
 			this.weights.push( {name: "Jump Jets", weight: this.getJumpJetWeight() } );
@@ -4624,6 +4646,9 @@ Mech.prototype._calc = function() {
 
 	for( eq_count = 0; eq_count < this.equipmentList.length; eq_count++) {
 		this.weights.push( {name: this.equipmentList[eq_count].name + " (" + this.equipmentList[eq_count].location  + ")", weight: this.equipmentList[eq_count].weight} );
+
+		if(  this.equipmentList[eq_count])
+			this.max_weapon_heat +=  this.equipmentList[eq_count].heat;
 	}
 
 	this.current_tonnage = 0;
@@ -5093,6 +5118,18 @@ Mech.prototype.getArmorAllocations = function() {
 
 Mech.prototype.getRemainingTonnage = function() {
 	return this.remaining_tonnage;
+}
+
+Mech.prototype.getMoveHeat = function() {
+	return this.max_move_heat;
+}
+
+Mech.prototype.getWeaponHeat = function() {
+	return this.max_weapon_heat;
+}
+
+Mech.prototype.getHeatDissipation = function() {
+	return this.heat_dissipation;
 }
 
 Mech.prototype.getWalkSpeed = function() {
@@ -8512,6 +8549,10 @@ available_languages.push ({
 		BM_REMAINING_TONS: "Remaining Tons",
 		BM_UNALLOCATED_ARMOR: "Unallocated Armor",
 		BM_UNALLOCATED_CRITS: "Unallocated Criticals",
+		BM_WEAPON_HEAT: "Weapon Heat",
+		BM_MOVE_HEAT: "Move Heat",
+		BM_HEAT_DISSIPATION: "Heat Dissipation",
+		BM_HEAT_SUMMARY: "Heat Summary",
 
 		BM_STEP1_TITLE: "Step 1",
 		BM_STEP1_DESC: "Design the Chassis",

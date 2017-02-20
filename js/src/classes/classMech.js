@@ -1050,6 +1050,12 @@ Mech.prototype.clearMech = function() {
 
 Mech.prototype._calc = function() {
 
+
+	this.max_move_heat = 2;
+	this.max_weapon_heat = 0;
+	this.heat_dissipation = 0;
+
+
 	this.weights = Array();
 	this.weights.push( {name:"Internal Structure", weight: this.getInteralStructureWeight() } );
 
@@ -1084,6 +1090,7 @@ Mech.prototype._calc = function() {
 	}
 
 	if( this.jumpSpeed > 0) {
+		this.max_move_heat = this.jumpSpeed;
 		if( this.jumpJetType == "Standard" ) {
 			// standard
 			this.weights.push( {name: "Jump Jets", weight: this.getJumpJetWeight() } );
@@ -1122,6 +1129,9 @@ Mech.prototype._calc = function() {
 
 	for( eq_count = 0; eq_count < this.equipmentList.length; eq_count++) {
 		this.weights.push( {name: this.equipmentList[eq_count].name + " (" + this.equipmentList[eq_count].location  + ")", weight: this.equipmentList[eq_count].weight} );
+
+		if(  this.equipmentList[eq_count])
+			this.max_weapon_heat +=  this.equipmentList[eq_count].heat;
 	}
 
 	this.current_tonnage = 0;
@@ -1591,6 +1601,18 @@ Mech.prototype.getArmorAllocations = function() {
 
 Mech.prototype.getRemainingTonnage = function() {
 	return this.remaining_tonnage;
+}
+
+Mech.prototype.getMoveHeat = function() {
+	return this.max_move_heat;
+}
+
+Mech.prototype.getWeaponHeat = function() {
+	return this.max_weapon_heat;
+}
+
+Mech.prototype.getHeatDissipation = function() {
+	return this.heat_dissipation;
 }
 
 Mech.prototype.getWalkSpeed = function() {

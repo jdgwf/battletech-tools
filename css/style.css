@@ -877,7 +877,19 @@ button.round, .button.round {
 .inline-block {
   display: inline-block; }
 
+/* line 987, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+.color-red {
+  color: #e00 !important; }
+
+/* line 991, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+.color-green {
+  color: #0e0 !important; }
+
+/* line 995, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+.color-blue {
+  color: #00e !important; }
+
 @media only screen and (max-device-width: 400px) and (orientation: portrait) {
-  /* line 988, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+  /* line 1000, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
   .landscape-view-please {
     display: block; } }
