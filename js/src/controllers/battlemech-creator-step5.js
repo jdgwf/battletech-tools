@@ -114,6 +114,7 @@ var battlemechCreatorControllerStep5Array =
 					$scope.item_locations[eqc] = make_select_object($scope.installed_equipment_table[eqc].location);
 				}
 
+				$scope.installed_equipment_table.sort( sortByLocalName );
 
 				var location_list = [];
 				location_list.push( {

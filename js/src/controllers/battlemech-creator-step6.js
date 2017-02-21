@@ -101,14 +101,24 @@ var battlemechCreatorControllerStep6Array =
 
 					}
 				} else {
-					if( criticalItem ) {
+					if( $scope.selectedItem.item == criticalItem ) {
+						$scope.selectedItem = null;
+					} else if( criticalItem ) {
 						//~ console.log( "Slot is already filled" );
 						$scope.errorCannotPlace = true;
 					} else {
 
 
 						if(
-							$scope.selectedItem.item.rear
+							(
+								(
+									$scope.selectedItem.item.obj
+										&&
+									$scope.selectedItem.item.obj.rear
+								)
+									||
+								$scope.selectedItem.item.rear
+							)
 								&&
 							(
 								locationString == "ra"
@@ -121,7 +131,7 @@ var battlemechCreatorControllerStep6Array =
 							)
 						) {
 							$scope.torsosAndHeadOnly = true;
-						} if(
+						} else if(
 							$scope.selectedItem.item.tag.indexOf("jj-") === 0
 								&&
 							(
@@ -133,16 +143,20 @@ var battlemechCreatorControllerStep6Array =
 							)
 						) {
 							$scope.legsAndTorsosOnly = true;
-						}else {
-
+						} else {
 
 							var itemTag =  $scope.selectedItem.item.tag;
+							if( $scope.selectedItem.item && $scope.selectedItem.item.obj && $scope.selectedItem.item.obj.rear )
+								var itemRear =  $scope.selectedItem.item.obj.rear;
+							else
+								var itemRear = false;
 							var fromLocation =  $scope.selectedItem.from;
 							var fromIndex =  $scope.selectedItem.index;
 							var toLocation = locationString;
 							var toIndex = indexLocation;
 							worked = current_mech.moveCritical(
 								itemTag,
+								itemRear,
 								fromLocation,
 								fromIndex,
 								toLocation,

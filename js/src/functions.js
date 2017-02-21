@@ -35,6 +35,15 @@ function sortByCategoryThenName( a, b ) {
 	return 0;
 }
 
+
+function sortByLocalName( a, b ) {
+	if( a.local_name > b.local_name )
+		return 1;
+	if( a.local_name < b.local_name )
+		return -1;
+	return 0;
+}
+
 function ifIEOrEdge() {
 	console.log( "ifIEorEdge", navigator.userAgent);
 	if (/MSIE 10/i.test(navigator.userAgent)) {
@@ -75,6 +84,8 @@ String.prototype.rpad = function(padString, length) {
         str = str + padString;
     return str;
 }
+
+
 
 function getMovementModifier( moveScore ) {
 	if( moveScore >= 25 ) {

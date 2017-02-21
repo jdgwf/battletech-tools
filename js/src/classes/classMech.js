@@ -1742,6 +1742,7 @@ Mech.prototype._calcCriticals = function() {
 			{
 				name: this.jumpJetType.name[this.useLang],
 				tag: "jj-" + this.jumpJetType.tag,
+				rear: false,
 				movable: true,
 				crits: this.jumpJetType.criticals
 			}
@@ -1758,6 +1759,7 @@ Mech.prototype._calcCriticals = function() {
 			{
 				name: this.equipmentList[elc].name[this.useLang] + rearTag,
 				tag: this.equipmentList[elc].tag,
+				rear: this.equipmentList[elc].rear,
 				crits: this.equipmentList[elc].space.battlemech,
 				obj: this.equipmentList[elc],
 				movable: true
@@ -1781,12 +1783,13 @@ Mech.prototype._calcCriticals = function() {
 		} );
 	}
 
-	//console.log( this.criticalAllocationTable );
+	//~ console.log( this.criticalAllocationTable );
 
 	// Allocate items per allocation table.
 	for( alt_c = 0; alt_c < this.criticalAllocationTable.length; alt_c++) {
 		this._allocateCritical(
 			this.criticalAllocationTable[alt_c].tag,
+			this.criticalAllocationTable[alt_c].rear,
 			this.criticalAllocationTable[alt_c].loc,
 			this.criticalAllocationTable[alt_c].slot,
 			true
@@ -2765,6 +2768,13 @@ Mech.prototype.importJSON = function(json_string) {
 
 			if( import_object.allocation ) {
 				this.criticalAllocationTable = import_object.allocation;
+
+				for( var eq_count = 0; eq_count < this.criticalAllocationTable.length; eq_count++) {
+					if( !this.criticalAllocationTable[ eq_count ].rear )
+						this.criticalAllocationTable[ eq_count ].rear = false;
+					else
+						this.criticalAllocationTable[ eq_count ].rear = true;
+				}
 			}
 
 			if( !this.useLang && localStorage["tmp.preferred_language"] )
@@ -2928,7 +2938,7 @@ Mech.prototype.removeEquipment = function(equipment_index) {
 };
 
 Mech.prototype.setRear = function(equipment_index, newValue) {
-	console.log("setRear", equipment_index, newValue);
+	//console.log("setRear", equipment_index, newValue);
 	if( this.equipmentList[equipment_index] ) {
 		this.equipmentList[equipment_index].rear = newValue;
 	}
@@ -2965,6 +2975,10 @@ Mech.prototype.updateCriticalAllocationTable = function() {
 					short_loc = "la";
 				}
 
+				var rear = false;
+				if( this.criticals[mech_location][crit_item_counter].rear || ( this.criticals[mech_location][crit_item_counter].obj && this.criticals[mech_location][crit_item_counter].obj.rear )  )
+					rear = true;
+				//~ console.log( "rear", rear);
 				if(this.criticals[mech_location][crit_item_counter] && this.criticals[mech_location][crit_item_counter].obj)
 					this.criticals[mech_location][crit_item_counter].obj.location = short_loc;
 
@@ -2972,6 +2986,7 @@ Mech.prototype.updateCriticalAllocationTable = function() {
 					{
 						tag: this.criticals[mech_location][crit_item_counter].tag,
 						loc: short_loc,
+						rear: rear,
 						slot: crit_item_counter
 					}
 				);
@@ -2983,8 +2998,8 @@ Mech.prototype.updateCriticalAllocationTable = function() {
 
 };
 
-Mech.prototype.moveCritical = function ( itemTag, fromLocation, fromIndex, toLocation, toIndex ) {
-	//~ console.log( "Mech.moveCritical()", itemTag, fromLocation, fromIndex, toLocation, toIndex );
+Mech.prototype.moveCritical = function ( itemTag, itemRear, fromLocation, fromIndex, toLocation, toIndex ) {
+	//~ console.log( "Mech.moveCritical()", itemTag, itemRear, fromLocation, fromIndex, toLocation, toIndex );
 
 
 
@@ -3044,30 +3059,31 @@ Mech.prototype.moveCritical = function ( itemTag, fromLocation, fromIndex, toLoc
 	if( fromItem ) {
 
 		if( toLocation == "hd" ) {
-			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.head, toIndex );
+			return this._moveItemToArea( fromLocationObj, itemRear, fromItem, fromIndex, this.criticals.head, toIndex );
 		} else if( toLocation == "ct" ) {
-			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.centerTorso, toIndex );
+			return this._moveItemToArea( fromLocationObj, itemRear, fromItem, fromIndex, this.criticals.centerTorso, toIndex );
 		} else if( toLocation == "rt" ) {
-			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.rightTorso, toIndex );
+			return this._moveItemToArea( fromLocationObj, itemRear, fromItem, fromIndex, this.criticals.rightTorso, toIndex );
 		} else if( toLocation == "rl" ) {
-			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.rightLeg, toIndex );
+			return this._moveItemToArea( fromLocationObj, itemRear, fromItem, fromIndex, this.criticals.rightLeg, toIndex );
 		} else if( toLocation == "ra" ) {
-			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.rightArm, toIndex );
+			return this._moveItemToArea( fromLocationObj, itemRear, fromItem, fromIndex, this.criticals.rightArm, toIndex );
 		} else if( toLocation == "lt" ) {
-			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.leftTorso, toIndex );
+			return this._moveItemToArea( fromLocationObj, itemRear, fromItem, fromIndex, this.criticals.leftTorso, toIndex );
 		} else if( toLocation == "ll" ) {
-			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.leftLeg, toIndex );
+			return this._moveItemToArea( fromLocationObj, itemRear, fromItem, fromIndex, this.criticals.leftLeg, toIndex );
 		} else if( toLocation == "la" ) {
-			return this._moveItemToArea( fromLocationObj, fromItem, fromIndex, this.criticals.leftArm, toIndex );
+			return this._moveItemToArea( fromLocationObj, itemRear, fromItem, fromIndex, this.criticals.leftArm, toIndex );
 		}
 	}
 
 	return false;
 };
 
-Mech.prototype._moveItemToArea = function( fromLocation, fromItem, fromIndex, toLocation, toIndex) {
+Mech.prototype._moveItemToArea = function( fromLocation, itemRear, fromItem, fromIndex, toLocation, toIndex) {
 	//~ //console.log( "Mech._moveItemToArea()", fromLocation, fromItem, fromIndex, toLocation, toIndex);
 	//~ console.log( "Mech._moveItemToArea() fromLocation : ", fromLocation );
+	//~ console.log( "Mech._moveItemToArea() itemRear : ", itemRear );
 	//~ console.log( "Mech._moveItemToArea() fromItem : ", fromItem );
 	//~ console.log( "Mech._moveItemToArea() fromIndex : ", fromIndex );
 	//~ console.log( "Mech._moveItemToArea() toLocation : ", toLocation );
@@ -3100,7 +3116,6 @@ Mech.prototype._moveItemToArea = function( fromLocation, fromItem, fromIndex, to
 
 		//~ console.log( "tob",toLocation );
 
-
 		fromLocation[ fromIndex ] = null;
 		nextCounter = 1;
 		while(
@@ -3121,10 +3136,18 @@ Mech.prototype._moveItemToArea = function( fromLocation, fromItem, fromIndex, to
 
 }
 
-Mech.prototype._allocateCritical = function(equipment_tag, mech_location, slot_number, remove_from_unallocated) {
+Mech.prototype._allocateCritical = function(equipment_tag, equipment_rear, mech_location, slot_number, remove_from_unallocated) {
 
 	for(uaet_c = 0; uaet_c < this.unallocatedCriticals.length; uaet_c++) {
-		if( equipment_tag == this.unallocatedCriticals[uaet_c].tag ) {
+		//~ console.log( "equipment_tag", equipment_tag);
+		//~ console.log( "equipment_rear", equipment_rear);
+		//~ console.log( "this.unallocatedCriticals[uaet_c].tag ", this.unallocatedCriticals[uaet_c].tag );
+		//~ console.log( "this.unallocatedCriticals[uaet_c].rear", this.unallocatedCriticals[uaet_c].rear);
+		if(
+			equipment_tag == this.unallocatedCriticals[uaet_c].tag
+				&&
+			this.unallocatedCriticals[uaet_c].rear == equipment_rear
+		) {
 			if(  this.unallocatedCriticals[uaet_c] && this.unallocatedCriticals[uaet_c].obj )
 				this.unallocatedCriticals[uaet_c].obj.location = mech_location;
 
