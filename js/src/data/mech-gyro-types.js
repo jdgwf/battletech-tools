@@ -5,7 +5,11 @@ var mechGyroTypes = Array(
 		},
 		tag: "standard",
 		weight_multiplier: 1,
-		criticals: 4
+		criticals: 4,
+		costmultiplier: 300000,
+		introduced: 2300,
+		extinct: 0,
+		reintroduced: 0
 	},
 	{
 		name: {
@@ -13,7 +17,11 @@ var mechGyroTypes = Array(
 		},
 		tag: "xl",
 		weight_multiplier: 0.5,
-		criticals: 6
+		criticals: 6,
+		costmultiplier: 750000,
+		introduced: 3050,
+		extinct: 0,
+		reintroduced: 0
 	},
 	{
 		name: {
@@ -21,7 +29,11 @@ var mechGyroTypes = Array(
 		},
 		tag: "compact",
 		weight_multiplier: 1.5,
-		criticals: 2
+		criticals: 2,
+		costmultiplier: 400000,
+		introduced: 3050,
+		extinct: 0,
+		reintroduced: 0
 	},
 	{
 		name: {
@@ -29,6 +41,10 @@ var mechGyroTypes = Array(
 		},
 		tag: "heavy-duty",
 		weight_multiplier: 2,
-		criticals: 4
+		criticals: 4,
+		costmultiplier: 500000,
+		introduced: 3050,
+		extinct: 0,
+		reintroduced: 0
 	}
 );

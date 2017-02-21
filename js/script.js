@@ -806,7 +806,7 @@ var btEraOptions = Array(
 	{
 		id: 1,
 		name: {
-			'en-US': "Age of War/Star League",
+			'en-US': "Age of War/Star League (2400-2780)",
 			'de-DE': "de - Age of War/Star League"
 		},
 		year_start: 2400,
@@ -815,7 +815,7 @@ var btEraOptions = Array(
 	{
 		id: 2,
 		name: {
-			'en-US': "Succession Wars",
+			'en-US': "Succession Wars (2781-3049)",
 			'de-DE': "de - Succession Wars"
 		},
 		year_start: 2781,
@@ -824,7 +824,7 @@ var btEraOptions = Array(
 	{
 		id: 3,
 		name: {
-			'en-US': "Clan Invasion",
+			'en-US': "Clan Invasion (3050-3085)",
 			'de-DE': "de - Clan Invasion"
 		},
 		year_start: 3050,
@@ -834,7 +834,7 @@ var btEraOptions = Array(
 	{
 		id: 4,
 		name: {
-			'en-US': "Dark Ages",
+			'en-US': "Dark Ages (3085+)",
 			'de-DE': "de - Dark Ages"
 		},
 		year_start: 3085,
@@ -842,6 +842,7 @@ var btEraOptions = Array(
 	}
 	*/
 );
+
 battlemechLocations = Array(
 	{
 		tag: "hd",
@@ -988,6 +989,111 @@ battlemechLocations = Array(
 		}
 	}
 );
+var mechArmorTypes = Array(
+	{
+		name: {
+			"en-US": "Standard/Heavy Industrial"
+		},
+		tag: "standard",
+		crits: {
+			clan: 0,
+			is: 0
+		},
+		armormultiplier: {
+			clan: 16,
+			is: 16
+		},
+
+		costmultiplier: 10000,
+		introduced: 2300,
+		extinct: 0,
+		reintroduced: 0
+	},
+	{
+		name: {
+			"en-US": "Ferro Fibrous"
+		},
+		tag: "ferro-fibrous",
+		armormultiplier: {
+			clan: 16 * 1.2,
+			is: 16 * 1.12
+		},
+		crits: {
+			clan: 7,
+			is: 14
+		},
+		costmultiplier: 20000,
+		introduced: 2300,
+		extinct: 0,
+		reintroduced: 0
+	},
+
+	{
+		name: {
+			"en-US": "Light Ferro Fibrous"
+		},
+		tag: "light-ferro-fibrous",
+		armormultiplier: {
+			clan: 0,
+			is: 7
+		},
+		crits: {
+			clan: 0,
+			is: 16 * 1.06
+		},
+		costmultiplier: 15000,
+		introduced: 3050,
+		extinct: 0,
+		reintroduced: 0
+	},
+
+	{
+		name: {
+			"en-US": "Heavy Ferro Fibrous"
+		},
+		tag: "light-ferro-fibrous",
+		armormultiplier: {
+			clan: 0,
+			is: 16 * 1.24
+		},
+		crits: {
+			clan: 0,
+			is: 21
+		},
+		costmultiplier: 25000,
+		introduced: 3050,
+		extinct: 0,
+		reintroduced: 0
+	},
+
+	{
+		name: {
+			"en-US": "Stealth"
+		},
+		tag: "ferro-fibrous",
+		armormultiplier: {
+			clan: 0,
+			is: 16
+		},
+		crits: {
+			clan: 0,
+			is: 12
+		},
+		crit_locs: {
+			"ra": 2,
+			"rl": 2,
+			"rt": 2,
+			"la": 2,
+			"ll": 2,
+			"lt": 2
+		},
+		costmultiplier: 50000,
+		introduced: 3050,
+		extinct: 0,
+		reintroduced: 0
+	}
+);
+
 var mechClanEquipment = Array(
 );
 var mechEngineOptions = Array(
@@ -2024,7 +2130,7 @@ var mechEngineOptions = Array(
 var mechEngineTypes = Array(
 	{
 		name: {
-			"en-US": "Military Fusion (standard)"
+			"en-US": "Standard Fusion"
 		},
 		tag: "standard",
 		criticals: {
@@ -2034,7 +2140,11 @@ var mechEngineTypes = Array(
 			clan: {
 				ct: 6
 			}
-		}
+		},
+		costmultiplier: 5000,
+		introduced: 2300,
+		extinct: 0,
+		reintroduced: 0
 	},
 	{
 		name: {
@@ -2052,7 +2162,11 @@ var mechEngineTypes = Array(
 				lt: 2,
 				rt: 2
 			}
-		}
+		},
+		costmultiplier: 20000,
+		introduced: 2300,
+		extinct: 0,
+		reintroduced: 0
 	},
 	{
 		name: {
@@ -2065,7 +2179,11 @@ var mechEngineTypes = Array(
 				lt: 2,
 				rt: 2
 			}
-		}
+		},
+		costmultiplier: 15000,
+		introduced: 3050,
+		extinct: 0,
+		reintroduced: 0
 	},
 	{
 		name: {
@@ -2076,7 +2194,11 @@ var mechEngineTypes = Array(
 			is: {
 				ct: 3
 			}
-		}
+		},
+		costmultiplier: 10000,
+		introduced: 3050,
+		extinct: 0,
+		reintroduced: 0
 	}
 );
 
@@ -2087,7 +2209,11 @@ var mechGyroTypes = Array(
 		},
 		tag: "standard",
 		weight_multiplier: 1,
-		criticals: 4
+		criticals: 4,
+		costmultiplier: 300000,
+		introduced: 2300,
+		extinct: 0,
+		reintroduced: 0
 	},
 	{
 		name: {
@@ -2095,7 +2221,11 @@ var mechGyroTypes = Array(
 		},
 		tag: "xl",
 		weight_multiplier: 0.5,
-		criticals: 6
+		criticals: 6,
+		costmultiplier: 750000,
+		introduced: 3050,
+		extinct: 0,
+		reintroduced: 0
 	},
 	{
 		name: {
@@ -2103,7 +2233,11 @@ var mechGyroTypes = Array(
 		},
 		tag: "compact",
 		weight_multiplier: 1.5,
-		criticals: 2
+		criticals: 2,
+		costmultiplier: 400000,
+		introduced: 3050,
+		extinct: 0,
+		reintroduced: 0
 	},
 	{
 		name: {
@@ -2111,7 +2245,11 @@ var mechGyroTypes = Array(
 		},
 		tag: "heavy-duty",
 		weight_multiplier: 2,
-		criticals: 4
+		criticals: 4,
+		costmultiplier: 500000,
+		introduced: 3050,
+		extinct: 0,
+		reintroduced: 0
 	}
 );
 
@@ -3600,7 +3738,11 @@ var mechJumpJetTypes = Array(
 			medium: 1,
 			heavy: 2
 		},
-		criticals: 1
+		criticals: 1,
+		costmultiplier: 200,
+		introduced: 2300,
+		extinct: 0,
+		reintroduced: 0
 	},
 
 	{
@@ -3613,7 +3755,11 @@ var mechJumpJetTypes = Array(
 			medium: 2,
 			heavy: 4
 		},
-		criticals: 2
+		criticals: 2,
+		costmultiplier: 500,
+		introduced: 3050,
+		extinct: 0,
+		reintroduced: 0
 	}
 );
 

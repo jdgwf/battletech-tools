@@ -2,7 +2,7 @@ var btEraOptions = Array(
 	{
 		id: 1,
 		name: {
-			'en-US': "Age of War/Star League",
+			'en-US': "Age of War/Star League (2400-2780)",
 			'de-DE': "de - Age of War/Star League"
 		},
 		year_start: 2400,
@@ -11,7 +11,7 @@ var btEraOptions = Array(
 	{
 		id: 2,
 		name: {
-			'en-US': "Succession Wars",
+			'en-US': "Succession Wars (2781-3049)",
 			'de-DE': "de - Succession Wars"
 		},
 		year_start: 2781,
@@ -20,7 +20,7 @@ var btEraOptions = Array(
 	{
 		id: 3,
 		name: {
-			'en-US': "Clan Invasion",
+			'en-US': "Clan Invasion (3050-3085)",
 			'de-DE': "de - Clan Invasion"
 		},
 		year_start: 3050,
@@ -30,7 +30,7 @@ var btEraOptions = Array(
 	{
 		id: 4,
 		name: {
-			'en-US': "Dark Ages",
+			'en-US': "Dark Ages (3085+)",
 			'de-DE': "de - Dark Ages"
 		},
 		year_start: 3085,

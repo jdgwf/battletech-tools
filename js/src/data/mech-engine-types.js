@@ -1,7 +1,7 @@
 var mechEngineTypes = Array(
 	{
 		name: {
-			"en-US": "Military Fusion (standard)"
+			"en-US": "Standard Fusion"
 		},
 		tag: "standard",
 		criticals: {
@@ -11,7 +11,11 @@ var mechEngineTypes = Array(
 			clan: {
 				ct: 6
 			}
-		}
+		},
+		costmultiplier: 5000,
+		introduced: 2300,
+		extinct: 0,
+		reintroduced: 0
 	},
 	{
 		name: {
@@ -29,7 +33,11 @@ var mechEngineTypes = Array(
 				lt: 2,
 				rt: 2
 			}
-		}
+		},
+		costmultiplier: 20000,
+		introduced: 2300,
+		extinct: 0,
+		reintroduced: 0
 	},
 	{
 		name: {
@@ -42,7 +50,11 @@ var mechEngineTypes = Array(
 				lt: 2,
 				rt: 2
 			}
-		}
+		},
+		costmultiplier: 15000,
+		introduced: 3050,
+		extinct: 0,
+		reintroduced: 0
 	},
 	{
 		name: {
@@ -53,6 +65,10 @@ var mechEngineTypes = Array(
 			is: {
 				ct: 3
 			}
-		}
+		},
+		costmultiplier: 10000,
+		introduced: 3050,
+		extinct: 0,
+		reintroduced: 0
 	}
 );

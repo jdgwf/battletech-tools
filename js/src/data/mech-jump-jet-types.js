@@ -9,7 +9,11 @@ var mechJumpJetTypes = Array(
 			medium: 1,
 			heavy: 2
 		},
-		criticals: 1
+		criticals: 1,
+		costmultiplier: 200,
+		introduced: 2300,
+		extinct: 0,
+		reintroduced: 0
 	},
 
 	{
@@ -22,6 +26,10 @@ var mechJumpJetTypes = Array(
 			medium: 2,
 			heavy: 4
 		},
-		criticals: 2
+		criticals: 2,
+		costmultiplier: 500,
+		introduced: 3050,
+		extinct: 0,
+		reintroduced: 0
 	}
 );
