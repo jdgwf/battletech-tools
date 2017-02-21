@@ -6053,6 +6053,34 @@ Mech.prototype.makeTROBBCode = function() {
 		}
 	}
 
+	var jjObjs = [];
+	//~ console.log( "this.unallocatedCriticals", this.unallocatedCriticals );
+	for( var critC = 0; critC < this.unallocatedCriticals.length; critC++ ) {
+		if(
+			this.unallocatedCriticals[ critC ]
+			&& this.unallocatedCriticals[ critC ].tag
+			&& this.unallocatedCriticals[ critC ].tag.indexOf( "jj-") === 0
+		) {
+			jjObjs.push(this.unallocatedCriticals[ critC ] );
+		}
+	}
+	//~ console.log( "jjObjs", jjObjs );
+	if( jjObjs.length > 0 ) {
+		var areaWeight = 0;
+		if( this.tonnage <= 55) {
+			// 10-55 tons
+			areaWeight = jjObjs.length * this.jumpJetType.weight_multiplier.light;
+		} else if(this.tonnage <= 85) {
+			// 60 - 85 tons
+			areaWeight = jjObjs.length * this.jumpJetType.weight_multiplier.medium;
+		} else {
+			// 90+ tons
+			areaWeight = jjObjs.length * this.jumpJetType.weight_multiplier.heavy;
+		}
+			html += "" + jjObjs[0].name.rpad(" ", col1Padding) + "" + "n/a".toUpperCase().rpad(" ", col2Padding) + "" + jjObjs.length.toString().rpad(" ", col3Padding) + "" + areaWeight.toString().rpad(" ", col4Padding) + "\n";
+
+	}
+
 
 	return "[code]" +  html + "[/code]";
 }
@@ -6223,7 +6251,33 @@ Mech.prototype.makeTROHTML = function() {
 		}
 	}
 
+	var jjObjs = [];
+	//~ console.log( "this.unallocatedCriticals", this.unallocatedCriticals );
+	for( var critC = 0; critC < this.unallocatedCriticals.length; critC++ ) {
+		if(
+			this.unallocatedCriticals[ critC ]
+			&& this.unallocatedCriticals[ critC ].tag
+			&& this.unallocatedCriticals[ critC ].tag.indexOf( "jj-") === 0
+		) {
+			jjObjs.push(this.unallocatedCriticals[ critC ] );
+		}
+	}
+	//~ console.log( "jjObjs", jjObjs );
+	if( jjObjs.length > 0 ) {
+		var areaWeight = 0;
+		if( this.tonnage <= 55) {
+			// 10-55 tons
+			areaWeight = jjObjs.length * this.jumpJetType.weight_multiplier.light;
+		} else if(this.tonnage <= 85) {
+			// 60 - 85 tons
+			areaWeight = jjObjs.length * this.jumpJetType.weight_multiplier.medium;
+		} else {
+			// 90+ tons
+			areaWeight = jjObjs.length * this.jumpJetType.weight_multiplier.heavy;
+		}
+			html += "<tr><td class=\"text-left\">" + jjObjs[0].name + "</td><td class=\"text-center\">" + "n/a".toUpperCase() + "</strong></td><td class=\"text-center\">" + jjObjs.length + "</td><td class=\"text-center\">" + areaWeight + "</td></tr>";
 
+	}
 
 	// END Weapons and Ammo
 	html += "</table>";
