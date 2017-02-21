@@ -79,6 +79,8 @@ var battlemechCreatorControllerStep6Array =
 
 				$scope.errorCannotPlace = false;
 				$scope.errorCannotMove = false;
+				$scope.torsosAndHeadOnly = false;
+				$scope.legsAndTorsosOnly = false;
 
 				//~ console.log( "step6ItemClick", criticalItem, indexLocation, locationString );
 				if( $scope.selectedItem == null ) {
@@ -103,33 +105,65 @@ var battlemechCreatorControllerStep6Array =
 						//~ console.log( "Slot is already filled" );
 						$scope.errorCannotPlace = true;
 					} else {
-						var itemTag =  $scope.selectedItem.item.tag;
-						var fromLocation =  $scope.selectedItem.from;
-						var fromIndex =  $scope.selectedItem.index;
-						var toLocation = locationString;
-						var toIndex = indexLocation;
-						worked = current_mech.moveCritical(
-							itemTag,
-							fromLocation,
-							fromIndex,
-							toLocation,
-							toIndex
-						);
 
-						if( worked ) {
-							//console.log( "a", current_mech.criticals.head )
-							current_mech.updateCriticalAllocationTable();
-							//console.log("b", current_mech.criticals.head )
-							current_mech._calc();
-							//console.log("c", current_mech.criticals.head )
-							localStorage["tmp.current_mech"] = current_mech.exportJSON();
 
-							update_step_6_items($scope, current_mech);
-							update_mech_status_bar_and_tro($scope, $translate, current_mech);
+						if(
+							$scope.selectedItem.item.rear
+								&&
+							(
+								locationString == "ra"
+									||
+								locationString == "la"
+									||
+								locationString == "rl"
+									||
+								locationString == "ll"
+							)
+						) {
+							$scope.torsosAndHeadOnly = true;
+						} if(
+							$scope.selectedItem.item.tag.indexOf("jj-") === 0
+								&&
+							(
+								locationString == "ra"
+									||
+								locationString == "la"
+									||
+								locationString == "hd"
+							)
+						) {
+							$scope.legsAndTorsosOnly = true;
+						}else {
 
-							$scope.selectedItem = null;
-						} else {
-							$scope.errorCannotPlace = true;
+
+							var itemTag =  $scope.selectedItem.item.tag;
+							var fromLocation =  $scope.selectedItem.from;
+							var fromIndex =  $scope.selectedItem.index;
+							var toLocation = locationString;
+							var toIndex = indexLocation;
+							worked = current_mech.moveCritical(
+								itemTag,
+								fromLocation,
+								fromIndex,
+								toLocation,
+								toIndex
+							);
+
+							if( worked ) {
+								//console.log( "a", current_mech.criticals.head )
+								current_mech.updateCriticalAllocationTable();
+								//console.log("b", current_mech.criticals.head )
+								current_mech._calc();
+								//console.log("c", current_mech.criticals.head )
+								localStorage["tmp.current_mech"] = current_mech.exportJSON();
+
+								update_step_6_items($scope, current_mech);
+								update_mech_status_bar_and_tro($scope, $translate, current_mech);
+
+								$scope.selectedItem = null;
+							} else {
+								$scope.errorCannotPlace = true;
+							}
 						}
 					}
 

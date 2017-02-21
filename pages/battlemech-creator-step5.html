@@ -58,6 +58,7 @@
 									<tr>
 										<th translate="BM_STEP5_ITEM_NAME">Name</th>
 <!-- 										<th translate="BM_STEP5_ITEM_LOCATION">Location</th> -->
+										<th translate="BM_STEP5_ITEM_REAR">Rear?</th>
 										<th translate="BM_STEP5_ITEM_WEIGHT">Weight</th>
 										<th>&nbsp;</th>
 									</tr>
@@ -69,6 +70,9 @@
 											<select ng-change="updateLocation($index)" ng-options="option.name for option in bm_location_list.availableOptions track by option.id" ng-model="item_locations[$index]"></select>
 										</td> -->
 										<td class="text-center">{{item.weight}}</td>
+										<td class="text-center">
+											<input type="checkbox" ng-checked="item.rear" ng-click="setRear($index, item.rear)" />
+										</td>
 										<td class="text-right"><button ng-click="removeItem($index)" class="button expanded radius tiny primary"><span translate="BM_STEP5_REMOVE">Remove</span></button></td>
 									</tr>
 								</tbody>

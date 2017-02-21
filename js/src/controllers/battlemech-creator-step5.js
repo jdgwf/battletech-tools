@@ -142,7 +142,12 @@ var battlemechCreatorControllerStep5Array =
 					update_mech_status_bar_and_tro($scope, $translate, current_mech);
 					localStorage["tmp.current_mech"] = current_mech.exportJSON();
 				}
+			};
 
+			$scope.setRear = function( index_number, newValue ) {
+				current_mech.setRear( index_number, !newValue );
+				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				localStorage["tmp.current_mech"] = current_mech.exportJSON();
 			};
 
 			$scope.removeItem = function( index_number ) {

@@ -54,6 +54,7 @@ available_languages.push ({
 		GENERAL_CANCEL: "Cancel",
 		GENERAL_YES: "Yes",
 		GENERAL_NO: "No",
+		GENERAL_REAR: "rear",
 
 		GENERAL_REMOVE: "Remove",
 		GENERAL_SAVED: "Saved",
@@ -184,6 +185,7 @@ available_languages.push ({
 		BM_STEP5_NO_EQUIPMENT_INSTALLED: "No equipment has been installed",
 		BM_STEP5_SELECT_LOCATION: "Select Location",
 		BM_STEP5_AVAILABLE_EQUIPMENT: "Available Equipment",
+		BM_STEP5_ITEM_REAR: "Rear?",
 
 		BM_STEP6_TITLE: "Step 6",
 		BM_STEP6_DESC: "Complete the record sheet",
@@ -196,6 +198,8 @@ available_languages.push ({
 		BM_STEP6_SELECT_AN_PLACE_TO_ALLOCATE: "Click on an available location",
 		BM_STEP6_CANNOT_MOVE_THAT_ITEM: "You cannot move that item",
 		BM_STEP6_CANNOT_BE_PLACED: "Item cannot be placed there",
+		BM_STEP6_TORSO_AND_HEAD_ONLY: "Item may only be placed on torsos and head",
+		BM_STEP6_TORSO_AND_LEGS_ONLY: "Item may only be placed on torsos and legs",
 
 		BM_SUMMARY_TITLE: "Summary",
 		BM_SUMMARY_DESC: "",

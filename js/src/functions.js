@@ -75,3 +75,22 @@ String.prototype.rpad = function(padString, length) {
         str = str + padString;
     return str;
 }
+
+function getMovementModifier( moveScore ) {
+	if( moveScore >= 25 ) {
+		return 6;
+	} else if ( moveScore >= 18 ) {
+		return 5;
+	} else if ( moveScore >= 10 ) {
+		return 4;
+	} else if ( moveScore >= 7 ) {
+		return 3;
+	} else if ( moveScore >= 5 ) {
+		return 2;
+	} else if ( moveScore >= 3 ) {
+		return 1;
+	}
+
+	return 0;
+
+}

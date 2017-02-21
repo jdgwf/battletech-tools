@@ -761,6 +761,25 @@ String.prototype.rpad = function(padString, length) {
     return str;
 }
 
+function getMovementModifier( moveScore ) {
+	if( moveScore >= 25 ) {
+		return 6;
+	} else if ( moveScore >= 18 ) {
+		return 5;
+	} else if ( moveScore >= 10 ) {
+		return 4;
+	} else if ( moveScore >= 7 ) {
+		return 3;
+	} else if ( moveScore >= 5 ) {
+		return 2;
+	} else if ( moveScore >= 3 ) {
+		return 1;
+	}
+
+	return 0;
+
+}
+
 
 var btEraOptions = Array(
 	{
@@ -4828,6 +4847,8 @@ function Mech (type) {
 	this.internalStructure.rightArm = 0;
 	this.internalStructure.leftArm = 0;
 
+	this.totalInternalStructurePoints = 0;
+
 	this.max_move_heat = 2;
 	this.max_weapon_heat = 0;
 	this.heat_dissipation = 0;
@@ -5560,8 +5581,163 @@ Mech.prototype._calcBattleValue = function() {
 
 
 	this.battleValue = 0;
-	this.calcLogBV = "TODO";
+	this.calcLogBV = "";
 
+	/* ***************************************************
+	 *  STEP 1: CALCULATE DEFENSIVE BATTLE RATING - TM p302
+	 * ************************************************ */
+	 var defensiveBattleRating = 0;
+	 this.calcLogBV += "<strong>STEP 1: CALCULATE DEFENSIVE BATTLE RATING - TM p302</strong><br />";
+	 var totalArmorFactor = 2.5 * this.getTotalArmor();
+	 this.calcLogBV += "Total Armor Factor = Armor Factor x 2.5: " + totalArmorFactor + " = 2.5 x " + this.getTotalArmor() + "<br />";
+
+
+	// Get Armor Rating
+	 switch( this.armorType ) {
+		 case "commercial":
+			this.calcLogBV += "Total Armor Factor = 0.5 * Total Armor Factor Modifier for Commercial Armor: " + totalArmorFactor + " x 0.5 = " + (totalArmorFactor * .5) + "<br />";
+			totalArmorFactor = totalArmorFactor * 0.5;
+			break;
+		default:
+			this.calcLogBV += "Total Armor Factor = 1.0 * Total Armor Factor Modifier for Non-Commercial Armor:  " + totalArmorFactor + " x 1 = " + (totalArmorFactor * 1) + "<br />";
+			break;
+	 }
+
+	 // Get for Internal Structure Rating
+	 var totalInternalStructurePoints = 1.5 * this.totalInternalStructurePoints;
+	 this.calcLogBV += "Total Internal Structure Points = Internal Structure Points x 1.5: " + totalInternalStructurePoints + " = 1.5 x " + this.totalInternalStructurePoints + "<br />";
+
+	 // Adjust IS for Type
+	 switch( this.internalStructureType ) {
+		 case "industrial":
+			this.calcLogBV += "Total Internal Structure BV = 0.5 x I.S. BV for Industrial Internal Structure: " + totalInternalStructurePoints + " x 0.5 = " + (totalInternalStructurePoints * .5) + "<br />";
+			totalInternalStructurePoints = totalInternalStructurePoints * 0.5;
+			break;
+		 case "endo-steel":
+			this.calcLogBV += "Total Internal Structure = 1.0 x I.S. BV for Endo-Steel Internal Structure: " + totalInternalStructurePoints + " x 1 = " + (totalInternalStructurePoints * 1) + "<br />";
+			totalInternalStructurePoints = totalInternalStructurePoints * 1;
+			break;
+		default:
+			this.calcLogBV += "Total Internal Structure = 1.0 x I.S. BV for Standard Internal Structure:  " + totalInternalStructurePoints + " x 1 = " + (totalInternalStructurePoints * 1) + "<br />";
+			totalInternalStructurePoints = totalInternalStructurePoints * 1;
+			break;
+	 }
+
+	// Adjust IS for Engine Type
+	 switch( this.engineType ) {
+		 case "light":
+			this.calcLogBV += "Total Internal Structure = 0.75 x I.S. BV for Light Engine: " + totalInternalStructurePoints + " x 0.5 = " + (totalInternalStructurePoints * .5) + "<br />";
+			totalInternalStructurePoints = totalInternalStructurePoints * .75;
+			break;
+		 case "xl":
+			if( this.getTech().tag == "clan" ) {
+				// Clan XL
+				this.calcLogBV += "Total Internal Structure = 0.75 x I.S. BV for Clan XL Engine: " + totalInternalStructurePoints + " x 0.5 = " + (totalInternalStructurePoints * .5) + "<br />";
+				totalInternalStructurePoints = totalInternalStructurePoints * .5;
+				break;
+			} else {
+				// Inner Sphere
+				this.calcLogBV += "Total Internal Structure = 0.75 x I.S. BV for Inner Sphere XL Engine: " + totalInternalStructurePoints + " x 0.75 = " + (totalInternalStructurePoints * .75) + "<br />";
+				totalInternalStructurePoints = totalInternalStructurePoints * .75;
+				break;
+			}
+		case "compact":
+			this.calcLogBV += "Total Internal Structure = 1.0 x I.S. BV for Compact Engine:  " + totalInternalStructurePoints + " x 1 = " + (totalInternalStructurePoints * 1) + "<br />";
+			totalInternalStructurePoints = totalInternalStructurePoints * 1;
+			break;
+		default:
+			this.calcLogBV += "Total Internal Structure = 1.0 x I.S. BV for Standard Engine:  " + totalInternalStructurePoints + " x 1 = " + (totalInternalStructurePoints * 1) + "<br />";
+			totalInternalStructurePoints = totalInternalStructurePoints * 1;
+			break;
+	 }
+
+
+
+
+	// Add in the Gyro Modifier
+	var totalGyroPoints = 0;
+	 switch( this.internalStructureType ) {
+		 case "compact":
+			this.calcLogBV += "Total Gyro BV = 0.5 x Tonnage for Compact Gyro: " + this.getTonnage()  + " x 0.5 = " + (this.getTonnage()  * .5) + "<br />";
+			totalGyroPoints = this.getTonnage() * 0.5;
+			break;
+		 case "xl":
+			this.calcLogBV += "Total Gyro BV = 0.5 x Tonnage for Extra Light Gyro: " + this.getTonnage()  + " x 0.5 = " + (this.getTonnage()  * .5) + "<br />";
+			totalGyroPoints = this.getTonnage() * 0.5;
+			break;
+		 case "heavy-duty":
+			this.calcLogBV += "Total Gyro BV = 1 x Tonnage for Heavy Duty Gyro: " + this.getTonnage()  + " x 0.5 = " + (this.getTonnage()  * .5) + "<br />";
+			totalGyroPoints = this.getTonnage() * 1;
+			break;
+		default:
+			this.calcLogBV += "Total Gyro BV = 0.5 x Tonnage for Standard Gyro: " + this.getTonnage()  + " x 0.5 = " + (this.getTonnage()  * .5) + "<br />";
+			totalGyroPoints = this.getTonnage() * 0.5;
+			break;
+	 }
+
+	// TODO - Get Explosive Ammo Modifiers
+	var explosiveAmmoModifiers = 0;
+	this.calcLogBV += "<strong class=\"color-red\">TODO</strong>: Get Explosive Ammo Modifiers<br />";
+
+
+	defensiveBattleRating = totalArmorFactor + totalInternalStructurePoints + totalGyroPoints - explosiveAmmoModifiers;
+
+	// Get Defensive Factor Modifier
+
+
+	var runSpeed = this.getRunSpeed();
+	var jumpSpeed = this.getJumpSpeed();
+	var runModifier = getMovementModifier( runSpeed );
+	var jumpModifier = getMovementModifier( jumpSpeed ) + 1;
+
+	var moveModifier = 0;
+	if( jumpModifier > runModifier )
+		moveModifier = jumpModifier;
+	else
+		moveModifier = runModifier;
+
+	var targetModifierRating = 1 + moveModifier / 10;
+	if( targetModifierRating < 1 )
+		targetModifierRating = 1;
+
+	this.calcLogBV += "Target Move Modifier (targetModifierRating = 1 + moveModifier / 10): " + targetModifierRating + " = 1 + " + moveModifier + " / 10<br />";
+
+	// TODO for equipment.... add camo, stealth, etc when it's available
+	this.calcLogBV += "<strong class=\"color-red\">TODO</strong>: targetModifierRating for equipment.... add camo, stealth, etc when tech is available<br />";
+
+	this.calcLogBV += "Defensive battle rating = Defensive battle rating * Target Modifier Rating : " + (defensiveBattleRating * targetModifierRating) + " = " + defensiveBattleRating + " x " + targetModifierRating + "<br />";
+
+	defensiveBattleRating = defensiveBattleRating * targetModifierRating;
+
+	this.calcLogBV += "<strong>Final defensive battle rating</strong>: " + defensiveBattleRating + "<br />";
+
+	/* ***************************************************
+	 *  STEP 2: CALCULATE OFFENSIVE BATTLE RATING - TM p303
+	 * ************************************************ */
+	 var offensiveBattleRating = 0;
+	 this.calcLogBV += "<strong>STEP 2: CALCULATE OFFENSIVE BATTLE RATING - TM p303</strong><br />";
+
+	// TODO
+	this.calcLogBV += "<strong class=\"color-red\">TODO</strong>: All offensive<br />";
+
+	this.calcLogBV += "<strong>Final offensive battle rating</strong>: " + offensiveBattleRating + "<br />";
+
+	/* ***************************************************
+	 * STEP 3: CALCULATE FINAL BATTLE VALUE - TM p304
+	 * ************************************************ */
+
+	 this.calcLogBV += "<strong>STEP 3: CALCULATE FINAL BATTLE VALUE - TM p304</strong><br />";
+	 var finalBattleValue = defensiveBattleRating + offensiveBattleRating;
+	 this.calcLogBV += "finalBattleValue = defensiveBattleRating + offensiveBattleRating: " + finalBattleValue + " = " + defensiveBattleRating + " + " + offensiveBattleRating + "<br />";
+
+	 if( this.smallCockpit ) {
+		finalBattleValue = Math.round( finalBattleValue * .95 );
+		this.calcLogBV += "Small Cockpit, multiply total by .95 and round final BV: " + finalBattleValue + "<br />";
+
+
+	 }
+	this.calcLogBV += "<strong>Final Battle Value</strong>: " + finalBattleValue + "<br />";
+	this.battleValue = finalBattleValue;
 }
 
 Mech.prototype._calcCBillCost = function() {
@@ -6154,8 +6330,11 @@ Mech.prototype._calc = function() {
 		this.weights.push( {name: "Additional Heat Sinks", weight: this.additional_heat_sinks} );
 
 	for( eq_count = 0; eq_count < this.equipmentList.length; eq_count++) {
-		this.weights.push( {name: this.equipmentList[eq_count].name + " (" + this.equipmentList[eq_count].location  + ")", weight: this.equipmentList[eq_count].weight} );
-
+		if( this.equipmentList[eq_count].rear ) {
+			this.weights.push( {name: this.equipmentList[eq_count].name + " (" + this.getTranslation("GENERAL_REAR") + ")", weight: this.equipmentList[eq_count].weight} );
+		} else {
+			this.weights.push( {name: this.equipmentList[eq_count].name + "", weight: this.equipmentList[eq_count].weight} );
+		}
 		if(  this.equipmentList[eq_count])
 			this.max_weapon_heat +=  this.equipmentList[eq_count].heat;
 	}
@@ -6194,7 +6373,6 @@ Mech.prototype._calc = function() {
 	}
 
 	this._calcCriticals();
-
 	this._calcAlphaStrike();
 	this._calcBattleValue();
 	this._calcCBillCost();
@@ -6215,7 +6393,6 @@ Mech.prototype._calcCriticals = function() {
 	this.criticals.leftLeg = Array(6);
 
 	this.unallocatedCriticals = Array();
-
 
 	// Add required components....
 	if( this.small_cockpit ) {
@@ -6342,9 +6519,13 @@ Mech.prototype._calcCriticals = function() {
 
 	// Get optional equipment...
 	for(var elc = 0; elc < this.equipmentList.length; elc++ ) {
+		//~ this.equipmentList[elc].location = "";
+		var rearTag = "";
+		if( this.equipmentList[elc].rear )
+			rearTag = " (" + this.getTranslation("GENERAL_REAR") + ")";
 		this.unallocatedCriticals.push(
 			{
-				name: this.equipmentList[elc].name[this.useLang] + " (" + this.localizeLocationAbbreviation(this.equipmentList[elc].location) + ")",
+				name: this.equipmentList[elc].name[this.useLang] + rearTag,
 				tag: this.equipmentList[elc].tag,
 				crits: this.equipmentList[elc].space.battlemech,
 				obj: this.equipmentList[elc],
@@ -6369,7 +6550,7 @@ Mech.prototype._calcCriticals = function() {
 		} );
 	}
 
-	//~ console.log( this.criticalAllocationTable );
+	//console.log( this.criticalAllocationTable );
 
 	// Allocate items per allocation table.
 	for( alt_c = 0; alt_c < this.criticalAllocationTable.length; alt_c++) {
@@ -6379,6 +6560,13 @@ Mech.prototype._calcCriticals = function() {
 			this.criticalAllocationTable[alt_c].slot,
 			true
 		)
+	}
+	//~ console.log( "this.unallocatedCriticals", this.unallocatedCriticals);
+
+	// remove location tag for remaining unallocated
+	for( var lCount = 0; lCount < this.unallocatedCriticals.length; lCount++ ) {
+		if( this.unallocatedCriticals[lCount].obj )
+			this.unallocatedCriticals[lCount].obj.location = "";
 	}
 
 }
@@ -6514,6 +6702,7 @@ Mech.prototype._isNextXCritsAvailable = function( area_array, critical_count, be
 }
 
 Mech.prototype._assignItemToArea = function( area_array, new_item, critical_count, slot_number ) {
+	//~ console.log( "_assignItemToArea", area_array, new_item, critical_count, slot_number);
 	var placeholder = {
 		uuid: new_item.uuid,
 		name: "placeholder",
@@ -7155,6 +7344,20 @@ Mech.prototype.setTonnage = function(newValue) {
 
 	this.max_armor_tonnage = this.max_armor / 16;
 
+	this.totalInternalStructurePoints = 0;
+
+	this.totalInternalStructurePoints += this.internalStructure.head;
+
+	this.totalInternalStructurePoints += this.internalStructure.centerTorso;
+	this.totalInternalStructurePoints += this.internalStructure.leftTorso;
+	this.totalInternalStructurePoints += this.internalStructure.rightTorso;
+
+	this.totalInternalStructurePoints += this.internalStructure.rightArm;
+	this.totalInternalStructurePoints += this.internalStructure.leftArm;
+
+	this.totalInternalStructurePoints += this.internalStructure.rightLeg;
+	this.totalInternalStructurePoints += this.internalStructure.leftLeg;
+
 	this.setWalkSpeed( this.walkSpeed );
 	this._calc();
 
@@ -7217,7 +7420,8 @@ Mech.prototype.exportJSON = function() {
 		export_object.equipment.push(
 			{
 				tag: this.equipmentList[eq_count].tag,
-				loc: this.equipmentList[eq_count].location
+				loc: this.equipmentList[eq_count].location,
+				rear: this.equipmentList[eq_count].rear
 			}
 		);
 	}
@@ -7320,7 +7524,11 @@ Mech.prototype.importJSON = function(json_string) {
 					// 	this.addEquipmentFromTag( import_item.tag, import_item.loc );
 					// if( this.getTech().tag == "clan")
 					// 	this.addEquipmentFromTag( import_item.tag), null, import_item.loc );
-					this.addEquipmentFromTag( import_item.tag, this.getTech().tag, import_item.loc );
+					if( import_item.rear && import_item.rear > 0)
+						import_item.rear = true;
+					else
+						import_item.rear = false;
+					this.addEquipmentFromTag( import_item.tag, this.getTech().tag, import_item.loc, import_item.rear );
 				}
 			}
 
@@ -7414,7 +7622,7 @@ Mech.prototype.getAdditionalHeatSinks = function() {
 };
 
 
-Mech.prototype.addEquipment = function(equipment_index, equipment_list_tag, location) {
+Mech.prototype.addEquipment = function(equipment_index, equipment_list_tag, location, rear) {
 	equipment_list = Array();
 	if( equipment_list_tag == "is") {
 		equipment_list = mechISEquipment;
@@ -7434,6 +7642,10 @@ Mech.prototype.addEquipment = function(equipment_index, equipment_list_tag, loca
 		}
 		if( typeof(location) != "undefined" )
 			equipment_item.location = location;
+		if( typeof(rear) != "undefined" )
+			equipment_item.rear = rear;
+		else
+			equipment_item.rear = false;
 		this.equipmentList.push( equipment_item );
 		return equipment_item;
 	}
@@ -7441,7 +7653,7 @@ Mech.prototype.addEquipment = function(equipment_index, equipment_list_tag, loca
 	return null;
 };
 
-Mech.prototype.addEquipmentFromTag = function(equipment_tag, equipment_list_tag, location) {
+Mech.prototype.addEquipmentFromTag = function(equipment_tag, equipment_list_tag, location, rear) {
 	equipment_list = Array();
 
 	if( !equipment_list_tag ) {
@@ -7467,6 +7679,7 @@ Mech.prototype.addEquipmentFromTag = function(equipment_tag, equipment_list_tag,
 			}
 			if( typeof(location) != "undefined" )
 				equipment_item.location = location;
+			equipment_item.rear = rear;
 			this.equipmentList.push( equipment_item );
 			return equipment_item;
 		}
@@ -7483,11 +7696,19 @@ Mech.prototype.removeEquipment = function(equipment_index) {
 	return null;
 };
 
+Mech.prototype.setRear = function(equipment_index, newValue) {
+	console.log("setRear", equipment_index, newValue);
+	if( this.equipmentList[equipment_index] ) {
+		this.equipmentList[equipment_index].rear = newValue;
+	}
+	return this.equipmentList[equipment_index].rear;
+};
+
 Mech.prototype.updateCriticalAllocationTable = function() {
 	this.criticalAllocationTable = Array();
 	for( mech_location in this.criticals ) {
 
-		for( crit_item_counter = 0; crit_item_counter < this.criticals[mech_location].length; crit_item_counter++) {
+		for( var crit_item_counter = 0; crit_item_counter < this.criticals[mech_location].length; crit_item_counter++) {
 			if(
 				this.criticals[mech_location] &&
 				this.criticals[mech_location][crit_item_counter] &&
@@ -7527,6 +7748,8 @@ Mech.prototype.updateCriticalAllocationTable = function() {
 		}
 	}
 	// this._calc();
+
+
 };
 
 Mech.prototype.moveCritical = function ( itemTag, fromLocation, fromIndex, toLocation, toIndex ) {
@@ -7727,7 +7950,9 @@ Mech.prototype.clearArmCriticalAllocationTable = function() {
 
 Mech.prototype.clearCriticalAllocationTable = function() {
 	this.criticalAllocationTable = Array();
+
 	this._calc();
+
 }
 
 Mech.prototype.setEquipmentLocation = function(equipment_index, location) {
@@ -9439,7 +9664,12 @@ var battlemechCreatorControllerStep5Array =
 					update_mech_status_bar_and_tro($scope, $translate, current_mech);
 					localStorage["tmp.current_mech"] = current_mech.exportJSON();
 				}
+			};
 
+			$scope.setRear = function( index_number, newValue ) {
+				current_mech.setRear( index_number, !newValue );
+				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				localStorage["tmp.current_mech"] = current_mech.exportJSON();
 			};
 
 			$scope.removeItem = function( index_number ) {
@@ -9567,6 +9797,8 @@ var battlemechCreatorControllerStep6Array =
 
 				$scope.errorCannotPlace = false;
 				$scope.errorCannotMove = false;
+				$scope.torsosAndHeadOnly = false;
+				$scope.legsAndTorsosOnly = false;
 
 				//~ console.log( "step6ItemClick", criticalItem, indexLocation, locationString );
 				if( $scope.selectedItem == null ) {
@@ -9591,33 +9823,65 @@ var battlemechCreatorControllerStep6Array =
 						//~ console.log( "Slot is already filled" );
 						$scope.errorCannotPlace = true;
 					} else {
-						var itemTag =  $scope.selectedItem.item.tag;
-						var fromLocation =  $scope.selectedItem.from;
-						var fromIndex =  $scope.selectedItem.index;
-						var toLocation = locationString;
-						var toIndex = indexLocation;
-						worked = current_mech.moveCritical(
-							itemTag,
-							fromLocation,
-							fromIndex,
-							toLocation,
-							toIndex
-						);
 
-						if( worked ) {
-							//console.log( "a", current_mech.criticals.head )
-							current_mech.updateCriticalAllocationTable();
-							//console.log("b", current_mech.criticals.head )
-							current_mech._calc();
-							//console.log("c", current_mech.criticals.head )
-							localStorage["tmp.current_mech"] = current_mech.exportJSON();
 
-							update_step_6_items($scope, current_mech);
-							update_mech_status_bar_and_tro($scope, $translate, current_mech);
+						if(
+							$scope.selectedItem.item.rear
+								&&
+							(
+								locationString == "ra"
+									||
+								locationString == "la"
+									||
+								locationString == "rl"
+									||
+								locationString == "ll"
+							)
+						) {
+							$scope.torsosAndHeadOnly = true;
+						} if(
+							$scope.selectedItem.item.tag.indexOf("jj-") === 0
+								&&
+							(
+								locationString == "ra"
+									||
+								locationString == "la"
+									||
+								locationString == "hd"
+							)
+						) {
+							$scope.legsAndTorsosOnly = true;
+						}else {
 
-							$scope.selectedItem = null;
-						} else {
-							$scope.errorCannotPlace = true;
+
+							var itemTag =  $scope.selectedItem.item.tag;
+							var fromLocation =  $scope.selectedItem.from;
+							var fromIndex =  $scope.selectedItem.index;
+							var toLocation = locationString;
+							var toIndex = indexLocation;
+							worked = current_mech.moveCritical(
+								itemTag,
+								fromLocation,
+								fromIndex,
+								toLocation,
+								toIndex
+							);
+
+							if( worked ) {
+								//console.log( "a", current_mech.criticals.head )
+								current_mech.updateCriticalAllocationTable();
+								//console.log("b", current_mech.criticals.head )
+								current_mech._calc();
+								//console.log("c", current_mech.criticals.head )
+								localStorage["tmp.current_mech"] = current_mech.exportJSON();
+
+								update_step_6_items($scope, current_mech);
+								update_mech_status_bar_and_tro($scope, $translate, current_mech);
+
+								$scope.selectedItem = null;
+							} else {
+								$scope.errorCannotPlace = true;
+							}
 						}
 					}
 
@@ -10311,6 +10575,7 @@ available_languages.push ({
 		GENERAL_CANCEL: "Cancel",
 		GENERAL_YES: "Yes",
 		GENERAL_NO: "No",
+		GENERAL_REAR: "rear",
 
 		GENERAL_REMOVE: "Remove",
 		GENERAL_SAVED: "Saved",
@@ -10441,6 +10706,7 @@ available_languages.push ({
 		BM_STEP5_NO_EQUIPMENT_INSTALLED: "No equipment has been installed",
 		BM_STEP5_SELECT_LOCATION: "Select Location",
 		BM_STEP5_AVAILABLE_EQUIPMENT: "Available Equipment",
+		BM_STEP5_ITEM_REAR: "Rear?",
 
 		BM_STEP6_TITLE: "Step 6",
 		BM_STEP6_DESC: "Complete the record sheet",
@@ -10453,6 +10719,8 @@ available_languages.push ({
 		BM_STEP6_SELECT_AN_PLACE_TO_ALLOCATE: "Click on an available location",
 		BM_STEP6_CANNOT_MOVE_THAT_ITEM: "You cannot move that item",
 		BM_STEP6_CANNOT_BE_PLACED: "Item cannot be placed there",
+		BM_STEP6_TORSO_AND_HEAD_ONLY: "Item may only be placed on torsos and head",
+		BM_STEP6_TORSO_AND_LEGS_ONLY: "Item may only be placed on torsos and legs",
 
 		BM_SUMMARY_TITLE: "Summary",
 		BM_SUMMARY_DESC: "",
