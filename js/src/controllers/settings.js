@@ -4,7 +4,8 @@ var settingsArray = [
 	'$scope',
 	'$route',
 	'$location',
-	function ($rootScope, $translate,  $scope, $route, $location) {
+	'$http',
+	function ($rootScope, $translate,  $scope, $route, $location, $http) {
 		$rootScope.showSciFiCreatorMenu = false;
 		$rootScope.showChargenMenu = false;
 
@@ -39,7 +40,6 @@ var settingsArray = [
 			}
 		}
 
-		$scope.chargen_pdf_layout = localStorage["users_chargen_pdf_layout"];
 
 		$scope.updateLanguage = function( language_selected ) {
 
@@ -56,12 +56,85 @@ var settingsArray = [
 			$route.reload();
 		}
 
-		$scope.updateChargenPDF = function( pdf_selected ) {
-			//console.log( "updateChargenPDF", pdf_selected );
-			localStorage["users_chargen_pdf_layout"] = pdf_selected;
-			$scope.chargen_pdf_layout = pdf_selected;
-			$route.reload();
-		}
+
+		// Export JSON Data...
+
+		var exportObj = {
+			as_favorites: null,
+			saved_mechs: null
+		};
+		exportObj.as_favorites = JSON.parse( localStorage["as_builder_favorites"] );
+		exportObj.saved_mechs = JSON.parse( localStorage["saved_items_mechs"] );
+
+		var content = JSON.stringify( exportObj );
+		var blob = new Blob([ content ], { type : 'application/javascript' });
+		$scope.downloadExportData = (window.URL || window.webkitURL).createObjectURL( blob );
+		var today = new Date();
+		$scope.ExportFileName = "BattleTech Tools Export - " + today.getFullYear() + "-" + (today.getMonth()+ 1).toString().lpad("0", 2) + "-" + today.getDate().toString().lpad("0", 2) + ".json";
+		$scope.importMessage = "";
+
+		// Import JSON Data...
+		$scope.uploadFile = function(files) {
+			//~ console.log( "files", files );
+
+			$scope.importMessage = "Importing Files...";
+
+		    var fReader = new FileReader();
+		    var importMessage = "";
+
+		    function addImportMessage( newMessage ) {
+				$scope.importMessage += newMessage + "<br />\n";
+				if(!$scope.$$phase) {
+					$scope.$digest($scope);
+				}
+			}
+
+		    function clearImportMessage( newMessage ) {
+				$scope.importMessage = "";
+				if(!$scope.$$phase) {
+					$scope.$digest($scope);
+				}
+			}
+
+
+		    for( var fileCounter = 0; fileCounter < files.length; fileCounter++ ) {
+				$scope.importMessage = "";
+
+				var file = files[ fileCounter ];
+
+
+				fReader.onload = function(textContents) {
+
+					if( textContents.target && textContents.target.result ) {
+						//~ console.log( "textContents.target.result", textContents.target.result );
+						var parsed = JSON.parse( textContents.target.result );
+						var imported = 0;
+						if( parsed.as_favorites && parsed.as_favorites.length > 0 ) {
+							localStorage["as_builder_favorites"] = JSON.stringify( parsed.as_favorites );
+							imported.push("Imported " + parsed.as_favorites.length + " Alpha Strike Favorites");
+							imported++;
+						}
+
+						if( parsed.saved_mechs && parsed.saved_mechs.length > 0 ) {
+							localStorage["saved_items_mechs"] = JSON.stringify( parsed.saved_mechs );
+							addImportMessage("Imported " + parsed.saved_mechs.length + " saved BattleMechs");
+							imported++;
+						}
+
+						if( imported == 0 ) {
+							addImportMessage( "Nothing imported" );
+						}
+
+					}
+
+				};
+
+
+				fReader.readAsText( file, $scope );
+
+			}
+
+		};
 
 		// $scope.change_language = function (key) {
 		// 	$translate.use(key);

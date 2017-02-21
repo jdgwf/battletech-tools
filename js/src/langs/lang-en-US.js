@@ -74,6 +74,15 @@ available_languages.push ({
 		GENERAL_ADVANCED: "Advanced",
 		GENERAL_CLOSE: "Close",
 
+		SETTINGS_IMPORT_EXPORT_SETTINGS: "Import/Export Data",
+		SETTINGS_IMPORT_EXPORT_SETTINGS_DESC: "At some point I'm sure that you'll want to move or back up your hard work. Use this function to import and export your saved items.",
+		SETTINGS_IMPORT: "Import",
+		SETTINGS_IMPORT_DESC: "Browse to your backup JSON file on your local device. Warning: this will replace all your existing saved 'mechs and Alpha Strile saved groups.",
+		SETTINGS_EXPORT: "Export",
+		SETTINGS_EXPORT_DESC: "Click on the button below to download your saved 'mechs and favrorite alpha strike groups.",
+		SETTINGS_CLICK_TO_DOWNLOAD: "Click to Download",
+		SETTINGS_CLICK_TO_PREPARE: "Click to Prepare",
+
 		AS_PLEASE_WAIT: "Please wait while information is retrieved from the master unit list.",
 		AS_FAVORITE_GROUPS: "Favorite Groups",
 		AS_ADD_TO_GROUP: "Add to Group",

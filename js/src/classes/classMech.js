@@ -2049,7 +2049,9 @@ Mech.prototype.getArmorAllocations = function() {
 }
 
 Mech.prototype.getRemainingTonnage = function() {
+
 	return this.remaining_tonnage;
+
 }
 
 Mech.prototype.getMoveHeat = function() {

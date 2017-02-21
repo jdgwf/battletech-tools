@@ -24,10 +24,13 @@ var battlemechCreatorControllerWelcomeArray =
 			localStorage["backToPath"] = $location.$$path;
 
 			var current_mech = new Mech();
-			if( localStorage["tmp.current_mech"] )
+
+			if( localStorage["tmp.current_mech"] ) {
 				current_mech.importJSON( localStorage["tmp.current_mech"] );
-			else
+			} else {
 				current_mech.uuid = generateUUID();
+				current_mech._calc();
+			}
 
 			$scope.confirmDialogQuestion = "";
 			$scope.showConfirmDialog = false;

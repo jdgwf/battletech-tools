@@ -119,6 +119,11 @@ webApp = angular.module(
 	]
 );
 
+webApp.config(['$compileProvider',
+    function ($compileProvider) {
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|blob):/);
+}]);
+
 
 angular.module('webApp').controller(
 	'select_language',

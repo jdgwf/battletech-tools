@@ -2,7 +2,7 @@ var available_languages = [];
 
 var appVersion = "0.01Alpha";
 
-webApp = angular.module(
+cordovaApp = angular.module(
 	'cordovaApp',
 	['ngRoute', 'ngResource', 'ngSanitize','pascalprecht.translate', 'as.sortable', 'mm.foundation'],
 	[
@@ -118,6 +118,11 @@ webApp = angular.module(
 		}
 	]
 );
+
+cordovaApp.config(['$compileProvider',
+    function ($compileProvider) {
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|blob):/);
+}]);
 
 
 angular.module('cordovaApp').controller(
@@ -258,6 +263,11 @@ webApp = angular.module(
 		}
 	]
 );
+
+webApp.config(['$compileProvider',
+    function ($compileProvider) {
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|blob):/);
+}]);
 
 
 angular.module('webApp').controller(
@@ -6883,7 +6893,9 @@ Mech.prototype.getArmorAllocations = function() {
 }
 
 Mech.prototype.getRemainingTonnage = function() {
+
 	return this.remaining_tonnage;
+
 }
 
 Mech.prototype.getMoveHeat = function() {
@@ -8731,10 +8743,13 @@ var battlemechCreatorControllerExportsArray =
 			// create mech object, load from localStorage if exists
 			current_mech = new Mech();
 
-			if( localStorage["tmp.current_mech"] )
+
+			if( localStorage["tmp.current_mech"] ) {
 				current_mech.importJSON( localStorage["tmp.current_mech"] );
-			else
+			} else {
 				current_mech.uuid = generateUUID();
+				current_mech._calc();
+			}
 
 			current_mech.useLang = localStorage["tmp.preferred_language"];
 
@@ -8821,10 +8836,13 @@ var battlemechCreatorControllerStep1Array =
 
 			localStorage["backToPath"] = $location.$$path;
 
-			if( localStorage["tmp.current_mech"] )
+
+			if( localStorage["tmp.current_mech"] ) {
 				current_mech.importJSON( localStorage["tmp.current_mech"] );
-			else
+			} else {
 				current_mech.uuid = generateUUID();
+				current_mech._calc();
+			}
 
 			current_mech.useLang = localStorage["tmp.preferred_language"];
 
@@ -8994,10 +9012,13 @@ var battlemechCreatorControllerStep2Array =
 				delete(localStorage["backToPath"]);
 				$location.url("/");
 			}
-			if( localStorage["tmp.current_mech"] )
+
+			if( localStorage["tmp.current_mech"] ) {
 				current_mech.importJSON( localStorage["tmp.current_mech"] );
-			else
+			} else {
 				current_mech.uuid = generateUUID();
+				current_mech._calc();
+			}
 
 			current_mech.useLang = localStorage["tmp.preferred_language"];
 
@@ -9118,10 +9139,13 @@ var battlemechCreatorControllerStep3Array =
 				delete(localStorage["backToPath"]);
 				$location.url("/");
 			}
-			if( localStorage["tmp.current_mech"] )
+
+			if( localStorage["tmp.current_mech"] ) {
 				current_mech.importJSON( localStorage["tmp.current_mech"] );
-			else
+			} else {
 				current_mech.uuid = generateUUID();
+				current_mech._calc();
+			}
 
 			current_mech.useLang = localStorage["tmp.preferred_language"];
 
@@ -9259,10 +9283,13 @@ var battlemechCreatorControllerStep4Array =
 			// create mech object, load from localStorage if exists
 			current_mech = new Mech();
 
-			if( localStorage["tmp.current_mech"] )
+
+			if( localStorage["tmp.current_mech"] ) {
 				current_mech.importJSON( localStorage["tmp.current_mech"] );
-			else
+			} else {
 				current_mech.uuid = generateUUID();
+				current_mech._calc();
+			}
 
 			current_mech.useLang = localStorage["tmp.preferred_language"];
 
@@ -9635,10 +9662,13 @@ var battlemechCreatorControllerStep5Array =
 			// create mech object, load from localStorage if exists
 			current_mech = new Mech();
 
-			if( localStorage["tmp.current_mech"] )
+
+			if( localStorage["tmp.current_mech"] ) {
 				current_mech.importJSON( localStorage["tmp.current_mech"] );
-			else
+			} else {
 				current_mech.uuid = generateUUID();
+				current_mech._calc();
+			}
 
 			localStorage["backToPath"] = $location.$$path;
 
@@ -9835,10 +9865,12 @@ var battlemechCreatorControllerStep6Array =
 
 			$scope.selectedItem = null;
 
-			if( localStorage["tmp.current_mech"] )
+			if( localStorage["tmp.current_mech"] ) {
 				current_mech.importJSON( localStorage["tmp.current_mech"] );
-			else
+			} else {
 				current_mech.uuid = generateUUID();
+				current_mech._calc();
+			}
 
 			current_mech.useLang = localStorage["tmp.preferred_language"];
 
@@ -10121,10 +10153,13 @@ var battlemechCreatorControllerSummaryArray =
 			// create mech object, load from localStorage if exists
 			current_mech = new Mech();
 
-			if( localStorage["tmp.current_mech"] )
+
+			if( localStorage["tmp.current_mech"] ) {
 				current_mech.importJSON( localStorage["tmp.current_mech"] );
-			else
+			} else {
 				current_mech.uuid = generateUUID();
+				current_mech._calc();
+			}
 
 			current_mech.useLang = localStorage["tmp.preferred_language"];
 
@@ -10177,10 +10212,13 @@ var battlemechCreatorControllerWelcomeArray =
 			localStorage["backToPath"] = $location.$$path;
 
 			var current_mech = new Mech();
-			if( localStorage["tmp.current_mech"] )
+
+			if( localStorage["tmp.current_mech"] ) {
 				current_mech.importJSON( localStorage["tmp.current_mech"] );
-			else
+			} else {
 				current_mech.uuid = generateUUID();
+				current_mech._calc();
+			}
 
 			$scope.confirmDialogQuestion = "";
 			$scope.showConfirmDialog = false;
@@ -10450,7 +10488,8 @@ var settingsArray = [
 	'$scope',
 	'$route',
 	'$location',
-	function ($rootScope, $translate,  $scope, $route, $location) {
+	'$http',
+	function ($rootScope, $translate,  $scope, $route, $location, $http) {
 		$rootScope.showSciFiCreatorMenu = false;
 		$rootScope.showChargenMenu = false;
 
@@ -10485,7 +10524,6 @@ var settingsArray = [
 			}
 		}
 
-		$scope.chargen_pdf_layout = localStorage["users_chargen_pdf_layout"];
 
 		$scope.updateLanguage = function( language_selected ) {
 
@@ -10502,12 +10540,85 @@ var settingsArray = [
 			$route.reload();
 		}
 
-		$scope.updateChargenPDF = function( pdf_selected ) {
-			//console.log( "updateChargenPDF", pdf_selected );
-			localStorage["users_chargen_pdf_layout"] = pdf_selected;
-			$scope.chargen_pdf_layout = pdf_selected;
-			$route.reload();
-		}
+
+		// Export JSON Data...
+
+		var exportObj = {
+			as_favorites: null,
+			saved_mechs: null
+		};
+		exportObj.as_favorites = JSON.parse( localStorage["as_builder_favorites"] );
+		exportObj.saved_mechs = JSON.parse( localStorage["saved_items_mechs"] );
+
+		var content = JSON.stringify( exportObj );
+		var blob = new Blob([ content ], { type : 'application/javascript' });
+		$scope.downloadExportData = (window.URL || window.webkitURL).createObjectURL( blob );
+		var today = new Date();
+		$scope.ExportFileName = "BattleTech Tools Export - " + today.getFullYear() + "-" + (today.getMonth()+ 1).toString().lpad("0", 2) + "-" + today.getDate().toString().lpad("0", 2) + ".json";
+		$scope.importMessage = "";
+
+		// Import JSON Data...
+		$scope.uploadFile = function(files) {
+			//~ console.log( "files", files );
+
+			$scope.importMessage = "Importing Files...";
+
+		    var fReader = new FileReader();
+		    var importMessage = "";
+
+		    function addImportMessage( newMessage ) {
+				$scope.importMessage += newMessage + "<br />\n";
+				if(!$scope.$$phase) {
+					$scope.$digest($scope);
+				}
+			}
+
+		    function clearImportMessage( newMessage ) {
+				$scope.importMessage = "";
+				if(!$scope.$$phase) {
+					$scope.$digest($scope);
+				}
+			}
+
+
+		    for( var fileCounter = 0; fileCounter < files.length; fileCounter++ ) {
+				$scope.importMessage = "";
+
+				var file = files[ fileCounter ];
+
+
+				fReader.onload = function(textContents) {
+
+					if( textContents.target && textContents.target.result ) {
+						//~ console.log( "textContents.target.result", textContents.target.result );
+						var parsed = JSON.parse( textContents.target.result );
+						var imported = 0;
+						if( parsed.as_favorites && parsed.as_favorites.length > 0 ) {
+							localStorage["as_builder_favorites"] = JSON.stringify( parsed.as_favorites );
+							imported.push("Imported " + parsed.as_favorites.length + " Alpha Strike Favorites");
+							imported++;
+						}
+
+						if( parsed.saved_mechs && parsed.saved_mechs.length > 0 ) {
+							localStorage["saved_items_mechs"] = JSON.stringify( parsed.saved_mechs );
+							addImportMessage("Imported " + parsed.saved_mechs.length + " saved BattleMechs");
+							imported++;
+						}
+
+						if( imported == 0 ) {
+							addImportMessage( "Nothing imported" );
+						}
+
+					}
+
+				};
+
+
+				fReader.readAsText( file, $scope );
+
+			}
+
+		};
 
 		// $scope.change_language = function (key) {
 		// 	$translate.use(key);
@@ -10697,6 +10808,15 @@ available_languages.push ({
 		GENERAL_STANDARD: "Standard",
 		GENERAL_ADVANCED: "Advanced",
 		GENERAL_CLOSE: "Close",
+
+		SETTINGS_IMPORT_EXPORT_SETTINGS: "Import/Export Data",
+		SETTINGS_IMPORT_EXPORT_SETTINGS_DESC: "At some point I'm sure that you'll want to move or back up your hard work. Use this function to import and export your saved items.",
+		SETTINGS_IMPORT: "Import",
+		SETTINGS_IMPORT_DESC: "Browse to your backup JSON file on your local device. Warning: this will replace all your existing saved 'mechs and Alpha Strile saved groups.",
+		SETTINGS_EXPORT: "Export",
+		SETTINGS_EXPORT_DESC: "Click on the button below to download your saved 'mechs and favrorite alpha strike groups.",
+		SETTINGS_CLICK_TO_DOWNLOAD: "Click to Download",
+		SETTINGS_CLICK_TO_PREPARE: "Click to Prepare",
 
 		AS_PLEASE_WAIT: "Please wait while information is retrieved from the master unit list.",
 		AS_FAVORITE_GROUPS: "Favorite Groups",

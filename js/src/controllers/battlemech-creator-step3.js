@@ -23,10 +23,13 @@ var battlemechCreatorControllerStep3Array =
 				delete(localStorage["backToPath"]);
 				$location.url("/");
 			}
-			if( localStorage["tmp.current_mech"] )
+
+			if( localStorage["tmp.current_mech"] ) {
 				current_mech.importJSON( localStorage["tmp.current_mech"] );
-			else
+			} else {
 				current_mech.uuid = generateUUID();
+				current_mech._calc();
+			}
 
 			current_mech.useLang = localStorage["tmp.preferred_language"];
 
