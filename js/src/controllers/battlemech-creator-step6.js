@@ -166,11 +166,11 @@ var battlemechCreatorControllerStep6Array =
 							);
 
 							if( worked ) {
-								//console.log( "a", current_mech.criticals.head )
+								//~ console.log( "a", current_mech.criticals.leftTorso )
 								current_mech.updateCriticalAllocationTable();
-								//console.log("b", current_mech.criticals.head )
+								//~ console.log("b", current_mech.criticals.leftTorso )
 								current_mech._calc();
-								//console.log("c", current_mech.criticals.head )
+								//~ console.log("c", current_mech.criticals.leftTorso )
 								localStorage["tmp.current_mech"] = current_mech.exportJSON();
 
 								update_step_6_items($scope, current_mech);

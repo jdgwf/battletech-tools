@@ -1777,6 +1777,7 @@ Mech.prototype._calcCriticals = function() {
 
 		this.unallocatedCriticals.push( {
 			name: hs_name,
+			rear: false,
 			tag: "heat-sink",
 			crits: hs_requirements.slots_each,
 			movable: true

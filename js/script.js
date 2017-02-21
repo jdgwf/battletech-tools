@@ -6767,6 +6767,7 @@ Mech.prototype._calcCriticals = function() {
 
 		this.unallocatedCriticals.push( {
 			name: hs_name,
+			rear: false,
 			tag: "heat-sink",
 			crits: hs_requirements.slots_each,
 			movable: true
@@ -10149,11 +10150,11 @@ var battlemechCreatorControllerStep6Array =
 							);
 
 							if( worked ) {
-								//console.log( "a", current_mech.criticals.head )
+								//~ console.log( "a", current_mech.criticals.leftTorso )
 								current_mech.updateCriticalAllocationTable();
-								//console.log("b", current_mech.criticals.head )
+								//~ console.log("b", current_mech.criticals.leftTorso )
 								current_mech._calc();
-								//console.log("c", current_mech.criticals.head )
+								//~ console.log("c", current_mech.criticals.leftTorso )
 								localStorage["tmp.current_mech"] = current_mech.exportJSON();
 
 								update_step_6_items($scope, current_mech);
