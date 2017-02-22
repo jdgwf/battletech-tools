@@ -82,6 +82,7 @@ available_languages.push ({
 		SETTINGS_EXPORT_DESC: "Click on the button below to download your saved 'mechs and favrorite alpha strike groups.",
 		SETTINGS_CLICK_TO_DOWNLOAD: "Click to Download",
 		SETTINGS_CLICK_TO_PREPARE: "Click to Prepare",
+		SETTINGS_ALTERNATIVE_INPUT: "Alternatively, if your device doesn't support file uploads (iOS), paste the contents of the file below then press the Import button beneath the input field.",
 
 		AS_PLEASE_WAIT: "Please wait while information is retrieved from the master unit list.",
 		AS_FAVORITE_GROUPS: "Favorite Groups",

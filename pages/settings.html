@@ -16,18 +16,21 @@
 		<fieldset class="fieldset">
 			<legend translate="SETTINGS_IMPORT_EXPORT_SETTINGS">Import/Export Data</legend>
 			<p translate="SETTINGS_IMPORT_EXPORT_SETTINGS_DESC">At some point I'm sure that you'll want to move or back up your hard work. Use this function to import and export your saved items.</p>
-			<h5 translate="SETTINGS_EXPORT">Import</h5>
+			<h5 translate="SETTINGS_EXPORT">Export</h5>
 			<p translate="SETTINGS_EXPORT_DESC">Click on the button below to download your saved 'mechs and favrorite alpha strike groups.</p>
 			<div class="text-center">
 				<a download="{{ExportFileName}}" ng-href="{{ downloadExportData }}"><button class="primary button" translate="SETTINGS_CLICK_TO_DOWNLOAD">Click to Download</button></a>
 
 			</div>
-			<h5 translate="SETTINGS_IMPORT">Export</h5>
+			<h5 translate="SETTINGS_IMPORT">Import</h5>
 			<p translate="SETTINGS_IMPORT_DESC">Browse to your backup JSON file then press the "Import" button. Warning: this will replace all your existing saved 'mechs and Alpha Strile saved groups.</p>
 			<input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>
 			<br />
 			<h3 class="text-center" ng-bind-html="importMessage"></h3>
 			<br />
+			<p translaate="SETTINGS_ALTERNATIVE_INPUT">Alternatively, if your device doesn't support file uploads (iOS), paste the contents of the file here</p>
+			<textarea ng-model="importText"></textarea>
+			<button ng-click="textImport()" translate="SETTINGS_IMPORT" class="button primary"></button>
 		</fieldset>
 	</div>
 </div>

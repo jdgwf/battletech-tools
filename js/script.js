@@ -10706,7 +10706,35 @@ var settingsArray = [
 		var today = new Date();
 		$scope.ExportFileName = "BattleTech Tools Export - " + today.getFullYear() + "-" + (today.getMonth()+ 1).toString().lpad("0", 2) + "-" + today.getDate().toString().lpad("0", 2) + ".json";
 		$scope.importMessage = "";
-
+		$scope.importText = "";
+		$scope.textImport = function() {
+		    function addImportMessage( newMessage ) {
+				$scope.importMessage += newMessage + "<br />\n";
+				if(!$scope.$$phase) {
+					$scope.$digest($scope);
+				}
+			}
+			if( $scope.importText ) {
+				var parsed = JSON.parse( $scope.importText );
+				var imported = 0;
+				if( parsed.as_favorites && parsed.as_favorites.length > 0 ) {
+					localStorage["as_builder_favorites"] = JSON.stringify( parsed.as_favorites );
+					addImportMessage("Imported " + parsed.as_favorites.length + " Alpha Strike Favorites");
+					imported++;
+				}
+				
+				if( parsed.saved_mechs && parsed.saved_mechs.length > 0 ) {
+					localStorage["saved_items_mechs"] = JSON.stringify( parsed.saved_mechs );
+					addImportMessage("Imported " + parsed.saved_mechs.length + " saved BattleMechs");
+					imported++;
+				}
+				
+				if( imported == 0 ) {
+					addImportMessage( "Nothing imported" );
+				}
+			} 
+		}
+		
 		// Import JSON Data...
 		$scope.uploadFile = function(files) {
 			//~ console.log( "files", files );
@@ -10745,7 +10773,7 @@ var settingsArray = [
 						var imported = 0;
 						if( parsed.as_favorites && parsed.as_favorites.length > 0 ) {
 							localStorage["as_builder_favorites"] = JSON.stringify( parsed.as_favorites );
-							imported.push("Imported " + parsed.as_favorites.length + " Alpha Strike Favorites");
+							addImportMessage("Imported " + parsed.as_favorites.length + " Alpha Strike Favorites");
 							imported++;
 						}
 
@@ -10967,6 +10995,7 @@ available_languages.push ({
 		SETTINGS_EXPORT_DESC: "Click on the button below to download your saved 'mechs and favrorite alpha strike groups.",
 		SETTINGS_CLICK_TO_DOWNLOAD: "Click to Download",
 		SETTINGS_CLICK_TO_PREPARE: "Click to Prepare",
+		SETTINGS_ALTERNATIVE_INPUT: "Alternatively, if your device doesn't support file uploads (iOS), paste the contents of the file below then press the Import button beneath the input field.",
 
 		AS_PLEASE_WAIT: "Please wait while information is retrieved from the master unit list.",
 		AS_FAVORITE_GROUPS: "Favorite Groups",

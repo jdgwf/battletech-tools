@@ -75,7 +75,35 @@ var settingsArray = [
 		var today = new Date();
 		$scope.ExportFileName = "BattleTech Tools Export - " + today.getFullYear() + "-" + (today.getMonth()+ 1).toString().lpad("0", 2) + "-" + today.getDate().toString().lpad("0", 2) + ".json";
 		$scope.importMessage = "";
-
+		$scope.importText = "";
+		$scope.textImport = function() {
+		    function addImportMessage( newMessage ) {
+				$scope.importMessage += newMessage + "<br />\n";
+				if(!$scope.$$phase) {
+					$scope.$digest($scope);
+				}
+			}
+			if( $scope.importText ) {
+				var parsed = JSON.parse( $scope.importText );
+				var imported = 0;
+				if( parsed.as_favorites && parsed.as_favorites.length > 0 ) {
+					localStorage["as_builder_favorites"] = JSON.stringify( parsed.as_favorites );
+					addImportMessage("Imported " + parsed.as_favorites.length + " Alpha Strike Favorites");
+					imported++;
+				}
+				
+				if( parsed.saved_mechs && parsed.saved_mechs.length > 0 ) {
+					localStorage["saved_items_mechs"] = JSON.stringify( parsed.saved_mechs );
+					addImportMessage("Imported " + parsed.saved_mechs.length + " saved BattleMechs");
+					imported++;
+				}
+				
+				if( imported == 0 ) {
+					addImportMessage( "Nothing imported" );
+				}
+			} 
+		}
+		
 		// Import JSON Data...
 		$scope.uploadFile = function(files) {
 			//~ console.log( "files", files );
@@ -114,7 +142,7 @@ var settingsArray = [
 						var imported = 0;
 						if( parsed.as_favorites && parsed.as_favorites.length > 0 ) {
 							localStorage["as_builder_favorites"] = JSON.stringify( parsed.as_favorites );
-							imported.push("Imported " + parsed.as_favorites.length + " Alpha Strike Favorites");
+							addImportMessage("Imported " + parsed.as_favorites.length + " Alpha Strike Favorites");
 							imported++;
 						}
 
