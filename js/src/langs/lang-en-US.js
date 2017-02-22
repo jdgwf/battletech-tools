@@ -241,7 +241,7 @@ available_languages.push ({
 		BM_CRITS_ACTUATOR_LOWER_LEG: "Lower Leg Actuator",
 		BM_CRITS_ACTUATOR_FOOT: "Foot Actuator",
 
-		BM_PDF_EXPORT:"PDF Exports",
+		BM_PDF_EXPORT:"Export PDFs",
 
 		TRO_TYPE: "Type",
 
