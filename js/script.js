@@ -145,8 +145,6 @@ angular.module('cordovaApp').controller(
 
 var available_languages = [];
 
-var appVersion = "0.01Alpha";
-
 webApp = angular.module(
 	'webApp',
 	['ngRoute', 'ngResource', 'ngSanitize','pascalprecht.translate', 'as.sortable', 'mm.foundation'],
@@ -164,8 +162,6 @@ webApp = angular.module(
 				}
 			}
 
-			cacheBreaker = "2016022204";
-
 			$translateProvider.useSanitizeValueStrategy('sanitize');
 
 			preferred_language = "en-US";
@@ -180,13 +176,13 @@ webApp = angular.module(
 
 			// route for the home/welcome page
 			.when('/', {
-				templateUrl : 'pages/welcome.html?v=' + cacheBreaker,
+				templateUrl : 'pages/welcome.html?v=' + getAppVersion(),
 				controller  : 'welcomeController'
 			})
 
 			// route for the credits page
 			.when('/credits', {
-				templateUrl : 'pages/credits.html?v=' + cacheBreaker,
+				templateUrl : 'pages/credits.html?v=' + getAppVersion(),
 				controller  : 'creditsController'
 			})
 
@@ -195,49 +191,49 @@ webApp = angular.module(
 			 */
 			// route for the battlemech creator page
 			.when('/battlemech-creator/', {
-				templateUrl : 'pages/battlemech-creator-welcome.html?v=' + cacheBreaker,
+				templateUrl : 'pages/battlemech-creator-welcome.html?v=' + getAppVersion(),
 				controller  : 'battlemechCreatorControllerWelcome'
 			})
 
 			// route for the battlemech creator page
 			.when('/battlemech-creator/step1/', {
-				templateUrl : 'pages/battlemech-creator-step1.html?v=' + cacheBreaker,
+				templateUrl : 'pages/battlemech-creator-step1.html?v=' + getAppVersion(),
 				controller  : 'battlemechCreatorControllerStep1'
 			})
 
 			// route for the battlemech creator page
 			.when('/battlemech-creator/step2/', {
-				templateUrl : 'pages/battlemech-creator-step2.html?v=' + cacheBreaker,
+				templateUrl : 'pages/battlemech-creator-step2.html?v=' + getAppVersion(),
 				controller  : 'battlemechCreatorControllerStep2'
 			})
 			// route for the battlemech creator page
 			.when('/battlemech-creator/step3/', {
-				templateUrl : 'pages/battlemech-creator-step3.html?v=' + cacheBreaker,
+				templateUrl : 'pages/battlemech-creator-step3.html?v=' + getAppVersion(),
 				controller  : 'battlemechCreatorControllerStep3'
 			})
 			// route for the battlemech creator page
 			.when('/battlemech-creator/step4/', {
-				templateUrl : 'pages/battlemech-creator-step4.html?v=' + cacheBreaker,
+				templateUrl : 'pages/battlemech-creator-step4.html?v=' + getAppVersion(),
 				controller  : 'battlemechCreatorControllerStep4'
 			})
 			// route for the battlemech creator page
 			.when('/battlemech-creator/step5/', {
-				templateUrl : 'pages/battlemech-creator-step5.html?v=' + cacheBreaker,
+				templateUrl : 'pages/battlemech-creator-step5.html?v=' + getAppVersion(),
 				controller  : 'battlemechCreatorControllerStep5'
 			})
 			// route for the battlemech creator page
 			.when('/battlemech-creator/step6/', {
-				templateUrl : 'pages/battlemech-creator-step6.html?v=' + cacheBreaker,
+				templateUrl : 'pages/battlemech-creator-step6.html?v=' + getAppVersion(),
 				controller  : 'battlemechCreatorControllerStep6'
 			})
 			// route for the battlemech creator page
 			.when('/battlemech-creator/summary/', {
-				templateUrl : 'pages/battlemech-creator-summary.html?v=' + cacheBreaker,
+				templateUrl : 'pages/battlemech-creator-summary.html?v=' + getAppVersion(),
 				controller  : 'battlemechCreatorControllerSummary'
 			})
 			// route for the battlemech creator page
 			.when('/battlemech-creator/exports/', {
-				templateUrl : 'pages/battlemech-creator-exports.html?v=' + cacheBreaker,
+				templateUrl : 'pages/battlemech-creator-exports.html?v=' + getAppVersion(),
 				controller  : 'battlemechCreatorControllerExports'
 			})
 
@@ -246,18 +242,18 @@ webApp = angular.module(
 			 */
 			// route for the home/welcome page
 			.when('/as/', {
-				templateUrl : 'pages/as-builder.html?v=' + cacheBreaker,
+				templateUrl : 'pages/as-builder.html?v=' + getAppVersion(),
 				controller  : 'asBuilderController'
 			})
 
 			.when('/as/play-view', {
-				templateUrl : 'pages/as-play-view.html?v=' + cacheBreaker,
+				templateUrl : 'pages/as-play-view.html?v=' + getAppVersion(),
 				controller  : 'asPlayViewController'
 			})
 
 			// route for the credits page
 			.when('/settings', {
-				templateUrl : 'pages/settings.html?v=' + cacheBreaker,
+				templateUrl : 'pages/settings.html?v=' + getAppVersion(),
 				controller  : 'settingsController'
 			})
 
@@ -676,7 +672,7 @@ function convertFileToDataURLviaFileReader(url, callback){
 function makeFooter(pdfDoc) {
 	pdfDoc.setFontSize( 6 );
 	pdfDoc.line( 10, 267, 200, 267);
-    pdfDoc.text(10,270, "Created with @Gauthic's BattleTech Tools version " + appVersion);
+    pdfDoc.text(10,270, "Created with @Gauthic's BattleTech Tools version " + getAppVersion());
     pdfDoc.text(10,273, "Exported on " + Date() );
 
     pdfDoc.text(150,270, "MechWarrior, BattleMech, ‘Mech and AeroTech are ");
@@ -761,6 +757,10 @@ function ifIEOrEdge() {
 
 
 	return false;
+}
+
+function getAppVersion() {
+	return "2016022204";
 }
 
 function isIOSStandAlone() {
@@ -10629,6 +10629,8 @@ var creditsArray =
 				$location.url("/");
 			}
 
+			$scope.appVersion = getAppVersion();
+
 			localStorage["backToPath"] = $location.$$path;
 
 		}
@@ -10714,7 +10716,7 @@ var settingsArray = [
 		};
 		if( localStorage["as_builder_favorites"] )
 			exportObj.as_favorites = JSON.parse( localStorage["as_builder_favorites"] );
-		
+
 		if( localStorage["saved_items_mechs"] )
 			exportObj.saved_mechs = JSON.parse( localStorage["saved_items_mechs"] );
 
@@ -10730,8 +10732,8 @@ var settingsArray = [
 		$scope.showAlts = function() {
 			$scope.showIOSAlternatives = true;
 		}
-		
-		
+
+
 		$scope.textImport = function() {
 		    function addImportMessage( newMessage ) {
 				$scope.importMessage += newMessage + "<br />\n";
@@ -10747,19 +10749,19 @@ var settingsArray = [
 					addImportMessage("Imported " + parsed.as_favorites.length + " Alpha Strike Favorites");
 					imported++;
 				}
-				
+
 				if( parsed.saved_mechs && parsed.saved_mechs.length > 0 ) {
 					localStorage["saved_items_mechs"] = JSON.stringify( parsed.saved_mechs );
 					addImportMessage("Imported " + parsed.saved_mechs.length + " saved BattleMechs");
 					imported++;
 				}
-				
+
 				if( imported == 0 ) {
 					addImportMessage( "Nothing imported" );
 				}
-			} 
+			}
 		}
-		
+
 		// Import JSON Data...
 		$scope.uploadFile = function(files) {
 			//~ console.log( "files", files );
@@ -10993,6 +10995,7 @@ available_languages.push ({
 		GENERAL_YES: "Yes",
 		GENERAL_NO: "No",
 		GENERAL_REAR: "rear",
+		GENERAL_VERSION: "Version",
 
 		GENERAL_REMOVE: "Remove",
 		GENERAL_SAVED: "Saved",

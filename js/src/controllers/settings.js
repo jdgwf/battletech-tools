@@ -65,7 +65,7 @@ var settingsArray = [
 		};
 		if( localStorage["as_builder_favorites"] )
 			exportObj.as_favorites = JSON.parse( localStorage["as_builder_favorites"] );
-		
+
 		if( localStorage["saved_items_mechs"] )
 			exportObj.saved_mechs = JSON.parse( localStorage["saved_items_mechs"] );
 
@@ -81,8 +81,8 @@ var settingsArray = [
 		$scope.showAlts = function() {
 			$scope.showIOSAlternatives = true;
 		}
-		
-		
+
+
 		$scope.textImport = function() {
 		    function addImportMessage( newMessage ) {
 				$scope.importMessage += newMessage + "<br />\n";
@@ -98,19 +98,19 @@ var settingsArray = [
 					addImportMessage("Imported " + parsed.as_favorites.length + " Alpha Strike Favorites");
 					imported++;
 				}
-				
+
 				if( parsed.saved_mechs && parsed.saved_mechs.length > 0 ) {
 					localStorage["saved_items_mechs"] = JSON.stringify( parsed.saved_mechs );
 					addImportMessage("Imported " + parsed.saved_mechs.length + " saved BattleMechs");
 					imported++;
 				}
-				
+
 				if( imported == 0 ) {
 					addImportMessage( "Nothing imported" );
 				}
-			} 
+			}
 		}
-		
+
 		// Import JSON Data...
 		$scope.uploadFile = function(files) {
 			//~ console.log( "files", files );

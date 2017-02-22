@@ -55,6 +55,7 @@ available_languages.push ({
 		GENERAL_YES: "Yes",
 		GENERAL_NO: "No",
 		GENERAL_REAR: "rear",
+		GENERAL_VERSION: "Version",
 
 		GENERAL_REMOVE: "Remove",
 		GENERAL_SAVED: "Saved",

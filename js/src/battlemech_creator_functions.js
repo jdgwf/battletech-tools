@@ -383,7 +383,7 @@ function convertFileToDataURLviaFileReader(url, callback){
 function makeFooter(pdfDoc) {
 	pdfDoc.setFontSize( 6 );
 	pdfDoc.line( 10, 267, 200, 267);
-    pdfDoc.text(10,270, "Created with @Gauthic's BattleTech Tools version " + appVersion);
+    pdfDoc.text(10,270, "Created with @Gauthic's BattleTech Tools version " + getAppVersion());
     pdfDoc.text(10,273, "Exported on " + Date() );
 
     pdfDoc.text(150,270, "MechWarrior, BattleMech, ‘Mech and AeroTech are ");

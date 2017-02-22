@@ -17,6 +17,8 @@ var creditsArray =
 				$location.url("/");
 			}
 
+			$scope.appVersion = getAppVersion();
+
 			localStorage["backToPath"] = $location.$$path;
 
 		}

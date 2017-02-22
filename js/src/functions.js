@@ -66,6 +66,10 @@ function ifIEOrEdge() {
 	return false;
 }
 
+function getAppVersion() {
+	return "2016022204";
+}
+
 function isIOSStandAlone() {
 	if( window.navigator.standalone == true ){
 	   // Experimenting with iOS PDF fixes.
