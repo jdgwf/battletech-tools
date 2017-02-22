@@ -28,9 +28,17 @@
 			<br />
 			<h3 class="text-center" ng-bind-html="importMessage"></h3>
 			<br />
-			<p translaate="SETTINGS_ALTERNATIVE_INPUT">Alternatively, if your device doesn't support file uploads (iOS), paste the contents of the file here</p>
-			<textarea ng-model="importText"></textarea>
-			<button ng-click="textImport()" translate="SETTINGS_IMPORT" class="button primary"></button>
+			<div class="text-center">
+				<button ng-click="showAlts()" class="button secondary" translate="SETTINGS_SHOW_ALTERNATIVES"></button>
+			</div>
+			<div ng-show="showIOSAlternatives">
+				<p translaate="SETTINGS_ALTERNATIVE_INPUT">Alternatively, if your device doesn't support file uploads (iOS), paste the contents of the file here</p>
+				<h5 translate="SETTINGS_EXPORT">Export</h5>
+				<textarea ng-model="exportText"></textarea>
+				<h5 translate="SETTINGS_IMPORT">Import</h5>
+				<textarea ng-model="importText"></textarea>
+				<button ng-click="textImport()" translate="SETTINGS_IMPORT" class="button primary"></button>
+			</div>
 		</fieldset>
 	</div>
 </div>

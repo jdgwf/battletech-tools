@@ -70,12 +70,19 @@ var settingsArray = [
 			exportObj.saved_mechs = JSON.parse( localStorage["saved_items_mechs"] );
 
 		var content = JSON.stringify( exportObj );
+		$scope.exportText = content;
 		var blob = new Blob([ content ], { type : 'application/javascript' });
 		$scope.downloadExportData = (window.URL || window.webkitURL).createObjectURL( blob );
 		var today = new Date();
 		$scope.ExportFileName = "BattleTech Tools Export - " + today.getFullYear() + "-" + (today.getMonth()+ 1).toString().lpad("0", 2) + "-" + today.getDate().toString().lpad("0", 2) + ".json";
 		$scope.importMessage = "";
 		$scope.importText = "";
+		$scope.showIOSAlternatives = false;
+		$scope.showAlts = function() {
+			$scope.showIOSAlternatives = true;
+		}
+		
+		
 		$scope.textImport = function() {
 		    function addImportMessage( newMessage ) {
 				$scope.importMessage += newMessage + "<br />\n";

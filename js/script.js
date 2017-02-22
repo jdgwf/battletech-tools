@@ -10701,12 +10701,19 @@ var settingsArray = [
 			exportObj.saved_mechs = JSON.parse( localStorage["saved_items_mechs"] );
 
 		var content = JSON.stringify( exportObj );
+		$scope.exportText = content;
 		var blob = new Blob([ content ], { type : 'application/javascript' });
 		$scope.downloadExportData = (window.URL || window.webkitURL).createObjectURL( blob );
 		var today = new Date();
 		$scope.ExportFileName = "BattleTech Tools Export - " + today.getFullYear() + "-" + (today.getMonth()+ 1).toString().lpad("0", 2) + "-" + today.getDate().toString().lpad("0", 2) + ".json";
 		$scope.importMessage = "";
 		$scope.importText = "";
+		$scope.showIOSAlternatives = false;
+		$scope.showAlts = function() {
+			$scope.showIOSAlternatives = true;
+		}
+		
+		
 		$scope.textImport = function() {
 		    function addImportMessage( newMessage ) {
 				$scope.importMessage += newMessage + "<br />\n";
@@ -10996,7 +11003,8 @@ available_languages.push ({
 		SETTINGS_CLICK_TO_DOWNLOAD: "Click to Download",
 		SETTINGS_CLICK_TO_PREPARE: "Click to Prepare",
 		SETTINGS_ALTERNATIVE_INPUT: "Alternatively, if your device doesn't support file uploads (iOS), paste the contents of the file below then press the Import button beneath the input field.",
-
+		SETTINGS_SHOW_ALTERNATIVES: "Show Alternative Import/Export",
+		
 		AS_PLEASE_WAIT: "Please wait while information is retrieved from the master unit list.",
 		AS_FAVORITE_GROUPS: "Favorite Groups",
 		AS_ADD_TO_GROUP: "Add to Group",
