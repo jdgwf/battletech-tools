@@ -63,8 +63,11 @@ var settingsArray = [
 			as_favorites: null,
 			saved_mechs: null
 		};
-		exportObj.as_favorites = JSON.parse( localStorage["as_builder_favorites"] );
-		exportObj.saved_mechs = JSON.parse( localStorage["saved_items_mechs"] );
+		if( localStorage["as_builder_favorites"] )
+			exportObj.as_favorites = JSON.parse( localStorage["as_builder_favorites"] );
+		
+		if( localStorage["saved_items_mechs"] )
+			exportObj.saved_mechs = JSON.parse( localStorage["saved_items_mechs"] );
 
 		var content = JSON.stringify( exportObj );
 		var blob = new Blob([ content ], { type : 'application/javascript' });
