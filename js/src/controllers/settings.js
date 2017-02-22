@@ -14,13 +14,13 @@ var settingsArray = [
 			$rootScope.subtitle_tag = translation.GENERAL_SETTINGS;
 		});
 
-			$scope.goHome = function() {
+		$scope.goHome = function() {
 
-				delete(localStorage["backToPath"]);
-				$location.url("/");
-			}
+			delete(localStorage["backToPath"]);
+			$location.url("/");
+		}
 
-			localStorage["backToPath"] = $location.$$path;
+		localStorage["backToPath"] = $location.$$path;
 
 		$scope.available_languages = Array();
 		$scope.users_language = {};
