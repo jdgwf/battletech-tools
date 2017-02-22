@@ -19,7 +19,7 @@ webApp = angular.module(
 				}
 			}
 
-			cacheBreaker = "2016022201";
+			cacheBreaker = "2016022202";
 
 			$translateProvider.useSanitizeValueStrategy('sanitize');
 

@@ -84,7 +84,7 @@ available_languages.push ({
 		SETTINGS_CLICK_TO_PREPARE: "Click to Prepare",
 		SETTINGS_ALTERNATIVE_INPUT: "Alternatively, if your device doesn't support file uploads (iOS), paste the contents of the file below then press the Import button beneath the input field.",
 		SETTINGS_SHOW_ALTERNATIVES: "Show Alternative Import/Export",
-		
+
 		AS_PLEASE_WAIT: "Please wait while information is retrieved from the master unit list.",
 		AS_FAVORITE_GROUPS: "Favorite Groups",
 		AS_ADD_TO_GROUP: "Add to Group",
@@ -240,6 +240,8 @@ available_languages.push ({
 		BM_CRITS_ACTUATOR_UPPER_LEG: "Upper Leg Actuator",
 		BM_CRITS_ACTUATOR_LOWER_LEG: "Lower Leg Actuator",
 		BM_CRITS_ACTUATOR_FOOT: "Foot Actuator",
+
+		BM_PDF_EXPORT:"PDF Exports",
 
 		TRO_TYPE: "Type",
 
