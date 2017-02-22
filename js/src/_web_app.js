@@ -19,6 +19,8 @@ webApp = angular.module(
 				}
 			}
 
+			cacheBreaker = "2016022201";
+
 			$translateProvider.useSanitizeValueStrategy('sanitize');
 
 			preferred_language = "en-US";
@@ -33,13 +35,13 @@ webApp = angular.module(
 
 			// route for the home/welcome page
 			.when('/', {
-				templateUrl : 'pages/welcome.html',
+				templateUrl : 'pages/welcome.html?v=' + cacheBreaker,
 				controller  : 'welcomeController'
 			})
 
 			// route for the credits page
 			.when('/credits', {
-				templateUrl : 'pages/credits.html',
+				templateUrl : 'pages/credits.html?v=' + cacheBreaker,
 				controller  : 'creditsController'
 			})
 
@@ -48,49 +50,49 @@ webApp = angular.module(
 			 */
 			// route for the battlemech creator page
 			.when('/battlemech-creator/', {
-				templateUrl : 'pages/battlemech-creator-welcome.html',
+				templateUrl : 'pages/battlemech-creator-welcome.html?v=' + cacheBreaker,
 				controller  : 'battlemechCreatorControllerWelcome'
 			})
 
 			// route for the battlemech creator page
 			.when('/battlemech-creator/step1/', {
-				templateUrl : 'pages/battlemech-creator-step1.html',
+				templateUrl : 'pages/battlemech-creator-step1.html?v=' + cacheBreaker,
 				controller  : 'battlemechCreatorControllerStep1'
 			})
 
 			// route for the battlemech creator page
 			.when('/battlemech-creator/step2/', {
-				templateUrl : 'pages/battlemech-creator-step2.html',
+				templateUrl : 'pages/battlemech-creator-step2.html?v=' + cacheBreaker,
 				controller  : 'battlemechCreatorControllerStep2'
 			})
 			// route for the battlemech creator page
 			.when('/battlemech-creator/step3/', {
-				templateUrl : 'pages/battlemech-creator-step3.html',
+				templateUrl : 'pages/battlemech-creator-step3.html?v=' + cacheBreaker,
 				controller  : 'battlemechCreatorControllerStep3'
 			})
 			// route for the battlemech creator page
 			.when('/battlemech-creator/step4/', {
-				templateUrl : 'pages/battlemech-creator-step4.html',
+				templateUrl : 'pages/battlemech-creator-step4.html?v=' + cacheBreaker,
 				controller  : 'battlemechCreatorControllerStep4'
 			})
 			// route for the battlemech creator page
 			.when('/battlemech-creator/step5/', {
-				templateUrl : 'pages/battlemech-creator-step5.html',
+				templateUrl : 'pages/battlemech-creator-step5.html?v=' + cacheBreaker,
 				controller  : 'battlemechCreatorControllerStep5'
 			})
 			// route for the battlemech creator page
 			.when('/battlemech-creator/step6/', {
-				templateUrl : 'pages/battlemech-creator-step6.html',
+				templateUrl : 'pages/battlemech-creator-step6.html?v=' + cacheBreaker,
 				controller  : 'battlemechCreatorControllerStep6'
 			})
 			// route for the battlemech creator page
 			.when('/battlemech-creator/summary/', {
-				templateUrl : 'pages/battlemech-creator-summary.html',
+				templateUrl : 'pages/battlemech-creator-summary.html?v=' + cacheBreaker,
 				controller  : 'battlemechCreatorControllerSummary'
 			})
 			// route for the battlemech creator page
 			.when('/battlemech-creator/exports/', {
-				templateUrl : 'pages/battlemech-creator-exports.html',
+				templateUrl : 'pages/battlemech-creator-exports.html?v=' + cacheBreaker,
 				controller  : 'battlemechCreatorControllerExports'
 			})
 
@@ -99,18 +101,18 @@ webApp = angular.module(
 			 */
 			// route for the home/welcome page
 			.when('/as/', {
-				templateUrl : 'pages/as-builder.html',
+				templateUrl : 'pages/as-builder.html?v=' + cacheBreaker,
 				controller  : 'asBuilderController'
 			})
 
 			.when('/as/play-view', {
-				templateUrl : 'pages/as-play-view.html',
+				templateUrl : 'pages/as-play-view.html?v=' + cacheBreaker,
 				controller  : 'asPlayViewController'
 			})
 
 			// route for the credits page
 			.when('/settings', {
-				templateUrl : 'pages/settings.html',
+				templateUrl : 'pages/settings.html?v=' + cacheBreaker,
 				controller  : 'settingsController'
 			})
 

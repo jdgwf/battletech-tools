@@ -164,6 +164,8 @@ webApp = angular.module(
 				}
 			}
 
+			cacheBreaker = "2016022201";
+
 			$translateProvider.useSanitizeValueStrategy('sanitize');
 
 			preferred_language = "en-US";
@@ -178,13 +180,13 @@ webApp = angular.module(
 
 			// route for the home/welcome page
 			.when('/', {
-				templateUrl : 'pages/welcome.html',
+				templateUrl : 'pages/welcome.html?v=' + cacheBreaker,
 				controller  : 'welcomeController'
 			})
 
 			// route for the credits page
 			.when('/credits', {
-				templateUrl : 'pages/credits.html',
+				templateUrl : 'pages/credits.html?v=' + cacheBreaker,
 				controller  : 'creditsController'
 			})
 
@@ -193,49 +195,49 @@ webApp = angular.module(
 			 */
 			// route for the battlemech creator page
 			.when('/battlemech-creator/', {
-				templateUrl : 'pages/battlemech-creator-welcome.html',
+				templateUrl : 'pages/battlemech-creator-welcome.html?v=' + cacheBreaker,
 				controller  : 'battlemechCreatorControllerWelcome'
 			})
 
 			// route for the battlemech creator page
 			.when('/battlemech-creator/step1/', {
-				templateUrl : 'pages/battlemech-creator-step1.html',
+				templateUrl : 'pages/battlemech-creator-step1.html?v=' + cacheBreaker,
 				controller  : 'battlemechCreatorControllerStep1'
 			})
 
 			// route for the battlemech creator page
 			.when('/battlemech-creator/step2/', {
-				templateUrl : 'pages/battlemech-creator-step2.html',
+				templateUrl : 'pages/battlemech-creator-step2.html?v=' + cacheBreaker,
 				controller  : 'battlemechCreatorControllerStep2'
 			})
 			// route for the battlemech creator page
 			.when('/battlemech-creator/step3/', {
-				templateUrl : 'pages/battlemech-creator-step3.html',
+				templateUrl : 'pages/battlemech-creator-step3.html?v=' + cacheBreaker,
 				controller  : 'battlemechCreatorControllerStep3'
 			})
 			// route for the battlemech creator page
 			.when('/battlemech-creator/step4/', {
-				templateUrl : 'pages/battlemech-creator-step4.html',
+				templateUrl : 'pages/battlemech-creator-step4.html?v=' + cacheBreaker,
 				controller  : 'battlemechCreatorControllerStep4'
 			})
 			// route for the battlemech creator page
 			.when('/battlemech-creator/step5/', {
-				templateUrl : 'pages/battlemech-creator-step5.html',
+				templateUrl : 'pages/battlemech-creator-step5.html?v=' + cacheBreaker,
 				controller  : 'battlemechCreatorControllerStep5'
 			})
 			// route for the battlemech creator page
 			.when('/battlemech-creator/step6/', {
-				templateUrl : 'pages/battlemech-creator-step6.html',
+				templateUrl : 'pages/battlemech-creator-step6.html?v=' + cacheBreaker,
 				controller  : 'battlemechCreatorControllerStep6'
 			})
 			// route for the battlemech creator page
 			.when('/battlemech-creator/summary/', {
-				templateUrl : 'pages/battlemech-creator-summary.html',
+				templateUrl : 'pages/battlemech-creator-summary.html?v=' + cacheBreaker,
 				controller  : 'battlemechCreatorControllerSummary'
 			})
 			// route for the battlemech creator page
 			.when('/battlemech-creator/exports/', {
-				templateUrl : 'pages/battlemech-creator-exports.html',
+				templateUrl : 'pages/battlemech-creator-exports.html?v=' + cacheBreaker,
 				controller  : 'battlemechCreatorControllerExports'
 			})
 
@@ -244,18 +246,18 @@ webApp = angular.module(
 			 */
 			// route for the home/welcome page
 			.when('/as/', {
-				templateUrl : 'pages/as-builder.html',
+				templateUrl : 'pages/as-builder.html?v=' + cacheBreaker,
 				controller  : 'asBuilderController'
 			})
 
 			.when('/as/play-view', {
-				templateUrl : 'pages/as-play-view.html',
+				templateUrl : 'pages/as-play-view.html?v=' + cacheBreaker,
 				controller  : 'asPlayViewController'
 			})
 
 			// route for the credits page
 			.when('/settings', {
-				templateUrl : 'pages/settings.html',
+				templateUrl : 'pages/settings.html?v=' + cacheBreaker,
 				controller  : 'settingsController'
 			})
 
@@ -755,9 +757,19 @@ function ifIEOrEdge() {
 	   // This is Microsoft Edge
 	   return true;
 	}
+
+
+
 	return false;
 }
 
+function isIOSStandAlone() {
+	if( window.navigator.standalone == true ){
+	   // Experimenting with iOS PDF fixes.
+	   return true;
+	}
+	return false;
+}
 
 function SelectAll(id)
 {
@@ -8885,6 +8897,8 @@ var battlemechCreatorControllerExportsArray =
 				$location.url("/");
 			}
 
+
+
 			localStorage["backToPath"] = $location.$$path;
 
 			// create mech object, load from localStorage if exists
@@ -8900,7 +8914,6 @@ var battlemechCreatorControllerExportsArray =
 
 			current_mech.useLang = localStorage["tmp.preferred_language"];
 
-
 			$scope.makeTROBBCode = current_mech.makeTROBBCode();
 
 			// make tro for sidebar
@@ -8908,36 +8921,41 @@ var battlemechCreatorControllerExportsArray =
 			$scope.mech_bv_calc = current_mech.getBVCalcHTML();
 			$scope.mech_as_calc = current_mech.getASCalcHTML();
 
+			$scope.isIOSStandAlone = isIOSStandAlone();
+
+
+			$scope.troIOSPDFLinkClick = function() {
+				var troPDF = makeBattlemechTROPDF(current_mech);
+				var troPDFData = troPDF.output('datauristring');
+				$scope.troIOSPDFLink =  "pages/ios-standalone-pdf.html#" + troPDFData;
+			}
+
+			$scope.rsIOSPDFLinkClick = function() {
+				var rsPDFData = makeBattlemechRecordSheetPDF(current_mech);
+				var rsPDFData = rsPDFData.output('datauristring');
+				$scope.rsIOSPDFLink =  "pages/ios-standalone-pdf.html#" + rsPDFData;
+			}
+
+			$scope.combIOSPDFLinkClick = function() {
+				var combPDF = makeBattlemechCombinedPDF(current_mech);
+				var combPDFData = combPDF.output('datauristring');
+				$scope.combIOSPDFLink =  "pages/ios-standalone-pdf.html#" + combPDFData;
+			}
+
 			$scope.makeRecordSheet = function() {
-				// convertImgToDataURLviaCanvas(
-				// 	'./images/pdf/blank-mech-sheet-smaller.png',
-				// 	function(base64Img) {
 				pdf = makeBattlemechRecordSheetPDF(current_mech);
-				//~ if( !ifIEOrEdge() )
-					//~ pdf.output('dataurlnewwindow');
-				//~ else
-					pdf.save(current_mech.getName() + ' - Record Sheet.pdf');
-					// }
-				 // );
+				pdf.save(current_mech.getName() + ' - Record Sheet.pdf');
 			}
 
 			$scope.makeTROSheet = function() {
 				pdf = makeBattlemechTROPDF(current_mech);
-				//~ if( !ifIEOrEdge() )
-					//~ pdf.output('dataurlnewwindow');
-				//~ else
-					pdf.save(current_mech.getName() + ' - TRO.pdf');
+				pdf.save(current_mech.getName() + ' - TRO.pdf');
 			}
 			$scope.makeCombinedSheet = function() {
-				// convertFileToDataURLviaFileReader(
-				// 	'./images/pdf/blank-mech-sheet.png',
-				// 	function(base64Img) {
-						pdf = makeBattlemechCombinedPDF(current_mech);
-						pdf.save(current_mech.getName() + ' - Record Sheet and TRO.pdf');
-				// 		pdf.output('dataurlnewwindow');
-				// 	}
-				// );
+				pdf = makeBattlemechCombinedPDF(current_mech);
+				pdf.save(current_mech.getName() + ' - Record Sheet and TRO.pdf');
 			}
+
 		}
 	]
 ;
@@ -10645,13 +10663,13 @@ var settingsArray = [
 			$rootScope.subtitle_tag = translation.GENERAL_SETTINGS;
 		});
 
-			$scope.goHome = function() {
+		$scope.goHome = function() {
 
-				delete(localStorage["backToPath"]);
-				$location.url("/");
-			}
+			delete(localStorage["backToPath"]);
+			$location.url("/");
+		}
 
-			localStorage["backToPath"] = $location.$$path;
+		localStorage["backToPath"] = $location.$$path;
 
 		$scope.available_languages = Array();
 		$scope.users_language = {};

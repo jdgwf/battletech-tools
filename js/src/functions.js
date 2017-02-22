@@ -60,9 +60,19 @@ function ifIEOrEdge() {
 	   // This is Microsoft Edge
 	   return true;
 	}
+
+
+
 	return false;
 }
 
+function isIOSStandAlone() {
+	if( window.navigator.standalone == true ){
+	   // Experimenting with iOS PDF fixes.
+	   return true;
+	}
+	return false;
+}
 
 function SelectAll(id)
 {

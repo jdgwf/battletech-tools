@@ -9,7 +9,20 @@
 				<legend translate="BM_EXPORTS_OUTPUT">Output</legend>
 
 				<h4 translate="BM_PRINTING_AND_PDF">Printing and PDF</h4>
-				<div class="row">
+
+				<div class="row" ng-show="isIOSStandAlone">
+					<div class="column small-12 medium-v large-4">
+						<a ng-href="{{rsIOSPDFLink}}" ng-click="rsIOSPDFLinkClick()" target="xxx"><button class="button expanded radius primary" translate="BM_EXPORTS_EXPORT_RECORD_SHEET">Record Sheet</button></a>
+					</div>
+					<div class="column small-12 medium-v large-4">
+						<a ng-href="{{troIOSPDFLink}}" ng-click="troIOSPDFLinkClick()" target="xxx"><button class="button expanded radius primary" translate="BM_EXPORTS_EXPORT_TRO">TRO</button></a>
+					</div>
+					<div class="column small-12 medium-v large-4">
+						<a ng-href="{{combIOSPDFLink}}" ng-click="combIOSPDFLinkClick()" target="xxx"><button class="button expanded radius primary" translate="BM_EXPORTS_EXPORT_FULL">Full Print Out</button></a>
+					</div>
+				</div>
+
+				<div class="row" ng-hide="isIOSStandAlone">
 					<div class="column small-12 medium-v large-4">
 						<button class="button expanded radius primary" ng-click="makeRecordSheet()" translate="BM_EXPORTS_EXPORT_RECORD_SHEET">Record Sheet</button>
 					</div>
