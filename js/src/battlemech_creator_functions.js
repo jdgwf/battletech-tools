@@ -177,7 +177,7 @@ function createTROPDF( pdfDoc, battlemech_object ) {
 	pdfDoc.text(col4Loc, 10 + lineHeight * lineNumber , battlemech_object.getTranslation("TRO_VALUE") );
 	lineNumber++;
 	pdfDoc.setFont(pdfFontFace, "");
-	pdfDoc.text(col3Loc - battlemech_object.getTranslation("TRO_ARMOR_HD").length - 10, 10 + lineHeight * lineNumber , battlemech_object.getTranslation("TRO_ARMOR_HD")  );
+	pdfDoc.text(col3Loc - battlemech_object.getTranslation("TRO_ARMOR_HD").length - 11, 10 + lineHeight * lineNumber , battlemech_object.getTranslation("TRO_ARMOR_HD")  );
 	pdfDoc.text(col3Loc, 10 + lineHeight * lineNumber , "     " + battlemech_object.internalStructure.head  + ""  );
 	pdfDoc.text(col4Loc, 10 + lineHeight * lineNumber , "     " + battlemech_object.armorAllocation.head  + "");
 	lineNumber++;
@@ -314,13 +314,83 @@ function createTROPDF( pdfDoc, battlemech_object ) {
 	pdfDoc.setFont(pdfFontFace, "");
 
 	for( eq_count = 0; eq_count < battlemech_object.equipmentList.length; eq_count++) {
+		item_location = "";
+		item_location = battlemech_object.getLocationAbbr( battlemech_object.equipmentList[eq_count].location );
+
 		pdfDoc.text(col1Loc, 10 + lineHeight * lineNumber , battlemech_object.equipmentList[eq_count].name[ battlemech_object.useLang ]   );
-		pdfDoc.text(col3Loc, 10 + lineHeight * lineNumber , "   " + battlemech_object.getLocationAbbr( battlemech_object.equipmentList[eq_count].location ) );
+		pdfDoc.text(col3Loc, 10 + lineHeight * lineNumber , "   " + item_location.toUpperCase() );
 		pdfDoc.text(col4Loc, 10 + lineHeight * lineNumber , "   " + battlemech_object.equipmentList[eq_count].space.battlemech );
 		pdfDoc.text(col5Loc, 10 + lineHeight * lineNumber , "   " + battlemech_object.equipmentList[eq_count].weight  );
 		lineNumber++;
 	}
 
+
+	for( var locC = 0; locC < battlemech_object.validJJLocations.length; locC++ ) {
+
+		var jjObjs = [];
+		for( var critC = 0; critC < battlemech_object.criticals[ battlemech_object.validJJLocations[locC].long ].length; critC++ ) {
+			if(
+				battlemech_object.criticals[ battlemech_object.validJJLocations[locC].long ][ critC ]
+				&& battlemech_object.criticals[ battlemech_object.validJJLocations[locC].long ][ critC ].tag
+				&& battlemech_object.criticals[ battlemech_object.validJJLocations[locC].long ][ critC ].tag.indexOf( "jj-") === 0
+			) {
+				jjObjs.push( battlemech_object.criticals[ battlemech_object.validJJLocations[locC].long ][ critC ] );
+			}
+		}
+
+		if( jjObjs.length > 0 ) {
+			var areaWeight = 0;
+			if( battlemech_object.tonnage <= 55) {
+				// 10-55 tons
+				areaWeight = jjObjs.length * battlemech_object.jumpJetType.weight_multiplier.light;
+			} else if(battlemech_object.tonnage <= 85) {
+				// 60 - 85 tons
+				areaWeight = jjObjs.length * battlemech_object.jumpJetType.weight_multiplier.medium;
+			} else {
+				// 90+ tons
+				areaWeight = jjObjs.length * battlemech_object.jumpJetType.weight_multiplier.heavy;
+			}
+
+			pdfDoc.text(col1Loc, 10 + lineHeight * lineNumber , jjObjs[0].name   );
+			pdfDoc.text(col3Loc, 10 + lineHeight * lineNumber , "   " + battlemech_object.validJJLocations[locC].short.toUpperCase() );
+			pdfDoc.text(col4Loc, 10 + lineHeight * lineNumber , "   " + jjObjs.length.toString() );
+			pdfDoc.text(col5Loc, 10 + lineHeight * lineNumber , "   " + areaWeight.toString()  );
+			lineNumber++;
+		}
+	}
+
+	var jjObjs = [];
+
+	for( var critC = 0; critC < battlemech_object.unallocatedCriticals.length; critC++ ) {
+		if(
+			battlemech_object.unallocatedCriticals[ critC ]
+			&& battlemech_object.unallocatedCriticals[ critC ].tag
+			&& battlemech_object.unallocatedCriticals[ critC ].tag.indexOf( "jj-") === 0
+		) {
+			jjObjs.push(battlemech_object.unallocatedCriticals[ critC ] );
+		}
+	}
+
+	if( jjObjs.length > 0 ) {
+		var areaWeight = 0;
+		if( battlemech_object.tonnage <= 55) {
+			// 10-55 tons
+			areaWeight = jjObjs.length * battlemech_object.jumpJetType.weight_multiplier.light;
+		} else if(battlemech_object.tonnage <= 85) {
+			// 60 - 85 tons
+			areaWeight = jjObjs.length * battlemech_object.jumpJetType.weight_multiplier.medium;
+		} else {
+			// 90+ tons
+			areaWeight = jjObjs.length * battlemech_object.jumpJetType.weight_multiplier.heavy;
+		}
+		//	html += "" + jjObjs[0].name.rpad(" ", col1Padding) + "" + "n/a".toUpperCase().rpad(" ", col2Padding) + "" + jjObjs.length.toString().rpad(" ", col3Padding) + "" + areaWeight.toString().rpad(" ", col4Padding) + "\n";
+
+		pdfDoc.text(col1Loc, 10 + lineHeight * lineNumber , jjObjs[0].name   );
+		pdfDoc.text(col3Loc, 10 + lineHeight * lineNumber , "   " + "n/a" );
+		pdfDoc.text(col4Loc, 10 + lineHeight * lineNumber , "   " + jjObjs.length.toString() );
+		pdfDoc.text(col5Loc, 10 + lineHeight * lineNumber , "   " + areaWeight.toString()  );
+		lineNumber++;
+	}
 
 
 	pdfDoc = makeFooter(pdfDoc);
