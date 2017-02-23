@@ -1,7 +1,5 @@
 var available_languages = [];
 
-var appVersion = "0.01Alpha";
-
 cordovaApp = angular.module(
 	'cordovaApp',
 	['ngRoute', 'ngResource', 'ngSanitize','pascalprecht.translate', 'as.sortable', 'mm.foundation'],
@@ -859,7 +857,7 @@ function ifIEOrEdge() {
 }
 
 function getAppVersion() {
-	return "2016022204";
+	return "2016022301";
 }
 
 function isIOSStandAlone() {

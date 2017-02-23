@@ -1,7 +1,5 @@
 var available_languages = [];
 
-var appVersion = "0.01Alpha";
-
 cordovaApp = angular.module(
 	'cordovaApp',
 	['ngRoute', 'ngResource', 'ngSanitize','pascalprecht.translate', 'as.sortable', 'mm.foundation'],
