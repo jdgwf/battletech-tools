@@ -845,6 +845,10 @@ button.round, .button.round {
     color: #fff; }
 
 /* line 959, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+.text-center {
+  text-align: center !important; }
+
+/* line 962, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
 .please-wait {
   position: absolute;
   z-index: 999999;
@@ -858,11 +862,11 @@ button.round, .button.round {
   font-size: 3vw;
   background: rgba(0, 0, 0, 0.7); }
 
-/* line 972, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+/* line 975, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
 .no-wrap-whitespace {
   white-space: nowrap; }
 
-/* line 976, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+/* line 979, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
 .landscape-view-please {
   top: 0;
   left: 0;
@@ -876,23 +880,23 @@ button.round, .button.round {
   padding: 45% 5%;
   text-align: center; }
 
-/* line 990, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+/* line 993, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
 .inline-block {
   display: inline-block; }
 
-/* line 994, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+/* line 997, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
 .color-red {
   color: #e00 !important; }
 
-/* line 998, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+/* line 1001, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
 .color-green {
   color: #0e0 !important; }
 
-/* line 1002, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+/* line 1005, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
 .color-blue {
   color: #00e !important; }
 
-/* line 1007, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+/* line 1010, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
 .modal-container {
   position: fixed;
   width: 100%;
@@ -903,7 +907,7 @@ button.round, .button.round {
   z-index: 1000;
   overflow-x: hidden;
   overflow-y: scroll; }
-  /* line 1017, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+  /* line 1020, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
   .modal-container .reveal {
     color: #fff;
     background: #111;
@@ -916,25 +920,25 @@ button.round, .button.round {
     margin-top: 3rem;
     margin-left: -40%;
     margin-bottom: 30px; }
-    /* line 1030, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+    /* line 1033, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
     .modal-container .reveal label {
       color: #fff; }
 
-/* line 1037, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+/* line 1040, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
 .bbcode-export {
   width: 100%;
   height: 1000px;
   font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace; }
 
-/* line 1043, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+/* line 1046, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
 .reveal-modal {
   position: fixed; }
 
-/* line 1047, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+/* line 1050, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
 .even-modaler {
   z-index: 2000 !important; }
 
 @media only screen and (max-device-width: 400px) and (orientation: portrait) {
-  /* line 1052, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+  /* line 1055, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
   .landscape-view-please {
     display: block; } }

@@ -19,33 +19,61 @@
 			<div class="row">
 				<div class="column medium-12 large-6">
 
-
 					<fieldset class="fieldset">
 
 						<legend translate="BM_STEP5_AVAILABLE_EQUIPMENT">Available Equipment</legend>
+						<div class="text-right">
+							<label>
+								<input type="text" ng-model="filterEquipmentTerm" ng-keyup="filterEquipment( filterEquipmentTerm )" placeholder="{{'GENERAL_TYPE_HERE_TO_FILTER' | translate}}" />
+							</label>
+						</div>
 						<table class="equipment-list">
 							<thead>
 								<tr>
 									<th translate="BM_STEP5_ITEM_NAME">Name</th>
-									<th translate="BM_STEP5_ITEM_CATEGORY">Category</th>
 									<th translate="BM_STEP5_ITEM_SPACE">Space</th>
 									<th translate="BM_STEP5_ITEM_WEIGHT">Weight</th>
 									<th>&nbsp;</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr ng-repeat="item in equipment_table" class="" ng-class="{'grayed-out':item.isInSelectedEra == false,'hide':item.isInSelectedEra == false && mechIsStrict}">
+							<tbody ng-hide="filterEquipmentTerm.trim().length > 2" ng-repeat="category in category_list">
+								<tr class="" ></tr>
+
+									<td colspan=4">
+										<button ng-click="setCategory(category.local_category)" class="button expanded tiny" ng-class="{primary:selectedEquipmentCategory == category.local_category,secondary:selectedEquipmentCategory != category.local_category }">{{category.local_category}}</button>
+									</td>
+								</tr>
+
+								<tr ng-repeat="item in equipment_table | filter:{local_category: category.local_category}" class="" ng-class="{'grayed-out':item.isInSelectedEra == false,'hide':item.isInSelectedEra == false && mechIsStrict}">
 									<td>{{item.local_name}}</td>
-									<td>{{item.local_category}}</td>
 									<td>{{item.local_space}}</td>
 									<td>{{item.weight}}</td>
 									<td><button ng-click="addItem($index)" class="button expanded radius tiny primary"><span translate="BM_STEP5_ADD">Add</span></button></td>
 								</tr>
+								<tr ng-hide="equipment_table.length">
+									<td colspan="4" class="text-center">
+										<span translate="BM_STEP5_NO_ITEMS_IN_CATEGORY">No Items</span>
+									</td>
+								</tr>
 							</tbody>
+
+							<tbody ng-show="filterEquipmentTerm.trim().length > 2">
+
+								<tr ng-repeat="item in equipment_table" class="" ng-class="{'grayed-out':item.isInSelectedEra == false,'hide':item.isInSelectedEra == false && mechIsStrict}">
+									<td>{{item.local_name}}</td>
+									<td>{{item.local_space}}</td>
+									<td>{{item.weight}}</td>
+									<td><button ng-click="addItem($index)" class="button expanded radius tiny primary"><span translate="BM_STEP5_ADD">Add</span></button></td>
+								</tr>
+								<tr ng-hide="equipment_table.length">
+									<td colspan="4" class="text-center">
+										<span translate="AS_SEARCH_NO_MATCHES">No Results</span>
+									</td>
+								</tr>
+							</tbody>
+
 						</table>
 					</fieldset>
-
-
 
 				</div>
 				<div class="column medium-12 large-6">
@@ -57,7 +85,6 @@
 								<thead>
 									<tr>
 										<th translate="BM_STEP5_ITEM_NAME">Name</th>
-<!-- 										<th translate="BM_STEP5_ITEM_LOCATION">Location</th> -->
 										<th translate="BM_STEP5_ITEM_WEIGHT">Weight</th>
 										<th translate="BM_STEP5_ITEM_REAR">Rear?</th>
 										<th>&nbsp;</th>
@@ -66,9 +93,6 @@
 								<tbody>
 									<tr ng-repeat="item in installed_equipment_table" class="">
 										<td>{{item.local_name}}</td>
-<!-- 										<td>
-											<select ng-change="updateLocation($index)" ng-options="option.name for option in bm_location_list.availableOptions track by option.id" ng-model="item_locations[$index]"></select>
-										</td> -->
 										<td class="text-center">{{item.weight}}</td>
 										<td class="text-center">
 											<input type="checkbox" ng-checked="item.rear" ng-click="setRear($index, item.rear)" />

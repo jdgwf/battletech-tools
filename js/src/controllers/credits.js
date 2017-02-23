@@ -25,8 +25,6 @@ var creditsArray =
 	]
 ;
 
-
-
 angular.module("webApp").controller(
 	"creditsController",
 	creditsArray

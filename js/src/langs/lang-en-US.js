@@ -57,6 +57,10 @@ available_languages.push ({
 		GENERAL_REAR: "rear",
 		GENERAL_VERSION: "Version",
 
+		GENERAL_FILTER: "Filter",
+		GENERAL_TYPE_HERE_TO_FILTER: "Type here to search for equipment",
+
+
 		GENERAL_REMOVE: "Remove",
 		GENERAL_SAVED: "Saved",
 
@@ -198,6 +202,7 @@ available_languages.push ({
 		BM_STEP5_SELECT_LOCATION: "Select Location",
 		BM_STEP5_AVAILABLE_EQUIPMENT: "Available Equipment",
 		BM_STEP5_ITEM_REAR: "Rear?",
+		BM_STEP5_NO_ITEMS_IN_CATEGORY: "No available items in this category",
 
 		BM_STEP6_TITLE: "Step 6",
 		BM_STEP6_DESC: "Complete the record sheet",

@@ -721,13 +721,42 @@ function sortByCategoryThenName( a, b ) {
 		return 1;
 	if( a.local_category < b.local_category )
 		return -1;
-	//~ if( a.local_name > b.local_name )
-		//~ return 1;
-	//~ if( a.local_name < b.local_name )
-		//~ return -1;
+	if( a.local_name > b.local_name )
+		return 1;
+	if( a.local_name < b.local_name )
+		return -1;
 	return 0;
 }
 
+function sortByCategoryThenSortThenName( a, b ) {
+
+
+
+	if( a.local_category > b.local_category )
+		return 1;
+	if( a.local_category < b.local_category )
+		return -1;
+
+	if( a.sort && b.sort ) {
+	} else if( a.sort ) {
+		if( a.sort > b.local_name )
+			return 1;
+		if( a.sort < b.local_name )
+			return -1;
+	} else if( b.sort ) {
+		if( a.local_name > b.sort )
+			return 1;
+		if( a.local_name < b.sort )
+			return -1;
+	} else {
+		if( a.local_name > b.local_name )
+			return 1;
+		if( a.local_name < b.local_name )
+			return -1;
+	}
+
+	return 0;
+}
 
 function sortByLocalName( a, b ) {
 	if( a.local_name > b.local_name )
@@ -2275,12 +2304,15 @@ var mechISEquipment = Array(
 			'en-US': "Small Laser",
 			'de-DE': "de - Small Laser",
 		},
+		sort: "laser, 0, small",
 		tag: "small-laser",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
 		},
+
 		damage: 3,
+		damage_aero: 3,
 		accuracy_modifier: 0,
 		cbills: 11250,
 		introduced: 2300,
@@ -2307,6 +2339,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE"
 		),
@@ -2330,11 +2363,13 @@ var mechISEquipment = Array(
 			'de-DE': "de - Medium Laser",
 		},
 		tag: "medium-laser",
+		sort: "laser, 1, medium",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 5,
+		damage_aero: 5,
 		accuracy_modifier: 0,
 		cbills: 40000,
 		introduced: 2300,
@@ -2361,6 +2396,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE"
 		),
@@ -2384,11 +2420,13 @@ var mechISEquipment = Array(
 			'de-DE': "de - Large Laser",
 		},
 		tag: "large-laser",
+		sort: "laser, 2, large",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 8,
+		damage_aero: 8,
 		accuracy_modifier: 0,
 		cbills: 100000,
 		introduced: 2316,
@@ -2415,6 +2453,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE"
 		),
@@ -2434,7 +2473,7 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Binary Lazer Cannon",
+			'en-US': "Binary Laser Cannon",
 			'de-DE': "de - Binary Laser Cannon",
 		},
 		tag: "blazer",
@@ -2443,6 +2482,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 12,
+		damage_aero: 12,
 		accuracy_modifier: 0,
 		cbills: 200000,
 		introduced: 2812,
@@ -2469,6 +2509,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE"
 		),
@@ -2493,11 +2534,13 @@ var mechISEquipment = Array(
 			'de-DE': "de - ER Small Laser",
 		},
 		tag: "er-small-laser",
+		sort: "laser, 0, small, er",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 3,
+		damage_aero: 3,
 		accuracy_modifier: 0,
 		cbills: 11250,
 		introduced: 3058,
@@ -2524,6 +2567,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE"
 		),
@@ -2547,11 +2591,13 @@ var mechISEquipment = Array(
 			'de-DE': "de - ER Medium Laser",
 		},
 		tag: "er-medium-laser",
+		sort: "laser, 1, medium, er",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 5,
+		damage_aero: 5,
 		accuracy_modifier: 0,
 		cbills: 80000,
 		introduced: 3058,
@@ -2578,6 +2624,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE"
 		),
@@ -2600,12 +2647,14 @@ var mechISEquipment = Array(
 			'en-US': "ER Large Laser",
 			'de-DE': "de - ER Large Laser",
 		},
-		tag: "large-laser",
+		tag: "er-large-laser",
+		sort: "laser, 2, large, er",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 8,
+		damage_aero: 8,
 		accuracy_modifier: 0,
 		cbills: 200000,
 		introduced: 2620,
@@ -2632,6 +2681,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE"
 		),
@@ -2656,11 +2706,13 @@ var mechISEquipment = Array(
 			'de-DE': "de - Small Pulse Laser",
 		},
 		tag: "small-pulse-laser",
+		sort: "laser, 0, small, pulse",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 3,
+		damage_aero: 3,
 		accuracy_modifier: -2,
 		cbills: 16000,
 		introduced: 2609,
@@ -2687,6 +2739,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"P",
 			"AI"
@@ -2712,11 +2765,13 @@ var mechISEquipment = Array(
 			'de-DE': "de - Medium Pulse Laser",
 		},
 		tag: "medium-pulse-laser",
+		sort: "laser, 1, medium, pulse",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 6,
+		damage_aero: 6,
 		accuracy_modifier: -2,
 		cbills: 60000,
 		introduced: 2609,
@@ -2743,6 +2798,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"P"
 		),
@@ -2766,11 +2822,13 @@ var mechISEquipment = Array(
 			'de-DE': "de - Large Pulse Laser",
 		},
 		tag: "large-pulse-laser",
+		sort: "laser, 2, large, pulse",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 9,
+		damage_aero: 9,
 		accuracy_modifier: -2,
 		cbills: 175000,
 		introduced: 2609,
@@ -2797,6 +2855,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"P"
 		),
@@ -2821,11 +2880,13 @@ var mechISEquipment = Array(
 			'de-DE': "de - Small X-Pulse Laser",
 		},
 		tag: "small-x-pulse-laser",
+		sort: "laser, 0, small, x-pulse",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 3,
+		damage_aero: 3,
 		accuracy_modifier: -2,
 		cbills: 31000,
 		introduced: 3057,
@@ -2852,6 +2913,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"P",
 			"AI"
@@ -2877,11 +2939,13 @@ var mechISEquipment = Array(
 			'de-DE': "de - Medium X-Pulse Laser",
 		},
 		tag: "medium-x-pulse-laser",
+		sort: "laser, 1, medium, x-pulse",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 6,
+		damage_aero: 6,
 		accuracy_modifier: -2,
 		cbills: 110000,
 		introduced: 3057,
@@ -2908,6 +2972,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"P"
 		),
@@ -2931,11 +2996,13 @@ var mechISEquipment = Array(
 			'de-DE': "de - Large X-Pulse Laser",
 		},
 		tag: "large-x-pulse-laser",
+		sort: "laser, 2, large, x-pulse",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 9,
+		damage_aero: 9,
 		accuracy_modifier: -2,
 		cbills: 175000,
 		introduced: 2609,
@@ -2962,6 +3029,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"P"
 		),
@@ -2986,6 +3054,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Small Variable-Speed Pulse Laser",
 		},
 		tag: "small-vspl",
+		sort: "laser, 0, small, vspl",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -3028,6 +3097,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"P"
 		),
@@ -3051,6 +3121,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Medium Variable-Speed Pulse Laser",
 		},
 		tag: "medium-vspl",
+		sort: "laser, 1, medium, vspl",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -3093,6 +3164,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"P"
 		),
@@ -3116,6 +3188,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Large Variable-Speed Pulse Laser",
 		},
 		tag: "large-vspl",
+		sort: "laser, 2, large, vspl",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -3158,6 +3231,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"P"
 		),
@@ -3182,11 +3256,13 @@ var mechISEquipment = Array(
 			'de-DE': "de - Light PPC",
 		},
 		tag: "light-ppc",
+		sort: "ppc, 0, light",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 5,
+		damage_aero: 5,
 		accuracy_modifier: 0,
 		cbills: 150000,
 		introduced: 3067,
@@ -3213,6 +3289,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE"
 		),
@@ -3236,11 +3313,13 @@ var mechISEquipment = Array(
 			'de-DE': "de - PPC",
 		},
 		tag: "standard-ppc",
+		sort: "ppc, 1, standard",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 10,
+		damage_aero: 10,
 		accuracy_modifier: 0,
 		cbills: 200000,
 		introduced: 2460,
@@ -3267,6 +3346,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE"
 		),
@@ -3290,11 +3370,13 @@ var mechISEquipment = Array(
 			'de-DE': "de - Heavy PPC",
 		},
 		tag: "heavy-ppc",
+		sort: "ppc, 2, heavy",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 15,
+		damage_aero: 15,
 		accuracy_modifier: 0,
 		cbills: 250000,
 		introduced: 3067,
@@ -3321,6 +3403,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE"
 		),
@@ -3344,6 +3427,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Snub-Nose PPC",
 		},
 		tag: "snub-nose-ppc",
+		sort: "ppc, snub-nose",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -3382,6 +3466,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE"
 		),
@@ -3405,11 +3490,13 @@ var mechISEquipment = Array(
 			'de-DE': "de - Extended-Range PPC",
 		},
 		tag: "er-ppc",
+		sort: "ppc, er",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 10,
+		damage_aero: 10,
 		accuracy_modifier: 0,
 		cbills: 300000,
 		introduced: 2751,
@@ -3436,6 +3523,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE"
 		),
@@ -3453,6 +3541,7 @@ var mechISEquipment = Array(
 			)
 		}
 	},
+
 	// Plasma Rifle
 	{
 		name: {
@@ -3460,11 +3549,13 @@ var mechISEquipment = Array(
 			'de-DE': "de - Plasma Rifle",
 		},
 		tag: "plasma-rifle",
+		sort: "plasmarifle",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 10,
+		damage_aero: 10,
 		accuracy_modifier: 0,
 		cbills: 260000,
 		introduced: 3068,
@@ -3491,6 +3582,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 10,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE",
 			"H"
@@ -3547,6 +3639,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 10,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DB",
 			"AI"
@@ -3577,7 +3670,9 @@ var mechISEquipment = Array(
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
 		},
+		sort: "flamer, vehicle",
 		damage: 2,
+		damage_aero: 2,
 		accuracy_modifier: 0,
 		cbills: 7500,
 		introduced: 1950,
@@ -3604,6 +3699,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 20,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE",
 			"H"
@@ -3624,6 +3720,63 @@ var mechISEquipment = Array(
 			)
 		}
 	},
+	{
+		name: {
+			'en-US': "Ammo (Vehicle Flamer)",
+			'de-DE': "de - Ammo (Vehicle Flamer)",
+		},
+		tag: "ammo-vehicle-flamer",
+		sort: "ammo, flamer, vehicle",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 1000,
+		introduced: 1950,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 5,
+		ammo_battlevalue: 1,
+		heat: 3,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 1,
+			medium: 2,
+			long: 3,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 20,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"X"
+		),
+		tech_rating: "b",
+		book: "TM",
+		page: 218,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
 	/*
 		BALLISTIC WEAPONS
 	*/
@@ -3634,6 +3787,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Machine Gun",
 		},
 		tag: "machine-gun",
+		sort: "machine gun",
 		category: {
 			'en-US': "Ballistic Weapons",
 			'de-DE': "de - Ballistic Weapons",
@@ -3665,6 +3819,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 200,
 		min_ammo_tons: 0.5,
+		explosive: false,
 		weapon_type: Array(
 			"DB",
 			"AI"
@@ -3689,6 +3844,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Ammo (Machine Gun)",
 		},
 		tag: "ammo-machine-gun",
+		sort: "ammo, machine gun",
 		category: {
 			'en-US': "Ammunition",
 			'de-DE': "de - Ammunition",
@@ -3720,6 +3876,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 200,
 		min_ammo_tons: 0.5,
+		explosive: true,
 		weapon_type: Array(
 			"DB",
 			"AI"
@@ -3739,6 +3896,7 @@ var mechISEquipment = Array(
 		}
 	}
 );
+
 var mechJumpJetTypes = Array(
 	{
 		name: {
@@ -9841,60 +9999,159 @@ var battlemechCreatorControllerStep5Array =
 			// make tro for sidebar
 			update_mech_status_bar_and_tro($scope, $translate, current_mech);
 
-			$scope.equipment_table =[];
+			$scope.filterEquipmentTerm = "";
 
-			if( current_mech.getTech().tag == "clan") {
-				// Use Clan Equipment Table...
-				$scope.equipment_table = mechClanEquipment;
-			} else {
-				// Use Inner Sphere Equipment Table...
-				$scope.equipment_table = mechISEquipment;
+			$scope.setCategory = function( selectedCategory ) {
+				$scope.filterEquipment( localStorage["tmp.filterEquipmentTerm"], selectedCategory );
 			}
 
-
-			$scope.mechIsStrict = false;
-			if( current_mech.strictEra > 0 )
-				$scope.mechIsStrict = true;
-
-			selectedEra = current_mech.era;
-			for(var eqc = 0; eqc < $scope.equipment_table.length; eqc++ ) {
-				if( $scope.equipment_table[eqc].name[ localStorage["tmp.preferred_language"] ])
-					$scope.equipment_table[eqc].local_name = $scope.equipment_table[eqc].name[ localStorage["tmp.preferred_language"] ];
-				else
-					$scope.equipment_table[eqc].local_name = $scope.equipment_table[eqc].name[ "en-US" ];
-
-				if( $scope.equipment_table[eqc].category[ localStorage["tmp.preferred_language"] ])
-					$scope.equipment_table[eqc].local_category = $scope.equipment_table[eqc].category[ localStorage["tmp.preferred_language"] ];
-				else
-					$scope.equipment_table[eqc].local_category = $scope.equipment_table[eqc].category[ "en-US" ];
-
-				$scope.equipment_table[eqc].local_space = $scope.equipment_table[eqc].space.battlemech;
-
-				$scope.equipment_table[eqc].isInSelectedEra = false;
-
-				if(
-					$scope.equipment_table[eqc].introduced < selectedEra.year_start
-						||
-
-					(
-						$scope.equipment_table[eqc].extinct > 0
-							&&
-						$scope.equipment_table[eqc].extinct >= selectedEra.year_end
-					)
+			$scope.filterEquipment = function( newFilterTerm, selectedCategory ) {
 
 
 
-					||
-
-						$scope.equipment_table[eqc].reintroduced >= selectedEra.year_start
-
-				) {
-					$scope.equipment_table[eqc].isInSelectedEra = true;
+				if( typeof(newFilterTerm) == "undefined" ) {
+					$scope.filterEquipmentTerm = "";
+				} else {
+					$scope.filterEquipmentTerm = newFilterTerm;
 				}
 
+				if( typeof(selectedCategory) == "undefined" ) {
+					$scope.selectedEquipmentCategory = "";
+				} else {
+					$scope.selectedEquipmentCategory = selectedCategory;
+				}
+
+
+
+
+
+
+				$scope.equipment_table =[];
+				$scope.category_list =[];
+
+				if( current_mech.getTech().tag == "clan") {
+					// Use Clan Equipment Table...
+					$scope.equipment_table = angular.copy( mechClanEquipment );
+					$scope.category_list = angular.copy( mechClanEquipment );
+				} else {
+					// Use Inner Sphere Equipment Table...
+					$scope.equipment_table = angular.copy( mechISEquipment );
+					$scope.category_list = angular.copy( mechISEquipment );
+				}
+
+
+
+				$scope.mechIsStrict = false;
+				if( current_mech.strictEra > 0 )
+					$scope.mechIsStrict = true;
+
+				selectedEra = current_mech.era;
+
+				for(var eqc = $scope.category_list.length - 1; eqc > -1; eqc-- ) {
+
+					if( $scope.category_list[eqc].category[ localStorage["tmp.preferred_language"] ])
+						$scope.category_list[eqc].local_category = $scope.category_list[eqc].category[ localStorage["tmp.preferred_language"] ];
+					else
+						$scope.category_list[eqc].local_category = $scope.category_list[eqc].category[ "en-US" ];
+					//~ console.log( "$scope.filterEquipmentTerm.toLowerCase().trim()", $scope.filterEquipmentTerm.toLowerCase().trim() );
+					//~ console.log( "$scope.equipment_table[eqc].local_name.toLowerCase()", $scope.equipment_table[eqc].local_name.toLowerCase() );
+					//~ console.log("meow", $scope.equipment_table[eqc].local_name.toLowerCase().indexOf( $scope.filterEquipmentTerm.toLowerCase().trim() ));
+
+
+				}
+
+
+				if( $scope.selectedEquipmentCategory == "" ) {
+					 $scope.selectedEquipmentCategory = $scope.category_list[0].local_category;
+				}
+
+				//~ console.log( "filterEquipment", $scope.filterEquipmentTerm, $scope.selectedEquipmentCategory );
+
+				localStorage["tmp.filterEquipmentTerm"] = $scope.filterEquipmentTerm;
+				localStorage["tmp.selectedEquipmentCategory"] = $scope.selectedEquipmentCategory;
+
+				$scope.category_list.sort( sortByCategoryThenName );
+
+
+				for(var eqc = $scope.category_list.length - 1; eqc > -1; eqc-- ) {
+					if(
+						eqc > 0
+							&&
+						$scope.category_list[eqc].local_category == $scope.category_list[eqc - 1].local_category
+					) {
+						$scope.category_list.splice( eqc, 1 );
+					}
+				}
+
+				for(var eqc = $scope.equipment_table.length - 1; eqc > -1; eqc-- ) {
+					if( $scope.equipment_table[eqc].name[ localStorage["tmp.preferred_language"] ])
+						$scope.equipment_table[eqc].local_name = $scope.equipment_table[eqc].name[ localStorage["tmp.preferred_language"] ];
+					else
+						$scope.equipment_table[eqc].local_name = $scope.equipment_table[eqc].name[ "en-US" ];
+
+					if( $scope.equipment_table[eqc].category[ localStorage["tmp.preferred_language"] ])
+						$scope.equipment_table[eqc].local_category = $scope.equipment_table[eqc].category[ localStorage["tmp.preferred_language"] ];
+					else
+						$scope.equipment_table[eqc].local_category = $scope.equipment_table[eqc].category[ "en-US" ];
+
+
+					$scope.equipment_table[eqc].local_space = $scope.equipment_table[eqc].space.battlemech;
+
+					$scope.equipment_table[eqc].isInSelectedEra = false;
+
+
+
+
+
+					if(
+						$scope.equipment_table[eqc].introduced < selectedEra.year_start
+							||
+
+						(
+							$scope.equipment_table[eqc].extinct > 0
+								&&
+							$scope.equipment_table[eqc].extinct >= selectedEra.year_end
+						)
+
+						||
+
+							$scope.equipment_table[eqc].reintroduced >= selectedEra.year_start
+
+					) {
+						$scope.equipment_table[eqc].isInSelectedEra = true;
+					}
+
+					// Remove if filter doesn't match
+					if(
+						$scope.filterEquipmentTerm.trim().length > 2
+							&&
+						$scope.equipment_table[eqc].local_name.toLowerCase().indexOf( $scope.filterEquipmentTerm.toLowerCase().trim() ) === -1
+					) {
+
+						$scope.equipment_table.splice( eqc, 1 );
+					} else {
+						// remove if not current category
+						if( $scope.selectedEquipmentCategory == "" ) {
+							// set to first, then reshuffle.
+							$scope.selectedEquipmentCategory = $scope.equipment_table[eqc].local_category
+						}
+
+						if(  $scope.equipment_table[eqc].local_category != $scope.selectedEquipmentCategory ) {
+							$scope.equipment_table.splice( eqc, 1 );
+						}
+
+					}
+
+				}
+
+				$scope.equipment_table.sort( sortByCategoryThenSortThenName );
+
+
+				//~ console.log( "$scope.category_list", $scope.category_list );
+
 			}
 
-			$scope.equipment_table.sort( sortByCategoryThenName );
+			$scope.filterEquipment( localStorage["tmp.filterEquipmentTerm"], localStorage["tmp.selectedEquipmentCategory"] );
 
 			$translate(['BM_STEP5_SELECT_LOCATION' ]).then(function (translation) {
 
@@ -10637,8 +10894,6 @@ var creditsArray =
 	]
 ;
 
-
-
 angular.module("webApp").controller(
 	"creditsController",
 	creditsArray
@@ -10997,6 +11252,10 @@ available_languages.push ({
 		GENERAL_REAR: "rear",
 		GENERAL_VERSION: "Version",
 
+		GENERAL_FILTER: "Filter",
+		GENERAL_TYPE_HERE_TO_FILTER: "Type here to search for equipment",
+
+
 		GENERAL_REMOVE: "Remove",
 		GENERAL_SAVED: "Saved",
 
@@ -11138,6 +11397,7 @@ available_languages.push ({
 		BM_STEP5_SELECT_LOCATION: "Select Location",
 		BM_STEP5_AVAILABLE_EQUIPMENT: "Available Equipment",
 		BM_STEP5_ITEM_REAR: "Rear?",
+		BM_STEP5_NO_ITEMS_IN_CATEGORY: "No available items in this category",
 
 		BM_STEP6_TITLE: "Step 6",
 		BM_STEP6_DESC: "Complete the record sheet",
