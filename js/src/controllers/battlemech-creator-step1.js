@@ -122,8 +122,6 @@ var battlemechCreatorControllerStep1Array =
 				availableOptions: tonnageOptions,
 				selectedOption: current_mech.getTonnage()
 			};
-			// make tro for sidebar
-
 
 			// update functions
 			$scope.update_mech_name = function() {
@@ -135,6 +133,8 @@ var battlemechCreatorControllerStep1Array =
 
 			$scope.update_mech_tech = function() {
 				current_mech.setTech( $scope.mech_tech.selectedOption.id );
+
+				$scope.mech_era.selectedOption = current_mech.getEra();
 
 				localStorage["tmp.current_mech"] = current_mech.exportJSON();
 
