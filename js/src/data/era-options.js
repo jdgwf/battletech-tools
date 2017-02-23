@@ -1,3 +1,6 @@
+/*
+ * The data here is copyright NOT included in the MIT license.
+ */
 var btEraOptions = Array(
 	{
 		id: 1,
@@ -11,12 +14,12 @@ var btEraOptions = Array(
 	{
 		id: 2,
 		name: {
-			'en-US': "Succession Wars (2781-3049)",
+			'en-US': "Succession Wars (2801-3049)",
 			'de-DE': "de - Succession Wars"
 		},
-		year_start: 2781,
+		year_start: 2801,
 		year_end: 3049,
-	}/*,,
+	}/*,
 	{
 		id: 3,
 		name: {

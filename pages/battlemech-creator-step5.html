@@ -12,8 +12,9 @@
 			<div class="row">
 				<div class="column small-12">
 
-					<div class="dev-note">Definitely a work in progress here. I have much data entry to add. I also have to filter the weapons and equipment by the selected era from Step 1<br />
-					<br />There's also a good chance I'll have to split up the equipment into tabs or accordians</div>
+					<div class="dev-note">
+						This section's functionality should be <strong>complete</strong> for now. (yay)
+					</div>
 				</div>
 			</div>
 			<div class="row">
@@ -31,9 +32,9 @@
 							<thead>
 								<tr>
 									<th translate="BM_STEP5_ITEM_NAME">Name</th>
-									<th translate="BM_STEP5_ITEM_SPACE">Space</th>
-									<th translate="BM_STEP5_ITEM_WEIGHT">Weight</th>
-									<th>&nbsp;</th>
+									<th width="1%" style="padding: 0 2px" translate="BM_STEP5_ITEM_SPACE">Space</th>
+									<th width="1%" style="padding: 0 2px" translate="BM_STEP5_ITEM_WEIGHT">Weight</th>
+									<th width="1%">&nbsp;</th>
 								</tr>
 							</thead>
 							<tbody ng-hide="filterEquipmentTerm.trim().length > 2" ng-repeat="category in category_list">

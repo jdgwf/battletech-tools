@@ -1,3 +1,6 @@
+/*
+ * The data here is copyright NOT included in the MIT license.
+ */
 battlemechLocations = Array(
 	{
 		tag: "hd",
