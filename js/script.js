@@ -864,7 +864,7 @@ var btEraOptions = Array(
 		},
 		year_start: 2801,
 		year_end: 3049,
-	}/*,
+	},
 	{
 		id: 3,
 		name: {
@@ -874,7 +874,7 @@ var btEraOptions = Array(
 		year_start: 3050,
 		year_end: 3085,
 	}
-
+/*
 	{
 		id: 4,
 		name: {
@@ -9558,7 +9558,7 @@ var battlemechCreatorControllerStep2Array =
 
 			$scope.update_mech_gyro = function() {
 
-				$scope.current_mech.setGyro( $scope.mech_gyro.selectedOption.id );
+				$scope.current_mech.setGyroType( $scope.mech_gyro.selectedOption.id );
 
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);

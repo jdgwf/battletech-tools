@@ -156,7 +156,7 @@ var battlemechCreatorControllerStep2Array =
 
 			$scope.update_mech_gyro = function() {
 
-				$scope.current_mech.setGyro( $scope.mech_gyro.selectedOption.id );
+				$scope.current_mech.setGyroType( $scope.mech_gyro.selectedOption.id );
 
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);

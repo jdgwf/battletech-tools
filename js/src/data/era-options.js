@@ -19,7 +19,7 @@ var btEraOptions = Array(
 		},
 		year_start: 2801,
 		year_end: 3049,
-	}/*,
+	},
 	{
 		id: 3,
 		name: {
@@ -29,7 +29,7 @@ var btEraOptions = Array(
 		year_start: 3050,
 		year_end: 3085,
 	}
-
+/*
 	{
 		id: 4,
 		name: {
