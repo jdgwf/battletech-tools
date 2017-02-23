@@ -45,6 +45,38 @@ function sortByCategoryThenSortThenName( a, b ) {
 		return -1;
 
 	if( a.sort && b.sort ) {
+		if( a.sort > b.sort )
+			return 1;
+		if( a.sort < b.sort )
+			return -1;
+	} else if( a.sort ) {
+		if( a.sort > b.local_name )
+			return 1;
+		if( a.sort < b.local_name )
+			return -1;
+	} else if( b.sort ) {
+		if( a.local_name > b.sort )
+			return 1;
+		if( a.local_name < b.sort )
+			return -1;
+	} else {
+		if( a.local_name > b.local_name )
+			return 1;
+		if( a.local_name < b.local_name )
+			return -1;
+	}
+
+	return 0;
+}
+
+function sortBySortThenName( a, b ) {
+
+
+	if( a.sort && b.sort ) {
+		if( a.sort > b.sort )
+			return 1;
+		if( a.sort < b.sort )
+			return -1;
 	} else if( a.sort ) {
 		if( a.sort > b.local_name )
 			return 1;

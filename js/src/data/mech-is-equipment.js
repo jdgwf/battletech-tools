@@ -241,7 +241,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - ER Small Laser",
 		},
 		tag: "er-small-laser",
-		sort: "laser, 0, small, er",
+		sort: "laser, er, 0, small",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -298,7 +298,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - ER Medium Laser",
 		},
 		tag: "er-medium-laser",
-		sort: "laser, 1, medium, er",
+		sort: "laser, er, 1, medium",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -355,7 +355,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - ER Large Laser",
 		},
 		tag: "er-large-laser",
-		sort: "laser, 2, large, er",
+		sort: "laser, er, 2, large",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -413,7 +413,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Small Pulse Laser",
 		},
 		tag: "small-pulse-laser",
-		sort: "laser, 0, small, pulse",
+		sort: "laser, pulse, 0, small",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -472,7 +472,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Medium Pulse Laser",
 		},
 		tag: "medium-pulse-laser",
-		sort: "laser, 1, medium, pulse",
+		sort: "laser, pulse, 1, medium",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -529,7 +529,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Large Pulse Laser",
 		},
 		tag: "large-pulse-laser",
-		sort: "laser, 2, large, pulse",
+		sort: "laser, pulse, 2, large",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -587,7 +587,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Small X-Pulse Laser",
 		},
 		tag: "small-x-pulse-laser",
-		sort: "laser, 0, small, x-pulse",
+		sort: "laser, x-pulse, 0, small",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -646,7 +646,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Medium X-Pulse Laser",
 		},
 		tag: "medium-x-pulse-laser",
-		sort: "laser, 1, medium, x-pulse",
+		sort: "laser, x-pulse, 1, medium",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -703,7 +703,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Large X-Pulse Laser",
 		},
 		tag: "large-x-pulse-laser",
-		sort: "laser, 2, large, x-pulse",
+		sort: "laser, x-pulse, 2, large",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -761,7 +761,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Small Variable-Speed Pulse Laser",
 		},
 		tag: "small-vspl",
-		sort: "laser, 0, small, vspl",
+		sort: "laser, vspl, 0, small",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -828,7 +828,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Medium Variable-Speed Pulse Laser",
 		},
 		tag: "medium-vspl",
-		sort: "laser, 1, medium, vspl",
+		sort: "laser, vspl, 1, medium",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -895,7 +895,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Large Variable-Speed Pulse Laser",
 		},
 		tag: "large-vspl",
-		sort: "laser, 2, large, vspl",
+		sort: "laser, vspl, 2, large",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",

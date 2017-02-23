@@ -213,10 +213,12 @@ var battlemechCreatorControllerStep5Array =
 
 					$scope.installed_equipment_table[eqc].local_space = $scope.installed_equipment_table[eqc].space.battlemech;
 
-					$scope.item_locations[eqc] = make_select_object($scope.installed_equipment_table[eqc].location);
+					// $scope.item_locations[eqc] = make_select_object($scope.installed_equipment_table[eqc].location);
 				}
 
-				$scope.installed_equipment_table.sort( sortByLocalName );
+				console.log( "$scope.installed_equipment_table ", $scope.installed_equipment_table );
+				$scope.installed_equipment_table = $scope.installed_equipment_table.sort( sortBySortThenName );
+				console.log( "$scope.installed_equipment_table ", $scope.installed_equipment_table );
 
 				var location_list = [];
 				location_list.push( {
@@ -237,13 +239,31 @@ var battlemechCreatorControllerStep5Array =
 			});
 
 
-
-
 			$scope.addItem = function( index_number ) {
 				if( $scope.equipment_table[index_number].tag ) {
 					current_mech.addEquipmentFromTag( $scope.equipment_table[index_number].tag );
 					update_mech_status_bar_and_tro($scope, $translate, current_mech);
 					localStorage["tmp.current_mech"] = current_mech.exportJSON();
+
+					$scope.installed_equipment_table = current_mech.getInstalledEquipment();
+
+					for(var eqc = 0; eqc < $scope.installed_equipment_table.length; eqc++ ) {
+						if( $scope.installed_equipment_table[eqc].name[ localStorage["tmp.preferred_language"] ])
+							$scope.installed_equipment_table[eqc].local_name = $scope.installed_equipment_table[eqc].name[ localStorage["tmp.preferred_language"] ];
+						else
+							$scope.installed_equipment_table[eqc].local_name = $scope.installed_equipment_table[eqc].name[ "en-US" ];
+
+						if( $scope.installed_equipment_table[eqc].category[ localStorage["tmp.preferred_language"] ])
+							$scope.installed_equipment_table[eqc].local_category = $scope.installed_equipment_table[eqc].category[ localStorage["tmp.preferred_language"] ];
+						else
+							$scope.installed_equipment_table[eqc].local_category = $scope.installed_equipment_table[eqc].category[ "en-US" ];
+
+						$scope.installed_equipment_table[eqc].local_space = $scope.installed_equipment_table[eqc].space.battlemech;
+
+						//$scope.item_locations[eqc] = make_select_object($scope.installed_equipment_table[eqc].location);
+					}
+
+					$scope.installed_equipment_table = $scope.installed_equipment_table.sort( sortBySortThenName );
 				}
 			};
 

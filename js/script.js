@@ -806,6 +806,38 @@ function sortByCategoryThenSortThenName( a, b ) {
 		return -1;
 
 	if( a.sort && b.sort ) {
+		if( a.sort > b.sort )
+			return 1;
+		if( a.sort < b.sort )
+			return -1;
+	} else if( a.sort ) {
+		if( a.sort > b.local_name )
+			return 1;
+		if( a.sort < b.local_name )
+			return -1;
+	} else if( b.sort ) {
+		if( a.local_name > b.sort )
+			return 1;
+		if( a.local_name < b.sort )
+			return -1;
+	} else {
+		if( a.local_name > b.local_name )
+			return 1;
+		if( a.local_name < b.local_name )
+			return -1;
+	}
+
+	return 0;
+}
+
+function sortBySortThenName( a, b ) {
+
+
+	if( a.sort && b.sort ) {
+		if( a.sort > b.sort )
+			return 1;
+		if( a.sort < b.sort )
+			return -1;
 	} else if( a.sort ) {
 		if( a.sort > b.local_name )
 			return 1;
@@ -2640,7 +2672,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - ER Small Laser",
 		},
 		tag: "er-small-laser",
-		sort: "laser, 0, small, er",
+		sort: "laser, er, 0, small",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -2697,7 +2729,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - ER Medium Laser",
 		},
 		tag: "er-medium-laser",
-		sort: "laser, 1, medium, er",
+		sort: "laser, er, 1, medium",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -2754,7 +2786,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - ER Large Laser",
 		},
 		tag: "er-large-laser",
-		sort: "laser, 2, large, er",
+		sort: "laser, er, 2, large",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -2812,7 +2844,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Small Pulse Laser",
 		},
 		tag: "small-pulse-laser",
-		sort: "laser, 0, small, pulse",
+		sort: "laser, pulse, 0, small",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -2871,7 +2903,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Medium Pulse Laser",
 		},
 		tag: "medium-pulse-laser",
-		sort: "laser, 1, medium, pulse",
+		sort: "laser, pulse, 1, medium",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -2928,7 +2960,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Large Pulse Laser",
 		},
 		tag: "large-pulse-laser",
-		sort: "laser, 2, large, pulse",
+		sort: "laser, pulse, 2, large",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -2986,7 +3018,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Small X-Pulse Laser",
 		},
 		tag: "small-x-pulse-laser",
-		sort: "laser, 0, small, x-pulse",
+		sort: "laser, x-pulse, 0, small",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -3045,7 +3077,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Medium X-Pulse Laser",
 		},
 		tag: "medium-x-pulse-laser",
-		sort: "laser, 1, medium, x-pulse",
+		sort: "laser, x-pulse, 1, medium",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -3102,7 +3134,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Large X-Pulse Laser",
 		},
 		tag: "large-x-pulse-laser",
-		sort: "laser, 2, large, x-pulse",
+		sort: "laser, x-pulse, 2, large",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -3160,7 +3192,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Small Variable-Speed Pulse Laser",
 		},
 		tag: "small-vspl",
-		sort: "laser, 0, small, vspl",
+		sort: "laser, vspl, 0, small",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -3227,7 +3259,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Medium Variable-Speed Pulse Laser",
 		},
 		tag: "medium-vspl",
-		sort: "laser, 1, medium, vspl",
+		sort: "laser, vspl, 1, medium",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -3294,7 +3326,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Large Variable-Speed Pulse Laser",
 		},
 		tag: "large-vspl",
-		sort: "laser, 2, large, vspl",
+		sort: "laser, vspl, 2, large",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
@@ -10445,10 +10477,12 @@ var battlemechCreatorControllerStep5Array =
 
 					$scope.installed_equipment_table[eqc].local_space = $scope.installed_equipment_table[eqc].space.battlemech;
 
-					$scope.item_locations[eqc] = make_select_object($scope.installed_equipment_table[eqc].location);
+					// $scope.item_locations[eqc] = make_select_object($scope.installed_equipment_table[eqc].location);
 				}
 
-				$scope.installed_equipment_table.sort( sortByLocalName );
+				console.log( "$scope.installed_equipment_table ", $scope.installed_equipment_table );
+				$scope.installed_equipment_table = $scope.installed_equipment_table.sort( sortBySortThenName );
+				console.log( "$scope.installed_equipment_table ", $scope.installed_equipment_table );
 
 				var location_list = [];
 				location_list.push( {
@@ -10469,13 +10503,31 @@ var battlemechCreatorControllerStep5Array =
 			});
 
 
-
-
 			$scope.addItem = function( index_number ) {
 				if( $scope.equipment_table[index_number].tag ) {
 					current_mech.addEquipmentFromTag( $scope.equipment_table[index_number].tag );
 					update_mech_status_bar_and_tro($scope, $translate, current_mech);
 					localStorage["tmp.current_mech"] = current_mech.exportJSON();
+
+					$scope.installed_equipment_table = current_mech.getInstalledEquipment();
+
+					for(var eqc = 0; eqc < $scope.installed_equipment_table.length; eqc++ ) {
+						if( $scope.installed_equipment_table[eqc].name[ localStorage["tmp.preferred_language"] ])
+							$scope.installed_equipment_table[eqc].local_name = $scope.installed_equipment_table[eqc].name[ localStorage["tmp.preferred_language"] ];
+						else
+							$scope.installed_equipment_table[eqc].local_name = $scope.installed_equipment_table[eqc].name[ "en-US" ];
+
+						if( $scope.installed_equipment_table[eqc].category[ localStorage["tmp.preferred_language"] ])
+							$scope.installed_equipment_table[eqc].local_category = $scope.installed_equipment_table[eqc].category[ localStorage["tmp.preferred_language"] ];
+						else
+							$scope.installed_equipment_table[eqc].local_category = $scope.installed_equipment_table[eqc].category[ "en-US" ];
+
+						$scope.installed_equipment_table[eqc].local_space = $scope.installed_equipment_table[eqc].space.battlemech;
+
+						//$scope.item_locations[eqc] = make_select_object($scope.installed_equipment_table[eqc].location);
+					}
+
+					$scope.installed_equipment_table = $scope.installed_equipment_table.sort( sortBySortThenName );
 				}
 			};
 
