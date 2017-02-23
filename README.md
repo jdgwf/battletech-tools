@@ -12,6 +12,7 @@ There are no server moving parts for the application itself, but I'm seeing the 
 
 ### Team
 [Jeffrey D. Gordon](https://github.com/jdgwf) ([@gauthic](https://twitter.com/gauthic)), Lead Developer and designer
+
 [MoonSword22](https://github.com/MoonSword22), Data Entry and consulting
 
 ###Current Development Targets
