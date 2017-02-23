@@ -2180,6 +2180,12 @@ Mech.prototype.setTech = function( techID )  {
 		if( techID == btTechOptions[lcounter].id ) {
 			this.tech = btTechOptions[lcounter];
 			this._calc();
+
+			// set era to Clan Invasion (id 3) if the techID is 2 (Clan)
+			if( techID == 2 && this.getEra().id != 3 ) {
+				this.setEra( 3 );
+			}
+
 			return this.tech;
 		}
 	}

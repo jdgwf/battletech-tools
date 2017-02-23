@@ -7456,6 +7456,12 @@ Mech.prototype.setTech = function( techID )  {
 		if( techID == btTechOptions[lcounter].id ) {
 			this.tech = btTechOptions[lcounter];
 			this._calc();
+
+			// set era to Clan Invasion (id 3) if the techID is 2 (Clan)
+			if( techID == 2 && this.getEra().id != 3 ) {
+				this.setEra( 3 );
+			}
+
 			return this.tech;
 		}
 	}
@@ -9424,6 +9430,7 @@ var battlemechCreatorControllerStep1Array =
 
 			$scope.update_mech_tech = function() {
 				current_mech.setTech( $scope.mech_tech.selectedOption.id );
+
 				localStorage["tmp.current_mech"] = current_mech.exportJSON();
 
 				update_mech_status_bar_and_tro($scope, $translate, current_mech);
