@@ -14,6 +14,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 3,
+		damage_aero: 3,
 		accuracy_modifier: 0,
 		cbills: 11250,
 		introduced: 2300,
@@ -40,6 +41,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE"
 		),
@@ -68,6 +70,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 5,
+		damage_aero: 5,
 		accuracy_modifier: 0,
 		cbills: 40000,
 		introduced: 2300,
@@ -94,6 +97,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE"
 		),
@@ -122,6 +126,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 8,
+		damage_aero: 8,
 		accuracy_modifier: 0,
 		cbills: 100000,
 		introduced: 2316,
@@ -148,6 +153,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE"
 		),
@@ -167,7 +173,7 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Binary Lazer Cannon",
+			'en-US': "Binary Laser Cannon",
 			'de-DE': "de - Binary Laser Cannon",
 		},
 		tag: "blazer",
@@ -176,6 +182,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 12,
+		damage_aero: 12,
 		accuracy_modifier: 0,
 		cbills: 200000,
 		introduced: 2812,
@@ -202,6 +209,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE"
 		),
@@ -231,6 +239,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 3,
+		damage_aero: 3,
 		accuracy_modifier: 0,
 		cbills: 11250,
 		introduced: 3058,
@@ -257,6 +266,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE"
 		),
@@ -285,6 +295,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 5,
+		damage_aero: 5,
 		accuracy_modifier: 0,
 		cbills: 80000,
 		introduced: 3058,
@@ -311,6 +322,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE"
 		),
@@ -333,12 +345,13 @@ var mechISEquipment = Array(
 			'en-US': "ER Large Laser",
 			'de-DE': "de - ER Large Laser",
 		},
-		tag: "large-laser",
+		tag: "er-large-laser",
 		category: {
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 8,
+		damage_aero: 8,
 		accuracy_modifier: 0,
 		cbills: 200000,
 		introduced: 2620,
@@ -365,6 +378,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE"
 		),
@@ -394,6 +408,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 3,
+		damage_aero: 3,
 		accuracy_modifier: -2,
 		cbills: 16000,
 		introduced: 2609,
@@ -420,6 +435,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"P",
 			"AI"
@@ -450,6 +466,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 6,
+		damage_aero: 6,
 		accuracy_modifier: -2,
 		cbills: 60000,
 		introduced: 2609,
@@ -476,6 +493,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"P"
 		),
@@ -504,6 +522,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 9,
+		damage_aero: 9,
 		accuracy_modifier: -2,
 		cbills: 175000,
 		introduced: 2609,
@@ -530,6 +549,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"P"
 		),
@@ -559,6 +579,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 3,
+		damage_aero: 3,
 		accuracy_modifier: -2,
 		cbills: 31000,
 		introduced: 3057,
@@ -585,6 +606,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"P",
 			"AI"
@@ -615,6 +637,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 6,
+		damage_aero: 6,
 		accuracy_modifier: -2,
 		cbills: 110000,
 		introduced: 3057,
@@ -641,6 +664,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"P"
 		),
@@ -669,6 +693,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 9,
+		damage_aero: 9,
 		accuracy_modifier: -2,
 		cbills: 175000,
 		introduced: 2609,
@@ -695,6 +720,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"P"
 		),
@@ -761,6 +787,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"P"
 		),
@@ -826,6 +853,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"P"
 		),
@@ -891,6 +919,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"P"
 		),
@@ -920,6 +949,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 5,
+		damage_aero: 5,
 		accuracy_modifier: 0,
 		cbills: 150000,
 		introduced: 3067,
@@ -946,6 +976,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE"
 		),
@@ -974,6 +1005,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 10,
+		damage_aero: 10,
 		accuracy_modifier: 0,
 		cbills: 200000,
 		introduced: 2460,
@@ -1000,6 +1032,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE"
 		),
@@ -1028,6 +1061,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 15,
+		damage_aero: 15,
 		accuracy_modifier: 0,
 		cbills: 250000,
 		introduced: 3067,
@@ -1054,6 +1088,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE"
 		),
@@ -1115,6 +1150,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE"
 		),
@@ -1143,6 +1179,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 10,
+		damage_aero: 10,
 		accuracy_modifier: 0,
 		cbills: 300000,
 		introduced: 2751,
@@ -1169,6 +1206,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 0,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE"
 		),
@@ -1198,6 +1236,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 10,
+		damage_aero: 10,
 		accuracy_modifier: 0,
 		cbills: 260000,
 		introduced: 3068,
@@ -1224,6 +1263,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 10,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE",
 			"H"
@@ -1280,6 +1320,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 10,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DB",
 			"AI"
@@ -1311,6 +1352,7 @@ var mechISEquipment = Array(
 			'de-DE': "de - Energy Weapons",
 		},
 		damage: 2,
+		damage_aero: 2,
 		accuracy_modifier: 0,
 		cbills: 7500,
 		introduced: 1950,
@@ -1337,6 +1379,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 20,
 		min_ammo_tons: 1,
+		explosive: false,
 		weapon_type: Array(
 			"DE",
 			"H"
@@ -1354,6 +1397,62 @@ var mechISEquipment = Array(
 			notes: Array(
 				"Heat",
 				"Point Defense"
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Vehicle Flamer)",
+			'de-DE': "de - Ammo (Vehicle Flamer)",
+		},
+		tag: "ammo-vehicle-flamer",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 1000,
+		introduced: 1950,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 5,
+		ammo_battlevalue: 1,
+		heat: 3,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 1,
+			medium: 2,
+			long: 3,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 20,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"X"
+		),
+		tech_rating: "b",
+		book: "TM",
+		page: 218,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
 			)
 		}
 	},
@@ -1398,6 +1497,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 200,
 		min_ammo_tons: 0.5,
+		explosive: false,
 		weapon_type: Array(
 			"DB",
 			"AI"
@@ -1453,6 +1553,7 @@ var mechISEquipment = Array(
 		},
 		ammo_per_ton: 200,
 		min_ammo_tons: 0.5,
+		explosive: true,
 		weapon_type: Array(
 			"DB",
 			"AI"
