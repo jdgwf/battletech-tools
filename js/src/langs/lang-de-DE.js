@@ -1,3 +1,6 @@
+/*
+ * The data here is copyright NOT included in the MIT license.
+ */
 available_languages.push ({
 	english_name: "German",
 	native_name: "Deutsch",
