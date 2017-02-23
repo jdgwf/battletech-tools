@@ -843,6 +843,9 @@ function getMovementModifier( moveScore ) {
 }
 
 
+/*
+ * The data here is copyright NOT included in the MIT license.
+ */
 var btEraOptions = Array(
 	{
 		id: 1,
@@ -856,12 +859,12 @@ var btEraOptions = Array(
 	{
 		id: 2,
 		name: {
-			'en-US': "Succession Wars (2781-3049)",
+			'en-US': "Succession Wars (2801-3049)",
 			'de-DE': "de - Succession Wars"
 		},
-		year_start: 2781,
+		year_start: 2801,
 		year_end: 3049,
-	}/*,,
+	}/*,
 	{
 		id: 3,
 		name: {
@@ -884,6 +887,9 @@ var btEraOptions = Array(
 	*/
 );
 
+/*
+ * The data here is copyright NOT included in the MIT license.
+ */
 battlemechLocations = Array(
 	{
 		tag: "hd",
@@ -1030,6 +1036,10 @@ battlemechLocations = Array(
 		}
 	}
 );
+
+/*
+ * The data here is copyright NOT included in the MIT license.
+ */
 var mechArmorTypes = Array(
 	{
 		name: {
@@ -1135,8 +1145,15 @@ var mechArmorTypes = Array(
 	}
 );
 
+/*
+ * The data here is copyright NOT included in the MIT license.
+ */
 var mechClanEquipment = Array(
 );
+
+/*
+ * The data here is copyright NOT included in the MIT license.
+ */
 var mechEngineOptions = Array(
 	{
 		name: "10",
@@ -2168,6 +2185,9 @@ var mechEngineOptions = Array(
 
 );
 
+/*
+ * The data here is copyright NOT included in the MIT license.
+ */
 var mechEngineTypes = Array(
 	{
 		name: {
@@ -2243,6 +2263,9 @@ var mechEngineTypes = Array(
 	}
 );
 
+/*
+ * The data here is copyright NOT included in the MIT license.
+ */
 var mechGyroTypes = Array(
 	{
 		name: {
@@ -2294,6 +2317,9 @@ var mechGyroTypes = Array(
 	}
 );
 
+/*
+ * The data here is copyright NOT included in the MIT license.
+ */
 var mechISEquipment = Array(
 	/*
 		ENERGY WEAPONS
@@ -3897,6 +3923,9 @@ var mechISEquipment = Array(
 	}
 );
 
+/*
+ * The data here is copyright NOT included in the MIT license.
+ */
 var mechJumpJetTypes = Array(
 	{
 		name: {
@@ -3933,6 +3962,9 @@ var mechJumpJetTypes = Array(
 	}
 );
 
+/*
+ * The data here is copyright NOT included in the MIT license.
+ */
 var mechTypeOptions = Array(
 	{
 		id: 1,
@@ -3951,6 +3983,10 @@ var mechTypeOptions = Array(
 		}
 	}
 );
+
+/*
+ * The data here is copyright NOT included in the MIT license.
+ */
 var btTechOptions = Array(
 	{
 		id: 1,
@@ -11142,6 +11178,9 @@ angular.module("cordovaApp").controller(
 	welcomeArray
 );
 
+/*
+ * The data here is copyright NOT included in the MIT license.
+ */
 available_languages.push ({
 	english_name: "German",
 	native_name: "Deutsch",
@@ -11193,6 +11232,10 @@ available_languages.push ({
 	}
 
 } );
+
+/*
+ * The data here is copyright NOT included in the MIT license.
+ */
 available_languages.push ({
 	english_name: "English",
 	native_name: "English",
