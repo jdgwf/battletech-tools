@@ -22,7 +22,7 @@ var mechEngineTypes = Array(
 	},
 	{
 		name: {
-			"en-US": "Exrta-Light Fusion (XL)"
+			"en-US": "XL Fusion"
 		},
 		tag: "xl",
 		criticals: {
@@ -39,7 +39,7 @@ var mechEngineTypes = Array(
 	},
 	{
 		name: {
-			"en-US": "Clan Exrta-Light Fusion (XL)"
+			"en-US": "Clan XL Fusion"
 		},
 		tag: "clan-xl",
 		criticals: {

@@ -99,7 +99,7 @@ function createTROPDF( pdfDoc, battlemech_object ) {
 	pdfDoc.text(col5Loc, 10 + lineHeight * lineNumber , battlemech_object.getInteralStructureWeight() + "" );
 	lineNumber++;
 
-	pdfDoc.text(col1Loc, 10 + lineHeight * lineNumber , battlemech_object.getTranslation("TRO_ENGINE")  );
+	pdfDoc.text(col1Loc, 10 + lineHeight * lineNumber , battlemech_object.getEngineName()  );
 	pdfDoc.text(col3Loc, 10 + lineHeight * lineNumber , battlemech_object.getEngineRating() + "" );
 	pdfDoc.text(col5Loc, 10 + lineHeight * lineNumber , battlemech_object.getEngineWeight() + "" );
 	lineNumber++;
@@ -116,11 +116,11 @@ function createTROPDF( pdfDoc, battlemech_object ) {
 	pdfDoc.text(col3Loc, 10 + lineHeight * lineNumber , battlemech_object.getJumpSpeed() + "" );
 	lineNumber++;
 
-	pdfDoc.text(col1Loc, 10 + lineHeight * lineNumber , battlemech_object.getTranslation("TRO_HEAT_SINKS")  );
+	pdfDoc.text(col1Loc, 10 + lineHeight * lineNumber , battlemech_object.getHeatSyncName()  );
 	pdfDoc.text(col5Loc, 10 + lineHeight * lineNumber , battlemech_object.getHeatSinks() + "" );
 	lineNumber++;
 
-	pdfDoc.text(col1Loc, 10 + lineHeight * lineNumber , battlemech_object.getTranslation("TRO_GYRO")  );
+	pdfDoc.text(col1Loc, 10 + lineHeight * lineNumber , battlemech_object.getGyroName()  );
 	pdfDoc.text(col5Loc, 10 + lineHeight * lineNumber , battlemech_object.getGyroWeight() + "" );
 	lineNumber++;
 

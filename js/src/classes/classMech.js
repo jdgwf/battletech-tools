@@ -931,10 +931,14 @@ Mech.prototype.getCBillCost = function() {
 }
 
 Mech.prototype.getEngineWeight = function() {
-	if( this.engine && this.engine.weight )
-		return this.engine.weight[ this.engineType.tag ];
-	else
+	if( this.engine && this.engine.weight ) {
+		if (this.engineType.tag == "clan-xl" )
+			return this.engine.weight[ "xl" ];
+		else
+			return this.engine.weight[ this.engineType.tag ];
+	} else {
 		return 0;
+	}
 }
 
 Mech.prototype.getEngineRating = function() {
@@ -1048,14 +1052,14 @@ Mech.prototype.makeTROBBCode = function() {
 	// Equipment
 	html += "" + this.getTranslation("TRO_EQUIPMENT").rpad(" ",col1Padding + col2Padding) + "" + this.getTranslation("TRO_MASS") + "\n";
 	html += "" + this.getTranslation("TRO_INTERNAL_STRUCTURE").rpad(" ",col1Padding + col2Padding) + "" + this.getInteralStructureWeight() + "\n";
-	html += "" + this.getTranslation("TRO_ENGINE").rpad(" ",col1Padding) + "" + this.getEngineRating().toString().rpad(" ", col2Padding) + "" + this.getEngineWeight() + "\n";
+	html += "" + this.getEngineName().rpad(" ",col1Padding) + "" + this.getEngineRating().toString().rpad(" ", col2Padding) + "" + this.getEngineWeight() + "\n";
 
 	html += "" + this.getTranslation("TRO_WALKING").lpad(" ", col1Padding - 10) + " " + this.getWalkSpeed().toString().lpad(" ", 3) + "\n";
 	html += "" + this.getTranslation("TRO_RUNNING").lpad(" ", col1Padding - 10) + " " + this.getRunSpeed().toString().lpad(" ", 3) + "\n";
 	html += "" + this.getTranslation("TRO_JUMPING").lpad(" ", col1Padding - 10) + " " + this.getJumpSpeed().toString().lpad(" ", 3) + "\n";
 
-	html += "" + this.getTranslation("TRO_HEAT_SINKS").rpad(" ",col1Padding) + ""  + this.getHeatSinks().toString().rpad(" ", col2Padding) + "" + this.getHeatSinksWeight() + "\n";
-	html += "" + this.getTranslation("TRO_GYRO").rpad(" ",col1Padding + col2Padding) + "" + this.getGyroWeight() + "\n";
+	html += "" + this.getHeatSyncName().rpad(" ",col1Padding) + ""  + this.getHeatSinks().toString().rpad(" ", col2Padding) + "" + this.getHeatSinksWeight() + "\n";
+	html += "" + this.getGyroName().rpad(" ",col1Padding + col2Padding) + "" + this.getGyroWeight() + "\n";
 
 	if( this.small_cockpit ) {
 		html += "" + this.getTranslation("TRO_SMALL_COCKPIT").rpad(" ",col1Padding + col2Padding) + "" + this.getCockpitWeight() + "\n";
@@ -1273,14 +1277,14 @@ Mech.prototype.makeTROHTML = function() {
 	// Equipment
 	html += "<tr><th class=\"text-left\" colspan=\"3\">" + this.getTranslation("TRO_EQUIPMENT") + "</th><th class=\"text-center\" colspan=\"1\">" + this.getTranslation("TRO_MASS") + "</th></tr>";
 	html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_INTERNAL_STRUCTURE") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getInteralStructureWeight() + "</td></tr>";
-	html += "<tr><td colspan=\"1\">" + this.getTranslation("TRO_ENGINE") + "</td><td class=\"text-center\" colspan=\"2\">" + this.getEngineRating() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getEngineWeight() + "</td></tr>";
+	html += "<tr><td colspan=\"1\">" + this.getEngineName() + "</td><td class=\"text-center\" colspan=\"2\">" + this.getEngineRating() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getEngineWeight() + "</td></tr>";
 
 	html += "<tr><td colspan=\"1\" class=\"text-right\">" + this.getTranslation("TRO_WALKING") + "</td><td class=\"text-center\" colspan=\"2\">" + this.getWalkSpeed() + "</td><td colspan=\"1\">&nbsp;</td></tr>";
 	html += "<tr><td colspan=\"1\" class=\"text-right\">" + this.getTranslation("TRO_RUNNING") + "</td><td class=\"text-center\" colspan=\"2\">" + this.getRunSpeed() + "</td><td colspan=\"1\">&nbsp;</td></tr>";
 	html += "<tr><td colspan=\"1\" class=\"text-right\">" + this.getTranslation("TRO_JUMPING") + "</td><td class=\"text-center\" colspan=\"2\">" + this.getJumpSpeed() + "</td><td colspan=\"1\">&nbsp;</td></tr>";
 
-	html += "<tr><td colspan=\"1\">" + this.getTranslation("TRO_HEAT_SINKS") + "</td><td class=\"text-center\" colspan=\"2\">" + this.getHeatSinks() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getHeatSinksWeight() + "</td></tr>";
-	html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_GYRO") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getGyroWeight() + "</td></tr>";
+	html += "<tr><td colspan=\"1\">" + this.getHeatSyncName() + "</td><td class=\"text-center\" colspan=\"2\">" + this.getHeatSinks() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getHeatSinksWeight() + "</td></tr>";
+	html += "<tr><td colspan=\"3\">" + this.getGyroName() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getGyroWeight() + "</td></tr>";
 
 	if( this.small_cockpit ) {
 		html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_SMALL_COCKPIT") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getCockpitWeight() + "</td></tr>";
@@ -1509,7 +1513,8 @@ Mech.prototype._calc = function() {
 
 
 	if( this.engine ) {
-		this.weights.push( {name: this.engineType.name[this.useLang] + " - " + this.engineType.rating, weight: this.engine.weight[this.engineType.tag]} );
+
+		this.weights.push( {name: this.engineType.name[this.useLang] + " - " + this.engineType.rating, weight: this.getEngineWeight() } );
 
 		this.weights.push( {name: this.gyro.name[this.useLang], weight: this.getGyroWeight()} );
 
@@ -2228,6 +2233,33 @@ Mech.prototype.setGyroType = function(gyroType) {
 Mech.prototype.getEngineType = function() {
 	return this.engineType;
 }
+
+
+Mech.prototype.getEngineName = function() {
+	if( this.engineType.name[ this.useLang ] )
+		return this.engineType.name[ this.useLang ];
+	else
+		return this.engineType.name["en-US"];
+}
+
+Mech.prototype.getHeatSyncName = function() {
+
+	if( this.heat_sink_type == "single" ) {
+		return this.getTranslation( "BM_STEP3_SINGLE_HS" );
+	} else {
+		return this.getTranslation( "BM_STEP3_DOUBLE_HS" );
+	}
+
+
+}
+
+Mech.prototype.getGyroName = function() {
+	if( this.gyro.name[ this.useLang ] )
+		return this.gyro.name[ this.useLang ];
+	else
+		return this.gyro.name["en-US"];
+}
+
 
 Mech.prototype.getName = function() {
 	return this.make;
