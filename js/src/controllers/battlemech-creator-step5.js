@@ -170,14 +170,16 @@ var battlemechCreatorControllerStep5Array =
 
 						$scope.equipment_table.splice( eqc, 1 );
 					} else {
+						if( $scope.filterEquipmentTerm.trim().length < 3 ) {
 						// remove if not current category
-						if( $scope.selectedEquipmentCategory == "" ) {
-							// set to first, then reshuffle.
-							$scope.selectedEquipmentCategory = $scope.equipment_table[eqc].local_category
-						}
+							if( $scope.selectedEquipmentCategory == "" ) {
+								// set to first, then reshuffle.
+								$scope.selectedEquipmentCategory = $scope.equipment_table[eqc].local_category
+							}
 
-						if(  $scope.equipment_table[eqc].local_category != $scope.selectedEquipmentCategory ) {
-							$scope.equipment_table.splice( eqc, 1 );
+							if(  $scope.equipment_table[eqc].local_category != $scope.selectedEquipmentCategory ) {
+								$scope.equipment_table.splice( eqc, 1 );
+							}
 						}
 
 					}
@@ -216,9 +218,7 @@ var battlemechCreatorControllerStep5Array =
 					// $scope.item_locations[eqc] = make_select_object($scope.installed_equipment_table[eqc].location);
 				}
 
-				console.log( "$scope.installed_equipment_table ", $scope.installed_equipment_table );
 				$scope.installed_equipment_table = $scope.installed_equipment_table.sort( sortBySortThenName );
-				console.log( "$scope.installed_equipment_table ", $scope.installed_equipment_table );
 
 				var location_list = [];
 				location_list.push( {
