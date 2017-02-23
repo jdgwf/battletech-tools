@@ -496,7 +496,6 @@ Mech.prototype._calcAlphaStrike = function() {
 
 
 	var heat_dissipation = 0;
-	//~ console.log( "this.heat_sink_type", this.heat_sink_type );
 	if( this.heat_sink_type == "single" ) {
 		heat_dissipation += (10 + this.additional_heat_sinks) * 1;
 	} else if( this.heat_sink_type == "double" ) {
@@ -513,7 +512,7 @@ Mech.prototype._calcAlphaStrike = function() {
 	var before_heat_range_medium = this.alphaStrikeForceStats.range_medium.toFixed(0) /1;
 	var before_heat_range_long = this.alphaStrikeForceStats.range_long.toFixed(0) /1;
 	var before_heat_range_extreme = this.alphaStrikeForceStats.range_extreme.toFixed(0) /1;
-	//~ console.log( "ba", this.alphaStrikeForceStats );
+
 	if( overheat_value > 3) {
 		// Heat Modified Damage, p115 AS companion
 		this.alphaStrikeForceStats.range_short = ( this.alphaStrikeForceStats.range_short * heat_dissipation ) / (max_heat_output - 4);
@@ -524,19 +523,17 @@ Mech.prototype._calcAlphaStrike = function() {
 		this.alphaStrikeForceStats.range_long = ( this.alphaStrikeForceStats.range_long * heat_dissipation ) / (max_heat_output - 4);
 
 	}
-	//~ console.log( "ba", this.alphaStrikeForceStats );
+
 	this.alphaStrikeForceStats.range_short = this.alphaStrikeForceStats.range_short.toFixed(0) /1;
 	this.alphaStrikeForceStats.range_medium = this.alphaStrikeForceStats.range_medium.toFixed(0) /1;
 	this.alphaStrikeForceStats.range_long = this.alphaStrikeForceStats.range_long.toFixed(0) /1;
 	this.alphaStrikeForceStats.range_extreme = this.alphaStrikeForceStats.range_extreme.toFixed(0) /1;
-	//~ console.log( "fa", this.alphaStrikeForceStats );
+
 
 	// Determine Overheat Values - p116 AS Companion
 	var final_overheat_value = 0;
-	//~ console.log( "before_heat_range_medium", before_heat_range_medium );
-	//~ console.log( "this.alphaStrikeForceStats.range_medium", this.alphaStrikeForceStats.range_medium );
-	//~ console.log( "before_heat_range_short", before_heat_range_short );
-	//~ console.log( "this.alphaStrikeForceStats.range_short", this.alphaStrikeForceStats.range_short );
+
+
 	if( before_heat_range_medium - this.alphaStrikeForceStats.range_medium > 0) {
 		final_overheat_value = before_heat_range_medium - this.alphaStrikeForceStats.range_medium;
 	} else {
@@ -545,9 +542,6 @@ Mech.prototype._calcAlphaStrike = function() {
 	}
 	if( final_overheat_value > 4 )
 		final_overheat_value = 4;
-
-	//~ console.log( "before_heat_range_long", before_heat_range_long );
-	//~ console.log( "this.alphaStrikeForceStats.range_long", this.alphaStrikeForceStats.range_long );
 
 	// Determine Overheat Values - ASC - p116
 	var final_long_overheat_value = 0;
@@ -749,7 +743,6 @@ Mech.prototype._calcAlphaStrike = function() {
 
 	this.alphaStrikeForceStats.pv = finalValue;
 
-	//console.log( this.alphaStrikeForceStats );
 	this.alphaStrikeValue = Math.round(this.alphaStrikeForceStats.pv);
 }
 
@@ -1231,7 +1224,7 @@ Mech.prototype.makeTROBBCode = function() {
 	}
 
 	var jjObjs = [];
-	//~ console.log( "this.unallocatedCriticals", this.unallocatedCriticals );
+
 	for( var critC = 0; critC < this.unallocatedCriticals.length; critC++ ) {
 		if(
 			this.unallocatedCriticals[ critC ]
@@ -1241,7 +1234,7 @@ Mech.prototype.makeTROBBCode = function() {
 			jjObjs.push(this.unallocatedCriticals[ critC ] );
 		}
 	}
-	//~ console.log( "jjObjs", jjObjs );
+
 	if( jjObjs.length > 0 ) {
 		var areaWeight = 0;
 		if( this.tonnage <= 55) {
@@ -1429,7 +1422,7 @@ Mech.prototype.makeTROHTML = function() {
 	}
 
 	var jjObjs = [];
-	//~ console.log( "this.unallocatedCriticals", this.unallocatedCriticals );
+
 	for( var critC = 0; critC < this.unallocatedCriticals.length; critC++ ) {
 		if(
 			this.unallocatedCriticals[ critC ]
@@ -1439,7 +1432,7 @@ Mech.prototype.makeTROHTML = function() {
 			jjObjs.push(this.unallocatedCriticals[ critC ] );
 		}
 	}
-	//~ console.log( "jjObjs", jjObjs );
+
 	if( jjObjs.length > 0 ) {
 		var areaWeight = 0;
 		if( this.tonnage <= 55) {
@@ -1682,7 +1675,13 @@ Mech.prototype._calcCriticals = function() {
 
 
 	// Engine
-	if( this.engineType.criticals[ this.getTech().tag ].ct > 3 ) {
+
+	if(
+		this.engineType
+		&& this.engineType.criticals
+		&& this.engineType.criticals[ this.getTech().tag ]
+		&& this.engineType.criticals[ this.getTech().tag ].ct > 3
+	) {
 		this._addCriticalItem(
 			"engine", 									// item_tag
 			this.engineType.name[this.useLang], 		// item_name
@@ -1691,6 +1690,9 @@ Mech.prototype._calcCriticals = function() {
 														// slot
 		);
 	} else {
+		// reset back to standard, engine not available for tech
+		console.log( "warning", "resetting engine to standard ", this.engineType.criticals, this.getTech().tag, this.tech) ;
+		this.setEngineType( "standard" );
 		this._addCriticalItem(
 			"engine", 												// item_tag
 			this.engineType.name[this.useLang], 					// item_name
@@ -1700,10 +1702,20 @@ Mech.prototype._calcCriticals = function() {
 		);
 	}
 
-	if( this.engineType.criticals.rt )
+	if(
+		this.engineType.criticals[ this.getTech().tag ]
+			&&
+		this.engineType.criticals[ this.getTech().tag ].rt
+	) {
 		this._addCriticalItem( "engine", this.engineType.name[this.useLang], this.engineType.criticals[ this.getTech().tag ].rt, "rt");
-	if( this.engineType.criticals.lt )
+	}
+	if(
+		this.engineType.criticals[ this.getTech().tag ]
+			&&
+		this.engineType.criticals[ this.getTech().tag ].lt
+	) {
 		this._addCriticalItem( "engine", this.engineType.name[this.useLang], this.engineType.criticals[ this.getTech().tag ].lt, "lt");
+	}
 
 	// Gyro
 	this._addCriticalItem(
@@ -1784,7 +1796,7 @@ Mech.prototype._calcCriticals = function() {
 		} );
 	}
 
-	//~ console.log( this.criticalAllocationTable );
+
 
 	// Allocate items per allocation table.
 	for( alt_c = 0; alt_c < this.criticalAllocationTable.length; alt_c++) {
@@ -1796,7 +1808,7 @@ Mech.prototype._calcCriticals = function() {
 			true
 		)
 	}
-	//~ console.log( "this.unallocatedCriticals", this.unallocatedCriticals);
+
 
 	// remove location tag for remaining unallocated
 	for( var lCount = 0; lCount < this.unallocatedCriticals.length; lCount++ ) {
@@ -1937,7 +1949,7 @@ Mech.prototype._isNextXCritsAvailable = function( area_array, critical_count, be
 }
 
 Mech.prototype._assignItemToArea = function( area_array, new_item, critical_count, slot_number ) {
-	//~ console.log( "_assignItemToArea", area_array, new_item, critical_count, slot_number);
+
 	var placeholder = {
 		uuid: new_item.uuid,
 		name: "placeholder",
@@ -2131,11 +2143,6 @@ Mech.prototype.setEngine = function(ratingNumber) {
 	return 0;
 }
 
-Mech.prototype.setGyro = function( gyroType )  {
-	this.gyro = gyroType;
-	this._calc();
-	return this.gyro;
-}
 
 Mech.prototype.getGyro = function()  {
 	return this.gyro;
@@ -2201,8 +2208,21 @@ Mech.prototype.setEngineType = function(engineType) {
 		}
 	}
 	// default to Military Standard if tag not found.
-	this.engineType = engineType[0];
+	this.engineType = mechEngineTypes[0];
 	return this.engineType;
+}
+
+Mech.prototype.setGyroType = function(gyroType) {
+	for( lcounter = 0; lcounter < mechGyroTypes.length; lcounter++) {
+		if( gyroType.toLowerCase() == mechGyroTypes[lcounter].tag) {
+			this.gyro = mechGyroTypes[lcounter];
+			this._calc();
+			return this.gyro;
+		}
+	}
+	// default to Military Standard if tag not found.
+	this.gyro = mechGyroTypes[0];
+	return this.gyro;
 }
 
 Mech.prototype.getEngineType = function() {
@@ -2638,6 +2658,8 @@ Mech.prototype.exportJSON = function() {
 	export_object.era = this.era.id;
 	export_object.tech = this.tech.id;
 
+	export_object.gyro = this.gyro.tag;
+
 	export_object.additional_heat_sinks = this.additional_heat_sinks;
 	export_object.heat_sink_type = this.heat_sink_type;
 
@@ -2693,6 +2715,12 @@ Mech.prototype.importJSON = function(json_string) {
 
 			this.setTonnage( import_object.tonnage );
 
+			if( import_object.era )
+				this.setEra( import_object.era );
+
+			if( import_object.tech )
+				this.setTech( import_object.tech );
+
 			if( import_object.walkSpeed )
 				this.setWalkSpeed( import_object.walkSpeed );
 
@@ -2706,6 +2734,9 @@ Mech.prototype.importJSON = function(json_string) {
 					this.strictEra = 0;
 			}
 
+			if( import_object.gyro )
+				this.setGyroType( import_object.gyro );
+
 			if( import_object.engineType )
 				this.setEngineType( import_object.engineType );
 
@@ -2715,11 +2746,7 @@ Mech.prototype.importJSON = function(json_string) {
 			if( import_object.heat_sink_type )
 				this.setHeatSinksType( import_object.heat_sink_type );
 
-			if( import_object.era )
-				this.setEra( import_object.era );
 
-			if( import_object.tech )
-				this.setTech( import_object.tech );
 
 			if( import_object.armor_weight )
 				this.setArmorWeight( import_object.armor_weight );
@@ -2941,7 +2968,6 @@ Mech.prototype.removeEquipment = function(equipment_index) {
 };
 
 Mech.prototype.setRear = function(equipment_index, newValue) {
-	//console.log("setRear", equipment_index, newValue);
 	if( this.equipmentList[equipment_index] ) {
 		this.equipmentList[equipment_index].rear = newValue;
 	}
@@ -2958,7 +2984,6 @@ Mech.prototype.updateCriticalAllocationTable = function() {
 				this.criticals[mech_location][crit_item_counter] &&
 				this.criticals[mech_location][crit_item_counter].movable
 			) {
-				//~ console.log( mech_location );
 				short_loc = "";
 				if(mech_location == "head" ) {
 					short_loc = "hd";
@@ -2981,7 +3006,7 @@ Mech.prototype.updateCriticalAllocationTable = function() {
 				var rear = false;
 				if( this.criticals[mech_location][crit_item_counter].rear || ( this.criticals[mech_location][crit_item_counter].obj && this.criticals[mech_location][crit_item_counter].obj.rear )  )
 					rear = true;
-				//~ console.log( "rear", rear);
+
 				if(this.criticals[mech_location][crit_item_counter] && this.criticals[mech_location][crit_item_counter].obj)
 					this.criticals[mech_location][crit_item_counter].obj.location = short_loc;
 
@@ -3002,7 +3027,6 @@ Mech.prototype.updateCriticalAllocationTable = function() {
 };
 
 Mech.prototype.moveCritical = function ( itemTag, itemRear, fromLocation, fromIndex, toLocation, toIndex ) {
-	//~ console.log( "Mech.moveCritical()", itemTag, itemRear, fromLocation, fromIndex, toLocation, toIndex );
 
 
 
@@ -3056,8 +3080,7 @@ Mech.prototype.moveCritical = function ( itemTag, itemRear, fromLocation, fromIn
 		}
 	}
 
-	//~ console.log( "fromItem", fromItem );
-	//~ console.log( "fromLocationObj", fromLocationObj );
+;
 
 	if( fromItem ) {
 
@@ -3084,13 +3107,7 @@ Mech.prototype.moveCritical = function ( itemTag, itemRear, fromLocation, fromIn
 };
 
 Mech.prototype._moveItemToArea = function( fromLocation, itemRear, fromItem, fromIndex, toLocation, toIndex) {
-	//~ //console.log( "Mech._moveItemToArea()", fromLocation, fromItem, fromIndex, toLocation, toIndex);
-	//~ console.log( "Mech._moveItemToArea() fromLocation : ", fromLocation );
-	//~ console.log( "Mech._moveItemToArea() itemRear : ", itemRear );
-	//~ console.log( "Mech._moveItemToArea() fromItem : ", fromItem );
-	//~ console.log( "Mech._moveItemToArea() fromIndex : ", fromIndex );
-	//~ console.log( "Mech._moveItemToArea() toLocation : ", toLocation );
-	//~ console.log( "Mech._moveItemToArea() toIndex : ", toIndex );
+
 
 	// Step One check to see if TO has enough slots for item....
 	var placeholder = {
@@ -3101,7 +3118,6 @@ Mech.prototype._moveItemToArea = function( fromLocation, itemRear, fromItem, fro
 
 
 	hasSpace = true;
-	//~ console.log( "toLocation.length > toIndex + fromItem.crits", toLocation.length, toIndex, fromItem.crits );
 	if( toLocation.length < toIndex + fromItem.crits )
 		return false;
 	for( var testC = 0; testC < fromItem.crits; testC++ ) {
@@ -3111,13 +3127,11 @@ Mech.prototype._moveItemToArea = function( fromLocation, itemRear, fromItem, fro
 	}
 
 	if( hasSpace ) {
-		//~ console.log( "toa", toLocation );
 		toLocation[ toIndex ] = fromItem;
 		for( var phC = 1; phC < toLocation[ toIndex ].crits; phC++ ) {
 			toLocation[ toIndex + phC ] = placeholder;
 		}
 
-		//~ console.log( "tob",toLocation );
 
 		fromLocation[ fromIndex ] = null;
 		nextCounter = 1;
@@ -3142,10 +3156,7 @@ Mech.prototype._moveItemToArea = function( fromLocation, itemRear, fromItem, fro
 Mech.prototype._allocateCritical = function(equipment_tag, equipment_rear, mech_location, slot_number, remove_from_unallocated) {
 
 	for(uaet_c = 0; uaet_c < this.unallocatedCriticals.length; uaet_c++) {
-		//~ console.log( "equipment_tag", equipment_tag);
-		//~ console.log( "equipment_rear", equipment_rear);
-		//~ console.log( "this.unallocatedCriticals[uaet_c].tag ", this.unallocatedCriticals[uaet_c].tag );
-		//~ console.log( "this.unallocatedCriticals[uaet_c].rear", this.unallocatedCriticals[uaet_c].rear);
+
 		if(
 			equipment_tag == this.unallocatedCriticals[uaet_c].tag
 				&&

@@ -6,6 +6,162 @@ var battlemechCreatorControllerStep2Array =
 		'$location',
 		function ($rootScope, $translate, $scope, $location) {
 
+			// make tro for sidebar
+			$scope.update_walking_jumping_dropdowns = function( translate ) {
+
+				$translate(['BM_STEP2_SELECT_WALK', 'BM_STEP2_SELECT_JUMP', 'BM_MP_ABBR' ]).then(function (translation) {
+					availble_walking_mp = [];
+					availble_jumping_mp = [];
+					selected_walking_mp = 0;
+					selected_jumping_mp = 0;
+
+					// TODO calculate the max engine size for tonnage
+					max_walking = (400/ $scope.current_mech.tonnage);
+					max_jumping = $scope.current_mech.getWalkSpeed();
+
+					for( m_counter = 0; m_counter <= max_walking; m_counter++) {
+						if( m_counter == 0 ) {
+							availble_walking_mp.push( { id: m_counter, name: "- " + translation.BM_STEP2_SELECT_WALK + " -"} );
+							if( $scope.current_mech.getWalkSpeed() == m_counter) {
+								selected_walking_mp = { id: m_counter, name: "- " + translation.BM_STEP2_SELECT_WALK + " -"};
+							}
+						} else {
+							availble_walking_mp.push( { id: m_counter, name: m_counter + " " + translation.BM_MP_ABBR} );
+							if( $scope.current_mech.getWalkSpeed() == m_counter) {
+								selected_walking_mp = { id: m_counter, name: m_counter + " " + translation.BM_MP_ABBR};
+							}
+						}
+					}
+
+					for( m_counter = 0; m_counter <= max_jumping; m_counter++) {
+						if( m_counter == 0 ) {
+							availble_jumping_mp.push( { id: m_counter, name: "- " + translation.BM_STEP2_SELECT_JUMP + " -"} );
+							if( $scope.current_mech.getJumpSpeed() == m_counter) {
+								selected_jumping_mp = { id: m_counter, name: "- " + translation.BM_STEP2_SELECT_JUMP + " -"};
+							}
+						} else {
+							availble_jumping_mp.push( { id: m_counter, name: m_counter + " " + translation.BM_MP_ABBR} );
+							if( $scope.current_mech.getJumpSpeed() == m_counter) {
+								selected_jumping_mp = { id: m_counter, name: m_counter + " " + translation.BM_MP_ABBR};
+							}
+						}
+					}
+
+					$scope.mech_jumping = {
+						availableOptions: availble_jumping_mp,
+						selectedOption: selected_jumping_mp
+					}
+
+					$scope.mech_walking = {
+						availableOptions: availble_walking_mp,
+						selectedOption: selected_walking_mp
+					}
+				});
+			}
+
+			$scope.update_engine_dropdowns = function( translate ) {
+				var selected_option = null;
+				var availble_options = [];
+
+				for( var lCount = mechEngineTypes.length - 1; lCount > -1; lCount -- ) {
+					if(
+						(
+							mechEngineTypes[ lCount ].introduced <= $scope.current_mech.era.year_start
+						)
+							&&
+						// Make sure that the engine is available to the tech selected
+						(
+							mechEngineTypes[ lCount ].criticals[ $scope.current_mech.tech.tag ]
+						)
+					) {
+						var localName = "";
+						if( mechEngineTypes[ lCount ].name[ localStorage["tmp.preferred_language"] ] ) {
+							localName = mechEngineTypes[ lCount ].name[ localStorage["tmp.preferred_language"] ];
+						} else {
+							localName = mechEngineTypes[ lCount ].name[ "en-US" ];
+						}
+						// get local name
+						availble_options.push( {
+							id: mechEngineTypes[ lCount ].tag,
+							local_name: localName
+						} );
+						// add item to drop down
+					}
+				}
+
+				if( $scope.current_mech.engineType) {
+
+					for( var lCount = 0; lCount < availble_options.length; lCount++ ) {
+						if( availble_options[ lCount ].id == $scope.current_mech.engineType.tag ) {
+							selected_option = availble_options[ lCount ];
+						}
+					}
+
+				}
+
+				if( selected_option == null )
+					selected_option = availble_options[0];
+
+				$scope.mech_engine = {
+					availableOptions: availble_options,
+					selectedOption: selected_option
+				}
+			}
+
+			$scope.update_mech_engine = function() {
+				$scope.current_mech.setEngineType( $scope.mech_engine.selectedOption.id );
+
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+			}
+
+			$scope.update_gyro_dropdowns = function( translate ) {
+				var selected_option = null;
+				var availble_options = [];
+
+				for( var lCount = mechGyroTypes.length - 1; lCount > -1; lCount -- ) {
+					if( mechGyroTypes[ lCount ].introduced <= $scope.current_mech.era.year_start ) {
+						var localName = "";
+						if( mechGyroTypes[ lCount ].name[ localStorage["tmp.preferred_language"] ] ) {
+							localName = mechGyroTypes[ lCount ].name[ localStorage["tmp.preferred_language"] ];
+						} else {
+							localName = mechGyroTypes[ lCount ].name[ "en-US" ];
+						}
+						// get local name
+						availble_options.push( {
+							id: mechGyroTypes[ lCount ].tag,
+							local_name: localName
+						} );
+						// add item to drop down
+					}
+				}
+
+				if( $scope.current_mech.gyro) {
+
+					for( var lCount = 0; lCount < availble_options.length; lCount++ ) {
+						if( availble_options[ lCount ].id == $scope.current_mech.gyro.tag ) {
+							selected_option = availble_options[ lCount ];
+						}
+					}
+
+				}
+
+				if( selected_option == null )
+					selected_option = availble_options[0];
+				$scope.mech_gyro = {
+					availableOptions: availble_options,
+					selectedOption: selected_option
+				}
+			}
+
+			$scope.update_mech_gyro = function() {
+
+				$scope.current_mech.setGyro( $scope.mech_gyro.selectedOption.id );
+
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+			}
+
 			// Set Page Title Tag
 			$translate(['APP_TITLE', 'BM_STEP2_TITLE', 'BM_STEP2_DESC', 'WELCOME_BUTTON_MECH_CREATOR' ]).then(function (translation) {
 				$rootScope.title_tag = translation.BM_STEP2_TITLE + " | " + translation.APP_TITLE;
@@ -18,7 +174,7 @@ var battlemechCreatorControllerStep2Array =
 			});
 
 			// create mech object, load from localStorage if exists
-			current_mech = new Mech();
+			$scope.current_mech = new Mech();
 			$scope.goHome = function() {
 
 				delete(localStorage["backToPath"]);
@@ -26,92 +182,42 @@ var battlemechCreatorControllerStep2Array =
 			}
 
 			if( localStorage["tmp.current_mech"] ) {
-				current_mech.importJSON( localStorage["tmp.current_mech"] );
+				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
-				current_mech.uuid = generateUUID();
-				current_mech._calc();
+				$scope.current_mech.uuid = generateUUID();
+				$scope.current_mech._calc();
 			}
 
-			current_mech.useLang = localStorage["tmp.preferred_language"];
+			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
 
 			localStorage["backToPath"] = $location.$$path;
 
-			update_walking_jumping_dropdowns( $scope, $translate, current_mech );
-			update_mech_status_bar_and_tro($scope, $translate, current_mech);
+			$scope.update_walking_jumping_dropdowns( $translate );
+			update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
 
-			// make tro for sidebar
+			$scope.update_engine_dropdowns( $translate );
+			$scope.update_gyro_dropdowns( $translate );
 
 
 			$scope.update_mech_walking = function() {
-				current_mech.setWalkSpeed( $scope.mech_walking.selectedOption.id );
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				$scope.current_mech.setWalkSpeed( $scope.mech_walking.selectedOption.id );
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
-				update_walking_jumping_dropdowns( $scope, $translate, current_mech );
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				$scope.update_walking_jumping_dropdowns( $translate );
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech );
 			}
 
 			$scope.update_mech_jumping = function() {
-				current_mech.setJumpSpeed( $scope.mech_jumping.selectedOption.id );
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				$scope.current_mech.setJumpSpeed( $scope.mech_jumping.selectedOption.id );
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
-				update_walking_jumping_dropdowns( $scope, $translate, current_mech );
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				$scope.update_walking_jumping_dropdowns( $scope, $translate );
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech );
 			}
 		}
 	]
 ;
 
-function update_walking_jumping_dropdowns( $scope, $translate, current_mech ) {
-
-	$translate(['BM_STEP2_SELECT_WALK', 'BM_STEP2_SELECT_JUMP', 'BM_MP_ABBR' ]).then(function (translation) {
-		availble_walking_mp = [];
-		availble_jumping_mp = [];
-		selected_walking_mp = 0;
-		selected_jumping_mp = 0;
-
-		// TODO calculate the max engine size for tonnage
-		max_walking = (400/ current_mech.tonnage);
-		max_jumping = current_mech.getWalkSpeed();
-
-		for( m_counter = 0; m_counter <= max_walking; m_counter++) {
-			if( m_counter == 0 ) {
-				availble_walking_mp.push( { id: m_counter, name: "- " + translation.BM_STEP2_SELECT_WALK + " -"} );
-				if( current_mech.getWalkSpeed() == m_counter) {
-					selected_walking_mp = { id: m_counter, name: "- " + translation.BM_STEP2_SELECT_WALK + " -"};
-				}
-			} else {
-				availble_walking_mp.push( { id: m_counter, name: m_counter + " " + translation.BM_MP_ABBR} );
-				if( current_mech.getWalkSpeed() == m_counter) {
-					selected_walking_mp = { id: m_counter, name: m_counter + " " + translation.BM_MP_ABBR};
-				}
-			}
-		}
-
-		for( m_counter = 0; m_counter <= max_jumping; m_counter++) {
-			if( m_counter == 0 ) {
-				availble_jumping_mp.push( { id: m_counter, name: "- " + translation.BM_STEP2_SELECT_JUMP + " -"} );
-				if( current_mech.getJumpSpeed() == m_counter) {
-					selected_jumping_mp = { id: m_counter, name: "- " + translation.BM_STEP2_SELECT_JUMP + " -"};
-				}
-			} else {
-				availble_jumping_mp.push( { id: m_counter, name: m_counter + " " + translation.BM_MP_ABBR} );
-				if( current_mech.getJumpSpeed() == m_counter) {
-					selected_jumping_mp = { id: m_counter, name: m_counter + " " + translation.BM_MP_ABBR};
-				}
-			}
-		}
-
-		$scope.mech_jumping = {
-			availableOptions: availble_jumping_mp,
-			selectedOption: selected_jumping_mp
-		}
-
-		$scope.mech_walking = {
-			availableOptions: availble_walking_mp,
-			selectedOption: selected_walking_mp
-		}
-	});
-}
 
 
 angular.module("webApp").controller(

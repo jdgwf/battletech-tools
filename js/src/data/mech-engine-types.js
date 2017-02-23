@@ -30,7 +30,19 @@ var mechEngineTypes = Array(
 				ct: 6,
 				lt: 3,
 				rt: 3
-			},
+			}
+		},
+		costmultiplier: 20000,
+		introduced: 2300,
+		extinct: 0,
+		reintroduced: 0
+	},
+	{
+		name: {
+			"en-US": "Clan Exrta-Light Fusion (XL)"
+		},
+		tag: "clan-xl",
+		criticals: {
 			clan: {
 				ct: 6,
 				lt: 2,

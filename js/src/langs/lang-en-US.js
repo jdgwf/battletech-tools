@@ -166,6 +166,10 @@ available_languages.push ({
 		BM_STEP2_JUMPING_MP: "Jumping Movement Points",
 		BM_STEP2_SELECT_JUMP: "Select Jumping MP",
 		BM_STEP2_SELECT_WALK: "Select Walking MP",
+		BM_STEP2_SELECT_GYRO: "Select Gyro Type",
+		BM_STEP2_SELECT_ENGINE: "Select Engine Type",
+		BM_STEP2_SELECT_MOVEMENT: "Select Movement",
+
 
 		BM_STEP3_TITLE: "Step 3",
 		BM_STEP3_DESC: "Add additional heat sinks",
@@ -270,6 +274,8 @@ available_languages.push ({
 		TRO_INTERNAL: "Internal",  // separate lines
 		TRO_STRUCTURE: "Structure", // separate lines
 		TRO_ENGINE: "Engine",
+		TRO_GYRO_TYPE: "Gyro Type",
+		TRO_ENGINE_TYPE: "Engine Type",
 		TRO_WALKING: "Walking",
 		TRO_RUNNING: "Running",
 		TRO_JUMPING: "Jumping",

@@ -12,6 +12,8 @@
 					<fieldset class="fieldset">
 						<legend ng-bind-html="h3_title">Step 2</legend>
 						<div class="dev-note">I'll add options for XL engines, etc later. Everything here works like butter.</div>
+
+						<h3 translate="BM_STEP2_SELECT_MOVEMENT">Select Movement</h3>
 						<label>
 							<span translate="BM_STEP2_WALKING_MP">Walking mp</span>:
 							<select ng-change="update_mech_walking()" ng-options="option.name for option in mech_walking.availableOptions track by option.id" ng-model="mech_walking.selectedOption">
@@ -21,6 +23,20 @@
 						<label>
 							<span translate="BM_STEP2_JUMPING_MP">Jumping mp</span>:
 							<select ng-change="update_mech_jumping()" ng-options="option.name for option in mech_jumping.availableOptions track by option.id" ng-model="mech_jumping.selectedOption">
+							</select>
+						</label>
+
+						<h3 translate="TRO_ENGINE_TYPE">Engine</h3>
+						<label>
+							<span translate="BM_STEP2_SELECT_ENGINE">Select Engine</span>:
+							<select ng-change="update_mech_engine()" ng-options="option.local_name for option in mech_engine.availableOptions track by option.id" ng-model="mech_engine.selectedOption">
+							</select>
+						</label>
+
+						<h3 translate="TRO_GYRO_TYPE">Gyro</h3>
+						<label>
+							<span translate="BM_STEP2_SELECT_GYRO">Select Gyro</span>:
+							<select ng-change="update_mech_gyro()" ng-options="option.local_name for option in mech_gyro.availableOptions track by option.id" ng-model="mech_gyro.selectedOption">
 							</select>
 						</label>
 
