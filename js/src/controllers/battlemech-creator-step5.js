@@ -143,22 +143,7 @@ var battlemechCreatorControllerStep5Array =
 
 
 
-					if(
-						(
-							$scope.equipment_table[eqc].reintroduced != 0
-							&& $scope.equipment_table[eqc].reintroduced <= selectedEra.year_end
-						)
-						||
-						(
-							$scope.equipment_table[eqc].introduced <= selectedEra.year_end
-							&&
-							(
-								$scope.equipment_table[eqc].extinct == 0
-								||
-								$scope.equipment_table[eqc].extinct >= selectedEra.year_start
-							)
-						)
-					) {
+					if( getItemAvailability($scope.equipment_table[eqc], selectedEra) ) {
 						$scope.equipment_table[eqc].isInSelectedEra = true;
 					}
 

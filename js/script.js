@@ -939,6 +939,45 @@ function getMovementModifier( moveScore ) {
 
 }
 
+/*
+	item: Object must include following keys:
+	{
+		introduced int,
+		extinct int (if == 0, item != extinct),
+		reintroduced int (if == 0 item != reintroduced)
+	}
+
+	currentEra: Object must include following keys:
+	{
+		year_start int,
+		year_end int
+	}
+*/
+function getItemAvailability( item, currentEra )
+{
+	if
+	(
+		(
+			item.reintroduced != 0
+			&& item.reintroduced <= currentEra.year_end
+		)
+		||
+		(
+			item.introduced <= currentEra.year_end
+			&&
+			(
+				item.extinct == 0
+				||
+				item.extinct >= currentEra.year_start
+			)
+		)
+	) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
 
 /*
  * The data here is copyright NOT included in the MIT license.
@@ -9961,22 +10000,7 @@ var battlemechCreatorControllerStep2Array =
 
 				for( var lCount = mechEngineTypes.length - 1; lCount > -1; lCount -- ) {
 					if(
-						(
-							(
-								 mechEngineTypes[ lCount ].reintroduced != 0
-								&&  mechEngineTypes[ lCount ].reintroduced <=  $scope.current_mech.era.year_end
-							)
-							||
-							(
-								 mechEngineTypes[ lCount ].introduced <=  $scope.current_mech.era.year_end
-								&&
-								(
-									 mechEngineTypes[ lCount ].extinct == 0
-									||
-									 mechEngineTypes[ lCount ].extinct >=  $scope.current_mech.era.year_start
-								)
-							)
-						)
+						getItemAvailability (mechEngineTypes[ lCount ], $scope.current_mech.era)
 							&&
 						// Make sure that the engine is available to the tech selected
 						(
@@ -10029,7 +10053,7 @@ var battlemechCreatorControllerStep2Array =
 				var availble_options = [];
 
 				for( var lCount = mechGyroTypes.length - 1; lCount > -1; lCount -- ) {
-					if( mechGyroTypes[ lCount ].introduced <= $scope.current_mech.era.year_start ) {
+					if( getItemAvailability(mechGyroTypes[ lCount ], $scope.current_mech.era) ) {
 						var localName = "";
 						if( mechGyroTypes[ lCount ].name[ localStorage["tmp.preferred_language"] ] ) {
 							localName = mechGyroTypes[ lCount ].name[ localStorage["tmp.preferred_language"] ];
@@ -10807,22 +10831,7 @@ var battlemechCreatorControllerStep5Array =
 
 
 
-					if(
-						(
-							$scope.equipment_table[eqc].reintroduced != 0
-							&& $scope.equipment_table[eqc].reintroduced <= selectedEra.year_end
-						)
-						||
-						(
-							$scope.equipment_table[eqc].introduced <= selectedEra.year_end
-							&&
-							(
-								$scope.equipment_table[eqc].extinct == 0
-								||
-								$scope.equipment_table[eqc].extinct >= selectedEra.year_start
-							)
-						)
-					) {
+					if( getItemAvailability($scope.equipment_table[eqc], selectedEra) ) {
 						$scope.equipment_table[eqc].isInSelectedEra = true;
 					}
 

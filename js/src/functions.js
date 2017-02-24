@@ -180,3 +180,43 @@ function getMovementModifier( moveScore ) {
 	return 0;
 
 }
+
+/*
+	item: Object must include following keys:
+	{
+		introduced int,
+		extinct int (if == 0, item != extinct),
+		reintroduced int (if == 0 item != reintroduced)
+	}
+
+	currentEra: Object must include following keys:
+	{
+		year_start int,
+		year_end int
+	}
+*/
+function getItemAvailability( item, currentEra )
+{
+	if
+	(
+		(
+			item.reintroduced != 0
+			&& item.reintroduced <= currentEra.year_end
+		)
+		||
+		(
+			item.introduced <= currentEra.year_end
+			&&
+			(
+				item.extinct == 0
+				||
+				item.extinct >= currentEra.year_start
+			)
+		)
+	) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
