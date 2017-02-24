@@ -712,9 +712,9 @@ var mechISEquipment = Array(
 		damage_aero: 9,
 		accuracy_modifier: -2,
 		cbills: 175000,
-		introduced: 2609,
-		extinct: 2950,
-		reintroduced: 3037,
+		introduced: 3057,
+		extinct: 0,
+		reintroduced: 0,
 		battlevalue: 119,
 		ammo_battlevalue: 0,
 		heat: 10,
@@ -1248,7 +1248,6 @@ var mechISEquipment = Array(
 			)
 		}
 	},
-
 	// Plasma Rifle
 	{
 		name: {
@@ -1367,6 +1366,65 @@ var mechISEquipment = Array(
 		}
 	},
 	// Flamers
+	{
+		name: {
+			'en-US': "Flamer",
+			'de-DE': "de - Flamer",
+		},
+		tag: "standard-flamer",
+		category: {
+			'en-US': "Energy Weapons",
+			'de-DE': "de - Energy Weapons",
+		},
+		damage: 2,
+		damage_aero: 2,
+		accuracy_modifier: 0,
+		cbills: 7500,
+		introduced: 2025,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 6,
+		ammo_battlevalue: 1,
+		heat: 3,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 1,
+			medium: 2,
+			long: 3,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 0,
+		min_ammo_tons: 1,
+		explosive: false,
+		weapon_type: Array(
+			"DE",
+			"H"
+		),
+		tech_rating: "b",
+		book: "TM",
+		page: 218,
+		alpha_strike: {
+			heat: 3,
+			range_short: 0.2,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+				"Heat",
+				"Point Defense"
+			)
+		}
+	},
 	{
 		name: {
 			'en-US': "Vehicle Flamer",
