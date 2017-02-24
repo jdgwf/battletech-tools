@@ -66,7 +66,20 @@ var battlemechCreatorControllerStep2Array =
 				for( var lCount = mechEngineTypes.length - 1; lCount > -1; lCount -- ) {
 					if(
 						(
-							mechEngineTypes[ lCount ].introduced <= $scope.current_mech.era.year_start
+							(
+								 mechEngineTypes[ lCount ].reintroduced != 0
+								&&  mechEngineTypes[ lCount ].reintroduced <=  $scope.current_mech.era.year_end
+							)
+							||
+							(
+								 mechEngineTypes[ lCount ].introduced <=  $scope.current_mech.era.year_end
+								&&
+								(
+									 mechEngineTypes[ lCount ].extinct == 0
+									||
+									 mechEngineTypes[ lCount ].extinct >=  $scope.current_mech.era.year_start
+								)
+							)
 						)
 							&&
 						// Make sure that the engine is available to the tech selected

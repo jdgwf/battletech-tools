@@ -942,46 +942,108 @@ function getMovementModifier( moveScore ) {
 
 /*
  * The data here is copyright NOT included in the MIT license.
+ * Based on BattleTech Master Unit List eras: http://masterunitlist.info/Era/Index
  */
 var btEraOptions = Array(
 	{
 		id: 1,
 		name: {
-			'en-US': "Age of War/Star League (2400-2780)",
-			'de-DE': "de - Age of War/Star League"
+			'en-US': "Age of War (2005-2570)",
+			'de-DE': "de - Age of War"
 		},
-		year_start: 2400,
-		year_end: 2780,
+		year_start: 2005,
+		year_end: 2570,
 	},
 	{
 		id: 2,
 		name: {
-			'en-US': "Succession Wars (2801-3049)",
-			'de-DE': "de - Succession Wars"
+			'en-US': "Star League (2571-2780)",
+			'de-DE': "de - Star League"
 		},
-		year_start: 2801,
-		year_end: 3049,
+		year_start: 2571,
+		year_end: 2780,
 	},
 	{
 		id: 3,
 		name: {
-			'en-US': "Clan Invasion (3050-3085)",
-			'de-DE': "de - Clan Invasion"
+			'en-US': "Early Succcession War (2781-2900)",
+			'de-DE': "de - Early Succession War"
 		},
-		year_start: 3050,
-		year_end: 3085,
-	}
-/*
+		year_start: 2781,
+		year_end: 2900,
+	},
 	{
 		id: 4,
 		name: {
-			'en-US': "Dark Ages (3085+)",
+			'en-US': "Late Succcession War - LosTech (2901-3019)",
+			'de-DE': "de - Late Succession War - LosTech"
+		},
+		year_start: 2901,
+		year_end: 3019,
+	},
+	{
+		id: 5,
+		name: {
+			'en-US': "Late Succcession War - Renaissance (3020-3049)",
+			'de-DE': "de - Late Succession War - Renaissance"
+		},
+		year_start: 3020,
+		year_end: 3049,
+	},
+	{
+		id: 6,
+		name: {
+			'en-US': "Clan Invasion (3050-3061)",
+			'de-DE': "de - Clan Invasion"
+		},
+		year_start: 3050,
+		year_end: 3061,
+	},
+	{
+		id: 7,
+		name: {
+			'en-US': "Civil War (3062-3067)",
+			'de-DE': "de - Civil War"
+		},
+		year_start: 3062,
+		year_end: 3067,
+	},
+	{
+		id: 8,
+		name: {
+			'en-US': "Jihad (3068-3085)",
+			'de-DE': "de - Jihad"
+		},
+		year_start: 3068,
+		year_end: 3085,
+	},
+	{
+		id: 8,
+		name: {
+			'en-US': "Early Republic (3086-3100)",
+			'de-DE': "de - Early Republic"
+		},
+		year_start: 3086,
+		year_end: 3100,
+	},
+	{
+		id: 9,
+		name: {
+			'en-US': "Late Republic (3101-3130)",
+			'de-DE': "de - Late Republic"
+		},
+		year_start: 3101,
+		year_end: 3130,
+	},
+	{
+		id: 10,
+		name: {
+			'en-US': "Dark Ages (3131-3999)",
 			'de-DE': "de - Dark Ages"
 		},
-		year_start: 3085,
-		year_end: 4000,
+		year_start: 3131,
+		year_end: 3999,
 	}
-	*/
 );
 
 /*
@@ -2317,9 +2379,9 @@ var mechEngineTypes = Array(
 			}
 		},
 		costmultiplier: 20000,
-		introduced: 2300,
-		extinct: 0,
-		reintroduced: 0
+		introduced: 2579,
+		extinct: 2865,
+		reintroduced: 3035
 	},
 	{
 		name: {
@@ -2334,7 +2396,7 @@ var mechEngineTypes = Array(
 			}
 		},
 		costmultiplier: 20000,
-		introduced: 2300,
+		introduced: 2827,
 		extinct: 0,
 		reintroduced: 0
 	},
@@ -2351,7 +2413,7 @@ var mechEngineTypes = Array(
 			}
 		},
 		costmultiplier: 15000,
-		introduced: 3050,
+		introduced: 3062,
 		extinct: 0,
 		reintroduced: 0
 	},
@@ -2366,7 +2428,7 @@ var mechEngineTypes = Array(
 			}
 		},
 		costmultiplier: 10000,
-		introduced: 3050,
+		introduced: 3068,
 		extinct: 0,
 		reintroduced: 0
 	}
@@ -2384,7 +2446,7 @@ var mechGyroTypes = Array(
 		weight_multiplier: 1,
 		criticals: 4,
 		costmultiplier: 300000,
-		introduced: 2300,
+		introduced: 2350,
 		extinct: 0,
 		reintroduced: 0
 	},
@@ -2396,7 +2458,7 @@ var mechGyroTypes = Array(
 		weight_multiplier: 0.5,
 		criticals: 6,
 		costmultiplier: 750000,
-		introduced: 3050,
+		introduced: 3067,
 		extinct: 0,
 		reintroduced: 0
 	},
@@ -2408,7 +2470,7 @@ var mechGyroTypes = Array(
 		weight_multiplier: 1.5,
 		criticals: 2,
 		costmultiplier: 400000,
-		introduced: 3050,
+		introduced: 3068,
 		extinct: 0,
 		reintroduced: 0
 	},
@@ -2420,7 +2482,7 @@ var mechGyroTypes = Array(
 		weight_multiplier: 2,
 		criticals: 4,
 		costmultiplier: 500000,
-		introduced: 3050,
+		introduced: 3067,
 		extinct: 0,
 		reintroduced: 0
 	}
@@ -9900,7 +9962,20 @@ var battlemechCreatorControllerStep2Array =
 				for( var lCount = mechEngineTypes.length - 1; lCount > -1; lCount -- ) {
 					if(
 						(
-							mechEngineTypes[ lCount ].introduced <= $scope.current_mech.era.year_start
+							(
+								 mechEngineTypes[ lCount ].reintroduced != 0
+								&&  mechEngineTypes[ lCount ].reintroduced <=  $scope.current_mech.era.year_end
+							)
+							||
+							(
+								 mechEngineTypes[ lCount ].introduced <=  $scope.current_mech.era.year_end
+								&&
+								(
+									 mechEngineTypes[ lCount ].extinct == 0
+									||
+									 mechEngineTypes[ lCount ].extinct >=  $scope.current_mech.era.year_start
+								)
+							)
 						)
 							&&
 						// Make sure that the engine is available to the tech selected
