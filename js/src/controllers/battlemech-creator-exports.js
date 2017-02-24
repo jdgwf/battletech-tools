@@ -5,7 +5,8 @@ var battlemechCreatorControllerExportsArray =
 		'$scope',
 		'$location',
 		'$sce',
-		function ($rootScope, $translate, $scope, $location, $sce) {
+		'$compile',
+		function ($rootScope, $translate, $scope, $location, $sce, $compile) {
 			// Set Page Title Tag
 			$translate(['APP_TITLE', 'BM_EXPORTS_TITLE', 'BM_EXPORTS_DESC', 'WELCOME_BUTTON_MECH_CREATOR' ]).then(function (translation) {
 				$rootScope.title_tag = translation.BM_EXPORTS_TITLE + " | " + translation.APP_TITLE;
@@ -41,7 +42,7 @@ var battlemechCreatorControllerExportsArray =
 
 			$scope.makeTROBBCode = current_mech.makeTROBBCode();
 
-			$scope.recordSheetSVG =  $sce.trustAsHtml( current_mech.makeSVGRecordSheet() );
+
 
 			// make tro for sidebar
 			$scope.mech_tro = current_mech.makeTROHTML();
@@ -82,6 +83,25 @@ var battlemechCreatorControllerExportsArray =
 				pdf = makeBattlemechCombinedPDF(current_mech);
 				pdf.save(current_mech.getName() + ' - Record Sheet and TRO.pdf');
 			}
+
+			//~ $scope.updateSVG = function( tmpText ) {
+				//~ if( typeof( tmpText ) == "undefined" )
+					//~ tmpText = "";
+				//~ console.log( "updateSVG", tmpText );
+
+				//~ var rawSVG = current_mech.makeSVGRecordSheet(tmpText);
+				//~ var compiled = current_mech.makeSVGRecordSheet(rawSVG)
+				//~ $scope.recordSheetSVG =  $sce.trustAsHtml( compiled );
+				//~ compiled( $scope.recordSheetSVG  )
+				//~ var el = document.getElementById( 'testsvg' );
+				//~ angular.element(el).append( $compile( rawSVG )($scope) )
+				//~ el = $compile( angular.element( rawSVG ) )($scope);
+				//~ //var element = $compile(angular.element( rawSVG ))(scope);
+
+			//~ }
+
+			//~ $scope.updateSVG();
+
 
 		}
 	]

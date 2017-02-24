@@ -101,9 +101,18 @@ cordovaApp = angular.module(
 				controller  : 'asBuilderController'
 			})
 
+			//~ .when('/as/play-view', {
+				//~ templateUrl : 'pages/as-play-view.html?v=' + getAppVersion(),
+				//~ controller  : 'asPlayViewController'
+			//~ })
+
+			//~ .when('/as/play-view-svg', {
+				//~ templateUrl : 'pages/as-play-view-svg.html?v=' + getAppVersion(),
+				//~ controller  : 'asPlayViewSVGController'
+			//~ })
 			.when('/as/play-view', {
-				templateUrl : 'pages/as-play-view.html',
-				controller  : 'asPlayViewController'
+				templateUrl : 'pages/as-play-view-svg.html?v=' + getAppVersion(),
+				controller  : 'asPlayViewSVGController'
 			})
 
 			// route for the credits page

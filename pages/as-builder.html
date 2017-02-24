@@ -36,7 +36,11 @@
 	</div>
 	<div class="row">
 		<div class="columns small-12">
+				<div id="current-mech-{{$parent.$index}}-{{$index}}" ng-bind-html="viewingMech.makeSVGAlphaStrikeCard(false, 'current-mech-' + $parent.$index + '-' + $index) | to_trusted"></div>
+
+<!--
 			<div ng-include="'pages/as-card.html'"></div>
+-->
 		</div>
 	</div>
 	</fieldset>

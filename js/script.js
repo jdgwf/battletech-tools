@@ -101,9 +101,18 @@ cordovaApp = angular.module(
 				controller  : 'asBuilderController'
 			})
 
+			//~ .when('/as/play-view', {
+				//~ templateUrl : 'pages/as-play-view.html?v=' + getAppVersion(),
+				//~ controller  : 'asPlayViewController'
+			//~ })
+
+			//~ .when('/as/play-view-svg', {
+				//~ templateUrl : 'pages/as-play-view-svg.html?v=' + getAppVersion(),
+				//~ controller  : 'asPlayViewSVGController'
+			//~ })
 			.when('/as/play-view', {
-				templateUrl : 'pages/as-play-view.html',
-				controller  : 'asPlayViewController'
+				templateUrl : 'pages/as-play-view-svg.html?v=' + getAppVersion(),
+				controller  : 'asPlayViewSVGController'
 			})
 
 			// route for the credits page
@@ -244,9 +253,18 @@ webApp = angular.module(
 				controller  : 'asBuilderController'
 			})
 
+			//~ .when('/as/play-view', {
+				//~ templateUrl : 'pages/as-play-view.html?v=' + getAppVersion(),
+				//~ controller  : 'asPlayViewController'
+			//~ })
+
+			//~ .when('/as/play-view-svg', {
+				//~ templateUrl : 'pages/as-play-view-svg.html?v=' + getAppVersion(),
+				//~ controller  : 'asPlayViewSVGController'
+			//~ })
 			.when('/as/play-view', {
-				templateUrl : 'pages/as-play-view.html?v=' + getAppVersion(),
-				controller  : 'asPlayViewController'
+				templateUrl : 'pages/as-play-view-svg.html?v=' + getAppVersion(),
+				controller  : 'asPlayViewSVGController'
 			})
 
 			// route for the credits page
@@ -259,6 +277,13 @@ webApp = angular.module(
 		}
 	]
 );
+
+angular.module('webApp')
+    .filter('to_trusted', ['$sce', function($sce){
+        return function(text) {
+            return $sce.trustAsHtml(text);
+        };
+    }]);
 
 webApp.config(['$compileProvider',
     function ($compileProvider) {
@@ -748,11 +773,89 @@ function makeFooter(pdfDoc) {
 
 
 
-function battlemech_record_sheet(jsDoc) {
-
-	return jsDoc;
-
+/* Functions outside scope for SVG manipulation */
+function ASChangeSVGHeat( newHeatValue, groupIndex, mechIndex, idField ) {
+	//~ console.log( "changeSVGHeat", newHeatValue, groupIndex, mechIndex, idField );
+    var scope = angular.element(document.getElementById( idField )).scope();
+	scope.$apply(
+		function() {
+			scope.setMechHeat( newHeatValue, groupIndex, mechIndex ) ;
+		}
+    );
 }
+
+
+function ASToggleArmorPip( armorIndex, groupIndex, mechIndex, idField ) {
+	//~ console.log( "changeSVGHeat", newHeatValue, groupIndex, mechIndex, idField );
+    var scope = angular.element(document.getElementById( idField )).scope();
+	scope.$apply(
+		function() {
+			scope.toggleArmorPip( armorIndex, groupIndex, mechIndex ) ;
+		}
+    );
+}
+
+
+function ASToggleStructPip( structIndex, groupIndex, mechIndex, idField ) {
+	//~ console.log( "changeSVGHeat", newHeatValue, groupIndex, mechIndex, idField );
+    var scope = angular.element(document.getElementById( idField )).scope();
+	scope.$apply(
+		function() {
+			scope.toggleStructPip( structIndex, groupIndex, mechIndex ) ;
+		}
+    );
+}
+
+
+function ASToggleEngineHit( critIndex, groupIndex, mechIndex, idField ) {
+	//~ console.log( "changeSVGHeat", newHeatValue, groupIndex, mechIndex, idField );
+    var scope = angular.element(document.getElementById( idField )).scope();
+	scope.$apply(
+		function() {
+			scope.toggleEngineHit( critIndex, groupIndex, mechIndex ) ;
+		}
+    );
+}
+
+function ASToggleFireControlHit( critIndex, groupIndex, mechIndex, idField ) {
+	//~ console.log( "changeSVGHeat", newHeatValue, groupIndex, mechIndex, idField );
+    var scope = angular.element(document.getElementById( idField )).scope();
+	scope.$apply(
+		function() {
+			scope.toggleControlHit( critIndex, groupIndex, mechIndex ) ;
+		}
+    );
+}
+
+function ASToggleMPlHit( critIndex, groupIndex, mechIndex, idField ) {
+	//~ console.log( "changeSVGHeat", newHeatValue, groupIndex, mechIndex, idField );
+    var scope = angular.element(document.getElementById( idField )).scope();
+	scope.$apply(
+		function() {
+			scope.toggleMPHit( critIndex, groupIndex, mechIndex ) ;
+		}
+    );
+}
+
+function ASToggleWeaponHits( critIndex, groupIndex, mechIndex, idField ) {
+	//~ console.log( "changeSVGHeat", newHeatValue, groupIndex, mechIndex, idField );
+    var scope = angular.element(document.getElementById( idField )).scope();
+	scope.$apply(
+		function() {
+			scope.toggleWeaponHit( critIndex, groupIndex, mechIndex ) ;
+		}
+    );
+}
+
+function ASTakeDamage(  groupIndex, mechIndex, idField ) {
+    var scope = angular.element(document.getElementById( idField )).scope();
+	scope.$apply(
+		function() {
+			scope.showDamagePopup( groupIndex, mechIndex ) ;
+		}
+    );
+}
+
 
 
 
@@ -918,8 +1021,6 @@ String.prototype.rpad = function(padString, length) {
     return str;
 }
 
-
-
 function getMovementModifier( moveScore ) {
 	if( moveScore >= 25 ) {
 		return 6;
@@ -938,6 +1039,7 @@ function getMovementModifier( moveScore ) {
 	return 0;
 
 }
+
 
 
 /*
@@ -5116,6 +5218,522 @@ function asUnit (incomingMechData) {
 		return structPoints;
 	}
 
+	this.makeSVGAlphaStrikeCard = function( inPlay, itemIDField ) {
+
+
+		groupIndex = -1;
+		mechIndex = -1;
+
+		if( typeof( inPlay ) == "undefined" ) {
+			inPlay = false;
+		} else {
+			if( inPlay )
+				inPlay = true;
+			else
+				inPlay = false;
+		}
+
+		if( typeof( itemIDField ) == "undefined" ) {
+			itemIDField = "";
+		} else {
+			if( !itemIDField )
+				itemIDField = "";
+		}
+
+		if( itemIDField ) {
+			// this is a workaround for a bug. When I previously had parameters, the $index and $parent.$index
+			// paramters were undefined when passed directly, but are passed correctly when in the string of the id field
+			itemItems = itemIDField.split("-");
+			groupIndex = itemItems[2] / 1;
+			mechIndex = itemItems[3] / 1;
+		}
+
+		var leftBoxWidth = 550;
+		var grayBackground = "#fff";
+		var grayOpacity = ".8";
+
+		console.log( "makeSVGAlphaStrikeCard",inPlay, groupIndex, mechIndex );
+		//~ console.log( "makeSVGAlphaStrikeCard",this );
+
+		svgCode = "<svg version=\"1.1\" viewBox=\"0 0 1000 600\" xmlns=\"http://www.w3.org/2000/svg\">\n";
+
+		// Base Border and Interior White....
+		svgCode += "<rect x=\"0\" y=\"0\" width=\"1000\" height=\"600\" fill=\"#000000\" />\n";
+		if( !this.active && inPlay )
+			svgCode += "<rect x=\"10\" y=\"10\" style=\"z-index: -1\" width=\"980\" height=\"580\" fill=\"#c00\" />\n";
+		else
+			svgCode += "<rect x=\"10\" y=\"10\" style=\"z-index: -1\" width=\"980\" height=\"580\" fill=\"#ffffff\" />\n";
+
+		// Attempt to put unit's image in background...
+		if( this.imageURL ) {
+			svgCode += "    <image x=\"450\" y=\"50\" xlink:href=\"" + this.imageURL + "\" x=\"0\" y=\"0\" width=\"" + leftBoxWidth + "\" height=\"500\" />\n";
+		}
+
+
+		// Mech Name and Custom Name
+		if( this.customName ) {
+			svgCode += "<text x=\"20\" y=\"50\" font-family=\"sans-serif\" font-size=\"35\">" + this.customName  + "</text>\n";
+			svgCode += "<text x=\"20\" y=\"75\" font-family=\"sans-serif\" font-size=\"20\">" + this.name.toUpperCase()  + "</text>\n";
+		} else {
+			svgCode += "<text x=\"20\" y=\"50\" font-family=\"sans-serif\" font-size=\"35\">" + this.name.toUpperCase()  + "</text>\n";
+		}
+
+		//svgCode += "<text x=\"800\" y=\"50\" font-family=\"sans-serif\" font-size=\"11\">" + groupIndex + ", " + mechIndex + ", " + itemIDField + "</text>\n";
+		// Point Value
+		svgCode += "<rect x=\"850\" y=\"9\" width=\"150\" height=\"35\" fill=\"#000\" />\n";
+		svgCode += "<rect x=\"780\" y=\"9\" width=\"70\" height=\"35\" fill=\"#000\" transform=\"rotate( 45, 850, 44)\" />\n";
+		svgCode += "<text x=\"990\" y=\"35\" text-anchor=\"end\" fill=\"#fff\" stroke=\"#fff\" font-family=\"sans-serif\" font-size=\"33\">PV: " + this.currentPoints  + "</text>\n";
+
+		/*
+		 *  Movement, Type, Role, Skill, etc
+		*/
+		// Gray, Rounded Box
+		svgCode += "<rect x=\"20\" y=\"100\" width=\"" + leftBoxWidth + "\" height=\"105\" fill=\"#000000\" rx=\"18\" ry=\"18\" />\n";
+		svgCode += "<rect x=\"25\" y=\"105\" width=\"" + ( leftBoxWidth - 10 ) + "\" height=\"95\" fill=\"" + grayBackground + "\" fill-opacity=\"" + grayOpacity + "\" rx=\"15\" ry=\"15\" />\n";
+
+		//Type
+		svgCode += "<text x=\"30\" y=\"140\" font-family=\"sans-serif\" font-size=\"25\">TP: " + this.type.toUpperCase()  + "</text>\n";
+
+		//Size
+		svgCode += "<text x=\"150\" y=\"140\" font-family=\"sans-serif\" font-size=\"25\">SZ: " + this.size.toString().toUpperCase()  + "</text>\n";
+
+		//TMM
+		if( this.isAerospace == false )
+			svgCode += "<text x=\"250\" y=\"140\" font-family=\"sans-serif\" font-size=\"25\">TMM: " + this.currentTMM.toUpperCase()  + "</text>\n";
+
+		//Move
+		svgCode += "<text x=\"490\" y=\"140\" font-family=\"sans-serif\" text-anchor=\"end\" font-size=\"25\">MV: " + this.currentMove.toUpperCase()  + "</text>\n";
+
+		//Role
+		svgCode += "<text x=\"30\" y=\"180\" font-family=\"sans-serif\" font-size=\"25\">ROLE: " + this.role.toUpperCase()  + "</text>\n";
+
+
+		//Skill
+		svgCode += "<text x=\"490\" y=\"180\" font-family=\"sans-serif\" text-anchor=\"end\" font-size=\"25\">SKILL: " + this.currentSkill.toString().toUpperCase()  + "</text>\n";
+
+		/*
+		 *  Damage Section
+		*/
+
+		// Gray, Rounded Box
+		svgCode += "<rect x=\"20\" y=\"210\" width=\"" + leftBoxWidth + "\" height=\"85\" fill=\"#000000\" rx=\"18\" ry=\"18\" />\n";
+		svgCode += "<rect x=\"25\" y=\"215\" width=\"" + ( leftBoxWidth - 10 ) + "\" height=\"75\" fill=\"" + grayBackground + "\" fill-opacity=\"" + grayOpacity + "\" rx=\"15\" ry=\"15\" />\n";
+
+
+
+		// Damage Label
+		svgCode += "<text x=\"55\" y=\"250\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"15\" transform=\"rotate(270, 58, 250)\">DAMAGE</text>\n";
+
+		var firstDamageLineY = 245;
+		var secondDamageLineY = 280;
+		if( this.damage.extreme > 0 ) {
+			shortX = 120;
+			mediumX = 240;
+			longX = 350;
+			extremeX = 460;
+
+			// Short
+			svgCode += "<text x=\"" + shortX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"15\">S (+0 | " + this.currentToHitShort + "+)</text>\n";
+			svgCode += "<text x=\"" + shortX  +"\" y=\"" + secondDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"30\">" + this.currentDamage.short  + "</text>\n";
+
+
+			// Medium
+			svgCode += "<text x=\"" + mediumX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"15\">M (+2 | " + this.currentToHitMedium + "+)</text>\n";
+			svgCode += "<text x=\"" + mediumX  +"\" y=\"" + secondDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"30\">" + this.currentDamage.medium  + "</text>\n";
+
+			// Long
+			svgCode += "<text x=\"" + longX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"15\">L (+4 | " + this.currentToHitLong + "+)</text>\n";
+			svgCode += "<text x=\"" + longX  +"\" y=\"" + secondDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"30\">" + this.currentDamage.long  + "</text>\n";
+
+			// Extreme
+			svgCode += "<text x=\"" + extremeX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"15\">E (+6 | " + this.currentToHitExtreme + "+)</text>\n";
+			svgCode += "<text x=\"" + extremeX  +"\" y=\"" + secondDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"30\">" + this.currentDamage.extreme  + "</text>\n";
+
+		} else {
+			shortX = 140;
+			mediumX = 290;
+			longX = 440;
+			extremeX = 0;
+
+			// Short
+			svgCode += "<text x=\"" + shortX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"20\">S (+2 | " + this.currentToHitShort + "+)</text>\n";
+			svgCode += "<text x=\"" + shortX  +"\" y=\"" + secondDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"35\">" + this.currentDamage.short  + "</text>\n";
+
+
+			// Medium
+			svgCode += "<text x=\"" + mediumX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"20\">M (+4 | " + this.currentToHitMedium + "+)</text>\n";
+			svgCode += "<text x=\"" + mediumX  +"\" y=\"" + secondDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"35\">" + this.currentDamage.medium  + "</text>\n";
+
+			// Long
+			svgCode += "<text x=\"" + longX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"20\">L (+6 | " + this.currentToHitLong + "+)</text>\n";
+			svgCode += "<text x=\"" + longX  +"\" y=\"" + secondDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"35\">" + this.currentDamage.long  + "</text>\n";
+		}
+
+
+		/*
+		 *  Overheat Section
+		*/
+		var armorBoxStart = 400;
+		if( this.type.toLowerCase() != 'pm' && !this.isInfantry ) {
+			svgCode += "<rect x=\"20\" y=\"310\" width=\"" + leftBoxWidth + "\" height=\"80\" fill=\"#000000\" rx=\"18\" ry=\"18\" />\n";
+			svgCode += "<rect x=\"25\" y=\"315\" width=\"" + ( leftBoxWidth - 10 ) + "\" height=\"70\" fill=\"" + grayBackground + "\" fill-opacity=\"" + grayOpacity + "\" rx=\"15\" ry=\"15\" />\n";
+
+			svgCode += "<text x=\"40\" y=\"360\" font-family=\"sans-serif\" font-size=\"35\">OV: " + this.overheat + "</text>\n";
+
+			// heat container...
+			svgCode += "<text x=\"240\" y=\"357\" text-anchor=\"end\" font-family=\"sans-serif\" font-size=\"15\">HEAT SCALE</text>\n";
+			svgCode += "<rect x=\"" + ( leftBoxWidth - 255 ) + "\" y=\"320\" width=\"265\" height=\"60\" fill=\"#000\" rx=\"30\" ry=\"30\"  />\n";
+
+			var inActiveColor = "#666";
+			var onClickFunction = "";
+			var mouseHandClass = "";
+
+
+			// 0 Heat....
+			if( this.currentHeat < 1 && inPlay ) {
+				svgCode += "<rect x=\"" + ( leftBoxWidth - 225 ) + "\" y=\"325\" width=\"25\" height=\"50\" fill=\"#0c0\" />\n";
+				svgCode += "<circle cx=\"" + ( leftBoxWidth - 225 ) + "\" cy=\"350\" r=\"25\" fill=\"#0c0\" />\n";
+				svgCode += "<text x=\"" + ( leftBoxWidth - 225 - 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: #ffffff\" font-family=\"sans-serif\" font-size=\"35\">0</text>\n";
+			} else {
+				if( inPlay ) {
+					onClickFunction = "ASChangeSVGHeat( 0, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+					mouseHandClass = "mouse-hand";
+				}
+				svgCode += "<rect onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 225 ) + "\" y=\"325\" width=\"25\" height=\"50\" fill=\"" + inActiveColor + "\" />\n";
+				svgCode += "<circle onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" cx=\"" + ( leftBoxWidth - 225 ) + "\" cy=\"350\" r=\"25\" fill=\"" + inActiveColor + "\" />\n";
+				svgCode += "<text onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 225 - 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: #ffffff\" font-family=\"sans-serif\" font-size=\"35\">0</text>\n";
+			}
+
+			// 1 Heat....
+			//~ svgCode += "<rect x=\"280\" y=\"320\" width=\"60\" height=\"60\" fill=\"#000\" />\n";
+			if( this.currentHeat == 1 && inPlay ) {
+				svgCode += "<rect x=\"" + ( leftBoxWidth - 195 ) + "\" y=\"325\" width=\"45\" height=\"50\" fill=\"#cb0\" />\n";
+				svgCode += "<text x=\"" + ( leftBoxWidth - 195 + 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: #ffffff\" font-family=\"sans-serif\" font-size=\"35\">1</text>\n";
+			} else {
+				if( inPlay ) {
+					onClickFunction = "ASChangeSVGHeat( 1, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+					mouseHandClass = "mouse-hand";
+				}
+				svgCode += "<rect onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 195 ) + "\" y=\"325\" width=\"45\" height=\"50\" fill=\"" + inActiveColor + "\" />\n";
+				svgCode += "<text onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 195 + 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: #ffffff\" font-family=\"sans-serif\" font-size=\"35\">1</text>\n";
+
+			}
+
+			// 2 Heat....
+			//~ svgCode += "<rect x=\"340\" y=\"320\" width=\"60\" height=\"60\" fill=\"#000\" />\n";
+			if( this.currentHeat == 2 && inPlay ) {
+				svgCode += "<rect x=\"" + ( leftBoxWidth - 145 ) + "\" y=\"325\" width=\"45\" height=\"50\" fill=\"#c00\" />\n";
+				svgCode += "<text x=\"" + ( leftBoxWidth - 145 + 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: #ffffff\" font-family=\"sans-serif\" font-size=\"35\">2</text>\n";
+			} else {
+				if( inPlay ) {
+					onClickFunction = "ASChangeSVGHeat( 2, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+					mouseHandClass = "mouse-hand";
+				}
+				svgCode += "<rect onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 145 ) + "\" y=\"325\" width=\"45\" height=\"50\" fill=\"" + inActiveColor + "\" />\n";
+				svgCode += "<text onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 145 + 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: #ffffff\" font-family=\"sans-serif\" font-size=\"35\">2</text>\n";
+
+			}
+			// 3 Heat....
+			//~ svgCode += "<rect x=\"400\" y=\"320\" width=\"60\" height=\"60\" fill=\"#000\" />\n";
+			if( this.currentHeat == 3 && inPlay ) {
+				svgCode += "<rect x=\"" + ( leftBoxWidth - 95 ) + "\" y=\"325\" width=\"45\" height=\"50\" fill=\"#ec5710\" />\n";
+				svgCode += "<text x=\"" + ( leftBoxWidth - 95 + 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: #ffffff\" font-family=\"sans-serif\" font-size=\"35\">3</text>\n";
+			} else {
+				if( inPlay ) {
+					onClickFunction = "ASChangeSVGHeat( 3, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+					mouseHandClass = "mouse-hand";
+				}
+				svgCode += "<rect onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 95 ) + "\" y=\"325\" width=\"45\" height=\"50\" fill=\"" + inActiveColor + "\" />\n";
+				svgCode += "<text onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 95 + 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: #ffffff\" font-family=\"sans-serif\" font-size=\"35\">3</text>\n";
+
+			}
+			// s Heat....
+			//~ svgCode += "<rect x=\"400\" y=\"320\" width=\"60\" height=\"60\" fill=\"#000\" />\n";
+			if( this.currentHeat > 3 && inPlay ) {
+				svgCode += "<rect x=\"" + ( leftBoxWidth - 45 ) + "\" y=\"325\" width=\"25\" height=\"50\" fill=\"#333\" />\n";
+				svgCode += "<circle cx=\"" + ( leftBoxWidth - 20 ) + "\" cy=\"350\" r=\"25\" fill=\"#333\" />\n";
+				svgCode += "<text x=\"" + ( leftBoxWidth - 45 + 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: #ffffff\" font-family=\"sans-serif\" font-size=\"35\">S</text>\n";
+			} else {
+				if( inPlay ) {
+					onClickFunction = "ASChangeSVGHeat( 4, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+					mouseHandClass = "mouse-hand";
+				}
+				svgCode += "<rect onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 45 ) + "\" y=\"325\" width=\"25\" height=\"50\" fill=\"" + inActiveColor + "\" />\n";
+				svgCode += "<circle onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" cx=\"" + ( leftBoxWidth - 20 ) + "\" cy=\"350\" r=\"25\" fill=\"" + inActiveColor + "\" />\n";
+				svgCode += "<text onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 45 + 10) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: #ffffff\" font-family=\"sans-serif\" font-size=\"35\">S</text>\n";
+			}
+		} else {
+			armorBoxStart = 300;
+		}
+
+
+		/*
+		 *  Armor and IS Section
+		*/
+
+		// Gray, Rounded Box
+		svgCode += "<rect x=\"20\" y=\"" + (armorBoxStart) + "\" width=\"" + leftBoxWidth + "\" height=\"105\" fill=\"#000000\" rx=\"18\" ry=\"18\" />\n";
+		svgCode += "<rect x=\"25\" y=\"" + (armorBoxStart + 5) + "\" width=\"" + ( leftBoxWidth - 10 ) + "\" height=\"95\" fill=\"" + grayBackground + "\" fill-opacity=\"" + grayOpacity + "\" rx=\"15\" ry=\"15\" />\n";
+
+
+
+
+		var armorTopBase = armorBoxStart + 15;
+		var isTopBase = armorBoxStart + 60;
+		var buttonRadius = 15;
+		var leftBase = 90;
+		svgCode += "<text x=\"80\" y=\"" + ( armorTopBase + 25) + "\" text-anchor=\"left\" font-family=\"sans-serif\" font-size=\"25\">A: </text>\n";
+		svgCode += "<text x=\"80\" y=\"" + ( isTopBase + 25) + "\" text-anchor=\"left\" font-family=\"sans-serif\" font-size=\"25\">S: </text>\n";
+
+		if( this.isAerospace ) {
+			svgCode += "<text x=\"" + ( leftBoxWidth - 25) + "\" y=\"" + ( armorTopBase + 25) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"35\">TH</text>\n";
+			svgCode += "<text x=\"" + ( leftBoxWidth - 25) + "\" y=\"" + ( armorTopBase + 65) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"35\">" + this.threshold + "</text>\n";
+		}
+
+		var armorClass = "";
+		var armorFunction = "";
+		if( inPlay ) {
+			var onClick = "ASTakeDamage( " + groupIndex + ", "+ mechIndex + ", '" + itemIDField + "')";
+			svgCode += "<rect class=\"mouse-hand\" onclick=\"" + onClick + "\" x=\"30\" y=\"" + (armorBoxStart + 10) + "\" width=\"" + ( 40 ) + "\" height=\"85\" fill=\"#c00\" rx=\"15\" ry=\"15\" />\n";
+			svgCode += "<text class=\"mouse-hand\" onclick=\"" + onClick + "\" x=\"60\" y=\"" + (armorBoxStart + 30) + "\" fill=\"#fff\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"13\" transform=\"rotate(270, 65, " + (armorBoxStart + 47) + ")\">TAKE</text>\n";
+			svgCode += "<text class=\"mouse-hand\" onclick=\"" + onClick + "\" x=\"70\" y=\"" + (armorBoxStart + 30) + "\" fill=\"#fff\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"13\" transform=\"rotate(270, 75, " + (armorBoxStart + 45) + ")\">DAMAGE</text>\n";
+			leftBase += 40;
+		}
+
+		for( var armorCount = 0; armorCount < this.currentArmor.length; armorCount++ ) {
+			if( inPlay ) {
+				var armorClass = "mouse-hand";
+				var armorFunction = "ASToggleArmorPip( " + armorCount + ", " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+			}
+			svgCode += "<circle class=\"" + armorClass + "\" onclick=\"" + armorFunction + "\" cx=\"" + ( leftBase + (buttonRadius * 2 + 3 ) * armorCount )  + "\" cy=\"" + ( armorTopBase + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
+		//	svgCode += "<circle class=\"" + armorClass + "\" onclick=\"" + armorFunction + "\" cx=\"150\" cy=\"" + armorTopBase + "\" r=\"" + buttonRadius + "\" fill=\"green\" />\n";
+			if( this.currentArmor[ armorCount ] && inPlay ) {
+				svgCode += "<circle class=\"" + armorClass + "\" onclick=\"" + armorFunction + "\" cx=\"" + ( leftBase + (buttonRadius * 2 + 3 ) * armorCount )  + "\" cy=\"" + ( armorTopBase + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"#c00\" />\n";
+			} else {
+				svgCode += "<circle class=\"" + armorClass + "\" onclick=\"" + armorFunction + "\" cx=\"" + ( leftBase + (buttonRadius * 2 + 3 ) * armorCount )  + "\" cy=\"" + ( armorTopBase + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
+			}
+		}
+
+		var structClass = "";
+		var structFunction = "";
+		for( var structCount = 0; structCount < this.currentStructure.length; structCount++ ) {
+			if( inPlay ) {
+				var structClass = "mouse-hand";
+				var structFunction = "ASToggleStructPip( " + structCount + ", " + groupIndex + ", "+ mechIndex + ", '" + itemIDField + "')";
+			}
+			svgCode += "<circle class=\"" + structClass + "\" onclick=\"" + structFunction + "\" cx=\"" + ( leftBase + (buttonRadius * 2 + 3 ) * structCount )  + "\" cy=\"" + ( isTopBase + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
+		//	svgCode += "<circle class=\"" + structClass + "\" onclick=\"" + structFunction + "\" cx=\"150\" cy=\"" + armorTopBase + "\" r=\"" + buttonRadius + "\" fill=\"green\" />\n";
+			if( this.currentStructure[ structCount ] && inPlay ) {
+				svgCode += "<circle class=\"" + structClass + "\" onclick=\"" + structFunction + "\" cx=\"" + ( leftBase + (buttonRadius * 2 + 3 ) * structCount )  + "\" cy=\"" + ( isTopBase + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"#c00\" />\n";
+			} else {
+				svgCode += "<circle class=\"" + structClass + "\" onclick=\"" + structFunction + "\" cx=\"" + ( leftBase + (buttonRadius * 2 + 3 ) * structCount )  + "\" cy=\"" + ( isTopBase + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#999\" />\n";
+			}
+		}
+
+
+		/*
+		 *  Special Section
+		*/
+
+		// Gray, Rounded Box
+		svgCode += "<rect x=\"20\" y=\"510\" width=\"960\" height=\"60\" fill=\"#000000\" rx=\"18\" ry=\"18\" />\n";
+		svgCode += "<rect x=\"25\" y=\"515\" width=\"950\" height=\"50\" fill=\"" + grayBackground + "\" fill-opacity=\"" + grayOpacity + "\" rx=\"15\" ry=\"15\" />\n";
+		svgCode += "<text x=\"30\" y=\"550\" text-anchor=\"left\" font-family=\"sans-serif\" font-size=\"25\">SPECIAL: " + this.abilities + "</text>\n";
+
+
+
+		/*
+		 *  Critical Hits Section
+		*/
+
+		if( !this.isInfantry ) {
+
+			critLineHeight = 50;
+			critLineStart = 325;
+
+			// Gray, Rounded Box
+			svgCode += "<rect x=\"" + (leftBoxWidth + 30) + "\" y=\"245\" width=\"" + (950 - leftBoxWidth ) + "\" height=\"260\" fill=\"#000000\" rx=\"18\" ry=\"18\" />\n";
+			svgCode += "<rect x=\"" + (leftBoxWidth + 35) + "\" y=\"250\" width=\"" + (950 - 10 - leftBoxWidth ) + "\" height=\"250\" fill=\"" + grayBackground + "\" fill-opacity=\"" + grayOpacity + "\" rx=\"15\" ry=\"15\" />\n";
+
+			//
+			svgCode += "<text x=\"" + (leftBoxWidth + 35 + (950 - leftBoxWidth ) / 2) + "\" y=\"275\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"25\">CRITICAL HITS</text>\n";
+
+			var leftmostCritButton = (leftBoxWidth + 35 + (950 - leftBoxWidth ) / 2) - 15;
+
+			// Engine Hits
+			if( this.type.toLowerCase() != 'pm') {
+
+				svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + critLineStart + "\" text-anchor=\"end\" font-family=\"sans-serif\" font-size=\"20\">ENGINE</text>\n";
+				for( var critCount = 0; critCount < this.engineHits.length; critCount++ ) {
+					if( inPlay ) {
+						var critClass = "mouse-hand";
+						var critFunction = "ASToggleEngineHit( " + critCount + ", " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+					}
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
+
+					if( this.engineHits[ critCount ] && inPlay ) {
+						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"#c00\" />\n";
+					} else {
+						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
+					}
+				}
+				svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + ( critLineStart + buttonRadius + 3 ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" font-size=\"12\">+1 Heat/Firing Weapons</text>\n";
+				critLineStart += critLineHeight;
+			}
+
+
+
+			// Fire Control Hits
+			svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + critLineStart + "\" text-anchor=\"end\" font-family=\"sans-serif\" font-size=\"20\">FIRE CONTROL</text>\n";
+			for( var critCount = 0; critCount < this.fireControlHits.length; critCount++ ) {
+				if( inPlay ) {
+					var critClass = "mouse-hand";
+					var critFunction = "ASToggleFireControlHit( " + critCount + ", " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+				}
+				svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
+
+				if( this.fireControlHits[ critCount ] && inPlay ) {
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"#c00\" />\n";
+				} else {
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
+				}
+			}
+			svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + ( critLineStart + buttonRadius + 3 ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" font-size=\"12\">+2 To Hit Each</text>\n";
+			critLineStart += critLineHeight;
+
+			if( this.type.toLowerCase() == 'bm' || this.type.toLowerCase() == 'pm' ) {
+				// MP Hits
+				svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + critLineStart + "\" text-anchor=\"end\" font-family=\"sans-serif\" font-size=\"20\">MP</text>\n";
+				for( var critCount = 0; critCount < this.mpControlHits.length; critCount++ ) {
+					if( inPlay ) {
+						var critClass = "mouse-hand";
+						var critFunction = "ASToggleMPlHit( " + critCount + ", " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+					}
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
+
+					if( this.mpControlHits[ critCount ] && inPlay ) {
+						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"#c00\" />\n";
+					} else {
+						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
+					}
+				}
+				svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + ( critLineStart + buttonRadius + 3 ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" font-size=\"12\">&frac12; Move Each</text>\n";
+				critLineStart += critLineHeight;
+			}
+
+			// Weapon Hits
+			svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + critLineStart + "\" text-anchor=\"end\" font-family=\"sans-serif\" font-size=\"20\">WEAPONS</text>\n";
+			for( var critCount = 0; critCount < this.weaponHits.length; critCount++ ) {
+				if( inPlay ) {
+					var critClass = "mouse-hand";
+					var critFunction = "ASToggleWeaponHits( " + critCount + ", " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+				}
+				svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
+
+				if( this.weaponHits[ critCount ] && inPlay ) {
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"#c00\" />\n";
+				} else {
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
+				}
+			}
+			svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + ( critLineStart + buttonRadius + 3 ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" font-size=\"12\">-1 Damage Each</text>\n";
+			critLineStart += critLineHeight;
+
+
+			if( this.type.toLowerCase() == 'cv' || this.type.toLowerCase() == 'sv' ) {
+				// Vehicile Motive Hits
+				svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + critLineStart + "\" text-anchor=\"end\" font-family=\"sans-serif\" font-size=\"20\">MOTIVE</text>\n";
+
+				if( inPlay ) {
+
+
+					var critClass = "mouse-hand";
+					var critFunction = "ASToggleMPlHit( 0, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 0 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
+
+					if( this.mpControlHits[ 0 ] ) {
+						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 0 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"#c00\" />\n";
+					} else {
+						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 0 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
+					}
+
+					critFunction = "ASToggleMPlHit( 1, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 1 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
+					if( this.mpControlHits[ 1 ] ) {
+						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 1 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"#c00\" />\n";
+					} else {
+						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 1 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
+					}
+
+					critFunction = "ASToggleMPlHit( 2, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 2 +15 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
+					if( this.mpControlHits[ 2 ] ) {
+						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 2 +15 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"#c00\" />\n";
+					} else {
+						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 2 +15 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
+					}
+
+					critFunction = "ASToggleMPlHit( 3, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 3  +15)  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
+					if( this.mpControlHits[ 3 ] ) {
+						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 3  +15)  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"#c00\" />\n";
+					} else {
+						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 3  +15)  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
+					}
+
+					critFunction = "ASToggleMPlHit( 4, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 4 +30 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
+					if( this.mpControlHits[ 4 ] ) {
+						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 4  +30)  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"#c00\" />\n";
+					} else {
+						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 4 +30 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
+					}
+
+
+
+				} else {
+					critClass = "";
+					critFunction = "";
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 0 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 0 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
+
+
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 1 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 1 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
+
+
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 2 +15 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 2 +15 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
+
+
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 3  +15)  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 3  +15)  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
+
+
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 4 +30 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 4 +30 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
+
+
+				}
+				svgCode += "<text x=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 0 - buttonRadius + 20 )  + "\" y=\"" + ( critLineStart + buttonRadius + 3 ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" font-size=\"12\">-2 MV</text>\n";
+				svgCode += "<text x=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 2 - buttonRadius +10)  + "\" y=\"" + ( critLineStart + buttonRadius + 3 ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" font-size=\"12\">&frac12; Move Each</text>\n";
+				svgCode += "<text x=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 4 - buttonRadius +30)  + "\" y=\"" + ( critLineStart + buttonRadius + 3 ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" font-size=\"12\">0 MV</text>\n";
+				critLineStart += critLineHeight;
+			}
+
+		}
+
+		if( !this.active && inPlay) {
+			svgCode += "<text x=\"50\" y=\"100\" font-family=\"sans-serif\" transform=\"rotate( 30, 50, 100)\" font-size=\"150\" stroke=\"#fff\" stroke-width=\"4\" fill=\"#c00\">WRECKED</text>\n";
+
+		}
+
+		svgCode += "</svg>\n";
+
+		return svgCode;
+	}
+
+
 	this.calcCurrentVals();
 }
 
@@ -6607,7 +7225,7 @@ Mech.prototype.getCBillCalcHTML = function() {
 }
 
 
-Mech.prototype.makeSVGRecordSheet = function( landscape ) {
+Mech.prototype.makeSVGRecordSheet = function( inPlay, landscape ) {
 	if( typeof( landscape ) == "undefined" ) {
 		landscape = false;
 	} else {
@@ -6617,11 +7235,30 @@ Mech.prototype.makeSVGRecordSheet = function( landscape ) {
 			landscape = false;
 	}
 
-	svgCode = "<svg version=\"1.1\" baseProfile=\"full\" width=\"1000\" height=\"3000\" xmlns=\"http://www.w3.org/2000/svg\">\n";
+	if( typeof( inPlay ) == "undefined" ) {
+		inPlay = false;
+	} else {
+		if( inPlay )
+			inPlay = true;
+		else
+			inPlay = false;
+	}
 
-	svgCode += "<rect width=\"100%\" height=\"100%\" fill=\"white\" />\n";
+	//svgCode = "<svg version=\"1.1\" baseProfile=\"full\" width=\"1000\" height=\"3000\" xmlns=\"http://www.w3.org/2000/svg\">\n";
+	svgCode = "<svg version=\"1.1\" viewBox=\"0 0 2000 3500\" xmlns=\"http://www.w3.org/2000/svg\">\n";
 
-	svgCode += "<circle cx=\"150\" cy=\"100\" r=\"80\" fill=\"green\" />\n";
+	if( landscape )
+		svgCode += "<rect width=\"100%\" height=\"100%\" fill=\"white\" />\n";
+	else
+		svgCode += "<rect width=\"100%\" height=\"100%\" fill=\"black\" />\n";
+
+	//~ svgCode += "<circle class=\"mousehand\" onclick=\"mooClick(0)\" cx=\"150\" cy=\"100\" r=\"80\" fill=\"green\" />\n";
+
+	//~ svgCode += "<circle class=\"mousehand\" onclick=\"mooClick(1)\" cx=\"300\" cy=\"100\" r=\"80\" fill=\"red\" />\n";
+
+	svgCode += "<circle class=\"mousehand\" ng-click=\"updateSVG(0)\" cx=\"150\" cy=\"100\" r=\"80\" fill=\"green\" />\n";
+
+	svgCode += "<circle class=\"mousehand\" ng-click=\"updateSVG(1)\" cx=\"300\" cy=\"100\" r=\"80\" fill=\"red\" />\n";
 
 	svgCode += "<text x=\"150\" y=\"125\" font-size=\"60\" text-anchor=\"middle\" fill=\"white\">SVG</text>\n";
 
@@ -6629,12 +7266,19 @@ Mech.prototype.makeSVGRecordSheet = function( landscape ) {
 
 
 
-
 	return svgCode;
 
 }
 
-Mech.prototype.makeSVGAlphaStrikeCard = function() {
+Mech.prototype.makeSVGAlphaStrikeCard = function( inPlay ) {
+	if( typeof( inPlay ) == "undefined" ) {
+		inPlay = false;
+	} else {
+		if( inPlay )
+			inPlay = true;
+		else
+			inPlay = false;
+	}
 }
 
 Mech.prototype.makeTROBBCode = function() {
@@ -9551,6 +10195,336 @@ angular.module("cordovaApp").controller(
 );
 
 
+var asPlayViewSVGArray = [
+	'$rootScope',
+	'$translate',
+	'$scope',
+	'$http',
+	'$location',
+	function ($rootScope, $translate, $scope, $http, $location) {
+		$rootScope.showSciFiCreatorMenu = false;
+		$rootScope.showChargenMenu = false;
+		$translate(['APP_TITLE', 'INDEX_WELCOME']).then(function (translation) {
+			$rootScope.title_tag = translation.INDEX_WELCOME + " | " + translation.APP_TITLE;
+			$rootScope.subtitle_tag = translation.INDEX_WELCOME;
+		});
+
+		$scope.goHome = function() {
+
+			delete(localStorage["backToPath"]);
+			$location.url("/");
+		}
+
+		$scope.activeView = true;
+
+			localStorage["backToPath"] = $location.$$path;
+
+		incomingLance = Array();
+		$scope.currentLances = Array()
+		if( localStorage["as_builder_current_lances"] ) {
+			incomingLances = JSON.parse(localStorage["as_builder_current_lances"]);
+			for( var lanceCount = 0; lanceCount < incomingLances.length; lanceCount++) {
+				var incomingLance = new asGroup();
+
+				if( incomingLances[lanceCount].customName )
+					incomingLance.customName = incomingLances[lanceCount].customName;
+				//incomingLance[lanceCount];
+
+				for( var mechCount = 0; mechCount < incomingLances[lanceCount].members.length; mechCount++) {
+					if( incomingLances[lanceCount].members[mechCount] != null ) {
+						var incomingMech = new asUnit( incomingLances[lanceCount].members[mechCount] );
+						incomingLance.members.push( incomingMech );
+					}
+				}
+
+				$scope.currentLances.push( incomingLance );
+			}
+		}
+
+		if( $scope.currentLances.length == 0) {
+			$scope.currentLances.push( new asGroup() );
+		}
+
+		$scope.viewingLance = 0;
+		if( localStorage["as_builder_current_play_page"] && localStorage["as_builder_current_play_page"] < $scope.currentLances.length )
+			$scope.viewingLance = localStorage["as_builder_current_play_page"];
+
+		$scope.setHeat = function(mechObject, newValue) {
+			mechObject.setHeat( newValue );
+
+			$scope.saveToLS();
+
+		}
+
+
+
+		$scope.changePage = function(newPage) {
+			$scope.viewingLance = newPage;
+			$scope.saveToLS();
+		}
+
+		$scope.toggleStructure = function(mechObject, indexValue) {
+
+			if( mechObject.currentStructure[indexValue] )
+				mechObject.currentStructure[indexValue] = false;
+			else
+				mechObject.currentStructure[indexValue] = true;
+
+			mechObject.calcCurrentVals();
+
+			$scope.saveToLS();
+
+		}
+
+		$scope.toggleArmor = function(mechObject, indexValue) {
+
+			if( mechObject.currentArmor[indexValue] )
+				mechObject.currentArmor[indexValue] = false;
+			else
+				mechObject.currentArmor[indexValue] = true;
+
+			mechObject.calcCurrentVals();
+
+			$scope.saveToLS();
+
+		}
+
+
+		$scope.toggleEngineCrit = function(mechObject, indexValue) {
+
+			if( mechObject.engineHits[indexValue] )
+				mechObject.engineHits[indexValue] = false;
+			else
+				mechObject.engineHits[indexValue] = true;
+
+			mechObject.calcCurrentVals();
+
+			$scope.saveToLS();
+
+		}
+
+		$scope.toggleFireControlCrit = function(mechObject, indexValue) {
+
+			if( mechObject.fireControlHits[indexValue] )
+				mechObject.fireControlHits[indexValue] = false;
+			else
+				mechObject.fireControlHits[indexValue] = true;
+
+			mechObject.calcCurrentVals();
+
+			$scope.saveToLS();
+
+		}
+
+		$scope.toggleMPCrit = function(mechObject, indexValue) {
+
+			if( mechObject.mpControlHits[indexValue] )
+				mechObject.mpControlHits[indexValue] = false;
+			else
+				mechObject.mpControlHits[indexValue] = true;
+
+			mechObject.calcCurrentVals();
+
+			$scope.saveToLS();
+
+		}
+
+		$scope.toggleWeaponCrit = function(mechObject, indexValue) {
+
+			if( mechObject.weaponHits[indexValue] )
+				mechObject.weaponHits[indexValue] = false;
+			else
+				mechObject.weaponHits[indexValue] = true;
+
+			mechObject.calcCurrentVals();
+
+			console.log( mechObject.weaponHits );
+
+			$scope.saveToLS();
+
+		}
+
+		$scope.takeDamage = function(mechObject, damageAmount) {
+			if( typeof(damageAmount) == "undefined")
+				damageAmount = 1;
+			mechObject.takeDamage( damageAmount );
+
+			mechObject.showDamageBar = false;
+			$scope.saveToLS();
+
+		}
+
+		$scope.showDamageSelect = function( mechObject ) {
+			mechObject.showDamageBar = true;
+		}
+
+		$scope.updateMemberCounts = function() {
+			for( lanceCount = 0; lanceCount < $scope.currentLances.length; lanceCount++ ) {
+				$scope.currentLances[lanceCount].getActiveMembers();
+			}
+		}
+
+		$scope.saveToLS = function() {
+
+			$scope.updateMemberCounts();
+
+			localStorage["as_builder_current_lances"] = JSON.stringify( $scope.currentLances) ;
+			localStorage["as_builder_current_play_page"] = $scope.viewingLance;
+		}
+
+
+		/*
+		 * SVG JS Functions - all called from "outside" via onclicks in battlemech_record_sheet.js
+		 */
+
+		$scope.setMechHeat = function( newHeatValue, groupIndex, mechIndex ) {
+			if( $scope.currentLances[groupIndex]
+				&&
+				$scope.currentLances[groupIndex].members[mechIndex]
+			) {
+				$scope.currentLances[groupIndex].members[mechIndex].setHeat( newHeatValue );
+
+				$scope.updateMemberCounts();
+
+				localStorage["as_builder_current_lances"] = JSON.stringify( $scope.currentLances) ;
+				localStorage["as_builder_current_play_page"] = $scope.viewingLance;
+			}
+		}
+
+		$scope.toggleArmorPip = function( armorIndex, groupIndex, mechIndex ) {
+			if( $scope.currentLances[groupIndex]
+				&&
+				$scope.currentLances[groupIndex].members[mechIndex]
+			) {
+				if( $scope.currentLances[groupIndex].members[mechIndex].currentArmor[ armorIndex ] ) {
+					$scope.currentLances[groupIndex].members[mechIndex].currentArmor[ armorIndex ] = false;
+				} else {
+					$scope.currentLances[groupIndex].members[mechIndex].currentArmor[ armorIndex ] = true;
+				}
+
+				$scope.updateMemberCounts();
+
+				localStorage["as_builder_current_lances"] = JSON.stringify( $scope.currentLances) ;
+				localStorage["as_builder_current_play_page"] = $scope.viewingLance;
+			}
+		}
+
+		$scope.toggleStructPip = function( structIndex, groupIndex, mechIndex ) {
+			if( $scope.currentLances[groupIndex]
+				&&
+				$scope.currentLances[groupIndex].members[mechIndex]
+			) {
+				if( $scope.currentLances[groupIndex].members[mechIndex].currentStructure[ structIndex ] ) {
+					$scope.currentLances[groupIndex].members[mechIndex].currentStructure[ structIndex ] = false;
+				} else {
+					$scope.currentLances[groupIndex].members[mechIndex].currentStructure[ structIndex ] = true;
+				}
+
+				$scope.updateMemberCounts();
+
+				localStorage["as_builder_current_lances"] = JSON.stringify( $scope.currentLances) ;
+				localStorage["as_builder_current_play_page"] = $scope.viewingLance;
+			}
+		}
+
+		$scope.toggleEngineHit = function( critIndex, groupIndex, mechIndex ) {
+			if( $scope.currentLances[groupIndex]
+				&&
+				$scope.currentLances[groupIndex].members[mechIndex]
+			) {
+				if( $scope.currentLances[groupIndex].members[mechIndex].engineHits[ critIndex ] ) {
+					$scope.currentLances[groupIndex].members[mechIndex].engineHits[ critIndex ] = false;
+				} else {
+					$scope.currentLances[groupIndex].members[mechIndex].engineHits[ critIndex ] = true;
+				}
+
+				$scope.updateMemberCounts();
+
+				localStorage["as_builder_current_lances"] = JSON.stringify( $scope.currentLances) ;
+				localStorage["as_builder_current_play_page"] = $scope.viewingLance;
+			}
+		}
+
+		$scope.toggleControlHit = function( critIndex, groupIndex, mechIndex ) {
+			if( $scope.currentLances[groupIndex]
+				&&
+				$scope.currentLances[groupIndex].members[mechIndex]
+			) {
+				if( $scope.currentLances[groupIndex].members[mechIndex].fireControlHits[ critIndex ] ) {
+					$scope.currentLances[groupIndex].members[mechIndex].fireControlHits[ critIndex ] = false;
+				} else {
+					$scope.currentLances[groupIndex].members[mechIndex].fireControlHits[ critIndex ] = true;
+				}
+
+				$scope.updateMemberCounts();
+
+				localStorage["as_builder_current_lances"] = JSON.stringify( $scope.currentLances) ;
+				localStorage["as_builder_current_play_page"] = $scope.viewingLance;
+			}
+		}
+
+		$scope.toggleMPHit = function( critIndex, groupIndex, mechIndex ) {
+			if( $scope.currentLances[groupIndex]
+				&&
+				$scope.currentLances[groupIndex].members[mechIndex]
+			) {
+				if( $scope.currentLances[groupIndex].members[mechIndex].mpControlHits[ critIndex ] ) {
+					$scope.currentLances[groupIndex].members[mechIndex].mpControlHits[ critIndex ] = false;
+				} else {
+					$scope.currentLances[groupIndex].members[mechIndex].mpControlHits[ critIndex ] = true;
+				}
+
+				$scope.updateMemberCounts();
+
+				localStorage["as_builder_current_lances"] = JSON.stringify( $scope.currentLances) ;
+				localStorage["as_builder_current_play_page"] = $scope.viewingLance;
+			}
+		}
+
+		$scope.toggleWeaponHit = function( critIndex, groupIndex, mechIndex ) {
+			if( $scope.currentLances[groupIndex]
+				&&
+				$scope.currentLances[groupIndex].members[mechIndex]
+			) {
+				if( $scope.currentLances[groupIndex].members[mechIndex].weaponHits[ critIndex ] ) {
+					$scope.currentLances[groupIndex].members[mechIndex].weaponHits[ critIndex ] = false;
+				} else {
+					$scope.currentLances[groupIndex].members[mechIndex].weaponHits[ critIndex ] = true;
+				}
+
+				$scope.updateMemberCounts();
+
+				localStorage["as_builder_current_lances"] = JSON.stringify( $scope.currentLances) ;
+				localStorage["as_builder_current_play_page"] = $scope.viewingLance;
+			}
+		}
+
+		$scope.showDamagePopup = function( groupIndex, mechIndex ) {
+			if( $scope.currentLances[groupIndex]
+				&&
+				$scope.currentLances[groupIndex].members[mechIndex]
+			) {
+				$scope.currentLances[groupIndex].members[mechIndex].showDamageBar = true;
+			}
+		}
+
+		//~ console.log($scope.currentLance);
+		$scope.updateMemberCounts();
+	}
+];
+angular.module("webApp").controller(
+	"asPlayViewSVGController",
+	asPlayViewSVGArray
+);
+
+angular.module("cordovaApp").controller(
+	"asPlayViewSVGController",
+	asPlayViewSVGArray
+);
+
+
+
+
 var battlemechCreatorControllerExportsArray =
 	[
 		'$rootScope',
@@ -9558,7 +10532,8 @@ var battlemechCreatorControllerExportsArray =
 		'$scope',
 		'$location',
 		'$sce',
-		function ($rootScope, $translate, $scope, $location, $sce) {
+		'$compile',
+		function ($rootScope, $translate, $scope, $location, $sce, $compile) {
 			// Set Page Title Tag
 			$translate(['APP_TITLE', 'BM_EXPORTS_TITLE', 'BM_EXPORTS_DESC', 'WELCOME_BUTTON_MECH_CREATOR' ]).then(function (translation) {
 				$rootScope.title_tag = translation.BM_EXPORTS_TITLE + " | " + translation.APP_TITLE;
@@ -9594,7 +10569,7 @@ var battlemechCreatorControllerExportsArray =
 
 			$scope.makeTROBBCode = current_mech.makeTROBBCode();
 
-			$scope.recordSheetSVG =  $sce.trustAsHtml( current_mech.makeSVGRecordSheet() );
+
 
 			// make tro for sidebar
 			$scope.mech_tro = current_mech.makeTROHTML();
@@ -9635,6 +10610,25 @@ var battlemechCreatorControllerExportsArray =
 				pdf = makeBattlemechCombinedPDF(current_mech);
 				pdf.save(current_mech.getName() + ' - Record Sheet and TRO.pdf');
 			}
+
+			//~ $scope.updateSVG = function( tmpText ) {
+				//~ if( typeof( tmpText ) == "undefined" )
+					//~ tmpText = "";
+				//~ console.log( "updateSVG", tmpText );
+
+				//~ var rawSVG = current_mech.makeSVGRecordSheet(tmpText);
+				//~ var compiled = current_mech.makeSVGRecordSheet(rawSVG)
+				//~ $scope.recordSheetSVG =  $sce.trustAsHtml( compiled );
+				//~ compiled( $scope.recordSheetSVG  )
+				//~ var el = document.getElementById( 'testsvg' );
+				//~ angular.element(el).append( $compile( rawSVG )($scope) )
+				//~ el = $compile( angular.element( rawSVG ) )($scope);
+				//~ //var element = $compile(angular.element( rawSVG ))(scope);
+
+			//~ }
+
+			//~ $scope.updateSVG();
+
 
 		}
 	]

@@ -101,9 +101,18 @@ webApp = angular.module(
 				controller  : 'asBuilderController'
 			})
 
+			//~ .when('/as/play-view', {
+				//~ templateUrl : 'pages/as-play-view.html?v=' + getAppVersion(),
+				//~ controller  : 'asPlayViewController'
+			//~ })
+
+			//~ .when('/as/play-view-svg', {
+				//~ templateUrl : 'pages/as-play-view-svg.html?v=' + getAppVersion(),
+				//~ controller  : 'asPlayViewSVGController'
+			//~ })
 			.when('/as/play-view', {
-				templateUrl : 'pages/as-play-view.html?v=' + getAppVersion(),
-				controller  : 'asPlayViewController'
+				templateUrl : 'pages/as-play-view-svg.html?v=' + getAppVersion(),
+				controller  : 'asPlayViewSVGController'
 			})
 
 			// route for the credits page
@@ -116,6 +125,13 @@ webApp = angular.module(
 		}
 	]
 );
+
+angular.module('webApp')
+    .filter('to_trusted', ['$sce', function($sce){
+        return function(text) {
+            return $sce.trustAsHtml(text);
+        };
+    }]);
 
 webApp.config(['$compileProvider',
     function ($compileProvider) {

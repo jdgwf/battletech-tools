@@ -924,21 +924,50 @@ button.round, .button.round {
     .modal-container .reveal label {
       color: #fff; }
 
-/* line 1040, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+/* line 1041, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+.mouse-hand {
+  cursor: pointer; }
+
+/* line 1044, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+svg {
+  width: 100% !important;
+  height: auto !important; }
+
+/* line 1049, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
 .bbcode-export {
   width: 100%;
   height: 1000px;
   font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace; }
 
-/* line 1046, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+/* line 1054, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+.svg-as-container {
+  position: relative; }
+  /* line 1056, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+  .svg-as-container .damage-select {
+    position: absolute;
+    padding: 30% 0 0 0;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    text-align: center;
+    height: 100%; }
+    /* line 1066, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+    .svg-as-container .damage-select button {
+      font-size: 2vw; }
+    /* line 1069, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+    .svg-as-container .damage-select h4 {
+      font-size: 3vw; }
+
+/* line 1075, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
 .reveal-modal {
   position: fixed; }
 
-/* line 1050, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+/* line 1079, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
 .even-modaler {
   z-index: 2000 !important; }
 
 @media only screen and (max-device-width: 400px) and (orientation: portrait) {
-  /* line 1055, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
+  /* line 1084, /srv/www/jdgwf.com/btdev/public_html/css/src/style.scss */
   .landscape-view-please {
     display: block; } }

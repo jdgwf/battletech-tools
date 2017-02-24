@@ -1037,10 +1037,39 @@ button.round, .button.round {
 
 }
 
+
+.mouse-hand {
+	cursor: pointer;
+}
+svg {
+	width: 100% !important;
+	height: auto !important;
+}
+
 .bbcode-export {
 	width: 100%;
 	height: 1000px;
 	font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+}
+.svg-as-container {
+	position: relative;
+	.damage-select {
+		position: absolute;
+		padding: 30% 0 0 0;
+		top: 0;
+		left: 0;
+		background: rgba( 0,0,0, .7);
+		width: 100%;
+		text-align: center;
+		height: 100%;
+		
+		button {
+			font-size: 2vw;
+		}
+		h4 {
+			font-size: 3vw;
+		}
+	}
 }
 
 .reveal-modal{

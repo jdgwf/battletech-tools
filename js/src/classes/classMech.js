@@ -1014,7 +1014,7 @@ Mech.prototype.getCBillCalcHTML = function() {
 }
 
 
-Mech.prototype.makeSVGRecordSheet = function( landscape ) {
+Mech.prototype.makeSVGRecordSheet = function( inPlay, landscape ) {
 	if( typeof( landscape ) == "undefined" ) {
 		landscape = false;
 	} else {
@@ -1024,11 +1024,30 @@ Mech.prototype.makeSVGRecordSheet = function( landscape ) {
 			landscape = false;
 	}
 
-	svgCode = "<svg version=\"1.1\" baseProfile=\"full\" width=\"1000\" height=\"3000\" xmlns=\"http://www.w3.org/2000/svg\">\n";
+	if( typeof( inPlay ) == "undefined" ) {
+		inPlay = false;
+	} else {
+		if( inPlay )
+			inPlay = true;
+		else
+			inPlay = false;
+	}
 
-	svgCode += "<rect width=\"100%\" height=\"100%\" fill=\"white\" />\n";
+	//svgCode = "<svg version=\"1.1\" baseProfile=\"full\" width=\"1000\" height=\"3000\" xmlns=\"http://www.w3.org/2000/svg\">\n";
+	svgCode = "<svg version=\"1.1\" viewBox=\"0 0 2000 3500\" xmlns=\"http://www.w3.org/2000/svg\">\n";
 
-	svgCode += "<circle cx=\"150\" cy=\"100\" r=\"80\" fill=\"green\" />\n";
+	if( landscape )
+		svgCode += "<rect width=\"100%\" height=\"100%\" fill=\"white\" />\n";
+	else
+		svgCode += "<rect width=\"100%\" height=\"100%\" fill=\"black\" />\n";
+
+	//~ svgCode += "<circle class=\"mousehand\" onclick=\"mooClick(0)\" cx=\"150\" cy=\"100\" r=\"80\" fill=\"green\" />\n";
+
+	//~ svgCode += "<circle class=\"mousehand\" onclick=\"mooClick(1)\" cx=\"300\" cy=\"100\" r=\"80\" fill=\"red\" />\n";
+
+	svgCode += "<circle class=\"mousehand\" ng-click=\"updateSVG(0)\" cx=\"150\" cy=\"100\" r=\"80\" fill=\"green\" />\n";
+
+	svgCode += "<circle class=\"mousehand\" ng-click=\"updateSVG(1)\" cx=\"300\" cy=\"100\" r=\"80\" fill=\"red\" />\n";
 
 	svgCode += "<text x=\"150\" y=\"125\" font-size=\"60\" text-anchor=\"middle\" fill=\"white\">SVG</text>\n";
 
@@ -1036,12 +1055,19 @@ Mech.prototype.makeSVGRecordSheet = function( landscape ) {
 
 
 
-
 	return svgCode;
 
 }
 
-Mech.prototype.makeSVGAlphaStrikeCard = function() {
+Mech.prototype.makeSVGAlphaStrikeCard = function( inPlay ) {
+	if( typeof( inPlay ) == "undefined" ) {
+		inPlay = false;
+	} else {
+		if( inPlay )
+			inPlay = true;
+		else
+			inPlay = false;
+	}
 }
 
 Mech.prototype.makeTROBBCode = function() {

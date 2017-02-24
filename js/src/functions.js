@@ -160,8 +160,6 @@ String.prototype.rpad = function(padString, length) {
     return str;
 }
 
-
-
 function getMovementModifier( moveScore ) {
 	if( moveScore >= 25 ) {
 		return 6;
@@ -180,3 +178,4 @@ function getMovementModifier( moveScore ) {
 	return 0;
 
 }
+
