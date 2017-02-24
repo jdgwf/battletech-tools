@@ -4,7 +4,8 @@ var battlemechCreatorControllerExportsArray =
 		'$translate',
 		'$scope',
 		'$location',
-		function ($rootScope, $translate, $scope, $location) {
+		'$sce',
+		function ($rootScope, $translate, $scope, $location, $sce) {
 			// Set Page Title Tag
 			$translate(['APP_TITLE', 'BM_EXPORTS_TITLE', 'BM_EXPORTS_DESC', 'WELCOME_BUTTON_MECH_CREATOR' ]).then(function (translation) {
 				$rootScope.title_tag = translation.BM_EXPORTS_TITLE + " | " + translation.APP_TITLE;
@@ -39,6 +40,8 @@ var battlemechCreatorControllerExportsArray =
 			current_mech.useLang = localStorage["tmp.preferred_language"];
 
 			$scope.makeTROBBCode = current_mech.makeTROBBCode();
+
+			$scope.recordSheetSVG =  $sce.trustAsHtml( current_mech.makeSVGRecordSheet() );
 
 			// make tro for sidebar
 			$scope.mech_tro = current_mech.makeTROHTML();

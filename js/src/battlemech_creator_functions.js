@@ -35,6 +35,9 @@ function makeBattlemechRecordSheetPDF(battlemech_object) {
 
 	var pdfDoc = new jsPDF('portrait', 'mm', 'letter');
 	pdfDoc.setFontSize( pdfFontSize );
+
+
+
 	pdfDoc = createRecordSheetPDF(pdfDoc, battlemech_object);
 
 	return pdfDoc;
@@ -133,11 +136,11 @@ function createTROPDF( pdfDoc, battlemech_object ) {
 	}
 	lineNumber++;
 
-	if( battlemech_object.getJumpJetWeight() > 0 ) {
-		pdfDoc.text(col1Loc, 10 + lineHeight * lineNumber, battlemech_object.getTranslation("TRO_JUMP_JETS") );
-		pdfDoc.text(col5Loc, 10 + lineHeight * lineNumber, battlemech_object.getJumpJetWeight() + "" );
-	}
-	lineNumber++;
+	//~ if( battlemech_object.getJumpJetWeight() > 0 ) {
+		//~ pdfDoc.text(col1Loc, 10 + lineHeight * lineNumber, battlemech_object.getTranslation("TRO_JUMP_JETS") );
+		//~ pdfDoc.text(col5Loc, 10 + lineHeight * lineNumber, battlemech_object.getJumpJetWeight() + "" );
+	//~ }
+	//~ lineNumber++;
 	actuator_html = "";
 
 	if( battlemech_object.mech_type.class == "biped") {
@@ -402,19 +405,13 @@ function createRecordSheetPDF( pdfDoc, battlemech_object ) {
 
 	pdfDoc = battlemech_record_sheet(pdfDoc);
 
-	convertImgToDataURLviaCanvas("./images/pdf/Blank-Mech-Sheet.jpg",
-		function(imageData) {
-			if( imageData )
-				pdfDoc.addImage( imageData, 1, 1);
-		}
-	);
+	pdfDoc.text(10, 10, "One small step with a really, really big metal and composite foot.....");
+	pdfDoc.text(10, 25, battlemech_object.getName());
+	pdfDoc.line( 10, 10, 20, 20);
 
-	//pdfDoc.text(10, 10, "One small step with a really, really big metal and composite foot.....");
-	//pdfDoc.text(10, 25, battlemech_object.getName());
+	var svgText = JSON.stringify( battlemech_object.makeSVGRecordSheet() );
+	pdfDoc.addSVG( svgText, 0 , 0, pdfDoc.internal.pageSize.width - 0 );
 
-	//pdfDoc.line( 10, 10, 20, 20);
-
-	pdfDoc = makeFooter(pdfDoc);
 	return pdfDoc;
 
 }

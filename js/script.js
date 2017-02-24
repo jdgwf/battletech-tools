@@ -322,6 +322,9 @@ function makeBattlemechRecordSheetPDF(battlemech_object) {
 
 	var pdfDoc = new jsPDF('portrait', 'mm', 'letter');
 	pdfDoc.setFontSize( pdfFontSize );
+
+
+
 	pdfDoc = createRecordSheetPDF(pdfDoc, battlemech_object);
 
 	return pdfDoc;
@@ -420,11 +423,11 @@ function createTROPDF( pdfDoc, battlemech_object ) {
 	}
 	lineNumber++;
 
-	if( battlemech_object.getJumpJetWeight() > 0 ) {
-		pdfDoc.text(col1Loc, 10 + lineHeight * lineNumber, battlemech_object.getTranslation("TRO_JUMP_JETS") );
-		pdfDoc.text(col5Loc, 10 + lineHeight * lineNumber, battlemech_object.getJumpJetWeight() + "" );
-	}
-	lineNumber++;
+	//~ if( battlemech_object.getJumpJetWeight() > 0 ) {
+		//~ pdfDoc.text(col1Loc, 10 + lineHeight * lineNumber, battlemech_object.getTranslation("TRO_JUMP_JETS") );
+		//~ pdfDoc.text(col5Loc, 10 + lineHeight * lineNumber, battlemech_object.getJumpJetWeight() + "" );
+	//~ }
+	//~ lineNumber++;
 	actuator_html = "";
 
 	if( battlemech_object.mech_type.class == "biped") {
@@ -689,19 +692,13 @@ function createRecordSheetPDF( pdfDoc, battlemech_object ) {
 
 	pdfDoc = battlemech_record_sheet(pdfDoc);
 
-	convertImgToDataURLviaCanvas("./images/pdf/Blank-Mech-Sheet.jpg",
-		function(imageData) {
-			if( imageData )
-				pdfDoc.addImage( imageData, 1, 1);
-		}
-	);
+	pdfDoc.text(10, 10, "One small step with a really, really big metal and composite foot.....");
+	pdfDoc.text(10, 25, battlemech_object.getName());
+	pdfDoc.line( 10, 10, 20, 20);
 
-	//pdfDoc.text(10, 10, "One small step with a really, really big metal and composite foot.....");
-	//pdfDoc.text(10, 25, battlemech_object.getName());
+	var svgText = JSON.stringify( battlemech_object.makeSVGRecordSheet() );
+	pdfDoc.addSVG( svgText, 0 , 0, pdfDoc.internal.pageSize.width - 0 );
 
-	//pdfDoc.line( 10, 10, 20, 20);
-
-	pdfDoc = makeFooter(pdfDoc);
 	return pdfDoc;
 
 }
@@ -6308,17 +6305,49 @@ Mech.prototype.getTranslation = function(langKey) {
 		}
 	}
 }
+
 Mech.prototype.getASCalcHTML = function() {
 	return "<div class=\"mech-tro\">" + this.calcLogAS + "</div>";
-},
+}
 
 Mech.prototype.getBVCalcHTML = function() {
 	return "<div class=\"mech-tro\">" + this.calcLogBV + "</div>";
-},
+}
 
 Mech.prototype.getCBillCalcHTML = function() {
 	return "<div class=\"mech-tro\">" + this.calcLogCBill + "</div>";
-},
+}
+
+
+Mech.prototype.makeSVGRecordSheet = function( landscape ) {
+	if( typeof( landscape ) == "undefined" ) {
+		landscape = false;
+	} else {
+		if( landscape )
+			landscape = true;
+		else
+			landscape = false;
+	}
+
+	svgCode = "<svg version=\"1.1\" baseProfile=\"full\" width=\"1000\" height=\"3000\" xmlns=\"http://www.w3.org/2000/svg\">\n";
+
+	svgCode += "<rect width=\"100%\" height=\"100%\" fill=\"white\" />\n";
+
+	svgCode += "<circle cx=\"150\" cy=\"100\" r=\"80\" fill=\"green\" />\n";
+
+	svgCode += "<text x=\"150\" y=\"125\" font-size=\"60\" text-anchor=\"middle\" fill=\"white\">SVG</text>\n";
+
+	svgCode += "</svg>\n";
+
+
+
+
+	return svgCode;
+
+}
+
+Mech.prototype.makeSVGAlphaStrikeCard = function() {
+}
 
 Mech.prototype.makeTROBBCode = function() {
 	//~ var tro = this.makeTROHTML();
@@ -6375,9 +6404,9 @@ Mech.prototype.makeTROBBCode = function() {
 		html += "" + this.getTranslation("TRO_COCKPIT").rpad(" ",col1Padding + col2Padding) + "" + this.getCockpitWeight() + "\n";
 	}
 
-	if( this.getJumpJetWeight() > 0 ) {
-		html += "" + this.getTranslation("TRO_JUMP_JETS").rpad(" ",col1Padding + col2Padding) + "" + this.getJumpJetWeight() + "\n";
-	}
+	//~ if( this.getJumpJetWeight() > 0 ) {
+		//~ html += "" + this.getTranslation("TRO_JUMP_JETS").rpad(" ",col1Padding + col2Padding) + "" + this.getJumpJetWeight() + "\n";
+	//~ }
 
 	if( this.mech_type.class == "biped") {
 		html += "" + this.getTranslation("TRO_ARM_ACTUATORS") + ": ";
@@ -6564,7 +6593,12 @@ Mech.prototype.makeTROBBCode = function() {
 	}
 
 
-	return "[code]" +  html + "[/code]";
+
+	var createdBy = "\n\nCreated with BattleTech Tools: [url]https://jdgwf.github.io/battletech-tools/[/url]\n\n";
+
+
+	return "[code]" +  html + "[/code]" + createdBy;
+
 }
 
 Mech.prototype.makeTROHTML = function() {
@@ -6600,9 +6634,9 @@ Mech.prototype.makeTROHTML = function() {
 		html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_COCKPIT") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getCockpitWeight() + "</td></tr>";
 	}
 
-	if( this.getJumpJetWeight() > 0 ) {
-		html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_JUMP_JETS") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getJumpJetWeight() + "</td></tr>";
-	}
+	//~ if( this.getJumpJetWeight() > 0 ) {
+		//~ html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_JUMP_JETS") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getJumpJetWeight() + "</td></tr>";
+	//~ }
 
 	if( this.mech_type.class == "biped") {
 		html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_ARM_ACTUATORS") + ": ";
@@ -9235,7 +9269,8 @@ var battlemechCreatorControllerExportsArray =
 		'$translate',
 		'$scope',
 		'$location',
-		function ($rootScope, $translate, $scope, $location) {
+		'$sce',
+		function ($rootScope, $translate, $scope, $location, $sce) {
 			// Set Page Title Tag
 			$translate(['APP_TITLE', 'BM_EXPORTS_TITLE', 'BM_EXPORTS_DESC', 'WELCOME_BUTTON_MECH_CREATOR' ]).then(function (translation) {
 				$rootScope.title_tag = translation.BM_EXPORTS_TITLE + " | " + translation.APP_TITLE;
@@ -9270,6 +9305,8 @@ var battlemechCreatorControllerExportsArray =
 			current_mech.useLang = localStorage["tmp.preferred_language"];
 
 			$scope.makeTROBBCode = current_mech.makeTROBBCode();
+
+			$scope.recordSheetSVG =  $sce.trustAsHtml( current_mech.makeSVGRecordSheet() );
 
 			// make tro for sidebar
 			$scope.mech_tro = current_mech.makeTROHTML();

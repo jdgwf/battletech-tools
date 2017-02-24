@@ -1000,17 +1000,49 @@ Mech.prototype.getTranslation = function(langKey) {
 		}
 	}
 }
+
 Mech.prototype.getASCalcHTML = function() {
 	return "<div class=\"mech-tro\">" + this.calcLogAS + "</div>";
-},
+}
 
 Mech.prototype.getBVCalcHTML = function() {
 	return "<div class=\"mech-tro\">" + this.calcLogBV + "</div>";
-},
+}
 
 Mech.prototype.getCBillCalcHTML = function() {
 	return "<div class=\"mech-tro\">" + this.calcLogCBill + "</div>";
-},
+}
+
+
+Mech.prototype.makeSVGRecordSheet = function( landscape ) {
+	if( typeof( landscape ) == "undefined" ) {
+		landscape = false;
+	} else {
+		if( landscape )
+			landscape = true;
+		else
+			landscape = false;
+	}
+
+	svgCode = "<svg version=\"1.1\" baseProfile=\"full\" width=\"1000\" height=\"3000\" xmlns=\"http://www.w3.org/2000/svg\">\n";
+
+	svgCode += "<rect width=\"100%\" height=\"100%\" fill=\"white\" />\n";
+
+	svgCode += "<circle cx=\"150\" cy=\"100\" r=\"80\" fill=\"green\" />\n";
+
+	svgCode += "<text x=\"150\" y=\"125\" font-size=\"60\" text-anchor=\"middle\" fill=\"white\">SVG</text>\n";
+
+	svgCode += "</svg>\n";
+
+
+
+
+	return svgCode;
+
+}
+
+Mech.prototype.makeSVGAlphaStrikeCard = function() {
+}
 
 Mech.prototype.makeTROBBCode = function() {
 	//~ var tro = this.makeTROHTML();
@@ -1067,9 +1099,9 @@ Mech.prototype.makeTROBBCode = function() {
 		html += "" + this.getTranslation("TRO_COCKPIT").rpad(" ",col1Padding + col2Padding) + "" + this.getCockpitWeight() + "\n";
 	}
 
-	if( this.getJumpJetWeight() > 0 ) {
-		html += "" + this.getTranslation("TRO_JUMP_JETS").rpad(" ",col1Padding + col2Padding) + "" + this.getJumpJetWeight() + "\n";
-	}
+	//~ if( this.getJumpJetWeight() > 0 ) {
+		//~ html += "" + this.getTranslation("TRO_JUMP_JETS").rpad(" ",col1Padding + col2Padding) + "" + this.getJumpJetWeight() + "\n";
+	//~ }
 
 	if( this.mech_type.class == "biped") {
 		html += "" + this.getTranslation("TRO_ARM_ACTUATORS") + ": ";
@@ -1256,7 +1288,12 @@ Mech.prototype.makeTROBBCode = function() {
 	}
 
 
-	return "[code]" +  html + "[/code]";
+
+	var createdBy = "\n\nCreated with BattleTech Tools: [url]https://jdgwf.github.io/battletech-tools/[/url]\n\n";
+
+
+	return "[code]" +  html + "[/code]" + createdBy;
+
 }
 
 Mech.prototype.makeTROHTML = function() {
@@ -1292,9 +1329,9 @@ Mech.prototype.makeTROHTML = function() {
 		html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_COCKPIT") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getCockpitWeight() + "</td></tr>";
 	}
 
-	if( this.getJumpJetWeight() > 0 ) {
-		html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_JUMP_JETS") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getJumpJetWeight() + "</td></tr>";
-	}
+	//~ if( this.getJumpJetWeight() > 0 ) {
+		//~ html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_JUMP_JETS") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getJumpJetWeight() + "</td></tr>";
+	//~ }
 
 	if( this.mech_type.class == "biped") {
 		html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_ARM_ACTUATORS") + ": ";
