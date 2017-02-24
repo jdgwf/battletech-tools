@@ -150,7 +150,7 @@ var battlemechCreatorControllerStep5Array =
 						)
 						||
 						(
-							$scope.equipment_table[eqc].introduced < selectedEra.year_end
+							$scope.equipment_table[eqc].introduced <= selectedEra.year_end
 							&&
 							(
 								$scope.equipment_table[eqc].extinct == 0
