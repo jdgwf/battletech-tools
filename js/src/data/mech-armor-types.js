@@ -17,7 +17,7 @@ var mechArmorTypes = Array(
 		},
 
 		costmultiplier: 10000,
-		introduced: 2300,
+		introduced: 2470,
 		extinct: 0,
 		reintroduced: 0
 	},
@@ -35,9 +35,9 @@ var mechArmorTypes = Array(
 			is: 14
 		},
 		costmultiplier: 20000,
-		introduced: 2300,
-		extinct: 0,
-		reintroduced: 0
+		introduced: 2571,
+		extinct: 2810,
+		reintroduced: 3040
 	},
 
 	{
@@ -54,7 +54,7 @@ var mechArmorTypes = Array(
 			is: 16 * 1.06
 		},
 		costmultiplier: 15000,
-		introduced: 3050,
+		introduced: 3067,
 		extinct: 0,
 		reintroduced: 0
 	},
@@ -73,7 +73,7 @@ var mechArmorTypes = Array(
 			is: 21
 		},
 		costmultiplier: 25000,
-		introduced: 3050,
+		introduced: 3069,
 		extinct: 0,
 		reintroduced: 0
 	},
@@ -100,7 +100,7 @@ var mechArmorTypes = Array(
 			"lt": 2
 		},
 		costmultiplier: 50000,
-		introduced: 3050,
+		introduced: 3063,
 		extinct: 0,
 		reintroduced: 0
 	}

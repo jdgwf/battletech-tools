@@ -65,9 +65,7 @@ var battlemechCreatorControllerStep2Array =
 
 				for( var lCount = mechEngineTypes.length - 1; lCount > -1; lCount -- ) {
 					if(
-						(
-							mechEngineTypes[ lCount ].introduced <= $scope.current_mech.era.year_start
-						)
+						getItemAvailability (mechEngineTypes[ lCount ], $scope.current_mech.era)
 							&&
 						// Make sure that the engine is available to the tech selected
 						(
@@ -120,7 +118,7 @@ var battlemechCreatorControllerStep2Array =
 				var availble_options = [];
 
 				for( var lCount = mechGyroTypes.length - 1; lCount > -1; lCount -- ) {
-					if( mechGyroTypes[ lCount ].introduced <= $scope.current_mech.era.year_start ) {
+					if( getItemAvailability(mechGyroTypes[ lCount ], $scope.current_mech.era) ) {
 						var localName = "";
 						if( mechGyroTypes[ lCount ].name[ localStorage["tmp.preferred_language"] ] ) {
 							localName = mechGyroTypes[ lCount ].name[ localStorage["tmp.preferred_language"] ];

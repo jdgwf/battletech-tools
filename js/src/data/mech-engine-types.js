@@ -33,9 +33,9 @@ var mechEngineTypes = Array(
 			}
 		},
 		costmultiplier: 20000,
-		introduced: 2300,
-		extinct: 0,
-		reintroduced: 0
+		introduced: 2579,
+		extinct: 2865,
+		reintroduced: 3035
 	},
 	{
 		name: {
@@ -50,7 +50,7 @@ var mechEngineTypes = Array(
 			}
 		},
 		costmultiplier: 20000,
-		introduced: 2300,
+		introduced: 2827,
 		extinct: 0,
 		reintroduced: 0
 	},
@@ -67,7 +67,7 @@ var mechEngineTypes = Array(
 			}
 		},
 		costmultiplier: 15000,
-		introduced: 3050,
+		introduced: 3062,
 		extinct: 0,
 		reintroduced: 0
 	},
@@ -82,7 +82,7 @@ var mechEngineTypes = Array(
 			}
 		},
 		costmultiplier: 10000,
-		introduced: 3050,
+		introduced: 3068,
 		extinct: 0,
 		reintroduced: 0
 	}

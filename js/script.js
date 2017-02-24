@@ -1040,50 +1040,151 @@ function getMovementModifier( moveScore ) {
 
 }
 
+/*
+	item: Object must include following keys:
+	{
+		introduced int,
+		extinct int (if == 0, item != extinct),
+		reintroduced int (if == 0 item != reintroduced)
+	}
+
+	currentEra: Object must include following keys:
+	{
+		year_start int,
+		year_end int
+	}
+*/
+function getItemAvailability( item, currentEra )
+{
+	if
+	(
+		(
+			item.reintroduced != 0
+			&& item.reintroduced <= currentEra.year_end
+		)
+		||
+		(
+			item.introduced <= currentEra.year_end
+			&&
+			(
+				item.extinct == 0
+				||
+				item.extinct >= currentEra.year_start
+			)
+		)
+	) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
 
 
 /*
  * The data here is copyright NOT included in the MIT license.
+ * Based on BattleTech Master Unit List eras: http://masterunitlist.info/Era/Index
  */
 var btEraOptions = Array(
 	{
 		id: 1,
 		name: {
-			'en-US': "Age of War/Star League (2400-2780)",
-			'de-DE': "de - Age of War/Star League"
+			'en-US': "Age of War (2005-2570)",
+			'de-DE': "de - Age of War"
 		},
-		year_start: 2400,
-		year_end: 2780,
+		year_start: 2005,
+		year_end: 2570,
 	},
 	{
 		id: 2,
 		name: {
-			'en-US': "Succession Wars (2801-3049)",
-			'de-DE': "de - Succession Wars"
+			'en-US': "Star League (2571-2780)",
+			'de-DE': "de - Star League"
 		},
-		year_start: 2801,
-		year_end: 3049,
+		year_start: 2571,
+		year_end: 2780,
 	},
 	{
 		id: 3,
 		name: {
-			'en-US': "Clan Invasion (3050-3085)",
-			'de-DE': "de - Clan Invasion"
+			'en-US': "Early Succcession War (2781-2900)",
+			'de-DE': "de - Early Succession War"
 		},
-		year_start: 3050,
-		year_end: 3085,
-	}
-/*
+		year_start: 2781,
+		year_end: 2900,
+	},
 	{
 		id: 4,
 		name: {
-			'en-US': "Dark Ages (3085+)",
+			'en-US': "Late Succcession War - LosTech (2901-3019)",
+			'de-DE': "de - Late Succession War - LosTech"
+		},
+		year_start: 2901,
+		year_end: 3019,
+	},
+	{
+		id: 5,
+		name: {
+			'en-US': "Late Succcession War - Renaissance (3020-3049)",
+			'de-DE': "de - Late Succession War - Renaissance"
+		},
+		year_start: 3020,
+		year_end: 3049,
+	},
+	{
+		id: 6,
+		name: {
+			'en-US': "Clan Invasion (3050-3061)",
+			'de-DE': "de - Clan Invasion"
+		},
+		year_start: 3050,
+		year_end: 3061,
+	},
+	{
+		id: 7,
+		name: {
+			'en-US': "Civil War (3062-3067)",
+			'de-DE': "de - Civil War"
+		},
+		year_start: 3062,
+		year_end: 3067,
+	},
+	{
+		id: 8,
+		name: {
+			'en-US': "Jihad (3068-3085)",
+			'de-DE': "de - Jihad"
+		},
+		year_start: 3068,
+		year_end: 3085,
+	},
+	{
+		id: 8,
+		name: {
+			'en-US': "Early Republic (3086-3100)",
+			'de-DE': "de - Early Republic"
+		},
+		year_start: 3086,
+		year_end: 3100,
+	},
+	{
+		id: 9,
+		name: {
+			'en-US': "Late Republic (3101-3130)",
+			'de-DE': "de - Late Republic"
+		},
+		year_start: 3101,
+		year_end: 3130,
+	},
+	{
+		id: 10,
+		name: {
+			'en-US': "Dark Ages (3131-3999)",
 			'de-DE': "de - Dark Ages"
 		},
-		year_start: 3085,
-		year_end: 4000,
+		year_start: 3131,
+		year_end: 3999,
 	}
-	*/
 );
 
 /*
@@ -1255,7 +1356,7 @@ var mechArmorTypes = Array(
 		},
 
 		costmultiplier: 10000,
-		introduced: 2300,
+		introduced: 2470,
 		extinct: 0,
 		reintroduced: 0
 	},
@@ -1273,9 +1374,9 @@ var mechArmorTypes = Array(
 			is: 14
 		},
 		costmultiplier: 20000,
-		introduced: 2300,
-		extinct: 0,
-		reintroduced: 0
+		introduced: 2571,
+		extinct: 2810,
+		reintroduced: 3040
 	},
 
 	{
@@ -1292,7 +1393,7 @@ var mechArmorTypes = Array(
 			is: 16 * 1.06
 		},
 		costmultiplier: 15000,
-		introduced: 3050,
+		introduced: 3067,
 		extinct: 0,
 		reintroduced: 0
 	},
@@ -1311,7 +1412,7 @@ var mechArmorTypes = Array(
 			is: 21
 		},
 		costmultiplier: 25000,
-		introduced: 3050,
+		introduced: 3069,
 		extinct: 0,
 		reintroduced: 0
 	},
@@ -1338,7 +1439,7 @@ var mechArmorTypes = Array(
 			"lt": 2
 		},
 		costmultiplier: 50000,
-		introduced: 3050,
+		introduced: 3063,
 		extinct: 0,
 		reintroduced: 0
 	}
@@ -2419,9 +2520,9 @@ var mechEngineTypes = Array(
 			}
 		},
 		costmultiplier: 20000,
-		introduced: 2300,
-		extinct: 0,
-		reintroduced: 0
+		introduced: 2579,
+		extinct: 2865,
+		reintroduced: 3035
 	},
 	{
 		name: {
@@ -2436,7 +2537,7 @@ var mechEngineTypes = Array(
 			}
 		},
 		costmultiplier: 20000,
-		introduced: 2300,
+		introduced: 2827,
 		extinct: 0,
 		reintroduced: 0
 	},
@@ -2453,7 +2554,7 @@ var mechEngineTypes = Array(
 			}
 		},
 		costmultiplier: 15000,
-		introduced: 3050,
+		introduced: 3062,
 		extinct: 0,
 		reintroduced: 0
 	},
@@ -2468,7 +2569,7 @@ var mechEngineTypes = Array(
 			}
 		},
 		costmultiplier: 10000,
-		introduced: 3050,
+		introduced: 3068,
 		extinct: 0,
 		reintroduced: 0
 	}
@@ -2486,7 +2587,7 @@ var mechGyroTypes = Array(
 		weight_multiplier: 1,
 		criticals: 4,
 		costmultiplier: 300000,
-		introduced: 2300,
+		introduced: 2350,
 		extinct: 0,
 		reintroduced: 0
 	},
@@ -2498,7 +2599,7 @@ var mechGyroTypes = Array(
 		weight_multiplier: 0.5,
 		criticals: 6,
 		costmultiplier: 750000,
-		introduced: 3050,
+		introduced: 3067,
 		extinct: 0,
 		reintroduced: 0
 	},
@@ -2510,7 +2611,7 @@ var mechGyroTypes = Array(
 		weight_multiplier: 1.5,
 		criticals: 2,
 		costmultiplier: 400000,
-		introduced: 3050,
+		introduced: 3068,
 		extinct: 0,
 		reintroduced: 0
 	},
@@ -2522,7 +2623,7 @@ var mechGyroTypes = Array(
 		weight_multiplier: 2,
 		criticals: 4,
 		costmultiplier: 500000,
-		introduced: 3050,
+		introduced: 3067,
 		extinct: 0,
 		reintroduced: 0
 	}
@@ -10893,9 +10994,7 @@ var battlemechCreatorControllerStep2Array =
 
 				for( var lCount = mechEngineTypes.length - 1; lCount > -1; lCount -- ) {
 					if(
-						(
-							mechEngineTypes[ lCount ].introduced <= $scope.current_mech.era.year_start
-						)
+						getItemAvailability (mechEngineTypes[ lCount ], $scope.current_mech.era)
 							&&
 						// Make sure that the engine is available to the tech selected
 						(
@@ -10948,7 +11047,7 @@ var battlemechCreatorControllerStep2Array =
 				var availble_options = [];
 
 				for( var lCount = mechGyroTypes.length - 1; lCount > -1; lCount -- ) {
-					if( mechGyroTypes[ lCount ].introduced <= $scope.current_mech.era.year_start ) {
+					if( getItemAvailability(mechGyroTypes[ lCount ], $scope.current_mech.era) ) {
 						var localName = "";
 						if( mechGyroTypes[ lCount ].name[ localStorage["tmp.preferred_language"] ] ) {
 							localName = mechGyroTypes[ lCount ].name[ localStorage["tmp.preferred_language"] ];
@@ -11726,22 +11825,7 @@ var battlemechCreatorControllerStep5Array =
 
 
 
-					if(
-						(
-							$scope.equipment_table[eqc].reintroduced != 0
-							&& $scope.equipment_table[eqc].reintroduced <= selectedEra.year_end
-						)
-						||
-						(
-							$scope.equipment_table[eqc].introduced <= selectedEra.year_end
-							&&
-							(
-								$scope.equipment_table[eqc].extinct == 0
-								||
-								$scope.equipment_table[eqc].extinct >= selectedEra.year_start
-							)
-						)
-					) {
+					if( getItemAvailability($scope.equipment_table[eqc], selectedEra) ) {
 						$scope.equipment_table[eqc].isInSelectedEra = true;
 					}
 
