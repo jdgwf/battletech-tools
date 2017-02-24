@@ -142,7 +142,7 @@ function createTROPDF( pdfDoc, battlemech_object ) {
 	//~ }
 	//~ lineNumber++;
 	actuator_html = "";
-
+ 
 	if( battlemech_object.mech_type.class == "biped") {
 		if( battlemech_object.hasLowerArmActuator("ra") )
 			actuator_html += battlemech_object.getTranslation("TRO_LOWER_RIGHT") + ", ";
