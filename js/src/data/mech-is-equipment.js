@@ -220,7 +220,7 @@ var mechISEquipment = Array(
 		weapon_type: Array(
 			"DE"
 		),
-		tech_rating: "c",
+		tech_rating: "d",
 		book: "TO",
 		page: 319,
 		alpha_strike: {
@@ -956,6 +956,62 @@ var mechISEquipment = Array(
 			)
 		}
 	},
+	{
+		name: {
+			'en-US': "Bombast Laser",
+			'de-DE': "de - Bombast Laser",
+		},
+		tag: "bombast-laser",
+		category: {
+			'en-US': "Energy Weapons",
+			'de-DE': "de - Energy Weapons",
+		},
+		damage: 12,
+		damage_aero: 12,
+		accuracy_modifier: 3,
+		cbills: 200000,
+		introduced: 3064,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 137,
+		ammo_battlevalue: 0,
+		heat: 12,
+		weight: 7,
+		range_min: {
+			min: 0,
+			short: 5,
+			medium: 10,
+			long: 15,
+		},
+		space: {
+			battlemech: 3,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 3,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 0,
+		min_ammo_tons: 1,
+		explosive: false,
+		weapon_type: Array(
+			"DE"
+		),
+		tech_rating: "e",
+		book: "TO",
+		page: 320,
+		alpha_strike: {
+			heat: 12,
+			range_short: 1.02,
+			range_medium: 1.02,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
 	// PPCs
 	{
 		name: {
@@ -1427,6 +1483,64 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
+			'en-US': "ER Flamer",
+			'de-DE': "de - ER Flamer",
+		},
+		tag: "er-flamer",
+		category: {
+			'en-US': "Energy Weapons",
+			'de-DE': "de - Energy Weapons",
+		},
+		damage: 2,
+		damage_aero: 2,
+		accuracy_modifier: 0,
+		cbills: 15000,
+		introduced: 3070,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 16,
+		ammo_battlevalue: 1,
+		heat: 4,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 3,
+			medium: 5,
+			long: 7,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 0,
+		min_ammo_tons: 1,
+		explosive: false,
+		weapon_type: Array(
+			"DE",
+			"H"
+		),
+		tech_rating: "d",
+		book: "TO",
+		page: 312,
+		alpha_strike: {
+			heat: 4,
+			range_short: 0.2,
+			range_medium: 0.2,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+				"Heat"
+			)
+		}
+	},
+	{
+		name: {
 			'en-US': "Vehicle Flamer",
 			'de-DE': "de - Vehicle Flamer",
 		},
@@ -1531,6 +1645,122 @@ var mechISEquipment = Array(
 		tech_rating: "b",
 		book: "TM",
 		page: 218,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Heavy Flamer",
+			'de-DE': "de - Heavy Flamer",
+		},
+		tag: "heavy-flamer",
+		category: {
+			'en-US': "Energy Weapons",
+			'de-DE': "de - Energy Weapons",
+		},
+		sort: "flamer, heavy",
+		damage: 4,
+		damage_aero: 4,
+		accuracy_modifier: 0,
+		cbills: 11250,
+		introduced: 3068,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 15,
+		ammo_battlevalue: 1,
+		heat: 5,
+		weight: 1.5,
+		range_min: {
+			min: 0,
+			short: 2,
+			medium: 3,
+			long: 4,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 10,
+		min_ammo_tons: 1,
+		explosive: false,
+		weapon_type: Array(
+			"DE",
+			"H"
+		),
+		tech_rating: "c",
+		book: "TO",
+		page: 312,
+		alpha_strike: {
+			heat: 5,
+			range_short: 0.4,
+			range_medium: 0.4,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+				"Heat"
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Heavy Flamer)",
+			'de-DE': "de - Ammo (Heavy Flamer)",
+		},
+		tag: "ammo-heavy-flamer",
+		sort: "ammo, flamer, heavy",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 2000,
+		introduced: 3068,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 2,
+		ammo_battlevalue: 1,
+		heat: 5,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 2,
+			medium: 3,
+			long: 4,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 10,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"X"
+		),
+		tech_rating: "c",
+		book: "TO",
+		page: 312,
 		alpha_strike: {
 			heat: 0,
 			range_short: 0,
