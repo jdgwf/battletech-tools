@@ -179,8 +179,7 @@ function getMovementModifier( moveScore ) {
 
 }
 
-<<<<<<< HEAD
-=======
+
 /*
 	item: Object must include following keys:
 	{
@@ -220,4 +219,4 @@ function getItemAvailability( item, currentEra )
 		return false;
 	}
 }
->>>>>>> fdf975bdc1a57cd13254af2f61f070593c7346b6
+

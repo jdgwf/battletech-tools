@@ -1040,6 +1040,7 @@ function getMovementModifier( moveScore ) {
 
 }
 
+
 /*
 	item: Object must include following keys:
 	{
@@ -1079,6 +1080,7 @@ function getItemAvailability( item, currentEra )
 		return false;
 	}
 }
+
 
 
 /*
@@ -5546,7 +5548,7 @@ function asUnit (incomingMechData) {
 				}
 				svgCode += "<rect onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 95 ) + "\" y=\"325\" width=\"45\" height=\"50\" fill=\"" + inActiveColor + "\" />\n";
 				svgCode += "<text onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 95 + 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: #ffffff\" font-family=\"sans-serif\" font-size=\"35\">3</text>\n";
-
+ 
 			}
 			// s Heat....
 			//~ svgCode += "<rect x=\"400\" y=\"320\" width=\"60\" height=\"60\" fill=\"#000\" />\n";
@@ -5555,7 +5557,7 @@ function asUnit (incomingMechData) {
 				svgCode += "<circle cx=\"" + ( leftBoxWidth - 20 ) + "\" cy=\"350\" r=\"25\" fill=\"#333\" />\n";
 				svgCode += "<text x=\"" + ( leftBoxWidth - 45 + 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: #ffffff\" font-family=\"sans-serif\" font-size=\"35\">S</text>\n";
 			} else {
-				if( inPlay ) {
+				if( inPlay ) { 
 					onClickFunction = "ASChangeSVGHeat( 4, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
 					mouseHandClass = "mouse-hand";
 				}
