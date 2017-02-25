@@ -1006,8 +1006,10 @@ function asUnit (incomingMechData) {
 		// Gray, Rounded Box
 		svgCode += "<rect x=\"20\" y=\"510\" width=\"960\" height=\"60\" fill=\"#000000\" rx=\"18\" ry=\"18\" />\n";
 		svgCode += "<rect x=\"25\" y=\"515\" width=\"950\" height=\"50\" fill=\"" + grayBackground + "\" fill-opacity=\"" + grayOpacity + "\" rx=\"15\" ry=\"15\" />\n";
-		svgCode += "<text x=\"30\" y=\"550\" text-anchor=\"left\" font-family=\"sans-serif\" font-size=\"25\">SPECIAL: " + this.abilities + "</text>\n";
-
+		if( this.abilities )
+			svgCode += "<text x=\"30\" y=\"550\" text-anchor=\"left\" font-family=\"sans-serif\" font-size=\"25\">SPECIAL: " + this.abilities + "</text>\n";
+		else 
+			svgCode += "<text x=\"30\" y=\"550\" text-anchor=\"left\" font-family=\"sans-serif\" font-size=\"25\">SPECIAL: (none)</text>\n";
 
 
 		/*
