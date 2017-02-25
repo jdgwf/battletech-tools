@@ -824,16 +824,16 @@ function asUnit (incomingMechData) {
 			extremeX = 0;
 
 			// Short
-			svgCode += "<text x=\"" + shortX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"20\">S (+2 | " + this.currentToHitShort + "+)</text>\n";
+			svgCode += "<text x=\"" + shortX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"20\">S (+0 | " + this.currentToHitShort + "+)</text>\n";
 			svgCode += "<text x=\"" + shortX  +"\" y=\"" + secondDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"35\">" + this.currentDamage.short  + "</text>\n";
 
 
 			// Medium
-			svgCode += "<text x=\"" + mediumX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"20\">M (+4 | " + this.currentToHitMedium + "+)</text>\n";
+			svgCode += "<text x=\"" + mediumX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"20\">M (+2 | " + this.currentToHitMedium + "+)</text>\n";
 			svgCode += "<text x=\"" + mediumX  +"\" y=\"" + secondDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"35\">" + this.currentDamage.medium  + "</text>\n";
-
+ 
 			// Long
-			svgCode += "<text x=\"" + longX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"20\">L (+6 | " + this.currentToHitLong + "+)</text>\n";
+			svgCode += "<text x=\"" + longX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"20\">L (+4 | " + this.currentToHitLong + "+)</text>\n";
 			svgCode += "<text x=\"" + longX  +"\" y=\"" + secondDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"35\">" + this.currentDamage.long  + "</text>\n";
 		}
 
