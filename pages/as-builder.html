@@ -46,64 +46,8 @@
 	</fieldset>
 </div>
 <div class="row" ng-show="viewingMech == null">
-	<div class="columns medium-4">
-		<fieldset class="fieldset">
-			<legend translate="GENERAL_SEARCH">Search</legend>
-			<input autocomplete="off" autocorrect="off" placeholder="Search for Unit Name" autocapitalize="off" ng-keyup="searchOnEnter($event)" spellcheck="false" type="text" value="battle" ng-model="currentSearch" />
-			<div class="row">
-				<div class="columns small-6">
-					<h4 class="text-center" translate="GENERAL_RULES">Rules</h4>
+	<div class="columns medium-6 large-4">
 
-					<label><input name="rulesFilter" ng-click="setRulesFilter('Introductory')" type="radio" ng-model="rulesFilter" ng-checked="rulesFilter == 'Introductory'" value="" /> <span translate="GENERAL_INTRODUCTORY">Introductory</span></label>
-					<label><input name="rulesFilter" ng-click="setRulesFilter('Standard')" type="radio" ng-model="rulesFilter" ng-checked="rulesFilter == 'Standard'" value="" /> <span translate="GENERAL_STANDARD">Standard</span></label>
-					<label><input name="rulesFilter" ng-click="setRulesFilter('Advanced')" type="radio" ng-model="rulesFilter" ng-checked="rulesFilter == 'Advanced'" value="" /> <span translate="GENERAL_ADVANCED">Advanced</span></label>
-					<label><input name="rulesFilter" ng-click="setRulesFilter('all')" type="radio" ng-model="rulesFilter" ng-checked="rulesFilter == 'all'" value="" /> <span translate="GENERAL_ALL">All</span></label>
-				</div>
-				<div class="columns small-6">
-					<h4 class="text-center" translate="GENERAL_TECH">Tech</h4>
-
-					<label><input name="techFilter" ng-click="setTechFilter('Inner Sphere')" type="radio" ng-model="techFilter" ng-checked="techFilter == 'Inner Sphere'" value="" /> <span translate="GENERAL_INNER_SPHERE">Inner Sphere</span></label>
-					<label><input name="techFilter" ng-click="setTechFilter('Clan')" type="radio" ng-model="techFilter" ng-checked="techFilter == 'Clan'" value="" /> <span translate="GENERAL_CLAN">Clan</span></label>
-
-					<label><input name="techFilter" ng-click="setTechFilter('all')" type="radio" ng-model="techFilter" ng-checked="techFilter == 'all'" value="" /> <span translate="GENERAL_ALL">All</span></label>
-				</div>
-			</div>
-			<button ng-disabled="currentSearch.length < 3" class="button expanded primary small radius" ng-click="updateMULList()" translate="GENERAL_SEARCH">Search</button>
-		</fieldset>
-
-	<div class="show-for-small hide-for-medium hide-for-large columns medium-8">
-		<fieldset class="fieldset">
-			<legend translate="GENERAL_SEARCH_RESULTS">Search Results</legend>
-				<div class="float-right">
-					<label><span translate="AS_ADD_TO_GROUP">Add To Group</span>:&nbsp;
-						<select style="display: inline-block;width: auto;paddin" ng-options="item as item.label for item in addToOptions track by item.id" ng-model="addToGroup"></select></select>
-					</label>
-				</div>
-				<div class="text-center"><span translate="AS_RESULTS_PROVIDED_BY_MUL">Search results provided by the Master Unit List</span><br /><a href="http://masterunitlist.info" target="_blank">masterunitlist.info</a></div>
-				<table class="equipment-list">
-					<thead>
-						<tr>
-							<th translate="GENERAL_NAME">Name</th>
-							<th translate="GENERAL_RULES">Rules</th>
-							<th translate="GENERAL_TECH">Tech</th>
-							<th translate="GENERAL_POINTS">Points</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="(key, mulObject) in foundMULItems.Units">
-							<td><button ng-click="viewSearchMech($index)" class="button secondary tiny radius"><i class="fa fa-search"></i></button> {{mulObject["Name"]}}
-							</td>
-							<td>{{mulObject["Rules"]}}</td>
-							<td>{{mulObject["Technology"].Name}}</td>
-							<td>{{mulObject["BFPointValue"]}}</td>
-							<td><button ng-click="addToLance($index)" class="button primary tiny" title="{{ 'AS_ADD_TO_SELECTED_GROUP_NOTED_IN_DROPDOWN'|translate }}"><i class="fa fa-plus"></i></button></td>
-						</tr>
-					</tbody>
-					<div class="text-center" ng-show="foundMULItems.Units.length == 0" translate="AS_SEARCH_NO_MATCHES">Sorry, there are no matches with those parameters.</div>
-				</table>
-			</div>
-		</fieldset>
 
 		<fieldset class="fieldset" ng-show="favoriteGroups.length > 0">
 			<legend><span translate="AS_FAVORITE_GROUPS">Favorite Groups</span></legend>
@@ -203,39 +147,63 @@
 		</fieldset>
 	</div>
 
-	<div class="show-for-medium columns medium-8">
+	<div class="columns medium-6 large-8">
+		<fieldset class="fieldset">
+			<legend translate="GENERAL_SEARCH">Search</legend>
+			<input autocomplete="off" autocorrect="off" placeholder="Search for Unit Name" autocapitalize="off" ng-keyup="searchOnEnter($event)" spellcheck="false" type="text" value="battle" ng-model="currentSearch" />
+			<div class="row">
+				<div class="columns small-6">
+					<h4 class="text-center" translate="GENERAL_RULES">Rules</h4>
+
+					<label><input name="rulesFilter" ng-click="setRulesFilter('Introductory')" type="radio" ng-model="rulesFilter" ng-checked="rulesFilter == 'Introductory'" value="" /> <span translate="GENERAL_INTRODUCTORY">Introductory</span></label>
+					<label><input name="rulesFilter" ng-click="setRulesFilter('Standard')" type="radio" ng-model="rulesFilter" ng-checked="rulesFilter == 'Standard'" value="" /> <span translate="GENERAL_STANDARD">Standard</span></label>
+					<label><input name="rulesFilter" ng-click="setRulesFilter('Advanced')" type="radio" ng-model="rulesFilter" ng-checked="rulesFilter == 'Advanced'" value="" /> <span translate="GENERAL_ADVANCED">Advanced</span></label>
+					<label><input name="rulesFilter" ng-click="setRulesFilter('all')" type="radio" ng-model="rulesFilter" ng-checked="rulesFilter == 'all'" value="" /> <span translate="GENERAL_ALL">All</span></label>
+				</div>
+				<div class="columns small-6">
+					<h4 class="text-center" translate="GENERAL_TECH">Tech</h4>
+
+					<label><input name="techFilter" ng-click="setTechFilter('Inner Sphere')" type="radio" ng-model="techFilter" ng-checked="techFilter == 'Inner Sphere'" value="" /> <span translate="GENERAL_INNER_SPHERE">Inner Sphere</span></label>
+					<label><input name="techFilter" ng-click="setTechFilter('Clan')" type="radio" ng-model="techFilter" ng-checked="techFilter == 'Clan'" value="" /> <span translate="GENERAL_CLAN">Clan</span></label>
+
+					<label><input name="techFilter" ng-click="setTechFilter('all')" type="radio" ng-model="techFilter" ng-checked="techFilter == 'all'" value="" /> <span translate="GENERAL_ALL">All</span></label>
+				</div>
+			</div>
+			<button ng-disabled="currentSearch.length < 3" class="button expanded primary small radius" ng-click="updateMULList()" translate="GENERAL_SEARCH">Search</button>
+		</fieldset>
+
+
 		<fieldset class="fieldset">
 			<legend translate="GENERAL_SEARCH_RESULTS">Search Results</legend>
-			<div class="float-right">
-				<label><span translate="AS_ADD_TO_GROUP">Add To Group</span>:&nbsp;
-					<select style="display: inline-block;width: auto" ng-options="item as item.label for item in addToOptions track by item.id" ng-model="addToGroup"></select></select>
-				</label>
+				<div class="float-right">
+					<label><span translate="AS_ADD_TO_GROUP">Add To Group</span>:&nbsp;
+						<select style="display: inline-block;width: auto;paddin" ng-options="item as item.label for item in addToOptions track by item.id" ng-model="addToGroup"></select></select>
+					</label>
+				</div>
+				<div class="text-center"><span translate="AS_RESULTS_PROVIDED_BY_MUL">Search results provided by the Master Unit List</span><br /><a href="http://masterunitlist.info" target="_blank">masterunitlist.info</a></div>
+				<table class="equipment-list">
+					<thead>
+						<tr>
+							<th translate="GENERAL_NAME">Name</th>
+							<th class="hide-for-small-only" translate="GENERAL_RULES">Rules</th>
+							<th class="hide-for-small-only" translate="GENERAL_TECH">Tech</th>
+							<th translate="GENERAL_POINTS">Points</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="(key, mulObject) in foundMULItems.Units">
+							<td><button ng-click="viewSearchMech($index)" class="button secondary tiny radius"><i class="fa fa-search"></i></button> {{mulObject["Name"]}}
+							</td>
+							<td class="hide-for-small-only" >{{mulObject["Rules"]}}</td>
+							<td class="hide-for-small-only" >{{mulObject["Technology"].Name}}</td>
+							<td>{{mulObject["BFPointValue"]}}</td>
+							<td><button ng-click="addToLance($index)" class="button primary tiny" title="{{ 'AS_ADD_TO_SELECTED_GROUP_NOTED_IN_DROPDOWN'|translate }}"><i class="fa fa-plus"></i></button></td>
+						</tr>
+					</tbody>
+					<div class="text-center" ng-show="foundMULItems.Units.length == 0" translate="AS_SEARCH_NO_MATCHES">Sorry, there are no matches with those parameters.</div>
+				</table>
 			</div>
-			<div class="text-center"><span translate="AS_RESULTS_PROVIDED_BY_MUL">Search results provided by the Master Unit List</span><br /><a href="http://masterunitlist.info" target="_blank">masterunitlist.info</a></div>
-
-			<table class="equipment-list">
-				<thead>
-					<tr>
-						<th translate="GENERAL_NAME">Name</th>
-						<th translate="GENERAL_RULES">Rules</th>
-						<th translate="GENERAL_TECH">Tech</th>
-						<th translate="GENERAL_POINTS">Points</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-
-					<tr ng-repeat="(key, mulObject) in foundMULItems.Units">
-						<td><button ng-click="viewSearchMech($index)" class="button secondary tiny radius"><i class="fa fa-search"></i></button> {{mulObject["Name"]}}</td>
-						<td>{{mulObject["Rules"]}}</td>
-						<td>{{mulObject["Technology"].Name}}</td>
-						<td>{{mulObject["BFPointValue"]}}</td>
-						<td><button ng-click="addToLance($index)" class="button primary tiny" title="{{ 'AS_ADD_TO_SELECTED_GROUP_NOTED_IN_DROPDOWN'|translate }}"><i class="fa fa-plus"></i></button></td>
-
-					</tr>
-				</tbody>
-			</table>
-			<div class="text-center" ng-show="foundMULItems.Units.length == 0" translate="AS_SEARCH_NO_MATCHES">Sorry, there are no matches with those parameters.</div>
 		</fieldset>
 	</div>
 </div>
