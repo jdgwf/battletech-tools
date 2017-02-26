@@ -2650,7 +2650,6 @@ var mechISEquipment = Array(
 			'en-US': "Energy Weapons",
 			'de-DE': "de - Energy Weapons",
 		},
-
 		damage: 3,
 		damage_aero: 3,
 		accuracy_modifier: 0,
@@ -4291,6 +4290,177 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
+			'en-US': "Ammo (Vehicle Flamer Coolant)",
+			'de-DE': "de - Ammo (Vehicle Flamer Coolant)",
+		},
+		tag: "ammo-vehicle-flamer-coolant",
+		sort: "ammo, flamer, vehicle, coolant",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 3000,
+		introduced: 2050,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 5,
+		ammo_battlevalue: 1,
+		heat: 3,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 1,
+			medium: 2,
+			long: 3,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 20,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"X"
+		),
+		tech_rating: "c",
+		book: "TO",
+		page: 316,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Vehicle Flamer Inferno)",
+			'de-DE': "de - Ammo (Vehicle Flamer Inferno)",
+		},
+		tag: "ammo-vehicle-flamer-inferno",
+		sort: "ammo, flamer, vehicle, inferno",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 5000,
+		introduced: 2400,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 5,
+		ammo_battlevalue: 2,
+		heat: 3,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 1,
+			medium: 2,
+			long: 3,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 20,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"X"
+		),
+		tech_rating: "d",
+		book: "TO",
+		page: 316,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Vehicle Flamer Water)",
+			'de-DE': "de - Ammo (Vehicle Flamer Water)",
+		},
+		tag: "ammo-vehicle-flamer-water",
+		sort: "ammo, flamer, vehicle, water",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 500,
+		introduced: 1950,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 5,
+		ammo_battlevalue: 1,
+		heat: 3,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 1,
+			medium: 2,
+			long: 3,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 20,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"X"
+		),
+		tech_rating: "a",
+		book: "TO",
+		page: 316,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
 			'en-US': "Heavy Flamer",
 			'de-DE': "de - Heavy Flamer",
 		},
@@ -4394,6 +4564,177 @@ var mechISEquipment = Array(
 		tech_rating: "c",
 		book: "TO",
 		page: 312,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Heavy Flamer Coolant)",
+			'de-DE': "de - Ammo (Heavy Flamer Coolant)",
+		},
+		tag: "ammo-heavy-flamer-coolant",
+		sort: "ammo, flamer, heavy, coolant",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 3000,
+		introduced: 3068,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 5,
+		ammo_battlevalue: 2,
+		heat: 5,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 1,
+			medium: 2,
+			long: 3,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 10,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"X"
+		),
+		tech_rating: "c",
+		book: "TO",
+		page: 361,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Heavy Flamer Inferno)",
+			'de-DE': "de - Ammo (Heavy Flamer Inferno)",
+		},
+		tag: "ammo-heavy-flamer-inferno",
+		sort: "ammo, flamer, heavy, inferno",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 5000,
+		introduced: 3068,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 15,
+		ammo_battlevalue: 4,
+		heat: 5,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 1,
+			medium: 2,
+			long: 3,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 10,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"X"
+		),
+		tech_rating: "d",
+		book: "TO",
+		page: 361,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Heavy Flamer Water)",
+			'de-DE': "de - Ammo (Heavy Flamer Water)",
+		},
+		tag: "ammo-heavy-flamer-water",
+		sort: "ammo, flamer, heavy, water",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 500,
+		introduced: 3068,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 15,
+		ammo_battlevalue: 2,
+		heat: 5,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 1,
+			medium: 2,
+			long: 3,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 10,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"X"
+		),
+		tech_rating: "a",
+		book: "TO",
+		page: 362,
 		alpha_strike: {
 			heat: 0,
 			range_short: 0,
