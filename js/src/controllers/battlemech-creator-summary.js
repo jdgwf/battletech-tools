@@ -179,62 +179,66 @@ var battlemechCreatorControllerSummaryArray =
 			/* Create IOS Data Link PDF URLs */
 			$scope.iosRSLink = "";
 			$scope.iosASLink = "";
+			//~ $scope.isIOSStandAlone = true;
 			if($scope.isIOSStandAlone == true) {
-				//~ console.log("creating rs");
-				var image = new Image();
-				image.src = 'data:image/svg+xml;base64,' + window.btoa( $scope.current_mech.makeSVGRecordSheet() );
-				image.onload = function() {
-					var canvas = document.createElement('canvas');
-					canvas.width = image.width;
-					canvas.height = image.height;
 
-					var ratio = canvas.width / canvas.height;
-					var context = canvas.getContext('2d');
-					context.drawImage(image, 0, 0);
+				//~ console.log("creating as");
+				var ASimage = new Image();
+				ASimage.src = 'data:image/svg+xml;base64,' + window.btoa( $scope.current_mech.makeSVGAlphaStrikeCard() );
+				ASimage.onload = function() {
+					var AScanvas = document.createElement('canvas');
+					AScanvas.width = ASimage.width;
+					AScanvas.height = ASimage.height;
+
+					var ratio = AScanvas.width / AScanvas.height;
+					var AScontext = AScanvas.getContext('2d');
+					AScontext.drawImage(ASimage, 0, 0);
 
 					//~ var a = document.createElement('a');
 					//~ a.download = $scope.current_mech.getName() + ' Record Sheet.jpg';
 					//~ a.href = canvas.toDataURL('image/jpeg');
 					//~ document.body.appendChild(a);
 					//~ a.click();
-					var imgData = canvas.toDataURL("image/jpeg", 1.0);
-					var pdf = new jsPDF("portrait", "in", "letter");
+					var ASimgData = AScanvas.toDataURL("image/jpeg", 1.0);
+					var ASpdf = new jsPDF("portrait", "in", "letter");
 
-					pdf.addImage(imgData, 'JPG', .25, .25, 8, 8 / ratio );
+					ASpdf.addImage(ASimgData, 'JPG', .25, .25, 8, 8 / ratio );
 					//var download = document.getElementById('download');
 
-					var troPDFData = pdf.output('datauristring');
+					var troPDFData = ASpdf.output('datauristring');
+					//~ console.log("created as");
+					$scope.iosASLink =  "pages/ios-standalone-pdf.html#" + troPDFData;
+				}
+
+				//~ console.log("creating rs");
+				var RSimage = new Image();
+				RSimage.src = 'data:image/svg+xml;base64,' + window.btoa( $scope.current_mech.makeSVGRecordSheet() );
+				RSimage.onload = function() {
+					var RScanvas = document.createElement('canvas');
+					RScanvas.width = RSimage.width;
+					RScanvas.height = RSimage.height;
+
+					var ratio = RScanvas.width / RScanvas.height;
+					var RScontext = RScanvas.getContext('2d');
+					RScontext.drawImage(RSimage, 0, 0);
+
+					//~ var a = document.createElement('a');
+					//~ a.download = $scope.current_mech.getName() + ' Record Sheet.jpg';
+					//~ a.href = canvas.toDataURL('image/jpeg');
+					//~ document.body.appendChild(a);
+					//~ a.click();
+					var RSimgData = RScanvas.toDataURL("image/jpeg", 1.0);
+					var RSpdf = new jsPDF("portrait", "in", "letter");
+
+					RSpdf.addImage(RSimgData, 'JPG', .25, .25, 8, 8 / ratio );
+					//var download = document.getElementById('download');
+
+					var troPDFData = RSpdf.output('datauristring');
 					//~ console.log("created rs");
 					$scope.iosRSLink =  "pages/ios-standalone-pdf.html#" + troPDFData;
 				}
 
-				//~ console.log("creating as");
-				var image = new Image();
-				image.src = 'data:image/svg+xml;base64,' + window.btoa( $scope.current_mech.makeSVGAlphaStrikeCard() );
-				image.onload = function() {
-					var canvas = document.createElement('canvas');
-					canvas.width = image.width;
-					canvas.height = image.height;
 
-					var ratio = canvas.width / canvas.height;
-					var context = canvas.getContext('2d');
-					context.drawImage(image, 0, 0);
-
-					//~ var a = document.createElement('a');
-					//~ a.download = $scope.current_mech.getName() + ' Record Sheet.jpg';
-					//~ a.href = canvas.toDataURL('image/jpeg');
-					//~ document.body.appendChild(a);
-					//~ a.click();
-					var imgData = canvas.toDataURL("image/jpeg", 1.0);
-					var pdf = new jsPDF("portrait", "in", "letter");
-
-					pdf.addImage(imgData, 'JPG', .25, .25, 8, 8 / ratio );
-					//var download = document.getElementById('download');
-
-					var troPDFData = pdf.output('datauristring');
-					//~ console.log("created as");
-					$scope.iosASLink =  "pages/ios-standalone-pdf.html#" + troPDFData;
-				}
 			}
 
 
