@@ -211,9 +211,7 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 	var docWidth = 2000;
 	var docHeight = 2300;
 
-	svgCode = "<svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xml:space=\"preserve\" height=\"" + docHeight  + " px\" width=\"" + docWidth  + "px\" viewBox=\"0 0 " + docWidth  + " " + docHeight  + "\" >\n";
-
-	svgCode += "<svg version=\"1.1\" id=\"recordSheetBackground\" x=\"0\" y=\"0\" height=\"" + docHeight  + " px\" width=\"" + docWidth  + "px\" viewBox=\"0 0 " + docWidth  + " " + docHeight  + "\">\n";
+	svgCode = "<svg version=\"1.1\" x=\"0px\" y=\"0px\" height=\"" + docHeight  + "\" width=\"" + docWidth  + "\" xml:space=\"preserve\" viewBox=\"0 0 " + docWidth  + " " + docHeight  + "\" xmlns=\"http://www.w3.org/2000/svg\">\n";
 
 	svgCode += "<g>\n";
 
@@ -221,14 +219,11 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 
 	svgCode += "<text x=\""+ (docWidth / 2) + "\" y=\"100\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"55\">TODO: Record Sheet for " + mechData.getName()  + "</text>\n";
 
-
+	svgCode += "<rect x=\"0\" y=\"900\" width=\"2000\" height=\"500\" fill=\"" + colorBlack + "\" />\n";
+	svgCode += battleTechLogoSVG( false, colorTan, colorGold, 50, 1000, 1900 );
 
 	svgCode += "</g>\n";
 
-	svgCode += "</svg>\n";
-
-	svgCode += "<rect x=\"0\" y=\"900\" width=\"2000\" height=\"500\" fill=\"" + colorBlack + "\" />\n";
-	svgCode += battleTechLogoSVG( false, colorTan, colorGold, 50, 1000, 1900 );
 
 	svgCode += "</svg>\n";
 
@@ -290,7 +285,7 @@ function createSVGAlphaStrike( asData, inPlay, itemIDField ) {
 
 
 	// Base Border and Interior White....
-	svgCode += "<rect x=\"0\" y=\"0\" width=\"1000\" height=\"600\" fill=\"" + colorBlack + "\" />\n";
+	svgCode += "<rect x=\"0\" y=\"0\" width=\"1000\" height=\"675px\" fill=\"" + colorBlack + "\" />\n";
 
 	if( !asData.active && inPlay )
 		svgCode += "<rect x=\"10\" y=\"10\" style=\"z-index: -1\" width=\"980\" height=\"580\" fill=\"" + colorRed + "\" />\n";
@@ -334,7 +329,7 @@ function createSVGAlphaStrike( asData, inPlay, itemIDField ) {
 	//svgCode += "<text x=\"800\" y=\"50\" font-family=\"sans-serif\" font-size=\"11\">" + groupIndex + ", " + mechIndex + ", " + itemIDField + "</text>\n";
 	// Point Value
 	svgCode += "<rect x=\"850\" y=\"9\" width=\"150\" height=\"35\" fill=\"" + colorBlack + "\" />\n";
-	svgCode += "<rect x=\"780\" y=\"9\" width=\"70\" height=\"35\" fill=\"" + colorBlack + "\" transform=\"rotate( 45, 850, 44)\" />\n";
+	//svgCode += "<rect x=\"780\" y=\"9\" width=\"70\" height=\"35\" fill=\"" + colorBlack + "\" transform=\"rotate( 45, 850, 44)\" />\n";
 	svgCode += "<text x=\"990\" y=\"35\" text-anchor=\"end\" fill=\"" + colorWhite + "\" stroke=\"" + colorWhite + "\" font-family=\"sans-serif\" font-size=\"33\">PV: " + asData.currentPoints  + "</text>\n";
 
 	/*
