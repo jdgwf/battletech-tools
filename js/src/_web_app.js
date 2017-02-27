@@ -133,9 +133,35 @@ angular.module('webApp')
         };
     }]);
 
+angular.module('webApp')
+    .filter('svg_to_dataurl', ['$sce', function($sce){
+        return function(text) {
+			//~ console.log( text );
+            //~ return "data:image/svg+xml;base64," + btoa(text);
+
+           //~ return "data:image/svg+xml;utf8," + encodeURIComponent(text);
+
+			return "data:image/svg+xml;utf8," + text;
+        };
+    }]);
+
+angular.module('webApp')
+    .filter('strip_nl', ['$sce', function($sce){
+        return function(text) {
+			//~ console.log( text );
+			while( text.indexOf( "\n" ) != -1 ) {
+				text = text.replace( "\n", "" );
+			}
+            return window.btoa(text);
+
+
+        };
+    }]);
+
+
 webApp.config(['$compileProvider',
     function ($compileProvider) {
-        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|blob):/);
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|blob|data):/);
 }]);
 
 

@@ -33,14 +33,14 @@ function update_mech_status_bar_and_tro($scope, $translate, current_mech) {
 
 function makeBattlemechRecordSheetPDF(battlemech_object) {
 
-	var pdfDoc = new jsPDF('portrait', 'mm', 'letter');
-	pdfDoc.setFontSize( pdfFontSize );
-
+//	var pdfDoc = new jsPDF('portrait', 'mm', 'letter');
+//	pdfDoc.setFontSize( pdfFontSize );
+	pdfDoc = new PDFDocument;
 
 
 	pdfDoc = createRecordSheetPDF(pdfDoc, battlemech_object);
 
-	return pdfDoc;
+	pdfDoc.end();// return pdfDoc;
 
 }
 
@@ -142,7 +142,7 @@ function createTROPDF( pdfDoc, battlemech_object ) {
 	//~ }
 	//~ lineNumber++;
 	actuator_html = "";
- 
+
 	if( battlemech_object.mech_type.class == "biped") {
 		if( battlemech_object.hasLowerArmActuator("ra") )
 			actuator_html += battlemech_object.getTranslation("TRO_LOWER_RIGHT") + ", ";
@@ -403,16 +403,32 @@ function createTROPDF( pdfDoc, battlemech_object ) {
 
 function createRecordSheetPDF( pdfDoc, battlemech_object ) {
 
-	pdfDoc = battlemech_record_sheet(pdfDoc);
+	// pdfDoc = battlemech_record_sheet(pdfDoc);
 
-	pdfDoc.text(10, 10, "One small step with a really, really big metal and composite foot.....");
-	pdfDoc.text(10, 25, battlemech_object.getName());
-	pdfDoc.line( 10, 10, 20, 20);
+	//~ pdfDoc.text(10, 10, "One small step with a really, really big metal and composite foot.....");
+	//~ pdfDoc.text(10, 25, battlemech_object.getName());
+	//~ pdfDoc.line( 10, 10, 20, 20);
 
-	var svgText = JSON.stringify( battlemech_object.makeSVGRecordSheet() );
-	pdfDoc.addSVG( svgText, 0 , 0, pdfDoc.internal.pageSize.width - 0 );
+	//~ var svgText = JSON.stringify( battlemech_object.makeSVGRecordSheet() );
+	//~ pdfDoc.addSVG( svgText, 0 , 0, pdfDoc.internal.pageSize.width - 0 );
+//~ blobStream  = require 'blob-stream'
+//~ stream = doc.pipe(blobStream())
 
-	return pdfDoc;
+	//~ pdfDoc.addPage()
+	   //~ .fontSize(25)
+	   //~ .text('Here is some vector graphics...', 100, 100)
+
+
+
+//~ stream.on 'finish', ->
+  //~ # get a blob you can do whatever you like with
+  //~ blob = stream.toBlob('application/pdf')
+
+  //~ # or get a blob URL for display in the browser
+  //~ url = stream.toBlobURL('application/pdf')
+  //~ iframe.src = url
+
+	//~ return pdfDoc;
 
 }
 

@@ -285,9 +285,35 @@ angular.module('webApp')
         };
     }]);
 
+angular.module('webApp')
+    .filter('svg_to_dataurl', ['$sce', function($sce){
+        return function(text) {
+			//~ console.log( text );
+            //~ return "data:image/svg+xml;base64," + btoa(text);
+
+           //~ return "data:image/svg+xml;utf8," + encodeURIComponent(text);
+
+			return "data:image/svg+xml;utf8," + text;
+        };
+    }]);
+
+angular.module('webApp')
+    .filter('strip_nl', ['$sce', function($sce){
+        return function(text) {
+			//~ console.log( text );
+			while( text.indexOf( "\n" ) != -1 ) {
+				text = text.replace( "\n", "" );
+			}
+            return window.btoa(text);
+
+
+        };
+    }]);
+
+
 webApp.config(['$compileProvider',
     function ($compileProvider) {
-        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|blob):/);
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|blob|data):/);
 }]);
 
 
@@ -345,14 +371,14 @@ function update_mech_status_bar_and_tro($scope, $translate, current_mech) {
 
 function makeBattlemechRecordSheetPDF(battlemech_object) {
 
-	var pdfDoc = new jsPDF('portrait', 'mm', 'letter');
-	pdfDoc.setFontSize( pdfFontSize );
-
+//	var pdfDoc = new jsPDF('portrait', 'mm', 'letter');
+//	pdfDoc.setFontSize( pdfFontSize );
+	pdfDoc = new PDFDocument;
 
 
 	pdfDoc = createRecordSheetPDF(pdfDoc, battlemech_object);
 
-	return pdfDoc;
+	pdfDoc.end();// return pdfDoc;
 
 }
 
@@ -454,7 +480,7 @@ function createTROPDF( pdfDoc, battlemech_object ) {
 	//~ }
 	//~ lineNumber++;
 	actuator_html = "";
- 
+
 	if( battlemech_object.mech_type.class == "biped") {
 		if( battlemech_object.hasLowerArmActuator("ra") )
 			actuator_html += battlemech_object.getTranslation("TRO_LOWER_RIGHT") + ", ";
@@ -715,16 +741,32 @@ function createTROPDF( pdfDoc, battlemech_object ) {
 
 function createRecordSheetPDF( pdfDoc, battlemech_object ) {
 
-	pdfDoc = battlemech_record_sheet(pdfDoc);
+	// pdfDoc = battlemech_record_sheet(pdfDoc);
 
-	pdfDoc.text(10, 10, "One small step with a really, really big metal and composite foot.....");
-	pdfDoc.text(10, 25, battlemech_object.getName());
-	pdfDoc.line( 10, 10, 20, 20);
+	//~ pdfDoc.text(10, 10, "One small step with a really, really big metal and composite foot.....");
+	//~ pdfDoc.text(10, 25, battlemech_object.getName());
+	//~ pdfDoc.line( 10, 10, 20, 20);
 
-	var svgText = JSON.stringify( battlemech_object.makeSVGRecordSheet() );
-	pdfDoc.addSVG( svgText, 0 , 0, pdfDoc.internal.pageSize.width - 0 );
+	//~ var svgText = JSON.stringify( battlemech_object.makeSVGRecordSheet() );
+	//~ pdfDoc.addSVG( svgText, 0 , 0, pdfDoc.internal.pageSize.width - 0 );
+//~ blobStream  = require 'blob-stream'
+//~ stream = doc.pipe(blobStream())
 
-	return pdfDoc;
+	//~ pdfDoc.addPage()
+	   //~ .fontSize(25)
+	   //~ .text('Here is some vector graphics...', 100, 100)
+
+
+
+//~ stream.on 'finish', ->
+  //~ # get a blob you can do whatever you like with
+  //~ blob = stream.toBlob('application/pdf')
+
+  //~ # or get a blob URL for display in the browser
+  //~ url = stream.toBlobURL('application/pdf')
+  //~ iframe.src = url
+
+	//~ return pdfDoc;
 
 }
 
@@ -773,6 +815,21 @@ function makeFooter(pdfDoc) {
 
 
 
+
+var colorRed = "rgb(200,0,0)";
+var colorGreen = "rgb(0,200,0)";
+var colorBlue = "rgb(0,0,200)";
+var colorBlack = "rgb(0,0,0)";
+var colorWhite = "rgb(255,255,255)";
+var colorYellow = "rgb( 204, 187, 0 )";
+var colorOrange = "rgb( 236,87,16 )";
+var colorGrayBackground = "rgba( 255,255,255,.8)";
+
+var colorMediumGray = "rgb(102,102,102)";
+var colorDarkGray = "rgb(51,51,51)";
+var colorLightGray = "rgb(153,153,153)";
+
+
 /* Functions outside scope for SVG manipulation */
 function ASChangeSVGHeat( newHeatValue, groupIndex, mechIndex, idField ) {
 	//~ console.log( "changeSVGHeat", newHeatValue, groupIndex, mechIndex, idField );
@@ -795,7 +852,6 @@ function ASToggleArmorPip( armorIndex, groupIndex, mechIndex, idField ) {
     );
 }
 
-
 function ASToggleStructPip( structIndex, groupIndex, mechIndex, idField ) {
 	//~ console.log( "changeSVGHeat", newHeatValue, groupIndex, mechIndex, idField );
     var scope = angular.element(document.getElementById( idField )).scope();
@@ -805,7 +861,6 @@ function ASToggleStructPip( structIndex, groupIndex, mechIndex, idField ) {
 		}
     );
 }
-
 
 function ASToggleEngineHit( critIndex, groupIndex, mechIndex, idField ) {
 	//~ console.log( "changeSVGHeat", newHeatValue, groupIndex, mechIndex, idField );
@@ -854,6 +909,620 @@ function ASTakeDamage(  groupIndex, mechIndex, idField ) {
 			scope.showDamagePopup( groupIndex, mechIndex ) ;
 		}
     );
+}
+
+
+function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
+	if( typeof( landscape ) == "undefined" ) {
+		landscape = false;
+	} else {
+		if( landscape )
+			landscape = true;
+		else
+			landscape = false;
+	}
+
+	if( typeof( inPlay ) == "undefined" ) {
+		inPlay = false;
+	} else {
+		if( inPlay )
+			inPlay = true;
+		else
+			inPlay = false;
+	}
+
+	if( typeof( itemIDField ) == "undefined" ) {
+		itemIDField = "";
+	} else {
+		if( !itemIDField )
+			itemIDField = "";
+	}
+
+	if( itemIDField ) {
+		// this is a workaround for a bug. When I previously had parameters, the $index and $parent.$index
+		// paramters were undefined when passed directly, but are passed correctly when in the string of the id field
+		itemItems = itemIDField.split("-");
+		groupIndex = itemItems[2] / 1;
+		mechIndex = itemItems[3] / 1;
+	}
+
+	var docWidth = 2000;
+	var docHeight = 2300;
+
+	svgCode = "<svg version=\"1.1\" x=\"0px\" y=\"0px\" height=\"" + docHeight  + " px\" width=\"" + docWidth  + "px\" xml:space=\"preserve\" viewBox=\"0 0 " + docWidth  + " " + docHeight  + "\" xmlns=\"http://www.w3.org/2000/svg\">\n";
+
+	svgCode += "<g>\n";
+
+	svgCode += "<rect x=\"0\" y=\"0\" width=\"" + docWidth  + "\" height=\"" + docHeight  + "\" fill=\"" + colorWhite + "\" />\n";
+
+	svgCode += "<text x=\""+ (docWidth / 2) + "\" y=\"100\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"55\">TODO: Record Sheet for " + mechData.getName()  + "</text>\n";
+
+	svgCode += "</g>\n";
+
+	svgCode += "</svg>\n";
+
+	while( svgCode.indexOf( "class=\"undefined\"" ) > 0 ) {
+
+		svgCode = svgCode.replace( "class=\"undefined\"", "" );
+	}
+
+	while( svgCode.indexOf( "onclick=\"undefined\"" ) > 0 ) {
+
+		svgCode = svgCode.replace( "onclick=\"undefined\"", "" );
+	}
+
+	while( svgCode.indexOf( "  " ) > 0 ) {
+
+		svgCode = svgCode.replace( "  ", " " );
+	}
+
+	return svgCode;
+}
+
+function createSVGAlphaStrike( asData, inPlay, itemIDField ) {
+
+	groupIndex = -1;
+	mechIndex = -1;
+
+	if( typeof( inPlay ) == "undefined" ) {
+		inPlay = false;
+	} else {
+		if( inPlay )
+			inPlay = true;
+		else
+			inPlay = false;
+	}
+
+	if( typeof( itemIDField ) == "undefined" ) {
+		itemIDField = "";
+	} else {
+		if( !itemIDField )
+			itemIDField = "";
+	}
+
+	if( itemIDField ) {
+		// this is a workaround for a bug. When I previously had parameters, the $index and $parent.$index
+		// paramters were undefined when passed directly, but are passed correctly when in the string of the id field
+		itemItems = itemIDField.split("-");
+		groupIndex = itemItems[2] / 1;
+		mechIndex = itemItems[3] / 1;
+	}
+
+	var leftBoxWidth = 550;
+
+
+
+	svgCode = "<svg version=\"1.1\" x=\"0px\" y=\"0px\" height=\"600px\" width=\"1000px\" xml:space=\"preserve\" viewBox=\"0 0 1000 600\" xmlns=\"http://www.w3.org/2000/svg\">\n";
+
+	svgCode += "<g>\n";
+
+
+	// Base Border and Interior White....
+	svgCode += "<rect x=\"0\" y=\"0\" width=\"1000\" height=\"600\" fill=\"" + colorBlack + "\" />\n";
+
+	if( !asData.active && inPlay )
+		svgCode += "<rect x=\"10\" y=\"10\" style=\"z-index: -1\" width=\"980\" height=\"580\" fill=\"" + colorRed + "\" />\n";
+	else
+		svgCode += "<rect x=\"10\" y=\"10\" style=\"z-index: -1\" width=\"980\" height=\"580\" fill=\"" + colorWhite + "\" />\n";
+
+	// Attempt to put unit's image in background...
+	if( asData.imageURL ) {
+		svgCode += "    <image x=\"450\" y=\"50\" xlink:href=\"" + asData.imageURL + "\" x=\"0\" y=\"0\" width=\"" + leftBoxWidth + "\" height=\"500\" />\n";
+	}
+
+
+	// Mech Name and Custom Name
+	if( asData.customName ) {
+		svgCode += "<text x=\"20\" y=\"50\" font-family=\"sans-serif\" font-size=\"35\">" + asData.customName  + "</text>\n";
+		svgCode += "<text x=\"20\" y=\"75\" font-family=\"sans-serif\" font-size=\"20\">" + asData.name.toUpperCase()  + "</text>\n";
+	} else {
+		svgCode += "<text x=\"20\" y=\"50\" font-family=\"sans-serif\" font-size=\"35\">" + asData.name.toUpperCase()  + "</text>\n";
+	}
+
+	//svgCode += "<text x=\"800\" y=\"50\" font-family=\"sans-serif\" font-size=\"11\">" + groupIndex + ", " + mechIndex + ", " + itemIDField + "</text>\n";
+	// Point Value
+	svgCode += "<rect x=\"850\" y=\"9\" width=\"150\" height=\"35\" fill=\"" + colorBlack + "\" />\n";
+	svgCode += "<rect x=\"780\" y=\"9\" width=\"70\" height=\"35\" fill=\"" + colorBlack + "\" transform=\"rotate( 45, 850, 44)\" />\n";
+	svgCode += "<text x=\"990\" y=\"35\" text-anchor=\"end\" fill=\"" + colorWhite + "\" stroke=\"" + colorWhite + "\" font-family=\"sans-serif\" font-size=\"33\">PV: " + asData.currentPoints  + "</text>\n";
+
+	/*
+	 *  Movement, Type, Role, Skill, etc
+	*/
+	// Gray, Rounded Box
+	svgCode += "<rect x=\"20\" y=\"100\" width=\"" + leftBoxWidth + "\" height=\"105\" fill=\"" + colorBlack + "\" rx=\"18\" ry=\"18\" />\n";
+	svgCode += "<rect x=\"25\" y=\"105\" width=\"" + ( leftBoxWidth - 10 ) + "\" height=\"95\" fill=\"" + colorGrayBackground + "\" rx=\"15\" ry=\"15\" />\n";
+
+	//Type
+	svgCode += "<text x=\"30\" y=\"140\" font-family=\"sans-serif\" font-size=\"25\">TP: " + asData.type.toUpperCase()  + "</text>\n";
+
+	//Size
+	svgCode += "<text x=\"150\" y=\"140\" font-family=\"sans-serif\" font-size=\"25\">SZ: " + asData.size.toString().toUpperCase()  + "</text>\n";
+
+	//TMM
+	if( asData.isAerospace == false )
+		svgCode += "<text x=\"235\" y=\"140\" font-family=\"sans-serif\" font-size=\"25\">TMM: " + asData.currentTMM.toUpperCase()  + "</text>\n";
+
+	//Move
+	svgCode += "<text x=\"" + (leftBoxWidth - 10) + "\" y=\"140\" font-family=\"sans-serif\" text-anchor=\"end\" font-size=\"25\">MV: " + asData.currentMove.toUpperCase()  + "</text>\n";
+
+	//Role
+	svgCode += "<text x=\"30\" y=\"180\" font-family=\"sans-serif\" font-size=\"25\">ROLE: " + asData.role.toUpperCase()  + "</text>\n";
+
+
+	//Skill
+	svgCode += "<text x=\"" + (leftBoxWidth - 10) + "\" y=\"180\" font-family=\"sans-serif\" text-anchor=\"end\" font-size=\"25\">SKILL: " + asData.currentSkill.toString().toUpperCase()  + "</text>\n";
+
+	/*
+	 *  Damage Section
+	*/
+
+	// Gray, Rounded Box
+	svgCode += "<rect x=\"20\" y=\"210\" width=\"" + leftBoxWidth + "\" height=\"85\" fill=\"" + colorBlack + "\" rx=\"18\" ry=\"18\" />\n";
+	svgCode += "<rect x=\"25\" y=\"215\" width=\"" + ( leftBoxWidth - 10 ) + "\" height=\"75\" fill=\"" + colorGrayBackground + "\" rx=\"15\" ry=\"15\" />\n";
+
+
+
+	// Damage Label
+	svgCode += "<text x=\"55\" y=\"250\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"15\" transform=\"rotate(270, 58, 250)\">DAMAGE</text>\n";
+
+	var firstDamageLineY = 245;
+	var secondDamageLineY = 280;
+	if( asData.damage.extreme > 0 ) {
+		shortX = 120;
+		mediumX = 240;
+		longX = 350;
+		extremeX = 460;
+
+		// Short
+		svgCode += "<text x=\"" + shortX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"15\">S (+0 | " + asData.currentToHitShort + "+)</text>\n";
+		svgCode += "<text x=\"" + shortX  +"\" y=\"" + secondDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"30\">" + asData.currentDamage.short  + "</text>\n";
+
+
+		// Medium
+		svgCode += "<text x=\"" + mediumX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"15\">M (+2 | " + asData.currentToHitMedium + "+)</text>\n";
+		svgCode += "<text x=\"" + mediumX  +"\" y=\"" + secondDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"30\">" + asData.currentDamage.medium  + "</text>\n";
+
+		// Long
+		svgCode += "<text x=\"" + longX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"15\">L (+4 | " + asData.currentToHitLong + "+)</text>\n";
+		svgCode += "<text x=\"" + longX  +"\" y=\"" + secondDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"30\">" + asData.currentDamage.long  + "</text>\n";
+
+		// Extreme
+		svgCode += "<text x=\"" + extremeX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"15\">E (+6 | " + asData.currentToHitExtreme + "+)</text>\n";
+		svgCode += "<text x=\"" + extremeX  +"\" y=\"" + secondDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"30\">" + asData.currentDamage.extreme  + "</text>\n";
+
+	} else {
+		shortX = 140;
+		mediumX = 290;
+		longX = 440;
+		extremeX = 0;
+
+		// Short
+		svgCode += "<text x=\"" + shortX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"20\">S (+0 | " + asData.currentToHitShort + "+)</text>\n";
+		svgCode += "<text x=\"" + shortX  +"\" y=\"" + secondDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"35\">" + asData.currentDamage.short  + "</text>\n";
+
+
+		// Medium
+		svgCode += "<text x=\"" + mediumX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"20\">M (+2 | " + asData.currentToHitMedium + "+)</text>\n";
+		svgCode += "<text x=\"" + mediumX  +"\" y=\"" + secondDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"35\">" + asData.currentDamage.medium  + "</text>\n";
+
+		// Long
+		svgCode += "<text x=\"" + longX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"20\">L (+4 | " + asData.currentToHitLong + "+)</text>\n";
+		svgCode += "<text x=\"" + longX  +"\" y=\"" + secondDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"35\">" + asData.currentDamage.long  + "</text>\n";
+	}
+
+
+	/*
+	 *  Overheat Section
+	*/
+	var armorBoxStart = 400;
+	if( asData.type.toLowerCase() != 'pm' && !asData.isInfantry ) {
+		svgCode += "<rect x=\"20\" y=\"310\" width=\"" + leftBoxWidth + "\" height=\"80\" fill=\"" + colorBlack + "\" rx=\"18\" ry=\"18\" />\n";
+		svgCode += "<rect x=\"25\" y=\"315\" width=\"" + ( leftBoxWidth - 10 ) + "\" height=\"70\" fill=\"" + colorGrayBackground + "\" rx=\"15\" ry=\"15\" />\n";
+
+		svgCode += "<text x=\"40\" y=\"360\" font-family=\"sans-serif\" font-size=\"35\">OV: " + asData.overheat + "</text>\n";
+
+		// heat container...
+		svgCode += "<text x=\"240\" y=\"357\" text-anchor=\"end\" font-family=\"sans-serif\" font-size=\"15\">HEAT SCALE</text>\n";
+		svgCode += "<rect x=\"" + ( leftBoxWidth - 255 ) + "\" y=\"320\" width=\"265\" height=\"60\" fill=\"" + colorBlack + "\" rx=\"30\" ry=\"30\"  />\n";
+
+		var inActiveColor = "rgb(102,102,102)";
+		var onClickFunction = "";
+		var mouseHandClass = "";
+
+
+		// 0 Heat....
+		if( asData.currentHeat < 1 && inPlay ) {
+			svgCode += "<rect x=\"" + ( leftBoxWidth - 225 ) + "\" y=\"325\" width=\"25\" height=\"50\" fill=\"" + colorGreen + "\" />\n";
+			svgCode += "<circle cx=\"" + ( leftBoxWidth - 225 ) + "\" cy=\"350\" r=\"25\" fill=\"" + colorGreen + "\" />\n";
+			svgCode += "<text x=\"" + ( leftBoxWidth - 225 - 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: " + colorWhite + "\" font-family=\"sans-serif\" font-size=\"35\">0</text>\n";
+		} else {
+			if( inPlay ) {
+				onClickFunction = "ASChangeSVGHeat( 0, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+				mouseHandClass = "mouse-hand";
+			}
+			svgCode += "<rect onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 225 ) + "\" y=\"325\" width=\"25\" height=\"50\" fill=\"" + inActiveColor + "\" />\n";
+			svgCode += "<circle onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" cx=\"" + ( leftBoxWidth - 225 ) + "\" cy=\"350\" r=\"25\" fill=\"" + inActiveColor + "\" />\n";
+			svgCode += "<text onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 225 - 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: " + colorWhite + "\" font-family=\"sans-serif\" font-size=\"35\">0</text>\n";
+		}
+
+		// 1 Heat....
+		//~ svgCode += "<rect x=\"280\" y=\"320\" width=\"60\" height=\"60\" fill=\"" + colorBlack + "\" />\n";
+		if( asData.currentHeat == 1 && inPlay ) {
+			svgCode += "<rect x=\"" + ( leftBoxWidth - 195 ) + "\" y=\"325\" width=\"45\" height=\"50\" fill=\"" + colorYellow + "\" />\n";
+			svgCode += "<text x=\"" + ( leftBoxWidth - 195 + 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: " + colorWhite + "\" font-family=\"sans-serif\" font-size=\"35\">1</text>\n";
+		} else {
+			if( inPlay ) {
+				onClickFunction = "ASChangeSVGHeat( 1, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+				mouseHandClass = "mouse-hand";
+			}
+			svgCode += "<rect onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 195 ) + "\" y=\"325\" width=\"45\" height=\"50\" fill=\"" + inActiveColor + "\" />\n";
+			svgCode += "<text onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 195 + 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: " + colorWhite + "\" font-family=\"sans-serif\" font-size=\"35\">1</text>\n";
+
+		}
+
+		// 2 Heat....
+		//~ svgCode += "<rect x=\"340\" y=\"320\" width=\"60\" height=\"60\" fill=\"" + colorBlack + "\" />\n";
+		if( asData.currentHeat == 2 && inPlay ) {
+			svgCode += "<rect x=\"" + ( leftBoxWidth - 145 ) + "\" y=\"325\" width=\"45\" height=\"50\" fill=\"" + colorRed + "\" />\n";
+			svgCode += "<text x=\"" + ( leftBoxWidth - 145 + 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: " + colorWhite + "\" font-family=\"sans-serif\" font-size=\"35\">2</text>\n";
+		} else {
+			if( inPlay ) {
+				onClickFunction = "ASChangeSVGHeat( 2, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+				mouseHandClass = "mouse-hand";
+			}
+			svgCode += "<rect onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 145 ) + "\" y=\"325\" width=\"45\" height=\"50\" fill=\"" + inActiveColor + "\" />\n";
+			svgCode += "<text onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 145 + 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: " + colorWhite + "\" font-family=\"sans-serif\" font-size=\"35\">2</text>\n";
+
+		}
+		// 3 Heat....
+		//~ svgCode += "<rect x=\"400\" y=\"320\" width=\"60\" height=\"60\" fill=\"" + colorBlack + "\" />\n";
+		if( asData.currentHeat == 3 && inPlay ) {
+			svgCode += "<rect x=\"" + ( leftBoxWidth - 95 ) + "\" y=\"325\" width=\"45\" height=\"50\" fill=\"" + colorOrange + "\" />\n";
+			svgCode += "<text x=\"" + ( leftBoxWidth - 95 + 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: " + colorWhite + "\" font-family=\"sans-serif\" font-size=\"35\">3</text>\n";
+		} else {
+			if( inPlay ) {
+				onClickFunction = "ASChangeSVGHeat( 3, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+				mouseHandClass = "mouse-hand";
+			}
+			svgCode += "<rect onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 95 ) + "\" y=\"325\" width=\"45\" height=\"50\" fill=\"" + inActiveColor + "\" />\n";
+			svgCode += "<text onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 95 + 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: " + colorWhite + "\" font-family=\"sans-serif\" font-size=\"35\">3</text>\n";
+
+		}
+		// s Heat....
+		//~ svgCode += "<rect x=\"400\" y=\"320\" width=\"60\" height=\"60\" fill=\"" + colorBlack + "\" />\n";
+		if( asData.currentHeat > 3 && inPlay ) {
+			svgCode += "<rect x=\"" + ( leftBoxWidth - 45 ) + "\" y=\"325\" width=\"25\" height=\"50\" fill=\"" + colorDarkGray + "\" />\n";
+			svgCode += "<circle cx=\"" + ( leftBoxWidth - 20 ) + "\" cy=\"350\" r=\"25\" fill=\"" + colorDarkGray + "\" />\n";
+			svgCode += "<text x=\"" + ( leftBoxWidth - 45 + 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: " + colorWhite + "\" font-family=\"sans-serif\" font-size=\"35\">S</text>\n";
+		} else {
+			if( inPlay ) {
+				onClickFunction = "ASChangeSVGHeat( 4, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+				mouseHandClass = "mouse-hand";
+			}
+			svgCode += "<rect onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 45 ) + "\" y=\"325\" width=\"25\" height=\"50\" fill=\"" + inActiveColor + "\" />\n";
+			svgCode += "<circle onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" cx=\"" + ( leftBoxWidth - 20 ) + "\" cy=\"350\" r=\"25\" fill=\"" + inActiveColor + "\" />\n";
+			svgCode += "<text onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 45 + 10) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: " + colorWhite + "\" font-family=\"sans-serif\" font-size=\"35\">S</text>\n";
+		}
+	} else {
+		armorBoxStart = 300;
+	}
+
+
+	/*
+	 *  Armor and IS Section
+	*/
+
+	// Gray, Rounded Box
+	svgCode += "<rect x=\"20\" y=\"" + (armorBoxStart) + "\" width=\"" + leftBoxWidth + "\" height=\"105\" fill=\"" + colorBlack + "\" rx=\"18\" ry=\"18\" />\n";
+	svgCode += "<rect x=\"25\" y=\"" + (armorBoxStart + 5) + "\" width=\"" + ( leftBoxWidth - 10 ) + "\" height=\"95\" fill=\"" + colorGrayBackground + "\" rx=\"15\" ry=\"15\" />\n";
+
+
+
+
+	var armorTopBase = armorBoxStart + 15;
+	var isTopBase = armorBoxStart + 60;
+	var buttonRadius = 15;
+	var leftBase = 90;
+
+	if( asData.isAerospace ) {
+		svgCode += "<text x=\"" + ( leftBoxWidth - 25) + "\" y=\"" + ( armorTopBase + 25) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"35\">TH</text>\n";
+		svgCode += "<text x=\"" + ( leftBoxWidth - 25) + "\" y=\"" + ( armorTopBase + 65) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"35\">" + asData.threshold + "</text>\n";
+	}
+
+	var armorClass = "";
+	var armorFunction = "";
+	if( inPlay ) {
+		svgCode += "<text x=\"80\" y=\"" + ( armorTopBase + 25) + "\" font-family=\"sans-serif\" font-size=\"25\">A: </text>\n";
+		svgCode += "<text x=\"80\" y=\"" + ( isTopBase + 25) + "\" font-family=\"sans-serif\" font-size=\"25\">S: </text>\n";
+
+
+		var onClick = "ASTakeDamage( " + groupIndex + ", "+ mechIndex + ", '" + itemIDField + "')";
+		svgCode += "<rect class=\"mouse-hand\" onclick=\"" + onClick + "\" x=\"30\" y=\"" + (armorBoxStart + 10) + "\" width=\"" + ( 40 ) + "\" height=\"85\" fill=\"" + colorRed + "\" rx=\"15\" ry=\"15\" />\n";
+		svgCode += "<text class=\"mouse-hand\" onclick=\"" + onClick + "\" x=\"60\" y=\"" + (armorBoxStart + 30) + "\" fill=\"" + colorWhite + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"13\" transform=\"rotate(270, 65, " + (armorBoxStart + 47) + ")\">TAKE</text>\n";
+		svgCode += "<text class=\"mouse-hand\" onclick=\"" + onClick + "\" x=\"70\" y=\"" + (armorBoxStart + 30) + "\" fill=\"" + colorWhite + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"13\" transform=\"rotate(270, 75, " + (armorBoxStart + 45) + ")\">DAMAGE</text>\n";
+		leftBase += 40;
+	} else {
+		svgCode += "<text x=\"40\" y=\"" + ( armorTopBase + 25) + "\" font-family=\"sans-serif\" font-size=\"25\">A: </text>\n";
+		svgCode += "<text x=\"40\" y=\"" + ( isTopBase + 25) + "\" font-family=\"sans-serif\" font-size=\"25\">S: </text>\n";
+	}
+
+	for( var armorCount = 0; armorCount < asData.currentArmor.length; armorCount++ ) {
+		if( inPlay ) {
+			var armorClass = "mouse-hand";
+			var armorFunction = "ASToggleArmorPip( " + armorCount + ", " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+		}
+		svgCode += "<circle class=\"" + armorClass + "\" onclick=\"" + armorFunction + "\" cx=\"" + ( leftBase + (buttonRadius * 2 + 3 ) * armorCount )  + "\" cy=\"" + ( armorTopBase + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"" + colorBlack + "\" />\n";
+	//	svgCode += "<circle class=\"" + armorClass + "\" onclick=\"" + armorFunction + "\" cx=\"150\" cy=\"" + armorTopBase + "\" r=\"" + buttonRadius + "\" fill=\"green\" />\n";
+		if( asData.currentArmor[ armorCount ] && inPlay ) {
+			svgCode += "<circle class=\"" + armorClass + "\" onclick=\"" + armorFunction + "\" cx=\"" + ( leftBase + (buttonRadius * 2 + 3 ) * armorCount )  + "\" cy=\"" + ( armorTopBase + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"" + colorRed + "\" />\n";
+		} else {
+			svgCode += "<circle class=\"" + armorClass + "\" onclick=\"" + armorFunction + "\" cx=\"" + ( leftBase + (buttonRadius * 2 + 3 ) * armorCount )  + "\" cy=\"" + ( armorTopBase + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"" + colorWhite + "\" />\n";
+		}
+	}
+
+	var structClass = "";
+	var structFunction = "";
+	for( var structCount = 0; structCount < asData.currentStructure.length; structCount++ ) {
+		if( inPlay ) {
+			var structClass = "mouse-hand";
+			var structFunction = "ASToggleStructPip( " + structCount + ", " + groupIndex + ", "+ mechIndex + ", '" + itemIDField + "')";
+		}
+		svgCode += "<circle class=\"" + structClass + "\" onclick=\"" + structFunction + "\" cx=\"" + ( leftBase + (buttonRadius * 2 + 3 ) * structCount )  + "\" cy=\"" + ( isTopBase + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"" + colorBlack + "\" />\n";
+	//	svgCode += "<circle class=\"" + structClass + "\" onclick=\"" + structFunction + "\" cx=\"150\" cy=\"" + armorTopBase + "\" r=\"" + buttonRadius + "\" fill=\"green\" />\n";
+		if( asData.currentStructure[ structCount ] && inPlay ) {
+			svgCode += "<circle class=\"" + structClass + "\" onclick=\"" + structFunction + "\" cx=\"" + ( leftBase + (buttonRadius * 2 + 3 ) * structCount )  + "\" cy=\"" + ( isTopBase + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"" + colorRed + "\" />\n";
+		} else {
+			svgCode += "<circle class=\"" + structClass + "\" onclick=\"" + structFunction + "\" cx=\"" + ( leftBase + (buttonRadius * 2 + 3 ) * structCount )  + "\" cy=\"" + ( isTopBase + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"" + colorLightGray + "\" />\n";
+		}
+	}
+
+
+	/*
+	 *  Special Section
+	*/
+
+	// Gray, Rounded Box
+	svgCode += "<rect x=\"20\" y=\"510\" width=\"960\" height=\"60\" fill=\"" + colorBlack + "\" rx=\"18\" ry=\"18\" />\n";
+	svgCode += "<rect x=\"25\" y=\"515\" width=\"950\" height=\"50\" fill=\"" + colorGrayBackground + "\" rx=\"15\" ry=\"15\" />\n";
+	if( asData.abilities )
+		svgCode += "<text x=\"30\" y=\"550\" text-anchor=\"left\" font-family=\"sans-serif\" font-size=\"25\">SPECIAL: " + asData.abilities + "</text>\n";
+	else
+		svgCode += "<text x=\"30\" y=\"550\" text-anchor=\"left\" font-family=\"sans-serif\" font-size=\"25\">SPECIAL: (none)</text>\n";
+
+
+	/*
+	 *  Critical Hits Section
+	*/
+
+	if( !asData.isInfantry ) {
+
+		critLineHeight = 50;
+		critLineStart = 325;
+
+		// Gray, Rounded Box
+		svgCode += "<rect x=\"" + (leftBoxWidth + 30) + "\" y=\"245\" width=\"" + (950 - leftBoxWidth ) + "\" height=\"260\" fill=\"" + colorBlack + "\" rx=\"18\" ry=\"18\" />\n";
+		svgCode += "<rect x=\"" + (leftBoxWidth + 35) + "\" y=\"250\" width=\"" + (950 - 10 - leftBoxWidth ) + "\" height=\"250\" fill=\"" + colorGrayBackground + "\" rx=\"15\" ry=\"15\" />\n";
+
+		//
+		svgCode += "<text x=\"" + (leftBoxWidth + 35 + (950 - leftBoxWidth ) / 2) + "\" y=\"275\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"25\">CRITICAL HITS</text>\n";
+
+		var leftmostCritButton = (leftBoxWidth + 35 + (950 - leftBoxWidth ) / 2) - 15;
+
+		// Engine Hits
+		if( asData.type.toLowerCase() != 'pm') {
+
+			svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + critLineStart + "\" text-anchor=\"end\" font-family=\"sans-serif\" font-size=\"20\">ENGINE</text>\n";
+			for( var critCount = 0; critCount < asData.engineHits.length; critCount++ ) {
+				if( inPlay ) {
+					var critClass = "mouse-hand";
+					var critFunction = "ASToggleEngineHit( " + critCount + ", " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+				}
+				svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"" + colorBlack + "\" />\n";
+
+				if( asData.engineHits[ critCount ] && inPlay ) {
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"" + colorRed + "\" />\n";
+				} else {
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"" + colorWhite + "\" />\n";
+				}
+			}
+			svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + ( critLineStart + buttonRadius + 3 ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" font-size=\"12\">+1 Heat/Firing Weapons</text>\n";
+			critLineStart += critLineHeight;
+		}
+
+
+
+		// Fire Control Hits
+		svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + critLineStart + "\" text-anchor=\"end\" font-family=\"sans-serif\" font-size=\"20\">FIRE CONTROL</text>\n";
+		for( var critCount = 0; critCount < asData.fireControlHits.length; critCount++ ) {
+			if( inPlay ) {
+				var critClass = "mouse-hand";
+				var critFunction = "ASToggleFireControlHit( " + critCount + ", " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+			}
+			svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"" + colorBlack + "\" />\n";
+
+			if( asData.fireControlHits[ critCount ] && inPlay ) {
+				svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"" + colorRed + "\" />\n";
+			} else {
+				svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"" + colorWhite + "\" />\n";
+			}
+		}
+		svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + ( critLineStart + buttonRadius + 3 ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" font-size=\"12\">+2 To Hit Each</text>\n";
+		critLineStart += critLineHeight;
+
+		if( asData.type.toLowerCase() == 'bm' || asData.type.toLowerCase() == 'pm' ) {
+			// MP Hits
+			svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + critLineStart + "\" text-anchor=\"end\" font-family=\"sans-serif\" font-size=\"20\">MP</text>\n";
+			for( var critCount = 0; critCount < asData.mpControlHits.length; critCount++ ) {
+				if( inPlay ) {
+					var critClass = "mouse-hand";
+					var critFunction = "ASToggleMPlHit( " + critCount + ", " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+				}
+				svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"" + colorBlack + "\" />\n";
+
+				if( asData.mpControlHits[ critCount ] && inPlay ) {
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"" + colorRed + "\" />\n";
+				} else {
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"" + colorWhite + "\" />\n";
+				}
+			}
+			svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + ( critLineStart + buttonRadius + 3 ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" font-size=\"12\">1/2 Move Each</text>\n";
+			critLineStart += critLineHeight;
+		}
+
+		// Weapon Hits
+		svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + critLineStart + "\" text-anchor=\"end\" font-family=\"sans-serif\" font-size=\"20\">WEAPONS</text>\n";
+		for( var critCount = 0; critCount < asData.weaponHits.length; critCount++ ) {
+			if( inPlay ) {
+				var critClass = "mouse-hand";
+				var critFunction = "ASToggleWeaponHits( " + critCount + ", " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+			}
+			svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"" + colorBlack + "\" />\n";
+
+			if( asData.weaponHits[ critCount ] && inPlay ) {
+				svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"" + colorRed + "\" />\n";
+			} else {
+				svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"" + colorWhite + "\" />\n";
+			}
+		}
+		svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + ( critLineStart + buttonRadius + 3 ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" font-size=\"12\">-1 Damage Each</text>\n";
+		critLineStart += critLineHeight;
+
+
+		if( asData.type.toLowerCase() == 'cv' || asData.type.toLowerCase() == 'sv' ) {
+			// Vehicile Motive Hits
+			svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + critLineStart + "\" text-anchor=\"end\" font-family=\"sans-serif\" font-size=\"20\">MOTIVE</text>\n";
+
+			if( inPlay ) {
+
+
+				var critClass = "mouse-hand";
+				var critFunction = "ASToggleMPlHit( 0, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+				svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 0 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"" + colorBlack + "\" />\n";
+
+				if( asData.mpControlHits[ 0 ] ) {
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 0 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"" + colorRed + "\" />\n";
+				} else {
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 0 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"" + colorWhite + "\" />\n";
+				}
+
+				critFunction = "ASToggleMPlHit( 1, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+				svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 1 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"" + colorBlack + "\" />\n";
+				if( asData.mpControlHits[ 1 ] ) {
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 1 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"" + colorRed + "\" />\n";
+				} else {
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 1 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"" + colorWhite + "\" />\n";
+				}
+
+				critFunction = "ASToggleMPlHit( 2, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+				svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 2 +15 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"" + colorBlack + "\" />\n";
+				if( asData.mpControlHits[ 2 ] ) {
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 2 +15 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"" + colorRed + "\" />\n";
+				} else {
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 2 +15 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"" + colorWhite + "\" />\n";
+				}
+
+				critFunction = "ASToggleMPlHit( 3, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+				svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 3  +15)  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"" + colorBlack + "\" />\n";
+				if( asData.mpControlHits[ 3 ] ) {
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 3  +15)  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"" + colorRed + "\" />\n";
+				} else {
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 3  +15)  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"" + colorWhite + "\" />\n";
+				}
+
+				critFunction = "ASToggleMPlHit( 4, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
+				svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 4 +30 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"" + colorBlack + "\" />\n";
+				if( asData.mpControlHits[ 4 ] ) {
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 4  +30)  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"" + colorRed + "\" />\n";
+				} else {
+					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 4 +30 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"" + colorWhite + "\" />\n";
+				}
+
+
+
+			} else {
+				critClass = "";
+				critFunction = "";
+				svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 0 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"" + colorBlack + "\" />\n";
+				svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 0 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"" + colorWhite + "\" />\n";
+
+
+				svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 1 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"" + colorBlack + "\" />\n";
+				svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 1 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"" + colorWhite + "\" />\n";
+
+
+				svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 2 +15 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"" + colorBlack + "\" />\n";
+				svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 2 +15 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"" + colorWhite + "\" />\n";
+
+
+				svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 3  +15)  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"" + colorBlack + "\" />\n";
+				svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 3  +15)  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"" + colorWhite + "\" />\n";
+
+
+				svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 4 +30 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"" + colorBlack + "\" />\n";
+				svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 4 +30 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"" + colorWhite + "\" />\n";
+
+
+			}
+			svgCode += "<text x=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 0 - buttonRadius + 20 )  + "\" y=\"" + ( critLineStart + buttonRadius + 3 ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" font-size=\"12\">-2 MV</text>\n";
+			svgCode += "<text x=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 2 - buttonRadius +10)  + "\" y=\"" + ( critLineStart + buttonRadius + 3 ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" font-size=\"12\">&frac12; Move Each</text>\n";
+			svgCode += "<text x=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 4 - buttonRadius +30)  + "\" y=\"" + ( critLineStart + buttonRadius + 3 ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" font-size=\"12\">0 MV</text>\n";
+			critLineStart += critLineHeight;
+		}
+
+	}
+
+	if( !asData.active && inPlay) {
+		svgCode += "<text x=\"50\" y=\"100\" font-family=\"sans-serif\" transform=\"rotate( 30, 50, 100)\" font-size=\"150\" stroke=\"" + colorWhite + "\" stroke-width=\"4\" fill=\"" + colorRed + "\">WRECKED</text>\n";
+	}
+
+
+	svgCode += "</g>\n";
+
+	svgCode += "</svg>\n";
+
+	while( svgCode.indexOf( "class=\"undefined\"" ) > 0 ) {
+
+		svgCode = svgCode.replace( "class=\"undefined\"", "" );
+	}
+
+	while( svgCode.indexOf( "onclick=\"undefined\"" ) > 0 ) {
+
+		svgCode = svgCode.replace( "onclick=\"undefined\"", "" );
+	}
+
+	while( svgCode.indexOf( "  " ) > 0 ) {
+
+		svgCode = svgCode.replace( "  ", " " );
+	}
+
+	//~ while( svgCode.indexOf( "\n" ) > 0 ) {
+
+		//~ svgCode = svgCode.replace( "\n", "" );
+	//~ }
+
+	//~ return '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve" height="100px" width="100px"><g><path d="M28.1,36.6c4.6,1.9,12.2,1.6,20.9,1.1c8.9-0.4,19-0.9,28.9,0.9c6.3,1.2,11.9,3.1,16.8,6c-1.5-12.2-7.9-23.7-18.6-31.3   c-4.9-0.2-9.9,0.3-14.8,1.4C47.8,17.9,36.2,25.6,28.1,36.6z"/><path d="M70.3,9.8C57.5,3.4,42.8,3.6,30.5,9.5c-3,6-8.4,19.6-5.3,24.9c8.6-11.7,20.9-19.8,35.2-23.1C63.7,10.5,67,10,70.3,9.8z"/><path d="M16.5,51.3c0.6-1.7,1.2-3.4,2-5.1c-3.8-3.4-7.5-7-11-10.8c-2.1,6.1-2.8,12.5-2.3,18.7C9.6,51.1,13.4,50.2,16.5,51.3z"/><path d="M9,31.6c3.5,3.9,7.2,7.6,11.1,11.1c0.8-1.6,1.7-3.1,2.6-4.6c0.1-0.2,0.3-0.4,0.4-0.6c-2.9-3.3-3.1-9.2-0.6-17.6   c0.8-2.7,1.8-5.3,2.7-7.4c-5.2,3.4-9.8,8-13.3,13.7C10.8,27.9,9.8,29.7,9,31.6z"/><path d="M15.4,54.7c-2.6-1-6.1,0.7-9.7,3.4c1.2,6.6,3.9,13,8,18.5C13,69.3,13.5,61.8,15.4,54.7z"/><path d="M39.8,57.6C54.3,66.7,70,73,86.5,76.4c0.6-0.8,1.1-1.6,1.7-2.5c4.8-7.7,7-16.3,6.8-24.8c-13.8-9.3-31.3-8.4-45.8-7.7   c-9.5,0.5-17.8,0.9-23.2-1.7c-0.1,0.1-0.2,0.3-0.3,0.4c-1,1.7-2,3.4-2.9,5.1C28.2,49.7,33.8,53.9,39.8,57.6z"/><path d="M26.2,88.2c3.3,2,6.7,3.6,10.2,4.7c-3.5-6.2-6.3-12.6-8.8-18.5c-3.1-7.2-5.8-13.5-9-17.2c-1.9,8-2,16.4-0.3,24.7   C20.6,84.2,23.2,86.3,26.2,88.2z"/><path d="M30.9,73c2.9,6.8,6.1,14.4,10.5,21.2c15.6,3,32-2.3,42.6-14.6C67.7,76,52.2,69.6,37.9,60.7C32,57,26.5,53,21.3,48.6   c-0.6,1.5-1.2,3-1.7,4.6C24.1,57.1,27.3,64.5,30.9,73z"/></g></svg>';
+
+	return svgCode;
 }
 
 
@@ -4719,7 +5388,7 @@ function asUnit (incomingMechData) {
 		if( typeof(incomingMechData["BFPointValue"]) != "undefined") {
 			// RAW Data From MUL
 
-			console.log( incomingMechData );
+			//~ console.log( "incomingMechData", incomingMechData );
 
 			this.class = incomingMechData["Marauder"];
 			this.costCR = incomingMechData["Cost"] / 1;
@@ -4738,7 +5407,10 @@ function asUnit (incomingMechData) {
 
 			this.threshold = incomingMechData["BFThreshold"] / 1;
 
-			this.role = incomingMechData["Role"]["Name"];
+			if( incomingMechData["Role"] && incomingMechData["Role"]["Name"] )
+				this.role = incomingMechData["Role"]["Name"];
+			else
+				this.role = "Not Specified";
 
 			this.type = incomingMechData["BFType"];
 			this.size = incomingMechData["BFSize"];
@@ -5323,519 +5995,7 @@ function asUnit (incomingMechData) {
 
 	this.makeSVGAlphaStrikeCard = function( inPlay, itemIDField ) {
 
-
-		groupIndex = -1;
-		mechIndex = -1;
-
-		if( typeof( inPlay ) == "undefined" ) {
-			inPlay = false;
-		} else {
-			if( inPlay )
-				inPlay = true;
-			else
-				inPlay = false;
-		}
-
-		if( typeof( itemIDField ) == "undefined" ) {
-			itemIDField = "";
-		} else {
-			if( !itemIDField )
-				itemIDField = "";
-		}
-
-		if( itemIDField ) {
-			// this is a workaround for a bug. When I previously had parameters, the $index and $parent.$index
-			// paramters were undefined when passed directly, but are passed correctly when in the string of the id field
-			itemItems = itemIDField.split("-");
-			groupIndex = itemItems[2] / 1;
-			mechIndex = itemItems[3] / 1;
-		}
-
-		var leftBoxWidth = 550;
-		var grayBackground = "#fff";
-		var grayOpacity = ".8";
-
-		console.log( "makeSVGAlphaStrikeCard",inPlay, groupIndex, mechIndex );
-		//~ console.log( "makeSVGAlphaStrikeCard",this );
-
-		svgCode = "<svg version=\"1.1\" viewBox=\"0 0 1000 600\" xmlns=\"http://www.w3.org/2000/svg\">\n";
-
-		// Base Border and Interior White....
-		svgCode += "<rect x=\"0\" y=\"0\" width=\"1000\" height=\"600\" fill=\"#000000\" />\n";
-		if( !this.active && inPlay )
-			svgCode += "<rect x=\"10\" y=\"10\" style=\"z-index: -1\" width=\"980\" height=\"580\" fill=\"#c00\" />\n";
-		else
-			svgCode += "<rect x=\"10\" y=\"10\" style=\"z-index: -1\" width=\"980\" height=\"580\" fill=\"#ffffff\" />\n";
-
-		// Attempt to put unit's image in background...
-		if( this.imageURL ) {
-			svgCode += "    <image x=\"450\" y=\"50\" xlink:href=\"" + this.imageURL + "\" x=\"0\" y=\"0\" width=\"" + leftBoxWidth + "\" height=\"500\" />\n";
-		}
-
-
-		// Mech Name and Custom Name
-		if( this.customName ) {
-			svgCode += "<text x=\"20\" y=\"50\" font-family=\"sans-serif\" font-size=\"35\">" + this.customName  + "</text>\n";
-			svgCode += "<text x=\"20\" y=\"75\" font-family=\"sans-serif\" font-size=\"20\">" + this.name.toUpperCase()  + "</text>\n";
-		} else {
-			svgCode += "<text x=\"20\" y=\"50\" font-family=\"sans-serif\" font-size=\"35\">" + this.name.toUpperCase()  + "</text>\n";
-		}
-
-		//svgCode += "<text x=\"800\" y=\"50\" font-family=\"sans-serif\" font-size=\"11\">" + groupIndex + ", " + mechIndex + ", " + itemIDField + "</text>\n";
-		// Point Value
-		svgCode += "<rect x=\"850\" y=\"9\" width=\"150\" height=\"35\" fill=\"#000\" />\n";
-		svgCode += "<rect x=\"780\" y=\"9\" width=\"70\" height=\"35\" fill=\"#000\" transform=\"rotate( 45, 850, 44)\" />\n";
-		svgCode += "<text x=\"990\" y=\"35\" text-anchor=\"end\" fill=\"#fff\" stroke=\"#fff\" font-family=\"sans-serif\" font-size=\"33\">PV: " + this.currentPoints  + "</text>\n";
-
-		/*
-		 *  Movement, Type, Role, Skill, etc
-		*/
-		// Gray, Rounded Box
-		svgCode += "<rect x=\"20\" y=\"100\" width=\"" + leftBoxWidth + "\" height=\"105\" fill=\"#000000\" rx=\"18\" ry=\"18\" />\n";
-		svgCode += "<rect x=\"25\" y=\"105\" width=\"" + ( leftBoxWidth - 10 ) + "\" height=\"95\" fill=\"" + grayBackground + "\" fill-opacity=\"" + grayOpacity + "\" rx=\"15\" ry=\"15\" />\n";
-
-		//Type
-		svgCode += "<text x=\"30\" y=\"140\" font-family=\"sans-serif\" font-size=\"25\">TP: " + this.type.toUpperCase()  + "</text>\n";
-
-		//Size
-		svgCode += "<text x=\"150\" y=\"140\" font-family=\"sans-serif\" font-size=\"25\">SZ: " + this.size.toString().toUpperCase()  + "</text>\n";
-
-		//TMM
-		if( this.isAerospace == false )
-			svgCode += "<text x=\"250\" y=\"140\" font-family=\"sans-serif\" font-size=\"25\">TMM: " + this.currentTMM.toUpperCase()  + "</text>\n";
-
-		//Move
-		svgCode += "<text x=\"490\" y=\"140\" font-family=\"sans-serif\" text-anchor=\"end\" font-size=\"25\">MV: " + this.currentMove.toUpperCase()  + "</text>\n";
-
-		//Role
-		svgCode += "<text x=\"30\" y=\"180\" font-family=\"sans-serif\" font-size=\"25\">ROLE: " + this.role.toUpperCase()  + "</text>\n";
-
-
-		//Skill
-		svgCode += "<text x=\"490\" y=\"180\" font-family=\"sans-serif\" text-anchor=\"end\" font-size=\"25\">SKILL: " + this.currentSkill.toString().toUpperCase()  + "</text>\n";
-
-		/*
-		 *  Damage Section
-		*/
-
-		// Gray, Rounded Box
-		svgCode += "<rect x=\"20\" y=\"210\" width=\"" + leftBoxWidth + "\" height=\"85\" fill=\"#000000\" rx=\"18\" ry=\"18\" />\n";
-		svgCode += "<rect x=\"25\" y=\"215\" width=\"" + ( leftBoxWidth - 10 ) + "\" height=\"75\" fill=\"" + grayBackground + "\" fill-opacity=\"" + grayOpacity + "\" rx=\"15\" ry=\"15\" />\n";
-
-
-
-		// Damage Label
-		svgCode += "<text x=\"55\" y=\"250\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"15\" transform=\"rotate(270, 58, 250)\">DAMAGE</text>\n";
-
-		var firstDamageLineY = 245;
-		var secondDamageLineY = 280;
-		if( this.damage.extreme > 0 ) {
-			shortX = 120;
-			mediumX = 240;
-			longX = 350;
-			extremeX = 460;
-
-			// Short
-			svgCode += "<text x=\"" + shortX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"15\">S (+0 | " + this.currentToHitShort + "+)</text>\n";
-			svgCode += "<text x=\"" + shortX  +"\" y=\"" + secondDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"30\">" + this.currentDamage.short  + "</text>\n";
-
-
-			// Medium
-			svgCode += "<text x=\"" + mediumX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"15\">M (+2 | " + this.currentToHitMedium + "+)</text>\n";
-			svgCode += "<text x=\"" + mediumX  +"\" y=\"" + secondDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"30\">" + this.currentDamage.medium  + "</text>\n";
-
-			// Long
-			svgCode += "<text x=\"" + longX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"15\">L (+4 | " + this.currentToHitLong + "+)</text>\n";
-			svgCode += "<text x=\"" + longX  +"\" y=\"" + secondDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"30\">" + this.currentDamage.long  + "</text>\n";
-
-			// Extreme
-			svgCode += "<text x=\"" + extremeX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"15\">E (+6 | " + this.currentToHitExtreme + "+)</text>\n";
-			svgCode += "<text x=\"" + extremeX  +"\" y=\"" + secondDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"30\">" + this.currentDamage.extreme  + "</text>\n";
-
-		} else {
-			shortX = 140;
-			mediumX = 290;
-			longX = 440;
-			extremeX = 0;
-
-			// Short
-			svgCode += "<text x=\"" + shortX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"20\">S (+0 | " + this.currentToHitShort + "+)</text>\n";
-			svgCode += "<text x=\"" + shortX  +"\" y=\"" + secondDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"35\">" + this.currentDamage.short  + "</text>\n";
-
-
-			// Medium
-			svgCode += "<text x=\"" + mediumX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"20\">M (+2 | " + this.currentToHitMedium + "+)</text>\n";
-			svgCode += "<text x=\"" + mediumX  +"\" y=\"" + secondDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"35\">" + this.currentDamage.medium  + "</text>\n";
- 
-			// Long
-			svgCode += "<text x=\"" + longX  +"\" y=\"" + firstDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"20\">L (+4 | " + this.currentToHitLong + "+)</text>\n";
-			svgCode += "<text x=\"" + longX  +"\" y=\"" + secondDamageLineY + "\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"35\">" + this.currentDamage.long  + "</text>\n";
-		}
-
-
-		/*
-		 *  Overheat Section
-		*/
-		var armorBoxStart = 400;
-		if( this.type.toLowerCase() != 'pm' && !this.isInfantry ) {
-			svgCode += "<rect x=\"20\" y=\"310\" width=\"" + leftBoxWidth + "\" height=\"80\" fill=\"#000000\" rx=\"18\" ry=\"18\" />\n";
-			svgCode += "<rect x=\"25\" y=\"315\" width=\"" + ( leftBoxWidth - 10 ) + "\" height=\"70\" fill=\"" + grayBackground + "\" fill-opacity=\"" + grayOpacity + "\" rx=\"15\" ry=\"15\" />\n";
-
-			svgCode += "<text x=\"40\" y=\"360\" font-family=\"sans-serif\" font-size=\"35\">OV: " + this.overheat + "</text>\n";
-
-			// heat container...
-			svgCode += "<text x=\"240\" y=\"357\" text-anchor=\"end\" font-family=\"sans-serif\" font-size=\"15\">HEAT SCALE</text>\n";
-			svgCode += "<rect x=\"" + ( leftBoxWidth - 255 ) + "\" y=\"320\" width=\"265\" height=\"60\" fill=\"#000\" rx=\"30\" ry=\"30\"  />\n";
-
-			var inActiveColor = "#666";
-			var onClickFunction = "";
-			var mouseHandClass = "";
-
-
-			// 0 Heat....
-			if( this.currentHeat < 1 && inPlay ) {
-				svgCode += "<rect x=\"" + ( leftBoxWidth - 225 ) + "\" y=\"325\" width=\"25\" height=\"50\" fill=\"#0c0\" />\n";
-				svgCode += "<circle cx=\"" + ( leftBoxWidth - 225 ) + "\" cy=\"350\" r=\"25\" fill=\"#0c0\" />\n";
-				svgCode += "<text x=\"" + ( leftBoxWidth - 225 - 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: #ffffff\" font-family=\"sans-serif\" font-size=\"35\">0</text>\n";
-			} else {
-				if( inPlay ) {
-					onClickFunction = "ASChangeSVGHeat( 0, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
-					mouseHandClass = "mouse-hand";
-				}
-				svgCode += "<rect onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 225 ) + "\" y=\"325\" width=\"25\" height=\"50\" fill=\"" + inActiveColor + "\" />\n";
-				svgCode += "<circle onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" cx=\"" + ( leftBoxWidth - 225 ) + "\" cy=\"350\" r=\"25\" fill=\"" + inActiveColor + "\" />\n";
-				svgCode += "<text onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 225 - 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: #ffffff\" font-family=\"sans-serif\" font-size=\"35\">0</text>\n";
-			}
-
-			// 1 Heat....
-			//~ svgCode += "<rect x=\"280\" y=\"320\" width=\"60\" height=\"60\" fill=\"#000\" />\n";
-			if( this.currentHeat == 1 && inPlay ) {
-				svgCode += "<rect x=\"" + ( leftBoxWidth - 195 ) + "\" y=\"325\" width=\"45\" height=\"50\" fill=\"#cb0\" />\n";
-				svgCode += "<text x=\"" + ( leftBoxWidth - 195 + 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: #ffffff\" font-family=\"sans-serif\" font-size=\"35\">1</text>\n";
-			} else {
-				if( inPlay ) {
-					onClickFunction = "ASChangeSVGHeat( 1, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
-					mouseHandClass = "mouse-hand";
-				}
-				svgCode += "<rect onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 195 ) + "\" y=\"325\" width=\"45\" height=\"50\" fill=\"" + inActiveColor + "\" />\n";
-				svgCode += "<text onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 195 + 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: #ffffff\" font-family=\"sans-serif\" font-size=\"35\">1</text>\n";
-
-			}
-
-			// 2 Heat....
-			//~ svgCode += "<rect x=\"340\" y=\"320\" width=\"60\" height=\"60\" fill=\"#000\" />\n";
-			if( this.currentHeat == 2 && inPlay ) {
-				svgCode += "<rect x=\"" + ( leftBoxWidth - 145 ) + "\" y=\"325\" width=\"45\" height=\"50\" fill=\"#c00\" />\n";
-				svgCode += "<text x=\"" + ( leftBoxWidth - 145 + 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: #ffffff\" font-family=\"sans-serif\" font-size=\"35\">2</text>\n";
-			} else {
-				if( inPlay ) {
-					onClickFunction = "ASChangeSVGHeat( 2, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
-					mouseHandClass = "mouse-hand";
-				}
-				svgCode += "<rect onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 145 ) + "\" y=\"325\" width=\"45\" height=\"50\" fill=\"" + inActiveColor + "\" />\n";
-				svgCode += "<text onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 145 + 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: #ffffff\" font-family=\"sans-serif\" font-size=\"35\">2</text>\n";
-
-			}
-			// 3 Heat....
-			//~ svgCode += "<rect x=\"400\" y=\"320\" width=\"60\" height=\"60\" fill=\"#000\" />\n";
-			if( this.currentHeat == 3 && inPlay ) {
-				svgCode += "<rect x=\"" + ( leftBoxWidth - 95 ) + "\" y=\"325\" width=\"45\" height=\"50\" fill=\"#ec5710\" />\n";
-				svgCode += "<text x=\"" + ( leftBoxWidth - 95 + 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: #ffffff\" font-family=\"sans-serif\" font-size=\"35\">3</text>\n";
-			} else {
-				if( inPlay ) {
-					onClickFunction = "ASChangeSVGHeat( 3, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
-					mouseHandClass = "mouse-hand";
-				}
-				svgCode += "<rect onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 95 ) + "\" y=\"325\" width=\"45\" height=\"50\" fill=\"" + inActiveColor + "\" />\n";
-				svgCode += "<text onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 95 + 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: #ffffff\" font-family=\"sans-serif\" font-size=\"35\">3</text>\n";
- 
-			}
-			// s Heat....
-			//~ svgCode += "<rect x=\"400\" y=\"320\" width=\"60\" height=\"60\" fill=\"#000\" />\n";
-			if( this.currentHeat > 3 && inPlay ) {
-				svgCode += "<rect x=\"" + ( leftBoxWidth - 45 ) + "\" y=\"325\" width=\"25\" height=\"50\" fill=\"#333\" />\n";
-				svgCode += "<circle cx=\"" + ( leftBoxWidth - 20 ) + "\" cy=\"350\" r=\"25\" fill=\"#333\" />\n";
-				svgCode += "<text x=\"" + ( leftBoxWidth - 45 + 10 ) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: #ffffff\" font-family=\"sans-serif\" font-size=\"35\">S</text>\n";
-			} else {
-				if( inPlay ) { 
-					onClickFunction = "ASChangeSVGHeat( 4, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
-					mouseHandClass = "mouse-hand";
-				}
-				svgCode += "<rect onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 45 ) + "\" y=\"325\" width=\"25\" height=\"50\" fill=\"" + inActiveColor + "\" />\n";
-				svgCode += "<circle onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" cx=\"" + ( leftBoxWidth - 20 ) + "\" cy=\"350\" r=\"25\" fill=\"" + inActiveColor + "\" />\n";
-				svgCode += "<text onclick=\"" + onClickFunction + "\" class=\"" + mouseHandClass + "\" x=\"" + ( leftBoxWidth - 45 + 10) + "\" y=\"363\" text-anchor=\"left\" style=\"fill: #ffffff\" font-family=\"sans-serif\" font-size=\"35\">S</text>\n";
-			}
-		} else {
-			armorBoxStart = 300;
-		}
-
-
-		/*
-		 *  Armor and IS Section
-		*/
-
-		// Gray, Rounded Box
-		svgCode += "<rect x=\"20\" y=\"" + (armorBoxStart) + "\" width=\"" + leftBoxWidth + "\" height=\"105\" fill=\"#000000\" rx=\"18\" ry=\"18\" />\n";
-		svgCode += "<rect x=\"25\" y=\"" + (armorBoxStart + 5) + "\" width=\"" + ( leftBoxWidth - 10 ) + "\" height=\"95\" fill=\"" + grayBackground + "\" fill-opacity=\"" + grayOpacity + "\" rx=\"15\" ry=\"15\" />\n";
-
-
-
-
-		var armorTopBase = armorBoxStart + 15;
-		var isTopBase = armorBoxStart + 60;
-		var buttonRadius = 15;
-		var leftBase = 90;
-		svgCode += "<text x=\"80\" y=\"" + ( armorTopBase + 25) + "\" text-anchor=\"left\" font-family=\"sans-serif\" font-size=\"25\">A: </text>\n";
-		svgCode += "<text x=\"80\" y=\"" + ( isTopBase + 25) + "\" text-anchor=\"left\" font-family=\"sans-serif\" font-size=\"25\">S: </text>\n";
-
-		if( this.isAerospace ) {
-			svgCode += "<text x=\"" + ( leftBoxWidth - 25) + "\" y=\"" + ( armorTopBase + 25) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"35\">TH</text>\n";
-			svgCode += "<text x=\"" + ( leftBoxWidth - 25) + "\" y=\"" + ( armorTopBase + 65) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"35\">" + this.threshold + "</text>\n";
-		}
-
-		var armorClass = "";
-		var armorFunction = "";
-		if( inPlay ) {
-			var onClick = "ASTakeDamage( " + groupIndex + ", "+ mechIndex + ", '" + itemIDField + "')";
-			svgCode += "<rect class=\"mouse-hand\" onclick=\"" + onClick + "\" x=\"30\" y=\"" + (armorBoxStart + 10) + "\" width=\"" + ( 40 ) + "\" height=\"85\" fill=\"#c00\" rx=\"15\" ry=\"15\" />\n";
-			svgCode += "<text class=\"mouse-hand\" onclick=\"" + onClick + "\" x=\"60\" y=\"" + (armorBoxStart + 30) + "\" fill=\"#fff\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"13\" transform=\"rotate(270, 65, " + (armorBoxStart + 47) + ")\">TAKE</text>\n";
-			svgCode += "<text class=\"mouse-hand\" onclick=\"" + onClick + "\" x=\"70\" y=\"" + (armorBoxStart + 30) + "\" fill=\"#fff\" font-family=\"sans-serif\" text-anchor=\"middle\" font-size=\"13\" transform=\"rotate(270, 75, " + (armorBoxStart + 45) + ")\">DAMAGE</text>\n";
-			leftBase += 40;
-		}
-
-		for( var armorCount = 0; armorCount < this.currentArmor.length; armorCount++ ) {
-			if( inPlay ) {
-				var armorClass = "mouse-hand";
-				var armorFunction = "ASToggleArmorPip( " + armorCount + ", " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
-			}
-			svgCode += "<circle class=\"" + armorClass + "\" onclick=\"" + armorFunction + "\" cx=\"" + ( leftBase + (buttonRadius * 2 + 3 ) * armorCount )  + "\" cy=\"" + ( armorTopBase + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
-		//	svgCode += "<circle class=\"" + armorClass + "\" onclick=\"" + armorFunction + "\" cx=\"150\" cy=\"" + armorTopBase + "\" r=\"" + buttonRadius + "\" fill=\"green\" />\n";
-			if( this.currentArmor[ armorCount ] && inPlay ) {
-				svgCode += "<circle class=\"" + armorClass + "\" onclick=\"" + armorFunction + "\" cx=\"" + ( leftBase + (buttonRadius * 2 + 3 ) * armorCount )  + "\" cy=\"" + ( armorTopBase + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"#c00\" />\n";
-			} else {
-				svgCode += "<circle class=\"" + armorClass + "\" onclick=\"" + armorFunction + "\" cx=\"" + ( leftBase + (buttonRadius * 2 + 3 ) * armorCount )  + "\" cy=\"" + ( armorTopBase + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
-			}
-		}
-
-		var structClass = "";
-		var structFunction = "";
-		for( var structCount = 0; structCount < this.currentStructure.length; structCount++ ) {
-			if( inPlay ) {
-				var structClass = "mouse-hand";
-				var structFunction = "ASToggleStructPip( " + structCount + ", " + groupIndex + ", "+ mechIndex + ", '" + itemIDField + "')";
-			}
-			svgCode += "<circle class=\"" + structClass + "\" onclick=\"" + structFunction + "\" cx=\"" + ( leftBase + (buttonRadius * 2 + 3 ) * structCount )  + "\" cy=\"" + ( isTopBase + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
-		//	svgCode += "<circle class=\"" + structClass + "\" onclick=\"" + structFunction + "\" cx=\"150\" cy=\"" + armorTopBase + "\" r=\"" + buttonRadius + "\" fill=\"green\" />\n";
-			if( this.currentStructure[ structCount ] && inPlay ) {
-				svgCode += "<circle class=\"" + structClass + "\" onclick=\"" + structFunction + "\" cx=\"" + ( leftBase + (buttonRadius * 2 + 3 ) * structCount )  + "\" cy=\"" + ( isTopBase + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"#c00\" />\n";
-			} else {
-				svgCode += "<circle class=\"" + structClass + "\" onclick=\"" + structFunction + "\" cx=\"" + ( leftBase + (buttonRadius * 2 + 3 ) * structCount )  + "\" cy=\"" + ( isTopBase + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#999\" />\n";
-			}
-		}
-
-
-		/*
-		 *  Special Section
-		*/
-
-		// Gray, Rounded Box
-		svgCode += "<rect x=\"20\" y=\"510\" width=\"960\" height=\"60\" fill=\"#000000\" rx=\"18\" ry=\"18\" />\n";
-		svgCode += "<rect x=\"25\" y=\"515\" width=\"950\" height=\"50\" fill=\"" + grayBackground + "\" fill-opacity=\"" + grayOpacity + "\" rx=\"15\" ry=\"15\" />\n";
-		if( this.abilities )
-			svgCode += "<text x=\"30\" y=\"550\" text-anchor=\"left\" font-family=\"sans-serif\" font-size=\"25\">SPECIAL: " + this.abilities + "</text>\n";
-		else 
-			svgCode += "<text x=\"30\" y=\"550\" text-anchor=\"left\" font-family=\"sans-serif\" font-size=\"25\">SPECIAL: (none)</text>\n";
-
-
-		/*
-		 *  Critical Hits Section
-		*/
-
-		if( !this.isInfantry ) {
-
-			critLineHeight = 50;
-			critLineStart = 325;
-
-			// Gray, Rounded Box
-			svgCode += "<rect x=\"" + (leftBoxWidth + 30) + "\" y=\"245\" width=\"" + (950 - leftBoxWidth ) + "\" height=\"260\" fill=\"#000000\" rx=\"18\" ry=\"18\" />\n";
-			svgCode += "<rect x=\"" + (leftBoxWidth + 35) + "\" y=\"250\" width=\"" + (950 - 10 - leftBoxWidth ) + "\" height=\"250\" fill=\"" + grayBackground + "\" fill-opacity=\"" + grayOpacity + "\" rx=\"15\" ry=\"15\" />\n";
-
-			//
-			svgCode += "<text x=\"" + (leftBoxWidth + 35 + (950 - leftBoxWidth ) / 2) + "\" y=\"275\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"25\">CRITICAL HITS</text>\n";
-
-			var leftmostCritButton = (leftBoxWidth + 35 + (950 - leftBoxWidth ) / 2) - 15;
-
-			// Engine Hits
-			if( this.type.toLowerCase() != 'pm') {
-
-				svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + critLineStart + "\" text-anchor=\"end\" font-family=\"sans-serif\" font-size=\"20\">ENGINE</text>\n";
-				for( var critCount = 0; critCount < this.engineHits.length; critCount++ ) {
-					if( inPlay ) {
-						var critClass = "mouse-hand";
-						var critFunction = "ASToggleEngineHit( " + critCount + ", " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
-					}
-					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
-
-					if( this.engineHits[ critCount ] && inPlay ) {
-						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"#c00\" />\n";
-					} else {
-						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
-					}
-				}
-				svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + ( critLineStart + buttonRadius + 3 ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" font-size=\"12\">+1 Heat/Firing Weapons</text>\n";
-				critLineStart += critLineHeight;
-			}
-
-
-
-			// Fire Control Hits
-			svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + critLineStart + "\" text-anchor=\"end\" font-family=\"sans-serif\" font-size=\"20\">FIRE CONTROL</text>\n";
-			for( var critCount = 0; critCount < this.fireControlHits.length; critCount++ ) {
-				if( inPlay ) {
-					var critClass = "mouse-hand";
-					var critFunction = "ASToggleFireControlHit( " + critCount + ", " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
-				}
-				svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
-
-				if( this.fireControlHits[ critCount ] && inPlay ) {
-					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"#c00\" />\n";
-				} else {
-					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
-				}
-			}
-			svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + ( critLineStart + buttonRadius + 3 ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" font-size=\"12\">+2 To Hit Each</text>\n";
-			critLineStart += critLineHeight;
-
-			if( this.type.toLowerCase() == 'bm' || this.type.toLowerCase() == 'pm' ) {
-				// MP Hits
-				svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + critLineStart + "\" text-anchor=\"end\" font-family=\"sans-serif\" font-size=\"20\">MP</text>\n";
-				for( var critCount = 0; critCount < this.mpControlHits.length; critCount++ ) {
-					if( inPlay ) {
-						var critClass = "mouse-hand";
-						var critFunction = "ASToggleMPlHit( " + critCount + ", " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
-					}
-					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
-
-					if( this.mpControlHits[ critCount ] && inPlay ) {
-						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"#c00\" />\n";
-					} else {
-						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
-					}
-				}
-				svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + ( critLineStart + buttonRadius + 3 ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" font-size=\"12\">&frac12; Move Each</text>\n";
-				critLineStart += critLineHeight;
-			}
-
-			// Weapon Hits
-			svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + critLineStart + "\" text-anchor=\"end\" font-family=\"sans-serif\" font-size=\"20\">WEAPONS</text>\n";
-			for( var critCount = 0; critCount < this.weaponHits.length; critCount++ ) {
-				if( inPlay ) {
-					var critClass = "mouse-hand";
-					var critFunction = "ASToggleWeaponHits( " + critCount + ", " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
-				}
-				svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
-
-				if( this.weaponHits[ critCount ] && inPlay ) {
-					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"#c00\" />\n";
-				} else {
-					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 3 ) * critCount )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
-				}
-			}
-			svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + ( critLineStart + buttonRadius + 3 ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" font-size=\"12\">-1 Damage Each</text>\n";
-			critLineStart += critLineHeight;
-
-
-			if( this.type.toLowerCase() == 'cv' || this.type.toLowerCase() == 'sv' ) {
-				// Vehicile Motive Hits
-				svgCode += "<text x=\"" + (leftBoxWidth + (950 - leftBoxWidth ) / 2) + "\" y=\"" + critLineStart + "\" text-anchor=\"end\" font-family=\"sans-serif\" font-size=\"20\">MOTIVE</text>\n";
-
-				if( inPlay ) {
-
-
-					var critClass = "mouse-hand";
-					var critFunction = "ASToggleMPlHit( 0, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
-					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 0 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
-
-					if( this.mpControlHits[ 0 ] ) {
-						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 0 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"#c00\" />\n";
-					} else {
-						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 0 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
-					}
-
-					critFunction = "ASToggleMPlHit( 1, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
-					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 1 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
-					if( this.mpControlHits[ 1 ] ) {
-						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 1 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"#c00\" />\n";
-					} else {
-						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 1 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
-					}
-
-					critFunction = "ASToggleMPlHit( 2, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
-					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 2 +15 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
-					if( this.mpControlHits[ 2 ] ) {
-						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 2 +15 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"#c00\" />\n";
-					} else {
-						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 2 +15 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
-					}
-
-					critFunction = "ASToggleMPlHit( 3, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
-					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 3  +15)  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
-					if( this.mpControlHits[ 3 ] ) {
-						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 3  +15)  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"#c00\" />\n";
-					} else {
-						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 3  +15)  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
-					}
-
-					critFunction = "ASToggleMPlHit( 4, " + groupIndex + ", "+ mechIndex+ ", '" + itemIDField + "')";
-					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 4 +30 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
-					if( this.mpControlHits[ 4 ] ) {
-						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 4  +30)  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 )+ "\" fill=\"#c00\" />\n";
-					} else {
-						svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 4 +30 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
-					}
-
-
-
-				} else {
-					critClass = "";
-					critFunction = "";
-					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 0 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
-					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 0 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
-
-
-					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 1 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
-					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 1 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
-
-
-					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 2 +15 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
-					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 2 +15 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
-
-
-					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 3  +15)  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
-					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 3  +15)  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
-
-
-					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 4 +30 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + buttonRadius + "\" fill=\"#000000\" />\n";
-					svgCode += "<circle class=\"" + critClass + "\" onclick=\"" + critFunction + "\" cx=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 4 +30 )  + "\" cy=\"" + ( critLineStart - 27 + buttonRadius + 2 )  + "\" r=\"" + (buttonRadius -3 ) + "\" fill=\"#fff\" />\n";
-
-
-				}
-				svgCode += "<text x=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 0 - buttonRadius + 20 )  + "\" y=\"" + ( critLineStart + buttonRadius + 3 ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" font-size=\"12\">-2 MV</text>\n";
-				svgCode += "<text x=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 2 - buttonRadius +10)  + "\" y=\"" + ( critLineStart + buttonRadius + 3 ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" font-size=\"12\">&frac12; Move Each</text>\n";
-				svgCode += "<text x=\"" + ( leftmostCritButton + (buttonRadius * 2 + 1 ) * 4 - buttonRadius +30)  + "\" y=\"" + ( critLineStart + buttonRadius + 3 ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" font-size=\"12\">0 MV</text>\n";
-				critLineStart += critLineHeight;
-			}
-
-		}
-
-		if( !this.active && inPlay) {
-			svgCode += "<text x=\"50\" y=\"100\" font-family=\"sans-serif\" transform=\"rotate( 30, 50, 100)\" font-size=\"150\" stroke=\"#fff\" stroke-width=\"4\" fill=\"#c00\">WRECKED</text>\n";
-
-		}
-
-		svgCode += "</svg>\n";
-
-		return svgCode;
+		return createSVGAlphaStrike( this, inPlay, itemIDField );
 	}
 
 
@@ -6447,36 +6607,38 @@ function Mech (type) {
 	];
 
 	this.alphaStrikeForceStats = {
-		make: "",
-		model: "",
-		size_class: "",
+		name: "",
+		size: "",
 		move: "",
-		jump_move: "",
+		jumpMove: "",
 		pv: "",
-		range_short: "",
-		range_medium: "",
-		range_long: "",
-		range_extreme: "",
+		damage: {
+			short: 0,
+			medium: 0,
+			long: 0,
+			extreme: 0
+		},
 		armor: "",
 		structure: "",
 		size: 0,
 		skill: 4,
-		ov: 0,
-		notes: ""
+		overheat: 0,
+		notes: "",
+		tmm: 0
 	}
 }
 
 Mech.prototype._calcAlphaStrike = function() {
 
-	this.alphaStrikeForceStats.make  = this.make;
-	this.alphaStrikeForceStats.model  = this.model;
+	this.alphaStrikeForceStats.name  = this.name;
+	//~ this.alphaStrikeForceStats.model  = this.model;
 	this.alphaStrikeForceStats.move  = this.getWalkSpeed() * 2;
-	this.alphaStrikeForceStats.jump_move  = this.getJumpSpeed() * 2;
+	this.alphaStrikeForceStats.jumpMove  = this.getJumpSpeed() * 2;
 	this.alphaStrikeForceStats.pv = 0;
-	this.alphaStrikeForceStats.range_short = 0;
-	this.alphaStrikeForceStats.range_medium = 0;
-	this.alphaStrikeForceStats.range_long = 0;
-	this.alphaStrikeForceStats.range_extreme = 0;
+	this.alphaStrikeForceStats.damage.short = 0;
+	this.alphaStrikeForceStats.damage.medium = 0;
+	this.alphaStrikeForceStats.damage.long = 0;
+	this.alphaStrikeForceStats.damage.extreme = 0;
 	this.alphaStrikeForceStats.armor = 0;
 	this.alphaStrikeForceStats.structure = 0;
 	this.alphaStrikeForceStats.skill = 4;
@@ -6485,7 +6647,7 @@ Mech.prototype._calcAlphaStrike = function() {
 	this.alphaStrikeForceStats.size_class = "";
 	this.alphaStrikeForceStats.size_class_name = "";
 	this.alphaStrikeForceStats.special_unit_abilities = Array();
-	this.alphaStrikeForceStats.heat = 0;
+	this.alphaStrikeForceStats.overheat = 0;
 	this.alphaStrikeForceStats.longHeat = 0;
 	this.alphaStrikeForceStats.abilityCodes = Array()
 
@@ -6591,6 +6753,49 @@ Mech.prototype._calcAlphaStrike = function() {
 				}
 				this.calcLogAS += "Engine is an IS Compact Engine <strong>setting structure to " + this.alphaStrikeForceStats.structure + "</strong><br />\n";
 				break;
+			case "xl":
+				// XL
+				if( this.tonnage == 100) {
+					this.alphaStrikeForceStats.structure = 5;
+				} else if( this.tonnage >= 95 ) {
+					this.alphaStrikeForceStats.structure = 5;
+				} else if( this.tonnage >= 90 ) {
+					this.alphaStrikeForceStats.structure = 5;
+				} else if( this.tonnage >= 85 ) {
+					this.alphaStrikeForceStats.structure = 5;
+				} else if( this.tonnage >= 80 ) {
+					this.alphaStrikeForceStats.structure = 4;
+				} else if( this.tonnage >= 75 ) {
+					this.alphaStrikeForceStats.structure = 4;
+				} else if( this.tonnage >= 70 ) {
+					this.alphaStrikeForceStats.structure = 4;
+				} else if( this.tonnage >= 65 ) {
+					this.alphaStrikeForceStats.structure = 4;
+				} else if( this.tonnage >= 60 ) {
+					this.alphaStrikeForceStats.structure = 3;
+				} else if( this.tonnage >= 55 ) {
+					this.alphaStrikeForceStats.structure = 3;
+				} else if( this.tonnage >= 50 ) {
+					this.alphaStrikeForceStats.structure = 3;
+				} else if( this.tonnage >= 45 ) {
+					this.alphaStrikeForceStats.structure = 2;
+				} else if( this.tonnage >= 40 ) {
+					this.alphaStrikeForceStats.structure = 2;
+				} else if( this.tonnage >= 35 ) {
+					this.alphaStrikeForceStats.structure = 2;
+				} else if( this.tonnage >= 30 ) {
+					this.alphaStrikeForceStats.structure = 2;
+				} else if( this.tonnage >= 25 ) {
+					this.alphaStrikeForceStats.structure = 1;
+				} else if( this.tonnage >= 20 ) {
+					this.alphaStrikeForceStats.structure = 1;
+				} else if( this.tonnage >= 15 ) {
+					this.alphaStrikeForceStats.structure = 1;
+				} else if( this.tonnage >= 10 ) {
+					this.alphaStrikeForceStats.structure = 1;
+				}
+				this.calcLogAS += "Engine is a Clan XL Engine <strong>setting structure to " + this.alphaStrikeForceStats.structure + "</strong><br />\n";
+				break;
 			case "light":
 				// Compact
 				if( this.tonnage == 100) {
@@ -6682,6 +6887,7 @@ Mech.prototype._calcAlphaStrike = function() {
 		// Clan Engines...
 		switch( this.engineType.tag ) {
 			case "xl":
+			case "clan-xl":
 				// Compact
 				if( this.tonnage == 100) {
 					this.alphaStrikeForceStats.structure = 5;
@@ -6782,10 +6988,10 @@ Mech.prototype._calcAlphaStrike = function() {
 
 			total_weapon_heat += this.equipmentList[weapon_counter].alpha_strike.heat;
 
-			this.alphaStrikeForceStats.range_short += this.equipmentList[weapon_counter].alpha_strike.range_short;
-			this.alphaStrikeForceStats.range_medium += this.equipmentList[weapon_counter].alpha_strike.range_medium;
-			this.alphaStrikeForceStats.range_long += this.equipmentList[weapon_counter].alpha_strike.range_long;
-			this.alphaStrikeForceStats.range_extreme += this.equipmentList[weapon_counter].alpha_strike.range_extreme;
+			this.alphaStrikeForceStats.damage.short += this.equipmentList[weapon_counter].alpha_strike.range_short;
+			this.alphaStrikeForceStats.damage.medium += this.equipmentList[weapon_counter].alpha_strike.range_medium;
+			this.alphaStrikeForceStats.damage.long += this.equipmentList[weapon_counter].alpha_strike.range_long;
+			this.alphaStrikeForceStats.damage.extreme += this.equipmentList[weapon_counter].alpha_strike.range_extreme;
 
 			this.calcLogAS += "Adding Weapon " + this.equipmentList[weapon_counter].tag;
 			this.calcLogAS += " (" + this.equipmentList[weapon_counter].alpha_strike.range_short + ", ";
@@ -6824,45 +7030,45 @@ Mech.prototype._calcAlphaStrike = function() {
 
 
 
-	var before_heat_range_short = this.alphaStrikeForceStats.range_short.toFixed(0) /1;
-	var before_heat_range_medium = this.alphaStrikeForceStats.range_medium.toFixed(0) /1;
-	var before_heat_range_long = this.alphaStrikeForceStats.range_long.toFixed(0) /1;
-	var before_heat_range_extreme = this.alphaStrikeForceStats.range_extreme.toFixed(0) /1;
+	var before_heat_range_short = this.alphaStrikeForceStats.damage.short.toFixed(0) /1;
+	var before_heat_range_medium = this.alphaStrikeForceStats.damage.medium.toFixed(0) /1;
+	var before_heat_range_long = this.alphaStrikeForceStats.damage.long.toFixed(0) /1;
+	var before_heat_range_extreme = this.alphaStrikeForceStats.damage.extreme.toFixed(0) /1;
 
 	if( overheat_value > 3) {
 		// Heat Modified Damage, p115 AS companion
-		this.alphaStrikeForceStats.range_short = ( this.alphaStrikeForceStats.range_short * heat_dissipation ) / (max_heat_output - 4);
-		this.alphaStrikeForceStats.range_medium = ( this.alphaStrikeForceStats.range_medium * heat_dissipation ) / (max_heat_output - 4);
+		this.alphaStrikeForceStats.damage.short = ( this.alphaStrikeForceStats.damage.short * heat_dissipation ) / (max_heat_output - 4);
+		this.alphaStrikeForceStats.damage.medium = ( this.alphaStrikeForceStats.damage.medium * heat_dissipation ) / (max_heat_output - 4);
 	}
 
 	if( long_overheat_value > 4) {
-		this.alphaStrikeForceStats.range_long = ( this.alphaStrikeForceStats.range_long * heat_dissipation ) / (max_heat_output - 4);
+		this.alphaStrikeForceStats.damage.long = ( this.alphaStrikeForceStats.damage.long * heat_dissipation ) / (max_heat_output - 4);
 
 	}
 
-	this.alphaStrikeForceStats.range_short = this.alphaStrikeForceStats.range_short.toFixed(0) /1;
-	this.alphaStrikeForceStats.range_medium = this.alphaStrikeForceStats.range_medium.toFixed(0) /1;
-	this.alphaStrikeForceStats.range_long = this.alphaStrikeForceStats.range_long.toFixed(0) /1;
-	this.alphaStrikeForceStats.range_extreme = this.alphaStrikeForceStats.range_extreme.toFixed(0) /1;
+	this.alphaStrikeForceStats.damage.short = this.alphaStrikeForceStats.damage.short.toFixed(0) /1;
+	this.alphaStrikeForceStats.damage.medium = this.alphaStrikeForceStats.damage.medium.toFixed(0) /1;
+	this.alphaStrikeForceStats.damage.long = this.alphaStrikeForceStats.damage.long.toFixed(0) /1;
+	this.alphaStrikeForceStats.damage.extreme = this.alphaStrikeForceStats.damage.extreme.toFixed(0) /1;
 
 
 	// Determine Overheat Values - p116 AS Companion
 	var final_overheat_value = 0;
 
 
-	if( before_heat_range_medium - this.alphaStrikeForceStats.range_medium > 0) {
-		final_overheat_value = before_heat_range_medium - this.alphaStrikeForceStats.range_medium;
+	if( before_heat_range_medium - this.alphaStrikeForceStats.damage.medium > 0) {
+		final_overheat_value = before_heat_range_medium - this.alphaStrikeForceStats.damage.medium;
 	} else {
 		// try short range bracket since the med range is low.
-		final_overheat_value = before_heat_range_short - this.alphaStrikeForceStats.range_short;
+		final_overheat_value = before_heat_range_short - this.alphaStrikeForceStats.damage.short;
 	}
 	if( final_overheat_value > 4 )
 		final_overheat_value = 4;
 
 	// Determine Overheat Values - ASC - p116
 	var final_long_overheat_value = 0;
-	if( before_heat_range_long - this.alphaStrikeForceStats.range_long > 0) {
-		final_long_overheat_value = before_heat_range_long - this.alphaStrikeForceStats.range_long;
+	if( before_heat_range_long - this.alphaStrikeForceStats.damage.long > 0) {
+		final_long_overheat_value = before_heat_range_long - this.alphaStrikeForceStats.damage.long;
 	}
 
 	if( final_long_overheat_value > 4 )
@@ -6878,14 +7084,17 @@ Mech.prototype._calcAlphaStrike = function() {
 	this.calcLogAS += "Overheat Value: " + overheat_value + "<br />\n";
 	this.calcLogAS += "Long Overheat Value: " + long_overheat_value + "<br />\n";
 
-	this.calcLogAS += "<strong>Short Damage: " + this.alphaStrikeForceStats.range_short + "</strong><br />\n";
-	this.calcLogAS += "<strong>Medium Damage: " + this.alphaStrikeForceStats.range_medium + "</strong><br />\n";
-	this.calcLogAS += "<strong>Long Damage: " + this.alphaStrikeForceStats.range_long + "</strong><br />\n";
-	this.calcLogAS += "<strong>Extreme Damage: " + this.alphaStrikeForceStats.range_extreme + "</strong><br />\n";
+	this.calcLogAS += "<strong>Short Damage: " + this.alphaStrikeForceStats.damage.short + "</strong><br />\n";
+	this.calcLogAS += "<strong>Medium Damage: " + this.alphaStrikeForceStats.damage.medium + "</strong><br />\n";
+	this.calcLogAS += "<strong>Long Damage: " + this.alphaStrikeForceStats.damage.long + "</strong><br />\n";
+	this.calcLogAS += "<strong>Extreme Damage: " + this.alphaStrikeForceStats.damage.extreme + "</strong><br />\n";
 
 	// Overheat Value is
 	this.calcLogAS += "<strong>Final Overheat Value: " + final_overheat_value + "</strong><br />\n";
 	this.calcLogAS += "<strong>Final Long Overheat Value: " + final_long_overheat_value + "</strong><br />\n";
+
+	this.alphaStrikeForceStats.overheat = final_overheat_value;
+	this.alphaStrikeForceStats.longOverheat = final_long_overheat_value;
 
 	/* *********************************
 	 *
@@ -6902,8 +7111,8 @@ Mech.prototype._calcAlphaStrike = function() {
 	this.calcLogAS += "<strong>Step 1: Determine Unit’s Offensive Value ASC - p138</strong><br />\n";
 	var offensive_value = 0;
 	// Attack Damage Factor
-	offensive_value += this.alphaStrikeForceStats.range_short + this.alphaStrikeForceStats.range_medium + this.alphaStrikeForceStats.range_long + this.alphaStrikeForceStats.range_extreme;
-	this.calcLogAS += "Attack Damage Factor: " + offensive_value + " ( " + this.alphaStrikeForceStats.range_short + " + " + this.alphaStrikeForceStats.range_medium + " + " + this.alphaStrikeForceStats.range_long + " + " + this.alphaStrikeForceStats.range_extreme + " )<br />\n";
+	offensive_value += this.alphaStrikeForceStats.damage.short + this.alphaStrikeForceStats.damage.medium + this.alphaStrikeForceStats.damage.long + this.alphaStrikeForceStats.damage.extreme;
+	this.calcLogAS += "Attack Damage Factor: " + offensive_value + " ( " + this.alphaStrikeForceStats.damage.short + " + " + this.alphaStrikeForceStats.damage.medium + " + " + this.alphaStrikeForceStats.damage.long + " + " + this.alphaStrikeForceStats.damage.extreme + " )<br />\n";
 
 	// Unit Size Factor
 	offensive_value += this.alphaStrikeForceStats.size_class / 2;
@@ -6942,16 +7151,16 @@ Mech.prototype._calcAlphaStrike = function() {
 	// Movement Factor:
 	var movementDefenseValue = 0;
 	var bestMovement = 0;
-	if( this.alphaStrikeForceStats.move > this.alphaStrikeForceStats.jump_move ) {
+	if( this.alphaStrikeForceStats.move > this.alphaStrikeForceStats.jumpMove ) {
 		movementDefenseValue += this.alphaStrikeForceStats.move * .25;
 		bestMovement = this.alphaStrikeForceStats.move;
 	} else {
-		movementDefenseValue += this.alphaStrikeForceStats.jump_move * .25;
+		movementDefenseValue += this.alphaStrikeForceStats.jumpMove * .25;
 		bestMovement = this.alphaStrikeForceStats.move;
 	}
 	defensive_value += movementDefenseValue;
 
-	if(this.alphaStrikeForceStats.jump_move > 0 ) {
+	if(this.alphaStrikeForceStats.jumpMove > 0 ) {
 		movementDefenseValue += .5;
 		this.calcLogAS += "Movement Factor: " + movementDefenseValue + " (" + bestMovement + " * .25 + .5)<br />\n";
 	} else {
@@ -7017,9 +7226,9 @@ Mech.prototype._calcAlphaStrike = function() {
 	if(
 		bestMovement >= 6
 		&& bestMovement <= 10
-		&& this.alphaStrikeForceStats.range_medium == 0
-		&& this.alphaStrikeForceStats.range_long == 0
-		&& this.alphaStrikeForceStats.range_extreme == 0
+		&& this.alphaStrikeForceStats.damage.medium == 0
+		&& this.alphaStrikeForceStats.damage.long == 0
+		&& this.alphaStrikeForceStats.damage.extreme == 0
 	) {
 		this.calcLogAS += "Unit has 6 to 10\" of Move, but only delivers damage at Short range. Point Value * .75<br />\n";
 		this.calcLogAS += "Modified Point Value: " + baseFinalValue * .75  + " (" + offensive_value + " + " + bmDIR + ")<br />\n";
@@ -7029,9 +7238,9 @@ Mech.prototype._calcAlphaStrike = function() {
 	if(
 		bestMovement >= 2
 		&& bestMovement <= 5
-		&& this.alphaStrikeForceStats.range_medium == 0
-		&& this.alphaStrikeForceStats.range_long == 0
-		&& this.alphaStrikeForceStats.range_extreme == 0
+		&& this.alphaStrikeForceStats.damage.medium == 0
+		&& this.alphaStrikeForceStats.damage.long == 0
+		&& this.alphaStrikeForceStats.damage.extreme == 0
 	) {
 		this.calcLogAS += "Unit has 2 to 5\" of Move, but only delivers damage at Short range. Point Value * .5<br />\n";
 		this.calcLogAS += "Modified Point Value: " + baseFinalValue * .5  + " (" + offensive_value + " + " + bmDIR + ")<br />\n";
@@ -7041,8 +7250,8 @@ Mech.prototype._calcAlphaStrike = function() {
 	if(
 		bestMovement >= 2
 		&& bestMovement <= 5
-		&& this.alphaStrikeForceStats.range_long == 0
-		&& this.alphaStrikeForceStats.range_extreme == 0
+		&& this.alphaStrikeForceStats.damage.long == 0
+		&& this.alphaStrikeForceStats.damage.extreme == 0
 	) {
 		this.calcLogAS += "Unit has 2 to 5\" of Move, but only delivers damage at Short and Medium ranges. Point Value * .75<br />\n";
 		this.calcLogAS += "Modified Point Value: " + baseFinalValue * .75  + " (" + offensive_value + " + " + bmDIR + ")<br />\n";
@@ -7051,15 +7260,50 @@ Mech.prototype._calcAlphaStrike = function() {
 
 	this.calcLogAS += "Final Point Value: " + finalValue + "<br />\n";
 
+	//~ this.alphaStrikeForceStats.pv = finalValue;
+
 	/* *********************************
 	 * Step 3a: Add Force Bonuses ASC - p141
 	 * ******************************* */
 	 this.calcLogAS += "<strong>Step 3a: Add Force Bonuses ASC - p141</strong><br />\n";
 	// TODO
 
-	this.alphaStrikeForceStats.pv = finalValue;
+	this.alphaStrikeForceStats.name = this.name;
+	this.alphaStrikeForceStats.type = "BM";
 
-	this.alphaStrikeValue = Math.round(this.alphaStrikeForceStats.pv);
+
+	this.alphaStrikeValue = Math.round(finalValue);
+
+	var asMechData = [];
+	asMechData["BFPointValue"] = this.alphaStrikeValue;
+
+	asMechData["Name"] = this.getName();
+	asMechData["Role"] = "TODOROLE";
+	asMechData["BFThreshold"] = 0;
+	asMechData["Role"] = { name: "" };
+	asMechData["BFType"] = "BM";
+	asMechData["BFSize"] = this.alphaStrikeForceStats.size;
+
+	asMechData["BFArmor"] = this.alphaStrikeForceStats.armor;
+	asMechData["BFStructure"] = this.alphaStrikeForceStats.structure;
+
+	asMechData["BFOverheat"] = final_overheat_value;
+
+	asMechData["BFDamageShort"] = this.alphaStrikeForceStats.damage.short;
+	asMechData["BFDamageMedium"] = this.alphaStrikeForceStats.damage.medium;
+	asMechData["BFDamageLong"] = this.alphaStrikeForceStats.damage.long;
+	asMechData["BFDamageExtreme"] = this.alphaStrikeForceStats.damage.extreme;
+
+	asMechData["BFOverheat"] = this.alphaStrikeForceStats.overheat;
+
+	if( this.alphaStrikeForceStats.jumpMove ) {
+		asMechData["BFMove"] = this.alphaStrikeForceStats.move.toString() + "\"/" + this.alphaStrikeForceStats.jumpMove + "\"J";
+	} else {
+		asMechData["BFMove"] = this.alphaStrikeForceStats.move.toString() + "\"";
+	}
+
+	this.alphaStrikeForceStats = new asUnit( asMechData );
+
 }
 
 Mech.prototype._calcBattleValue = function() {
@@ -7349,29 +7593,11 @@ Mech.prototype.makeSVGRecordSheet = function( inPlay, landscape ) {
 			inPlay = false;
 	}
 
-	//svgCode = "<svg version=\"1.1\" baseProfile=\"full\" width=\"1000\" height=\"3000\" xmlns=\"http://www.w3.org/2000/svg\">\n";
-	svgCode = "<svg version=\"1.1\" viewBox=\"0 0 2000 3500\" xmlns=\"http://www.w3.org/2000/svg\">\n";
-
-	if( landscape )
-		svgCode += "<rect width=\"100%\" height=\"100%\" fill=\"white\" />\n";
-	else
-		svgCode += "<rect width=\"100%\" height=\"100%\" fill=\"black\" />\n";
-
-	//~ svgCode += "<circle class=\"mousehand\" onclick=\"mooClick(0)\" cx=\"150\" cy=\"100\" r=\"80\" fill=\"green\" />\n";
-
-	//~ svgCode += "<circle class=\"mousehand\" onclick=\"mooClick(1)\" cx=\"300\" cy=\"100\" r=\"80\" fill=\"red\" />\n";
-
-	svgCode += "<circle class=\"mousehand\" ng-click=\"updateSVG(0)\" cx=\"150\" cy=\"100\" r=\"80\" fill=\"green\" />\n";
-
-	svgCode += "<circle class=\"mousehand\" ng-click=\"updateSVG(1)\" cx=\"300\" cy=\"100\" r=\"80\" fill=\"red\" />\n";
-
-	svgCode += "<text x=\"150\" y=\"125\" font-size=\"60\" text-anchor=\"middle\" fill=\"white\">SVG</text>\n";
-
-	svgCode += "</svg>\n";
 
 
 
-	return svgCode;
+	return createSVGRecordSheet( this, inPlay, landscape );
+
 
 }
 
@@ -7384,29 +7610,14 @@ Mech.prototype.makeSVGAlphaStrikeCard = function( inPlay ) {
 		else
 			inPlay = false;
 	}
+
+	//~ console.log( this.alphaStrikeForceStats );
+
+	return createSVGAlphaStrike( this.alphaStrikeForceStats, inPlay );
 }
 
 Mech.prototype.makeTROBBCode = function() {
-	//~ var tro = this.makeTROHTML();
 
-	//~ while( tro.indexOf( "<table class=\"mech-tro\">") > -1 )
-		//~ tro = tro.replace("<table class=\"mech-tro\">", "");
-	//~ while( tro.indexOf( "</table>") > -1 )
-		//~ tro = tro.replace("</table>", "");
-	//~ while( tro.indexOf( "<tr>") > -1 )
-		//~ tro = tro.replace("<tr>", "");
-	//~ while( tro.indexOf( "</tr>") > -1 )
-		//~ tro = tro.replace("</tr>", "\n");
-	//~ while( tro.indexOf( "</td>") > -1 )
-		//~ tro = tro.replace("</td>", "");
-	//~ while( tro.indexOf( "&nbsp;\n") > -1 )
-		//~ tro = tro.replace("&nbsp;\n", "\n");
-	//~ while( tro.indexOf( "<br />") > -1 )
-		//~ tro = tro.replace("<br />", "\n");
-	//~ while( tro.indexOf( "<td colspan=\"4\">") > -1 )
-		//~ tro = tro.replace("<td colspan=\"4\">", "");
-
-	//~ return tro;
 	html = "";
 	// Header Info
 	html +=  this.getTranslation("TRO_TYPE") + ": " + this.getName() + "\n";
@@ -9123,7 +9334,13 @@ Mech.prototype.getInteralStructure = function() {
 
 Mech.prototype.importJSON = function(json_string) {
 	// TODO
-	import_object = JSON.parse( json_string );
+
+	try {
+		import_object = JSON.parse( json_string );
+	}
+	catch( err ) {
+		return false;
+	}
 
 	if( typeof(import_object) == "object") {
 			this.setName( import_object.name );
@@ -10660,60 +10877,60 @@ var battlemechCreatorControllerExportsArray =
 			localStorage["backToPath"] = $location.$$path;
 
 			// create mech object, load from localStorage if exists
-			current_mech = new Mech();
+			$scope.current_mech = new Mech();
 
 
 			if( localStorage["tmp.current_mech"] ) {
-				current_mech.importJSON( localStorage["tmp.current_mech"] );
+				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
-				current_mech.uuid = generateUUID();
-				current_mech._calc();
+				$scope.current_mech.uuid = generateUUID();
+				$scope.current_mech._calc();
 			}
 
-			current_mech.useLang = localStorage["tmp.preferred_language"];
+			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
 
-			$scope.makeTROBBCode = current_mech.makeTROBBCode();
+			$scope.makeTROBBCode = $scope.current_mech.makeTROBBCode();
 
-
+			$scope.mechJSON = $scope.current_mech.exportJSON();
 
 			// make tro for sidebar
-			$scope.mech_tro = current_mech.makeTROHTML();
-			$scope.mech_bv_calc = current_mech.getBVCalcHTML();
-			$scope.mech_as_calc = current_mech.getASCalcHTML();
+			$scope.mech_tro = $scope.current_mech.makeTROHTML();
+			$scope.mech_bv_calc = $scope.current_mech.getBVCalcHTML();
+			$scope.mech_as_calc = $scope.current_mech.getASCalcHTML();
 
 			$scope.isIOSStandAlone = isIOSStandAlone();
 
 
 			$scope.troIOSPDFLinkClick = function() {
-				var troPDF = makeBattlemechTROPDF(current_mech);
+				var troPDF = makeBattlemechTROPDF($scope.current_mech);
 				var troPDFData = troPDF.output('datauristring');
 				$scope.troIOSPDFLink =  "pages/ios-standalone-pdf.html#" + troPDFData;
 			}
 
 			$scope.rsIOSPDFLinkClick = function() {
-				var rsPDFData = makeBattlemechRecordSheetPDF(current_mech);
+				var rsPDFData = makeBattlemechRecordSheetPDF($scope.current_mech);
 				var rsPDFData = rsPDFData.output('datauristring');
 				$scope.rsIOSPDFLink =  "pages/ios-standalone-pdf.html#" + rsPDFData;
 			}
 
 			$scope.combIOSPDFLinkClick = function() {
-				var combPDF = makeBattlemechCombinedPDF(current_mech);
+				var combPDF = makeBattlemechCombinedPDF($scope.current_mech);
 				var combPDFData = combPDF.output('datauristring');
 				$scope.combIOSPDFLink =  "pages/ios-standalone-pdf.html#" + combPDFData;
 			}
 
 			$scope.makeRecordSheet = function() {
-				pdf = makeBattlemechRecordSheetPDF(current_mech);
-				pdf.save(current_mech.getName() + ' - Record Sheet.pdf');
+				pdf = makeBattlemechRecordSheetPDF($scope.current_mech);
+			//	pdf.save($scope.current_mech.getName() + ' - Record Sheet.pdf');
 			}
 
 			$scope.makeTROSheet = function() {
-				pdf = makeBattlemechTROPDF(current_mech);
-				pdf.save(current_mech.getName() + ' - TRO.pdf');
+				pdf = makeBattlemechTROPDF($scope.current_mech);
+				pdf.save($scope.current_mech.getName() + ' - TRO.pdf');
 			}
 			$scope.makeCombinedSheet = function() {
-				pdf = makeBattlemechCombinedPDF(current_mech);
-				pdf.save(current_mech.getName() + ' - Record Sheet and TRO.pdf');
+				pdf = makeBattlemechCombinedPDF($scope.current_mech);
+				pdf.save($scope.current_mech.getName() + ' - Record Sheet and TRO.pdf');
 			}
 
 			//~ $scope.updateSVG = function( tmpText ) {
@@ -10721,8 +10938,8 @@ var battlemechCreatorControllerExportsArray =
 					//~ tmpText = "";
 				//~ console.log( "updateSVG", tmpText );
 
-				//~ var rawSVG = current_mech.makeSVGRecordSheet(tmpText);
-				//~ var compiled = current_mech.makeSVGRecordSheet(rawSVG)
+				//~ var rawSVG = $scope.current_mech.makeSVGRecordSheet(tmpText);
+				//~ var compiled = $scope.current_mech.makeSVGRecordSheet(rawSVG)
 				//~ $scope.recordSheetSVG =  $sce.trustAsHtml( compiled );
 				//~ compiled( $scope.recordSheetSVG  )
 				//~ var el = document.getElementById( 'testsvg' );
@@ -12305,26 +12522,24 @@ var battlemechCreatorControllerSummaryArray =
 			localStorage["backToPath"] = $location.$$path;
 
 			// create mech object, load from localStorage if exists
-			current_mech = new Mech();
+			$scope.current_mech = new Mech();
 
 
 			if( localStorage["tmp.current_mech"] ) {
-				current_mech.importJSON( localStorage["tmp.current_mech"] );
+				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
-				current_mech.uuid = generateUUID();
-				current_mech._calc();
+				$scope.current_mech.uuid = generateUUID();
+				$scope.current_mech._calc();
 			}
 
-			current_mech.useLang = localStorage["tmp.preferred_language"];
+			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
 
 
 			// make tro for sidebar
-			$scope.mech_tro = current_mech.makeTROHTML();
-			$scope.mech_bv_calc = current_mech.getBVCalcHTML();
-			$scope.mech_as_calc = current_mech.getASCalcHTML();
-			$scope.mech_cbill_calc = current_mech.getCBillCalcHTML();
-
-
+			$scope.mech_tro = $scope.current_mech.makeTROHTML();
+			$scope.mech_bv_calc = $scope.current_mech.getBVCalcHTML();
+			$scope.mech_as_calc = $scope.current_mech.getASCalcHTML();
+			$scope.mech_cbill_calc = $scope.current_mech.getCBillCalcHTML();
 
 		}
 	]
@@ -12365,22 +12580,60 @@ var battlemechCreatorControllerWelcomeArray =
 
 			localStorage["backToPath"] = $location.$$path;
 
-			var current_mech = new Mech();
+			$scope.current_mech = new Mech();
 
 			if( localStorage["tmp.current_mech"] ) {
-				current_mech.importJSON( localStorage["tmp.current_mech"] );
+				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
-				current_mech.uuid = generateUUID();
-				current_mech._calc();
+				$scope.current_mech.uuid = generateUUID();
+				$scope.current_mech._calc();
 			}
 
+			$scope.importJSONData = "";
 			$scope.confirmDialogQuestion = "";
+			$scope.jsonImportError = "";
 			$scope.showConfirmDialog = false;
+			$scope.showImportJSONDialog = false;
 
 			$scope.confirmDialog = function( confirmationMessage, onYes ) {
 				$scope.confirmDialogQuestion = confirmationMessage;
 				$scope.showConfirmDialog = true;
 				$scope.confirmDialogYes = onYes;
+			}
+
+			$scope.importJSONDialog = function() {
+				$scope.showImportJSONDialog = true;
+			}
+
+			$scope.updateImportJSON = function( newValue ) {
+				$scope.importJSONData = newValue;
+			}
+
+			$scope.importJSON = function() {
+				if( $scope.importJSONData != "" ) {
+
+					if( $scope.current_mech.importJSON( $scope.importJSONData ) == true ) {
+						$scope.showImportJSONDialog = false;
+						$scope.importJSONData= "";
+						$location.url( "battlemech-creator/step1" );
+					} else {
+						console.log("import error");
+						$translate(['GENERAL_IMPORT_ERROR' ]).then(function (translation) {
+							$scope.jsonImportError = translation.GENERAL_IMPORT_ERROR;
+						});
+					}
+				} else {
+					console.log("empty");
+					$translate(['GENERAL_EMPTY_JSON' ]).then(function (translation) {
+						$scope.jsonImportError = translation.GENERAL_EMPTY_JSON;
+					});
+				}
+
+			}
+
+			$scope.closeImportJSONDialog = function() {
+				$scope.showImportJSONDialog = false;
+				$scope.importJSONData = "";
 			}
 
 			$scope.closeConfirmDialog = function( ) {
@@ -12397,9 +12650,9 @@ var battlemechCreatorControllerWelcomeArray =
 					$scope.confirmDialog(
 						translation.BM_CLEAR_MECH,
 						function() {
-							current_mech = new Mech();
-							current_mech.uuid = generateUUID();
-							localStorage["tmp.current_mech"] = current_mech.exportJSON();
+							$scope.current_mech = new Mech();
+							$scope.current_mech.uuid = generateUUID();
+							localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 							$scope.showConfirmDialog = false;
 						}
 					);
@@ -12426,7 +12679,7 @@ var battlemechCreatorControllerWelcomeArray =
 			// Save Mech Functions
 			$scope.saveMechDialogOpen = false;
 			$scope.saveDialog = function() {
-				$scope.save_as_name = current_mech.getName();
+				$scope.save_as_name = $scope.current_mech.getName();
 				$scope.save_over = -1;
 
 
@@ -12458,7 +12711,6 @@ var battlemechCreatorControllerWelcomeArray =
 				$scope.save_as_name = newName;
 			}
 
-
 			$scope.closeSaveDialog = function() {
 				$scope.saveMechDialogOpen = false;
 			}
@@ -12474,9 +12726,9 @@ var battlemechCreatorControllerWelcomeArray =
 				var saveItem = {
 					saveName: $scope.save_as_name,
 					savedOn: new Date(),
-					tonnage: current_mech.getTonnage(),
-					tech: current_mech.getTech(),
-					data: current_mech.exportJSON()
+					tonnage: $scope.current_mech.getTonnage(),
+					tech: $scope.current_mech.getTech(),
+					data: $scope.current_mech.exportJSON()
 				};
 
 
@@ -12990,10 +13242,14 @@ available_languages.push ({
 		GENERAL_NO: "No",
 		GENERAL_REAR: "rear",
 		GENERAL_VERSION: "Version",
+		GENERAL_CALCULATIONS: "Calculations",
+		GENERAL_RECORD_SHEETS: "Record Sheets",
 
 		GENERAL_FILTER: "Filter",
 		GENERAL_TYPE_HERE_TO_FILTER: "Type here to search for equipment",
 
+		GENERAL_IMPORT_JSON: "Import JSON",
+		GENERAL_IMPORT: "Import",
 
 		GENERAL_REMOVE: "Remove",
 		GENERAL_SAVED: "Saved",
@@ -13012,6 +13268,9 @@ available_languages.push ({
 		GENERAL_STANDARD: "Standard",
 		GENERAL_ADVANCED: "Advanced",
 		GENERAL_CLOSE: "Close",
+
+		GENERAL_IMPORT_ERROR: "There was an import error!",
+		GENERAL_EMPTY_JSON: "Input area was empty, no changes were made.",
 
 		SETTINGS_IMPORT_EXPORT_SETTINGS: "Import/Export Data",
 		SETTINGS_IMPORT_EXPORT_SETTINGS_DESC: "At some point I'm sure that you'll want to move or back up your hard work. Use this function to import and export your saved items.",
@@ -13054,7 +13313,9 @@ available_languages.push ({
 		BM_BACK_TO_WELCOME: "Welcome",
 		BM_EXPORTS: "Exporting and Printing",
 		BM_BBCODE_TRO: "BBCode TRO",
-
+		BM_BBCODE_DESC: "Copy and paste the text below and it should format it nicely if your bullieten board forum supports BB Code (bg.batteltech.com does).",
+		BM_JSON_EXPORT: "JSON Export",
+		BM_JSON_EXPORT_DESC: "If you'd like to share this design with another, copy the code and have them import the data via the \"Import JSON\" button on the Welcome Screen.",
 
 		BUTTON_HOME_TITLE: "Home",
 		BUTTON_HOME_DESC: "Back to the main screen",
@@ -13081,6 +13342,9 @@ available_languages.push ({
 		BM_WELCOME_CLEAR_MECH: "Clear Current 'Mech",
 		BM_WELCOME_LOAD_MECH: "Load 'Mech",
 		BM_WELCOME_SAVE_MECH: "Save Current 'Mech",
+
+		BM_WELCOME_IMPORT_JSON: "Import JSON",
+		BM_WELCOME_IMPORT_JSON_DESC: "Paste the import code below them press the \"Import\" button. <strong>Warning</strong>: This will clear out your current 'mech. Be sure to save your current work!",
 
 		BM_STEP1_TITLE: "Step 1",
 		BM_STEP1_DESC: "Design the Chassis",
@@ -13159,13 +13423,13 @@ available_languages.push ({
 		BM_SUMMARY_TITLE: "Summary",
 		BM_SUMMARY_DESC: "",
 		BM_SUMMARY_TRO: "Technical Read Out",
-		BM_SUMMARY_BV_CALC: "Battle Value Calculations",
-		BM_SUMMARY_AS_CALC: "Alpha Strike Calculations",
-		BM_SUMMARY_CBILL_CALC: "CBill Cost Calculations",
+		BM_SUMMARY_BV_CALC: "Battle Value",
+		BM_SUMMARY_AS_CALC: "Alpha Strike",
+		BM_SUMMARY_CBILL_CALC: "CBill Cost",
 
 		BM_EXPORTS_TITLE: "Exports",
 		BM_EXPORTS_DESC: "",
-		BM_EXPORTS_OUTPUT: "Exporting and Printing",
+		BM_EXPORTS_OUTPUT: "Exporting",
 		BM_EXPORTS_EXPORT_RECORD_SHEET: "Export Record Sheet",
 		BM_EXPORTS_EXPORT_TRO: "Export TRO",
 		BM_EXPORTS_EXPORT_FULL: "Export Both",

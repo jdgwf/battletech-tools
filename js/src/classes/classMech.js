@@ -131,36 +131,38 @@ function Mech (type) {
 	];
 
 	this.alphaStrikeForceStats = {
-		make: "",
-		model: "",
-		size_class: "",
+		name: "",
+		size: "",
 		move: "",
-		jump_move: "",
+		jumpMove: "",
 		pv: "",
-		range_short: "",
-		range_medium: "",
-		range_long: "",
-		range_extreme: "",
+		damage: {
+			short: 0,
+			medium: 0,
+			long: 0,
+			extreme: 0
+		},
 		armor: "",
 		structure: "",
 		size: 0,
 		skill: 4,
-		ov: 0,
-		notes: ""
+		overheat: 0,
+		notes: "",
+		tmm: 0
 	}
 }
 
 Mech.prototype._calcAlphaStrike = function() {
 
-	this.alphaStrikeForceStats.make  = this.make;
-	this.alphaStrikeForceStats.model  = this.model;
+	this.alphaStrikeForceStats.name  = this.name;
+	//~ this.alphaStrikeForceStats.model  = this.model;
 	this.alphaStrikeForceStats.move  = this.getWalkSpeed() * 2;
-	this.alphaStrikeForceStats.jump_move  = this.getJumpSpeed() * 2;
+	this.alphaStrikeForceStats.jumpMove  = this.getJumpSpeed() * 2;
 	this.alphaStrikeForceStats.pv = 0;
-	this.alphaStrikeForceStats.range_short = 0;
-	this.alphaStrikeForceStats.range_medium = 0;
-	this.alphaStrikeForceStats.range_long = 0;
-	this.alphaStrikeForceStats.range_extreme = 0;
+	this.alphaStrikeForceStats.damage.short = 0;
+	this.alphaStrikeForceStats.damage.medium = 0;
+	this.alphaStrikeForceStats.damage.long = 0;
+	this.alphaStrikeForceStats.damage.extreme = 0;
 	this.alphaStrikeForceStats.armor = 0;
 	this.alphaStrikeForceStats.structure = 0;
 	this.alphaStrikeForceStats.skill = 4;
@@ -169,7 +171,7 @@ Mech.prototype._calcAlphaStrike = function() {
 	this.alphaStrikeForceStats.size_class = "";
 	this.alphaStrikeForceStats.size_class_name = "";
 	this.alphaStrikeForceStats.special_unit_abilities = Array();
-	this.alphaStrikeForceStats.heat = 0;
+	this.alphaStrikeForceStats.overheat = 0;
 	this.alphaStrikeForceStats.longHeat = 0;
 	this.alphaStrikeForceStats.abilityCodes = Array()
 
@@ -275,6 +277,49 @@ Mech.prototype._calcAlphaStrike = function() {
 				}
 				this.calcLogAS += "Engine is an IS Compact Engine <strong>setting structure to " + this.alphaStrikeForceStats.structure + "</strong><br />\n";
 				break;
+			case "xl":
+				// XL
+				if( this.tonnage == 100) {
+					this.alphaStrikeForceStats.structure = 5;
+				} else if( this.tonnage >= 95 ) {
+					this.alphaStrikeForceStats.structure = 5;
+				} else if( this.tonnage >= 90 ) {
+					this.alphaStrikeForceStats.structure = 5;
+				} else if( this.tonnage >= 85 ) {
+					this.alphaStrikeForceStats.structure = 5;
+				} else if( this.tonnage >= 80 ) {
+					this.alphaStrikeForceStats.structure = 4;
+				} else if( this.tonnage >= 75 ) {
+					this.alphaStrikeForceStats.structure = 4;
+				} else if( this.tonnage >= 70 ) {
+					this.alphaStrikeForceStats.structure = 4;
+				} else if( this.tonnage >= 65 ) {
+					this.alphaStrikeForceStats.structure = 4;
+				} else if( this.tonnage >= 60 ) {
+					this.alphaStrikeForceStats.structure = 3;
+				} else if( this.tonnage >= 55 ) {
+					this.alphaStrikeForceStats.structure = 3;
+				} else if( this.tonnage >= 50 ) {
+					this.alphaStrikeForceStats.structure = 3;
+				} else if( this.tonnage >= 45 ) {
+					this.alphaStrikeForceStats.structure = 2;
+				} else if( this.tonnage >= 40 ) {
+					this.alphaStrikeForceStats.structure = 2;
+				} else if( this.tonnage >= 35 ) {
+					this.alphaStrikeForceStats.structure = 2;
+				} else if( this.tonnage >= 30 ) {
+					this.alphaStrikeForceStats.structure = 2;
+				} else if( this.tonnage >= 25 ) {
+					this.alphaStrikeForceStats.structure = 1;
+				} else if( this.tonnage >= 20 ) {
+					this.alphaStrikeForceStats.structure = 1;
+				} else if( this.tonnage >= 15 ) {
+					this.alphaStrikeForceStats.structure = 1;
+				} else if( this.tonnage >= 10 ) {
+					this.alphaStrikeForceStats.structure = 1;
+				}
+				this.calcLogAS += "Engine is a Clan XL Engine <strong>setting structure to " + this.alphaStrikeForceStats.structure + "</strong><br />\n";
+				break;
 			case "light":
 				// Compact
 				if( this.tonnage == 100) {
@@ -366,6 +411,7 @@ Mech.prototype._calcAlphaStrike = function() {
 		// Clan Engines...
 		switch( this.engineType.tag ) {
 			case "xl":
+			case "clan-xl":
 				// Compact
 				if( this.tonnage == 100) {
 					this.alphaStrikeForceStats.structure = 5;
@@ -466,10 +512,10 @@ Mech.prototype._calcAlphaStrike = function() {
 
 			total_weapon_heat += this.equipmentList[weapon_counter].alpha_strike.heat;
 
-			this.alphaStrikeForceStats.range_short += this.equipmentList[weapon_counter].alpha_strike.range_short;
-			this.alphaStrikeForceStats.range_medium += this.equipmentList[weapon_counter].alpha_strike.range_medium;
-			this.alphaStrikeForceStats.range_long += this.equipmentList[weapon_counter].alpha_strike.range_long;
-			this.alphaStrikeForceStats.range_extreme += this.equipmentList[weapon_counter].alpha_strike.range_extreme;
+			this.alphaStrikeForceStats.damage.short += this.equipmentList[weapon_counter].alpha_strike.range_short;
+			this.alphaStrikeForceStats.damage.medium += this.equipmentList[weapon_counter].alpha_strike.range_medium;
+			this.alphaStrikeForceStats.damage.long += this.equipmentList[weapon_counter].alpha_strike.range_long;
+			this.alphaStrikeForceStats.damage.extreme += this.equipmentList[weapon_counter].alpha_strike.range_extreme;
 
 			this.calcLogAS += "Adding Weapon " + this.equipmentList[weapon_counter].tag;
 			this.calcLogAS += " (" + this.equipmentList[weapon_counter].alpha_strike.range_short + ", ";
@@ -508,45 +554,45 @@ Mech.prototype._calcAlphaStrike = function() {
 
 
 
-	var before_heat_range_short = this.alphaStrikeForceStats.range_short.toFixed(0) /1;
-	var before_heat_range_medium = this.alphaStrikeForceStats.range_medium.toFixed(0) /1;
-	var before_heat_range_long = this.alphaStrikeForceStats.range_long.toFixed(0) /1;
-	var before_heat_range_extreme = this.alphaStrikeForceStats.range_extreme.toFixed(0) /1;
+	var before_heat_range_short = this.alphaStrikeForceStats.damage.short.toFixed(0) /1;
+	var before_heat_range_medium = this.alphaStrikeForceStats.damage.medium.toFixed(0) /1;
+	var before_heat_range_long = this.alphaStrikeForceStats.damage.long.toFixed(0) /1;
+	var before_heat_range_extreme = this.alphaStrikeForceStats.damage.extreme.toFixed(0) /1;
 
 	if( overheat_value > 3) {
 		// Heat Modified Damage, p115 AS companion
-		this.alphaStrikeForceStats.range_short = ( this.alphaStrikeForceStats.range_short * heat_dissipation ) / (max_heat_output - 4);
-		this.alphaStrikeForceStats.range_medium = ( this.alphaStrikeForceStats.range_medium * heat_dissipation ) / (max_heat_output - 4);
+		this.alphaStrikeForceStats.damage.short = ( this.alphaStrikeForceStats.damage.short * heat_dissipation ) / (max_heat_output - 4);
+		this.alphaStrikeForceStats.damage.medium = ( this.alphaStrikeForceStats.damage.medium * heat_dissipation ) / (max_heat_output - 4);
 	}
 
 	if( long_overheat_value > 4) {
-		this.alphaStrikeForceStats.range_long = ( this.alphaStrikeForceStats.range_long * heat_dissipation ) / (max_heat_output - 4);
+		this.alphaStrikeForceStats.damage.long = ( this.alphaStrikeForceStats.damage.long * heat_dissipation ) / (max_heat_output - 4);
 
 	}
 
-	this.alphaStrikeForceStats.range_short = this.alphaStrikeForceStats.range_short.toFixed(0) /1;
-	this.alphaStrikeForceStats.range_medium = this.alphaStrikeForceStats.range_medium.toFixed(0) /1;
-	this.alphaStrikeForceStats.range_long = this.alphaStrikeForceStats.range_long.toFixed(0) /1;
-	this.alphaStrikeForceStats.range_extreme = this.alphaStrikeForceStats.range_extreme.toFixed(0) /1;
+	this.alphaStrikeForceStats.damage.short = this.alphaStrikeForceStats.damage.short.toFixed(0) /1;
+	this.alphaStrikeForceStats.damage.medium = this.alphaStrikeForceStats.damage.medium.toFixed(0) /1;
+	this.alphaStrikeForceStats.damage.long = this.alphaStrikeForceStats.damage.long.toFixed(0) /1;
+	this.alphaStrikeForceStats.damage.extreme = this.alphaStrikeForceStats.damage.extreme.toFixed(0) /1;
 
 
 	// Determine Overheat Values - p116 AS Companion
 	var final_overheat_value = 0;
 
 
-	if( before_heat_range_medium - this.alphaStrikeForceStats.range_medium > 0) {
-		final_overheat_value = before_heat_range_medium - this.alphaStrikeForceStats.range_medium;
+	if( before_heat_range_medium - this.alphaStrikeForceStats.damage.medium > 0) {
+		final_overheat_value = before_heat_range_medium - this.alphaStrikeForceStats.damage.medium;
 	} else {
 		// try short range bracket since the med range is low.
-		final_overheat_value = before_heat_range_short - this.alphaStrikeForceStats.range_short;
+		final_overheat_value = before_heat_range_short - this.alphaStrikeForceStats.damage.short;
 	}
 	if( final_overheat_value > 4 )
 		final_overheat_value = 4;
 
 	// Determine Overheat Values - ASC - p116
 	var final_long_overheat_value = 0;
-	if( before_heat_range_long - this.alphaStrikeForceStats.range_long > 0) {
-		final_long_overheat_value = before_heat_range_long - this.alphaStrikeForceStats.range_long;
+	if( before_heat_range_long - this.alphaStrikeForceStats.damage.long > 0) {
+		final_long_overheat_value = before_heat_range_long - this.alphaStrikeForceStats.damage.long;
 	}
 
 	if( final_long_overheat_value > 4 )
@@ -562,14 +608,17 @@ Mech.prototype._calcAlphaStrike = function() {
 	this.calcLogAS += "Overheat Value: " + overheat_value + "<br />\n";
 	this.calcLogAS += "Long Overheat Value: " + long_overheat_value + "<br />\n";
 
-	this.calcLogAS += "<strong>Short Damage: " + this.alphaStrikeForceStats.range_short + "</strong><br />\n";
-	this.calcLogAS += "<strong>Medium Damage: " + this.alphaStrikeForceStats.range_medium + "</strong><br />\n";
-	this.calcLogAS += "<strong>Long Damage: " + this.alphaStrikeForceStats.range_long + "</strong><br />\n";
-	this.calcLogAS += "<strong>Extreme Damage: " + this.alphaStrikeForceStats.range_extreme + "</strong><br />\n";
+	this.calcLogAS += "<strong>Short Damage: " + this.alphaStrikeForceStats.damage.short + "</strong><br />\n";
+	this.calcLogAS += "<strong>Medium Damage: " + this.alphaStrikeForceStats.damage.medium + "</strong><br />\n";
+	this.calcLogAS += "<strong>Long Damage: " + this.alphaStrikeForceStats.damage.long + "</strong><br />\n";
+	this.calcLogAS += "<strong>Extreme Damage: " + this.alphaStrikeForceStats.damage.extreme + "</strong><br />\n";
 
 	// Overheat Value is
 	this.calcLogAS += "<strong>Final Overheat Value: " + final_overheat_value + "</strong><br />\n";
 	this.calcLogAS += "<strong>Final Long Overheat Value: " + final_long_overheat_value + "</strong><br />\n";
+
+	this.alphaStrikeForceStats.overheat = final_overheat_value;
+	this.alphaStrikeForceStats.longOverheat = final_long_overheat_value;
 
 	/* *********************************
 	 *
@@ -586,8 +635,8 @@ Mech.prototype._calcAlphaStrike = function() {
 	this.calcLogAS += "<strong>Step 1: Determine Unit’s Offensive Value ASC - p138</strong><br />\n";
 	var offensive_value = 0;
 	// Attack Damage Factor
-	offensive_value += this.alphaStrikeForceStats.range_short + this.alphaStrikeForceStats.range_medium + this.alphaStrikeForceStats.range_long + this.alphaStrikeForceStats.range_extreme;
-	this.calcLogAS += "Attack Damage Factor: " + offensive_value + " ( " + this.alphaStrikeForceStats.range_short + " + " + this.alphaStrikeForceStats.range_medium + " + " + this.alphaStrikeForceStats.range_long + " + " + this.alphaStrikeForceStats.range_extreme + " )<br />\n";
+	offensive_value += this.alphaStrikeForceStats.damage.short + this.alphaStrikeForceStats.damage.medium + this.alphaStrikeForceStats.damage.long + this.alphaStrikeForceStats.damage.extreme;
+	this.calcLogAS += "Attack Damage Factor: " + offensive_value + " ( " + this.alphaStrikeForceStats.damage.short + " + " + this.alphaStrikeForceStats.damage.medium + " + " + this.alphaStrikeForceStats.damage.long + " + " + this.alphaStrikeForceStats.damage.extreme + " )<br />\n";
 
 	// Unit Size Factor
 	offensive_value += this.alphaStrikeForceStats.size_class / 2;
@@ -626,16 +675,16 @@ Mech.prototype._calcAlphaStrike = function() {
 	// Movement Factor:
 	var movementDefenseValue = 0;
 	var bestMovement = 0;
-	if( this.alphaStrikeForceStats.move > this.alphaStrikeForceStats.jump_move ) {
+	if( this.alphaStrikeForceStats.move > this.alphaStrikeForceStats.jumpMove ) {
 		movementDefenseValue += this.alphaStrikeForceStats.move * .25;
 		bestMovement = this.alphaStrikeForceStats.move;
 	} else {
-		movementDefenseValue += this.alphaStrikeForceStats.jump_move * .25;
+		movementDefenseValue += this.alphaStrikeForceStats.jumpMove * .25;
 		bestMovement = this.alphaStrikeForceStats.move;
 	}
 	defensive_value += movementDefenseValue;
 
-	if(this.alphaStrikeForceStats.jump_move > 0 ) {
+	if(this.alphaStrikeForceStats.jumpMove > 0 ) {
 		movementDefenseValue += .5;
 		this.calcLogAS += "Movement Factor: " + movementDefenseValue + " (" + bestMovement + " * .25 + .5)<br />\n";
 	} else {
@@ -701,9 +750,9 @@ Mech.prototype._calcAlphaStrike = function() {
 	if(
 		bestMovement >= 6
 		&& bestMovement <= 10
-		&& this.alphaStrikeForceStats.range_medium == 0
-		&& this.alphaStrikeForceStats.range_long == 0
-		&& this.alphaStrikeForceStats.range_extreme == 0
+		&& this.alphaStrikeForceStats.damage.medium == 0
+		&& this.alphaStrikeForceStats.damage.long == 0
+		&& this.alphaStrikeForceStats.damage.extreme == 0
 	) {
 		this.calcLogAS += "Unit has 6 to 10\" of Move, but only delivers damage at Short range. Point Value * .75<br />\n";
 		this.calcLogAS += "Modified Point Value: " + baseFinalValue * .75  + " (" + offensive_value + " + " + bmDIR + ")<br />\n";
@@ -713,9 +762,9 @@ Mech.prototype._calcAlphaStrike = function() {
 	if(
 		bestMovement >= 2
 		&& bestMovement <= 5
-		&& this.alphaStrikeForceStats.range_medium == 0
-		&& this.alphaStrikeForceStats.range_long == 0
-		&& this.alphaStrikeForceStats.range_extreme == 0
+		&& this.alphaStrikeForceStats.damage.medium == 0
+		&& this.alphaStrikeForceStats.damage.long == 0
+		&& this.alphaStrikeForceStats.damage.extreme == 0
 	) {
 		this.calcLogAS += "Unit has 2 to 5\" of Move, but only delivers damage at Short range. Point Value * .5<br />\n";
 		this.calcLogAS += "Modified Point Value: " + baseFinalValue * .5  + " (" + offensive_value + " + " + bmDIR + ")<br />\n";
@@ -725,8 +774,8 @@ Mech.prototype._calcAlphaStrike = function() {
 	if(
 		bestMovement >= 2
 		&& bestMovement <= 5
-		&& this.alphaStrikeForceStats.range_long == 0
-		&& this.alphaStrikeForceStats.range_extreme == 0
+		&& this.alphaStrikeForceStats.damage.long == 0
+		&& this.alphaStrikeForceStats.damage.extreme == 0
 	) {
 		this.calcLogAS += "Unit has 2 to 5\" of Move, but only delivers damage at Short and Medium ranges. Point Value * .75<br />\n";
 		this.calcLogAS += "Modified Point Value: " + baseFinalValue * .75  + " (" + offensive_value + " + " + bmDIR + ")<br />\n";
@@ -735,15 +784,50 @@ Mech.prototype._calcAlphaStrike = function() {
 
 	this.calcLogAS += "Final Point Value: " + finalValue + "<br />\n";
 
+	//~ this.alphaStrikeForceStats.pv = finalValue;
+
 	/* *********************************
 	 * Step 3a: Add Force Bonuses ASC - p141
 	 * ******************************* */
 	 this.calcLogAS += "<strong>Step 3a: Add Force Bonuses ASC - p141</strong><br />\n";
 	// TODO
 
-	this.alphaStrikeForceStats.pv = finalValue;
+	this.alphaStrikeForceStats.name = this.name;
+	this.alphaStrikeForceStats.type = "BM";
 
-	this.alphaStrikeValue = Math.round(this.alphaStrikeForceStats.pv);
+
+	this.alphaStrikeValue = Math.round(finalValue);
+
+	var asMechData = [];
+	asMechData["BFPointValue"] = this.alphaStrikeValue;
+
+	asMechData["Name"] = this.getName();
+	asMechData["Role"] = "TODOROLE";
+	asMechData["BFThreshold"] = 0;
+	asMechData["Role"] = { name: "" };
+	asMechData["BFType"] = "BM";
+	asMechData["BFSize"] = this.alphaStrikeForceStats.size;
+
+	asMechData["BFArmor"] = this.alphaStrikeForceStats.armor;
+	asMechData["BFStructure"] = this.alphaStrikeForceStats.structure;
+
+	asMechData["BFOverheat"] = final_overheat_value;
+
+	asMechData["BFDamageShort"] = this.alphaStrikeForceStats.damage.short;
+	asMechData["BFDamageMedium"] = this.alphaStrikeForceStats.damage.medium;
+	asMechData["BFDamageLong"] = this.alphaStrikeForceStats.damage.long;
+	asMechData["BFDamageExtreme"] = this.alphaStrikeForceStats.damage.extreme;
+
+	asMechData["BFOverheat"] = this.alphaStrikeForceStats.overheat;
+
+	if( this.alphaStrikeForceStats.jumpMove ) {
+		asMechData["BFMove"] = this.alphaStrikeForceStats.move.toString() + "\"/" + this.alphaStrikeForceStats.jumpMove + "\"J";
+	} else {
+		asMechData["BFMove"] = this.alphaStrikeForceStats.move.toString() + "\"";
+	}
+
+	this.alphaStrikeForceStats = new asUnit( asMechData );
+
 }
 
 Mech.prototype._calcBattleValue = function() {
@@ -1033,29 +1117,11 @@ Mech.prototype.makeSVGRecordSheet = function( inPlay, landscape ) {
 			inPlay = false;
 	}
 
-	//svgCode = "<svg version=\"1.1\" baseProfile=\"full\" width=\"1000\" height=\"3000\" xmlns=\"http://www.w3.org/2000/svg\">\n";
-	svgCode = "<svg version=\"1.1\" viewBox=\"0 0 2000 3500\" xmlns=\"http://www.w3.org/2000/svg\">\n";
-
-	if( landscape )
-		svgCode += "<rect width=\"100%\" height=\"100%\" fill=\"white\" />\n";
-	else
-		svgCode += "<rect width=\"100%\" height=\"100%\" fill=\"black\" />\n";
-
-	//~ svgCode += "<circle class=\"mousehand\" onclick=\"mooClick(0)\" cx=\"150\" cy=\"100\" r=\"80\" fill=\"green\" />\n";
-
-	//~ svgCode += "<circle class=\"mousehand\" onclick=\"mooClick(1)\" cx=\"300\" cy=\"100\" r=\"80\" fill=\"red\" />\n";
-
-	svgCode += "<circle class=\"mousehand\" ng-click=\"updateSVG(0)\" cx=\"150\" cy=\"100\" r=\"80\" fill=\"green\" />\n";
-
-	svgCode += "<circle class=\"mousehand\" ng-click=\"updateSVG(1)\" cx=\"300\" cy=\"100\" r=\"80\" fill=\"red\" />\n";
-
-	svgCode += "<text x=\"150\" y=\"125\" font-size=\"60\" text-anchor=\"middle\" fill=\"white\">SVG</text>\n";
-
-	svgCode += "</svg>\n";
 
 
 
-	return svgCode;
+	return createSVGRecordSheet( this, inPlay, landscape );
+
 
 }
 
@@ -1068,29 +1134,14 @@ Mech.prototype.makeSVGAlphaStrikeCard = function( inPlay ) {
 		else
 			inPlay = false;
 	}
+
+	//~ console.log( this.alphaStrikeForceStats );
+
+	return createSVGAlphaStrike( this.alphaStrikeForceStats, inPlay );
 }
 
 Mech.prototype.makeTROBBCode = function() {
-	//~ var tro = this.makeTROHTML();
 
-	//~ while( tro.indexOf( "<table class=\"mech-tro\">") > -1 )
-		//~ tro = tro.replace("<table class=\"mech-tro\">", "");
-	//~ while( tro.indexOf( "</table>") > -1 )
-		//~ tro = tro.replace("</table>", "");
-	//~ while( tro.indexOf( "<tr>") > -1 )
-		//~ tro = tro.replace("<tr>", "");
-	//~ while( tro.indexOf( "</tr>") > -1 )
-		//~ tro = tro.replace("</tr>", "\n");
-	//~ while( tro.indexOf( "</td>") > -1 )
-		//~ tro = tro.replace("</td>", "");
-	//~ while( tro.indexOf( "&nbsp;\n") > -1 )
-		//~ tro = tro.replace("&nbsp;\n", "\n");
-	//~ while( tro.indexOf( "<br />") > -1 )
-		//~ tro = tro.replace("<br />", "\n");
-	//~ while( tro.indexOf( "<td colspan=\"4\">") > -1 )
-		//~ tro = tro.replace("<td colspan=\"4\">", "");
-
-	//~ return tro;
 	html = "";
 	// Header Info
 	html +=  this.getTranslation("TRO_TYPE") + ": " + this.getName() + "\n";
@@ -2807,7 +2858,13 @@ Mech.prototype.getInteralStructure = function() {
 
 Mech.prototype.importJSON = function(json_string) {
 	// TODO
-	import_object = JSON.parse( json_string );
+
+	try {
+		import_object = JSON.parse( json_string );
+	}
+	catch( err ) {
+		return false;
+	}
 
 	if( typeof(import_object) == "object") {
 			this.setName( import_object.name );

@@ -19,22 +19,37 @@
 
 				<div class="row">
 					<div class="column small-12 medium-6 large-6">
-						<h4 translate="BM_SUMMARY_TRO">TRO</h4>
+						<h4 class="text-center" translate="BM_SUMMARY_TRO">TRO</h4>
 						<div class="summary-block" ng-bind-html="mech_tro"></div>
 					</div>
-					<div class="column small-12 medium-6 large-6">
-						<h4 translate="BM_SUMMARY_CBILL_CALC">CBill Cost Math</h4>
-						<div class="summary-block" ng-bind-html="mech_cbill_calc"></div>
+					<div class="column small-12 medium-6">
+						<h4 class="text-center" class="GENERAL_RECORD_SHEETS">Record Sheets</h4>
+						<img width="100%" src='{{current_mech.makeSVGRecordSheet(false) | svg_to_dataurl}}' />
+						<br />
+						<br />
+						<img width="100%" src='{{current_mech.makeSVGAlphaStrikeCard(false) | svg_to_dataurl}}' />
+
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="text-center" class="column small-12">
+						<h2 translate="GENERAL_CALCULATIONS">Calculations</h2>
 					</div>
 				</div>
 				<div class="row">
-					<div class="column small-12 medium-6 large-6">
-						<h4 translate="BM_SUMMARY_BV_CALC">Battle Value Math</h4>
+
+					<div class="column small-12 medium-12 large-4">
+						<h4 class="text-center" translate="BM_SUMMARY_BV_CALC">Battle Value Math</h4>
 						<div class="summary-block" ng-bind-html="mech_bv_calc"></div>
 					</div>
-					<div class="column small-12 medium-6 large-6">
-						<h4 translate="BM_SUMMARY_AS_CALC">Alpha Strike Math</h4>
+					<div class="column small-12 medium-12 large-4">
+						<h4 class="text-center" translate="BM_SUMMARY_AS_CALC">Alpha Strike Math</h4>
 						<div class="summary-block" ng-bind-html="mech_as_calc"></div>
+					</div>
+					<div class="column small-12 medium-12 large-4">
+						<h4 class="text-center" translate="BM_SUMMARY_CBILL_CALC">CBill Cost Math</h4>
+						<div class="summary-block" ng-bind-html="mech_cbill_calc"></div>
 					</div>
 				</div>
 

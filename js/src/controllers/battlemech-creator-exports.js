@@ -28,60 +28,60 @@ var battlemechCreatorControllerExportsArray =
 			localStorage["backToPath"] = $location.$$path;
 
 			// create mech object, load from localStorage if exists
-			current_mech = new Mech();
+			$scope.current_mech = new Mech();
 
 
 			if( localStorage["tmp.current_mech"] ) {
-				current_mech.importJSON( localStorage["tmp.current_mech"] );
+				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
-				current_mech.uuid = generateUUID();
-				current_mech._calc();
+				$scope.current_mech.uuid = generateUUID();
+				$scope.current_mech._calc();
 			}
 
-			current_mech.useLang = localStorage["tmp.preferred_language"];
+			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
 
-			$scope.makeTROBBCode = current_mech.makeTROBBCode();
+			$scope.makeTROBBCode = $scope.current_mech.makeTROBBCode();
 
-
+			$scope.mechJSON = $scope.current_mech.exportJSON();
 
 			// make tro for sidebar
-			$scope.mech_tro = current_mech.makeTROHTML();
-			$scope.mech_bv_calc = current_mech.getBVCalcHTML();
-			$scope.mech_as_calc = current_mech.getASCalcHTML();
+			$scope.mech_tro = $scope.current_mech.makeTROHTML();
+			$scope.mech_bv_calc = $scope.current_mech.getBVCalcHTML();
+			$scope.mech_as_calc = $scope.current_mech.getASCalcHTML();
 
 			$scope.isIOSStandAlone = isIOSStandAlone();
 
 
 			$scope.troIOSPDFLinkClick = function() {
-				var troPDF = makeBattlemechTROPDF(current_mech);
+				var troPDF = makeBattlemechTROPDF($scope.current_mech);
 				var troPDFData = troPDF.output('datauristring');
 				$scope.troIOSPDFLink =  "pages/ios-standalone-pdf.html#" + troPDFData;
 			}
 
 			$scope.rsIOSPDFLinkClick = function() {
-				var rsPDFData = makeBattlemechRecordSheetPDF(current_mech);
+				var rsPDFData = makeBattlemechRecordSheetPDF($scope.current_mech);
 				var rsPDFData = rsPDFData.output('datauristring');
 				$scope.rsIOSPDFLink =  "pages/ios-standalone-pdf.html#" + rsPDFData;
 			}
 
 			$scope.combIOSPDFLinkClick = function() {
-				var combPDF = makeBattlemechCombinedPDF(current_mech);
+				var combPDF = makeBattlemechCombinedPDF($scope.current_mech);
 				var combPDFData = combPDF.output('datauristring');
 				$scope.combIOSPDFLink =  "pages/ios-standalone-pdf.html#" + combPDFData;
 			}
 
 			$scope.makeRecordSheet = function() {
-				pdf = makeBattlemechRecordSheetPDF(current_mech);
-				pdf.save(current_mech.getName() + ' - Record Sheet.pdf');
+				pdf = makeBattlemechRecordSheetPDF($scope.current_mech);
+			//	pdf.save($scope.current_mech.getName() + ' - Record Sheet.pdf');
 			}
 
 			$scope.makeTROSheet = function() {
-				pdf = makeBattlemechTROPDF(current_mech);
-				pdf.save(current_mech.getName() + ' - TRO.pdf');
+				pdf = makeBattlemechTROPDF($scope.current_mech);
+				pdf.save($scope.current_mech.getName() + ' - TRO.pdf');
 			}
 			$scope.makeCombinedSheet = function() {
-				pdf = makeBattlemechCombinedPDF(current_mech);
-				pdf.save(current_mech.getName() + ' - Record Sheet and TRO.pdf');
+				pdf = makeBattlemechCombinedPDF($scope.current_mech);
+				pdf.save($scope.current_mech.getName() + ' - Record Sheet and TRO.pdf');
 			}
 
 			//~ $scope.updateSVG = function( tmpText ) {
@@ -89,8 +89,8 @@ var battlemechCreatorControllerExportsArray =
 					//~ tmpText = "";
 				//~ console.log( "updateSVG", tmpText );
 
-				//~ var rawSVG = current_mech.makeSVGRecordSheet(tmpText);
-				//~ var compiled = current_mech.makeSVGRecordSheet(rawSVG)
+				//~ var rawSVG = $scope.current_mech.makeSVGRecordSheet(tmpText);
+				//~ var compiled = $scope.current_mech.makeSVGRecordSheet(rawSVG)
 				//~ $scope.recordSheetSVG =  $sce.trustAsHtml( compiled );
 				//~ compiled( $scope.recordSheetSVG  )
 				//~ var el = document.getElementById( 'testsvg' );

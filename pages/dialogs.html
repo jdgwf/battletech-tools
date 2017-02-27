@@ -117,3 +117,22 @@
 	</div>
 </div>
 
+
+
+<div class="modal-container" ng-show="showImportJSONDialog == true">
+	<div class="reveal">
+
+
+
+	 <h4 translate="GENERAL_IMPORT_JSON">Import Items</h4>
+		<textarea ng-model="importJSONData" ng-keyup="updateImportJSON(importJSONData)" width="100%"></textarea>
+		<p>{{jsonImportError}}&nbsp;</p>
+	 <div class="text-right">
+		 <div ng-show="save_over > -1" translate="GENERAL_SAVE_OVER_WARNING">Import Warning</div>
+	  	<button class="button small secondary" ng-click="closeImportJSONDialog()"  type="button" translate="GENERAL_CANCEL"></button>
+	  	<button class="button small primary" ng-click="importJSON()"  type="button" translate="GENERAL_IMPORT"></button>
+	  </div>
+	</div>
+</div>
+
+

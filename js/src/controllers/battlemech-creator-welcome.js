@@ -23,22 +23,60 @@ var battlemechCreatorControllerWelcomeArray =
 
 			localStorage["backToPath"] = $location.$$path;
 
-			var current_mech = new Mech();
+			$scope.current_mech = new Mech();
 
 			if( localStorage["tmp.current_mech"] ) {
-				current_mech.importJSON( localStorage["tmp.current_mech"] );
+				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
-				current_mech.uuid = generateUUID();
-				current_mech._calc();
+				$scope.current_mech.uuid = generateUUID();
+				$scope.current_mech._calc();
 			}
 
+			$scope.importJSONData = "";
 			$scope.confirmDialogQuestion = "";
+			$scope.jsonImportError = "";
 			$scope.showConfirmDialog = false;
+			$scope.showImportJSONDialog = false;
 
 			$scope.confirmDialog = function( confirmationMessage, onYes ) {
 				$scope.confirmDialogQuestion = confirmationMessage;
 				$scope.showConfirmDialog = true;
 				$scope.confirmDialogYes = onYes;
+			}
+
+			$scope.importJSONDialog = function() {
+				$scope.showImportJSONDialog = true;
+			}
+
+			$scope.updateImportJSON = function( newValue ) {
+				$scope.importJSONData = newValue;
+			}
+
+			$scope.importJSON = function() {
+				if( $scope.importJSONData != "" ) {
+
+					if( $scope.current_mech.importJSON( $scope.importJSONData ) == true ) {
+						$scope.showImportJSONDialog = false;
+						$scope.importJSONData= "";
+						$location.url( "battlemech-creator/step1" );
+					} else {
+						console.log("import error");
+						$translate(['GENERAL_IMPORT_ERROR' ]).then(function (translation) {
+							$scope.jsonImportError = translation.GENERAL_IMPORT_ERROR;
+						});
+					}
+				} else {
+					console.log("empty");
+					$translate(['GENERAL_EMPTY_JSON' ]).then(function (translation) {
+						$scope.jsonImportError = translation.GENERAL_EMPTY_JSON;
+					});
+				}
+
+			}
+
+			$scope.closeImportJSONDialog = function() {
+				$scope.showImportJSONDialog = false;
+				$scope.importJSONData = "";
 			}
 
 			$scope.closeConfirmDialog = function( ) {
@@ -55,9 +93,9 @@ var battlemechCreatorControllerWelcomeArray =
 					$scope.confirmDialog(
 						translation.BM_CLEAR_MECH,
 						function() {
-							current_mech = new Mech();
-							current_mech.uuid = generateUUID();
-							localStorage["tmp.current_mech"] = current_mech.exportJSON();
+							$scope.current_mech = new Mech();
+							$scope.current_mech.uuid = generateUUID();
+							localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 							$scope.showConfirmDialog = false;
 						}
 					);
@@ -84,7 +122,7 @@ var battlemechCreatorControllerWelcomeArray =
 			// Save Mech Functions
 			$scope.saveMechDialogOpen = false;
 			$scope.saveDialog = function() {
-				$scope.save_as_name = current_mech.getName();
+				$scope.save_as_name = $scope.current_mech.getName();
 				$scope.save_over = -1;
 
 
@@ -116,7 +154,6 @@ var battlemechCreatorControllerWelcomeArray =
 				$scope.save_as_name = newName;
 			}
 
-
 			$scope.closeSaveDialog = function() {
 				$scope.saveMechDialogOpen = false;
 			}
@@ -132,9 +169,9 @@ var battlemechCreatorControllerWelcomeArray =
 				var saveItem = {
 					saveName: $scope.save_as_name,
 					savedOn: new Date(),
-					tonnage: current_mech.getTonnage(),
-					tech: current_mech.getTech(),
-					data: current_mech.exportJSON()
+					tonnage: $scope.current_mech.getTonnage(),
+					tech: $scope.current_mech.getTech(),
+					data: $scope.current_mech.exportJSON()
 				};
 
 

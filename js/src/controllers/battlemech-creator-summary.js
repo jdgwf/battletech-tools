@@ -24,26 +24,24 @@ var battlemechCreatorControllerSummaryArray =
 			localStorage["backToPath"] = $location.$$path;
 
 			// create mech object, load from localStorage if exists
-			current_mech = new Mech();
+			$scope.current_mech = new Mech();
 
 
 			if( localStorage["tmp.current_mech"] ) {
-				current_mech.importJSON( localStorage["tmp.current_mech"] );
+				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
-				current_mech.uuid = generateUUID();
-				current_mech._calc();
+				$scope.current_mech.uuid = generateUUID();
+				$scope.current_mech._calc();
 			}
 
-			current_mech.useLang = localStorage["tmp.preferred_language"];
+			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
 
 
 			// make tro for sidebar
-			$scope.mech_tro = current_mech.makeTROHTML();
-			$scope.mech_bv_calc = current_mech.getBVCalcHTML();
-			$scope.mech_as_calc = current_mech.getASCalcHTML();
-			$scope.mech_cbill_calc = current_mech.getCBillCalcHTML();
-
-
+			$scope.mech_tro = $scope.current_mech.makeTROHTML();
+			$scope.mech_bv_calc = $scope.current_mech.getBVCalcHTML();
+			$scope.mech_as_calc = $scope.current_mech.getASCalcHTML();
+			$scope.mech_cbill_calc = $scope.current_mech.getCBillCalcHTML();
 
 		}
 	]

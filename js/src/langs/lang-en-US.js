@@ -59,10 +59,14 @@ available_languages.push ({
 		GENERAL_NO: "No",
 		GENERAL_REAR: "rear",
 		GENERAL_VERSION: "Version",
+		GENERAL_CALCULATIONS: "Calculations",
+		GENERAL_RECORD_SHEETS: "Record Sheets",
 
 		GENERAL_FILTER: "Filter",
 		GENERAL_TYPE_HERE_TO_FILTER: "Type here to search for equipment",
 
+		GENERAL_IMPORT_JSON: "Import JSON",
+		GENERAL_IMPORT: "Import",
 
 		GENERAL_REMOVE: "Remove",
 		GENERAL_SAVED: "Saved",
@@ -81,6 +85,9 @@ available_languages.push ({
 		GENERAL_STANDARD: "Standard",
 		GENERAL_ADVANCED: "Advanced",
 		GENERAL_CLOSE: "Close",
+
+		GENERAL_IMPORT_ERROR: "There was an import error!",
+		GENERAL_EMPTY_JSON: "Input area was empty, no changes were made.",
 
 		SETTINGS_IMPORT_EXPORT_SETTINGS: "Import/Export Data",
 		SETTINGS_IMPORT_EXPORT_SETTINGS_DESC: "At some point I'm sure that you'll want to move or back up your hard work. Use this function to import and export your saved items.",
@@ -123,7 +130,9 @@ available_languages.push ({
 		BM_BACK_TO_WELCOME: "Welcome",
 		BM_EXPORTS: "Exporting and Printing",
 		BM_BBCODE_TRO: "BBCode TRO",
-
+		BM_BBCODE_DESC: "Copy and paste the text below and it should format it nicely if your bullieten board forum supports BB Code (bg.batteltech.com does).",
+		BM_JSON_EXPORT: "JSON Export",
+		BM_JSON_EXPORT_DESC: "If you'd like to share this design with another, copy the code and have them import the data via the \"Import JSON\" button on the Welcome Screen.",
 
 		BUTTON_HOME_TITLE: "Home",
 		BUTTON_HOME_DESC: "Back to the main screen",
@@ -150,6 +159,9 @@ available_languages.push ({
 		BM_WELCOME_CLEAR_MECH: "Clear Current 'Mech",
 		BM_WELCOME_LOAD_MECH: "Load 'Mech",
 		BM_WELCOME_SAVE_MECH: "Save Current 'Mech",
+
+		BM_WELCOME_IMPORT_JSON: "Import JSON",
+		BM_WELCOME_IMPORT_JSON_DESC: "Paste the import code below them press the \"Import\" button. <strong>Warning</strong>: This will clear out your current 'mech. Be sure to save your current work!",
 
 		BM_STEP1_TITLE: "Step 1",
 		BM_STEP1_DESC: "Design the Chassis",
@@ -228,13 +240,13 @@ available_languages.push ({
 		BM_SUMMARY_TITLE: "Summary",
 		BM_SUMMARY_DESC: "",
 		BM_SUMMARY_TRO: "Technical Read Out",
-		BM_SUMMARY_BV_CALC: "Battle Value Calculations",
-		BM_SUMMARY_AS_CALC: "Alpha Strike Calculations",
-		BM_SUMMARY_CBILL_CALC: "CBill Cost Calculations",
+		BM_SUMMARY_BV_CALC: "Battle Value",
+		BM_SUMMARY_AS_CALC: "Alpha Strike",
+		BM_SUMMARY_CBILL_CALC: "CBill Cost",
 
 		BM_EXPORTS_TITLE: "Exports",
 		BM_EXPORTS_DESC: "",
-		BM_EXPORTS_OUTPUT: "Exporting and Printing",
+		BM_EXPORTS_OUTPUT: "Exporting",
 		BM_EXPORTS_EXPORT_RECORD_SHEET: "Export Record Sheet",
 		BM_EXPORTS_EXPORT_TRO: "Export TRO",
 		BM_EXPORTS_EXPORT_FULL: "Export Both",
