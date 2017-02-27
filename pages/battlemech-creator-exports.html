@@ -62,11 +62,11 @@
 
 				<h4 translate="BM_BBCODE_TRO">BBCode TRO</h4>
 				<p translate="BM_BBCODE_DESC"></p>
-				<textarea id="bb-export-area" onclick="SelectAll('bb-export-area');" class="bbcode-export" ng-model="makeTROBBCode" readonly="readonly"></textarea>
+				<textarea id="bb-export-area" onclick="setSelectionRange(0, 9999);" class="bbcode-export" ng-model="makeTROBBCode" readonly="readonly"></textarea>
 
 				<h4 translate="BM_JSON_EXPORT">JSON Export</h4>
 				<p translate="BM_JSON_EXPORT_DESC"></p>
-				<textarea id="json-export-area" onclick="SelectAll('json-export-area');" class="bbcode-export" ng-model="mechJSON" readonly="readonly"></textarea>
+				<textarea id="json-export-area" onclick="setSelectionRange(0, 9999);" class="bbcode-export" ng-model="mechJSON" readonly="readonly"></textarea>
 
 
 				<a class="button primary radius previous-button" href="#/battlemech-creator/summary/"> <i class="fa fa-arrow-left"></i> <span translate="BM_SUMMARY">Last Step</span></a>

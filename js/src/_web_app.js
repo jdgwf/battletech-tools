@@ -27,6 +27,8 @@ webApp = angular.module(
 			}
 			$translateProvider.preferredLanguage(preferred_language);
 
+
+
 			$routeProvider
 
 			// route for the home/welcome page
@@ -158,6 +160,10 @@ angular.module('webApp')
         };
     }]);
 
+
+webApp.run( function( $rootScope ) {
+	$rootScope.svgBattleTechLogo = battleTechLogoSVG();
+});
 
 webApp.config(['$compileProvider',
     function ($compileProvider) {

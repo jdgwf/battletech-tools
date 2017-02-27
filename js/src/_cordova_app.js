@@ -132,6 +132,12 @@ cordovaApp.config(['$compileProvider',
 }]);
 
 
+
+cordovaApp.run( function( $rootScope ) {
+	$rootScope.svgBattleTechLogo = battleTechLogoSVG();
+});
+
+
 angular.module('cordovaApp').controller(
 	'select_language',
 	[

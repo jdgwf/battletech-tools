@@ -128,7 +128,7 @@ function ifIEOrEdge() {
 }
 
 function getAppVersion() {
-	return "2016022301";
+	return "2016022701";
 }
 
 function isIOSStandAlone() {
