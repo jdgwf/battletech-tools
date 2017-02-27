@@ -182,7 +182,6 @@ var battlemechCreatorControllerWelcomeArray =
 				}
 
 
-
 				localStorage["saved_items_mechs"] = JSON.stringify( $scope.saved_items_mechs );
 
 				$scope.saveMechDialogOpen = false;
