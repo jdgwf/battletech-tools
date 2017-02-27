@@ -26,32 +26,42 @@
 						<h4 class="text-center" class="GENERAL_RECORD_SHEETS">Record Sheets</h4>
 						<img id="recordSheetImage" width="100%" src='{{current_mech.makeSVGRecordSheet(false) | svg_to_dataurl}}' />
 						<div class="row">
-							<div class="column small-3 text-left ">
+							<div class="column small-3 text-center ">
 								<button class="button secondary tiny" ng-click="saveRSPNG()">PNG</button>
 							</div>
 							<div class="column small-3 text-center ">
 								<button ng-click="saveRSJPG()" class="button secondary tiny">JPG</button>
 							</div>
 							<div class="column small-3 text-center ">
-								<button class="button secondary tiny" ng-click="saveRSPDF()">PDF</button>
+								<div ng-show="iosRSLink != ''">
+									<a href="{{iosRSLink}}"><button class="button secondary tiny" >PDF</button></a>
+								</div>
+								<div ng-hide="isIOSStandAlone == true">
+									<button class="button secondary tiny" ng-click="saveRSPDF()">PDF</button>
+								</div>
 							</div>
-							<div class="column small-3 text-right">
+							<div class="column small-3 text-center">
 								<a download="{{current_mech.getName()}} Record Sheet.svg" href='{{current_mech.makeSVGRecordSheet(false) | svg_to_dataurl | to_trusted}}'><button class="button primary tiny">SVG</button></a>
 							</div>
 						</div>
 						<br />
 						<img id="asSheetImage" width="100%" src='{{current_mech.makeSVGAlphaStrikeCard(false) | svg_to_dataurl}}' />
 						<div class="row">
-							<div class="column small-3 text-left ">
+							<div class="column small-3 text-center ">
 								<button ng-click="saveASPNG()" class="button secondary tiny">PNG</button>
 							</div>
 							<div class="column small-3 text-center ">
 								<button ng-click="saveASJPG()" class="button secondary tiny">JPG</button>
 							</div>
 							<div class="column small-3 text-center ">
-								<button class="button secondary tiny" ng-click="saveASPDF()">PDF</button>
+								<div ng-show="iosASLink != ''">
+									<a href="{{iosASLink}}"><button class="button secondary tiny" >PDF</button></a>
+								</div>
+								<div ng-hide="isIOSStandAlone == true">
+									<button class="button secondary tiny" ng-click="saveASPDF()">PDF</button>
+								</div>
 							</div>
-							<div class="column small-3 text-right">
+							<div class="column small-3 text-center">
 								<a download="{{current_mech.getName()}} Alpha Strike Card.svg" href='{{current_mech.makeSVGAlphaStrikeCard(false) | svg_to_dataurl | to_trusted}}'><button class="button primary tiny">SVG</button></a>
 							</div>
 						</div>

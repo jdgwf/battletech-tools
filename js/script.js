@@ -1776,7 +1776,7 @@ function ifIEOrEdge() {
 }
 
 function getAppVersion() {
-	return "2016022701";
+	return "2016022702";
 }
 
 function isIOSStandAlone() {
@@ -11357,40 +11357,40 @@ var battlemechCreatorControllerExportsArray =
 			$scope.mech_bv_calc = $scope.current_mech.getBVCalcHTML();
 			$scope.mech_as_calc = $scope.current_mech.getASCalcHTML();
 
-			$scope.isIOSStandAlone = isIOSStandAlone();
+			//~ $scope.isIOSStandAlone = isIOSStandAlone();
 
 
-			$scope.troIOSPDFLinkClick = function() {
-				var troPDF = makeBattlemechTROPDF($scope.current_mech);
-				var troPDFData = troPDF.output('datauristring');
-				$scope.troIOSPDFLink =  "pages/ios-standalone-pdf.html#" + troPDFData;
-			}
+			//~ $scope.troIOSPDFLinkClick = function() {
+				//~ var troPDF = makeBattlemechTROPDF($scope.current_mech);
+				//~ var troPDFData = troPDF.output('datauristring');
+				//~ $scope.troIOSPDFLink =  "pages/ios-standalone-pdf.html#" + troPDFData;
+			//~ }
 
-			$scope.rsIOSPDFLinkClick = function() {
-				var rsPDFData = makeBattlemechRecordSheetPDF($scope.current_mech);
-				var rsPDFData = rsPDFData.output('datauristring');
-				$scope.rsIOSPDFLink =  "pages/ios-standalone-pdf.html#" + rsPDFData;
-			}
+			//~ $scope.rsIOSPDFLinkClick = function() {
+				//~ var rsPDFData = makeBattlemechRecordSheetPDF($scope.current_mech);
+				//~ var rsPDFData = rsPDFData.output('datauristring');
+				//~ $scope.rsIOSPDFLink =  "pages/ios-standalone-pdf.html#" + rsPDFData;
+			//~ }
 
-			$scope.combIOSPDFLinkClick = function() {
-				var combPDF = makeBattlemechCombinedPDF($scope.current_mech);
-				var combPDFData = combPDF.output('datauristring');
-				$scope.combIOSPDFLink =  "pages/ios-standalone-pdf.html#" + combPDFData;
-			}
+			//~ $scope.combIOSPDFLinkClick = function() {
+				//~ var combPDF = makeBattlemechCombinedPDF($scope.current_mech);
+				//~ var combPDFData = combPDF.output('datauristring');
+				//~ $scope.combIOSPDFLink =  "pages/ios-standalone-pdf.html#" + combPDFData;
+			//~ }
 
-			$scope.makeRecordSheet = function() {
-				pdf = makeBattlemechRecordSheetPDF($scope.current_mech);
-			//	pdf.save($scope.current_mech.getName() + ' - Record Sheet.pdf');
-			}
+			//~ $scope.makeRecordSheet = function() {
+				//~ pdf = makeBattlemechRecordSheetPDF($scope.current_mech);
+			//~ //	pdf.save($scope.current_mech.getName() + ' - Record Sheet.pdf');
+			//~ }
 
-			$scope.makeTROSheet = function() {
-				pdf = makeBattlemechTROPDF($scope.current_mech);
-				pdf.save($scope.current_mech.getName() + ' - TRO.pdf');
-			}
-			$scope.makeCombinedSheet = function() {
-				pdf = makeBattlemechCombinedPDF($scope.current_mech);
-				pdf.save($scope.current_mech.getName() + ' - Record Sheet and TRO.pdf');
-			}
+			//~ $scope.makeTROSheet = function() {
+				//~ pdf = makeBattlemechTROPDF($scope.current_mech);
+				//~ pdf.save($scope.current_mech.getName() + ' - TRO.pdf');
+			//~ }
+			//~ $scope.makeCombinedSheet = function() {
+				//~ pdf = makeBattlemechCombinedPDF($scope.current_mech);
+				//~ pdf.save($scope.current_mech.getName() + ' - Record Sheet and TRO.pdf');
+			//~ }
 
 			//~ $scope.updateSVG = function( tmpText ) {
 				//~ if( typeof( tmpText ) == "undefined" )
@@ -12992,6 +12992,7 @@ var battlemechCreatorControllerSummaryArray =
 			}
 
 			$scope.isIOSStandAlone = isIOSStandAlone();
+			//~ $scope.isIOSStandAlone = true;
 			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
 
 
@@ -13062,7 +13063,8 @@ var battlemechCreatorControllerSummaryArray =
 					pdf.addImage(imgData, 'JPG', .25, 1, 8, 8 / ratio);
 					//var download = document.getElementById('download');
 
-					pdf.save($scope.current_mech.getName() + " Alpha Strike Card.pdf");				}
+					pdf.save($scope.current_mech.getName() + " Alpha Strike Card.pdf");
+				}
 			}
 
 			$scope.saveRSPNG = function() {
@@ -13127,7 +13129,69 @@ var battlemechCreatorControllerSummaryArray =
 					pdf.addImage(imgData, 'JPG', .25, .25, 8, 8 / ratio );
 					//var download = document.getElementById('download');
 
-					pdf.save($scope.current_mech.getName() + " Record Sheet.pdf");				}
+					pdf.save($scope.current_mech.getName() + " Record Sheet.pdf");
+				}
+			}
+
+			/* Create IOS Data Link PDF URLs */
+			$scope.iosRSLink = "";
+			$scope.iosASLink = "";
+			if($scope.isIOSStandAlone == true) {
+				//~ console.log("creating rs");
+				var image = new Image();
+				image.src = 'data:image/svg+xml;base64,' + window.btoa( $scope.current_mech.makeSVGRecordSheet() );
+				image.onload = function() {
+					var canvas = document.createElement('canvas');
+					canvas.width = image.width;
+					canvas.height = image.height;
+
+					var ratio = canvas.width / canvas.height;
+					var context = canvas.getContext('2d');
+					context.drawImage(image, 0, 0);
+
+					//~ var a = document.createElement('a');
+					//~ a.download = $scope.current_mech.getName() + ' Record Sheet.jpg';
+					//~ a.href = canvas.toDataURL('image/jpeg');
+					//~ document.body.appendChild(a);
+					//~ a.click();
+					var imgData = canvas.toDataURL("image/jpeg", 1.0);
+					var pdf = new jsPDF("portrait", "in", "letter");
+
+					pdf.addImage(imgData, 'JPG', .25, .25, 8, 8 / ratio );
+					//var download = document.getElementById('download');
+
+					var troPDFData = pdf.output('datauristring');
+					//~ console.log("created rs");
+					$scope.iosRSLink =  "pages/ios-standalone-pdf.html#" + troPDFData;
+				}
+
+				//~ console.log("creating as");
+				var image = new Image();
+				image.src = 'data:image/svg+xml;base64,' + window.btoa( $scope.current_mech.makeSVGAlphaStrikeCard() );
+				image.onload = function() {
+					var canvas = document.createElement('canvas');
+					canvas.width = image.width;
+					canvas.height = image.height;
+
+					var ratio = canvas.width / canvas.height;
+					var context = canvas.getContext('2d');
+					context.drawImage(image, 0, 0);
+
+					//~ var a = document.createElement('a');
+					//~ a.download = $scope.current_mech.getName() + ' Record Sheet.jpg';
+					//~ a.href = canvas.toDataURL('image/jpeg');
+					//~ document.body.appendChild(a);
+					//~ a.click();
+					var imgData = canvas.toDataURL("image/jpeg", 1.0);
+					var pdf = new jsPDF("portrait", "in", "letter");
+
+					pdf.addImage(imgData, 'JPG', .25, .25, 8, 8 / ratio );
+					//var download = document.getElementById('download');
+
+					var troPDFData = pdf.output('datauristring');
+					//~ console.log("created as");
+					$scope.iosASLink =  "pages/ios-standalone-pdf.html#" + troPDFData;
+				}
 			}
 
 
