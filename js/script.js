@@ -849,6 +849,7 @@ var colorGrayBackground = "rgba( 255,255,255,.8)";
 var colorMediumGray = "rgb(102,102,102)";
 var colorDarkGray = "rgb(51,51,51)";
 var colorLightGray = "rgb(153,153,153)";
+var colorVeryLightGray = "rgb(225,225,225)";
 
 var colorGold = "rgb(223,171,45)";
 var colorTan = "rgb(253,253,227)";
@@ -899,7 +900,7 @@ function rsRearArmorSVG( standAlone, baseFillColor, lineColor, xLoc, yLoc, width
 		   version="1.1"> \
 		  <g> \"';
 	  }
- 
+
   svg += '<g \
      transform="translate(0,-425.19712)" \
      id="rearArmorLayer1"><path \
@@ -959,7 +960,7 @@ function rsArmorSVG( standAlone, baseFillColor, lineColor, xLoc, yLoc, width) {
 		   version="1.1"> \
 		  <g> \"';
 	  }
- 
+
   svg += '<g \
      transform="translate(0,-3.75)" \
      id="layer1"><path \
@@ -972,6 +973,43 @@ svg += "</g></g></svg>";
 
 	return svg;
 
+}
+
+function damageCircle( xPos, yPos, radius, filledIn, armorFunction, armorClass ) {
+	if( typeof( xLoc ) == "undefined" ) {
+		xLoc = 0;
+	}
+
+	if( typeof( yLoc ) == "undefined" ) {
+		yLoc = 0;
+	}
+
+	if( typeof( radius ) == "undefined" ) {
+		radius = 20;
+	}
+
+	if( typeof( filledIn ) == "undefined" ) {
+		filledIn = false;
+	}
+
+	if( typeof( armorFunction ) == "undefined" ) {
+		armorFunction = "";
+	}
+
+	if( typeof( armorClass ) == "undefined" ) {
+		armorClass = "";
+	}
+
+
+	svgCode = "<circle class=\"" + armorClass + "\" onclick=\"" + armorFunction + "\" cx=\"" + ( xPos  )  + "\" cy=\"" + ( yPos )  + "\" r=\"" + radius + "\" fill=\"" + colorBlack + "\" />\n";
+//	svgCode += "<circle class=\"" + armorClass + "\" onclick=\"" + armorFunction + "\" cx=\"150\" cy=\"" + armorTopBase + "\" r=\"" + buttonRadius + "\" fill=\"green\" />\n";
+	if( armorFunction ) {
+		svgCode += "<circle class=\"" + armorClass + "\" onclick=\"" + armorFunction + "\" cx=\"" + ( xPos )  + "\" cy=\"" + ( yPos )  + "\" r=\"" + (radius - 3 )+ "\" fill=\"" + colorRed + "\" />\n";
+	} else {
+		svgCode += "<circle class=\"" + armorClass + "\" onclick=\"" + armorFunction + "\" cx=\"" + ( xPos  )  + "\" cy=\"" + ( yPos )  + "\" r=\"" + (radius - 3 ) + "\" fill=\"" + colorWhite + "\" />\n";
+	}
+
+	return svgCode
 }
 
 function rsStructureSVG( standAlone, baseFillColor, lineColor, xLoc, yLoc, width) {
@@ -1291,27 +1329,27 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 	var weapAndEqpLeft = 10;
 
 	var wacCol1 = weapAndEqpLeft + 15;
-	var wacCol2 = weapAndEqpLeft + 75;
-	var wacCol3 = weapAndEqpLeft + 270;
-	var wacCol4 = weapAndEqpLeft + 325;
-	var wacCol5 = weapAndEqpLeft + 400;
-	var wacCol6 = weapAndEqpLeft + 470;
-	var wacCol7 = weapAndEqpLeft + 520;
-	var wacCol8 = weapAndEqpLeft + 570;
-	var wacCol9 = weapAndEqpLeft + 640;
+	var wacCol2 = weapAndEqpLeft + 90;
+	var wacCol3 = weapAndEqpLeft + 470;
+	var wacCol4 = weapAndEqpLeft + 550;
+	var wacCol5 = weapAndEqpLeft + 650;
+	var wacCol6 = weapAndEqpLeft + 770;
+	var wacCol7 = weapAndEqpLeft + 880;
+	var wacCol8 = weapAndEqpLeft + 990;
+	var wacCol9 = weapAndEqpLeft + 1100;
 
 	var eqLineHeight = 30;
-	svgCode += createRSGroupBox( "Weapons and Equipment", weapAndEqpLeft, weapAndEqpTop, 750, 700);
+	svgCode += createRSGroupBox( "Weapons and Equipment", weapAndEqpLeft, weapAndEqpTop, 750, 1200);
 	// Col Headers
-	svgCode += "<text x=\"" + ( wacCol1 ) + "\" y=\"" + (weapAndEqpTop + 80) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">Qty</text>\n";
-	svgCode += "<text x=\"" + ( wacCol2 ) + "\" y=\"" + (weapAndEqpTop + 80) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">Type</text>\n";
-	svgCode += "<text x=\"" + ( wacCol3 ) + "\" y=\"" + (weapAndEqpTop + 80) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">Loc</text>\n";
-	svgCode += "<text x=\"" + ( wacCol4 ) + "\" y=\"" + (weapAndEqpTop + 80) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">Heat</text>\n";
-	svgCode += "<text x=\"" + ( wacCol5 ) + "\" y=\"" + (weapAndEqpTop + 80) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">Dmg</text>\n";
-	svgCode += "<text x=\"" + ( wacCol6 ) + "\" y=\"" + (weapAndEqpTop + 80) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">Min</text>\n";
-	svgCode += "<text x=\"" + ( wacCol7 ) + "\" y=\"" + (weapAndEqpTop + 80) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">Sht</text>\n";
-	svgCode += "<text x=\"" + ( wacCol8 ) + "\" y=\"" + (weapAndEqpTop + 80) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">Med</text>\n";
-	svgCode += "<text x=\"" + ( wacCol9 ) + "\" y=\"" + (weapAndEqpTop + 80) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">Lng</text>\n";
+	svgCode += "<text x=\"" + ( wacCol1 ) + "\" y=\"" + (weapAndEqpTop + 80) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"35\">Qty</text>\n";
+	svgCode += "<text x=\"" + ( wacCol2 ) + "\" y=\"" + (weapAndEqpTop + 80) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"35\">Type</text>\n";
+	svgCode += "<text x=\"" + ( wacCol3 ) + "\" y=\"" + (weapAndEqpTop + 80) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"35\">Loc</text>\n";
+	svgCode += "<text x=\"" + ( wacCol4 ) + "\" y=\"" + (weapAndEqpTop + 80) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"35\">Heat</text>\n";
+	svgCode += "<text x=\"" + ( wacCol5 ) + "\" y=\"" + (weapAndEqpTop + 80) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"35\">Dmg</text>\n";
+	svgCode += "<text x=\"" + ( wacCol6 ) + "\" y=\"" + (weapAndEqpTop + 80) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"35\">Min</text>\n";
+	svgCode += "<text x=\"" + ( wacCol7 ) + "\" y=\"" + (weapAndEqpTop + 80) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"35\">Sht</text>\n";
+	svgCode += "<text x=\"" + ( wacCol8 ) + "\" y=\"" + (weapAndEqpTop + 80) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"35\">Med</text>\n";
+	svgCode += "<text x=\"" + ( wacCol9 ) + "\" y=\"" + (weapAndEqpTop + 80) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"35\">Lng</text>\n";
 
 
 
@@ -1348,15 +1386,19 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 			itemLocation = mechData.equipmentList[eq_count].location.toUpperCase();
 			if( lastOne.loc != mechData.equipmentList[eq_count].location.toUpperCase() )
 				itemLocation = lastOne.loc ;
-			svgCode += "<text x=\"" + ( wacCol1 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * lineCount ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"20\">" + weapCount + "</text>\n";
-			svgCode += "<text x=\"" + ( wacCol2 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * lineCount ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"20\">" + eqName + "</text>\n";
-			svgCode += "<text x=\"" + ( wacCol3 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * lineCount ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"20\">" + itemLocation + "</text>\n";
-			svgCode += "<text x=\"" + ( wacCol4 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * lineCount ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"20\">" + mechData.equipmentList[eq_count].heat + "</text>\n";
-			svgCode += "<text x=\"" + ( wacCol5 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * lineCount ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"20\">" + mechData.equipmentList[eq_count].damage + "</text>\n";
-			svgCode += "<text x=\"" + ( wacCol6 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * lineCount ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"20\">" + mechData.equipmentList[eq_count].range_min.min + "</text>\n";
-			svgCode += "<text x=\"" + ( wacCol7 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * lineCount ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"20\">" + mechData.equipmentList[eq_count].range_min.short + "</text>\n";
-			svgCode += "<text x=\"" + ( wacCol8 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * lineCount ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"20\">" + mechData.equipmentList[eq_count].range_min.medium + "</text>\n";
-			svgCode += "<text x=\"" + ( wacCol9 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * lineCount ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"20\">" + mechData.equipmentList[eq_count].range_min.long + "</text>\n";
+
+			if( lineCount % 2 == 0 )
+				svgCode += "<rect x=\"" + ( wacCol1 - 5 ) + "\" y=\"" + (weapAndEqpTop + 122 + eqLineHeight * lineCount ) + "\" width=\"1180\" height=\"" + (eqLineHeight + 4 )  + "\" fill=\"" + colorVeryLightGray + "\" />\n";
+
+			svgCode += "<text x=\"" + ( wacCol1 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * lineCount ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + weapCount + "</text>\n";
+			svgCode += "<text x=\"" + ( wacCol2 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * lineCount ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + eqName + "</text>\n";
+			svgCode += "<text x=\"" + ( wacCol3 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * lineCount ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + itemLocation + "</text>\n";
+			svgCode += "<text x=\"" + ( wacCol4 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * lineCount ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.equipmentList[eq_count].heat + "</text>\n";
+			svgCode += "<text x=\"" + ( wacCol5 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * lineCount ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.equipmentList[eq_count].damage + "</text>\n";
+			svgCode += "<text x=\"" + ( wacCol6 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * lineCount ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.equipmentList[eq_count].range_min.min + "</text>\n";
+			svgCode += "<text x=\"" + ( wacCol7 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * lineCount ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.equipmentList[eq_count].range_min.short + "</text>\n";
+			svgCode += "<text x=\"" + ( wacCol8 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * lineCount ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.equipmentList[eq_count].range_min.medium + "</text>\n";
+			svgCode += "<text x=\"" + ( wacCol9 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * lineCount ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.equipmentList[eq_count].range_min.long + "</text>\n";
 			weapCount = 0;
 			lineCount++;
 			weapCount++;
@@ -1454,9 +1496,9 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 	armorBoxLeft = 1240;
 	armorBoxWidth = 750;
 	svgCode += createRSGroupBox( "Armor Diagram", armorBoxLeft, armorBoxTop, 1200, armorBoxWidth);
-	svgCode += rsArmorSVG( false, colorBlack, colorBlack, armorBoxLeft + 30, armorBoxTop, 675 );
+	svgCode += rsArmorSVG( false, colorBlack, colorBlack, armorBoxLeft + 37, armorBoxTop, 675 );
 	svgCode += rsRearArmorSVG( false, colorBlack, colorBlack, armorBoxLeft + armorBoxWidth / 2 - 170, armorBoxTop + 895, 340 );
-	
+
 	// Main Armor Labels
 	svgCode += "<text x=\"" + ( armorBoxLeft + armorBoxWidth / 2 ) + "\" y=\"" + (armorBoxTop + 80) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">HEAD (" + mechData.armorAllocation.head + ")</text>\n";
 
@@ -1472,19 +1514,19 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 
 	svgCode += "<text x=\"" + ( armorBoxLeft + armorBoxWidth - 40 ) + "\" y=\"" + (armorBoxTop + 610) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">RIGHT</text>\n";
 	svgCode += "<text x=\"" + ( armorBoxLeft + armorBoxWidth - 40 ) + "\" y=\"" + (armorBoxTop + 630) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">ARM (" + mechData.armorAllocation.rightArm + ")</text>\n";
- 
+
 	svgCode += "<text x=\"" + ( armorBoxLeft +  20 ) + "\" y=\"" + (armorBoxTop + 890) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">LEFT</text>\n";
 	svgCode += "<text x=\"" + ( armorBoxLeft +  20 ) + "\" y=\"" + (armorBoxTop + 910) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">LEG (" + mechData.armorAllocation.leftLeg + ")</text>\n";
 
 	svgCode += "<text x=\"" + ( armorBoxLeft + armorBoxWidth - 40 ) + "\" y=\"" + (armorBoxTop + 890) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">RIGHT</text>\n";
 	svgCode += "<text x=\"" + ( armorBoxLeft + armorBoxWidth - 40 ) + "\" y=\"" + (armorBoxTop + 910) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">LEG (" + mechData.armorAllocation.rightLeg + ")</text>\n";
 
-	svgCode += "<text x=\"" + ( armorBoxLeft + armorBoxWidth / 2 - 10  ) + "\" y=\"" + (armorBoxTop + 600) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">CENTER</text>\n";
-	svgCode += "<text x=\"" + ( armorBoxLeft + armorBoxWidth / 2 - 10 ) + "\" y=\"" + (armorBoxTop + 620) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">TORSO</text>\n";
-	svgCode += "<text x=\"" + ( armorBoxLeft + armorBoxWidth / 2 - 10 ) + "\" y=\"" + (armorBoxTop + 640) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">(" + mechData.armorAllocation.centerTorso + ")</text>\n";
+	svgCode += "<text x=\"" + ( armorBoxLeft + armorBoxWidth / 2   ) + "\" y=\"" + (armorBoxTop + 600) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">CENTER</text>\n";
+	svgCode += "<text x=\"" + ( armorBoxLeft + armorBoxWidth / 2  ) + "\" y=\"" + (armorBoxTop + 620) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">TORSO</text>\n";
+	svgCode += "<text x=\"" + ( armorBoxLeft + armorBoxWidth / 2  ) + "\" y=\"" + (armorBoxTop + 640) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">(" + mechData.armorAllocation.centerTorso + ")</text>\n";
 
-	svgCode += "<text x=\"" + ( armorBoxLeft + armorBoxWidth / 2 - 10  ) + "\" y=\"" + (armorBoxTop + 1200) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">CENTER TORSO REAR (" + mechData.armorAllocation.centerTorsoRear + ")</text>\n";
- 
+	svgCode += "<text x=\"" + ( armorBoxLeft + armorBoxWidth / 2  ) + "\" y=\"" + (armorBoxTop + 1200) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">CENTER TORSO REAR (" + mechData.armorAllocation.centerTorsoRear + ")</text>\n";
+
 	svgCode += "<text x=\"" + ( armorBoxLeft + armorBoxWidth / 2 - 170 ) + "\" y=\"" + (armorBoxTop + 1090) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">LEFT TORSO</text>\n";
 	svgCode += "<text x=\"" + ( armorBoxLeft + armorBoxWidth / 2 - 170 ) + "\" y=\"" + (armorBoxTop + 1110) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">REAR (" + mechData.armorAllocation.leftTorsoRear + ")</text>\n";
 
@@ -1492,7 +1534,788 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 	svgCode += "<text x=\"" + ( armorBoxLeft + armorBoxWidth / 2 + 170 ) + "\" y=\"" + (armorBoxTop + 1110) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"20\">REAR (" + mechData.armorAllocation.rightTorsoRear + ")</text>\n";
 
 	// Main Armor bubbles (this will be a lot of code, and possibly quite messy the first time around)
-	
+
+	var armorBubbleRadius = 10;
+	// Head Armor
+	if( mechData.armorAllocation.head >= 1 )
+		svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + 200 - armorBubbleRadius * 5, armorBubbleRadius );
+	if( mechData.armorAllocation.head >= 6 )
+		svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + 200 - armorBubbleRadius * 5, armorBubbleRadius );
+	if( mechData.armorAllocation.head >= 2 )
+		svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + 200 - armorBubbleRadius * 5, armorBubbleRadius );
+
+	if( mechData.armorAllocation.head >= 7 )
+		svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + 200 - armorBubbleRadius * 2.5, armorBubbleRadius );
+	if( mechData.armorAllocation.head >= 3 )
+		svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + 200 - armorBubbleRadius * 2.5, armorBubbleRadius );
+	if( mechData.armorAllocation.head >= 8 )
+		svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5 , armorBoxTop + 200 - armorBubbleRadius * 2.5, armorBubbleRadius );
+
+	if( mechData.armorAllocation.head >= 4 )
+		svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + 200, armorBubbleRadius );
+	if( mechData.armorAllocation.head >= 9 )
+		svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + 200, armorBubbleRadius );
+	if( mechData.armorAllocation.head >= 5 )
+		svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + 200, armorBubbleRadius );
+
+
+	// Center Torso Armor
+	var ctTop = 275;
+
+if( mechData.armorAllocation.centerTorso >= 55 ) {
+		armorBubbleRadius = 8;
+		// some poor fool put a LOT of armor in the front and not much in the rear
+		var ctTop = 270;
+		rowMultiplier = 0;
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 55 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 56 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 57 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 58 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 59 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 60 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 61 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 62 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 63 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 64 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 65 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 66 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 67 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 68 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 69 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 70 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 71 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+
+	} else if( mechData.armorAllocation.centerTorso >= 47 ) {
+		armorBubbleRadius = 9;
+
+		rowMultiplier = 0;
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		 rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		 rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		 rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 48 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 50 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 3, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 49 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 51 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2+ armorBubbleRadius * 3, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 53 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 3, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 52 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 54 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 3, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+
+	} else if( mechData.armorAllocation.centerTorso >= 25 ) {
+		// do row of 4 step...
+		 rowMultiplier = 0;
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 37 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 38 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		 rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 27 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 28 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 39 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 40 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 29 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 30 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 41 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 42 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 31 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 3.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 32 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 3.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 43 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 3.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 44 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 3.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 33 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 3.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 34 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 3.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 35 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 3.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 36 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 3.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 45 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 3.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 46 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 3.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 26 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+	} else if( mechData.armorAllocation.centerTorso >= 47 ) {
+		armorBubbleRadius = 9;
+
+		rowMultiplier = 0;
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		 rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		 rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		 rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 47 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 48 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 49 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+
+	} else if( mechData.armorAllocation.centerTorso >= 25 ) {
+		// do row of 4 step...
+		 rowMultiplier = 0;
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 37 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 38 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		 rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 27 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 28 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 39 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 40 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 29 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 30 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 41 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 42 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 4, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 31 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 3.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 32 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 3.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 43 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 3.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 44 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 3.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 33 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 3.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 34 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 3.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 35 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 3.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 36 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 3.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 45 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 3.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 46 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 3.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 25 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 26 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 1.25, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+	} else {
+		// less than 25 do row of 3 step...
+		rowMultiplier = 0;
+		if( mechData.armorAllocation.centerTorso >= 2 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 17 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 4 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 21 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 1 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 22 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 5 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 18 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 3 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 7 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 19 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 9 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 23 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 6 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 24 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 10 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 20 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 8 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+		rowMultiplier += 2.5;
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 11 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 15 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 12 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+
+		rowMultiplier += 2.5;
+		if( mechData.armorAllocation.centerTorso >= 13 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 - armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 16 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+		if( mechData.armorAllocation.centerTorso >= 14 )
+			svgCode += damageCircle( armorBoxLeft + armorBoxWidth / 2 + armorBubbleRadius * 2.5, armorBoxTop + ctTop + armorBubbleRadius * rowMultiplier, armorBubbleRadius );
+
+
+
+		rowMultiplier += 2.5;
+	}
+
+	armorBubbleRadius = 10;
+
 	/*
 	 * Criticals
 	 */
