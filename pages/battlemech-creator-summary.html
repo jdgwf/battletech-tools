@@ -20,49 +20,49 @@
 				<div class="row">
 					<div class="column small-12 medium-6 large-6">
 						<h4 class="text-center" translate="BM_SUMMARY_TRO">TRO</h4>
-						<div class="summary-block" ng-bind-html="mech_tro"></div>
+						<div class="roster-image summary-block" ng-bind-html="mech_tro"></div>
 					</div>
 					<div class="column small-12 medium-6">
 						<h4 class="text-center" class="GENERAL_RECORD_SHEETS">Record Sheets</h4>
-						<img id="recordSheetImage" width="100%" src='{{current_mech.makeSVGRecordSheet(false) | svg_to_dataurl}}' />
+						<img class="roster-image" id="recordSheetImage" width="100%" src='{{current_mech.makeSVGRecordSheet(false) | svg_to_dataurl}}' />
 						<div class="row">
 							<div class="column small-3 text-center ">
-								<button class="button secondary tiny" ng-click="saveRSPNG()">PNG</button>
+								<button class="button primary expanded tiny" ng-click="saveRSPNG()">PNG</button>
 							</div>
 							<div class="column small-3 text-center ">
-								<button ng-click="saveRSJPG()" class="button secondary tiny">JPG</button>
+								<button ng-click="saveRSJPG()" class="button primary expanded tiny">JPG</button>
 							</div>
 							<div class="column small-3 text-center ">
 								<div ng-show="iosRSLink != ''">
-									<a href="{{iosRSLink}}" target="_blank"><button class="button secondary tiny" >PDF</button></a>
+									<a href="{{iosRSLink}}" target="_blank"><button class="button primary expanded tiny" >PDF</button></a>
 								</div>
 								<div ng-hide="isIOSStandAlone == true">
-									<button class="button secondary tiny" ng-click="saveRSPDF()">PDF</button>
+									<button class="button primary expanded tiny" ng-click="saveRSPDF()">PDF</button>
 								</div>
 							</div>
 							<div class="column small-3 text-center">
-								<a download="{{current_mech.getName()}} Record Sheet.svg" href='{{current_mech.makeSVGRecordSheet(false) | svg_to_dataurl | to_trusted}}'><button class="button primary tiny">SVG</button></a>
+								<a download="{{current_mech.getName()}} - Record Sheet.svg" href='{{current_mech.makeSVGRecordSheet(false) | svg_to_dataurl | to_trusted}}'><button class="button primary expanded tiny">SVG</button></a>
 							</div>
 						</div>
 						<br />
-						<img id="asSheetImage" width="100%" src='{{current_mech.makeSVGAlphaStrikeCard(false) | svg_to_dataurl}}' />
+						<img class="roster-image" id="asSheetImage" width="100%" src='{{current_mech.makeSVGAlphaStrikeCard(false) | svg_to_dataurl}}' />
 						<div class="row">
 							<div class="column small-3 text-center ">
-								<button ng-click="saveASPNG()" class="button secondary tiny">PNG</button>
+								<button ng-click="saveASPNG()" class="button primary expanded tiny">PNG</button>
 							</div>
 							<div class="column small-3 text-center ">
-								<button ng-click="saveASJPG()" class="button secondary tiny">JPG</button>
+								<button ng-click="saveASJPG()" class="button primary expanded tiny">JPG</button>
 							</div>
 							<div class="column small-3 text-center ">
 								<div ng-show="iosASLink != ''">
-									<a href="{{iosASLink}}" target="_blank"><button class="button secondary tiny" >PDF</button></a>
+									<a href="{{iosASLink}}" target="_blank"><button class="button primary expanded tiny" >PDF</button></a>
 								</div>
 								<div ng-hide="isIOSStandAlone == true">
-									<button class="button secondary tiny" ng-click="saveASPDF()">PDF</button>
+									<button class="button primary expanded tiny" ng-click="saveASPDF()">PDF</button>
 								</div>
 							</div>
 							<div class="column small-3 text-center">
-								<a download="{{current_mech.getName()}} Alpha Strike Card.svg" href='{{current_mech.makeSVGAlphaStrikeCard(false) | svg_to_dataurl | to_trusted}}'><button class="button primary tiny">SVG</button></a>
+								<a download="{{current_mech.getName()}} - Alpha Strike Card.svg" href='{{current_mech.makeSVGAlphaStrikeCard(false) | svg_to_dataurl | to_trusted}}'><button class="button primary expanded tiny">SVG</button></a>
 							</div>
 						</div>
 

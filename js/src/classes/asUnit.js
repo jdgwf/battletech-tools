@@ -117,13 +117,13 @@ function asUnit (incomingMechData) {
 			this.structure = incomingMechData["BFStructure"] / 1;
 
 			this.damage = {
-				short: incomingMechData["BFDamageShort"] / 1,
-				medium: incomingMechData["BFDamageMedium"] / 1,
-				long: incomingMechData["BFDamageLong"] / 1,
+				short: incomingMechData["BFDamageShort"] ,
+				medium: incomingMechData["BFDamageMedium"] ,
+				long: incomingMechData["BFDamageLong"]
 			};
 
 			if( incomingMechData["BFDamamgeExtreme"] )
-				this.damage.extreme = incomingMechData["BFDamamgeExtreme"] / 1
+				this.damage.extreme = incomingMechData["BFDamamgeExtreme"]
 			else
 				this.damage.extreme = 0;
 
@@ -433,16 +433,42 @@ function asUnit (incomingMechData) {
 		}
 
 		// Calculate Current Damage Values from Crits...
-
 		var shortDamage = this.damage.short;
 		var mediumDamage = this.damage.medium;
 		var longDamage = this.damage.long;
 		var extremeDamage = this.damage.extreme;
 
-		shortDamage = shortDamage - currentWeaponHits;
-		mediumDamage = mediumDamage - currentWeaponHits;
-		longDamage = longDamage - currentWeaponHits;
-		extremeDamage = extremeDamage - currentWeaponHits;
+		if( shortDamage != "0*") {
+			shortDamage = shortDamage - currentWeaponHits;
+		} else {
+			if( currentWeaponHits )
+				shortDamage = 0;
+		}
+
+		if( mediumDamage != "0*") {
+			mediumDamage = mediumDamage - currentWeaponHits;
+		} else {
+			if( currentWeaponHits )
+				mediumDamage = 0;
+		}
+
+		if( longDamage != "0*") {
+			longDamage = longDamage - currentWeaponHits;
+		} else {
+			if( currentWeaponHits )
+				longDamage = 0;
+		}
+
+		if( extremeDamage != "0*") {
+			extremeDamage = extremeDamage - currentWeaponHits;
+		} else {
+			if( currentWeaponHits )
+				extremeDamage = 0;
+		}
+
+		//~ mediumDamage = mediumDamage - currentWeaponHits;
+		//~ longDamage = longDamage - currentWeaponHits;
+		//~ extremeDamage = extremeDamage - currentWeaponHits;
 
 		if( shortDamage < 0 )
 			shortDamage = 0;

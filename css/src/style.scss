@@ -615,8 +615,12 @@ button.round, .button.round {
 				border: 0;
 			}
 		}
-}
+} 
 
+.roster-image {
+	border: 4px solid $primaryBG;
+	margin: 0 0 .5rem 0;
+}
 
 .as-card {
 	background: #fff;

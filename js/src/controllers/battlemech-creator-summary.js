@@ -57,7 +57,7 @@ var battlemechCreatorControllerSummaryArray =
 					context.drawImage(image, 0, 0);
 
 					var a = document.createElement('a');
-					a.download = $scope.current_mech.getName() + ' Alpha Strike Card.png';
+					a.download = $scope.current_mech.getName() + ' - Alpha Strike Card.png';
 					a.href = canvas.toDataURL('image/png');
 					document.body.appendChild(a);
 					a.click();
@@ -77,7 +77,7 @@ var battlemechCreatorControllerSummaryArray =
 					context.drawImage(image, 0, 0);
 
 					var a = document.createElement('a');
-					a.download = $scope.current_mech.getName() + ' Alpha Strike Card.jpg';
+					a.download = $scope.current_mech.getName() + ' - Alpha Strike Card.jpg';
 					a.href = canvas.toDataURL('image/jpeg');
 					document.body.appendChild(a);
 					a.click();
@@ -106,7 +106,7 @@ var battlemechCreatorControllerSummaryArray =
 					pdf.addImage(imgData, 'JPG', .25, 1, 8, 8 / ratio);
 					//var download = document.getElementById('download');
 
-					pdf.save($scope.current_mech.getName() + " Alpha Strike Card.pdf");
+					pdf.save($scope.current_mech.getName() + " - Alpha Strike Card.pdf");
 				}
 			}
 
@@ -122,7 +122,7 @@ var battlemechCreatorControllerSummaryArray =
 					context.drawImage(image, 0, 0);
 
 					var a = document.createElement('a');
-					a.download = $scope.current_mech.getName() + ' Record Sheet.png';
+					a.download = $scope.current_mech.getName() + ' - Record Sheet.png';
 					a.href = canvas.toDataURL('image/png');
 					document.body.appendChild(a);
 					a.click();
@@ -141,7 +141,7 @@ var battlemechCreatorControllerSummaryArray =
 					context.drawImage(image, 0, 0);
 
 					var a = document.createElement('a');
-					a.download = $scope.current_mech.getName() + ' Record Sheet.jpg';
+					a.download = $scope.current_mech.getName() + ' - Record Sheet.jpg';
 					a.href = canvas.toDataURL('image/jpeg');
 					document.body.appendChild(a);
 					a.click();
@@ -172,7 +172,7 @@ var battlemechCreatorControllerSummaryArray =
 					pdf.addImage(imgData, 'JPG', .25, .25, 8, 8 / ratio );
 					//var download = document.getElementById('download');
 
-					pdf.save($scope.current_mech.getName() + " Record Sheet.pdf");
+					pdf.save($scope.current_mech.getName() + " - Record Sheet.pdf");
 				}
 			}
 

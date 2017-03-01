@@ -88,6 +88,8 @@ webApp = angular.module(
 				templateUrl : 'pages/battlemech-creator-summary.html?v=' + getAppVersion(),
 				controller  : 'battlemechCreatorControllerSummary'
 			})
+
+
 			// route for the battlemech creator page
 			.when('/battlemech-creator/exports/', {
 				templateUrl : 'pages/battlemech-creator-exports.html?v=' + getAppVersion(),
@@ -121,6 +123,13 @@ webApp = angular.module(
 			.when('/settings', {
 				templateUrl : 'pages/settings.html?v=' + getAppVersion(),
 				controller  : 'settingsController'
+			})
+
+
+			// TEMP
+			.when('/battlemech-creator/tmp-rs/', {
+				templateUrl : 'pages/tmp-bm-rs-preview.html?v=' + getAppVersion(),
+				controller  : 'battlemechCreatorControllerSummary'
 			})
 
 			;

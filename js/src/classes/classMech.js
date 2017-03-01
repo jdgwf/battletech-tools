@@ -130,6 +130,13 @@ function Mech (type) {
 		},
 	];
 
+	this.pilot = {
+		name: "",
+		piloting: 5,
+		gunnery: 4,
+		wounds: 0
+	};
+
 	this.alphaStrikeForceStats = {
 		name: "",
 		size: "",
@@ -504,27 +511,158 @@ Mech.prototype._calcAlphaStrike = function() {
 	// Heat Modified Damage, p115 AS companion
 	var total_weapon_heat = 0;
 	var total_weapon_heat_long = 0;
+	var has_explosive = false;
+
+	var lrmDamage = {
+		short: 0,
+		medium: 0,
+		long: 0,
+		extreme: 0
+
+	}
+
+	var heatDamage = {
+		short: 0,
+		medium: 0,
+		long: 0,
+		extreme: 0
+	}
+
+	var flakDamage = {
+		short: 0,
+		medium: 0,
+		long: 0,
+		extreme: 0
+	}
+
+	var acDamage = {
+		short: 0,
+		medium: 0,
+		long: 0,
+		extreme: 0
+	}
+
+	var srmDamage = {
+		short: 0,
+		medium: 0,
+		long: 0,
+		extreme: 0
+	}
+
+	var mslDamage = {
+		short: 0,
+		medium: 0,
+		long: 0,
+		extreme: 0
+	}
+
+	var rearDamage = {
+		short: 0,
+		medium: 0,
+		long: 0,
+		extreme: 0
+	}
+
+	var indirectFireRating = 0;
+
 	for( weapon_counter = 0; weapon_counter < this.equipmentList.length; weapon_counter++) {
 		if( this.equipmentList[weapon_counter].alpha_strike ) {
 			if( this.equipmentList[weapon_counter].alpha_strike.range_long > 0){
 				total_weapon_heat_long += this.equipmentList[weapon_counter].alpha_strike.heat;
 			}
 
-			total_weapon_heat += this.equipmentList[weapon_counter].alpha_strike.heat;
 
-			this.alphaStrikeForceStats.damage.short += this.equipmentList[weapon_counter].alpha_strike.range_short;
-			this.alphaStrikeForceStats.damage.medium += this.equipmentList[weapon_counter].alpha_strike.range_medium;
-			this.alphaStrikeForceStats.damage.long += this.equipmentList[weapon_counter].alpha_strike.range_long;
-			this.alphaStrikeForceStats.damage.extreme += this.equipmentList[weapon_counter].alpha_strike.range_extreme;
 
-			this.calcLogAS += "Adding Weapon " + this.equipmentList[weapon_counter].tag;
-			this.calcLogAS += " (" + this.equipmentList[weapon_counter].alpha_strike.range_short + ", ";
-			this.calcLogAS += this.equipmentList[weapon_counter].alpha_strike.range_medium + ", ";
-			this.calcLogAS += this.equipmentList[weapon_counter].alpha_strike.range_long + ", ";
-			this.calcLogAS += this.equipmentList[weapon_counter].alpha_strike.range_extreme + ")<br />\n";
+			if( this.equipmentList[weapon_counter].explosive )
+				has_explosive = true;
 
+			if( this.equipmentList[weapon_counter].rear ) {
+				this.calcLogAS += "Adding <strong>rear</strong> Weapon " + this.equipmentList[weapon_counter].tag + " - ";
+				this.calcLogAS += " (" + this.equipmentList[weapon_counter].alpha_strike.range_short + ", ";
+				this.calcLogAS += this.equipmentList[weapon_counter].alpha_strike.range_medium + ", ";
+				this.calcLogAS += this.equipmentList[weapon_counter].alpha_strike.range_long + ", ";
+				this.calcLogAS += this.equipmentList[weapon_counter].alpha_strike.range_extreme + ")<br />\n";
+				rearDamage.short += this.equipmentList[weapon_counter].alpha_strike.range_short;
+				rearDamage.medium += this.equipmentList[weapon_counter].alpha_strike.range_medium;
+				rearDamage.long += this.equipmentList[weapon_counter].alpha_strike.range_long;
+				rearDamage.extreme += this.equipmentList[weapon_counter].alpha_strike.range_extreme;
+			} else {
+
+				this.alphaStrikeForceStats.damage.short += this.equipmentList[weapon_counter].alpha_strike.range_short;
+				this.alphaStrikeForceStats.damage.medium += this.equipmentList[weapon_counter].alpha_strike.range_medium;
+				this.alphaStrikeForceStats.damage.long += this.equipmentList[weapon_counter].alpha_strike.range_long;
+				this.alphaStrikeForceStats.damage.extreme += this.equipmentList[weapon_counter].alpha_strike.range_extreme;
+
+				this.calcLogAS += "Adding Weapon " + this.equipmentList[weapon_counter].tag + " - ";
+				this.calcLogAS += " (" + this.equipmentList[weapon_counter].alpha_strike.range_short + ", ";
+				this.calcLogAS += this.equipmentList[weapon_counter].alpha_strike.range_medium + ", ";
+				this.calcLogAS += this.equipmentList[weapon_counter].alpha_strike.range_long + ", ";
+				this.calcLogAS += this.equipmentList[weapon_counter].alpha_strike.range_extreme + ")<br />\n";
+				total_weapon_heat += this.equipmentList[weapon_counter].alpha_strike.heat;
+
+			}
+
+			if( this.equipmentList[weapon_counter].notes && this.equipmentList[weapon_counter].notes.length > 0) {
+				for( var nC = 0; nC < this.equipmentList[weapon_counter].notes.length; nC++) {
+					if( this.alphaStrikeForceStats.abilityCodes.indexOf( this.equipmentList[weapon_counter].notes[nC] ) === -1) {
+						this.alphaStrikeForceStats.abilityCodes.push( this.equipmentList[weapon_counter].notes[nC] );
+					}
+
+					if( this.equipmentList[weapon_counter].notes[nC].toLowerCase() == "heat" ) {
+						heatDamage.short += this.equipmentList[weapon_counter].alpha_strike.range_short;
+						heatDamage.medium += this.equipmentList[weapon_counter].alpha_strike.range_medium;
+						heatDamage.long += this.equipmentList[weapon_counter].alpha_strike.range_long;
+						heatDamage.extreme += this.equipmentList[weapon_counter].alpha_strike.range_extreme;
+					}
+
+					if( this.equipmentList[weapon_counter].notes[nC].toLowerCase() == "lrm" ) {
+						lrmDamage.short += this.equipmentList[weapon_counter].alpha_strike.range_short;
+						lrmDamage.medium += this.equipmentList[weapon_counter].alpha_strike.range_medium;
+						lrmDamage.long += this.equipmentList[weapon_counter].alpha_strike.range_long;
+						lrmDamage.extreme += this.equipmentList[weapon_counter].alpha_strike.range_extreme;
+					}
+
+					if( this.equipmentList[weapon_counter].notes[nC].toLowerCase() == "ac" ) {
+						acDamage.short += this.equipmentList[weapon_counter].alpha_strike.range_short;
+						acDamage.medium += this.equipmentList[weapon_counter].alpha_strike.range_medium;
+						acDamage.long += this.equipmentList[weapon_counter].alpha_strike.range_long;
+						acDamage.extreme += this.equipmentList[weapon_counter].alpha_strike.range_extreme;
+					}
+
+					if( this.equipmentList[weapon_counter].notes[nC].toLowerCase() == "flak" ) {
+						flakDamage.short += this.equipmentList[weapon_counter].alpha_strike.range_short;
+						flakDamage.medium += this.equipmentList[weapon_counter].alpha_strike.range_medium;
+						flakDamage.long += this.equipmentList[weapon_counter].alpha_strike.range_long;
+						flakDamage.extreme += this.equipmentList[weapon_counter].alpha_strike.range_extreme;
+					}
+
+					if( this.equipmentList[weapon_counter].notes[nC].toLowerCase() == "srm" ) {
+
+						indirectFireRating += this.equipmentList[weapon_counter].alpha_strike.range_long;
+
+					}
+
+					if( this.equipmentList[weapon_counter].notes[nC].toLowerCase() == "indirect fire" || this.equipmentList[weapon_counter].notes[nC].toLowerCase() == "if") {
+						srmDamage.short += this.equipmentList[weapon_counter].alpha_strike.range_short;
+						srmDamage.medium += this.equipmentList[weapon_counter].alpha_strike.range_medium;
+						srmDamage.long += this.equipmentList[weapon_counter].alpha_strike.range_long;
+						srmDamage.extreme += this.equipmentList[weapon_counter].alpha_strike.range_extreme;
+					}
+
+					if( this.equipmentList[weapon_counter].notes[nC].toLowerCase() == "missile"  || this.equipmentList[weapon_counter].notes[nC].toLowerCase() == "msl" ) {
+						mslDamage.short += this.equipmentList[weapon_counter].alpha_strike.range_short;
+						mslDamage.medium += this.equipmentList[weapon_counter].alpha_strike.range_medium;
+						mslDamage.long += this.equipmentList[weapon_counter].alpha_strike.range_long;
+						mslDamage.extreme += this.equipmentList[weapon_counter].alpha_strike.range_extreme;
+					}
+
+
+				}
+
+			}
 		}
 	}
+
 	var move_heat = 0;
 	if( this.getJumpSpeed() > 0 ) {
 		if( this.getJumpSpeed() < 3 )
@@ -532,12 +670,17 @@ Mech.prototype._calcAlphaStrike = function() {
 		else
 			move_heat += this.getJumpSpeed();
 
-		this.calcLogAS += "<strong>Move Is " + this.alphaStrikeForceStats.move + "\"/" + this.alphaStrikeForceStats.jump_move + "\"J</strong><br />\n";
+		this.calcLogAS += "<strong>Move Is " + this.getWalkSpeed() * 2 + "\"/" + this.getJumpSpeed() * 2 + "\"J</strong><br />\n";
 	} else {
 		move_heat += 2;
-		this.calcLogAS += "<strong>Move Is " + this.alphaStrikeForceStats.move + "\"</strong><br />\n";
+		this.calcLogAS += "<strong>Move Is " + this.getWalkSpeed() * 2 + "\"</strong><br />\n";
 	}
 
+	// if there are no explosive components, then the mech gets the ENE ability :)
+	if( !has_explosive ) {
+		this.alphaStrikeForceStats.abilityCodes.push("ENE");
+		this.calcLogAS += "Mech has no explosive components, gets ENE ability<br />\n";
+	}
 
 
 
@@ -561,37 +704,44 @@ Mech.prototype._calcAlphaStrike = function() {
 
 	if( overheat_value > 3) {
 		// Heat Modified Damage, p115 AS companion
-		this.alphaStrikeForceStats.damage.short = ( this.alphaStrikeForceStats.damage.short * heat_dissipation ) / (max_heat_output - 4);
-		this.alphaStrikeForceStats.damage.medium = ( this.alphaStrikeForceStats.damage.medium * heat_dissipation ) / (max_heat_output - 4);
+		if( this.alphaStrikeForceStats.damage.short != "0*")
+			this.alphaStrikeForceStats.damage.short = ( this.alphaStrikeForceStats.damage.short * heat_dissipation ) / (max_heat_output - 4);
+		if( this.alphaStrikeForceStats.damage.medium != "0*")
+			this.alphaStrikeForceStats.damage.medium = ( this.alphaStrikeForceStats.damage.medium * heat_dissipation ) / (max_heat_output - 4);
 	}
 
 	if( long_overheat_value > 4) {
-		this.alphaStrikeForceStats.damage.long = ( this.alphaStrikeForceStats.damage.long * heat_dissipation ) / (max_heat_output - 4);
+		if( this.alphaStrikeForceStats.damage.long != "0*")
+			this.alphaStrikeForceStats.damage.long = ( this.alphaStrikeForceStats.damage.long * heat_dissipation ) / (max_heat_output - 4);
 
 	}
 
-	this.alphaStrikeForceStats.damage.short = this.alphaStrikeForceStats.damage.short.toFixed(0) /1;
-	this.alphaStrikeForceStats.damage.medium = this.alphaStrikeForceStats.damage.medium.toFixed(0) /1;
-	this.alphaStrikeForceStats.damage.long = this.alphaStrikeForceStats.damage.long.toFixed(0) /1;
-	this.alphaStrikeForceStats.damage.extreme = this.alphaStrikeForceStats.damage.extreme.toFixed(0) /1;
+	//~ this.alphaStrikeForceStats.damage.short = this.alphaStrikeForceStats.damage.short.toFixed(0) /1;
+	//~ this.alphaStrikeForceStats.damage.medium = this.alphaStrikeForceStats.damage.medium.toFixed(0) /1;
+	//~ this.alphaStrikeForceStats.damage.long = this.alphaStrikeForceStats.damage.long.toFixed(0) /1;
+	//~ this.alphaStrikeForceStats.damage.extreme = this.alphaStrikeForceStats.damage.extreme.toFixed(0) /1;
 
+	//~ console.log( "this.alphaStrikeForceStats.damage", this.alphaStrikeForceStats.damage);
+	this.alphaStrikeForceStats.damage = this._adjustASDamage( this.alphaStrikeForceStats.damage, true );
+	//~ console.log( "this.alphaStrikeForceStats.damage", this.alphaStrikeForceStats.damage);
 
 	// Determine Overheat Values - p116 AS Companion
 	var final_overheat_value = 0;
 
 
-	if( before_heat_range_medium - this.alphaStrikeForceStats.damage.medium > 0) {
+	if( this.alphaStrikeForceStats.damage.medium != "0*" && before_heat_range_medium - this.alphaStrikeForceStats.damage.medium > 0) {
 		final_overheat_value = before_heat_range_medium - this.alphaStrikeForceStats.damage.medium;
 	} else {
 		// try short range bracket since the med range is low.
-		final_overheat_value = before_heat_range_short - this.alphaStrikeForceStats.damage.short;
+		if( this.alphaStrikeForceStats.damage.short != "0*" )
+			final_overheat_value = before_heat_range_short - this.alphaStrikeForceStats.damage.short;
 	}
 	if( final_overheat_value > 4 )
 		final_overheat_value = 4;
 
 	// Determine Overheat Values - ASC - p116
 	var final_long_overheat_value = 0;
-	if( before_heat_range_long - this.alphaStrikeForceStats.damage.long > 0) {
+	if( this.alphaStrikeForceStats.damage.long != "0*" && before_heat_range_long - this.alphaStrikeForceStats.damage.long > 0) {
 		final_long_overheat_value = before_heat_range_long - this.alphaStrikeForceStats.damage.long;
 	}
 
@@ -635,7 +785,15 @@ Mech.prototype._calcAlphaStrike = function() {
 	this.calcLogAS += "<strong>Step 1: Determine Unit’s Offensive Value ASC - p138</strong><br />\n";
 	var offensive_value = 0;
 	// Attack Damage Factor
-	offensive_value += this.alphaStrikeForceStats.damage.short + this.alphaStrikeForceStats.damage.medium + this.alphaStrikeForceStats.damage.long + this.alphaStrikeForceStats.damage.extreme;
+	if( this.alphaStrikeForceStats.damage.short != "0*" && this.alphaStrikeForceStats.damage.short != "-" )
+		offensive_value += this.alphaStrikeForceStats.damage.short;
+	if( this.alphaStrikeForceStats.damage.medium != "0*" && this.alphaStrikeForceStats.damage.medium != "-" )
+		offensive_value += this.alphaStrikeForceStats.damage.medium;
+	if( this.alphaStrikeForceStats.damage.long != "0*" &&  this.alphaStrikeForceStats.damage.long != "-" )
+		offensive_value += this.alphaStrikeForceStats.damage.long;
+	if( this.alphaStrikeForceStats.damage.extreme != "0*" && this.alphaStrikeForceStats.damage.extreme != "-" )
+		offensive_value += this.alphaStrikeForceStats.damage.extreme;
+
 	this.calcLogAS += "Attack Damage Factor: " + offensive_value + " ( " + this.alphaStrikeForceStats.damage.short + " + " + this.alphaStrikeForceStats.damage.medium + " + " + this.alphaStrikeForceStats.damage.long + " + " + this.alphaStrikeForceStats.damage.extreme + " )<br />\n";
 
 	// Unit Size Factor
@@ -654,6 +812,7 @@ Mech.prototype._calcAlphaStrike = function() {
 		overHeatFactor += this.alphaStrikeForceStats.ov;
 
 	}
+
 	this.calcLogAS += "Overheat Factor: " + overHeatFactor + "<br />\n";
 
 
@@ -691,6 +850,92 @@ Mech.prototype._calcAlphaStrike = function() {
 		this.calcLogAS += "Movement Factor: " + movementDefenseValue + " (" + bestMovement + " * .25)<br />\n";
 	}
 
+
+
+	if(
+		rearDamage.short > 0
+			||
+		rearDamage.medium > 0
+			||
+		rearDamage.long > 0
+	) {
+		this.alphaStrikeForceStats.abilityCodes.push("Rear");
+	}
+
+	for( var aC = 0; aC < this.alphaStrikeForceStats.abilityCodes.length; aC++ ) {
+
+		// Replace Heat with Heat X/X/X
+		if( this.alphaStrikeForceStats.abilityCodes[ aC ].toLowerCase() == "heat" ) {
+			heatDamage = this._adjustASDamage( heatDamage );
+			this.alphaStrikeForceStats.abilityCodes[ aC ] = "Heat " + heatDamage.short + "/" + heatDamage.medium + "/" + heatDamage.long;
+			highestDamage = this._getHighestDamage( heatDamage );
+			offensive_value += highestDamage;
+			if( heatDamage.medium != "-" && heatDamage.medium > 0 )
+				offensive_value += .5;
+
+			this.calcLogAS += "<strong>Adding</strong> Heat Ability: " + heatDamage.short + "/" + heatDamage.medium + "/" + heatDamage.long + "<br />\n";
+			this.calcLogAS += "Adding Heat Damage Factor to PV: " + highestDamage + "<br />\n";
+			if( heatDamage.medium != "-" && heatDamage.medium > 0 )
+				this.calcLogAS += "Adding Heat Medium Damage Bonus to PV: 0,5<br />\n";
+		}
+
+		// Replace LRM with LRM X/X/X
+		if( this.alphaStrikeForceStats.abilityCodes[ aC ].toLowerCase() == "lrm" ) {
+			lrmDamage = this._adjustASDamage( lrmDamage );
+			this.alphaStrikeForceStats.abilityCodes[ aC ] = "LRM " + lrmDamage.short + "/" + lrmDamage.medium + "/" + lrmDamage.long;
+			this.calcLogAS += "<strong>Adding</strong> LRM Ability: " + lrmDamage.short + "/" + lrmDamage.medium + "/" + lrmDamage.long + "<br />\n";
+
+		}
+
+
+		// Replace Flak with Flak X/X/X
+		if( this.alphaStrikeForceStats.abilityCodes[ aC ].toLowerCase() == "flak" ) {
+			flakDamage = this._adjustASDamage( flakDamage );
+			this.alphaStrikeForceStats.abilityCodes[ aC ] = "Flak " + flakDamage.short + "/" + flakDamage.medium + "/" + flakDamage.long;
+			this.calcLogAS += "<strong>Adding</strong> Flak Ability: " + flakDamage.short + "/" + flakDamage.medium + "/" + flakDamage.long + "<br />\n";
+		}
+
+
+		// Replace AC with AC X/X/X
+		if( this.alphaStrikeForceStats.abilityCodes[ aC ].toLowerCase() == "ac" ) {
+			acDamage = this._adjustASDamage( acDamage );
+			this.alphaStrikeForceStats.abilityCodes[ aC ] = "AC " + acDamage.short + "/" + acDamage.medium + "/" + acDamage.long;
+			this.calcLogAS += "<strong>Adding</strong> AC Ability: " + acDamage.short + "/" + acDamage.medium + "/" + acDamage.long + "<br />\n";
+		}
+
+
+		// Replace SRM with SRM X/X/X
+		if( this.alphaStrikeForceStats.abilityCodes[ aC ].toLowerCase() == "srm" ) {
+			srmDamage = this._adjustASDamage( srmDamage );
+			this.alphaStrikeForceStats.abilityCodes[ aC ] = "SRM " + srmDamage.short + "/" + srmDamage.medium + "/" + srmDamage.long;
+			this.calcLogAS += "<strong>Adding</strong> SRM Ability: " + srmDamage.short + "/" + srmDamage.medium + "/" + srmDamage.long + "<br />\n";
+		}
+
+		// Replace Missile with Missile X/X/X
+		if( this.alphaStrikeForceStats.abilityCodes[ aC ].toLowerCase() == "missile" ||  this.alphaStrikeForceStats.abilityCodes[ aC ].toLowerCase() == "msl"  ) {
+			mslDamage = this._adjustASDamage( mslDamage );
+			this.alphaStrikeForceStats.abilityCodes[ aC ] = "MSL " + mslDamage.short + "/" + mslDamage.medium + "/" + mslDamage.long;
+			this.calcLogAS += "<strong>Adding</strong> Missile Ability: " + mslDamage.short + "/" + mslDamage.medium + "/" + mslDamage.long + "<br />\n";
+		}
+
+		// Replace Rear with Rear X/X/X
+		if( this.alphaStrikeForceStats.abilityCodes[ aC ].toLowerCase() == "rear" ) {
+			rearDamage = this._adjustASDamage( rearDamage );
+			this.alphaStrikeForceStats.abilityCodes[ aC ] = "Rear " + rearDamage.short + "/" + rearDamage.medium + "/" + rearDamage.long;
+			this.calcLogAS += "<strong>Adding</strong> Rear Ability: " + rearDamage.short + "/" + rearDamage.medium + "/" + rearDamage.long + "<br />\n";
+		}
+
+		// Replace IndirectFire with IF X
+		if( this.alphaStrikeForceStats.abilityCodes[ aC ].toLowerCase() == "indirect fire" || this.alphaStrikeForceStats.abilityCodes[ aC ].toLowerCase() == "if" ) {
+			rearDamage = this._adjustASDamage( rearDamage );
+			this.alphaStrikeForceStats.abilityCodes[ aC ] = "IF " + indirectFireRating;
+			this.calcLogAS += "<strong>Adding</strong> IF Ability: " + indirectFireRating + "<br />\n";
+			offensive_value += highestDamage;
+			this.calcLogAS += "Adding IF Rating to PV: " + indirectFireRating + "<br />\n";
+
+		}
+
+	}
 
 	// Defensive Special Abilities Factor
 	// TODO
@@ -806,12 +1051,14 @@ Mech.prototype._calcAlphaStrike = function() {
 	asMechData["BFThreshold"] = 0;
 	asMechData["Role"] = { name: "" };
 	asMechData["BFType"] = "BM";
-	asMechData["BFSize"] = this.alphaStrikeForceStats.size;
+	asMechData["BFSize"] = this.alphaStrikeForceStats.size_class;
 
 	asMechData["BFArmor"] = this.alphaStrikeForceStats.armor;
 	asMechData["BFStructure"] = this.alphaStrikeForceStats.structure;
 
 	asMechData["BFOverheat"] = final_overheat_value;
+
+
 
 	asMechData["BFDamageShort"] = this.alphaStrikeForceStats.damage.short;
 	asMechData["BFDamageMedium"] = this.alphaStrikeForceStats.damage.medium;
@@ -826,8 +1073,91 @@ Mech.prototype._calcAlphaStrike = function() {
 		asMechData["BFMove"] = this.alphaStrikeForceStats.move.toString() + "\"";
 	}
 
+	this.alphaStrikeForceStats.abilityCodes.sort();
+	asMechData["BFAbilities"] = this.alphaStrikeForceStats.abilityCodes.join(", ").toUpperCase();
+
 	this.alphaStrikeForceStats = new asUnit( asMechData );
 
+}
+
+Mech.prototype._getHighestDamage = function( incomingDamageObject ) {
+	returnValue = 0;
+	for( var dC = 0; dC < incomingDamageObject.length; dC++ ) {
+		if(
+			incomingDamageObject[ dC ]
+			&& incomingDamageObject[ dC ] != "-"
+			&& incomingDamageObject[ dC ] != "0*"
+		) {
+			if( incomingDamageObject[ dC ] > returnValue ) {
+				returnValue = incomingDamageObject[ dC ] / 1;
+			}
+		}
+	}
+
+	return returnValue;
+}
+
+Mech.prototype._adjustASDamage = function( incomingDamageObject, useZeros ) {
+	if( typeof(useZeros) == "undefined")
+		useZeros = false;
+
+	if( incomingDamageObject.short == 0 ) {
+		if( useZeros )
+			incomingDamageObject.short = 0;
+		else
+			incomingDamageObject.short = "-";
+	} else if ( incomingDamageObject.short < .5 ) {
+		//~ if( useZeros )
+			//~ incomingDamageObject.short = 0;
+		//~ else
+			incomingDamageObject.short = "0*";
+	} else {
+		incomingDamageObject.short = Math.round( incomingDamageObject.short );
+	}
+
+	if( incomingDamageObject.medium == 0 ) {
+		if( useZeros )
+			incomingDamageObject.medium = 0;
+		else
+			incomingDamageObject.medium = "-";
+	} else if ( incomingDamageObject.medium < .5 ) {
+		//~ if( useZeros )
+			//~ incomingDamageObject.medium = 0;
+		//~ else
+			incomingDamageObject.medium = "0*";
+	} else {
+		incomingDamageObject.medium = Math.round( incomingDamageObject.medium );
+	}
+
+	if( incomingDamageObject.long == 0 ) {
+		if( useZeros )
+			incomingDamageObject.long = 0;
+		else
+			incomingDamageObject.long = "-";
+	} else if ( incomingDamageObject.long < .5 ) {
+		//~ if( useZeros )
+			//~ incomingDamageObject.long = 0;
+		//~ else
+			incomingDamageObject.long = "0*";
+	} else {
+		incomingDamageObject.long = Math.round( incomingDamageObject.long );
+	}
+
+	if( incomingDamageObject.extreme == 0 ) {
+		if( useZeros )
+			incomingDamageObject.extreme = 0;
+		else
+			incomingDamageObject.extreme = "-";
+	} else if ( incomingDamageObject.extreme < .5 ) {
+		//~ if( useZeros )
+			//~ incomingDamageObject.extreme = 0;
+		//~ else
+			incomingDamageObject.extreme = "0*";
+	} else {
+		incomingDamageObject.extreme = Math.round( incomingDamageObject.extreme );
+	}
+
+	return incomingDamageObject;
 }
 
 Mech.prototype._calcBattleValue = function() {
@@ -1082,6 +1412,15 @@ Mech.prototype.getTranslation = function(langKey) {
 				return langKey;
 			}
 		}
+	}
+}
+
+Mech.prototype.getLocalTranslation = function( languageObject ) {
+
+	if( languageObject[ this.useLang ] ) {
+		return languageObject[ this.useLang ];
+	} else {
+		return languageObject[ "en-US" ];
 	}
 }
 
