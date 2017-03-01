@@ -28,10 +28,15 @@
 	</div>
 	<div class="row">
 		<div class="columns small-12 text-center">
-			<span style="font-size: .75rem" translate="GENERAL_TURN_OFF_PRINT_HEAD_FOOT"></span>
+			<span style="font-size: .6rem" translate="GENERAL_TURN_OFF_PRINT_HEAD_FOOT"></span>
 		</div>
 	</div>
 </header>
 
 
-			<div class="roster-image" ng-bind-html="svgItem | to_trusted"></div>
+			<div ng-hide="textItem != ''" class="roster-image" ng-bind-html="svgItem | to_trusted"></div>
+<div class="row" ng-show="textItem != ''">
+	<div class="column small-12">
+		<span ng-bind-html="textItem"></span>
+	</div>
+</div>

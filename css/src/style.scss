@@ -1104,6 +1104,15 @@ body.plain {
 	.sticky-top {
 		height: 5rem;
 	}
+	.mech-tro,
+	.mech-tro tr,
+	.mech-tro tr th,
+	.mech-tro tr td {
+		width: auto !important;
+		font-size: .75rem;
+		background: transparent !important;
+		color: #000 !important;
+	}
 }
 
 @media print {
@@ -1123,6 +1132,8 @@ body.plain {
 			max-height: 100%;
 			max-width: 100%;
 		}
+
+
 	}
 }
 

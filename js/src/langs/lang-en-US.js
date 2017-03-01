@@ -62,6 +62,7 @@ available_languages.push ({
 		GENERAL_CALCULATIONS: "Calculations",
 		GENERAL_RECORD_SHEETS: "Record Sheets",
 		GENERAL_PRINT: "Print",
+		GENERAL_PRINT_VIEW: "View/Print",
 		GENERAL_TURN_OFF_PRINT_HEAD_FOOT: "Be sure to remember to turn off headers and footers when you print",
 
 		GENERAL_FILTER: "Filter",

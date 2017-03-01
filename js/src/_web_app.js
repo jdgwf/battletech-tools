@@ -109,6 +109,12 @@ webApp = angular.module(
 				controller  : 'battlemechCreatorControllerPrinting'
 			})
 
+			// route for the battlemech creator page
+			.when('/battlemech-creator/print-tro/', {
+				templateUrl : 'pages/battlemech-print-svg.html?v=' + getAppVersion(),
+				controller  : 'battlemechCreatorControllerPrinting'
+			})
+
 			/*
 			 * Alpha Strike Builder/Play Tools
 			 */

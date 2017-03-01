@@ -267,6 +267,12 @@ webApp = angular.module(
 				controller  : 'battlemechCreatorControllerPrinting'
 			})
 
+			// route for the battlemech creator page
+			.when('/battlemech-creator/print-tro/', {
+				templateUrl : 'pages/battlemech-print-svg.html?v=' + getAppVersion(),
+				controller  : 'battlemechCreatorControllerPrinting'
+			})
+
 			/*
 			 * Alpha Strike Builder/Play Tools
 			 */
@@ -15251,6 +15257,12 @@ var battlemechCreatorControllerPrintingArray =
 			$scope.mech_bv_calc = $scope.current_mech.getBVCalcHTML();
 			$scope.mech_as_calc = $scope.current_mech.getASCalcHTML();
 			$scope.mech_cbill_calc = $scope.current_mech.getCBillCalcHTML();
+			//~ console.log( $location.$$url );
+			if( $location.$$url == "/battlemech-creator/print-tro/") {
+				$rootScope.title_tag = $scope.current_mech.getName() + " - Record Sheet";
+				$scope.textItem = $scope.current_mech.makeTROHTML();
+			}
+
 
 			//~ console.log( $location.$$url );
 			if( $location.$$url == "/battlemech-creator/print-rs/") {
@@ -15672,6 +15684,7 @@ available_languages.push ({
 		GENERAL_CALCULATIONS: "Calculations",
 		GENERAL_RECORD_SHEETS: "Record Sheets",
 		GENERAL_PRINT: "Print",
+		GENERAL_PRINT_VIEW: "View/Print",
 		GENERAL_TURN_OFF_PRINT_HEAD_FOOT: "Be sure to remember to turn off headers and footers when you print",
 
 		GENERAL_FILTER: "Filter",
