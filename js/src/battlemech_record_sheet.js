@@ -536,8 +536,8 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 	/*
 	 * BATTLEMECH RECORD SHEET
 	 */
-	svgCode += "<text x=\"" + (docWidth / 2  - 20 ) + "\" y=\"" + "80" + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"70\">BATTLEMECH</text>\n";
-	svgCode += "<text x=\"" + (docWidth / 2 - 20 ) + "\" y=\"" + "120" + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"35\">Record Sheet</text>\n";
+	svgCode += "<text x=\"" + (docWidth / 2 - 25 ) + "\" y=\"" + "80" + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"65\">BATTLEMECH</text>\n";
+	svgCode += "<text x=\"" + (docWidth / 2 - 25 ) + "\" y=\"" + "120" + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"35\">Record Sheet</text>\n";
 
 	/*
 	 * Pilot
@@ -1572,10 +1572,10 @@ function createSVGAlphaStrike( asData, inPlay, itemIDField ) {
 
 	svgCode = "<!DOCTYPE HTML><svg version=\"1.1\" x=\"0px\" y=\"0px\" height=\"675px\" width=\"1000px\" xml:space=\"preserve\" viewBox=\"0 0 1000 600\" xmlns=\"http://www.w3.org/2000/svg\">\n";
 
-	svgCode += "<g>\n";
+	svgCode += "<g transform=\"translate(0, -40)\">\n";
 
 	// Base Border and Interior White....
-	svgCode += "<rect x=\"0\" y=\"0\" width=\"1000\" height=\"675px\" fill=\"" + colorBlack + "\" />\n";
+	svgCode += "<rect x=\"0\" y=\"0\" width=\"1000\" height=\"645px\" fill=\"" + colorBlack + "\" />\n";
 
 	if( !asData.active && inPlay )
 		svgCode += "<rect x=\"10\" y=\"10\" style=\"z-index: -1\" width=\"980\" height=\"580\" fill=\"" + colorRed + "\" />\n";
@@ -2076,7 +2076,7 @@ function createSVGAlphaStrike( asData, inPlay, itemIDField ) {
 	/*
 	 * Battletech and Alpha Strike at bottom...
 	 */
-		svgCode += "<rect x=\"10\" y=\"610\" width=\"960\" height=\"75\" fill=\"" + colorBlack + "\" />\n";
+		svgCode += "<rect x=\"10\" y=\"610\" width=\"960\" height=\"35\" fill=\"" + colorBlack + "\" />\n";
 
 		svgCode += "<text x=\"20\" y=\"625\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorTan + "\" style=\"font-weight: 700;\" font-size=\"30\">ALPHA STRIKE</text>\n";
 

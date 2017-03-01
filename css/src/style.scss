@@ -615,11 +615,12 @@ button.round, .button.round {
 				border: 0;
 			}
 		}
-} 
+}
 
 .roster-image {
 	border: 4px solid $primaryBG;
 	margin: 0 0 .5rem 0;
+	position: relative;
 }
 
 .as-card {
@@ -1066,7 +1067,7 @@ svg {
 		width: 100%;
 		text-align: center;
 		height: 100%;
-		
+
 		button {
 			font-size: 2vw;
 		}
@@ -1079,9 +1080,50 @@ svg {
 .reveal-modal{
     position : fixed;
 }
+
 // yeah, yeah bad pun is punny
 .even-modaler {
 	z-index: 2000 !important;
+}
+
+body.plain {
+	background: none;
+	border: 0;
+	padding: 5rem 0 0 0;
+	margin: 0;
+
+	.roster-image {
+		margin: 0 !important;
+		padding: 0 !important;
+		border: 0 !important;
+		width: 100%;
+		height: auto;
+		max-height: 100%;
+		max-width: 100%;
+	}
+	.sticky-top {
+		height: 5rem;
+	}
+}
+
+@media print {
+	body.plain {
+		background: none  !important;
+		border: 0  !important;
+		padding: 0 !important;
+		margin: 0  !important;
+
+		.sticky-top {
+			display: none !important;
+		}
+
+		.roster-image {
+			width: 100%;
+			height: auto;
+			max-height: 100%;
+			max-width: 100%;
+		}
+	}
 }
 
 @media only screen and (max-device-width: 400px) and (orientation: portrait) {

@@ -14,7 +14,9 @@
 		</div>
 		<div class="text-right columns hide-for-small show-for-medium medium-3 text-left app-menu">
 
-			<a target="_blank" href="http://battletech.com"><img alt="BattleTech Logo" class="bt-logo" src="{{svgBattleTechLogo | svg_to_dataurl}}" /></a>
+			<a  title="{{'GENERAL_CLICK_GO_TO_OFFICAL_BG' | translate}}" target="_blank" href="http://battletech.com">
+				<span ng-bind-html="svgBattleTechLogo | to_trusted"></span>
+			</a>
 
 		</div>
 

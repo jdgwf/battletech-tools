@@ -61,6 +61,8 @@ available_languages.push ({
 		GENERAL_VERSION: "Version",
 		GENERAL_CALCULATIONS: "Calculations",
 		GENERAL_RECORD_SHEETS: "Record Sheets",
+		GENERAL_PRINT: "Print",
+		GENERAL_TURN_OFF_PRINT_HEAD_FOOT: "Be sure to remember to turn off headers and footers when you print",
 
 		GENERAL_FILTER: "Filter",
 		GENERAL_TYPE_HERE_TO_FILTER: "Type here to search for equipment",

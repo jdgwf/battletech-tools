@@ -164,7 +164,7 @@ webApp = angular.module(
 	[
 		'$routeProvider',
 		'$translateProvider',
-		function ($routeProvider, $translateProvider, $scope, $http) {
+		function ($routeProvider, $translateProvider,$scope, $http) {
 
 			for( lang_count = 0; lang_count < available_languages.length; lang_count++) {
 				if( available_languages[lang_count].active ) {
@@ -174,6 +174,7 @@ webApp = angular.module(
 					);
 				}
 			}
+
 
 			$translateProvider.useSanitizeValueStrategy('sanitize');
 
@@ -254,6 +255,18 @@ webApp = angular.module(
 				controller  : 'battlemechCreatorControllerExports'
 			})
 
+			// route for the battlemech creator page
+			.when('/battlemech-creator/print-rs/', {
+				templateUrl : 'pages/battlemech-print-svg.html?v=' + getAppVersion(),
+				controller  : 'battlemechCreatorControllerPrinting'
+			})
+
+			// route for the battlemech creator page
+			.when('/battlemech-creator/print-as/', {
+				templateUrl : 'pages/battlemech-print-svg.html?v=' + getAppVersion(),
+				controller  : 'battlemechCreatorControllerPrinting'
+			})
+
 			/*
 			 * Alpha Strike Builder/Play Tools
 			 */
@@ -263,15 +276,6 @@ webApp = angular.module(
 				controller  : 'asBuilderController'
 			})
 
-			//~ .when('/as/play-view', {
-				//~ templateUrl : 'pages/as-play-view.html?v=' + getAppVersion(),
-				//~ controller  : 'asPlayViewController'
-			//~ })
-
-			//~ .when('/as/play-view-svg', {
-				//~ templateUrl : 'pages/as-play-view-svg.html?v=' + getAppVersion(),
-				//~ controller  : 'asPlayViewSVGController'
-			//~ })
 			.when('/as/play-view', {
 				templateUrl : 'pages/as-play-view-svg.html?v=' + getAppVersion(),
 				controller  : 'asPlayViewSVGController'
@@ -284,11 +288,6 @@ webApp = angular.module(
 			})
 
 
-			// TEMP
-			.when('/battlemech-creator/tmp-rs/', {
-				templateUrl : 'pages/tmp-bm-rs-preview.html?v=' + getAppVersion(),
-				controller  : 'battlemechCreatorControllerSummary'
-			})
 
 			;
 		}
@@ -329,7 +328,9 @@ angular.module('webApp')
 
 
 webApp.run( function( $rootScope ) {
+	//~ $rootScope.svgBattleTechLogo = $rootScope.$sce.trustAsHtml( battleTechLogoSVG() );
 	$rootScope.svgBattleTechLogo = battleTechLogoSVG();
+
 });
 
 webApp.config(['$compileProvider',
@@ -1374,8 +1375,8 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 	/*
 	 * BATTLEMECH RECORD SHEET
 	 */
-	svgCode += "<text x=\"" + (docWidth / 2  - 20 ) + "\" y=\"" + "80" + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"70\">BATTLEMECH</text>\n";
-	svgCode += "<text x=\"" + (docWidth / 2 - 20 ) + "\" y=\"" + "120" + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"35\">Record Sheet</text>\n";
+	svgCode += "<text x=\"" + (docWidth / 2 - 25 ) + "\" y=\"" + "80" + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"65\">BATTLEMECH</text>\n";
+	svgCode += "<text x=\"" + (docWidth / 2 - 25 ) + "\" y=\"" + "120" + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"35\">Record Sheet</text>\n";
 
 	/*
 	 * Pilot
@@ -2410,10 +2411,10 @@ function createSVGAlphaStrike( asData, inPlay, itemIDField ) {
 
 	svgCode = "<!DOCTYPE HTML><svg version=\"1.1\" x=\"0px\" y=\"0px\" height=\"675px\" width=\"1000px\" xml:space=\"preserve\" viewBox=\"0 0 1000 600\" xmlns=\"http://www.w3.org/2000/svg\">\n";
 
-	svgCode += "<g>\n";
+	svgCode += "<g transform=\"translate(0, -40)\">\n";
 
 	// Base Border and Interior White....
-	svgCode += "<rect x=\"0\" y=\"0\" width=\"1000\" height=\"675px\" fill=\"" + colorBlack + "\" />\n";
+	svgCode += "<rect x=\"0\" y=\"0\" width=\"1000\" height=\"645px\" fill=\"" + colorBlack + "\" />\n";
 
 	if( !asData.active && inPlay )
 		svgCode += "<rect x=\"10\" y=\"10\" style=\"z-index: -1\" width=\"980\" height=\"580\" fill=\"" + colorRed + "\" />\n";
@@ -2914,7 +2915,7 @@ function createSVGAlphaStrike( asData, inPlay, itemIDField ) {
 	/*
 	 * Battletech and Alpha Strike at bottom...
 	 */
-		svgCode += "<rect x=\"10\" y=\"610\" width=\"960\" height=\"75\" fill=\"" + colorBlack + "\" />\n";
+		svgCode += "<rect x=\"10\" y=\"610\" width=\"960\" height=\"35\" fill=\"" + colorBlack + "\" />\n";
 
 		svgCode += "<text x=\"20\" y=\"625\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorTan + "\" style=\"font-weight: 700;\" font-size=\"30\">ALPHA STRIKE</text>\n";
 
@@ -14694,6 +14695,9 @@ var battlemechCreatorControllerSummaryArray =
 			$scope.mech_as_calc = $scope.current_mech.getASCalcHTML();
 			$scope.mech_cbill_calc = $scope.current_mech.getCBillCalcHTML();
 
+			$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
+			$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
+
 			$scope.saveASPNG = function() {
 				//~ saveSvgAsPng(document.getElementById('asSheetImage'), $scope.current_mech.getName() + ' Alpha Strike Card.png', {scale: 10});
 				var image = new Image();
@@ -15201,6 +15205,75 @@ angular.module("cordovaApp").controller(
 	battlemechCreatorControllerSidebarArray
 );
 
+var battlemechCreatorControllerPrintingArray =
+	[
+		'$rootScope',
+		'$translate',
+		'$scope',
+		'$location',
+		function ($rootScope, $translate, $scope, $location) {
+			// Set Page Title Tag
+			$translate(['APP_TITLE', 'BM_SUMMARY_TITLE', 'BM_SUMMARY_DESC', 'WELCOME_BUTTON_MECH_CREATOR' ]).then(function (translation) {
+				$rootScope.title_tag = translation.BM_SUMMARY_TITLE + " | " + translation.APP_TITLE;
+				if( translation.BM_SUMMARY_DESC )
+					$scope.h3_title = translation.BM_SUMMARY_TITLE + ": " + translation.BM_SUMMARY_DESC;
+				else
+					$scope.h3_title = translation.BM_SUMMARY_TITLE;
+				$rootScope.subtitle_tag = "&raquo; " + translation.WELCOME_BUTTON_MECH_CREATOR;
+			});
+
+			$scope.goHome = function() {
+
+				delete(localStorage["backToPath"]);
+				$location.url("/");
+			}
+
+			localStorage["backToPath"] = $location.$$path;
+
+			// create mech object, load from localStorage if exists
+			$scope.current_mech = new Mech();
+
+
+			if( localStorage["tmp.current_mech"] ) {
+				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
+			} else {
+				$scope.current_mech.uuid = generateUUID();
+				$scope.current_mech._calc();
+			}
+
+			$scope.isIOSStandAlone = isIOSStandAlone();
+			//~ $scope.isIOSStandAlone = true;
+			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
+
+
+			// make tro for sidebar
+			$scope.mech_tro = $scope.current_mech.makeTROHTML();
+			$scope.mech_bv_calc = $scope.current_mech.getBVCalcHTML();
+			$scope.mech_as_calc = $scope.current_mech.getASCalcHTML();
+			$scope.mech_cbill_calc = $scope.current_mech.getCBillCalcHTML();
+
+			//~ console.log( $location.$$url );
+			if( $location.$$url == "/battlemech-creator/print-rs/")
+				$scope.svgItem = $scope.current_mech.makeSVGRecordSheet(false);
+
+			if( $location.$$url == "/battlemech-creator/print-as/")
+				$scope.svgItem = $scope.current_mech.makeSVGAlphaStrikeCard(false);
+			//$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
+
+		}
+	]
+;
+
+angular.module("webApp").controller(
+	"battlemechCreatorControllerPrinting",
+	battlemechCreatorControllerPrintingArray
+);
+
+angular.module("cordovaApp").controller(
+	"battlemechCreatorControllerPrinting",
+	battlemechCreatorControllerPrintingArray
+);
+
 var creditsArray =
 	[
 		'$rootScope',
@@ -15594,6 +15667,8 @@ available_languages.push ({
 		GENERAL_VERSION: "Version",
 		GENERAL_CALCULATIONS: "Calculations",
 		GENERAL_RECORD_SHEETS: "Record Sheets",
+		GENERAL_PRINT: "Print",
+		GENERAL_TURN_OFF_PRINT_HEAD_FOOT: "Be sure to remember to turn off headers and footers when you print",
 
 		GENERAL_FILTER: "Filter",
 		GENERAL_TYPE_HERE_TO_FILTER: "Type here to search for equipment",

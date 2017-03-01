@@ -24,7 +24,11 @@
 					</div>
 					<div class="column small-12 medium-6">
 						<h4 class="text-center" class="GENERAL_RECORD_SHEETS">Record Sheets</h4>
+<!--
 						<img class="roster-image" id="recordSheetImage" width="100%" src='{{current_mech.makeSVGRecordSheet(false) | svg_to_dataurl}}' />
+-->
+						<a href="plain.html#/battlemech-creator/print-rs/"><div class="roster-image" id="recordSheetImage" ng-bind-html="svgRecordSheet | to_trusted"></div></a>
+<!--
 						<div class="row">
 							<div class="column small-3 text-center ">
 								<button class="button primary expanded tiny" ng-click="saveRSPNG()">PNG</button>
@@ -44,8 +48,10 @@
 								<a download="{{current_mech.getName()}} - Record Sheet.svg" href='{{current_mech.makeSVGRecordSheet(false) | svg_to_dataurl | to_trusted}}'><button class="button primary expanded tiny">SVG</button></a>
 							</div>
 						</div>
+-->
 						<br />
-						<img class="roster-image" id="asSheetImage" width="100%" src='{{current_mech.makeSVGAlphaStrikeCard(false) | svg_to_dataurl}}' />
+						<a href="plain.html#/battlemech-creator/print-as/"><div class="roster-image" id="asSheetImage" ng-bind-html="svgAlphaStrikeCard | to_trusted"></div></a>
+<!--
 						<div class="row">
 							<div class="column small-3 text-center ">
 								<button ng-click="saveASPNG()" class="button primary expanded tiny">PNG</button>
@@ -65,6 +71,7 @@
 								<a download="{{current_mech.getName()}} - Alpha Strike Card.svg" href='{{current_mech.makeSVGAlphaStrikeCard(false) | svg_to_dataurl | to_trusted}}'><button class="button primary expanded tiny">SVG</button></a>
 							</div>
 						</div>
+-->
 
 					</div>
 				</div>

@@ -45,6 +45,9 @@ var battlemechCreatorControllerSummaryArray =
 			$scope.mech_as_calc = $scope.current_mech.getASCalcHTML();
 			$scope.mech_cbill_calc = $scope.current_mech.getCBillCalcHTML();
 
+			$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
+			$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
+
 			$scope.saveASPNG = function() {
 				//~ saveSvgAsPng(document.getElementById('asSheetImage'), $scope.current_mech.getName() + ' Alpha Strike Card.png', {scale: 10});
 				var image = new Image();

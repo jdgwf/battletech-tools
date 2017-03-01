@@ -6,7 +6,7 @@ webApp = angular.module(
 	[
 		'$routeProvider',
 		'$translateProvider',
-		function ($routeProvider, $translateProvider, $scope, $http) {
+		function ($routeProvider, $translateProvider,$scope, $http) {
 
 			for( lang_count = 0; lang_count < available_languages.length; lang_count++) {
 				if( available_languages[lang_count].active ) {
@@ -16,6 +16,7 @@ webApp = angular.module(
 					);
 				}
 			}
+
 
 			$translateProvider.useSanitizeValueStrategy('sanitize');
 
@@ -96,6 +97,18 @@ webApp = angular.module(
 				controller  : 'battlemechCreatorControllerExports'
 			})
 
+			// route for the battlemech creator page
+			.when('/battlemech-creator/print-rs/', {
+				templateUrl : 'pages/battlemech-print-svg.html?v=' + getAppVersion(),
+				controller  : 'battlemechCreatorControllerPrinting'
+			})
+
+			// route for the battlemech creator page
+			.when('/battlemech-creator/print-as/', {
+				templateUrl : 'pages/battlemech-print-svg.html?v=' + getAppVersion(),
+				controller  : 'battlemechCreatorControllerPrinting'
+			})
+
 			/*
 			 * Alpha Strike Builder/Play Tools
 			 */
@@ -105,15 +118,6 @@ webApp = angular.module(
 				controller  : 'asBuilderController'
 			})
 
-			//~ .when('/as/play-view', {
-				//~ templateUrl : 'pages/as-play-view.html?v=' + getAppVersion(),
-				//~ controller  : 'asPlayViewController'
-			//~ })
-
-			//~ .when('/as/play-view-svg', {
-				//~ templateUrl : 'pages/as-play-view-svg.html?v=' + getAppVersion(),
-				//~ controller  : 'asPlayViewSVGController'
-			//~ })
 			.when('/as/play-view', {
 				templateUrl : 'pages/as-play-view-svg.html?v=' + getAppVersion(),
 				controller  : 'asPlayViewSVGController'
@@ -126,11 +130,6 @@ webApp = angular.module(
 			})
 
 
-			// TEMP
-			.when('/battlemech-creator/tmp-rs/', {
-				templateUrl : 'pages/tmp-bm-rs-preview.html?v=' + getAppVersion(),
-				controller  : 'battlemechCreatorControllerSummary'
-			})
 
 			;
 		}
@@ -171,7 +170,9 @@ angular.module('webApp')
 
 
 webApp.run( function( $rootScope ) {
+	//~ $rootScope.svgBattleTechLogo = $rootScope.$sce.trustAsHtml( battleTechLogoSVG() );
 	$rootScope.svgBattleTechLogo = battleTechLogoSVG();
+
 });
 
 webApp.config(['$compileProvider',
