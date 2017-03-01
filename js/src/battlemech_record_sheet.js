@@ -428,7 +428,7 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 	var docWidth = 2000;
 	var docHeight = 2600;
 
-	svgCode = "<!DOCTYPE HTML><svg version=\"1.1\" x=\"0px\" y=\"0px\" height=\"" + docHeight  + "\" width=\"" + docWidth  + "\" xml:space=\"preserve\" viewBox=\"0 0 " + docWidth  + " " + docHeight  + "\" xmlns=\"http://www.w3.org/2000/svg\">\n";
+	svgCode = "<!DOCTYPE HTML><svg version=\"1.1\" x=\"0px\" y=\"0px\" height=\"auto\" width=\"auto\" xml:space=\"preserve\" viewBox=\"0 0 " + docWidth  + " " + docHeight  + "\" xmlns=\"http://www.w3.org/2000/svg\">\n";
 
 	svgCode += "<g>\n";
 
@@ -1570,7 +1570,7 @@ function createSVGAlphaStrike( asData, inPlay, itemIDField ) {
 
 
 
-	svgCode = "<!DOCTYPE HTML><svg version=\"1.1\" x=\"0px\" y=\"0px\" height=\"675px\" width=\"1000px\" xml:space=\"preserve\" viewBox=\"0 0 1000 600\" xmlns=\"http://www.w3.org/2000/svg\">\n";
+	svgCode = "<!DOCTYPE HTML><svg version=\"1.1\" x=\"0px\" y=\"0px\" height=\"auto\" width=\"auto\" xml:space=\"preserve\" viewBox=\"0 0 1000 600\" xmlns=\"http://www.w3.org/2000/svg\">\n";
 
 	svgCode += "<g transform=\"translate(0, -40)\">\n";
 
