@@ -15268,11 +15268,13 @@ var battlemechCreatorControllerPrintingArray =
 			if( $location.$$url == "/battlemech-creator/print-rs/") {
 				$rootScope.title_tag = $scope.current_mech.getName() + " - Record Sheet";
 				$scope.svgItem = $scope.current_mech.makeSVGRecordSheet(false);
+				$scope.textItem = "";
 			}
 
 			if( $location.$$url == "/battlemech-creator/print-as/") {
 				$rootScope.title_tag = $scope.current_mech.getName() + " - Alpha Strike Card";
 				$scope.svgItem = $scope.current_mech.makeSVGAlphaStrikeCard(false);
+				$scope.textItem = "";
 			}
 			//$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
 
