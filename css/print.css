@@ -1,0 +1,15 @@
+body.plain {
+	background: none  !important;
+	border: 0  !important;
+	padding: 0 !important;
+	margin: 0  !important;
+}
+body.plain .sticky-top {
+	display: none !important;
+}
+body.plain .roster-image {
+	width: 100%;
+	height: auto;
+	max-height: 100%;
+	max-width: 100%;
+}
