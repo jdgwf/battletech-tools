@@ -2409,12 +2409,12 @@ function createSVGAlphaStrike( asData, inPlay, itemIDField ) {
 
 
 
-	svgCode = "<!DOCTYPE HTML><svg version=\"1.1\" x=\"0px\" y=\"0px\" height=\"auto\" width=\"auto\" xml:space=\"preserve\" viewBox=\"0 0 1000 600\" xmlns=\"http://www.w3.org/2000/svg\">\n";
+	svgCode = "<!DOCTYPE HTML><svg version=\"1.1\" x=\"0px\" y=\"0px\" height=\"auto\" width=\"auto\" xml:space=\"preserve\" viewBox=\"0 0 1000 640\" xmlns=\"http://www.w3.org/2000/svg\">\n";
 
-	svgCode += "<g transform=\"translate(0, -40)\">\n";
+	svgCode += "<g transform=\"translate(0, 0)\">\n";
 
 	// Base Border and Interior White....
-	svgCode += "<rect x=\"0\" y=\"0\" width=\"1000\" height=\"645px\" fill=\"" + colorBlack + "\" />\n";
+	svgCode += "<rect x=\"0\" y=\"0\" width=\"1000\" height=\"640px\" fill=\"" + colorBlack + "\" />\n";
 
 	if( !asData.active && inPlay )
 		svgCode += "<rect x=\"10\" y=\"10\" style=\"z-index: -1\" width=\"980\" height=\"580\" fill=\"" + colorRed + "\" />\n";
