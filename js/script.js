@@ -15213,20 +15213,20 @@ var battlemechCreatorControllerPrintingArray =
 		'$location',
 		function ($rootScope, $translate, $scope, $location) {
 			// Set Page Title Tag
-			$translate(['APP_TITLE', 'BM_SUMMARY_TITLE', 'BM_SUMMARY_DESC', 'WELCOME_BUTTON_MECH_CREATOR' ]).then(function (translation) {
-				$rootScope.title_tag = translation.BM_SUMMARY_TITLE + " | " + translation.APP_TITLE;
-				if( translation.BM_SUMMARY_DESC )
-					$scope.h3_title = translation.BM_SUMMARY_TITLE + ": " + translation.BM_SUMMARY_DESC;
-				else
-					$scope.h3_title = translation.BM_SUMMARY_TITLE;
-				$rootScope.subtitle_tag = "&raquo; " + translation.WELCOME_BUTTON_MECH_CREATOR;
-			});
+			//~ $translate(['APP_TITLE', 'BM_SUMMARY_TITLE', 'BM_SUMMARY_DESC', 'WELCOME_BUTTON_MECH_CREATOR' ]).then(function (translation) {
+				//~ $rootScope.title_tag = translation.BM_SUMMARY_TITLE + " | " + translation.APP_TITLE;
+				//~ if( translation.BM_SUMMARY_DESC )
+					//~ $scope.h3_title = translation.BM_SUMMARY_TITLE + ": " + translation.BM_SUMMARY_DESC;
+				//~ else
+					//~ $scope.h3_title = translation.BM_SUMMARY_TITLE;
+				//~ $rootScope.subtitle_tag = "&raquo; " + translation.WELCOME_BUTTON_MECH_CREATOR;
+			//~ });
 
-			$scope.goHome = function() {
+			//~ $scope.goHome = function() {
 
-				delete(localStorage["backToPath"]);
-				$location.url("/");
-			}
+				//~ delete(localStorage["backToPath"]);
+				//~ $location.url("/");
+			//~ }
 
 			localStorage["backToPath"] = $location.$$path;
 
@@ -15253,11 +15253,15 @@ var battlemechCreatorControllerPrintingArray =
 			$scope.mech_cbill_calc = $scope.current_mech.getCBillCalcHTML();
 
 			//~ console.log( $location.$$url );
-			if( $location.$$url == "/battlemech-creator/print-rs/")
+			if( $location.$$url == "/battlemech-creator/print-rs/") {
+				$rootScope.title_tag = $scope.current_mech.getName() + " - Record Sheet";
 				$scope.svgItem = $scope.current_mech.makeSVGRecordSheet(false);
+			}
 
-			if( $location.$$url == "/battlemech-creator/print-as/")
+			if( $location.$$url == "/battlemech-creator/print-as/") {
+				$rootScope.title_tag = $scope.current_mech.getName() + " - Alpha Strike Card";
 				$scope.svgItem = $scope.current_mech.makeSVGAlphaStrikeCard(false);
+			}
 			//$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
 
 		}
