@@ -2058,6 +2058,34 @@ Mech.prototype._calc = function() {
 	this._calcAlphaStrike();
 	this._calcBattleValue();
 	this._calcCBillCost();
+
+	//~ console.log( mechData.equipmentList );
+	this.equipmentList = this.equipmentList.sort( sortByLocationThenName );
+	//~ console.log( mechData.equipmentList );
+	this.sortedEquipmentList = [];
+	for( eq_count = 0; eq_count < this.equipmentList.length; eq_count++) {
+
+
+		var foundIt = false;
+
+		for( var se_count = 0; se_count < this.sortedEquipmentList.length; se_count++ ) {
+			if(
+				this.equipmentList[eq_count].location == this.sortedEquipmentList[se_count].location
+					&&
+				this.equipmentList[eq_count].tag == this.sortedEquipmentList[se_count].tag
+			) {
+				this.sortedEquipmentList[se_count].count++;
+				foundIt = true;
+			}
+		}
+
+		if( !foundIt ) {
+			var eqItem = angular.copy( this.equipmentList[eq_count] );
+			eqItem.local_name = this.getLocalTranslation( eqItem.name );
+			eqItem.count = 1;
+			this.sortedEquipmentList.push( eqItem );
+		}
+	}
 }
 
 Mech.prototype._calcCriticals = function() {
