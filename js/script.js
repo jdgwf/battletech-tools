@@ -986,9 +986,9 @@ svg += "</g></g></svg>";
 
 function createCritAllocationTable( critData, xPos, yPos) {
 
-	textSVG = "";
-	backgroundSVG = "";
-	graphicsSVG = "";
+	var textSVG = "";
+	var backgroundSVG = "";
+	var graphicsSVG = "";
 
 	fontSize = 25;
 	boxWidth = 275;
@@ -1017,7 +1017,7 @@ function createCritAllocationTable( critData, xPos, yPos) {
 					if( critC == 6 ) {
 						var boxHeight = (yPos + (lineCount - 1 ) * (fontSize + lineBuffer) - yStartBox - lineBuffer );
 					}
-					backgroundSVG += "<rect x=\"" + ( xPos - 10 ) + "\" rx=\"10\" ry=\"10\" y=\"" + (yStartBox - fontSize + 2) + "\" width=\"" + boxWidth  + "\" height=\"" + boxHeight + "\" fill=\"" + colorVeryLightGray + "\" />\n";
+					backgroundSVG += "<rect x=\"" + ( xPos - 10 ) + "\" rx=\"15\" ry=\"15\" y=\"" + (yStartBox - fontSize + 2) + "\" width=\"" + boxWidth  + "\" height=\"" + boxHeight + "\" stroke=\"" + colorMediumGray + "\" stroke-width=\"2\" fill=\"" + colorVeryLightGray + "\" />\n";
 
 				}
 				yStartBox = yPos + lineCount * (fontSize + lineBuffer);
@@ -1026,6 +1026,18 @@ function createCritAllocationTable( critData, xPos, yPos) {
 
 		} else {
 			textSVG += "<text x=\"" + ( xPos ) + "\" y=\"" + ( yPos + lineCount * (fontSize + lineBuffer) ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + fontSize + "\">...roll again</text>\n";
+			if( yStartBox > -1  && lastWasPlaceHolder) {
+
+				var boxHeight = (yPos + lineCount * (fontSize + lineBuffer) - yStartBox - lineBuffer );
+
+				if( critC == 6 ) {
+					var boxHeight = (yPos + (lineCount - 1 ) * (fontSize + lineBuffer) - yStartBox - lineBuffer );
+				}
+				backgroundSVG += "<rect x=\"" + ( xPos - 10 ) + "\" rx=\"15\" ry=\"15\" y=\"" + (yStartBox - fontSize + 2) + "\" width=\"" + boxWidth  + "\" height=\"" + boxHeight + "\" stroke=\"" + colorMediumGray + "\" stroke-width=\"2\" fill=\"" + colorVeryLightGray + "\" />\n";
+
+			}
+			lastWasPlaceHolder = false;
+
 		}
 
 		textSVG += "<text x=\"" + ( xPos - 40 ) + "\" y=\"" + ( yPos + lineCount * (fontSize + lineBuffer) ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + fontSize + "\">" + dieNumber + ".</text>\n";
