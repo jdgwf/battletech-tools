@@ -2730,9 +2730,764 @@ if( mechData.armorAllocation.centerTorso >= 55 ) {
 	// Internal Structure....
 	isBoxTop = 1250;
 	isBoxLeft = 1240;
-	svgCode += createRSGroupBox( "Internal Structure", isBoxLeft,  isBoxTop, 600, 655);
-	svgCode += rsStructureSVG( false, colorBlack, colorBlack, isBoxLeft + 100, isBoxTop + 50, 400 );
+	isBoxWidth = 655;
+	svgCode += createRSGroupBox( "Internal Structure", isBoxLeft,  isBoxTop, 600, isBoxWidth);
+	svgCode += rsStructureSVG( false, colorBlack, colorBlack, isBoxLeft + 100, isBoxTop + 17, 425 );
+
+	// Main Structure Labels
+	svgCode += "<text x=\"" + ( isBoxLeft + isBoxWidth / 2 ) + "\" y=\"" + (isBoxTop + 55) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"15\">HEAD [" + mechData.internalStructure.head + "]</text>\n";
+
+	svgCode += "<text x=\"" + ( isBoxLeft + isBoxWidth / 2 - 65) + "\" y=\"" + (isBoxTop + 85) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"15\">LEFT TORSO</text>\n";
+	svgCode += "<text x=\"" + ( isBoxLeft + isBoxWidth / 2 - 65 ) + "\" y=\"" + (isBoxTop + 105) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"15\">[" + mechData.internalStructure.leftTorso + "]</text>\n";
+
+	svgCode += "<text x=\"" + ( isBoxLeft + isBoxWidth / 2 + 65 ) + "\" y=\"" + (isBoxTop + 85) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"15\">RIGHT TORSO</text>\n";
+	svgCode += "<text x=\"" + ( isBoxLeft + isBoxWidth / 2 + 65 ) + "\" y=\"" + (isBoxTop + 105) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"15\">[" + mechData.internalStructure.rightTorso + "]</text>\n";
+
+
+	svgCode += "<text x=\"" + ( isBoxLeft +  isBoxWidth / 2 - 200 ) + "\" y=\"" + (isBoxTop + 310) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"15\">LEFT</text>\n";
+	svgCode += "<text x=\"" + ( isBoxLeft +  isBoxWidth / 2 - 200) + "\" y=\"" + (isBoxTop + 330) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"15\">ARM [" + mechData.internalStructure.leftArm + "]</text>\n";
+
+	svgCode += "<text x=\"" + ( isBoxLeft + isBoxWidth / 2 + 200) + "\" y=\"" + (isBoxTop + 310) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"15\">RIGHT</text>\n";
+	svgCode += "<text x=\"" + ( isBoxLeft + isBoxWidth / 2 + 200) + "\" y=\"" + (isBoxTop + 330) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"15\">ARM [" + mechData.internalStructure.rightArm + "]</text>\n";
+
+	svgCode += "<text x=\"" + ( isBoxLeft +  isBoxWidth / 2 - 150 ) + "\" y=\"" + (isBoxTop + 570) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"15\">LEFT</text>\n";
+	svgCode += "<text x=\"" + ( isBoxLeft +  isBoxWidth / 2 - 150 ) + "\" y=\"" + (isBoxTop + 590) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"15\">LEG [" + mechData.internalStructure.leftLeg + "]</text>\n";
+
+	svgCode += "<text x=\"" + ( isBoxLeft + isBoxWidth / 2 + 150) + "\" y=\"" + (isBoxTop + 570) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"15\">RIGHT</text>\n";
+	svgCode += "<text x=\"" + ( isBoxLeft + isBoxWidth / 2 + 150 ) + "\" y=\"" + (isBoxTop + 590) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"15\">LEG [" + mechData.internalStructure.rightLeg + "]</text>\n";
+
+	svgCode += "<text x=\"" + ( isBoxLeft + isBoxWidth / 2  ) + "\" y=\"" + (isBoxTop + 400) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"15\">CENTER</text>\n";
+	svgCode += "<text x=\"" + ( isBoxLeft + isBoxWidth / 2  ) + "\" y=\"" + (isBoxTop + 420) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"15\">TORSO</text>\n";
+	svgCode += "<text x=\"" + ( isBoxLeft + isBoxWidth / 2  ) + "\" y=\"" + (isBoxTop + 440) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"15\">[" + mechData.internalStructure.centerTorso + ")</text>\n";
+
+	// Internal Structure Bubbles....
 	// TODO
+
+	var isBubbleRadius = 8;
+	var isCenterAdjust = 3;
+
+	// Head - max 6
+	var hdISTop = 110;
+
+	rowMultiplier = 0;
+	if( mechData.internalStructure.head >= 2 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 + isBubbleRadius * 2 , isBoxTop + hdISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.head >= 6 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2, isBoxTop + hdISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.head >= 3 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 - isBubbleRadius * 2, isBoxTop + hdISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	rowMultiplier++;
+	if( mechData.internalStructure.head >= 4 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 + isBubbleRadius * 2 , isBoxTop + hdISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.head >= 2 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2, isBoxTop + hdISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.head >= 5 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 - isBubbleRadius * 2, isBoxTop + hdISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+
+	// Center Torso - max 36
+	var ctISTop = 165;
+	rowMultiplier = 0;
+
+
+	rowMultiplier = 0;
+	if( mechData.internalStructure.centerTorso >= 11 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 + isBubbleRadius * 2.5 , isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.centerTorso >= 1 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2, isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.centerTorso >= 12 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 - isBubbleRadius * 2.5, isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	rowMultiplier++;
+	if( mechData.internalStructure.centerTorso >= 13 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 + isBubbleRadius * 2.5 , isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.centerTorso >= 2 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2, isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.centerTorso >= 14 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 - isBubbleRadius * 2.5, isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	rowMultiplier++;
+	if( mechData.internalStructure.centerTorso >= 15 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 + isBubbleRadius * 2.5 , isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.centerTorso >= 3 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2, isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.centerTorso >= 16 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 - isBubbleRadius * 2.5, isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	rowMultiplier++;
+	if( mechData.internalStructure.centerTorso >= 17 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 + isBubbleRadius * 2.5 , isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.centerTorso >= 4 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2, isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.centerTorso >= 18 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 - isBubbleRadius * 2.5, isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	rowMultiplier++;
+	if( mechData.internalStructure.centerTorso >= 19 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 + isBubbleRadius * 2.5 , isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.centerTorso >= 5 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2, isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.centerTorso >= 20 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 - isBubbleRadius * 2.5, isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+
+	rowMultiplier++;
+	if( mechData.internalStructure.centerTorso >= 21 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 + isBubbleRadius * 2.5 , isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.centerTorso >= 6 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2, isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.centerTorso >= 22 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 - isBubbleRadius * 2.5, isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	rowMultiplier++;
+	if( mechData.internalStructure.centerTorso >= 23 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 + isBubbleRadius * 2.5 , isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.centerTorso >= 7 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2, isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.centerTorso >= 24 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 - isBubbleRadius * 2.5, isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	rowMultiplier++;
+	if( mechData.internalStructure.centerTorso >= 25 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 + isBubbleRadius * 2.5 , isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.centerTorso >= 8 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2, isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.centerTorso >= 26 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 - isBubbleRadius * 2.5, isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	rowMultiplier++;
+	if( mechData.internalStructure.centerTorso >= 17 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 + isBubbleRadius * 2.5 , isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.centerTorso >= 9 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2, isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.centerTorso >= 28 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 - isBubbleRadius * 2.5, isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	rowMultiplier++;
+	if( mechData.internalStructure.centerTorso >= 29 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 + isBubbleRadius * 2.5 , isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.centerTorso >= 10 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2, isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.centerTorso >= 30 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 - isBubbleRadius * 2.5, isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+
+	rowMultiplier++;
+	if( mechData.internalStructure.centerTorso >= 32 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 + isBubbleRadius * 2.5 , isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.centerTorso >= 31 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2, isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.centerTorso >= 33 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 - isBubbleRadius * 2.5, isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	rowMultiplier++;
+	if( mechData.internalStructure.centerTorso >= 35 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 + isBubbleRadius * 2.5 , isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.centerTorso >= 34 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2, isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.centerTorso >= 36 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + isBoxWidth / 2 - isBubbleRadius * 2.5, isBoxTop + ctISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+
+
+	// Right Torso - Max 23
+	var rtISTop = 145;
+	rowMultiplier = 0;
+	var distanceFromCenter = 73;
+
+	rowMultiplier = 0;
+	if( mechData.internalStructure.rightTorso >= 13 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 2.5 , isBoxTop + rtISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightTorso >= 12 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2, isBoxTop + rtISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightTorso >= 1 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 2.5, isBoxTop + rtISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	rowMultiplier++;
+	if( mechData.internalStructure.rightTorso >= 15 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 2.5 , isBoxTop + rtISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightTorso >= 14 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2, isBoxTop + rtISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightTorso >= 2 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 2.5, isBoxTop + rtISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	rowMultiplier++;
+	if( mechData.internalStructure.rightTorso >= 17 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 2.5 , isBoxTop + rtISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightTorso >= 16 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2, isBoxTop + rtISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightTorso >= 3 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 2.5, isBoxTop + rtISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+
+	rowMultiplier++;
+	if( mechData.internalStructure.rightTorso >= 19 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 2.5 , isBoxTop + rtISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightTorso >= 18 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2, isBoxTop + rtISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightTorso >= 4 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 2.5, isBoxTop + rtISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	rowMultiplier++;
+	distanceFromCenter -= 20;
+	if( mechData.internalStructure.rightTorso >= 5 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2, isBoxTop + rtISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	rowMultiplier++;
+	distanceFromCenter -= 0;
+	if( mechData.internalStructure.rightTorso >= 6 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2, isBoxTop + rtISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	rowMultiplier++;
+	distanceFromCenter -= 0;
+	if( mechData.internalStructure.rightTorso >= 7 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2, isBoxTop + rtISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	rowMultiplier++;
+	distanceFromCenter -= 3;
+	if( mechData.internalStructure.rightTorso >= 8 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2, isBoxTop + rtISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	rowMultiplier++;
+	distanceFromCenter -= 0;
+	if( mechData.internalStructure.rightTorso >= 9 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2, isBoxTop + rtISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	rowMultiplier++;
+	distanceFromCenter += 10;
+	isBoxTop += 4;
+	if( mechData.internalStructure.rightTorso >= 10 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 2 , isBoxTop + rtISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightTorso >= 20 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2, isBoxTop + rtISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightTorso >= 21 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 2, isBoxTop + rtISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+
+	rowMultiplier++;
+	if( mechData.internalStructure.rightTorso >= 11 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 2 , isBoxTop + rtISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightTorso >= 22 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2, isBoxTop + rtISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightTorso >= 23 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 2, isBoxTop + rtISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+
+
+	// Left Torso - Max 23
+	var ltISTop = 145;
+	rowMultiplier = 0;
+	var distanceFromCenter = 73;
+
+
+	rowMultiplier = 0;
+	if( mechData.internalStructure.leftTorso >= 1 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 2.5 , isBoxTop + ltISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftTorso >= 12 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2, isBoxTop + ltISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftTorso >= 13 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 2.5, isBoxTop + ltISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	rowMultiplier++;
+	if( mechData.internalStructure.leftTorso >= 2 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 2.5 , isBoxTop + ltISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftTorso >= 14 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2, isBoxTop + ltISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftTorso >= 15 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 2.5, isBoxTop + ltISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	rowMultiplier++;
+	if( mechData.internalStructure.leftTorso >= 3 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 2.5 , isBoxTop + ltISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftTorso >= 16 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2, isBoxTop + ltISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftTorso >= 17 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 2.5, isBoxTop + ltISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+
+	rowMultiplier++;
+	if( mechData.internalStructure.leftTorso >= 4 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 2.5 , isBoxTop + ltISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftTorso >= 18 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2, isBoxTop + ltISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftTorso >= 19 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 2.5, isBoxTop + ltISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	rowMultiplier++;
+	distanceFromCenter -= 20;
+	if( mechData.internalStructure.leftTorso >= 5 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2, isBoxTop + ltISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	rowMultiplier++;
+	distanceFromCenter -= 0;
+	if( mechData.internalStructure.leftTorso >= 6 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2, isBoxTop + ltISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	rowMultiplier++;
+	distanceFromCenter -= 0;
+	if( mechData.internalStructure.leftTorso >= 7 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2, isBoxTop + ltISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	rowMultiplier++;
+	distanceFromCenter -= 3;
+	if( mechData.internalStructure.leftTorso >= 8 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2, isBoxTop + ltISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	rowMultiplier++;
+	distanceFromCenter -= 0;
+	if( mechData.internalStructure.leftTorso >= 9 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2, isBoxTop + ltISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	rowMultiplier++;
+	distanceFromCenter += 11;
+	isBoxTop += 4;
+	if( mechData.internalStructure.leftTorso >= 21 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 2 , isBoxTop + ltISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftTorso >= 20 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2, isBoxTop + ltISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftTorso >= 10 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 2, isBoxTop + ltISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+
+	rowMultiplier++;
+	if( mechData.internalStructure.leftTorso >= 23 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 2 , isBoxTop + ltISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftTorso >= 22 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2, isBoxTop + ltISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftTorso >= 11 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 2, isBoxTop + ltISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+
+
+	// Right Arm - Max 20
+	var raISTop = 145;
+	rowMultiplier = 0;
+	var distanceFromCenter = 145;
+
+	//~ mechData.internalStructure.rightArm = 21;
+
+	rowMultiplier = 0;
+	if( mechData.internalStructure.rightArm >= 11 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightArm >= 1 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 0;
+	rowMultiplier++;
+	if( mechData.internalStructure.rightArm >= 12 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightArm >= 2 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 3;
+	rowMultiplier++;
+	if( mechData.internalStructure.rightArm >= 13 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightArm >= 3 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.rightArm >= 14 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightArm >= 4 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.rightArm >= 15 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightArm >= 5 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	//~ if( mechData.internalStructure.rightArm >= 2 )
+		//~ svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightArm >= 19 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	//~ if( mechData.internalStructure.rightArm >= 2 )
+		//~ svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightArm >= 6 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.rightArm >= 18 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightArm >= 7 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	//~ if( mechData.internalStructure.rightArm >= 2 )
+		//~ svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightArm >= 8 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	//~ if( mechData.internalStructure.rightArm >= 2 )
+		//~ svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightArm >= 9 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	//~ if( mechData.internalStructure.rightArm >= 2 )
+		//~ svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightArm >= 10 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	//~ if( mechData.internalStructure.rightArm >= 2 )
+		//~ svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightArm >= 20 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	//~ if( mechData.internalStructure.rightArm >= 2 )
+		//~ svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightArm >= 16 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	//~ if( mechData.internalStructure.rightArm >= 2 )
+		//~ svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightArm >= 17 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+
+
+	// Left Arm - Max 20
+	var laISTop = 145;
+	rowMultiplier = 0;
+	var distanceFromCenter = 145;
+
+	//~ mechData.internalStructure.leftArm = 21;
+
+	rowMultiplier = 0;
+	if( mechData.internalStructure.leftArm >= 1 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftArm >= 11 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 0;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftArm >= 2 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftArm >= 12 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 3;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftArm >= 3 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftArm >= 13 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftArm >= 4 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftArm >= 14 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftArm >= 5 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftArm >= 15 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftArm >= 19 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	//~ if( mechData.internalStructure.leftArm >= 2 )
+		//~ svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftArm >= 6 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	//~ if( mechData.internalStructure.leftArm >= 2 )
+		//~ svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftArm >= 7 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftArm >= 18 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftArm >= 8 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	//~ if( mechData.internalStructure.leftArm >= 8 )
+		//~ svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftArm >= 9 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	//~ if( mechData.internalStructure.leftArm >= 9 )
+		//~ svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftArm >= 10 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	//~ if( mechData.internalStructure.leftArm >= 10 )
+		//~ svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftArm >= 20 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	//~ if( mechData.internalStructure.leftArm >= 20 )
+		//~ svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftArm >= 16 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	//~ if( mechData.internalStructure.leftArm >= 16 )
+		//~ svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftArm >= 17 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	//~ if( mechData.internalStructure.leftArm >= 17 )
+		//~ svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + laISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+
+
+
+
+	// Right Leg - Max 28
+	var rlISTop = 330;
+	rowMultiplier = 0;
+	var distanceFromCenter = 65;
+
+	//~ mechData.internalStructure.rightLeg = 30;
+
+	rowMultiplier = 0;
+	if( mechData.internalStructure.rightLeg >= 11 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightLeg >= 1 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 0;
+	rowMultiplier++;
+	if( mechData.internalStructure.rightLeg >= 12 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightLeg >= 2 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 3;
+	rowMultiplier++;
+	if( mechData.internalStructure.rightLeg >= 13 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightLeg >= 3 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.rightLeg >= 14 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightLeg >= 4 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.rightLeg >= 15 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightLeg >= 5 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.rightLeg >= 25 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightLeg >= 27 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 3;
+	rowMultiplier++;
+	if( mechData.internalStructure.rightLeg >= 16 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightLeg >= 6 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.rightLeg >= 17 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightLeg >= 7 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.rightLeg >= 18 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightLeg >= 8 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.rightLeg >= 19 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightLeg >= 9 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.rightLeg >= 20 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightLeg >= 10 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.rightLeg >= 26 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightLeg >= 28 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.rightLeg >= 21 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightLeg >= 22 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.rightLeg >= 23 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.rightLeg >= 24 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + rlISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+
+	// Left Leg - Max 28
+	var llISTop = 330;
+	rowMultiplier = 0;
+	var distanceFromCenter = 65;
+
+	//~ mechData.internalStructure.leftLeg = 30;
+
+	rowMultiplier = 0;
+	if( mechData.internalStructure.leftLeg >= 1 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftLeg >= 11 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 0;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftLeg >= 2 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftLeg >= 12 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 3;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftLeg >= 3 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftLeg >= 13 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftLeg >= 4 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftLeg >= 14 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftLeg >= 5 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftLeg >= 15 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftLeg >= 27 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftLeg >= 25 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 3;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftLeg >= 6 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftLeg >= 16 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftLeg >= 7 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftLeg >= 17 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftLeg >= 8 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftLeg >= 18 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftLeg >= 9 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftLeg >= 19 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftLeg >= 10 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftLeg >= 20 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftLeg >= 28 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftLeg >= 26 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftLeg >= 22 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftLeg >= 21 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
+
+	distanceFromCenter += 2;
+	rowMultiplier++;
+	if( mechData.internalStructure.leftLeg >= 24 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.25 , isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+	if( mechData.internalStructure.leftLeg >= 23 )
+		svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
+
 
 	/*
 	 * Heat
