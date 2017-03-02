@@ -103,10 +103,11 @@ function asUnit (incomingMechData) {
 
 			this.threshold = incomingMechData["BFThreshold"] / 1;
 
-			if( incomingMechData["Role"] && incomingMechData["Role"]["Name"] )
+			if( incomingMechData["Role"] && incomingMechData["Role"]["Name"] ) {
 				this.role = incomingMechData["Role"]["Name"];
-			else
+			} else {
 				this.role = "Not Specified";
+			}
 
 			this.type = incomingMechData["BFType"];
 			this.size = incomingMechData["BFSize"];

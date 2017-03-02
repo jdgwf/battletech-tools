@@ -38,6 +38,12 @@ var battlemechCreatorControllerSummaryArray =
 			//~ $scope.isIOSStandAlone = true;
 			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
 
+			$scope.asRole = $scope.current_mech.alphaStrikeForceStats.role;
+
+
+			$scope.mechwarriorName = $scope.current_mech.pilot.name;
+			$scope.mechwarriorPiloting = $scope.current_mech.pilot.piloting;
+			$scope.mechwarriorGunnery = $scope.current_mech.pilot.gunnery;
 
 			// make tro for sidebar
 			$scope.mech_tro = $scope.current_mech.makeTROHTML();
@@ -47,6 +53,40 @@ var battlemechCreatorControllerSummaryArray =
 
 			$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
 			$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
+
+			$scope.setPilotName = function( newValue ) {
+				$scope.current_mech.pilot.name = newValue;
+				//~ update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
+				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
+			}
+
+			$scope.setPilotPiloting = function( newValue ) {
+				$scope.current_mech.pilot.piloting = newValue;
+				//~ update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
+				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
+			}
+
+			$scope.setPilotGunnery = function( newValue ) {
+				$scope.current_mech.pilot.gunnery = newValue;
+				//~ update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
+				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
+			}
+
+			$scope.setASRole = function( newValue ) {
+				$scope.current_mech.setASRole( newValue );
+				//~ update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
+				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
+			}
+
+
 
 			$scope.saveASPNG = function() {
 				//~ saveSvgAsPng(document.getElementById('asSheetImage'), $scope.current_mech.getName() + ' Alpha Strike Card.png', {scale: 10});

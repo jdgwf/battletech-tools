@@ -141,6 +141,7 @@ function Mech (type) {
 		name: "",
 		size: "",
 		move: "",
+		role: "Brawler",
 		jumpMove: "",
 		pv: "",
 		damage: {
@@ -1041,15 +1042,14 @@ Mech.prototype._calcAlphaStrike = function() {
 	this.alphaStrikeForceStats.type = "BM";
 
 
-	this.alphaStrikeValue = Math.round(finalValue);
+	this.alphaStrikeValue = Math.round(finalValue)  + " (TODO / WIP)";
 
 	var asMechData = [];
-	asMechData["BFPointValue"] = this.alphaStrikeValue;
+	asMechData["BFPointValue"] = Math.round(finalValue);
 
 	asMechData["Name"] = this.getName();
-	asMechData["Role"] = "TODOROLE";
 	asMechData["BFThreshold"] = 0;
-	asMechData["Role"] = { name: "" };
+	asMechData["Role"] = { Name: this.alphaStrikeForceStats.role };
 	asMechData["BFType"] = "BM";
 	asMechData["BFSize"] = this.alphaStrikeForceStats.size_class;
 
@@ -1321,13 +1321,13 @@ Mech.prototype._calcBattleValue = function() {
 
 	 }
 	this.calcLogBV += "<strong>Final Battle Value</strong>: " + finalBattleValue + "<br />";
-	this.battleValue = finalBattleValue;
+	this.battleValue = finalBattleValue + " (TODO / WIP)";
 }
 
 Mech.prototype._calcCBillCost = function() {
 	// TODO Calculations
 
-	this.cbillCost = 0;
+	this.cbillCost = 0  + " (TODO / WIP)";
 	this.calcLogCBill = "TODO";
 
 }
@@ -3216,12 +3216,21 @@ Mech.prototype.exportJSON = function() {
 	if( this.small_cockpit )
 		export_object.features.push("sm_cockpit");
 
+	export_object.pilot = this.pilot;
+
+	export_object.as_role = this.alphaStrikeForceStats.role;
+
 	return JSON.stringify(export_object);
 }
 
 Mech.prototype.getInteralStructure = function() {
 	return this.internalStructure;
 }
+
+Mech.prototype.setASRole = function( newValue ) {
+	return this.alphaStrikeForceStats.role = newValue;
+}
+
 
 Mech.prototype.importJSON = function(json_string) {
 	// TODO
@@ -3245,6 +3254,12 @@ Mech.prototype.importJSON = function(json_string) {
 
 			if( import_object.tech )
 				this.setTech( import_object.tech );
+
+			if( import_object.pilot )
+				this.pilot = import_object.pilot;
+
+			if( import_object.as_role )
+				this.setASRole( import_object.as_role );
 
 			if( import_object.walkSpeed )
 				this.setWalkSpeed( import_object.walkSpeed );

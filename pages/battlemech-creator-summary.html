@@ -16,6 +16,45 @@
 						</div>
 					</div>
 				</div>
+				<div class="row">
+					<div class="column small-12 medium-6 large-6">
+						<fieldset class="fieldset">
+							<legend  translate="BM_SUMMARY_MECHWARRIOR_DATA">Mechwarrior Data</legend>
+
+							<label>
+								<span translate="GENERAL_NAME">Name</span><br />
+								<input type="text" ng-model="mechwarriorName" ng-keyup="setPilotName( mechwarriorName )" />
+							</label>
+
+							<div class="row">
+								<div class="column small-6">
+									<label>
+										<span translate="GENERAL_SKILL_PILOTING">Piloting</span><br />
+										<input type="number" ng-model="mechwarriorPiloting" ng-change="setPilotPiloting( mechwarriorPiloting )" />
+									</label>
+								</div>
+
+								<div class="column small-6">
+									<label>
+										<span translate="GENERAL_SKILL_GUNNERY">Gunnery</span><br />
+										<input type="number" ng-model="mechwarriorGunnery" ng-change="setPilotGunnery( mechwarriorGunnery )" />
+									</label>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+					<div class="column small-12 medium-6 large-6">
+						<fieldset class="fieldset">
+							<legend translate="BM_SUMMARY_ALPHA_STRIKE_ROLE">Alpha Strike Role</legend>
+							<label>
+								<span translate="BM_SUMMARY_ALPHA_STRIKE_ROLE">Role</span><br />
+								<input type="text" ng-model="asRole" ng-keyup="setASRole( asRole )" />
+
+							</label>
+
+						</fieldset>
+					</div>
+				</div>
 
 				<div class="row">
 					<div class="column small-12 medium-6 large-6">

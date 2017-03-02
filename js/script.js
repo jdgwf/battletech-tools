@@ -1427,30 +1427,32 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 	svgCode += createRSGroupBox( "'Mech Data", 10, 10, 400, 700);
 
 	// Name/Type
-	svgCode += "<text x=\"" + ( mechDataLeft + 10 ) + "\" y=\"" + (mechDataTop + 80) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"35\">Type: " + mechData.getName() + "</text>\n";
+	svgCode += "<text x=\"" + ( mechDataLeft + 10 ) + "\" y=\"" + (mechDataTop + 80) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"30\">Type:</text>\n";
+	svgCode += "<text x=\"" + ( mechDataLeft + 10 ) + "\" y=\"" + (mechDataTop + 120) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"35\">" + mechData.getName() + "</text>\n";
+
 
 	// Movement
 	svgCode += "<text x=\"" + ( mechDataLeft + 15 ) + "\" y=\"" + (mechDataTop + 160) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"30\">Movement Points</text>\n";
 
 	// Walk
 	svgCode += "<text x=\"" + ( mechDataLeft + 220 ) + "\" y=\"" + (mechDataTop + 210) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"30\">Walking:</text>\n";
-	svgCode += "<text x=\"" + ( mechDataLeft + 240 ) + "\" y=\"" + (mechDataTop + 210) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.getWalkSpeed() + "</text>\n";
+	svgCode += "<text x=\"" + ( mechDataLeft + 240 ) + "\" y=\"" + (mechDataTop + 210) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"30\">" + mechData.getWalkSpeed() + "</text>\n";
 
 	// Run
 	svgCode += "<text x=\"" + ( mechDataLeft + 220 ) + "\" y=\"" + (mechDataTop + 245) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"30\">Running</text>\n";
-	svgCode += "<text x=\"" + ( mechDataLeft + 240 ) + "\" y=\"" + (mechDataTop + 245) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.getRunSpeed() + "</text>\n";
+	svgCode += "<text x=\"" + ( mechDataLeft + 240 ) + "\" y=\"" + (mechDataTop + 245) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"30\">" + mechData.getRunSpeed() + "</text>\n";
 
 	// Jump
 	svgCode += "<text x=\"" + ( mechDataLeft + 220 ) + "\" y=\"" + (mechDataTop + 280) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"30\">Jumping</text>\n";
-	svgCode += "<text x=\"" + ( mechDataLeft + 240 ) + "\" y=\"" + (mechDataTop + 280) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.getJumpSpeed() + "</text>\n";
+	svgCode += "<text x=\"" + ( mechDataLeft + 240 ) + "\" y=\"" + (mechDataTop + 280) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"30\">" + mechData.getJumpSpeed() + "</text>\n";
 
 	// Tonnage
 	svgCode += "<text x=\"" + ( mechDataLeft + 340 ) + "\" y=\"" + (mechDataTop + 160) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"25\">Tonnage:</text>\n";
-	svgCode += "<text x=\"" + ( mechDataLeft + 665 ) + "\" y=\"" + (mechDataTop + 160) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"25\">" + mechData.getTonnage() + "</text>\n";
+	svgCode += "<text x=\"" + ( mechDataLeft + 665 ) + "\" y=\"" + (mechDataTop + 160) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"25\">" + mechData.getTonnage() + "</text>\n";
 
 	// Tech Base
 	svgCode += "<text x=\"" + ( mechDataLeft + 340 ) + "\" y=\"" + (mechDataTop + 205) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"25\">Tech Base:</text>\n";
-	svgCode += "<text x=\"" + ( mechDataLeft + 665 ) + "\" y=\"" + (mechDataTop + 225) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"25\">" + mechData.getLocalTranslation( mechData.getTech().name)  + "</text>\n";
+	svgCode += "<text x=\"" + ( mechDataLeft + 665 ) + "\" y=\"" + (mechDataTop + 225) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"25\">" + mechData.getLocalTranslation( mechData.getTech().name)  + "</text>\n";
 
 	// Era
 	eraString = mechData.getLocalTranslation( mechData.getEra().name);
@@ -1464,16 +1466,16 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 	eraLine1 = eraLine1.trim();
 	eraLine2 = eraLine2.trim();
 	svgCode += "<text x=\"" + ( mechDataLeft + 340 ) + "\" y=\"" + (mechDataTop + 255) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"25\">Era:</text>\n";
-	svgCode += "<text x=\"" + ( mechDataLeft + 665 ) + "\" y=\"" + (mechDataTop + 280) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"25\">" + eraLine1  + "</text>\n";
-	svgCode += "<text x=\"" + ( mechDataLeft + 665 ) + "\" y=\"" + (mechDataTop + 305) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"25\">" + eraLine2  + "</text>\n";
+	svgCode += "<text x=\"" + ( mechDataLeft + 665 ) + "\" y=\"" + (mechDataTop + 280) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"20\">" + eraLine1  + "</text>\n";
+	svgCode += "<text x=\"" + ( mechDataLeft + 665 ) + "\" y=\"" + (mechDataTop + 300) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"20\">" + eraLine2  + "</text>\n";
 
 
 	// Cost
 	svgCode += "<text x=\"" + ( mechDataLeft + 15 ) + "\" y=\"" + (mechDataTop + 350) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"30\">Cost (CBills)</text>\n";
-	svgCode += "<text x=\"" + ( mechDataLeft + 15 ) + "\" y=\"" + (mechDataTop + 380) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"25\">" + mechData.getCBillCost()  + "</text>\n";
+	svgCode += "<text x=\"" + ( mechDataLeft + 15 ) + "\" y=\"" + (mechDataTop + 380) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"25\">" + mechData.getCBillCost()  + "</text>\n";
 	// BV
 	svgCode += "<text x=\"" + ( mechDataLeft + 340 ) + "\" y=\"" + (mechDataTop + 350) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"30\">BattleValue (BV2)</text>\n";
-	svgCode += "<text x=\"" + ( mechDataLeft + 340 ) + "\" y=\"" + (mechDataTop + 380) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"25\">" + mechData.getBattleValue()  + "</text>\n";
+	svgCode += "<text x=\"" + ( mechDataLeft + 340 ) + "\" y=\"" + (mechDataTop + 380) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"25\">" + mechData.getBattleValue()  + "</text>\n";
 
 
 	/*
@@ -1541,17 +1543,17 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 	svgCode += createRSGroupBox( "Warrior Data", pilotLeft, pilotTop, 250, 500);
 
 	// Name/Type
-	svgCode += "<text x=\"" + ( pilotLeft + 10 ) + "\" y=\"" + (pilotTop + 80) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"35\">Name: " + mechData.pilot.name + "</text>\n";
+	svgCode += "<text x=\"" + ( pilotLeft + 10 ) + "\" y=\"" + (pilotTop + 80) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"25\">" + mechData.pilot.name + "</text>\n";
 
 	// Piloting
-	svgCode += "<text x=\"" + ( pilotLeft + 450 ) + "\" y=\"" + (pilotTop + 120) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"35\">Piloting: " + mechData.pilot.piloting + "</text>\n";
+	svgCode += "<text x=\"" + ( pilotLeft + 450 ) + "\" y=\"" + (pilotTop + 120) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"35\">Piloting: " + mechData.pilot.piloting + "</text>\n";
 
 	// Gunnery
-	svgCode += "<text x=\"" + ( pilotLeft + 450 ) + "\" y=\"" + (pilotTop + 160) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"35\">Gunnery: " + mechData.pilot.gunnery + "</text>\n";
+	svgCode += "<text x=\"" + ( pilotLeft + 450 ) + "\" y=\"" + (pilotTop + 160) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"35\">Gunnery: " + mechData.pilot.gunnery + "</text>\n";
 
 	// Damage Track
-	svgCode += "<text x=\"" + ( pilotLeft + 100 ) + "\" y=\"" + (pilotTop + 200) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"25\">Hits:</text>\n";
-	svgCode += "<text x=\"" + ( pilotLeft + 100 ) + "\" y=\"" + (pilotTop + 240) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"25\">Consc:</text>\n";
+	svgCode += "<text x=\"" + ( pilotLeft + 100 ) + "\" y=\"" + (pilotTop + 200) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"25\">Hits:</text>\n";
+	svgCode += "<text x=\"" + ( pilotLeft + 100 ) + "\" y=\"" + (pilotTop + 240) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"25\">Consc:</text>\n";
 
 	boxWidth = 60;
 	lWidthBuffer = 0;
@@ -1559,25 +1561,16 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 	svgCode += "<rect x=\"" + ( pilotLeft + 110 + lWidthBuffer + 1 ) + "\" y=\"" + (pilotTop + 170 + 1) + "\" width=\"" + (boxWidth - 2) + "\" height=\"38\" fill=\"" + colorWhite + "\" />\n";
 	svgCode += "<rect x=\"" + ( pilotLeft + 110 + lWidthBuffer ) + "\" y=\"" + (pilotTop + 210) + "\" width=\"" + (boxWidth) + "\" height=\"40\" fill=\"" + colorBlack + "\" />\n";
 	svgCode += "<rect x=\"" + ( pilotLeft + 110 + lWidthBuffer + 1 ) + "\" y=\"" + (pilotTop + 210 + 1) + "\" width=\"" + (boxWidth - 2) + "\" height=\"38\" fill=\"" + colorWhite + "\" />\n";
-	svgCode += "<text x=\"" + ( pilotLeft + 100 + lWidthBuffer + 35 ) + "\" y=\"" + (pilotTop + 200) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"25\">1</text>\n";
-	svgCode += "<text x=\"" + ( pilotLeft + 100 + lWidthBuffer + 35 ) + "\" y=\"" + (pilotTop + 240) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"20\">3+</text>\n";
+	svgCode += "<text x=\"" + ( pilotLeft + 100 + lWidthBuffer + 35 ) + "\" y=\"" + (pilotTop + 200) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"25\">1</text>\n";
+	svgCode += "<text x=\"" + ( pilotLeft + 100 + lWidthBuffer + 35 ) + "\" y=\"" + (pilotTop + 240) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"20\">3+</text>\n";
 
 	lWidthBuffer += boxWidth;
 	svgCode += "<rect x=\"" + ( pilotLeft + 110 + lWidthBuffer ) + "\" y=\"" + (pilotTop + 170) + "\" width=\"" + (boxWidth) + "\" height=\"40\" fill=\"" + colorBlack + "\" />\n";
 	svgCode += "<rect x=\"" + ( pilotLeft + 110 + lWidthBuffer + 1 ) + "\" y=\"" + (pilotTop + 170 + 1) + "\" width=\"" + (boxWidth - 2) + "\" height=\"38\" fill=\"" + colorWhite + "\" />\n";
 	svgCode += "<rect x=\"" + ( pilotLeft + 110 + lWidthBuffer ) + "\" y=\"" + (pilotTop + 210) + "\" width=\"" + (boxWidth) + "\" height=\"40\" fill=\"" + colorBlack + "\" />\n";
 	svgCode += "<rect x=\"" + ( pilotLeft + 110 + lWidthBuffer + 1 ) + "\" y=\"" + (pilotTop + 210 + 1) + "\" width=\"" + (boxWidth - 2) + "\" height=\"38\" fill=\"" + colorWhite + "\" />\n";
-	svgCode += "<text x=\"" + ( pilotLeft + 100 + lWidthBuffer + 35 ) + "\" y=\"" + (pilotTop + 200) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"25\">2</text>\n";
-	svgCode += "<text x=\"" + ( pilotLeft + 100 + lWidthBuffer + 35 ) + "\" y=\"" + (pilotTop + 240) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"20\">5+</text>\n";
-
-
-	lWidthBuffer += boxWidth;
-	svgCode += "<rect x=\"" + ( pilotLeft + 110 + lWidthBuffer ) + "\" y=\"" + (pilotTop + 170) + "\" width=\"" + (boxWidth) + "\" height=\"40\" fill=\"" + colorBlack + "\" />\n";
-	svgCode += "<rect x=\"" + ( pilotLeft + 110 + lWidthBuffer + 1 ) + "\" y=\"" + (pilotTop + 170 + 1) + "\" width=\"" + (boxWidth - 2) + "\" height=\"38\" fill=\"" + colorWhite + "\" />\n";
-	svgCode += "<rect x=\"" + ( pilotLeft + 110 + lWidthBuffer ) + "\" y=\"" + (pilotTop + 210) + "\" width=\"" + (boxWidth) + "\" height=\"40\" fill=\"" + colorBlack + "\" />\n";
-	svgCode += "<rect x=\"" + ( pilotLeft + 110 + lWidthBuffer + 1 ) + "\" y=\"" + (pilotTop + 210 + 1) + "\" width=\"" + (boxWidth - 2) + "\" height=\"38\" fill=\"" + colorWhite + "\" />\n";
-	svgCode += "<text x=\"" + ( pilotLeft + 100 + lWidthBuffer + 35 ) + "\" y=\"" + (pilotTop + 200) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"25\">3</text>\n";
-	svgCode += "<text x=\"" + ( pilotLeft + 100 + lWidthBuffer + 35 ) + "\" y=\"" + (pilotTop + 240) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"20\">7+</text>\n";
+	svgCode += "<text x=\"" + ( pilotLeft + 100 + lWidthBuffer + 35 ) + "\" y=\"" + (pilotTop + 200) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"25\">2</text>\n";
+	svgCode += "<text x=\"" + ( pilotLeft + 100 + lWidthBuffer + 35 ) + "\" y=\"" + (pilotTop + 240) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"20\">5+</text>\n";
 
 
 	lWidthBuffer += boxWidth;
@@ -1585,8 +1578,8 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 	svgCode += "<rect x=\"" + ( pilotLeft + 110 + lWidthBuffer + 1 ) + "\" y=\"" + (pilotTop + 170 + 1) + "\" width=\"" + (boxWidth - 2) + "\" height=\"38\" fill=\"" + colorWhite + "\" />\n";
 	svgCode += "<rect x=\"" + ( pilotLeft + 110 + lWidthBuffer ) + "\" y=\"" + (pilotTop + 210) + "\" width=\"" + (boxWidth) + "\" height=\"40\" fill=\"" + colorBlack + "\" />\n";
 	svgCode += "<rect x=\"" + ( pilotLeft + 110 + lWidthBuffer + 1 ) + "\" y=\"" + (pilotTop + 210 + 1) + "\" width=\"" + (boxWidth - 2) + "\" height=\"38\" fill=\"" + colorWhite + "\" />\n";
-	svgCode += "<text x=\"" + ( pilotLeft + 100 + lWidthBuffer + 35 ) + "\" y=\"" + (pilotTop + 200) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"25\">4</text>\n";
-	svgCode += "<text x=\"" + ( pilotLeft + 100 + lWidthBuffer + 35 ) + "\" y=\"" + (pilotTop + 240) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"20\">10+</text>\n";
+	svgCode += "<text x=\"" + ( pilotLeft + 100 + lWidthBuffer + 35 ) + "\" y=\"" + (pilotTop + 200) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"25\">3</text>\n";
+	svgCode += "<text x=\"" + ( pilotLeft + 100 + lWidthBuffer + 35 ) + "\" y=\"" + (pilotTop + 240) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"20\">7+</text>\n";
 
 
 	lWidthBuffer += boxWidth;
@@ -1594,8 +1587,17 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 	svgCode += "<rect x=\"" + ( pilotLeft + 110 + lWidthBuffer + 1 ) + "\" y=\"" + (pilotTop + 170 + 1) + "\" width=\"" + (boxWidth - 2) + "\" height=\"38\" fill=\"" + colorWhite + "\" />\n";
 	svgCode += "<rect x=\"" + ( pilotLeft + 110 + lWidthBuffer ) + "\" y=\"" + (pilotTop + 210) + "\" width=\"" + (boxWidth) + "\" height=\"40\" fill=\"" + colorBlack + "\" />\n";
 	svgCode += "<rect x=\"" + ( pilotLeft + 110 + lWidthBuffer + 1 ) + "\" y=\"" + (pilotTop + 210 + 1) + "\" width=\"" + (boxWidth - 2) + "\" height=\"38\" fill=\"" + colorWhite + "\" />\n";
-	svgCode += "<text x=\"" + ( pilotLeft + 100 + lWidthBuffer + 35 ) + "\" y=\"" + (pilotTop + 200) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"25\">5</text>\n";
-	svgCode += "<text x=\"" + ( pilotLeft + 100 + lWidthBuffer + 35 ) + "\" y=\"" + (pilotTop + 240) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"20\">11+</text>\n";
+	svgCode += "<text x=\"" + ( pilotLeft + 100 + lWidthBuffer + 35 ) + "\" y=\"" + (pilotTop + 200) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"25\">4</text>\n";
+	svgCode += "<text x=\"" + ( pilotLeft + 100 + lWidthBuffer + 35 ) + "\" y=\"" + (pilotTop + 240) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"20\">10+</text>\n";
+
+
+	lWidthBuffer += boxWidth;
+	svgCode += "<rect x=\"" + ( pilotLeft + 110 + lWidthBuffer ) + "\" y=\"" + (pilotTop + 170) + "\" width=\"" + (boxWidth) + "\" height=\"40\" fill=\"" + colorBlack + "\" />\n";
+	svgCode += "<rect x=\"" + ( pilotLeft + 110 + lWidthBuffer + 1 ) + "\" y=\"" + (pilotTop + 170 + 1) + "\" width=\"" + (boxWidth - 2) + "\" height=\"38\" fill=\"" + colorWhite + "\" />\n";
+	svgCode += "<rect x=\"" + ( pilotLeft + 110 + lWidthBuffer ) + "\" y=\"" + (pilotTop + 210) + "\" width=\"" + (boxWidth) + "\" height=\"40\" fill=\"" + colorBlack + "\" />\n";
+	svgCode += "<rect x=\"" + ( pilotLeft + 110 + lWidthBuffer + 1 ) + "\" y=\"" + (pilotTop + 210 + 1) + "\" width=\"" + (boxWidth - 2) + "\" height=\"38\" fill=\"" + colorWhite + "\" />\n";
+	svgCode += "<text x=\"" + ( pilotLeft + 100 + lWidthBuffer + 35 ) + "\" y=\"" + (pilotTop + 200) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"25\">5</text>\n";
+	svgCode += "<text x=\"" + ( pilotLeft + 100 + lWidthBuffer + 35 ) + "\" y=\"" + (pilotTop + 240) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"20\">11+</text>\n";
 
 
 
@@ -1604,8 +1606,8 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 	svgCode += "<rect x=\"" + ( pilotLeft + 110 + lWidthBuffer + 1 ) + "\" y=\"" + (pilotTop + 170 + 1) + "\" width=\"" + (boxWidth - 2) + "\" height=\"38\" fill=\"" + colorWhite + "\" />\n";
 	svgCode += "<rect x=\"" + ( pilotLeft + 110 + lWidthBuffer ) + "\" y=\"" + (pilotTop + 210) + "\" width=\"" + (boxWidth) + "\" height=\"40\" fill=\"" + colorBlack + "\" />\n";
 	svgCode += "<rect x=\"" + ( pilotLeft + 110 + lWidthBuffer + 1 ) + "\" y=\"" + (pilotTop + 210 + 1) + "\" width=\"" + (boxWidth - 2) + "\" height=\"38\" fill=\"" + colorWhite + "\" />\n";
-	svgCode += "<text x=\"" + ( pilotLeft + 100 + lWidthBuffer + 35 ) + "\" y=\"" + (pilotTop + 200) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"25\">6</text>\n";
-	svgCode += "<text x=\"" + ( pilotLeft + 100 + lWidthBuffer + 35 ) + "\" y=\"" + (pilotTop + 240) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"20\">Dead</text>\n";
+	svgCode += "<text x=\"" + ( pilotLeft + 100 + lWidthBuffer + 37 ) + "\" y=\"" + (pilotTop + 200) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"25\">6</text>\n";
+	svgCode += "<text x=\"" + ( pilotLeft + 100 + lWidthBuffer + 37 ) + "\" y=\"" + (pilotTop + 240) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"20\">Dead</text>\n";
 
 
 
@@ -3800,8 +3802,6 @@ if( mechData.armorAllocation.centerTorso >= 55 ) {
 	svgCode += "<text x=\"" + ( isBoxLeft + isBoxWidth / 2  ) + "\" y=\"" + (isBoxTop + 440) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"15\">[" + mechData.internalStructure.centerTorso + ")</text>\n";
 
 	// Internal Structure Bubbles....
-	// TODO
-
 	var isBubbleRadius = 8;
 	var isCenterAdjust = 3;
 
@@ -5003,7 +5003,7 @@ function createSVGAlphaStrike( asData, inPlay, itemIDField ) {
 
 	// Mech Name and Custom Name
 	if( asData.customName ) {
-		svgCode += "<text x=\"20\" y=\"50\" font-family=\"sans-serif\" font-size=\"35\">" + asData.customName  + "</text>\n";
+		svgCode += "<text x=\"20\" y=\"50\" font-family=\"sans-serif\" font-size=\"40\">" + asData.customName  + "</text>\n";
 		if( asData.name.toUpperCase().length > 45 ) {
 			svgCode += "<text x=\"20\" y=\"75\" font-family=\"sans-serif\" font-size=\"13\">" + asData.name.toUpperCase()  + "</text>\n";
 		} else {
@@ -5022,10 +5022,10 @@ function createSVGAlphaStrike( asData, inPlay, itemIDField ) {
 			for( var lCount = halfWords + 1; lCount < words.length ; lCount++ )
 				secondLine += words[ lCount ] + " ";
 
-			svgCode += "<text x=\"20\" y=\"50\" font-family=\"sans-serif\" font-size=\"35\">" + firstLine.toUpperCase()  + "</text>\n";
-			svgCode += "<text x=\"20\" y=\"80\" font-family=\"sans-serif\" font-size=\"35\">" + secondLine.toUpperCase()  + "</text>\n";
+			svgCode += "<text x=\"20\" y=\"50\" font-family=\"sans-serif\" font-size=\"40\">" + firstLine.toUpperCase()  + "</text>\n";
+			svgCode += "<text x=\"20\" y=\"80\" font-family=\"sans-serif\" font-size=\"40\">" + secondLine.toUpperCase()  + "</text>\n";
 		} else {
-			svgCode += "<text x=\"20\" y=\"50\" font-family=\"sans-serif\" font-size=\"35\">" + asData.name.toUpperCase()  + "</text>\n";
+			svgCode += "<text x=\"20\" y=\"50\" font-family=\"sans-serif\" font-size=\"40\">" + asData.name.toUpperCase()  + "</text>\n";
 		}
 	}
 
@@ -9740,10 +9740,11 @@ function asUnit (incomingMechData) {
 
 			this.threshold = incomingMechData["BFThreshold"] / 1;
 
-			if( incomingMechData["Role"] && incomingMechData["Role"]["Name"] )
+			if( incomingMechData["Role"] && incomingMechData["Role"]["Name"] ) {
 				this.role = incomingMechData["Role"]["Name"];
-			else
+			} else {
 				this.role = "Not Specified";
+			}
 
 			this.type = incomingMechData["BFType"];
 			this.size = incomingMechData["BFSize"];
@@ -10976,6 +10977,7 @@ function Mech (type) {
 		name: "",
 		size: "",
 		move: "",
+		role: "Brawler",
 		jumpMove: "",
 		pv: "",
 		damage: {
@@ -11876,15 +11878,14 @@ Mech.prototype._calcAlphaStrike = function() {
 	this.alphaStrikeForceStats.type = "BM";
 
 
-	this.alphaStrikeValue = Math.round(finalValue);
+	this.alphaStrikeValue = Math.round(finalValue)  + " (TODO / WIP)";
 
 	var asMechData = [];
-	asMechData["BFPointValue"] = this.alphaStrikeValue;
+	asMechData["BFPointValue"] = Math.round(finalValue);
 
 	asMechData["Name"] = this.getName();
-	asMechData["Role"] = "TODOROLE";
 	asMechData["BFThreshold"] = 0;
-	asMechData["Role"] = { name: "" };
+	asMechData["Role"] = { Name: this.alphaStrikeForceStats.role };
 	asMechData["BFType"] = "BM";
 	asMechData["BFSize"] = this.alphaStrikeForceStats.size_class;
 
@@ -12156,13 +12157,13 @@ Mech.prototype._calcBattleValue = function() {
 
 	 }
 	this.calcLogBV += "<strong>Final Battle Value</strong>: " + finalBattleValue + "<br />";
-	this.battleValue = finalBattleValue;
+	this.battleValue = finalBattleValue + " (TODO / WIP)";
 }
 
 Mech.prototype._calcCBillCost = function() {
 	// TODO Calculations
 
-	this.cbillCost = 0;
+	this.cbillCost = 0  + " (TODO / WIP)";
 	this.calcLogCBill = "TODO";
 
 }
@@ -14051,12 +14052,21 @@ Mech.prototype.exportJSON = function() {
 	if( this.small_cockpit )
 		export_object.features.push("sm_cockpit");
 
+	export_object.pilot = this.pilot;
+
+	export_object.as_role = this.alphaStrikeForceStats.role;
+
 	return JSON.stringify(export_object);
 }
 
 Mech.prototype.getInteralStructure = function() {
 	return this.internalStructure;
 }
+
+Mech.prototype.setASRole = function( newValue ) {
+	return this.alphaStrikeForceStats.role = newValue;
+}
+
 
 Mech.prototype.importJSON = function(json_string) {
 	// TODO
@@ -14080,6 +14090,12 @@ Mech.prototype.importJSON = function(json_string) {
 
 			if( import_object.tech )
 				this.setTech( import_object.tech );
+
+			if( import_object.pilot )
+				this.pilot = import_object.pilot;
+
+			if( import_object.as_role )
+				this.setASRole( import_object.as_role );
 
 			if( import_object.walkSpeed )
 				this.setWalkSpeed( import_object.walkSpeed );
@@ -17262,6 +17278,12 @@ var battlemechCreatorControllerSummaryArray =
 			//~ $scope.isIOSStandAlone = true;
 			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
 
+			$scope.asRole = $scope.current_mech.alphaStrikeForceStats.role;
+
+
+			$scope.mechwarriorName = $scope.current_mech.pilot.name;
+			$scope.mechwarriorPiloting = $scope.current_mech.pilot.piloting;
+			$scope.mechwarriorGunnery = $scope.current_mech.pilot.gunnery;
 
 			// make tro for sidebar
 			$scope.mech_tro = $scope.current_mech.makeTROHTML();
@@ -17271,6 +17293,40 @@ var battlemechCreatorControllerSummaryArray =
 
 			$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
 			$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
+
+			$scope.setPilotName = function( newValue ) {
+				$scope.current_mech.pilot.name = newValue;
+				//~ update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
+				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
+			}
+
+			$scope.setPilotPiloting = function( newValue ) {
+				$scope.current_mech.pilot.piloting = newValue;
+				//~ update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
+				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
+			}
+
+			$scope.setPilotGunnery = function( newValue ) {
+				$scope.current_mech.pilot.gunnery = newValue;
+				//~ update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
+				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
+			}
+
+			$scope.setASRole = function( newValue ) {
+				$scope.current_mech.setASRole( newValue );
+				//~ update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
+				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
+			}
+
+
 
 			$scope.saveASPNG = function() {
 				//~ saveSvgAsPng(document.getElementById('asSheetImage'), $scope.current_mech.getName() + ' Alpha Strike Card.png', {scale: 10});
@@ -18438,6 +18494,8 @@ available_languages.push ({
 		BM_SUMMARY_BV_CALC: "Battle Value",
 		BM_SUMMARY_AS_CALC: "Alpha Strike",
 		BM_SUMMARY_CBILL_CALC: "CBill Cost",
+		BM_SUMMARY_MECHWARRIOR_DATA: "Mechwarrior Data",
+		BM_SUMMARY_ALPHA_STRIKE_ROLE: "Alpha Strike Role",
 
 		BM_EXPORTS_TITLE: "Exports",
 		BM_EXPORTS_DESC: "",
