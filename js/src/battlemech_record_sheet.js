@@ -403,7 +403,7 @@ function battleTechLogoSVG ( standAlone, baseFillColor, aFillColor, xLoc, yLoc, 
 
 
 	if( standAlone ) {
-		var svg = "<!DOCTYPE HTML><svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xml:space=\"preserve\" height=\"" + theHeight  + " px\" width=\"" + theWidth  + "px\" viewBox=\"0 0 790 100\" ><g>\n";
+		var svg = "<!DOCTYPE HTML><svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xml:space=\"preserve\" height=\"" + theHeight  + "px\" width=\"" + theWidth  + "px\" viewBox=\"0 0 790 100\" ><g>\n";
 
 	} else {
 		var svg = '<svg \
@@ -555,7 +555,7 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 	var docWidth = 2000;
 	var docHeight = 2600;
 
-	svgCode = "<!DOCTYPE HTML><svg version=\"1.1\" x=\"0px\" y=\"0px\" height=\"auto\" width=\"auto\" xml:space=\"preserve\" viewBox=\"0 0 " + docWidth  + " " + docHeight  + "\" xmlns=\"http://www.w3.org/2000/svg\">\n";
+	svgCode = "<!DOCTYPE HTML><svg version=\"1.1\" x=\"0px\" y=\"0px\" xml:space=\"preserve\" viewBox=\"0 0 " + docWidth  + " " + docHeight  + "\" xmlns=\"http://www.w3.org/2000/svg\">\n";
 
 	svgCode += "<g>\n";
 
@@ -3784,16 +3784,16 @@ if( mechData.armorAllocation.centerTorso >= 55 ) {
 	svgCode += "<text x=\"" + (  boxX + 205 / 2 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"" + ( lineHeight - 6) + "\">HEAT SINKS</text>\n";
 	hCounter++;
 	hCounter++;
-	svgCode += "<text x=\"" + (  boxX + 205 / 2 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"" + ( lineHeight) + "\">" + mechData.getHeatSinks() + "</text>\n";
+	svgCode += "<text x=\"" + (  boxX + 205 / 2 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"" + ( lineHeight * 2) + "\">" + mechData.getHeatSinks() + "</text>\n";
 
 	hCounter++;
 	if( mechData.heat_sink_type == "single" ) {
-		svgCode += "<text x=\"" + (  boxX + 205 / 2 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 6) + "\">Single</text>\n";
+		svgCode += "<text x=\"" + (  boxX + 205 / 2 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 6) + "\">Single</text>\n";
 	} else if( mechData.heat_sink_type == "double" ){
-		svgCode += "<text x=\"" + (  boxX + 205 / 2 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 6) + "\">Double</text>\n";
+		svgCode += "<text x=\"" + (  boxX + 205 / 2 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 6) + "\">Double</text>\n";
 
 	} else {
-		svgCode += "<text x=\"" + (  boxX + 205 / 2 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 6) + "\">" +  mechData.heat_sink_type + "</text>\n";
+		svgCode += "<text x=\"" + (  boxX + 205 / 2 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 6) + "\">" +  mechData.heat_sink_type + "</text>\n";
 
 	}
 	armorBubbleRadius = 15;
@@ -3947,86 +3947,86 @@ if( mechData.armorAllocation.centerTorso >= 55 ) {
 	boxY = 1885;
 	boxX = 1240;
 	svgCode += createRSGroupBox( "Heat Effects", boxX, boxY, 575, 435);
-	col1Loc = 0;
+	col1Loc = 70;
 	col2Loc = 90;
 
 	hCounter = 0;
 	lineHeight = 27;
 
-	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"" + ( lineHeight - 6) + "\">HEAT</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"" + ( lineHeight - 6) + "\">HEAT</text>\n";
 	hCounter++;
-	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"" + ( lineHeight - 6) + "\">LEVEL</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"" + ( lineHeight - 6) + "\">LEVEL</text>\n";
 	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"" + ( lineHeight - 6) + "\">EFFECTS</text>\n";
 
 	hCounter++;
-	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">30</text>\n";
-	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">Shutdown</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">30</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">Shutdown</text>\n";
 
 	hCounter++;
-	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">28</text>\n";
-	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">Ammo Exp. Avoid on 8+</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">28</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">Ammo Exp. Avoid on 8+</text>\n";
 
 	hCounter++;
-	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">26</text>\n";
-	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">Shutdown Avoid on 10+</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">26</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">Shutdown Avoid on 10+</text>\n";
 
 	hCounter++;
-	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">25</text>\n";
-	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">-5 Movement Points</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">25</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">-5 Movement Points</text>\n";
 
 	hCounter++;
-	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">24</text>\n";
-	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">+4 Modifier to Fire</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">24</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">+4 Modifier to Fire</text>\n";
 
 	hCounter++;
-	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">23</text>\n";
-	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">Ammo Exp. Avoid on 6+</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">23</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">Ammo Exp. Avoid on 6+</text>\n";
 
 	hCounter++;
-	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">22</text>\n";
-	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">Shutdown Avoid on 8+</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">22</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">Shutdown Avoid on 8+</text>\n";
 
 	hCounter++;
-	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">20</text>\n";
-	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">-4 Movement Points</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">20</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">-4 Movement Points</text>\n";
 
 	hCounter++;
-	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">19</text>\n";
-	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">Ammo Exp. Avoid on 4+</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">19</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">Ammo Exp. Avoid on 4+</text>\n";
 
 	hCounter++;
-	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">18</text>\n";
-	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">Shutdown Avoid on 6+</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">18</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">Shutdown Avoid on 6+</text>\n";
 
 	hCounter++;
-	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">17</text>\n";
-	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">+3 Modifier to Fire</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">17</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">+3 Modifier to Fire</text>\n";
 
 	hCounter++;
-	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">15</text>\n";
-	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">-3 Movement Points</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">15</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">-3 Movement Points</text>\n";
 
 	hCounter++;
-	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">14</text>\n";
-	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">Shutdown Avoid on 4+</text>\n";
-
-
-	hCounter++;
-	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">13</text>\n";
-	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">+2 Modifier to Fire</text>\n";
-
-	hCounter++;
-	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">10</text>\n";
-	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">-2 Movement Points</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">14</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">Shutdown Avoid on 4+</text>\n";
 
 
 	hCounter++;
-	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">8</text>\n";
-	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">+1 Modifier to Fire</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">13</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">+2 Modifier to Fire</text>\n";
 
 	hCounter++;
-	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">5</text>\n";
-	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + ( lineHeight - 3) + "\">-1 Movement Points</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">10</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">-2 Movement Points</text>\n";
+
+
+	hCounter++;
+	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">8</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">+1 Modifier to Fire</text>\n";
+
+	hCounter++;
+	svgCode += "<text x=\"" + (  boxX + col1Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">5</text>\n";
+	svgCode += "<text x=\"" + (  boxX + col2Loc + 20 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 3) + "\">-1 Movement Points</text>\n";
 
 
 	// Classic Battletech Logo on bottom.
@@ -4116,7 +4116,7 @@ function createSVGAlphaStrike( asData, inPlay, itemIDField ) {
 
 
 
-	svgCode = "<!DOCTYPE HTML><svg version=\"1.1\" x=\"0px\" y=\"0px\" height=\"auto\" width=\"auto\" xml:space=\"preserve\" viewBox=\"0 0 1000 640\" xmlns=\"http://www.w3.org/2000/svg\">\n";
+	svgCode = "<!DOCTYPE HTML><svg version=\"1.1\" x=\"0px\" y=\"0px\" xml:space=\"preserve\" viewBox=\"0 0 1000 640\" xmlns=\"http://www.w3.org/2000/svg\">\n";
 
 	svgCode += "<g transform=\"translate(0, 0)\">\n";
 
