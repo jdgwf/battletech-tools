@@ -1038,6 +1038,19 @@ function createCritAllocationTable( critData, xPos, yPos) {
 			lineCount++;
 			var dieNumber = 1;
 		}
+
+		if( critC == critData.length - 1 ) {
+			if( yStartBox > -1  && lastWasPlaceHolder) {
+
+				var boxHeight = (yPos + lineCount * (fontSize + lineBuffer) - yStartBox - lineBuffer );
+
+				if( critC == 5 ) {
+					var boxHeight = (yPos + (lineCount - 1 ) * (fontSize + lineBuffer) - yStartBox - lineBuffer );
+				}
+				backgroundSVG += "<rect x=\"" + ( xPos - 10 ) + "\" rx=\"10\" ry=\"10\" y=\"" + (yStartBox - fontSize + 2) + "\" width=\"" + boxWidth  + "\" height=\"" + boxHeight + "\" fill=\"" + colorVeryLightGray + "\" />\n";
+
+			}
+		}
 	}
 
 	if( critData.length > 6 ) {
@@ -1232,20 +1245,6 @@ function battleTechLogoSVG ( standAlone, baseFillColor, aFillColor, xLoc, yLoc, 
 
 	if( !aFillColor )
 		aFillColor = colorGold;
-
-	// scale = theWidth / baseWidth;
-	//~ baseWidth = baseWidth * 5;
-	//~ baseHeight = baseHeight * 5;
-
-	//~ console.log( "battleTechLogoSVG" );
-	//~ console.log( "battleTechLogoSVG - baseFillColor", baseFillColor);
-	//~ console.log( "battleTechLogoSVG - aFillColor", aFillColor);
-	//~ console.log( "battleTechLogoSVG - theWidth", theWidth);
-	//~ console.log( "battleTechLogoSVG - theHeight", theHeight);
-	//~ console.log( "battleTechLogoSVG - width", width);
-	//~ console.log( "battleTechLogoSVG - xLoc", xLoc);
-	//~ console.log( "battleTechLogoSVG - yLoc", yLoc);
-
 
 	if( standAlone ) {
 		var svg = "<!DOCTYPE HTML><svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xml:space=\"preserve\" height=\"" + theHeight  + "px\" width=\"" + theWidth  + "px\" viewBox=\"0 0 790 100\" ><g>\n";
@@ -1442,8 +1441,19 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 	svgCode += "<text x=\"" + ( mechDataLeft + 665 ) + "\" y=\"" + (mechDataTop + 225) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"25\">" + mechData.getLocalTranslation( mechData.getTech().name)  + "</text>\n";
 
 	// Era
+	eraString = mechData.getLocalTranslation( mechData.getEra().name);
+	eraArray = eraString.split("(");
+	eraLine1 = eraArray[0];
+	if( eraArray[1] ) {
+		eraLine2 = eraArray[1];
+		eraLine2 = eraLine2.replace(")", "");
+		eraLine2 = eraLine2.replace("(", "");
+	}
+	eraLine1 = eraLine1.trim();
+	eraLine2 = eraLine2.trim();
 	svgCode += "<text x=\"" + ( mechDataLeft + 340 ) + "\" y=\"" + (mechDataTop + 255) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"25\">Era:</text>\n";
-	svgCode += "<text x=\"" + ( mechDataLeft + 665 ) + "\" y=\"" + (mechDataTop + 280) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"25\">" + mechData.getLocalTranslation( mechData.getEra().name)  + "</text>\n";
+	svgCode += "<text x=\"" + ( mechDataLeft + 665 ) + "\" y=\"" + (mechDataTop + 280) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"25\">" + eraLine1  + "</text>\n";
+	svgCode += "<text x=\"" + ( mechDataLeft + 665 ) + "\" y=\"" + (mechDataTop + 305) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"25\">" + eraLine2  + "</text>\n";
 
 
 	// Cost
