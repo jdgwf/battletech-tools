@@ -1031,8 +1031,6 @@ Mech.prototype._calcAlphaStrike = function() {
 
 	this.calcLogAS += "Final Point Value: " + finalValue + "<br />\n";
 
-	//~ this.alphaStrikeForceStats.pv = finalValue;
-
 	/* *********************************
 	 * Step 3a: Add Force Bonuses ASC - p141
 	 * ******************************* */
@@ -1067,6 +1065,7 @@ Mech.prototype._calcAlphaStrike = function() {
 	asMechData["BFOverheat"] = this.alphaStrikeForceStats.overheat;
 
 	asMechData["customName"] = this.alphaStrikeForceStats.customName;
+	asMechData["currentSkilll"] = this.pilot.gunnery;
 
 	if( this.alphaStrikeForceStats.jumpMove ) {
 		asMechData["BFMove"] = this.alphaStrikeForceStats.move.toString() + "\"/" + this.alphaStrikeForceStats.jumpMove + "\"J";

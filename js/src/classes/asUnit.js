@@ -137,6 +137,8 @@ function asUnit (incomingMechData) {
 			if( incomingMechData["customName"] )
 				this.customName = incomingMechData["customName"];
 
+
+
 			this.imageURL = incomingMechData["ImageUrl"];
 
 			var tmpMove = incomingMechData["BFMove"];
@@ -182,6 +184,11 @@ function asUnit (incomingMechData) {
 			this.currentSkill = 4;
 			this.currentHeat = 0;
 			this.currentPoints = this.basePoints / 1;
+
+			if( incomingMechData["currentSkilll"] )
+				this.currentSkill = incomingMechData["currentSkilll"];
+
+			//~ this.calcCurrentVals();
 		} else {
 			// Interally Processed Data
 

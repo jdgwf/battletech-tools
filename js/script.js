@@ -9774,6 +9774,8 @@ function asUnit (incomingMechData) {
 			if( incomingMechData["customName"] )
 				this.customName = incomingMechData["customName"];
 
+
+
 			this.imageURL = incomingMechData["ImageUrl"];
 
 			var tmpMove = incomingMechData["BFMove"];
@@ -9819,6 +9821,11 @@ function asUnit (incomingMechData) {
 			this.currentSkill = 4;
 			this.currentHeat = 0;
 			this.currentPoints = this.basePoints / 1;
+
+			if( incomingMechData["currentSkilll"] )
+				this.currentSkill = incomingMechData["currentSkilll"];
+
+			//~ this.calcCurrentVals();
 		} else {
 			// Interally Processed Data
 
@@ -11869,8 +11876,6 @@ Mech.prototype._calcAlphaStrike = function() {
 
 	this.calcLogAS += "Final Point Value: " + finalValue + "<br />\n";
 
-	//~ this.alphaStrikeForceStats.pv = finalValue;
-
 	/* *********************************
 	 * Step 3a: Add Force Bonuses ASC - p141
 	 * ******************************* */
@@ -11905,6 +11910,7 @@ Mech.prototype._calcAlphaStrike = function() {
 	asMechData["BFOverheat"] = this.alphaStrikeForceStats.overheat;
 
 	asMechData["customName"] = this.alphaStrikeForceStats.customName;
+	asMechData["currentSkilll"] = this.pilot.gunnery;
 
 	if( this.alphaStrikeForceStats.jumpMove ) {
 		asMechData["BFMove"] = this.alphaStrikeForceStats.move.toString() + "\"/" + this.alphaStrikeForceStats.jumpMove + "\"J";
@@ -17323,6 +17329,8 @@ var battlemechCreatorControllerSummaryArray =
 			$scope.setPilotPiloting = function( newValue ) {
 				$scope.current_mech.pilot.piloting = newValue;
 				//~ update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				$scope.current_mech._calc();
+
 				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
 				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
@@ -17331,6 +17339,7 @@ var battlemechCreatorControllerSummaryArray =
 			$scope.setPilotGunnery = function( newValue ) {
 				$scope.current_mech.pilot.gunnery = newValue;
 				//~ update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				$scope.current_mech._calc();
 				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
 				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
