@@ -214,7 +214,7 @@ function createCritAllocationTable( critData, xPos, yPos) {
 				if( critC == 5 ) {
 					var boxHeight = (yPos + (lineCount - 1 ) * (fontSize + lineBuffer) - yStartBox - lineBuffer );
 				}
-				backgroundSVG += "<rect x=\"" + ( xPos - 10 ) + "\" rx=\"10\" ry=\"10\" y=\"" + (yStartBox - fontSize + 2) + "\" width=\"" + boxWidth  + "\" height=\"" + boxHeight + "\" fill=\"" + colorVeryLightGray + "\" />\n";
+					backgroundSVG += "<rect x=\"" + ( xPos - 10 ) + "\" rx=\"15\" ry=\"15\" y=\"" + (yStartBox - fontSize + 2) + "\" width=\"" + boxWidth  + "\" height=\"" + boxHeight + "\" stroke=\"" + colorMediumGray + "\" stroke-width=\"2\" fill=\"" + colorVeryLightGray + "\" />\n";
 
 			}
 		}
