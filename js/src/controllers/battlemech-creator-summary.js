@@ -39,6 +39,8 @@ var battlemechCreatorControllerSummaryArray =
 			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
 
 			$scope.asRole = $scope.current_mech.alphaStrikeForceStats.role;
+			$scope.asCustomName = $scope.current_mech.alphaStrikeForceStats.customName;
+
 
 
 			$scope.mechwarriorName = $scope.current_mech.pilot.name;
@@ -86,6 +88,20 @@ var battlemechCreatorControllerSummaryArray =
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 
+
+			$scope.setASCustomName = function( newValue ) {
+				//~ console.log( "setASCustomName", newValue );
+				$scope.current_mech.setASCustomName( newValue );
+				//~ console.log("1", $scope.current_mech.alphaStrikeForceStats.customName);
+				//~ update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
+				//~ console.log("2", $scope.current_mech.alphaStrikeForceStats.customName);
+				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
+				//~ console.log("3", $scope.current_mech.alphaStrikeForceStats.customName);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
+				//~ console.log("4", $scope.current_mech.alphaStrikeForceStats.customName);
+				//~ console.log( 'localStorage["tmp.current_mech"]', localStorage["tmp.current_mech"]);
+			}
 
 
 			$scope.saveASPNG = function() {

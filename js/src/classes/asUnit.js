@@ -134,6 +134,8 @@ function asUnit (incomingMechData) {
 
 			this.basePoints = incomingMechData["BFPointValue"] / 1;
 
+			if( incomingMechData["customName"] )
+				this.customName = incomingMechData["customName"];
 
 			this.imageURL = incomingMechData["ImageUrl"];
 

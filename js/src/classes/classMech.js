@@ -141,6 +141,7 @@ function Mech (type) {
 		name: "",
 		size: "",
 		move: "",
+		customName: "",
 		role: "Brawler",
 		jumpMove: "",
 		pv: "",
@@ -1043,7 +1044,6 @@ Mech.prototype._calcAlphaStrike = function() {
 
 
 	this.alphaStrikeValue = Math.round(finalValue)  + " (TODO / WIP)";
-
 	var asMechData = [];
 	asMechData["BFPointValue"] = Math.round(finalValue);
 
@@ -1059,13 +1059,14 @@ Mech.prototype._calcAlphaStrike = function() {
 	asMechData["BFOverheat"] = final_overheat_value;
 
 
-
 	asMechData["BFDamageShort"] = this.alphaStrikeForceStats.damage.short;
 	asMechData["BFDamageMedium"] = this.alphaStrikeForceStats.damage.medium;
 	asMechData["BFDamageLong"] = this.alphaStrikeForceStats.damage.long;
 	asMechData["BFDamageExtreme"] = this.alphaStrikeForceStats.damage.extreme;
 
 	asMechData["BFOverheat"] = this.alphaStrikeForceStats.overheat;
+
+	asMechData["customName"] = this.alphaStrikeForceStats.customName;
 
 	if( this.alphaStrikeForceStats.jumpMove ) {
 		asMechData["BFMove"] = this.alphaStrikeForceStats.move.toString() + "\"/" + this.alphaStrikeForceStats.jumpMove + "\"J";
@@ -3219,6 +3220,7 @@ Mech.prototype.exportJSON = function() {
 	export_object.pilot = this.pilot;
 
 	export_object.as_role = this.alphaStrikeForceStats.role;
+	export_object.as_custom_name = this.alphaStrikeForceStats.customName;
 
 	return JSON.stringify(export_object);
 }
@@ -3229,6 +3231,14 @@ Mech.prototype.getInteralStructure = function() {
 
 Mech.prototype.setASRole = function( newValue ) {
 	return this.alphaStrikeForceStats.role = newValue;
+}
+
+Mech.prototype.setASCustomName = function( newValue ) {
+	return this.alphaStrikeForceStats.customName = newValue;
+}
+
+Mech.prototype.getASCustomName = function( newValue ) {
+	return this.alphaStrikeForceStats.customName;
 }
 
 
@@ -3260,6 +3270,10 @@ Mech.prototype.importJSON = function(json_string) {
 
 			if( import_object.as_role )
 				this.setASRole( import_object.as_role );
+
+			if( import_object.as_custom_name  )
+				this.setASCustomName( import_object.as_custom_name ) ;
+
 
 			if( import_object.walkSpeed )
 				this.setWalkSpeed( import_object.walkSpeed );

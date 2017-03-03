@@ -247,7 +247,7 @@ available_languages.push ({
 		BM_SUMMARY_AS_CALC: "Alpha Strike",
 		BM_SUMMARY_CBILL_CALC: "CBill Cost",
 		BM_SUMMARY_MECHWARRIOR_DATA: "Mechwarrior Data",
-		BM_SUMMARY_ALPHA_STRIKE_ROLE: "Alpha Strike Role",
+		BM_SUMMARY_ALPHA_STRIKE_CUSTOM_NAME: "Custom Name",
 
 		BM_EXPORTS_TITLE: "Exports",
 		BM_EXPORTS_DESC: "",

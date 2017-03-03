@@ -45,12 +45,21 @@
 					</div>
 					<div class="column small-12 medium-6 large-6">
 						<fieldset class="fieldset">
-							<legend translate="BM_SUMMARY_ALPHA_STRIKE_ROLE">Alpha Strike Role</legend>
+							<legend translate="BM_SUMMARY_AS_CALC">Alpha Strike Role</legend>
+
 							<label>
-								<span translate="BM_SUMMARY_ALPHA_STRIKE_ROLE">Role</span><br />
+								<span translate="BM_SUMMARY_ALPHA_STRIKE_CUSTOM_NAME">Custom Name</span><br />
+								<input type="text" ng-model="asCustomName" ng-keyup="setASCustomName( asCustomName )" />
+
+							</label>
+
+							<label>
+								<span translate="GENERAL_AS_ROLE">Role</span><br />
 								<input type="text" ng-model="asRole" ng-keyup="setASRole( asRole )" />
 
 							</label>
+
+
 
 						</fieldset>
 					</div>

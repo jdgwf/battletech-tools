@@ -9771,6 +9771,8 @@ function asUnit (incomingMechData) {
 
 			this.basePoints = incomingMechData["BFPointValue"] / 1;
 
+			if( incomingMechData["customName"] )
+				this.customName = incomingMechData["customName"];
 
 			this.imageURL = incomingMechData["ImageUrl"];
 
@@ -10977,6 +10979,7 @@ function Mech (type) {
 		name: "",
 		size: "",
 		move: "",
+		customName: "",
 		role: "Brawler",
 		jumpMove: "",
 		pv: "",
@@ -11879,7 +11882,6 @@ Mech.prototype._calcAlphaStrike = function() {
 
 
 	this.alphaStrikeValue = Math.round(finalValue)  + " (TODO / WIP)";
-
 	var asMechData = [];
 	asMechData["BFPointValue"] = Math.round(finalValue);
 
@@ -11895,13 +11897,14 @@ Mech.prototype._calcAlphaStrike = function() {
 	asMechData["BFOverheat"] = final_overheat_value;
 
 
-
 	asMechData["BFDamageShort"] = this.alphaStrikeForceStats.damage.short;
 	asMechData["BFDamageMedium"] = this.alphaStrikeForceStats.damage.medium;
 	asMechData["BFDamageLong"] = this.alphaStrikeForceStats.damage.long;
 	asMechData["BFDamageExtreme"] = this.alphaStrikeForceStats.damage.extreme;
 
 	asMechData["BFOverheat"] = this.alphaStrikeForceStats.overheat;
+
+	asMechData["customName"] = this.alphaStrikeForceStats.customName;
 
 	if( this.alphaStrikeForceStats.jumpMove ) {
 		asMechData["BFMove"] = this.alphaStrikeForceStats.move.toString() + "\"/" + this.alphaStrikeForceStats.jumpMove + "\"J";
@@ -14055,6 +14058,7 @@ Mech.prototype.exportJSON = function() {
 	export_object.pilot = this.pilot;
 
 	export_object.as_role = this.alphaStrikeForceStats.role;
+	export_object.as_custom_name = this.alphaStrikeForceStats.customName;
 
 	return JSON.stringify(export_object);
 }
@@ -14065,6 +14069,14 @@ Mech.prototype.getInteralStructure = function() {
 
 Mech.prototype.setASRole = function( newValue ) {
 	return this.alphaStrikeForceStats.role = newValue;
+}
+
+Mech.prototype.setASCustomName = function( newValue ) {
+	return this.alphaStrikeForceStats.customName = newValue;
+}
+
+Mech.prototype.getASCustomName = function( newValue ) {
+	return this.alphaStrikeForceStats.customName;
 }
 
 
@@ -14096,6 +14108,10 @@ Mech.prototype.importJSON = function(json_string) {
 
 			if( import_object.as_role )
 				this.setASRole( import_object.as_role );
+
+			if( import_object.as_custom_name  )
+				this.setASCustomName( import_object.as_custom_name ) ;
+
 
 			if( import_object.walkSpeed )
 				this.setWalkSpeed( import_object.walkSpeed );
@@ -17279,6 +17295,8 @@ var battlemechCreatorControllerSummaryArray =
 			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
 
 			$scope.asRole = $scope.current_mech.alphaStrikeForceStats.role;
+			$scope.asCustomName = $scope.current_mech.alphaStrikeForceStats.customName;
+
 
 
 			$scope.mechwarriorName = $scope.current_mech.pilot.name;
@@ -17326,6 +17344,20 @@ var battlemechCreatorControllerSummaryArray =
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 
+
+			$scope.setASCustomName = function( newValue ) {
+				//~ console.log( "setASCustomName", newValue );
+				$scope.current_mech.setASCustomName( newValue );
+				//~ console.log("1", $scope.current_mech.alphaStrikeForceStats.customName);
+				//~ update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
+				//~ console.log("2", $scope.current_mech.alphaStrikeForceStats.customName);
+				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
+				//~ console.log("3", $scope.current_mech.alphaStrikeForceStats.customName);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
+				//~ console.log("4", $scope.current_mech.alphaStrikeForceStats.customName);
+				//~ console.log( 'localStorage["tmp.current_mech"]', localStorage["tmp.current_mech"]);
+			}
 
 
 			$scope.saveASPNG = function() {
@@ -18495,7 +18527,7 @@ available_languages.push ({
 		BM_SUMMARY_AS_CALC: "Alpha Strike",
 		BM_SUMMARY_CBILL_CALC: "CBill Cost",
 		BM_SUMMARY_MECHWARRIOR_DATA: "Mechwarrior Data",
-		BM_SUMMARY_ALPHA_STRIKE_ROLE: "Alpha Strike Role",
+		BM_SUMMARY_ALPHA_STRIKE_CUSTOM_NAME: "Custom Name",
 
 		BM_EXPORTS_TITLE: "Exports",
 		BM_EXPORTS_DESC: "",
