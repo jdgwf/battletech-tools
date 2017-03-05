@@ -139,12 +139,26 @@ var battlemechCreatorControllerStep5Array =
 
 					$scope.equipment_table[eqc].isInSelectedEra = false;
 
-
-
-
-
 					if( getItemAvailability($scope.equipment_table[eqc], selectedEra) ) {
 						$scope.equipment_table[eqc].isInSelectedEra = true;
+					}
+
+					$scope.equipment_table[eqc].isAvailableAmmoType = false;
+
+					// Check if this is actually ammo
+					if ( $scope.equipment_table[eqc].tag.search("ammo") == -1 )
+					{
+						$scope.equipment_table[eqc].isAvailableAmmoType = true;
+					}
+
+					// Scan the installed equipment to check if this item has the same tag (ammo always contains weapon tag)
+					for (let installedEquipment of current_mech.getInstalledEquipment())
+					{
+						// console.log(installedEquipment);
+						if ( $scope.equipment_table[eqc].tag.search(installedEquipment.tag) > -1 )
+						{
+							$scope.equipment_table[eqc].isAvailableAmmoType = true;
+						}
 					}
 
 					// Remove if filter doesn't match

@@ -2117,14 +2117,15 @@ var mechISEquipment = Array(
 		BALLISTIC WEAPONS
 	*/
 	// Standard Autocannons
-	// Note: ACs are sorted as Autocannon/[a-d] because numeric string sort places AC/10 before AC/2
+	// Note: ACs referred to internally as a-d instead of numerically to avoid sort and partial
+	// match problems
 	// AC/2
 	{
 		name: {
 			'en-US': "Autocannon/2",
 			'de-DE': "de - Autocannon/2",
 		},
-		tag: "autocannon-2",
+		tag: "standard-autocannon-a",
 		sort: "Autocannon/a",
 		category: {
 			'en-US': "Ballistic Weapons",
@@ -2181,7 +2182,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/2)",
 			'de-DE': "de - Ammo (Autocannon/2)",
 		},
-		tag: "ammo-autocannon-2",
+		tag: "ammo-standard-autocannon-a",
 		sort: "ammo, Autocannon/a",
 		category: {
 			'en-US': "Ammunition",
@@ -2238,7 +2239,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/2 Armor-Piercing)",
 			'de-DE': "de - Ammo (Autocannon/2 Armor-Piercing)",
 		},
-		tag: "ammo-autocannon-2-armor-piercing",
+		tag: "ammo-standard-autocannon-a-armor-piercing",
 		sort: "ammo, Autocannon/a, Armor-Piercing",
 		category: {
 			'en-US': "Ammunition",
@@ -2295,7 +2296,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/2 Caseless)",
 			'de-DE': "de - Ammo (Autocannon/2 Caseless)",
 		},
-		tag: "ammo-autocannon-2-caseless",
+		tag: "ammo-standard-autocannon-a-caseless",
 		sort: "ammo, Autocannon/a, Caseless",
 		category: {
 			'en-US': "Ammunition",
@@ -2352,7 +2353,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/2 Flak)",
 			'de-DE': "de - Ammo (Autocannon/2 Flak)",
 		},
-		tag: "ammo-autocannon-2-flak",
+		tag: "ammo-standard-autocannon-a-flak",
 		sort: "ammo, Autocannon/a, Flak",
 		category: {
 			'en-US': "Ammunition",
@@ -2409,7 +2410,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/2 Flechette)",
 			'de-DE': "de - Ammo (Autocannon/2 Flechette)",
 		},
-		tag: "ammo-autocannon-2-flechette",
+		tag: "ammo-standard-autocannon-a-flechette",
 		sort: "ammo, Autocannon/a, Flechette",
 		category: {
 			'en-US': "Ammunition",
@@ -2466,7 +2467,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/2 Precision)",
 			'de-DE': "de - Ammo (Autocannon/2 Precision)",
 		},
-		tag: "ammo-autocannon-2-precision",
+		tag: "ammo-standard-autocannon-a-precision",
 		sort: "ammo, Autocannon/a, Precision",
 		category: {
 			'en-US': "Ammunition",
@@ -2523,7 +2524,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/2 Tracer)",
 			'de-DE': "de - Ammo (Autocannon/2 Tracer)",
 		},
-		tag: "ammo-autocannon-2-tracer",
+		tag: "ammo-standard-autocannon-a-tracer",
 		sort: "ammo, Autocannon/a, Tracer",
 		category: {
 			'en-US': "Ammunition",
@@ -2581,7 +2582,7 @@ var mechISEquipment = Array(
 			'en-US': "Autocannon/5",
 			'de-DE': "de - Autocannon/5",
 		},
-		tag: "autocannon-5",
+		tag: "standard-autocannon-b",
 		sort: "Autocannon/b",
 		category: {
 			'en-US': "Ballistic Weapons",
@@ -2638,7 +2639,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/5)",
 			'de-DE': "de - Ammo (Autocannon/5)",
 		},
-		tag: "ammo-autocannon-5",
+		tag: "ammo-standard-autocannon-b",
 		sort: "ammo, Autocannon/b",
 		category: {
 			'en-US': "Ammunition",
@@ -2695,7 +2696,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/5 Armor-Piercing)",
 			'de-DE': "de - Ammo (Autocannon/5 Armor-Piercing)",
 		},
-		tag: "ammo-autocannon-5-armor-piercing",
+		tag: "ammo-standard-autocannon-b-armor-piercing",
 		sort: "ammo, Autocannon/b, Armor-Piercing",
 		category: {
 			'en-US': "Ammunition",
@@ -2752,7 +2753,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/5 Caseless)",
 			'de-DE': "de - Ammo (Autocannon/5 Caseless)",
 		},
-		tag: "ammo-autocannon-5-caseless",
+		tag: "ammo-standard-autocannon-b-caseless",
 		sort: "ammo, Autocannon/b, Caseless",
 		category: {
 			'en-US': "Ammunition",
@@ -2809,7 +2810,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/5 Flak)",
 			'de-DE': "de - Ammo (Autocannon/5 Flak)",
 		},
-		tag: "ammo-autocannon-5-flak",
+		tag: "ammo-standard-autocannon-b-flak",
 		sort: "ammo, Autocannon/b, Flak",
 		category: {
 			'en-US': "Ammunition",
@@ -2866,7 +2867,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/5 Flechette)",
 			'de-DE': "de - Ammo (Autocannon/5 Flechette)",
 		},
-		tag: "ammo-autocannon-5-flechette",
+		tag: "ammo-standard-autocannon-b-flechette",
 		sort: "ammo, Autocannon/b, Flechette",
 		category: {
 			'en-US': "Ammunition",
@@ -2923,7 +2924,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/5 Precision)",
 			'de-DE': "de - Ammo (Autocannon/5 Precision)",
 		},
-		tag: "ammo-autocannon-5-precision",
+		tag: "ammo-standard-autocannon-b-precision",
 		sort: "ammo, Autocannon/b, Precision",
 		category: {
 			'en-US': "Ammunition",
@@ -2980,7 +2981,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/5 Tracer)",
 			'de-DE': "de - Ammo (Autocannon/5 Tracer)",
 		},
-		tag: "ammo-autocannon-5-tracer",
+		tag: "ammo-standard-autocannon-b-tracer",
 		sort: "ammo, Autocannon/b, Tracer",
 		category: {
 			'en-US': "Ammunition",
@@ -3038,7 +3039,7 @@ var mechISEquipment = Array(
 			'en-US': "Autocannon/10",
 			'de-DE': "de - Autocannon/10",
 		},
-		tag: "autocannon-10",
+		tag: "standard-autocannon-c",
 		sort: "Autocannon/c",
 		category: {
 			'en-US': "Ballistic Weapons",
@@ -3095,7 +3096,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/10)",
 			'de-DE': "de - Ammo (Autocannon/10)",
 		},
-		tag: "ammo-autocannon-10",
+		tag: "ammo-standard-autocannon-c",
 		sort: "ammo, Autocannon/c",
 		category: {
 			'en-US': "Ammunition",
@@ -3152,7 +3153,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/10 Armor-Piercing)",
 			'de-DE': "de - Ammo (Autocannon/10 Armor-Piercing)",
 		},
-		tag: "ammo-autocannon-10-armor-piercing",
+		tag: "ammo-standard-autocannon-c-armor-piercing",
 		sort: "ammo, Autocannon/c, Armor-Piercing",
 		category: {
 			'en-US': "Ammunition",
@@ -3209,7 +3210,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/10 Caseless)",
 			'de-DE': "de - Ammo (Autocannon/10 Caseless)",
 		},
-		tag: "ammo-autocannon-10-caseless",
+		tag: "ammo-standard-autocannon-c-caseless",
 		sort: "ammo, Autocannon/c, Caseless",
 		category: {
 			'en-US': "Ammunition",
@@ -3266,7 +3267,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/10 Flak)",
 			'de-DE': "de - Ammo (Autocannon/10 Flak)",
 		},
-		tag: "ammo-autocannon-10-flak",
+		tag: "ammo-standard-autocannon-c-flak",
 		sort: "ammo, Autocannon/c, Flak",
 		category: {
 			'en-US': "Ammunition",
@@ -3323,7 +3324,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/10 Flechette)",
 			'de-DE': "de - Ammo (Autocannon/10 Flechette)",
 		},
-		tag: "ammo-autocannon-10-flechette",
+		tag: "ammo-standard-autocannon-c-flechette",
 		sort: "ammo, Autocannon/c, Flechette",
 		category: {
 			'en-US': "Ammunition",
@@ -3380,7 +3381,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/10 Precision)",
 			'de-DE': "de - Ammo (Autocannon/10 Precision)",
 		},
-		tag: "ammo-autocannon-10-precision",
+		tag: "ammo-standard-autocannon-c-precision",
 		sort: "ammo, Autocannon/c, Precision",
 		category: {
 			'en-US': "Ammunition",
@@ -3437,7 +3438,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/10 Tracer)",
 			'de-DE': "de - Ammo (Autocannon/10 Tracer)",
 		},
-		tag: "ammo-autocannon-10-tracer",
+		tag: "ammo-standard-autocannon-c-tracer",
 		sort: "ammo, Autocannon/c, Tracer",
 		category: {
 			'en-US': "Ammunition",
@@ -3494,7 +3495,7 @@ var mechISEquipment = Array(
 			'en-US': "Autocannon/20",
 			'de-DE': "de - Autocannon/20",
 		},
-		tag: "autocannon-20",
+		tag: "standard-autocannon-d",
 		sort: "Autocannon/d",
 		category: {
 			'en-US': "Ballistic Weapons",
@@ -3551,7 +3552,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/20)",
 			'de-DE': "de - Ammo (Autocannon/20)",
 		},
-		tag: "ammo-autocannon-20",
+		tag: "ammo-standard-autocannon-d",
 		sort: "ammo, Autocannon/d",
 		category: {
 			'en-US': "Ammunition",
@@ -3608,7 +3609,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/20 Armor-Piercing)",
 			'de-DE': "de - Ammo (Autocannon/20 Armor-Piercing)",
 		},
-		tag: "ammo-autocannon-20-armor-piercing",
+		tag: "ammo-standard-autocannon-d-armor-piercing",
 		sort: "ammo, Autocannon/d, Armor-Piercing",
 		category: {
 			'en-US': "Ammunition",
@@ -3665,7 +3666,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/20 Caseless)",
 			'de-DE': "de - Ammo (Autocannon/20 Caseless)",
 		},
-		tag: "ammo-autocannon-20-caseless",
+		tag: "ammo-standard-autocannon-d-caseless",
 		sort: "ammo, Autocannon/d, Caseless",
 		category: {
 			'en-US': "Ammunition",
@@ -3722,7 +3723,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/20 Flak)",
 			'de-DE': "de - Ammo (Autocannon/20 Flak)",
 		},
-		tag: "ammo-autocannon-20-flak",
+		tag: "ammo-standard-autocannon-d-flak",
 		sort: "ammo, Autocannon/d, Flak",
 		category: {
 			'en-US': "Ammunition",
@@ -3779,7 +3780,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/20 Flechette)",
 			'de-DE': "de - Ammo (Autocannon/20 Flechette)",
 		},
-		tag: "ammo-autocannon-20-flechette",
+		tag: "ammo-standard-autocannon-d-flechette",
 		sort: "ammo, Autocannon/d, Flechette",
 		category: {
 			'en-US': "Ammunition",
@@ -3836,7 +3837,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/20 Precision)",
 			'de-DE': "de - Ammo (Autocannon/20 Precision)",
 		},
-		tag: "ammo-autocannon-20-precision",
+		tag: "ammo-standard-autocannon-d-precision",
 		sort: "ammo, Autocannon/d, Precision",
 		category: {
 			'en-US': "Ammunition",
@@ -3893,7 +3894,7 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Autocannon/20 Tracer)",
 			'de-DE': "de - Ammo (Autocannon/20 Tracer)",
 		},
-		tag: "ammo-autocannon-20-tracer",
+		tag: "ammo-standard-autocannon-d-tracer",
 		sort: "ammo, Autocannon/d, Tracer",
 		category: {
 			'en-US': "Ammunition",
