@@ -43,7 +43,7 @@ function Mech (type) {
 
 	this.armorAllocation = {};
 
-	this.heat_sink_type = "single";
+	this.heatSinkType = mechHeatSinkTypes[0];
 
 	this.armorAllocation.head = 0;
 
@@ -687,11 +687,9 @@ Mech.prototype._calcAlphaStrike = function() {
 	}
 
 	var heat_dissipation = 0;
-	if( this.heat_sink_type == "single" ) {
-		heat_dissipation += (10 + this.additional_heat_sinks) * 1;
-	} else if( this.heat_sink_type == "double" ) {
-		heat_dissipation += (10 + this.additional_heat_sinks) * 2;
-	}
+
+	heat_dissipation += (10 + this.additional_heat_sinks) * this.heatSinkType.dissipation;
+
 
 	var max_heat_output = move_heat + total_weapon_heat;
 	var overheat_value = move_heat + total_weapon_heat - heat_dissipation;
@@ -2313,9 +2311,9 @@ Mech.prototype._calc = function() {
 			//~ break;
 	//~ }
 	if( this.getTech().tag == "clan") {
-		 this.total_armor = this.armorWeight * this.getArmorObj().armormultiplier.clan;
+		 this.total_armor = Math.floor( this.armorWeight * this.getArmorObj().armormultiplier.clan );
 	} else {
-		 this.total_armor = this.armorWeight * this.getArmorObj().armormultiplier.is;
+		 this.total_armor = Math.floor( this.armorWeight * this.getArmorObj().armormultiplier.is );
 	}
 	//~ console.log( this.getArmorObj() );
 
@@ -2363,23 +2361,26 @@ Mech.prototype._calc = function() {
 
 	this.heat_sink_criticals = {};
 	this.heat_sink_criticals.number = 0;
-	this.heat_sink_criticals.slots_type = "single slot";
+	//~ this.heat_sink_criticals.slots_type = "single slot";
 	this.heat_sink_criticals.slots_each = 1;
 
-	if( this.heat_sink_type == "double") {
-		if( this.tech.tag == "clan") {
-			this.heat_sink_criticals.slots_type = "double slot";
-			this.heat_sink_criticals.slots_each = 2;
-		} else {
-			this.heat_sink_criticals.slots_type = "triple slot";
-			this.heat_sink_criticals.slots_each = 3;
-		}
-		this.heat_dissipation = (this.additional_heat_sinks + 10) * 2;
-	} else {
-		this.heat_sink_criticals.slots_type = "single";
-		this.heat_sink_criticals.slots_each = 1;
-		this.heat_dissipation = this.additional_heat_sinks + 10;
-	}
+	//~ if( this.heatSinkType == "double") {
+		//~ if( this.tech.tag == "clan") {
+			//~ this.heat_sink_criticals.slots_type = "double slot";
+			//~ this.heat_sink_criticals.slots_each = 2;
+		//~ } else {
+			//~ this.heat_sink_criticals.slots_type = "triple slot";
+			//~ this.heat_sink_criticals.slots_each = 3;
+		//~ }
+		//~ this.heat_dissipation = (this.additional_heat_sinks + 10) * 2;
+	//~ } else {
+		//~ this.heat_sink_criticals.slots_type = "single";
+		//~ this.heat_sink_criticals.slots_each = 1;
+		//~ this.heat_dissipation = this.additional_heat_sinks + 10;
+	//~ }
+
+	this.heat_dissipation = ( this.additional_heat_sinks + 10 ) * this.heatSinkType.dissipation;
+	this.heat_sink_criticals.slots_each = this.heatSinkType.crits[ this.getTech().tag ];
 
 	if( this.getEngine().rating ) {
 		this.heat_sink_criticals.number =  this.additional_heat_sinks + 10  -  Math.floor(this.getEngine().rating / 25);
@@ -2933,12 +2934,16 @@ Mech.prototype.trimCriticals = function() {
 }
 
 Mech.prototype.getHeatSinksType = function() {
-	return this.heat_sink_type;
+	return this.heatSinkType.tag;
 }
 
 Mech.prototype.setHeatSinksType = function(newValue) {
-	this.heat_sink_type = newValue;
-	return this.heat_sink_type;
+	for( let hsObj of mechHeatSinkTypes ) {
+		if( hsObj.tag == newValue )
+			this.heatSinkType = hsObj;
+	}
+
+	return this.heatSinkType;
 }
 
 Mech.prototype.getCurrentTonnage = function() {
@@ -3605,7 +3610,7 @@ Mech.prototype.exportJSON = function() {
 	export_object.gyro = this.gyro.tag;
 
 	export_object.additional_heat_sinks = this.additional_heat_sinks;
-	export_object.heat_sink_type = this.heat_sink_type;
+	export_object.heat_sink_type = this.getHeatSinksType();
 
 	export_object.armor_weight = this.armorWeight;
 	if(!this.uuid)

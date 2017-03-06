@@ -17,7 +17,7 @@ var battlemechCreatorControllerStep3Array =
 
 			});
 			// create mech object, load from localStorage if exists
-			current_mech = new Mech();
+			$scope.current_mech = new Mech();
 			$scope.goHome = function() {
 
 				delete(localStorage["backToPath"]);
@@ -25,13 +25,29 @@ var battlemechCreatorControllerStep3Array =
 			}
 
 			if( localStorage["tmp.current_mech"] ) {
-				current_mech.importJSON( localStorage["tmp.current_mech"] );
+				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
-				current_mech.uuid = generateUUID();
-				current_mech._calc();
+				$scope.current_mech.uuid = generateUUID();
+				$scope.current_mech._calc();
 			}
 
-			current_mech.useLang = localStorage["tmp.preferred_language"];
+			$scope.mechHeatSinkTypes = [];
+			for( let hsItem of mechHeatSinkTypes ) {
+				if( hsItem.name[ $scope.current_mech.useLang ] )
+					hsItem.local_name = hsItem.name[ $scope.current_mech.useLang ];
+				else
+					hsItem.local_name = hsItem.name[ "en-US" ];
+
+				$scope.mechHeatSinkTypes.push( hsItem );
+
+				if( hsItem.tag == $scope.current_mech.getHeatSinksType() )
+					$scope.selected_heat_sink_tech = hsItem;
+			}
+
+			if( !$scope.selected_heat_sink_tech )
+				$scope.selected_heat_sink_tech = $scope.mechHeatSinkTypes[0];
+
+			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
 
 			var required_label = "";
 
@@ -43,26 +59,26 @@ var battlemechCreatorControllerStep3Array =
 				required_label = translation.BM_STEP3_CRITICAL_REQUIRED;
 			});
 
-			update_heat_sink_dropdown($scope, $translate, current_mech);
+			update_heat_sink_dropdown($scope, $translate, $scope.current_mech);
 
-			update_mech_status_bar_and_tro($scope, $translate, current_mech);
+			update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
 			// make tro for sidebar
-			$scope.selected_heat_sink_tech = current_mech.getHeatSinksType();
+
 
 			$scope.update_selected_heat_sinks = function() {
-				current_mech.setAdditionalHeatSinks( $scope.selected_heat_sinks.id );
-				update_heat_sink_dropdown($scope, $translate, current_mech);
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				$scope.current_mech.setAdditionalHeatSinks( $scope.selected_heat_sinks.id );
+				update_heat_sink_dropdown($scope, $translate, $scope.current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 
 			$scope.update_selected_heat_sink_tech = function() {
-				console.log( "$scope.selected_heat_sink_tech", $scope.selected_heat_sink_tech);
-				current_mech.setHeatSinksType( $scope.selected_heat_sink_tech );
-				current_mech.clearHeatSinkCriticals();
-				update_heat_sink_dropdown($scope, $translate, current_mech);
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				//~ console.log( "$scope.selected_heat_sink_tech", $scope.selected_heat_sink_tech);
+				$scope.current_mech.setHeatSinksType( $scope.selected_heat_sink_tech.tag );
+				$scope.current_mech.clearHeatSinkCriticals();
+				update_heat_sink_dropdown($scope, $translate, $scope.current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 		}
 	]
@@ -72,7 +88,7 @@ function update_heat_sink_dropdown($scope, $translate, current_mech) {
 
 	$translate([ 'BM_STEP3_CRITICAL_REQUIRED', 'BM_STEP3_CRITICAL_REQUIRED_NONE' , 'BM_STEP3_CRITICAL_REQUIRED_SINGLE'  ]).then(function (translation) {
 
-		current_heat_sinks = current_mech.getHeatSinks() - 10;
+		current_heat_sinks = $scope.current_mech.getHeatSinks() - 10;
 
 		$scope.heat_sink_list = [];
 		$scope.heat_sink_list.push( {
@@ -88,7 +104,7 @@ function update_heat_sink_dropdown($scope, $translate, current_mech) {
 				};
 		}
 
-		remaining_tonnage = Math.floor( current_mech.getRemainingTonnage() )
+		remaining_tonnage = Math.floor( $scope.current_mech.getRemainingTonnage() )
 		if( remaining_tonnage < 0)
 			remaining_tonnage = 0;
 		for( var hscount = 1; hscount <= remaining_tonnage + current_heat_sinks; hscount++) {
@@ -106,7 +122,7 @@ function update_heat_sink_dropdown($scope, $translate, current_mech) {
 			}
 
 		}
-		var heat_sinks_required = current_mech.getHeatSinkCriticalRequirements();
+		var heat_sinks_required = $scope.current_mech.getHeatSinkCriticalRequirements();
 		if( heat_sinks_required ) {
 			the_label = translation.BM_STEP3_CRITICAL_REQUIRED;
 			the_label_single = translation.BM_STEP3_CRITICAL_REQUIRED_SINGLE;

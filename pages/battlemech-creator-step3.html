@@ -17,9 +17,13 @@
 						<br />
 						<label>
 							<span translate="BM_STEP3_HS_TECH">Heat Sink Technology</span>
+<!--
 							<select ng-change="update_selected_heat_sink_tech()" ng-model="selected_heat_sink_tech">
 								<option value="single" translate="BM_STEP3_SINGLE_HS">Single Heat Sink</option>
 								<option value="double" translate="BM_STEP3_DOUBLE_HS">Double Heat Sink</option>
+							</select>
+-->
+							<select ng-change="update_selected_heat_sink_tech( selected_heat_sink_tech )" ng-options="item as item.local_name for item in mechHeatSinkTypes track by item.tag" ng-model="selected_heat_sink_tech">
 							</select>
 						</label>
 						<label>
