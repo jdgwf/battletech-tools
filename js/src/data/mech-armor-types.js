@@ -4,7 +4,7 @@
 var mechArmorTypes = Array(
 	{
 		name: {
-			"en-US": "Standard/Heavy Industrial"
+			"en-US": "Standard Armor"
 		},
 		tag: "standard",
 		crits: {
@@ -23,7 +23,7 @@ var mechArmorTypes = Array(
 	},
 	{
 		name: {
-			"en-US": "Ferro Fibrous"
+			"en-US": "Ferro Fibrous Armor"
 		},
 		tag: "ferro-fibrous",
 		armormultiplier: {
@@ -42,7 +42,7 @@ var mechArmorTypes = Array(
 
 	{
 		name: {
-			"en-US": "Light Ferro Fibrous"
+			"en-US": "Light Ferro Fibrous Armor"
 		},
 		tag: "light-ferro-fibrous",
 		armormultiplier: {
@@ -61,7 +61,7 @@ var mechArmorTypes = Array(
 
 	{
 		name: {
-			"en-US": "Heavy Ferro Fibrous"
+			"en-US": "Heavy Ferro Fibrous Armor"
 		},
 		tag: "light-ferro-fibrous",
 		armormultiplier: {
@@ -80,7 +80,7 @@ var mechArmorTypes = Array(
 
 	{
 		name: {
-			"en-US": "Stealth"
+			"en-US": "Stealth Armor"
 		},
 		tag: "stealth",
 		armormultiplier: {

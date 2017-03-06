@@ -4,7 +4,7 @@
 var mechInternalStructureTypes = Array(
 	{
 		name: {
-			"en-US": "Standard"
+			"en-US": "Standard Internal Structure"
 		},
 		tag: "standard",
 		crits: {
@@ -158,7 +158,7 @@ var mechInternalStructureTypes = Array(
 	},
 	{
 		name: {
-			"en-US": "Endo-Steel"
+			"en-US": "Endo-Steel Internal Structure"
 		},
 		tag: "endo-steel",
 		crits: {

@@ -6016,7 +6016,7 @@ battlemechLocations = Array(
 var mechArmorTypes = Array(
 	{
 		name: {
-			"en-US": "Standard/Heavy Industrial"
+			"en-US": "Standard Armor"
 		},
 		tag: "standard",
 		crits: {
@@ -6035,7 +6035,7 @@ var mechArmorTypes = Array(
 	},
 	{
 		name: {
-			"en-US": "Ferro Fibrous"
+			"en-US": "Ferro Fibrous Armor"
 		},
 		tag: "ferro-fibrous",
 		armormultiplier: {
@@ -6054,7 +6054,7 @@ var mechArmorTypes = Array(
 
 	{
 		name: {
-			"en-US": "Light Ferro Fibrous"
+			"en-US": "Light Ferro Fibrous Armor"
 		},
 		tag: "light-ferro-fibrous",
 		armormultiplier: {
@@ -6073,7 +6073,7 @@ var mechArmorTypes = Array(
 
 	{
 		name: {
-			"en-US": "Heavy Ferro Fibrous"
+			"en-US": "Heavy Ferro Fibrous Armor"
 		},
 		tag: "light-ferro-fibrous",
 		armormultiplier: {
@@ -6092,7 +6092,7 @@ var mechArmorTypes = Array(
 
 	{
 		name: {
-			"en-US": "Stealth"
+			"en-US": "Stealth Armor"
 		},
 		tag: "stealth",
 		armormultiplier: {
@@ -7345,7 +7345,7 @@ var mechHeatSinkTypes = Array(
 var mechInternalStructureTypes = Array(
 	{
 		name: {
-			"en-US": "Standard"
+			"en-US": "Standard Internal Structure"
 		},
 		tag: "standard",
 		crits: {
@@ -7499,7 +7499,7 @@ var mechInternalStructureTypes = Array(
 	},
 	{
 		name: {
-			"en-US": "Endo-Steel"
+			"en-US": "Endo-Steel Internal Structure"
 		},
 		tag: "endo-steel",
 		crits: {
@@ -15769,7 +15769,7 @@ Mech.prototype.makeTROBBCode = function() {
 
 	// Equipment
 	html += "" + this.getTranslation("TRO_EQUIPMENT").rpad(" ",col1Padding + col2Padding) + "" + this.getTranslation("TRO_MASS") + "\n";
-	html += "" + this.getTranslation("TRO_INTERNAL_STRUCTURE").rpad(" ",col1Padding + col2Padding) + "" + this.getInteralStructureWeight() + "\n";
+	html += "" + this.getLocalTranslation( this.selectedInternalStructure.name ).rpad(" ",col1Padding + col2Padding) + "" + this.getInteralStructureWeight() + "\n";
 	html += "" + this.getEngineName().rpad(" ",col1Padding) + "" + this.getEngineRating().toString().rpad(" ", col2Padding) + "" + this.getEngineWeight() + "\n";
 
 	html += "" + this.getTranslation("TRO_WALKING").lpad(" ", col1Padding - 10) + " " + this.getWalkSpeed().toString().lpad(" ", 3) + "\n";
@@ -15811,7 +15811,7 @@ Mech.prototype.makeTROBBCode = function() {
 		html += "\n";
 	}
 
-	html += "" + this.getTranslation("TRO_ARMOR_FACTOR").rpad(" ",col1Padding) + "" + this.getTotalArmor().toString().rpad(" ",col2Padding) + "" + this.getArmorWeight() + "\n";
+	html += "" +this.getLocalTranslation( this.armorType.name ).rpad(" ",col1Padding) + "" + this.getTotalArmor().toString().rpad(" ",col2Padding) + "" + this.getArmorWeight() + "\n";
 
 	var col1Padding = 20;
 	var col2Padding = 10;
@@ -15999,7 +15999,7 @@ Mech.prototype.makeTROHTML = function() {
 
 	// Equipment
 	html += "<tr><th class=\"text-left\" colspan=\"3\">" + this.getTranslation("TRO_EQUIPMENT") + "</th><th class=\"text-center\" colspan=\"1\">" + this.getTranslation("TRO_MASS") + "</th></tr>";
-	html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_INTERNAL_STRUCTURE") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getInteralStructureWeight() + "</td></tr>";
+	html += "<tr><td colspan=\"3\">" + this.getLocalTranslation( this.selectedInternalStructure.name ) + "</td><td class=\"text-center\" colspan=\"1\">" + this.getInteralStructureWeight() + "</td></tr>";
 	html += "<tr><td colspan=\"1\">" + this.getEngineName() + "</td><td class=\"text-center\" colspan=\"2\">" + this.getEngineRating() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getEngineWeight() + "</td></tr>";
 
 	html += "<tr><td colspan=\"1\" class=\"text-right\">" + this.getTranslation("TRO_WALKING") + "</td><td class=\"text-center\" colspan=\"2\">" + this.getWalkSpeed() + "</td><td colspan=\"1\">&nbsp;</td></tr>";
@@ -16049,7 +16049,7 @@ Mech.prototype.makeTROHTML = function() {
 */
 
 
-	html += "<tr><th colspan=\"1\">" + this.getTranslation("TRO_ARMOR_FACTOR") + "</th><th class=\"text-center\" colspan=\"2\">" + this.getTotalArmor() + "</th><th class=\"text-center\" colspan=\"1\">" + this.getArmorWeight() + "</th></tr>";
+	html += "<tr><th colspan=\"1\">" + this.getLocalTranslation( this.armorType.name ) + "</th><th class=\"text-center\" colspan=\"2\">" + this.getTotalArmor() + "</th><th class=\"text-center\" colspan=\"1\">" + this.getArmorWeight() + "</th></tr>";
 
 
 	// Armor Factor Table
