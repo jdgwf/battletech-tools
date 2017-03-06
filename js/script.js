@@ -20052,16 +20052,15 @@ var battlemechCreatorControllerStep5Array =
 					$scope.equipment_table[eqc].isAvailableAmmoType = false;
 
 					// Check if this is actually ammo
-					if ( $scope.equipment_table[eqc].tag.search("ammo") == -1 )
+					if ( $scope.equipment_table[eqc].tag.indexOf("ammo") == -1 )
 					{
 						$scope.equipment_table[eqc].isAvailableAmmoType = true;
 					}
 
 					// Scan the installed equipment to check if this item has the same tag (ammo always contains weapon tag)
-					for (var installedEquipment in current_mech.getInstalledEquipment())
+					for( let installedEquipment of $scope.current_mech.getInstalledEquipment() )
 					{
-						// console.log(installedEquipment);
-						if ( $scope.equipment_table[eqc].tag.indexOf(installedEquipment.tag) > -1 )
+						if ( $scope.equipment_table[eqc].tag.indexOf( installedEquipment.tag ) > -1 )
 						{
 							$scope.equipment_table[eqc].isAvailableAmmoType = true;
 						}
@@ -20143,7 +20142,6 @@ var battlemechCreatorControllerStep5Array =
 					// selectedOption: selected_jumping_mp
 				};
 			});
-
 
 			$scope.addItem = function( index_number ) {
 				if( $scope.equipment_table[index_number].tag ) {

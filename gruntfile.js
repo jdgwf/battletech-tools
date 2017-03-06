@@ -41,15 +41,15 @@ module.exports = function(grunt) {
 		},
 
 		uglify: {
-			my_target: {
-				options: {
-					sourceMap: true,
-					sourceMapName: 'js/sourcemap.map'
-				},
-				files: {
-					'js/script.min.js': ['js/script.js']
-				}
-			}
+			//~ my_target: {
+				//~ options: {
+					//~ sourceMap: true,
+					//~ sourceMapName: 'js/sourcemap.map'
+				//~ },
+				//~ files: {
+					//~ 'js/script.min.js': ['js/script.js']
+				//~ }
+			//~ }
 		},
 
 		watch: {
@@ -64,7 +64,7 @@ module.exports = function(grunt) {
 				 	'js/src/langs/*',
 				 	'js/src/data/*',
 				],
-				tasks: ['concat', 'uglify'],
+				tasks: ['concat' /*, 'uglify' */],
 				options: {
 					spawn: false,
 				}
