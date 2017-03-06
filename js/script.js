@@ -999,6 +999,7 @@ function createCritAllocationTable( critData, xPos, yPos) {
 	lastName = "";
 	yStartBox = -1;
 	lastWasPlaceHolder = false;
+	lastRollAgain = false;
 	for( var critC = 0; critC < critData.length; critC++ ) {
 		//~ console.log( "critData", critData[ critC ] )
 
@@ -1007,8 +1008,17 @@ function createCritAllocationTable( critData, xPos, yPos) {
 				textSVG += "<text x=\"" + ( xPos ) + "\" y=\"" + ( yPos + lineCount * (fontSize + lineBuffer) ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + fontSize + "\">" + lastName + "</text>\n";
 				lastWasPlaceHolder = true;
 			} else {
-				textSVG += "<text x=\"" + ( xPos ) + "\" y=\"" + ( yPos + lineCount * (fontSize + lineBuffer) ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + fontSize + "\">" + critData[ critC ].name + "</text>\n";
+				if( critData[ critC ].rollAgain ) {
+					textSVG += "<text x=\"" + ( xPos ) + "\" y=\"" + ( yPos + lineCount * (fontSize + lineBuffer) ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + fontSize + "\">(" + critData[ critC ].name + ")</text>\n";
+				} else {
+					textSVG += "<text x=\"" + ( xPos ) + "\" y=\"" + ( yPos + lineCount * (fontSize + lineBuffer) ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + fontSize + "\">" + critData[ critC ].name + "</text>\n";
+
+				}
 				lastName = critData[ critC ].name;
+				if(  critData[ critC ].rollAgain )
+					lastRollAgain = true;
+				else
+					lastRollAgain = false;
 
 				if( yStartBox > -1  && lastWasPlaceHolder) {
 
@@ -6084,7 +6094,7 @@ var mechArmorTypes = Array(
 		name: {
 			"en-US": "Stealth"
 		},
-		tag: "ferro-fibrous",
+		tag: "stealth",
 		armormultiplier: {
 			clan: 0,
 			is: 16
@@ -10853,6 +10863,8 @@ function Mech (type) {
 	this.tonnage = 20;
 	this.useLang = this.useLang;
 
+	this.armorType = mechArmorTypes[0];
+
 	this.max_armor = 0;
 
 	this.internalStructure = {};
@@ -11529,8 +11541,6 @@ Mech.prototype._calcAlphaStrike = function() {
 		this.calcLogAS += "Mech has no explosive components, gets ENE ability<br />\n";
 	}
 
-
-
 	var heat_dissipation = 0;
 	if( this.heat_sink_type == "single" ) {
 		heat_dissipation += (10 + this.additional_heat_sinks) * 1;
@@ -11542,24 +11552,108 @@ Mech.prototype._calcAlphaStrike = function() {
 	var overheat_value = move_heat + total_weapon_heat - heat_dissipation;
 	var long_overheat_value = move_heat + total_weapon_heat_long - heat_dissipation;
 
+	//~ var before_heat_range_short = this.alphaStrikeForceStats.damage.short.toFixed(0) /1;
+	//~ var before_heat_range_medium = this.alphaStrikeForceStats.damage.medium.toFixed(0) /1;
+	//~ var before_heat_range_long = this.alphaStrikeForceStats.damage.long.toFixed(0) /1;
+	//~ var before_heat_range_extreme = this.alphaStrikeForceStats.damage.extreme.toFixed(0) /1;
 
+	//~ this.alphaStrikeForceStats.heat_damage = this.alphaStrikeForceStats.damage;
 
-	var before_heat_range_short = this.alphaStrikeForceStats.damage.short.toFixed(0) /1;
-	var before_heat_range_medium = this.alphaStrikeForceStats.damage.medium.toFixed(0) /1;
-	var before_heat_range_long = this.alphaStrikeForceStats.damage.long.toFixed(0) /1;
-	var before_heat_range_extreme = this.alphaStrikeForceStats.damage.extreme.toFixed(0) /1;
-
+	var final_overheat_value = 0;
 	if( overheat_value > 3) {
 		// Heat Modified Damage, p115 AS companion
+		var heat_damage_short = 0;
+		var heat_damage_medium = 0;
 		if( this.alphaStrikeForceStats.damage.short != "0*")
-			this.alphaStrikeForceStats.damage.short = ( this.alphaStrikeForceStats.damage.short * heat_dissipation ) / (max_heat_output - 4);
+			heat_damage_short = Math.ceil( (this.alphaStrikeForceStats.damage.short * heat_dissipation ) / (max_heat_output - 4) );
 		if( this.alphaStrikeForceStats.damage.medium != "0*")
-			this.alphaStrikeForceStats.damage.medium = ( this.alphaStrikeForceStats.damage.medium * heat_dissipation ) / (max_heat_output - 4);
+			heat_damage_medium =  Math.ceil( (this.alphaStrikeForceStats.damage.medium * heat_dissipation ) / (max_heat_output - 4) );
+
+
+		if( this.alphaStrikeForceStats.damage.short != "0*")
+			this.alphaStrikeForceStats.damage.short = Math.ceil( this.alphaStrikeForceStats.damage.short );
+		if( this.alphaStrikeForceStats.damage.medium != "0*")
+			this.alphaStrikeForceStats.damage.medium =  Math.ceil( this.alphaStrikeForceStats.damage.medium );
+		//~ if( this.alphaStrikeForceStats.damage.short != "0*")
+			//~ this.alphaStrikeForceStats.damage.long = Math.ceil( this.alphaStrikeForceStats.damage.long );
+		//~ if( this.alphaStrikeForceStats.damage.medium != "0*")
+			//~ this.alphaStrikeForceStats.damage.extreme =  Math.ceil( this.alphaStrikeForceStats.damage.extreme );
+
+
+		//~ console.log( "damage.short", this.alphaStrikeForceStats.damage.short );
+		//~ console.log( "heat_damage_short", heat_damage_short );
+		//~ console.log( "damage.medium", this.alphaStrikeForceStats.damage.medium );
+		//~ console.log( "heat_damage_medium", heat_damage_medium );
+
+
+		if(  this.alphaStrikeForceStats.damage.medium != "0*" && heat_damage_medium < this.alphaStrikeForceStats.damage.medium ) {
+			final_overheat_value =  this.alphaStrikeForceStats.damage.medium - heat_damage_medium ;
+			this.alphaStrikeForceStats.damage.medium = this.alphaStrikeForceStats.damage.medium - final_overheat_value;
+			this.alphaStrikeForceStats.damage.short = this.alphaStrikeForceStats.damage.short - final_overheat_value;
+		}
+		//~ console.log( "final_overheat_value", final_overheat_value );
+
+
+
+	} else {
+		if( this.alphaStrikeForceStats.damage.short != "0*")
+			this.alphaStrikeForceStats.damage.short = Math.ceil( this.alphaStrikeForceStats.damage.short );
+		if( this.alphaStrikeForceStats.damage.medium != "0*")
+			this.alphaStrikeForceStats.damage.medium =  Math.ceil( this.alphaStrikeForceStats.damage.medium );
+		//~ if( this.alphaStrikeForceStats.damage.short != "0*")
+			//~ this.alphaStrikeForceStats.damage.long = Math.ceil( this.alphaStrikeForceStats.damage.long );
+		//~ if( this.alphaStrikeForceStats.damage.medium != "0*")
+			//~ this.alphaStrikeForceStats.damage.extreme =  Math.ceil( this.alphaStrikeForceStats.damage.extreme );
+
 	}
 
+	var final_long_overheat_value = 0;
+
+	//~ console.log( "this.alphaStrikeForceStats.damage", this.alphaStrikeForceStats.damage );
+
 	if( long_overheat_value > 4) {
-		if( this.alphaStrikeForceStats.damage.long != "0*")
-			this.alphaStrikeForceStats.damage.long = ( this.alphaStrikeForceStats.damage.long * heat_dissipation ) / (max_heat_output - 4);
+
+		//~ console.log( "long_overheat_value", long_overheat_value );
+
+		if( this.alphaStrikeForceStats.damage.long != "0*") {
+			//~ this.alphaStrikeForceStats.heat_damage.long = this.alphaStrikeForceStats.damage.long;
+			var heat_damage_long = this.alphaStrikeForceStats.damage.long;
+			var heat_damage_extreme = this.alphaStrikeForceStats.damage.extreme;
+
+			this.alphaStrikeForceStats.damage.long = Math.ceil( ( this.alphaStrikeForceStats.damage.long * heat_dissipation ) / (total_weapon_heat_long - 4) );
+			this.alphaStrikeForceStats.damage.extreme = Math.ceil( ( this.alphaStrikeForceStats.damage.long * heat_dissipation ) / (total_weapon_heat_long - 4) );
+
+			//~ console.log( "damage.long", this.alphaStrikeForceStats.damage.long );
+			//~ console.log( "heat_dissipation", heat_dissipation );
+			//~ console.log( "heat_damage_long", heat_damage_long );
+			//~ console.log( "total_weapon_heat_long", total_weapon_heat_long );
+
+
+
+			if( heat_damage_long > this.alphaStrikeForceStats.damage.long) {
+				var final_long_overheat_value = heat_damage_long - this.alphaStrikeForceStats.damage.long;
+				this.alphaStrikeForceStats.damage.long = heat_damage_long - final_long_overheat_value;
+				this.alphaStrikeForceStats.damage.extreme = heat_damage_extreme - final_long_overheat_value;
+			}
+
+			//~ console.log( "final_long_overheat_value", final_long_overheat_value );
+			//~ console.log( "damage.long", this.alphaStrikeForceStats.damage.long );
+
+		}
+	} else {
+		//~ if( this.alphaStrikeForceStats.damage.short != "0*")
+			//~ this.alphaStrikeForceStats.damage.short = Math.ceil( this.alphaStrikeForceStats.damage.short );
+		//~ if( this.alphaStrikeForceStats.damage.medium != "0*")
+			//~ this.alphaStrikeForceStats.damage.medium =  Math.ceil( this.alphaStrikeForceStats.damage.medium );
+		if( this.alphaStrikeForceStats.damage.short != "0*")
+			this.alphaStrikeForceStats.damage.long = Math.ceil( this.alphaStrikeForceStats.damage.long );
+		if( this.alphaStrikeForceStats.damage.medium != "0*")
+			this.alphaStrikeForceStats.damage.extreme =  Math.ceil( this.alphaStrikeForceStats.damage.extreme );
+
+	}
+
+	if( final_long_overheat_value > 0 ) {
+		this.alphaStrikeForceStats.abilityCodes.push( "OVL " + final_long_overheat_value);
 
 	}
 
@@ -11573,24 +11667,24 @@ Mech.prototype._calcAlphaStrike = function() {
 	//~ console.log( "this.alphaStrikeForceStats.damage", this.alphaStrikeForceStats.damage);
 
 	// Determine Overheat Values - p116 AS Companion
-	var final_overheat_value = 0;
+	//~ var final_overheat_value = 0;
 
 
-	if( this.alphaStrikeForceStats.damage.medium != "0*" && before_heat_range_medium - this.alphaStrikeForceStats.damage.medium > 0) {
-		final_overheat_value = before_heat_range_medium - this.alphaStrikeForceStats.damage.medium;
-	} else {
-		// try short range bracket since the med range is low.
-		if( this.alphaStrikeForceStats.damage.short != "0*" )
-			final_overheat_value = before_heat_range_short - this.alphaStrikeForceStats.damage.short;
-	}
-	if( final_overheat_value > 4 )
-		final_overheat_value = 4;
+	//~ if( this.alphaStrikeForceStats.damage.medium != "0*" && before_heat_range_medium - this.alphaStrikeForceStats.damage.medium > 0) {
+		//~ final_overheat_value = before_heat_range_medium - this.alphaStrikeForceStats.damage.medium;
+	//~ } else {
+		//~ // try short range bracket since the med range is low.
+		//~ if( this.alphaStrikeForceStats.damage.short != "0*" )
+			//~ final_overheat_value = before_heat_range_short - this.alphaStrikeForceStats.damage.short;
+	//~ }
+	//~ if( final_overheat_value > 4 )
+		//~ final_overheat_value = 4;
 
 	// Determine Overheat Values - ASC - p116
-	var final_long_overheat_value = 0;
-	if( this.alphaStrikeForceStats.damage.long != "0*" && before_heat_range_long - this.alphaStrikeForceStats.damage.long > 0) {
-		final_long_overheat_value = before_heat_range_long - this.alphaStrikeForceStats.damage.long;
-	}
+	//~ var final_long_overheat_value = 0;
+	//~ if( this.alphaStrikeForceStats.damage.long != "0*" && before_heat_range_long - this.alphaStrikeForceStats.damage.long > 0) {
+		//~ final_long_overheat_value = before_heat_range_long - this.alphaStrikeForceStats.damage.long;
+	//~ }
 
 	if( final_long_overheat_value > 4 )
 		final_long_overheat_value = 4;
@@ -11881,6 +11975,7 @@ Mech.prototype._calcAlphaStrike = function() {
 	 * ******************************* */
 	 this.calcLogAS += "<strong>Step 3a: Add Force Bonuses ASC - p141</strong><br />\n";
 	// TODO
+	this.calcLogAS += "<strong class=\"color-red\">TODO<br />\n";
 
 	this.alphaStrikeForceStats.name = this.name;
 	this.alphaStrikeForceStats.type = "BM";
@@ -12006,8 +12101,6 @@ Mech.prototype._adjustASDamage = function( incomingDamageObject, useZeros ) {
 }
 
 Mech.prototype._calcBattleValue = function() {
-	// TODO Calculations
-
 
 	this.battleValue = 0;
 	this.calcLogBV = "";
@@ -12104,12 +12197,236 @@ Mech.prototype._calcBattleValue = function() {
 			break;
 	 }
 
-	// TODO - Get Explosive Ammo Modifiers
+	// Get Explosive Ammo Modifiers
 	var explosiveAmmoModifiers = 0;
-	this.calcLogBV += "<strong class=\"color-red\">TODO</strong>: Get Explosive Ammo Modifiers<br />";
+	this.calcLogBV += "<strong>Get Explosive Ammo Modifiers</strong><br />";
+
+
+	var caseEnabled_HD = false;
+	var caseEnabled_CT = false;
+	var caseEnabled_RL= false;
+	var caseEnabled_LL = false;
+	var caseEnabled_RA = false;
+	var caseEnabled_LA = false;
+	var caseEnabled_RT = false;
+	var caseEnabled_LT = false;
+
+	for( var lCrit = 0; lCrit < this.criticals.head.length; lCrit++) {
+		if( this.criticals.head[ lCrit ] && this.criticals.head[ lCrit ].tag == "case" ) {
+			caseEnabled_HD = true;
+		}
+	}
+
+	for( var lCrit = 0; lCrit < this.criticals.centerTorso.length; lCrit++) {
+		if( this.criticals.centerTorso[ lCrit ] && this.criticals.centerTorso[ lCrit ].tag == "case" ) {
+			caseEnabled_CT = true;
+		}
+	}
+
+	for( var lCrit = 0; lCrit < this.criticals.rightLeg.length; lCrit++) {
+		if( this.criticals.rightLeg[ lCrit ] && this.criticals.rightLeg[ lCrit ].tag == "case" ) {
+			caseEnabled_RL = true;
+		}
+	}
+
+	for( var lCrit = 0; lCrit < this.criticals.leftLeg.length; lCrit++) {
+		if( this.criticals.leftLeg[ lCrit ] && this.criticals.leftLeg[ lCrit ].tag == "case" ) {
+			caseEnabled_LL = true;
+		}
+	}
+
+	for( var lCrit = 0; lCrit < this.criticals.rightArm.length; lCrit++) {
+		if( this.criticals.rightArm[ lCrit ] && this.criticals.rightArm[ lCrit ].tag == "case" ) {
+			caseEnabled_RA = true;
+		}
+	}
+
+	for( var lCrit = 0; lCrit < this.criticals.leftArm.length; lCrit++) {
+		if( this.criticals.leftArm[ lCrit ] && this.criticals.leftArm[ lCrit ].tag == "case" ) {
+			caseEnabled_LA = true;
+		}
+	}
+
+	for( var lCrit = 0; lCrit < this.criticals.rightTorso.length; lCrit++) {
+		if( this.criticals.rightTorso[ lCrit ] && this.criticals.rightTorso[ lCrit ].tag == "case" ) {
+			caseEnabled_RT = true;
+		}
+	}
+
+	for( var lCrit = 0; lCrit < this.criticals.leftTorso.length; lCrit++) {
+		if( this.criticals.leftTorso[ lCrit ] && this.criticals.leftTorso[ lCrit ].tag == "case" ) {
+			caseEnabled_LT = true;
+		}
+	}
+
+	if( this.tech.tag == "clan" ) {
+
+		//Clan is Assumed to have CASE in BV Calculation (TM p303)
+
+		// check head
+		for( var lCrit = 0; lCrit < this.criticals.head.length; lCrit++) {
+			if( this.criticals.head[ lCrit ] ) {
+				if( this.criticals.head[ lCrit ] && this.criticals.head[ lCrit ].obj && this.criticals.head[ lCrit ].obj.explosive ) {
+					this.calcLogBV += "Explosive Ammo Crit in Head (Clan, -15)<br />";
+					explosiveAmmoModifiers += 15;
+				}
+				if( this.criticals.head[ lCrit ] && this.criticals.head[ lCrit ].obj && this.criticals.head[ lCrit ].obj.gauss ) {
+					this.calcLogBV += "Gauss Crit in Head (Clan, -1)<br />";
+					explosiveAmmoModifiers += 1;
+				}
+			}
+		}
+
+		// check ct
+		for( var lCrit = 0; lCrit < this.criticals.centerTorso.length; lCrit++) {
+			if( this.criticals.centerTorso[ lCrit ] ) {
+				if( this.criticals.centerTorso[ lCrit ] && this.criticals.centerTorso[ lCrit ].obj && this.criticals.centerTorso[ lCrit ].obj.explosive ) {
+					this.calcLogBV += "Explosive Ammo Crit in Center Torso (Clan, -15)<br />";
+					explosiveAmmoModifiers += 15;
+				}
+				if( this.criticals.centerTorso[ lCrit ] && this.criticals.centerTorso[ lCrit ].obj && this.criticals.centerTorso[ lCrit ].obj.gauss ) {
+					this.calcLogBV += "Gauss Crit in Center Torso (Clan, -1)<br />";
+					explosiveAmmoModifiers += 1;
+				}
+			}
+		}
+
+		// check rl
+		for( var lCrit = 0; lCrit < this.criticals.rightLeg.length; lCrit++) {
+			if( this.criticals.rightLeg[ lCrit ] && this.criticals.rightLeg[ lCrit ].obj && this.criticals.rightLeg[ lCrit ].obj.explosive ) {
+				this.calcLogBV += "Explosive Ammo Crit in Right Leg (Clan, -15)<br />";
+				explosiveAmmoModifiers += 15;
+			}
+			if( this.criticals.rightLeg[ lCrit ] && this.criticals.rightLeg[ lCrit ].obj && this.criticals.rightLeg[ lCrit ].obj.gauss ) {
+				this.calcLogBV += "Gauss Crit in Right Leg (Clan, -1)<br />";
+				explosiveAmmoModifiers += 1;
+			}
+		}
+
+		// check ll
+		for( var lCrit = 0; lCrit < this.criticals.leftLeg.length; lCrit++) {
+			if( this.criticals.leftLeg[ lCrit ] && this.criticals.leftLeg[ lCrit ].obj && this.criticals.leftLeg[ lCrit ].obj.explosive ) {
+				this.calcLogBV += "Explosive Ammo Crit in Left Leg (Clan, -15)<br />";
+				explosiveAmmoModifiers += 15;
+			}
+			if( this.criticals.leftLeg[ lCrit ] && this.criticals.leftLeg[ lCrit ].obj && this.criticals.leftLeg[ lCrit ].obj.gauss ) {
+				this.calcLogBV += "Gauss Crit in Left Leg (Clan, -1)<br />";
+				explosiveAmmoModifiers += 1;
+			}
+		}
+
+	} else if( this.tech.tag == "is" ) {
+		// check head
+		for( var lCrit = 0; lCrit < this.criticals.head.length; lCrit++) {
+			if( this.criticals.head[ lCrit ] ) {
+				if( this.criticals.head[ lCrit ] && this.criticals.head[ lCrit ].obj && this.criticals.head[ lCrit ].obj.explosive ) {
+					this.calcLogBV += "Explosive Ammo Crit in Head (Inner Sphere,-15)<br />";
+					explosiveAmmoModifiers += 15;
+				}
+
+			}
+		}
+
+		// check ct
+		for( var lCrit = 0; lCrit < this.criticals.centerTorso.length; lCrit++) {
+			if( this.criticals.centerTorso[ lCrit ] ) {
+				if( this.criticals.centerTorso[ lCrit ] && this.criticals.centerTorso[ lCrit ].obj && this.criticals.centerTorso[ lCrit ].obj.explosive ) {
+					this.calcLogBV += "Explosive Ammo Crit in Center Torso (Inner Sphere,-15)<br />";
+					explosiveAmmoModifiers += 15;
+				}
+				if( this.criticals.centerTorso[ lCrit ] && this.criticals.centerTorso[ lCrit ].obj && this.criticals.centerTorso[ lCrit ].obj.gauss ) {
+					this.calcLogBV += "Gauss Crit in Center Torso (Inner Sphere, -1)<br />";
+					explosiveAmmoModifiers += 1;
+				}
+			}
+		}
+
+		// check rl
+		for( var lCrit = 0; lCrit < this.criticals.rightLeg.length; lCrit++) {
+			if( this.criticals.rightLeg[ lCrit ] && this.criticals.rightLeg[ lCrit ].obj && this.criticals.rightLeg[ lCrit ].obj.explosive ) {
+				this.calcLogBV += "Explosive Ammo Crit in Right Leg (Inner Sphere, -15)<br />";
+				explosiveAmmoModifiers += 15;
+			}
+			if( this.criticals.rightLeg[ lCrit ] && this.criticals.rightLeg[ lCrit ].obj && this.criticals.rightLeg[ lCrit ].obj.gauss ) {
+				this.calcLogBV += "Gauss Crit in Right Leg (Inner Sphere, -1)<br />";
+				explosiveAmmoModifiers += 1;
+			}
+
+			if( caseEnabled_RT == false  && caseEnabled_RL == false) {
+				if( this.criticals.rightLeg[ lCrit ] && this.criticals.rightLeg[ lCrit ].obj && this.criticals.rightLeg[ lCrit ].obj.explosive ) {
+					this.calcLogBV += "Explosive Ammo Crit in Right Leg, Right Torso and Right Leg to not have CASE (Inner Sphere, -15)<br />";
+					explosiveAmmoModifiers += 15;
+				}
+				if( this.criticals.rightLeg[ lCrit ] && this.criticals.rightLeg[ lCrit ].obj && this.criticals.rightLeg[ lCrit ].obj.gauss ) {
+					this.calcLogBV += "Gauss Crit in Right Leg, Right Torso and Right Leg to not have CASE (Inner Sphere, -1)<br />";
+					explosiveAmmoModifiers += 1;
+				}
+			}
+		}
+
+		// check ll
+		for( var lCrit = 0; lCrit < this.criticals.leftLeg.length; lCrit++) {
+			if( this.criticals.leftLeg[ lCrit ] && this.criticals.leftLeg[ lCrit ].obj && this.criticals.leftLeg[ lCrit ].obj.explosive ) {
+				this.calcLogBV += "Explosive Ammo Crit in Left Leg (Inner Sphere, -15)<br />";
+				explosiveAmmoModifiers += 15;
+			}
+			if( this.criticals.leftLeg[ lCrit ] && this.criticals.leftLeg[ lCrit ].obj && this.criticals.leftLeg[ lCrit ].obj.gauss ) {
+				this.calcLogBV += "Gauss Crit in Left Leg (Inner Sphere, -1)<br />";
+				explosiveAmmoModifiers += 1;
+			}
+
+			if( caseEnabled_LT == false  && caseEnabled_LL == false) {
+				if( this.criticals.rightLeg[ lCrit ] && this.criticals.rightLeg[ lCrit ].obj && this.criticals.rightLeg[ lCrit ].obj.explosive ) {
+					this.calcLogBV += "Explosive Ammo Crit in Left Leg, Left Torso and Left Leg to not have CASE (Inner Sphere, -15)<br />";
+					explosiveAmmoModifiers += 15;
+				}
+				if( this.criticals.leftLeg[ lCrit ] && this.criticals.leftLeg[ lCrit ].obj && this.criticals.leftLeg[ lCrit ].obj.gauss ) {
+					this.calcLogBV += "Gauss Crit in Left Leg, Left Torso and Left Leg to not have CASE (Inner Sphere, -1)<br />";
+					explosiveAmmoModifiers += 1;
+				}
+			}
+
+		}
+
+		// check RA
+		for( var lCrit = 0; lCrit < this.criticals.rightArm.length; lCrit++) {
+
+
+			if( caseEnabled_RT == false  && caseEnabled_RA == false) {
+				if( this.criticals.rightArm[ lCrit ] && this.criticals.rightArm[ lCrit ].obj && this.criticals.rightArm[ lCrit ].obj.explosive ) {
+					this.calcLogBV += "Explosive Ammo Crit in Right Arm, Right Torso and Right Arm to not have CASE (Inner Sphere, -15)<br />";
+					explosiveAmmoModifiers += 15;
+				}
+				if( this.criticals.rightArm[ lCrit ] && this.criticals.rightArm[ lCrit ].obj && this.criticals.rightArm[ lCrit ].obj.gauss ) {
+					this.calcLogBV += "Gauss Crit in Right Arm, Right Torso and Right Arm to not have CASE (Inner Sphere, -1)<br />";
+					explosiveAmmoModifiers += 1;
+				}
+			}
+
+		}
+
+		// check LA
+		for( var lCrit = 0; lCrit < this.criticals.leftArm.length; lCrit++) {
+
+
+			if( caseEnabled_LT == false  && caseEnabled_LA == false) {
+				if( this.criticals.leftArm[ lCrit ] && this.criticals.leftArm[ lCrit ].obj && this.criticals.leftArm[ lCrit ].obj.explosive ) {
+					this.calcLogBV += "Explosive Ammo Crit in Left Arm, Left Torso and Left Arm to not have CASE (Inner Sphere, -15)<br />";
+					explosiveAmmoModifiers += 15;
+				}
+				if( this.criticals.leftArm[ lCrit ] && this.criticals.leftArm[ lCrit ].obj && this.criticals.leftArm[ lCrit ].obj.gauss ) {
+					this.calcLogBV += "Gauss Crit in Left Arm, Left Torso and Left Arm to not have CASE (Inner Sphere, -1)<br />";
+					explosiveAmmoModifiers += 1;
+				}
+			}
+		}
+
+	}
 
 
 	defensiveBattleRating = totalArmorFactor + totalInternalStructurePoints + totalGyroPoints - explosiveAmmoModifiers;
+	this.calcLogBV += "Defensive battle rating = " + defensiveBattleRating +  " ( " + totalArmorFactor + " + " + totalInternalStructurePoints + " +  " + totalGyroPoints + " -  " + explosiveAmmoModifiers + "<br />";
+
 
 	// Get Defensive Factor Modifier
 
@@ -12149,6 +12466,18 @@ Mech.prototype._calcBattleValue = function() {
 	// TODO
 	this.calcLogBV += "<strong class=\"color-red\">TODO</strong>: All offensive<br />";
 
+
+	//~ console.log( "this.getHeatSinksType()", this.getHeatSinksType() );
+	var mechHeatEfficiency  = 0;
+	if( this.getHeatSinksType() == "single" ) {
+		mechHeatEfficiency = 6 + this.getHeatSinks()  +  this.getMaxMovementHeat()
+	} else if( this.getHeatSinksType() == "double" ) {
+		mechHeatEfficiency = 6 + this.getHeatSinks() * 2 +  this.getMaxMovementHeat()
+	}
+
+	//~ console.log( "mechHeatEfficiency", mechHeatEfficiency );
+	//~ var mechHeatEfficiency = 6 + +  this.getMaxMovementHeat()
+
 	this.calcLogBV += "<strong>Final offensive battle rating</strong>: " + offensiveBattleRating + "<br />";
 
 	/* ***************************************************
@@ -12171,9 +12500,10 @@ Mech.prototype._calcBattleValue = function() {
 
 Mech.prototype._calcCBillCost = function() {
 	// TODO Calculations
-
+	this.calcLogCBill = "";
 	this.cbillCost = 0  + " (TODO / WIP)";
-	this.calcLogCBill = "TODO";
+	//~ this.calcLogCBill = "TODO";
+	this.calcLogCBill += "<strong class=\"color-red\">TODO<br />\n";
 
 }
 
@@ -12831,6 +13161,19 @@ Mech.prototype._calc = function() {
 
 	this.total_armor = this.armorWeight * 16;
 
+	//~ switch( this.getArmorType() ) {
+
+		//~ default: // standard
+			//~ this.total_armor = this.armorWeight * 16;
+			//~ break;
+	//~ }
+	if( this.getTech().tag == "clan") {
+		 this.total_armor = this.armorWeight * this.getArmorObj().armormultiplier.clan;
+	} else {
+		 this.total_armor = this.armorWeight * this.getArmorObj().armormultiplier.is;
+	}
+	//~ console.log( this.getArmorObj() );
+
 	if( this.total_armor > this.max_armor )
 		this.total_armor = this.max_armor;
 
@@ -12904,10 +13247,8 @@ Mech.prototype._calc = function() {
 	this._calcBattleValue();
 	this._calcCBillCost();
 
-	//~ console.log( mechData.equipmentList );
 	this.equipmentList = this.equipmentList.sort( sortByLocationThenName );
-	//~ console.log( mechData.equipmentList );
-	this.sortedEquipmentList = [];
+ 	this.sortedEquipmentList = [];
 	for( eq_count = 0; eq_count < this.equipmentList.length; eq_count++) {
 
 
@@ -13092,6 +13433,68 @@ Mech.prototype._calcCriticals = function() {
 		);
 	}
 
+	// Armor
+
+	var armorObj = this.getArmorObj();
+	if( this.getTech().tag  == "clan" ) {
+		if( armorObj.crits.is > 0 ) {
+			if( armorObj.crit_locs ) {
+				for( var nameLoc in armorObj.crits_locs ) {
+					this._addCriticalItem(
+						armorObj.tag, 						// item_tag
+						armorObj.name[this.useLang], 		// item_name
+						armorObj.crits_loc [ nameLoc ], 		// critical_count
+						nameLoc									// location
+																// slot
+					);
+				}
+			} else {
+				for( var aCounter = 0; aCounter < armorObj.crits.clan; aCounter++ ) {
+					this.unallocatedCriticals.push(
+						{
+							name: armorObj.name[this.useLang],
+							tag: armorObj.tag,
+							rollAgain: true,
+							rear: false,
+							crits: 1,
+							obj: armorObj,
+							movable: true
+						}
+					);
+				}
+			}
+		}
+	} else {
+		if( armorObj.crits.is > 0 ) {
+			if( armorObj.crit_locs ) {
+				for( var nameLoc in armorObj.crits_locs ) {
+					this._addCriticalItem(
+						armorObj.tag, 						// item_tag
+						armorObj.name[this.useLang], 		// item_name
+						armorObj.crits_loc [ nameLoc ], 		// critical_count
+						nameLoc									// location
+																// slot
+					);
+				}
+			} else {
+				for( var aCounter = 0; aCounter < armorObj.crits.is; aCounter++ ) {
+					this.unallocatedCriticals.push(
+						{
+							name: armorObj.name[this.useLang],
+							tag: armorObj.tag,
+							rear: false,
+							rollAgain: true,
+							crits: 1,
+							obj: armorObj,
+							movable: true
+						}
+					);
+				}
+			}
+		}
+	}
+
+
 	// Get optional equipment...
 	for(var elc = 0; elc < this.equipmentList.length; elc++ ) {
 		//~ this.equipmentList[elc].location = "";
@@ -13223,6 +13626,22 @@ Mech.prototype.addLowerArmActuator = function( location ) {
 		this._no_left_arm_lower_actuator = false;
 	}
 	this._calc();
+}
+
+Mech.prototype.getMaxMovementHeat = function() {
+	var maxMoveHeat = 2; // standard run heat.
+
+	if( this.getJumpSpeed() > 2 ) {
+		maxMoveHeat == this.getJumpSpeed();
+	}
+
+
+	// Stealth Armor
+	if( this.getArmorType() == "stealth") {
+		maxMoveHeat += 10;
+	}
+
+	return maxMoveHeat;
 }
 
 Mech.prototype._addCriticalItem = function( item_tag, item_name, critical_count, location, slot, movable ) {
@@ -13377,7 +13796,6 @@ Mech.prototype.setHeatSinksType = function(newValue) {
 	return this.heat_sink_type;
 }
 
-
 Mech.prototype.getCurrentTonnage = function() {
 	return this.current_tonnage;
 }
@@ -13442,10 +13860,27 @@ Mech.prototype.getArmorWeight = function() {
 	return this.armorWeight;
 }
 
+Mech.prototype.getArmorType = function() {
+	return this.armorType.tag;
+}
+
+Mech.prototype.getArmorObj = function() {
+	return this.armorType;
+}
+
+
+Mech.prototype.setArmorType = function( armorTag ) {
+	for( var aCount = 0; aCount < mechArmorTypes.length; aCount++ ) {
+		if( mechArmorTypes[ aCount ].tag == armorTag ) {
+			this.armorType = mechArmorTypes[ aCount ];
+		}
+	}
+	return this.armorType;
+}
+
 Mech.prototype.getTotalArmor = function() {
 	return this.total_armor;
 }
-
 
 Mech.prototype.getUnallocatedArmor = function() {
 	return this.unallocated_armor;
@@ -14037,6 +14472,8 @@ Mech.prototype.exportJSON = function() {
 
 	export_object.armor_allocation = this.armorAllocation;
 
+	export_object.armor_type = this.getArmorType();
+
 	export_object.equipment = Array();
 
 	for( eq_count = 0; eq_count < this.equipmentList.length; eq_count++) {
@@ -14048,6 +14485,7 @@ Mech.prototype.exportJSON = function() {
 			}
 		);
 	}
+
 	export_object.allocation = this.criticalAllocationTable;
 	export_object.features = Array();
 	if( !this.hasLowerArmActuator("la") )
@@ -14114,6 +14552,9 @@ Mech.prototype.importJSON = function(json_string) {
 
 			if( import_object.as_role )
 				this.setASRole( import_object.as_role );
+
+			if( import_object.armor_type )
+				this.setArmorType( import_object.armor_type );
 
 			if( import_object.as_custom_name  )
 				this.setASCustomName( import_object.as_custom_name ) ;
@@ -16295,6 +16736,7 @@ var battlemechCreatorControllerStep4Array =
 		'$location',
 		function ($rootScope, $translate, $scope, $location) {
 			// Set Page Title Tag
+
 			$translate(['APP_TITLE', 'BM_STEP4_TITLE', 'BM_STEP4_DESC', 'WELCOME_BUTTON_MECH_CREATOR' ]).then(function (translation) {
 				$rootScope.title_tag = translation.BM_STEP4_TITLE + " | " + translation.APP_TITLE;
 				if( translation.BM_STEP4_DESC )
@@ -16311,36 +16753,91 @@ var battlemechCreatorControllerStep4Array =
 			}
 
 			// create mech object, load from localStorage if exists
-			current_mech = new Mech();
+			$scope.current_mech = new Mech();
 
 
 			if( localStorage["tmp.current_mech"] ) {
-				current_mech.importJSON( localStorage["tmp.current_mech"] );
+				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
-				current_mech.uuid = generateUUID();
-				current_mech._calc();
+				$scope.current_mech.uuid = generateUUID();
+				$scope.current_mech._calc();
 			}
 
-			current_mech.useLang = localStorage["tmp.preferred_language"];
+			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
 
-			update_step4_page_items($scope, $translate, current_mech);
+			update_step4_page_items($scope, $translate, $scope.current_mech);
 
-			update_mech_status_bar_and_tro($scope, $translate, current_mech);
+			update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
 
 			localStorage["backToPath"] = $location.$$path;
 
 			$scope.update_armor_weight = function() {
-				current_mech.setArmorWeight( $scope.selected_armor_weight.id );
-				update_step4_page_items($scope, $translate, current_mech);
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				$scope.current_mech.setArmorWeight( $scope.selected_armor_weight.id );
+				update_step4_page_items($scope, $translate, $scope.current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 
+			$scope.availableArmorTypes = [];
+
+
+
+			//~ console.log( "$scope.selected_armor_type", $scope.selected_armor_type );
+
+			for( var aCount = 0; aCount < mechArmorTypes.length; aCount++ ) {
+				console.log( "mechArmorTypes[ aCount ].armormultiplier", mechArmorTypes[ aCount ].armormultiplier );
+				console.log( "$scope.current_mech.getTech().tag", $scope.current_mech.getTech().tag );
+				if( mechArmorTypes[ aCount ].armormultiplier[ $scope.current_mech.getTech().tag ] ) {
+					$scope.availableArmorTypes.push( mechArmorTypes[ aCount ] );
+				}
+
+			}
+
+			$translate(['BM_STEP4_UNAVAILABLE_PAREN']).then(function (translation) {
+
+				var selectedEra = $scope.current_mech.era;
+
+				for(var eqc = $scope.availableArmorTypes.length - 1; eqc > -1; eqc-- ) {
+					if( $scope.availableArmorTypes[eqc].name[ localStorage["tmp.preferred_language"] ])
+						$scope.availableArmorTypes[eqc].local_name = $scope.availableArmorTypes[eqc].name[ localStorage["tmp.preferred_language"] ];
+					else
+						$scope.availableArmorTypes[eqc].local_name = $scope.availableArmorTypes[eqc].name[ "en-US" ];
+
+					//~ $scope.availableArmorTypes[eqc].local_space = $scope.availableArmorTypes[eqc].space.battlemech;
+
+					$scope.availableArmorTypes[eqc].isInSelectedEra = false;
+
+					if( $scope.current_mech.getArmorType() == $scope.availableArmorTypes[eqc].tag )
+						$scope.selected_armor_type = $scope.availableArmorTypes[eqc];
+
+
+					if( getItemAvailability($scope.availableArmorTypes[eqc], selectedEra) ) {
+						$scope.availableArmorTypes[eqc].isInSelectedEra = true;
+					} else {
+						if( ! $scope.current_mech.strictEra > 0 )
+							$scope.availableArmorTypes[eqc].local_name += translation.BM_STEP4_UNAVAILABLE_PAREN;
+						else
+							$scope.availableArmorTypes.splice( eqc, 1 );
+					}
+
+
+				}
+			});
+
+
+			$scope.update_armor_type = function( armorType ) {
+				console.log( "update_armor_type", armorType );
+				$scope.current_mech.setArmorType( armorType.tag );
+				$scope.current_mech._calc();
+				update_step4_page_items($scope, $translate, $scope.current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
+			}
 
 
 			$scope.allocate_max = function() {
 
-				internal_structure = current_mech.getInteralStructure();
+				internal_structure = $scope.current_mech.getInteralStructure();
 				//console.log( "internal_structure", internal_structure);
 				centerTorsoArmor = internal_structure.centerTorso * 2;
 				lrTorsoArmor = internal_structure.rightTorso * 2;
@@ -16351,38 +16848,38 @@ var battlemechCreatorControllerStep4Array =
 				lrTorsoArmorRear = Math.ceil(lrTorsoArmor * .2);
 				lrTorsoArmor = lrTorsoArmor - lrTorsoArmorRear;
 
-				current_mech.setRightTorsoArmor( lrTorsoArmor );
-				current_mech.setCenterTorsoArmor( centerTorsoArmor );
-				current_mech.setLeftTorsoArmor( lrTorsoArmor );
+				$scope.current_mech.setRightTorsoArmor( lrTorsoArmor );
+				$scope.current_mech.setCenterTorsoArmor( centerTorsoArmor );
+				$scope.current_mech.setLeftTorsoArmor( lrTorsoArmor );
 
-				current_mech.setRightTorsoRearArmor( lrTorsoArmorRear );
-				current_mech.setCenterTorsoRearArmor( centerTorsoArmorRear );
-				current_mech.setLeftTorsoRearArmor( lrTorsoArmorRear );
+				$scope.current_mech.setRightTorsoRearArmor( lrTorsoArmorRear );
+				$scope.current_mech.setCenterTorsoRearArmor( centerTorsoArmorRear );
+				$scope.current_mech.setLeftTorsoRearArmor( lrTorsoArmorRear );
 
-				current_mech.setRightLegArmor( internal_structure.rightLeg * 2 );
-				current_mech.setLeftLegArmor( internal_structure.leftLeg * 2 );
+				$scope.current_mech.setRightLegArmor( internal_structure.rightLeg * 2 );
+				$scope.current_mech.setLeftLegArmor( internal_structure.leftLeg * 2 );
 
-				current_mech.setHeadArmor( 9 );
+				$scope.current_mech.setHeadArmor( 9 );
 
-				if( current_mech.getType().class.toLowerCase() == "biped") {
-					current_mech.setRightArmArmor( internal_structure.leftArm * 2 );
-					current_mech.setLeftArmArmor( internal_structure.leftArm * 2 );
+				if( $scope.current_mech.getType().class.toLowerCase() == "biped") {
+					$scope.current_mech.setRightArmArmor( internal_structure.leftArm * 2 );
+					$scope.current_mech.setLeftArmArmor( internal_structure.leftArm * 2 );
 				} else {
 					// quad
-					current_mech.setRightArmArmor( internal_structure.rightLeg * 2 );
-					current_mech.setLeftArmArmor( internal_structure.leftLeg * 2 );
+					$scope.current_mech.setRightArmArmor( internal_structure.rightLeg * 2 );
+					$scope.current_mech.setLeftArmArmor( internal_structure.leftLeg * 2 );
 				}
 
-				update_step4_page_items($scope, $translate, current_mech);
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				update_step4_page_items($scope, $translate, $scope.current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 
 			$scope.allocate_sanely = function() {
 
-				total_armor = current_mech.getTotalArmor();
-				internal_structure = current_mech.getInteralStructure();
-				maximum_armor = current_mech.getMaxArmor();
+				total_armor = $scope.current_mech.getTotalArmor();
+				internal_structure = $scope.current_mech.getInteralStructure();
+				maximum_armor = $scope.current_mech.getMaxArmor();
 				percentage = total_armor / maximum_armor;
 
 
@@ -16399,130 +16896,130 @@ var battlemechCreatorControllerStep4Array =
 					if( head_armor > 9)
 						head_armor = 9;
 					if( total_armor >= head_armor) {
-					   current_mech.setHeadArmor(head_armor);
+					   $scope.current_mech.setHeadArmor(head_armor);
 					   total_armor -= head_armor;
 					} else {
-						current_mech.setHeadArmor(0);
+						$scope.current_mech.setHeadArmor(0);
 					}
 				}
 
 
 				if( total_armor > torso_armor) {
-				   current_mech.setRightTorsoArmor( torso_armor );
+				   $scope.current_mech.setRightTorsoArmor( torso_armor );
 				   total_armor -= torso_armor;
 				}
 
 				if( total_armor > rear_armor) {
-				   current_mech.setRightTorsoRearArmor( rear_armor );
+				   $scope.current_mech.setRightTorsoRearArmor( rear_armor );
 					total_armor -= rear_armor;
 				}
 
 				if( total_armor > torso_armor) {
-					current_mech.setLeftTorsoArmor( torso_armor );
+					$scope.current_mech.setLeftTorsoArmor( torso_armor );
 					total_armor -= torso_armor;
 				}
 				if( total_armor > rear_armor) {
-					current_mech.setLeftTorsoRearArmor( rear_armor );
+					$scope.current_mech.setLeftTorsoRearArmor( rear_armor );
 				   total_armor -= rear_armor;
 				}
 
 				if( total_armor > leg_armor) {
-					current_mech.setRightLegArmor( leg_armor );
+					$scope.current_mech.setRightLegArmor( leg_armor );
 					total_armor -= leg_armor;
 				}
 
 				if( total_armor > leg_armor) {
-				   current_mech.setLeftLegArmor( leg_armor );
+				   $scope.current_mech.setLeftLegArmor( leg_armor );
 				   total_armor -= leg_armor;
 				}
 
 				if( total_armor > arm_armor) {
-					current_mech.setRightArmArmor( arm_armor );
+					$scope.current_mech.setRightArmArmor( arm_armor );
 				   total_armor -= arm_armor;
 				}
 				if( total_armor > arm_armor) {
-				   current_mech.setLeftArmArmor( arm_armor );
+				   $scope.current_mech.setLeftArmArmor( arm_armor );
 				   total_armor -= arm_armor;
 				}
 
 				if( total_armor > rear_armor) {
-				   current_mech.setCenterTorsoRearArmor( centerTorsoArmorRear );
+				   $scope.current_mech.setCenterTorsoRearArmor( centerTorsoArmorRear );
 				   total_armor -= rear_armor;
 				}
 
-				current_mech.setCenterTorsoArmor( centerTorsoArmor ); // everything else goes to center torso! :)
+				$scope.current_mech.setCenterTorsoArmor( centerTorsoArmor ); // everything else goes to center torso! :)
 
-				update_step4_page_items($scope, $translate, current_mech);
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				update_step4_page_items($scope, $translate, $scope.current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 
 			$scope.clear_armor = function() {
 
-				current_mech.setHeadArmor( 0 );
+				$scope.current_mech.setHeadArmor( 0 );
 
-				current_mech.setRightTorsoArmor( 0 );
-				current_mech.setRightTorsoRearArmor( 0 );
-
-
-				current_mech.setLeftTorsoArmor( 0 );
-				current_mech.setLeftTorsoRearArmor( 0 );
-
-				current_mech.setRightLegArmor( 0 );
-				current_mech.setLeftLegArmor( 0 );
+				$scope.current_mech.setRightTorsoArmor( 0 );
+				$scope.current_mech.setRightTorsoRearArmor( 0 );
 
 
-				current_mech.setRightArmArmor( 0 );
-				current_mech.setLeftArmArmor( 0 );
+				$scope.current_mech.setLeftTorsoArmor( 0 );
+				$scope.current_mech.setLeftTorsoRearArmor( 0 );
 
-				current_mech.setCenterTorsoRearArmor( 0 );
-				current_mech.setCenterTorsoArmor( 0 );
+				$scope.current_mech.setRightLegArmor( 0 );
+				$scope.current_mech.setLeftLegArmor( 0 );
 
-				update_step4_page_items($scope, $translate, current_mech);
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+
+				$scope.current_mech.setRightArmArmor( 0 );
+				$scope.current_mech.setLeftArmArmor( 0 );
+
+				$scope.current_mech.setCenterTorsoRearArmor( 0 );
+				$scope.current_mech.setCenterTorsoArmor( 0 );
+
+				update_step4_page_items($scope, $translate, $scope.current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 
 			$scope.update_armor_allocation = function(armor_location) {
 				console.log("armor_location", armor_location);
 				if( armor_location == "hd") {
 					console.log("setHeadArmor", $scope.armor_current_hd.id);
-					current_mech.setHeadArmor( $scope.armor_current_hd.id );
+					$scope.current_mech.setHeadArmor( $scope.armor_current_hd.id );
 
 				} else if( armor_location == "ra") {
-					current_mech.setRightArmArmor( $scope.armor_current_ra.id );
+					$scope.current_mech.setRightArmArmor( $scope.armor_current_ra.id );
 
 				} else if( armor_location == "la") {
-					current_mech.setLeftArmArmor( $scope.armor_current_la.id );
+					$scope.current_mech.setLeftArmArmor( $scope.armor_current_la.id );
 
 				} else if( armor_location == "rt") {
-					current_mech.setRightTorsoArmor( $scope.armor_current_rt.id );
+					$scope.current_mech.setRightTorsoArmor( $scope.armor_current_rt.id );
 
 				} else if( armor_location == "ct") {
-					current_mech.setCenterTorsoArmor( $scope.armor_current_ct.id );
+					$scope.current_mech.setCenterTorsoArmor( $scope.armor_current_ct.id );
 
 				} else if( armor_location == "lt") {
-					current_mech.setLeftTorsoArmor( $scope.armor_current_lt.id );
+					$scope.current_mech.setLeftTorsoArmor( $scope.armor_current_lt.id );
 
 				} else if( armor_location == "rtr") {
-					current_mech.setRightTorsoRearArmor( $scope.armor_current_rtr.id );
+					$scope.current_mech.setRightTorsoRearArmor( $scope.armor_current_rtr.id );
 
 				} else if( armor_location == "ctr") {
-					current_mech.setCenterTorsoRearArmor( $scope.armor_current_ctr.id );
+					$scope.current_mech.setCenterTorsoRearArmor( $scope.armor_current_ctr.id );
 
 				} else if( armor_location == "ltr") {
-					current_mech.setLeftTorsoRearArmor( $scope.armor_current_ltr.id );
+					$scope.current_mech.setLeftTorsoRearArmor( $scope.armor_current_ltr.id );
 
 				} else if( armor_location == "rl") {
-					current_mech.setRightLegArmor( $scope.armor_current_rl.id );
+					$scope.current_mech.setRightLegArmor( $scope.armor_current_rl.id );
 
 				} else if( armor_location == "ll") {
-					current_mech.setLeftLegArmor( $scope.armor_current_ll.id );
+					$scope.current_mech.setLeftLegArmor( $scope.armor_current_ll.id );
 
 				}
-				update_step4_page_items($scope, $translate, current_mech);
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				update_step4_page_items($scope, $translate, $scope.current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
 			}
 
@@ -16562,13 +17059,13 @@ function update_step4_page_items($scope, $translate, current_mech) {
 
 		$scope.for_quad = false;
 		$scope.for_biped = false;
-		if( current_mech.getType().class == "quad")
+		if( $scope.current_mech.getType().class == "quad")
 			$scope.for_quad = true;
 		else
 			$scope.for_biped = true;
 
 		// Update Armor Weight Selection Dropdown....
-		current_armor_weight = current_mech.getArmorWeight();
+		current_armor_weight = $scope.current_mech.getArmorWeight();
 
 		$scope.armor_weight_list = [];
 		$scope.armor_weight_list.push( {
@@ -16584,7 +17081,7 @@ function update_step4_page_items($scope, $translate, current_mech) {
 				};
 		}
 
-		for( var hscount = 1; hscount <= current_mech.getMaxArmorTonnage() + 0.5; hscount = hscount + 0.5) {
+		for( var hscount = 1; hscount <= $scope.current_mech.getMaxArmorTonnage() + 0.5; hscount = hscount + 0.5) {
 			if( hscount == 1)
 				tons_label = translation.BM_TON;
 			else
@@ -16606,13 +17103,13 @@ function update_step4_page_items($scope, $translate, current_mech) {
 		}
 
 		// Armor Stats Label...
-		label_armor_stats = translation.BM_STEP4_MAX_ARMOR + ": " + current_mech.getMaxArmor() + "<br />";
-		label_armor_stats += translation.BM_STEP4_TOTAL_ARMOR + ": " + current_mech.getTotalArmor() + "<br />";
-		label_armor_stats += translation.BM_STEP4_UNALLOCATED_ARMOR + ": " + current_mech.getUnallocatedArmor() + "<br />";
+		label_armor_stats = translation.BM_STEP4_MAX_ARMOR + ": " + $scope.current_mech.getMaxArmor() + "<br />";
+		label_armor_stats += translation.BM_STEP4_TOTAL_ARMOR + ": " + $scope.current_mech.getTotalArmor() + "<br />";
+		label_armor_stats += translation.BM_STEP4_UNALLOCATED_ARMOR + ": " + $scope.current_mech.getUnallocatedArmor() + "<br />";
 
 		// Update Armor Select Dropdowns....
-		armor_allocations = current_mech.getArmorAllocations();
-		internal_structure = current_mech.getInteralStructure();
+		armor_allocations = $scope.current_mech.getArmorAllocations();
+		internal_structure = $scope.current_mech.getInteralStructure();
 
 
 		$scope.armor_alloc_hd = make_armor_select_dd_options( 9 );
@@ -16690,21 +17187,21 @@ var battlemechCreatorControllerStep5Array =
 			}
 
 			// create mech object, load from localStorage if exists
-			current_mech = new Mech();
+			$scope.current_mech = new Mech();
 
 
 			if( localStorage["tmp.current_mech"] ) {
-				current_mech.importJSON( localStorage["tmp.current_mech"] );
+				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
-				current_mech.uuid = generateUUID();
-				current_mech._calc();
+				$scope.current_mech.uuid = generateUUID();
+				$scope.current_mech._calc();
 			}
 
 			localStorage["backToPath"] = $location.$$path;
 
-			current_mech.useLang = localStorage["tmp.preferred_language"];
+			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
 			// make tro for sidebar
-			update_mech_status_bar_and_tro($scope, $translate, current_mech);
+			update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
 
 			$scope.filterEquipmentTerm = "";
 
@@ -16736,7 +17233,7 @@ var battlemechCreatorControllerStep5Array =
 				$scope.equipment_table =[];
 				$scope.category_list =[];
 
-				if( current_mech.getTech().tag == "clan") {
+				if( $scope.current_mech.getTech().tag == "clan") {
 					// Use Clan Equipment Table...
 					$scope.equipment_table = angular.copy( mechClanEquipment );
 					$scope.category_list = angular.copy( mechClanEquipment );
@@ -16749,10 +17246,10 @@ var battlemechCreatorControllerStep5Array =
 
 
 				$scope.mechIsStrict = false;
-				if( current_mech.strictEra > 0 )
+				if( $scope.current_mech.strictEra > 0 )
 					$scope.mechIsStrict = true;
 
-				selectedEra = current_mech.era;
+				selectedEra = $scope.current_mech.era;
 
 				for(var eqc = $scope.category_list.length - 1; eqc > -1; eqc-- ) {
 
@@ -16853,7 +17350,7 @@ var battlemechCreatorControllerStep5Array =
 
 				$scope.item_locations = [];
 
-				$scope.installed_equipment_table = current_mech.getInstalledEquipment();
+				$scope.installed_equipment_table = $scope.current_mech.getInstalledEquipment();
 
 				for(var eqc = 0; eqc < $scope.installed_equipment_table.length; eqc++ ) {
 					if( $scope.installed_equipment_table[eqc].name[ localStorage["tmp.preferred_language"] ])
@@ -16894,11 +17391,11 @@ var battlemechCreatorControllerStep5Array =
 
 			$scope.addItem = function( index_number ) {
 				if( $scope.equipment_table[index_number].tag ) {
-					current_mech.addEquipmentFromTag( $scope.equipment_table[index_number].tag );
-					update_mech_status_bar_and_tro($scope, $translate, current_mech);
-					localStorage["tmp.current_mech"] = current_mech.exportJSON();
+					$scope.current_mech.addEquipmentFromTag( $scope.equipment_table[index_number].tag );
+					update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+					localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
-					$scope.installed_equipment_table = current_mech.getInstalledEquipment();
+					$scope.installed_equipment_table = $scope.current_mech.getInstalledEquipment();
 
 					for(var eqc = 0; eqc < $scope.installed_equipment_table.length; eqc++ ) {
 						if( $scope.installed_equipment_table[eqc].name[ localStorage["tmp.preferred_language"] ])
@@ -16921,23 +17418,23 @@ var battlemechCreatorControllerStep5Array =
 			};
 
 			$scope.setRear = function( index_number, newValue ) {
-				current_mech.setRear( index_number, !newValue );
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				$scope.current_mech.setRear( index_number, !newValue );
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			};
 
 			$scope.removeItem = function( index_number ) {
-				current_mech.removeEquipment( index_number );
+				$scope.current_mech.removeEquipment( index_number );
 				$scope.item_locations.splice(index_number, 1);
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			};
 
 			$scope.updateLocation = function( index_number ) {
 
-				current_mech.setEquipmentLocation( index_number, $scope.item_locations[index_number].id );
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				$scope.current_mech.setEquipmentLocation( index_number, $scope.item_locations[index_number].id );
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
 
 			};
@@ -18498,6 +18995,7 @@ available_languages.push ({
 		BM_STEP4_ALLOCATE_NONE: "Clear Armor",
 		BM_STEP4_ALLOCATE_SANELY: "Allocate Sanely",
 		BM_STEP4_ALLOCATE_MAX: "Allocate Max",
+		BM_STEP4_UNAVAILABLE_PAREN: " (unavailable)",
 
 		BM_STEP5_TITLE: "Step 5",
 		BM_STEP5_DESC: "Add weapons, ammunition and other equipment",

@@ -8,6 +8,8 @@ function Mech (type) {
 	this.tonnage = 20;
 	this.useLang = this.useLang;
 
+	this.armorType = mechArmorTypes[0];
+
 	this.max_armor = 0;
 
 	this.internalStructure = {};
@@ -684,8 +686,6 @@ Mech.prototype._calcAlphaStrike = function() {
 		this.calcLogAS += "Mech has no explosive components, gets ENE ability<br />\n";
 	}
 
-
-
 	var heat_dissipation = 0;
 	if( this.heat_sink_type == "single" ) {
 		heat_dissipation += (10 + this.additional_heat_sinks) * 1;
@@ -697,24 +697,108 @@ Mech.prototype._calcAlphaStrike = function() {
 	var overheat_value = move_heat + total_weapon_heat - heat_dissipation;
 	var long_overheat_value = move_heat + total_weapon_heat_long - heat_dissipation;
 
+	//~ var before_heat_range_short = this.alphaStrikeForceStats.damage.short.toFixed(0) /1;
+	//~ var before_heat_range_medium = this.alphaStrikeForceStats.damage.medium.toFixed(0) /1;
+	//~ var before_heat_range_long = this.alphaStrikeForceStats.damage.long.toFixed(0) /1;
+	//~ var before_heat_range_extreme = this.alphaStrikeForceStats.damage.extreme.toFixed(0) /1;
 
+	//~ this.alphaStrikeForceStats.heat_damage = this.alphaStrikeForceStats.damage;
 
-	var before_heat_range_short = this.alphaStrikeForceStats.damage.short.toFixed(0) /1;
-	var before_heat_range_medium = this.alphaStrikeForceStats.damage.medium.toFixed(0) /1;
-	var before_heat_range_long = this.alphaStrikeForceStats.damage.long.toFixed(0) /1;
-	var before_heat_range_extreme = this.alphaStrikeForceStats.damage.extreme.toFixed(0) /1;
-
+	var final_overheat_value = 0;
 	if( overheat_value > 3) {
 		// Heat Modified Damage, p115 AS companion
+		var heat_damage_short = 0;
+		var heat_damage_medium = 0;
 		if( this.alphaStrikeForceStats.damage.short != "0*")
-			this.alphaStrikeForceStats.damage.short = ( this.alphaStrikeForceStats.damage.short * heat_dissipation ) / (max_heat_output - 4);
+			heat_damage_short = Math.ceil( (this.alphaStrikeForceStats.damage.short * heat_dissipation ) / (max_heat_output - 4) );
 		if( this.alphaStrikeForceStats.damage.medium != "0*")
-			this.alphaStrikeForceStats.damage.medium = ( this.alphaStrikeForceStats.damage.medium * heat_dissipation ) / (max_heat_output - 4);
+			heat_damage_medium =  Math.ceil( (this.alphaStrikeForceStats.damage.medium * heat_dissipation ) / (max_heat_output - 4) );
+
+
+		if( this.alphaStrikeForceStats.damage.short != "0*")
+			this.alphaStrikeForceStats.damage.short = Math.ceil( this.alphaStrikeForceStats.damage.short );
+		if( this.alphaStrikeForceStats.damage.medium != "0*")
+			this.alphaStrikeForceStats.damage.medium =  Math.ceil( this.alphaStrikeForceStats.damage.medium );
+		//~ if( this.alphaStrikeForceStats.damage.short != "0*")
+			//~ this.alphaStrikeForceStats.damage.long = Math.ceil( this.alphaStrikeForceStats.damage.long );
+		//~ if( this.alphaStrikeForceStats.damage.medium != "0*")
+			//~ this.alphaStrikeForceStats.damage.extreme =  Math.ceil( this.alphaStrikeForceStats.damage.extreme );
+
+
+		//~ console.log( "damage.short", this.alphaStrikeForceStats.damage.short );
+		//~ console.log( "heat_damage_short", heat_damage_short );
+		//~ console.log( "damage.medium", this.alphaStrikeForceStats.damage.medium );
+		//~ console.log( "heat_damage_medium", heat_damage_medium );
+
+
+		if(  this.alphaStrikeForceStats.damage.medium != "0*" && heat_damage_medium < this.alphaStrikeForceStats.damage.medium ) {
+			final_overheat_value =  this.alphaStrikeForceStats.damage.medium - heat_damage_medium ;
+			this.alphaStrikeForceStats.damage.medium = this.alphaStrikeForceStats.damage.medium - final_overheat_value;
+			this.alphaStrikeForceStats.damage.short = this.alphaStrikeForceStats.damage.short - final_overheat_value;
+		}
+		//~ console.log( "final_overheat_value", final_overheat_value );
+
+
+
+	} else {
+		if( this.alphaStrikeForceStats.damage.short != "0*")
+			this.alphaStrikeForceStats.damage.short = Math.ceil( this.alphaStrikeForceStats.damage.short );
+		if( this.alphaStrikeForceStats.damage.medium != "0*")
+			this.alphaStrikeForceStats.damage.medium =  Math.ceil( this.alphaStrikeForceStats.damage.medium );
+		//~ if( this.alphaStrikeForceStats.damage.short != "0*")
+			//~ this.alphaStrikeForceStats.damage.long = Math.ceil( this.alphaStrikeForceStats.damage.long );
+		//~ if( this.alphaStrikeForceStats.damage.medium != "0*")
+			//~ this.alphaStrikeForceStats.damage.extreme =  Math.ceil( this.alphaStrikeForceStats.damage.extreme );
+
 	}
 
+	var final_long_overheat_value = 0;
+
+	//~ console.log( "this.alphaStrikeForceStats.damage", this.alphaStrikeForceStats.damage );
+
 	if( long_overheat_value > 4) {
-		if( this.alphaStrikeForceStats.damage.long != "0*")
-			this.alphaStrikeForceStats.damage.long = ( this.alphaStrikeForceStats.damage.long * heat_dissipation ) / (max_heat_output - 4);
+
+		//~ console.log( "long_overheat_value", long_overheat_value );
+
+		if( this.alphaStrikeForceStats.damage.long != "0*") {
+			//~ this.alphaStrikeForceStats.heat_damage.long = this.alphaStrikeForceStats.damage.long;
+			var heat_damage_long = this.alphaStrikeForceStats.damage.long;
+			var heat_damage_extreme = this.alphaStrikeForceStats.damage.extreme;
+
+			this.alphaStrikeForceStats.damage.long = Math.ceil( ( this.alphaStrikeForceStats.damage.long * heat_dissipation ) / (total_weapon_heat_long - 4) );
+			this.alphaStrikeForceStats.damage.extreme = Math.ceil( ( this.alphaStrikeForceStats.damage.long * heat_dissipation ) / (total_weapon_heat_long - 4) );
+
+			//~ console.log( "damage.long", this.alphaStrikeForceStats.damage.long );
+			//~ console.log( "heat_dissipation", heat_dissipation );
+			//~ console.log( "heat_damage_long", heat_damage_long );
+			//~ console.log( "total_weapon_heat_long", total_weapon_heat_long );
+
+
+
+			if( heat_damage_long > this.alphaStrikeForceStats.damage.long) {
+				var final_long_overheat_value = heat_damage_long - this.alphaStrikeForceStats.damage.long;
+				this.alphaStrikeForceStats.damage.long = heat_damage_long - final_long_overheat_value;
+				this.alphaStrikeForceStats.damage.extreme = heat_damage_extreme - final_long_overheat_value;
+			}
+
+			//~ console.log( "final_long_overheat_value", final_long_overheat_value );
+			//~ console.log( "damage.long", this.alphaStrikeForceStats.damage.long );
+
+		}
+	} else {
+		//~ if( this.alphaStrikeForceStats.damage.short != "0*")
+			//~ this.alphaStrikeForceStats.damage.short = Math.ceil( this.alphaStrikeForceStats.damage.short );
+		//~ if( this.alphaStrikeForceStats.damage.medium != "0*")
+			//~ this.alphaStrikeForceStats.damage.medium =  Math.ceil( this.alphaStrikeForceStats.damage.medium );
+		if( this.alphaStrikeForceStats.damage.short != "0*")
+			this.alphaStrikeForceStats.damage.long = Math.ceil( this.alphaStrikeForceStats.damage.long );
+		if( this.alphaStrikeForceStats.damage.medium != "0*")
+			this.alphaStrikeForceStats.damage.extreme =  Math.ceil( this.alphaStrikeForceStats.damage.extreme );
+
+	}
+
+	if( final_long_overheat_value > 0 ) {
+		this.alphaStrikeForceStats.abilityCodes.push( "OVL " + final_long_overheat_value);
 
 	}
 
@@ -728,24 +812,24 @@ Mech.prototype._calcAlphaStrike = function() {
 	//~ console.log( "this.alphaStrikeForceStats.damage", this.alphaStrikeForceStats.damage);
 
 	// Determine Overheat Values - p116 AS Companion
-	var final_overheat_value = 0;
+	//~ var final_overheat_value = 0;
 
 
-	if( this.alphaStrikeForceStats.damage.medium != "0*" && before_heat_range_medium - this.alphaStrikeForceStats.damage.medium > 0) {
-		final_overheat_value = before_heat_range_medium - this.alphaStrikeForceStats.damage.medium;
-	} else {
-		// try short range bracket since the med range is low.
-		if( this.alphaStrikeForceStats.damage.short != "0*" )
-			final_overheat_value = before_heat_range_short - this.alphaStrikeForceStats.damage.short;
-	}
-	if( final_overheat_value > 4 )
-		final_overheat_value = 4;
+	//~ if( this.alphaStrikeForceStats.damage.medium != "0*" && before_heat_range_medium - this.alphaStrikeForceStats.damage.medium > 0) {
+		//~ final_overheat_value = before_heat_range_medium - this.alphaStrikeForceStats.damage.medium;
+	//~ } else {
+		//~ // try short range bracket since the med range is low.
+		//~ if( this.alphaStrikeForceStats.damage.short != "0*" )
+			//~ final_overheat_value = before_heat_range_short - this.alphaStrikeForceStats.damage.short;
+	//~ }
+	//~ if( final_overheat_value > 4 )
+		//~ final_overheat_value = 4;
 
 	// Determine Overheat Values - ASC - p116
-	var final_long_overheat_value = 0;
-	if( this.alphaStrikeForceStats.damage.long != "0*" && before_heat_range_long - this.alphaStrikeForceStats.damage.long > 0) {
-		final_long_overheat_value = before_heat_range_long - this.alphaStrikeForceStats.damage.long;
-	}
+	//~ var final_long_overheat_value = 0;
+	//~ if( this.alphaStrikeForceStats.damage.long != "0*" && before_heat_range_long - this.alphaStrikeForceStats.damage.long > 0) {
+		//~ final_long_overheat_value = before_heat_range_long - this.alphaStrikeForceStats.damage.long;
+	//~ }
 
 	if( final_long_overheat_value > 4 )
 		final_long_overheat_value = 4;
@@ -1036,6 +1120,7 @@ Mech.prototype._calcAlphaStrike = function() {
 	 * ******************************* */
 	 this.calcLogAS += "<strong>Step 3a: Add Force Bonuses ASC - p141</strong><br />\n";
 	// TODO
+	this.calcLogAS += "<strong class=\"color-red\">TODO<br />\n";
 
 	this.alphaStrikeForceStats.name = this.name;
 	this.alphaStrikeForceStats.type = "BM";
@@ -1161,8 +1246,6 @@ Mech.prototype._adjustASDamage = function( incomingDamageObject, useZeros ) {
 }
 
 Mech.prototype._calcBattleValue = function() {
-	// TODO Calculations
-
 
 	this.battleValue = 0;
 	this.calcLogBV = "";
@@ -1259,12 +1342,236 @@ Mech.prototype._calcBattleValue = function() {
 			break;
 	 }
 
-	// TODO - Get Explosive Ammo Modifiers
+	// Get Explosive Ammo Modifiers
 	var explosiveAmmoModifiers = 0;
-	this.calcLogBV += "<strong class=\"color-red\">TODO</strong>: Get Explosive Ammo Modifiers<br />";
+	this.calcLogBV += "<strong>Get Explosive Ammo Modifiers</strong><br />";
+
+
+	var caseEnabled_HD = false;
+	var caseEnabled_CT = false;
+	var caseEnabled_RL= false;
+	var caseEnabled_LL = false;
+	var caseEnabled_RA = false;
+	var caseEnabled_LA = false;
+	var caseEnabled_RT = false;
+	var caseEnabled_LT = false;
+
+	for( var lCrit = 0; lCrit < this.criticals.head.length; lCrit++) {
+		if( this.criticals.head[ lCrit ] && this.criticals.head[ lCrit ].tag == "case" ) {
+			caseEnabled_HD = true;
+		}
+	}
+
+	for( var lCrit = 0; lCrit < this.criticals.centerTorso.length; lCrit++) {
+		if( this.criticals.centerTorso[ lCrit ] && this.criticals.centerTorso[ lCrit ].tag == "case" ) {
+			caseEnabled_CT = true;
+		}
+	}
+
+	for( var lCrit = 0; lCrit < this.criticals.rightLeg.length; lCrit++) {
+		if( this.criticals.rightLeg[ lCrit ] && this.criticals.rightLeg[ lCrit ].tag == "case" ) {
+			caseEnabled_RL = true;
+		}
+	}
+
+	for( var lCrit = 0; lCrit < this.criticals.leftLeg.length; lCrit++) {
+		if( this.criticals.leftLeg[ lCrit ] && this.criticals.leftLeg[ lCrit ].tag == "case" ) {
+			caseEnabled_LL = true;
+		}
+	}
+
+	for( var lCrit = 0; lCrit < this.criticals.rightArm.length; lCrit++) {
+		if( this.criticals.rightArm[ lCrit ] && this.criticals.rightArm[ lCrit ].tag == "case" ) {
+			caseEnabled_RA = true;
+		}
+	}
+
+	for( var lCrit = 0; lCrit < this.criticals.leftArm.length; lCrit++) {
+		if( this.criticals.leftArm[ lCrit ] && this.criticals.leftArm[ lCrit ].tag == "case" ) {
+			caseEnabled_LA = true;
+		}
+	}
+
+	for( var lCrit = 0; lCrit < this.criticals.rightTorso.length; lCrit++) {
+		if( this.criticals.rightTorso[ lCrit ] && this.criticals.rightTorso[ lCrit ].tag == "case" ) {
+			caseEnabled_RT = true;
+		}
+	}
+
+	for( var lCrit = 0; lCrit < this.criticals.leftTorso.length; lCrit++) {
+		if( this.criticals.leftTorso[ lCrit ] && this.criticals.leftTorso[ lCrit ].tag == "case" ) {
+			caseEnabled_LT = true;
+		}
+	}
+
+	if( this.tech.tag == "clan" ) {
+
+		//Clan is Assumed to have CASE in BV Calculation (TM p303)
+
+		// check head
+		for( var lCrit = 0; lCrit < this.criticals.head.length; lCrit++) {
+			if( this.criticals.head[ lCrit ] ) {
+				if( this.criticals.head[ lCrit ] && this.criticals.head[ lCrit ].obj && this.criticals.head[ lCrit ].obj.explosive ) {
+					this.calcLogBV += "Explosive Ammo Crit in Head (Clan, -15)<br />";
+					explosiveAmmoModifiers += 15;
+				}
+				if( this.criticals.head[ lCrit ] && this.criticals.head[ lCrit ].obj && this.criticals.head[ lCrit ].obj.gauss ) {
+					this.calcLogBV += "Gauss Crit in Head (Clan, -1)<br />";
+					explosiveAmmoModifiers += 1;
+				}
+			}
+		}
+
+		// check ct
+		for( var lCrit = 0; lCrit < this.criticals.centerTorso.length; lCrit++) {
+			if( this.criticals.centerTorso[ lCrit ] ) {
+				if( this.criticals.centerTorso[ lCrit ] && this.criticals.centerTorso[ lCrit ].obj && this.criticals.centerTorso[ lCrit ].obj.explosive ) {
+					this.calcLogBV += "Explosive Ammo Crit in Center Torso (Clan, -15)<br />";
+					explosiveAmmoModifiers += 15;
+				}
+				if( this.criticals.centerTorso[ lCrit ] && this.criticals.centerTorso[ lCrit ].obj && this.criticals.centerTorso[ lCrit ].obj.gauss ) {
+					this.calcLogBV += "Gauss Crit in Center Torso (Clan, -1)<br />";
+					explosiveAmmoModifiers += 1;
+				}
+			}
+		}
+
+		// check rl
+		for( var lCrit = 0; lCrit < this.criticals.rightLeg.length; lCrit++) {
+			if( this.criticals.rightLeg[ lCrit ] && this.criticals.rightLeg[ lCrit ].obj && this.criticals.rightLeg[ lCrit ].obj.explosive ) {
+				this.calcLogBV += "Explosive Ammo Crit in Right Leg (Clan, -15)<br />";
+				explosiveAmmoModifiers += 15;
+			}
+			if( this.criticals.rightLeg[ lCrit ] && this.criticals.rightLeg[ lCrit ].obj && this.criticals.rightLeg[ lCrit ].obj.gauss ) {
+				this.calcLogBV += "Gauss Crit in Right Leg (Clan, -1)<br />";
+				explosiveAmmoModifiers += 1;
+			}
+		}
+
+		// check ll
+		for( var lCrit = 0; lCrit < this.criticals.leftLeg.length; lCrit++) {
+			if( this.criticals.leftLeg[ lCrit ] && this.criticals.leftLeg[ lCrit ].obj && this.criticals.leftLeg[ lCrit ].obj.explosive ) {
+				this.calcLogBV += "Explosive Ammo Crit in Left Leg (Clan, -15)<br />";
+				explosiveAmmoModifiers += 15;
+			}
+			if( this.criticals.leftLeg[ lCrit ] && this.criticals.leftLeg[ lCrit ].obj && this.criticals.leftLeg[ lCrit ].obj.gauss ) {
+				this.calcLogBV += "Gauss Crit in Left Leg (Clan, -1)<br />";
+				explosiveAmmoModifiers += 1;
+			}
+		}
+
+	} else if( this.tech.tag == "is" ) {
+		// check head
+		for( var lCrit = 0; lCrit < this.criticals.head.length; lCrit++) {
+			if( this.criticals.head[ lCrit ] ) {
+				if( this.criticals.head[ lCrit ] && this.criticals.head[ lCrit ].obj && this.criticals.head[ lCrit ].obj.explosive ) {
+					this.calcLogBV += "Explosive Ammo Crit in Head (Inner Sphere,-15)<br />";
+					explosiveAmmoModifiers += 15;
+				}
+
+			}
+		}
+
+		// check ct
+		for( var lCrit = 0; lCrit < this.criticals.centerTorso.length; lCrit++) {
+			if( this.criticals.centerTorso[ lCrit ] ) {
+				if( this.criticals.centerTorso[ lCrit ] && this.criticals.centerTorso[ lCrit ].obj && this.criticals.centerTorso[ lCrit ].obj.explosive ) {
+					this.calcLogBV += "Explosive Ammo Crit in Center Torso (Inner Sphere,-15)<br />";
+					explosiveAmmoModifiers += 15;
+				}
+				if( this.criticals.centerTorso[ lCrit ] && this.criticals.centerTorso[ lCrit ].obj && this.criticals.centerTorso[ lCrit ].obj.gauss ) {
+					this.calcLogBV += "Gauss Crit in Center Torso (Inner Sphere, -1)<br />";
+					explosiveAmmoModifiers += 1;
+				}
+			}
+		}
+
+		// check rl
+		for( var lCrit = 0; lCrit < this.criticals.rightLeg.length; lCrit++) {
+			if( this.criticals.rightLeg[ lCrit ] && this.criticals.rightLeg[ lCrit ].obj && this.criticals.rightLeg[ lCrit ].obj.explosive ) {
+				this.calcLogBV += "Explosive Ammo Crit in Right Leg (Inner Sphere, -15)<br />";
+				explosiveAmmoModifiers += 15;
+			}
+			if( this.criticals.rightLeg[ lCrit ] && this.criticals.rightLeg[ lCrit ].obj && this.criticals.rightLeg[ lCrit ].obj.gauss ) {
+				this.calcLogBV += "Gauss Crit in Right Leg (Inner Sphere, -1)<br />";
+				explosiveAmmoModifiers += 1;
+			}
+
+			if( caseEnabled_RT == false  && caseEnabled_RL == false) {
+				if( this.criticals.rightLeg[ lCrit ] && this.criticals.rightLeg[ lCrit ].obj && this.criticals.rightLeg[ lCrit ].obj.explosive ) {
+					this.calcLogBV += "Explosive Ammo Crit in Right Leg, Right Torso and Right Leg to not have CASE (Inner Sphere, -15)<br />";
+					explosiveAmmoModifiers += 15;
+				}
+				if( this.criticals.rightLeg[ lCrit ] && this.criticals.rightLeg[ lCrit ].obj && this.criticals.rightLeg[ lCrit ].obj.gauss ) {
+					this.calcLogBV += "Gauss Crit in Right Leg, Right Torso and Right Leg to not have CASE (Inner Sphere, -1)<br />";
+					explosiveAmmoModifiers += 1;
+				}
+			}
+		}
+
+		// check ll
+		for( var lCrit = 0; lCrit < this.criticals.leftLeg.length; lCrit++) {
+			if( this.criticals.leftLeg[ lCrit ] && this.criticals.leftLeg[ lCrit ].obj && this.criticals.leftLeg[ lCrit ].obj.explosive ) {
+				this.calcLogBV += "Explosive Ammo Crit in Left Leg (Inner Sphere, -15)<br />";
+				explosiveAmmoModifiers += 15;
+			}
+			if( this.criticals.leftLeg[ lCrit ] && this.criticals.leftLeg[ lCrit ].obj && this.criticals.leftLeg[ lCrit ].obj.gauss ) {
+				this.calcLogBV += "Gauss Crit in Left Leg (Inner Sphere, -1)<br />";
+				explosiveAmmoModifiers += 1;
+			}
+
+			if( caseEnabled_LT == false  && caseEnabled_LL == false) {
+				if( this.criticals.rightLeg[ lCrit ] && this.criticals.rightLeg[ lCrit ].obj && this.criticals.rightLeg[ lCrit ].obj.explosive ) {
+					this.calcLogBV += "Explosive Ammo Crit in Left Leg, Left Torso and Left Leg to not have CASE (Inner Sphere, -15)<br />";
+					explosiveAmmoModifiers += 15;
+				}
+				if( this.criticals.leftLeg[ lCrit ] && this.criticals.leftLeg[ lCrit ].obj && this.criticals.leftLeg[ lCrit ].obj.gauss ) {
+					this.calcLogBV += "Gauss Crit in Left Leg, Left Torso and Left Leg to not have CASE (Inner Sphere, -1)<br />";
+					explosiveAmmoModifiers += 1;
+				}
+			}
+
+		}
+
+		// check RA
+		for( var lCrit = 0; lCrit < this.criticals.rightArm.length; lCrit++) {
+
+
+			if( caseEnabled_RT == false  && caseEnabled_RA == false) {
+				if( this.criticals.rightArm[ lCrit ] && this.criticals.rightArm[ lCrit ].obj && this.criticals.rightArm[ lCrit ].obj.explosive ) {
+					this.calcLogBV += "Explosive Ammo Crit in Right Arm, Right Torso and Right Arm to not have CASE (Inner Sphere, -15)<br />";
+					explosiveAmmoModifiers += 15;
+				}
+				if( this.criticals.rightArm[ lCrit ] && this.criticals.rightArm[ lCrit ].obj && this.criticals.rightArm[ lCrit ].obj.gauss ) {
+					this.calcLogBV += "Gauss Crit in Right Arm, Right Torso and Right Arm to not have CASE (Inner Sphere, -1)<br />";
+					explosiveAmmoModifiers += 1;
+				}
+			}
+
+		}
+
+		// check LA
+		for( var lCrit = 0; lCrit < this.criticals.leftArm.length; lCrit++) {
+
+
+			if( caseEnabled_LT == false  && caseEnabled_LA == false) {
+				if( this.criticals.leftArm[ lCrit ] && this.criticals.leftArm[ lCrit ].obj && this.criticals.leftArm[ lCrit ].obj.explosive ) {
+					this.calcLogBV += "Explosive Ammo Crit in Left Arm, Left Torso and Left Arm to not have CASE (Inner Sphere, -15)<br />";
+					explosiveAmmoModifiers += 15;
+				}
+				if( this.criticals.leftArm[ lCrit ] && this.criticals.leftArm[ lCrit ].obj && this.criticals.leftArm[ lCrit ].obj.gauss ) {
+					this.calcLogBV += "Gauss Crit in Left Arm, Left Torso and Left Arm to not have CASE (Inner Sphere, -1)<br />";
+					explosiveAmmoModifiers += 1;
+				}
+			}
+		}
+
+	}
 
 
 	defensiveBattleRating = totalArmorFactor + totalInternalStructurePoints + totalGyroPoints - explosiveAmmoModifiers;
+	this.calcLogBV += "Defensive battle rating = " + defensiveBattleRating +  " ( " + totalArmorFactor + " + " + totalInternalStructurePoints + " +  " + totalGyroPoints + " -  " + explosiveAmmoModifiers + "<br />";
+
 
 	// Get Defensive Factor Modifier
 
@@ -1304,6 +1611,18 @@ Mech.prototype._calcBattleValue = function() {
 	// TODO
 	this.calcLogBV += "<strong class=\"color-red\">TODO</strong>: All offensive<br />";
 
+
+	//~ console.log( "this.getHeatSinksType()", this.getHeatSinksType() );
+	var mechHeatEfficiency  = 0;
+	if( this.getHeatSinksType() == "single" ) {
+		mechHeatEfficiency = 6 + this.getHeatSinks()  +  this.getMaxMovementHeat()
+	} else if( this.getHeatSinksType() == "double" ) {
+		mechHeatEfficiency = 6 + this.getHeatSinks() * 2 +  this.getMaxMovementHeat()
+	}
+
+	//~ console.log( "mechHeatEfficiency", mechHeatEfficiency );
+	//~ var mechHeatEfficiency = 6 + +  this.getMaxMovementHeat()
+
 	this.calcLogBV += "<strong>Final offensive battle rating</strong>: " + offensiveBattleRating + "<br />";
 
 	/* ***************************************************
@@ -1326,9 +1645,10 @@ Mech.prototype._calcBattleValue = function() {
 
 Mech.prototype._calcCBillCost = function() {
 	// TODO Calculations
-
+	this.calcLogCBill = "";
 	this.cbillCost = 0  + " (TODO / WIP)";
-	this.calcLogCBill = "TODO";
+	//~ this.calcLogCBill = "TODO";
+	this.calcLogCBill += "<strong class=\"color-red\">TODO<br />\n";
 
 }
 
@@ -1986,6 +2306,19 @@ Mech.prototype._calc = function() {
 
 	this.total_armor = this.armorWeight * 16;
 
+	//~ switch( this.getArmorType() ) {
+
+		//~ default: // standard
+			//~ this.total_armor = this.armorWeight * 16;
+			//~ break;
+	//~ }
+	if( this.getTech().tag == "clan") {
+		 this.total_armor = this.armorWeight * this.getArmorObj().armormultiplier.clan;
+	} else {
+		 this.total_armor = this.armorWeight * this.getArmorObj().armormultiplier.is;
+	}
+	//~ console.log( this.getArmorObj() );
+
 	if( this.total_armor > this.max_armor )
 		this.total_armor = this.max_armor;
 
@@ -2059,10 +2392,8 @@ Mech.prototype._calc = function() {
 	this._calcBattleValue();
 	this._calcCBillCost();
 
-	//~ console.log( mechData.equipmentList );
 	this.equipmentList = this.equipmentList.sort( sortByLocationThenName );
-	//~ console.log( mechData.equipmentList );
-	this.sortedEquipmentList = [];
+ 	this.sortedEquipmentList = [];
 	for( eq_count = 0; eq_count < this.equipmentList.length; eq_count++) {
 
 
@@ -2247,6 +2578,68 @@ Mech.prototype._calcCriticals = function() {
 		);
 	}
 
+	// Armor
+
+	var armorObj = this.getArmorObj();
+	if( this.getTech().tag  == "clan" ) {
+		if( armorObj.crits.is > 0 ) {
+			if( armorObj.crit_locs ) {
+				for( var nameLoc in armorObj.crits_locs ) {
+					this._addCriticalItem(
+						armorObj.tag, 						// item_tag
+						armorObj.name[this.useLang], 		// item_name
+						armorObj.crits_loc [ nameLoc ], 		// critical_count
+						nameLoc									// location
+																// slot
+					);
+				}
+			} else {
+				for( var aCounter = 0; aCounter < armorObj.crits.clan; aCounter++ ) {
+					this.unallocatedCriticals.push(
+						{
+							name: armorObj.name[this.useLang],
+							tag: armorObj.tag,
+							rollAgain: true,
+							rear: false,
+							crits: 1,
+							obj: armorObj,
+							movable: true
+						}
+					);
+				}
+			}
+		}
+	} else {
+		if( armorObj.crits.is > 0 ) {
+			if( armorObj.crit_locs ) {
+				for( var nameLoc in armorObj.crits_locs ) {
+					this._addCriticalItem(
+						armorObj.tag, 						// item_tag
+						armorObj.name[this.useLang], 		// item_name
+						armorObj.crits_loc [ nameLoc ], 		// critical_count
+						nameLoc									// location
+																// slot
+					);
+				}
+			} else {
+				for( var aCounter = 0; aCounter < armorObj.crits.is; aCounter++ ) {
+					this.unallocatedCriticals.push(
+						{
+							name: armorObj.name[this.useLang],
+							tag: armorObj.tag,
+							rear: false,
+							rollAgain: true,
+							crits: 1,
+							obj: armorObj,
+							movable: true
+						}
+					);
+				}
+			}
+		}
+	}
+
+
 	// Get optional equipment...
 	for(var elc = 0; elc < this.equipmentList.length; elc++ ) {
 		//~ this.equipmentList[elc].location = "";
@@ -2378,6 +2771,22 @@ Mech.prototype.addLowerArmActuator = function( location ) {
 		this._no_left_arm_lower_actuator = false;
 	}
 	this._calc();
+}
+
+Mech.prototype.getMaxMovementHeat = function() {
+	var maxMoveHeat = 2; // standard run heat.
+
+	if( this.getJumpSpeed() > 2 ) {
+		maxMoveHeat == this.getJumpSpeed();
+	}
+
+
+	// Stealth Armor
+	if( this.getArmorType() == "stealth") {
+		maxMoveHeat += 10;
+	}
+
+	return maxMoveHeat;
 }
 
 Mech.prototype._addCriticalItem = function( item_tag, item_name, critical_count, location, slot, movable ) {
@@ -2532,7 +2941,6 @@ Mech.prototype.setHeatSinksType = function(newValue) {
 	return this.heat_sink_type;
 }
 
-
 Mech.prototype.getCurrentTonnage = function() {
 	return this.current_tonnage;
 }
@@ -2597,10 +3005,27 @@ Mech.prototype.getArmorWeight = function() {
 	return this.armorWeight;
 }
 
+Mech.prototype.getArmorType = function() {
+	return this.armorType.tag;
+}
+
+Mech.prototype.getArmorObj = function() {
+	return this.armorType;
+}
+
+
+Mech.prototype.setArmorType = function( armorTag ) {
+	for( var aCount = 0; aCount < mechArmorTypes.length; aCount++ ) {
+		if( mechArmorTypes[ aCount ].tag == armorTag ) {
+			this.armorType = mechArmorTypes[ aCount ];
+		}
+	}
+	return this.armorType;
+}
+
 Mech.prototype.getTotalArmor = function() {
 	return this.total_armor;
 }
-
 
 Mech.prototype.getUnallocatedArmor = function() {
 	return this.unallocated_armor;
@@ -3192,6 +3617,8 @@ Mech.prototype.exportJSON = function() {
 
 	export_object.armor_allocation = this.armorAllocation;
 
+	export_object.armor_type = this.getArmorType();
+
 	export_object.equipment = Array();
 
 	for( eq_count = 0; eq_count < this.equipmentList.length; eq_count++) {
@@ -3203,6 +3630,7 @@ Mech.prototype.exportJSON = function() {
 			}
 		);
 	}
+
 	export_object.allocation = this.criticalAllocationTable;
 	export_object.features = Array();
 	if( !this.hasLowerArmActuator("la") )
@@ -3269,6 +3697,9 @@ Mech.prototype.importJSON = function(json_string) {
 
 			if( import_object.as_role )
 				this.setASRole( import_object.as_role );
+
+			if( import_object.armor_type )
+				this.setArmorType( import_object.armor_type );
 
 			if( import_object.as_custom_name  )
 				this.setASCustomName( import_object.as_custom_name ) ;

@@ -505,6 +505,7 @@ body {
 			border-radius: 5px;
 			margin: 2px;
 			font-size: 11px;
+			text-align: center;
 			&:nth-child(7) {
 				margin-top: 17px;
 			}
@@ -576,6 +577,11 @@ body {
 				color: #fff !important;
 				background: #333;
 				border-color: #333;
+			}
+
+			.grayed {
+				color: #999 !important;
+
 			}
 		}
 	// 	.as-sortable-dragging + li {

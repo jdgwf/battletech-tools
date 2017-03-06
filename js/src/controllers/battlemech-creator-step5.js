@@ -23,21 +23,21 @@ var battlemechCreatorControllerStep5Array =
 			}
 
 			// create mech object, load from localStorage if exists
-			current_mech = new Mech();
+			$scope.current_mech = new Mech();
 
 
 			if( localStorage["tmp.current_mech"] ) {
-				current_mech.importJSON( localStorage["tmp.current_mech"] );
+				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
-				current_mech.uuid = generateUUID();
-				current_mech._calc();
+				$scope.current_mech.uuid = generateUUID();
+				$scope.current_mech._calc();
 			}
 
 			localStorage["backToPath"] = $location.$$path;
 
-			current_mech.useLang = localStorage["tmp.preferred_language"];
+			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
 			// make tro for sidebar
-			update_mech_status_bar_and_tro($scope, $translate, current_mech);
+			update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
 
 			$scope.filterEquipmentTerm = "";
 
@@ -69,7 +69,7 @@ var battlemechCreatorControllerStep5Array =
 				$scope.equipment_table =[];
 				$scope.category_list =[];
 
-				if( current_mech.getTech().tag == "clan") {
+				if( $scope.current_mech.getTech().tag == "clan") {
 					// Use Clan Equipment Table...
 					$scope.equipment_table = angular.copy( mechClanEquipment );
 					$scope.category_list = angular.copy( mechClanEquipment );
@@ -82,10 +82,10 @@ var battlemechCreatorControllerStep5Array =
 
 
 				$scope.mechIsStrict = false;
-				if( current_mech.strictEra > 0 )
+				if( $scope.current_mech.strictEra > 0 )
 					$scope.mechIsStrict = true;
 
-				selectedEra = current_mech.era;
+				selectedEra = $scope.current_mech.era;
 
 				for(var eqc = $scope.category_list.length - 1; eqc > -1; eqc-- ) {
 
@@ -186,7 +186,7 @@ var battlemechCreatorControllerStep5Array =
 
 				$scope.item_locations = [];
 
-				$scope.installed_equipment_table = current_mech.getInstalledEquipment();
+				$scope.installed_equipment_table = $scope.current_mech.getInstalledEquipment();
 
 				for(var eqc = 0; eqc < $scope.installed_equipment_table.length; eqc++ ) {
 					if( $scope.installed_equipment_table[eqc].name[ localStorage["tmp.preferred_language"] ])
@@ -227,11 +227,11 @@ var battlemechCreatorControllerStep5Array =
 
 			$scope.addItem = function( index_number ) {
 				if( $scope.equipment_table[index_number].tag ) {
-					current_mech.addEquipmentFromTag( $scope.equipment_table[index_number].tag );
-					update_mech_status_bar_and_tro($scope, $translate, current_mech);
-					localStorage["tmp.current_mech"] = current_mech.exportJSON();
+					$scope.current_mech.addEquipmentFromTag( $scope.equipment_table[index_number].tag );
+					update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+					localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
-					$scope.installed_equipment_table = current_mech.getInstalledEquipment();
+					$scope.installed_equipment_table = $scope.current_mech.getInstalledEquipment();
 
 					for(var eqc = 0; eqc < $scope.installed_equipment_table.length; eqc++ ) {
 						if( $scope.installed_equipment_table[eqc].name[ localStorage["tmp.preferred_language"] ])
@@ -254,23 +254,23 @@ var battlemechCreatorControllerStep5Array =
 			};
 
 			$scope.setRear = function( index_number, newValue ) {
-				current_mech.setRear( index_number, !newValue );
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				$scope.current_mech.setRear( index_number, !newValue );
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			};
 
 			$scope.removeItem = function( index_number ) {
-				current_mech.removeEquipment( index_number );
+				$scope.current_mech.removeEquipment( index_number );
 				$scope.item_locations.splice(index_number, 1);
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			};
 
 			$scope.updateLocation = function( index_number ) {
 
-				current_mech.setEquipmentLocation( index_number, $scope.item_locations[index_number].id );
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				$scope.current_mech.setEquipmentLocation( index_number, $scope.item_locations[index_number].id );
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
 
 			};

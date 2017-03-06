@@ -154,6 +154,7 @@ function createCritAllocationTable( critData, xPos, yPos) {
 	lastName = "";
 	yStartBox = -1;
 	lastWasPlaceHolder = false;
+	lastRollAgain = false;
 	for( var critC = 0; critC < critData.length; critC++ ) {
 		//~ console.log( "critData", critData[ critC ] )
 
@@ -162,8 +163,17 @@ function createCritAllocationTable( critData, xPos, yPos) {
 				textSVG += "<text x=\"" + ( xPos ) + "\" y=\"" + ( yPos + lineCount * (fontSize + lineBuffer) ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + fontSize + "\">" + lastName + "</text>\n";
 				lastWasPlaceHolder = true;
 			} else {
-				textSVG += "<text x=\"" + ( xPos ) + "\" y=\"" + ( yPos + lineCount * (fontSize + lineBuffer) ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + fontSize + "\">" + critData[ critC ].name + "</text>\n";
+				if( critData[ critC ].rollAgain ) {
+					textSVG += "<text x=\"" + ( xPos ) + "\" y=\"" + ( yPos + lineCount * (fontSize + lineBuffer) ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + fontSize + "\">(" + critData[ critC ].name + ")</text>\n";
+				} else {
+					textSVG += "<text x=\"" + ( xPos ) + "\" y=\"" + ( yPos + lineCount * (fontSize + lineBuffer) ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + fontSize + "\">" + critData[ critC ].name + "</text>\n";
+
+				}
 				lastName = critData[ critC ].name;
+				if(  critData[ critC ].rollAgain )
+					lastRollAgain = true;
+				else
+					lastRollAgain = false;
 
 				if( yStartBox > -1  && lastWasPlaceHolder) {
 

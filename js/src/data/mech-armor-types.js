@@ -82,7 +82,7 @@ var mechArmorTypes = Array(
 		name: {
 			"en-US": "Stealth"
 		},
-		tag: "ferro-fibrous",
+		tag: "stealth",
 		armormultiplier: {
 			clan: 0,
 			is: 16

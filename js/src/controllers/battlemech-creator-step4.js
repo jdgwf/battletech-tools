@@ -6,6 +6,7 @@ var battlemechCreatorControllerStep4Array =
 		'$location',
 		function ($rootScope, $translate, $scope, $location) {
 			// Set Page Title Tag
+
 			$translate(['APP_TITLE', 'BM_STEP4_TITLE', 'BM_STEP4_DESC', 'WELCOME_BUTTON_MECH_CREATOR' ]).then(function (translation) {
 				$rootScope.title_tag = translation.BM_STEP4_TITLE + " | " + translation.APP_TITLE;
 				if( translation.BM_STEP4_DESC )
@@ -22,36 +23,91 @@ var battlemechCreatorControllerStep4Array =
 			}
 
 			// create mech object, load from localStorage if exists
-			current_mech = new Mech();
+			$scope.current_mech = new Mech();
 
 
 			if( localStorage["tmp.current_mech"] ) {
-				current_mech.importJSON( localStorage["tmp.current_mech"] );
+				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
-				current_mech.uuid = generateUUID();
-				current_mech._calc();
+				$scope.current_mech.uuid = generateUUID();
+				$scope.current_mech._calc();
 			}
 
-			current_mech.useLang = localStorage["tmp.preferred_language"];
+			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
 
-			update_step4_page_items($scope, $translate, current_mech);
+			update_step4_page_items($scope, $translate, $scope.current_mech);
 
-			update_mech_status_bar_and_tro($scope, $translate, current_mech);
+			update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
 
 			localStorage["backToPath"] = $location.$$path;
 
 			$scope.update_armor_weight = function() {
-				current_mech.setArmorWeight( $scope.selected_armor_weight.id );
-				update_step4_page_items($scope, $translate, current_mech);
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				$scope.current_mech.setArmorWeight( $scope.selected_armor_weight.id );
+				update_step4_page_items($scope, $translate, $scope.current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 
+			$scope.availableArmorTypes = [];
+
+
+
+			//~ console.log( "$scope.selected_armor_type", $scope.selected_armor_type );
+
+			for( var aCount = 0; aCount < mechArmorTypes.length; aCount++ ) {
+				console.log( "mechArmorTypes[ aCount ].armormultiplier", mechArmorTypes[ aCount ].armormultiplier );
+				console.log( "$scope.current_mech.getTech().tag", $scope.current_mech.getTech().tag );
+				if( mechArmorTypes[ aCount ].armormultiplier[ $scope.current_mech.getTech().tag ] ) {
+					$scope.availableArmorTypes.push( mechArmorTypes[ aCount ] );
+				}
+
+			}
+
+			$translate(['BM_STEP4_UNAVAILABLE_PAREN']).then(function (translation) {
+
+				var selectedEra = $scope.current_mech.era;
+
+				for(var eqc = $scope.availableArmorTypes.length - 1; eqc > -1; eqc-- ) {
+					if( $scope.availableArmorTypes[eqc].name[ localStorage["tmp.preferred_language"] ])
+						$scope.availableArmorTypes[eqc].local_name = $scope.availableArmorTypes[eqc].name[ localStorage["tmp.preferred_language"] ];
+					else
+						$scope.availableArmorTypes[eqc].local_name = $scope.availableArmorTypes[eqc].name[ "en-US" ];
+
+					//~ $scope.availableArmorTypes[eqc].local_space = $scope.availableArmorTypes[eqc].space.battlemech;
+
+					$scope.availableArmorTypes[eqc].isInSelectedEra = false;
+
+					if( $scope.current_mech.getArmorType() == $scope.availableArmorTypes[eqc].tag )
+						$scope.selected_armor_type = $scope.availableArmorTypes[eqc];
+
+
+					if( getItemAvailability($scope.availableArmorTypes[eqc], selectedEra) ) {
+						$scope.availableArmorTypes[eqc].isInSelectedEra = true;
+					} else {
+						if( ! $scope.current_mech.strictEra > 0 )
+							$scope.availableArmorTypes[eqc].local_name += translation.BM_STEP4_UNAVAILABLE_PAREN;
+						else
+							$scope.availableArmorTypes.splice( eqc, 1 );
+					}
+
+
+				}
+			});
+
+
+			$scope.update_armor_type = function( armorType ) {
+				console.log( "update_armor_type", armorType );
+				$scope.current_mech.setArmorType( armorType.tag );
+				$scope.current_mech._calc();
+				update_step4_page_items($scope, $translate, $scope.current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
+			}
 
 
 			$scope.allocate_max = function() {
 
-				internal_structure = current_mech.getInteralStructure();
+				internal_structure = $scope.current_mech.getInteralStructure();
 				//console.log( "internal_structure", internal_structure);
 				centerTorsoArmor = internal_structure.centerTorso * 2;
 				lrTorsoArmor = internal_structure.rightTorso * 2;
@@ -62,38 +118,38 @@ var battlemechCreatorControllerStep4Array =
 				lrTorsoArmorRear = Math.ceil(lrTorsoArmor * .2);
 				lrTorsoArmor = lrTorsoArmor - lrTorsoArmorRear;
 
-				current_mech.setRightTorsoArmor( lrTorsoArmor );
-				current_mech.setCenterTorsoArmor( centerTorsoArmor );
-				current_mech.setLeftTorsoArmor( lrTorsoArmor );
+				$scope.current_mech.setRightTorsoArmor( lrTorsoArmor );
+				$scope.current_mech.setCenterTorsoArmor( centerTorsoArmor );
+				$scope.current_mech.setLeftTorsoArmor( lrTorsoArmor );
 
-				current_mech.setRightTorsoRearArmor( lrTorsoArmorRear );
-				current_mech.setCenterTorsoRearArmor( centerTorsoArmorRear );
-				current_mech.setLeftTorsoRearArmor( lrTorsoArmorRear );
+				$scope.current_mech.setRightTorsoRearArmor( lrTorsoArmorRear );
+				$scope.current_mech.setCenterTorsoRearArmor( centerTorsoArmorRear );
+				$scope.current_mech.setLeftTorsoRearArmor( lrTorsoArmorRear );
 
-				current_mech.setRightLegArmor( internal_structure.rightLeg * 2 );
-				current_mech.setLeftLegArmor( internal_structure.leftLeg * 2 );
+				$scope.current_mech.setRightLegArmor( internal_structure.rightLeg * 2 );
+				$scope.current_mech.setLeftLegArmor( internal_structure.leftLeg * 2 );
 
-				current_mech.setHeadArmor( 9 );
+				$scope.current_mech.setHeadArmor( 9 );
 
-				if( current_mech.getType().class.toLowerCase() == "biped") {
-					current_mech.setRightArmArmor( internal_structure.leftArm * 2 );
-					current_mech.setLeftArmArmor( internal_structure.leftArm * 2 );
+				if( $scope.current_mech.getType().class.toLowerCase() == "biped") {
+					$scope.current_mech.setRightArmArmor( internal_structure.leftArm * 2 );
+					$scope.current_mech.setLeftArmArmor( internal_structure.leftArm * 2 );
 				} else {
 					// quad
-					current_mech.setRightArmArmor( internal_structure.rightLeg * 2 );
-					current_mech.setLeftArmArmor( internal_structure.leftLeg * 2 );
+					$scope.current_mech.setRightArmArmor( internal_structure.rightLeg * 2 );
+					$scope.current_mech.setLeftArmArmor( internal_structure.leftLeg * 2 );
 				}
 
-				update_step4_page_items($scope, $translate, current_mech);
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				update_step4_page_items($scope, $translate, $scope.current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 
 			$scope.allocate_sanely = function() {
 
-				total_armor = current_mech.getTotalArmor();
-				internal_structure = current_mech.getInteralStructure();
-				maximum_armor = current_mech.getMaxArmor();
+				total_armor = $scope.current_mech.getTotalArmor();
+				internal_structure = $scope.current_mech.getInteralStructure();
+				maximum_armor = $scope.current_mech.getMaxArmor();
 				percentage = total_armor / maximum_armor;
 
 
@@ -110,130 +166,130 @@ var battlemechCreatorControllerStep4Array =
 					if( head_armor > 9)
 						head_armor = 9;
 					if( total_armor >= head_armor) {
-					   current_mech.setHeadArmor(head_armor);
+					   $scope.current_mech.setHeadArmor(head_armor);
 					   total_armor -= head_armor;
 					} else {
-						current_mech.setHeadArmor(0);
+						$scope.current_mech.setHeadArmor(0);
 					}
 				}
 
 
 				if( total_armor > torso_armor) {
-				   current_mech.setRightTorsoArmor( torso_armor );
+				   $scope.current_mech.setRightTorsoArmor( torso_armor );
 				   total_armor -= torso_armor;
 				}
 
 				if( total_armor > rear_armor) {
-				   current_mech.setRightTorsoRearArmor( rear_armor );
+				   $scope.current_mech.setRightTorsoRearArmor( rear_armor );
 					total_armor -= rear_armor;
 				}
 
 				if( total_armor > torso_armor) {
-					current_mech.setLeftTorsoArmor( torso_armor );
+					$scope.current_mech.setLeftTorsoArmor( torso_armor );
 					total_armor -= torso_armor;
 				}
 				if( total_armor > rear_armor) {
-					current_mech.setLeftTorsoRearArmor( rear_armor );
+					$scope.current_mech.setLeftTorsoRearArmor( rear_armor );
 				   total_armor -= rear_armor;
 				}
 
 				if( total_armor > leg_armor) {
-					current_mech.setRightLegArmor( leg_armor );
+					$scope.current_mech.setRightLegArmor( leg_armor );
 					total_armor -= leg_armor;
 				}
 
 				if( total_armor > leg_armor) {
-				   current_mech.setLeftLegArmor( leg_armor );
+				   $scope.current_mech.setLeftLegArmor( leg_armor );
 				   total_armor -= leg_armor;
 				}
 
 				if( total_armor > arm_armor) {
-					current_mech.setRightArmArmor( arm_armor );
+					$scope.current_mech.setRightArmArmor( arm_armor );
 				   total_armor -= arm_armor;
 				}
 				if( total_armor > arm_armor) {
-				   current_mech.setLeftArmArmor( arm_armor );
+				   $scope.current_mech.setLeftArmArmor( arm_armor );
 				   total_armor -= arm_armor;
 				}
 
 				if( total_armor > rear_armor) {
-				   current_mech.setCenterTorsoRearArmor( centerTorsoArmorRear );
+				   $scope.current_mech.setCenterTorsoRearArmor( centerTorsoArmorRear );
 				   total_armor -= rear_armor;
 				}
 
-				current_mech.setCenterTorsoArmor( centerTorsoArmor ); // everything else goes to center torso! :)
+				$scope.current_mech.setCenterTorsoArmor( centerTorsoArmor ); // everything else goes to center torso! :)
 
-				update_step4_page_items($scope, $translate, current_mech);
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				update_step4_page_items($scope, $translate, $scope.current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 
 			$scope.clear_armor = function() {
 
-				current_mech.setHeadArmor( 0 );
+				$scope.current_mech.setHeadArmor( 0 );
 
-				current_mech.setRightTorsoArmor( 0 );
-				current_mech.setRightTorsoRearArmor( 0 );
-
-
-				current_mech.setLeftTorsoArmor( 0 );
-				current_mech.setLeftTorsoRearArmor( 0 );
-
-				current_mech.setRightLegArmor( 0 );
-				current_mech.setLeftLegArmor( 0 );
+				$scope.current_mech.setRightTorsoArmor( 0 );
+				$scope.current_mech.setRightTorsoRearArmor( 0 );
 
 
-				current_mech.setRightArmArmor( 0 );
-				current_mech.setLeftArmArmor( 0 );
+				$scope.current_mech.setLeftTorsoArmor( 0 );
+				$scope.current_mech.setLeftTorsoRearArmor( 0 );
 
-				current_mech.setCenterTorsoRearArmor( 0 );
-				current_mech.setCenterTorsoArmor( 0 );
+				$scope.current_mech.setRightLegArmor( 0 );
+				$scope.current_mech.setLeftLegArmor( 0 );
 
-				update_step4_page_items($scope, $translate, current_mech);
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+
+				$scope.current_mech.setRightArmArmor( 0 );
+				$scope.current_mech.setLeftArmArmor( 0 );
+
+				$scope.current_mech.setCenterTorsoRearArmor( 0 );
+				$scope.current_mech.setCenterTorsoArmor( 0 );
+
+				update_step4_page_items($scope, $translate, $scope.current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 
 			$scope.update_armor_allocation = function(armor_location) {
 				console.log("armor_location", armor_location);
 				if( armor_location == "hd") {
 					console.log("setHeadArmor", $scope.armor_current_hd.id);
-					current_mech.setHeadArmor( $scope.armor_current_hd.id );
+					$scope.current_mech.setHeadArmor( $scope.armor_current_hd.id );
 
 				} else if( armor_location == "ra") {
-					current_mech.setRightArmArmor( $scope.armor_current_ra.id );
+					$scope.current_mech.setRightArmArmor( $scope.armor_current_ra.id );
 
 				} else if( armor_location == "la") {
-					current_mech.setLeftArmArmor( $scope.armor_current_la.id );
+					$scope.current_mech.setLeftArmArmor( $scope.armor_current_la.id );
 
 				} else if( armor_location == "rt") {
-					current_mech.setRightTorsoArmor( $scope.armor_current_rt.id );
+					$scope.current_mech.setRightTorsoArmor( $scope.armor_current_rt.id );
 
 				} else if( armor_location == "ct") {
-					current_mech.setCenterTorsoArmor( $scope.armor_current_ct.id );
+					$scope.current_mech.setCenterTorsoArmor( $scope.armor_current_ct.id );
 
 				} else if( armor_location == "lt") {
-					current_mech.setLeftTorsoArmor( $scope.armor_current_lt.id );
+					$scope.current_mech.setLeftTorsoArmor( $scope.armor_current_lt.id );
 
 				} else if( armor_location == "rtr") {
-					current_mech.setRightTorsoRearArmor( $scope.armor_current_rtr.id );
+					$scope.current_mech.setRightTorsoRearArmor( $scope.armor_current_rtr.id );
 
 				} else if( armor_location == "ctr") {
-					current_mech.setCenterTorsoRearArmor( $scope.armor_current_ctr.id );
+					$scope.current_mech.setCenterTorsoRearArmor( $scope.armor_current_ctr.id );
 
 				} else if( armor_location == "ltr") {
-					current_mech.setLeftTorsoRearArmor( $scope.armor_current_ltr.id );
+					$scope.current_mech.setLeftTorsoRearArmor( $scope.armor_current_ltr.id );
 
 				} else if( armor_location == "rl") {
-					current_mech.setRightLegArmor( $scope.armor_current_rl.id );
+					$scope.current_mech.setRightLegArmor( $scope.armor_current_rl.id );
 
 				} else if( armor_location == "ll") {
-					current_mech.setLeftLegArmor( $scope.armor_current_ll.id );
+					$scope.current_mech.setLeftLegArmor( $scope.armor_current_ll.id );
 
 				}
-				update_step4_page_items($scope, $translate, current_mech);
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				update_step4_page_items($scope, $translate, $scope.current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
 			}
 
@@ -273,13 +329,13 @@ function update_step4_page_items($scope, $translate, current_mech) {
 
 		$scope.for_quad = false;
 		$scope.for_biped = false;
-		if( current_mech.getType().class == "quad")
+		if( $scope.current_mech.getType().class == "quad")
 			$scope.for_quad = true;
 		else
 			$scope.for_biped = true;
 
 		// Update Armor Weight Selection Dropdown....
-		current_armor_weight = current_mech.getArmorWeight();
+		current_armor_weight = $scope.current_mech.getArmorWeight();
 
 		$scope.armor_weight_list = [];
 		$scope.armor_weight_list.push( {
@@ -295,7 +351,7 @@ function update_step4_page_items($scope, $translate, current_mech) {
 				};
 		}
 
-		for( var hscount = 1; hscount <= current_mech.getMaxArmorTonnage() + 0.5; hscount = hscount + 0.5) {
+		for( var hscount = 1; hscount <= $scope.current_mech.getMaxArmorTonnage() + 0.5; hscount = hscount + 0.5) {
 			if( hscount == 1)
 				tons_label = translation.BM_TON;
 			else
@@ -317,13 +373,13 @@ function update_step4_page_items($scope, $translate, current_mech) {
 		}
 
 		// Armor Stats Label...
-		label_armor_stats = translation.BM_STEP4_MAX_ARMOR + ": " + current_mech.getMaxArmor() + "<br />";
-		label_armor_stats += translation.BM_STEP4_TOTAL_ARMOR + ": " + current_mech.getTotalArmor() + "<br />";
-		label_armor_stats += translation.BM_STEP4_UNALLOCATED_ARMOR + ": " + current_mech.getUnallocatedArmor() + "<br />";
+		label_armor_stats = translation.BM_STEP4_MAX_ARMOR + ": " + $scope.current_mech.getMaxArmor() + "<br />";
+		label_armor_stats += translation.BM_STEP4_TOTAL_ARMOR + ": " + $scope.current_mech.getTotalArmor() + "<br />";
+		label_armor_stats += translation.BM_STEP4_UNALLOCATED_ARMOR + ": " + $scope.current_mech.getUnallocatedArmor() + "<br />";
 
 		// Update Armor Select Dropdowns....
-		armor_allocations = current_mech.getArmorAllocations();
-		internal_structure = current_mech.getInteralStructure();
+		armor_allocations = $scope.current_mech.getArmorAllocations();
+		internal_structure = $scope.current_mech.getInteralStructure();
 
 
 		$scope.armor_alloc_hd = make_armor_select_dd_options( 9 );

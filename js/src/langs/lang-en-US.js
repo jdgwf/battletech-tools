@@ -209,6 +209,7 @@ available_languages.push ({
 		BM_STEP4_ALLOCATE_NONE: "Clear Armor",
 		BM_STEP4_ALLOCATE_SANELY: "Allocate Sanely",
 		BM_STEP4_ALLOCATE_MAX: "Allocate Max",
+		BM_STEP4_UNAVAILABLE_PAREN: " (unavailable)",
 
 		BM_STEP5_TITLE: "Step 5",
 		BM_STEP5_DESC: "Add weapons, ammunition and other equipment",
