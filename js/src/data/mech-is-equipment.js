@@ -2116,6 +2116,2748 @@ var mechISEquipment = Array(
 	/*
 		BALLISTIC WEAPONS
 	*/
+	// Standard Autocannons
+	// Note: ACs referred to internally as a-d instead of numerically to avoid sort and partial
+	// match problems
+	// AC/2
+	{
+		name: {
+			'en-US': "Autocannon/2",
+			'de-DE': "de - Autocannon/2",
+		},
+		tag: "standard-autocannon-a",
+		sort: "Autocannon/a",
+		category: {
+			'en-US': "Ballistic Weapons",
+			'de-DE': "de - Ballistic Weapons",
+		},
+		damage: 2,
+		damage_aero: 2,
+		accuracy_modifier: 0,
+		cbills: 75000,
+		introduced: 2300,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 37,
+		heat: 1,
+		weight: 6,
+		range_min: {
+			min: 4,
+			short: 8,
+			medium: 16,
+			long: 24,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 45,
+		min_ammo_tons: 1,
+		explosive: false,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "c",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.132,
+			range_medium: 0.2,
+			range_long: 0.2,
+			range_extreme: 0.2,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/2)",
+			'de-DE': "de - Ammo (Autocannon/2)",
+		},
+		tag: "ammo-standard-autocannon-a",
+		sort: "ammo, Autocannon/a",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 1000,
+		introduced: 2300,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 5,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 4,
+			short: 8,
+			medium: 16,
+			long: 24,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 45,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "c",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.132,
+			range_medium: 0.2,
+			range_long: 0.2,
+			range_extreme: 0.2,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/2 Armor-Piercing)",
+			'de-DE': "de - Ammo (Autocannon/2 Armor-Piercing)",
+		},
+		tag: "ammo-standard-autocannon-a-armor-piercing",
+		sort: "ammo, Autocannon/a, Armor-Piercing",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 4000,
+		introduced: 3059,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 5,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 4,
+			short: 8,
+			medium: 16,
+			long: 24,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 22,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.132,
+			range_medium: 0.2,
+			range_long: 0.2,
+			range_extreme: 0.2,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/2 Caseless)",
+			'de-DE': "de - Ammo (Autocannon/2 Caseless)",
+		},
+		tag: "ammo-standard-autocannon-a-caseless",
+		sort: "ammo, Autocannon/a, Caseless",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 1500,
+		introduced: 3079,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 5,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 4,
+			short: 8,
+			medium: 16,
+			long: 24,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 90,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "d",
+		book: "TO",
+		page: 352,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.132,
+			range_medium: 0.2,
+			range_long: 0.2,
+			range_extreme: 0.2,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/2 Flak)",
+			'de-DE': "de - Ammo (Autocannon/2 Flak)",
+		},
+		tag: "ammo-standard-autocannon-a-flak",
+		sort: "ammo, Autocannon/a, Flak",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 1500,
+		introduced: 2310,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 5,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 4,
+			short: 8,
+			medium: 16,
+			long: 24,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 45,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "b",
+		book: "TO",
+		page: 352,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.132,
+			range_medium: 0.2,
+			range_long: 0.2,
+			range_extreme: 0.2,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/2 Flechette)",
+			'de-DE': "de - Ammo (Autocannon/2 Flechette)",
+		},
+		tag: "ammo-standard-autocannon-a-flechette",
+		sort: "ammo, Autocannon/a, Flechette",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 1500,
+		introduced: 3055,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 5,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 4,
+			short: 8,
+			medium: 16,
+			long: 24,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 45,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.132,
+			range_medium: 0.2,
+			range_long: 0.2,
+			range_extreme: 0.2,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/2 Precision)",
+			'de-DE': "de - Ammo (Autocannon/2 Precision)",
+		},
+		tag: "ammo-standard-autocannon-a-precision",
+		sort: "ammo, Autocannon/a, Precision",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 6000,
+		introduced: 3062,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 5,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 4,
+			short: 8,
+			medium: 16,
+			long: 24,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 22,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.132,
+			range_medium: 0.2,
+			range_long: 0.2,
+			range_extreme: 0.2,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/2 Tracer)",
+			'de-DE': "de - Ammo (Autocannon/2 Tracer)",
+		},
+		tag: "ammo-standard-autocannon-a-tracer",
+		sort: "ammo, Autocannon/a, Tracer",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 1500,
+		introduced: 2300,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 5,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 4,
+			short: 8,
+			medium: 16,
+			long: 24,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 45,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "b",
+		book: "TO",
+		page: 353,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.132,
+			range_medium: 0.2,
+			range_long: 0.2,
+			range_extreme: 0.2,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	// AC/5
+	{
+		name: {
+			'en-US': "Autocannon/5",
+			'de-DE': "de - Autocannon/5",
+		},
+		tag: "standard-autocannon-b",
+		sort: "Autocannon/b",
+		category: {
+			'en-US': "Ballistic Weapons",
+			'de-DE': "de - Ballistic Weapons",
+		},
+		damage: 5,
+		damage_aero: 5,
+		accuracy_modifier: 0,
+		cbills: 125000,
+		introduced: 2250,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 75,
+		heat: 1,
+		weight: 8,
+		range_min: {
+			min: 3,
+			short: 6,
+			medium: 12,
+			long: 18,
+		},
+		space: {
+			battlemech: 4,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 4,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 20,
+		min_ammo_tons: 1,
+		explosive: false,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "c",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.375,
+			range_medium: 0.5,
+			range_long: 0.5,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/5)",
+			'de-DE': "de - Ammo (Autocannon/5)",
+		},
+		tag: "ammo-standard-autocannon-b",
+		sort: "ammo, Autocannon/b",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 4500,
+		introduced: 2250,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 9,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 3,
+			short: 6,
+			medium: 12,
+			long: 18,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 20,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "c",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.375,
+			range_medium: 0.5,
+			range_long: 0.5,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/5 Armor-Piercing)",
+			'de-DE': "de - Ammo (Autocannon/5 Armor-Piercing)",
+		},
+		tag: "ammo-standard-autocannon-b-armor-piercing",
+		sort: "ammo, Autocannon/b, Armor-Piercing",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 18000,
+		introduced: 3059,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 9,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 3,
+			short: 6,
+			medium: 12,
+			long: 18,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 10,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.375,
+			range_medium: 0.5,
+			range_long: 0.5,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/5 Caseless)",
+			'de-DE': "de - Ammo (Autocannon/5 Caseless)",
+		},
+		tag: "ammo-standard-autocannon-b-caseless",
+		sort: "ammo, Autocannon/b, Caseless",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 6750,
+		introduced: 3079,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 9,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 3,
+			short: 6,
+			medium: 12,
+			long: 18,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 90,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "d",
+		book: "TO",
+		page: 352,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.375,
+			range_medium: 0.5,
+			range_long: 0.5,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/5 Flak)",
+			'de-DE': "de - Ammo (Autocannon/5 Flak)",
+		},
+		tag: "ammo-standard-autocannon-b-flak",
+		sort: "ammo, Autocannon/b, Flak",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 6750,
+		introduced: 2310,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 9,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 3,
+			short: 6,
+			medium: 12,
+			long: 18,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 20,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "b",
+		book: "TO",
+		page: 352,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.375,
+			range_medium: 0.5,
+			range_long: 0.5,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/5 Flechette)",
+			'de-DE': "de - Ammo (Autocannon/5 Flechette)",
+		},
+		tag: "ammo-standard-autocannon-b-flechette",
+		sort: "ammo, Autocannon/b, Flechette",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 6750,
+		introduced: 3055,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 9,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 3,
+			short: 6,
+			medium: 12,
+			long: 18,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 20,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.375,
+			range_medium: 0.5,
+			range_long: 0.5,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/5 Precision)",
+			'de-DE': "de - Ammo (Autocannon/5 Precision)",
+		},
+		tag: "ammo-standard-autocannon-b-precision",
+		sort: "ammo, Autocannon/b, Precision",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 27000,
+		introduced: 3062,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 9,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 3,
+			short: 6,
+			medium: 12,
+			long: 18,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 10,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.375,
+			range_medium: 0.5,
+			range_long: 0.5,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/5 Tracer)",
+			'de-DE': "de - Ammo (Autocannon/5 Tracer)",
+		},
+		tag: "ammo-standard-autocannon-b-tracer",
+		sort: "ammo, Autocannon/b, Tracer",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 6750,
+		introduced: 2300,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 9,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 3,
+			short: 6,
+			medium: 12,
+			long: 18,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 20,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "b",
+		book: "TO",
+		page: 353,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.375,
+			range_medium: 0.5,
+			range_long: 0.5,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	// AC/10
+	{
+		name: {
+			'en-US': "Autocannon/10",
+			'de-DE': "de - Autocannon/10",
+		},
+		tag: "standard-autocannon-c",
+		sort: "Autocannon/c",
+		category: {
+			'en-US': "Ballistic Weapons",
+			'de-DE': "de - Ballistic Weapons",
+		},
+		damage: 10,
+		damage_aero: 10,
+		accuracy_modifier: 0,
+		cbills: 200000,
+		introduced: 2460,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 123,
+		heat: 3,
+		weight: 12,
+		range_min: {
+			min: 0,
+			short: 5,
+			medium: 10,
+			long: 15,
+		},
+		space: {
+			battlemech: 7,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 7,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 10,
+		min_ammo_tons: 1,
+		explosive: false,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "c",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 3,
+			range_short: 1,
+			range_medium: 1,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/10)",
+			'de-DE': "de - Ammo (Autocannon/10)",
+		},
+		tag: "ammo-standard-autocannon-c",
+		sort: "ammo, Autocannon/c",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 6000,
+		introduced: 2460,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 15,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 5,
+			medium: 10,
+			long: 15,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 10,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "c",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 3,
+			range_short: 1,
+			range_medium: 1,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/10 Armor-Piercing)",
+			'de-DE': "de - Ammo (Autocannon/10 Armor-Piercing)",
+		},
+		tag: "ammo-standard-autocannon-c-armor-piercing",
+		sort: "ammo, Autocannon/c, Armor-Piercing",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 24000,
+		introduced: 3059,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 15,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 5,
+			medium: 10,
+			long: 15,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 5,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 3,
+			range_short: 1,
+			range_medium: 1,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/10 Caseless)",
+			'de-DE': "de - Ammo (Autocannon/10 Caseless)",
+		},
+		tag: "ammo-standard-autocannon-c-caseless",
+		sort: "ammo, Autocannon/c, Caseless",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 9000,
+		introduced: 3079,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 15,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 5,
+			medium: 10,
+			long: 15,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 90,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "d",
+		book: "TO",
+		page: 352,
+		alpha_strike: {
+			heat: 3,
+			range_short: 1,
+			range_medium: 1,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/10 Flak)",
+			'de-DE': "de - Ammo (Autocannon/10 Flak)",
+		},
+		tag: "ammo-standard-autocannon-c-flak",
+		sort: "ammo, Autocannon/c, Flak",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 9000,
+		introduced: 2460,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 15,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 5,
+			medium: 10,
+			long: 15,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 10,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "b",
+		book: "TO",
+		page: 352,
+		alpha_strike: {
+			heat: 3,
+			range_short: 1,
+			range_medium: 1,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/10 Flechette)",
+			'de-DE': "de - Ammo (Autocannon/10 Flechette)",
+		},
+		tag: "ammo-standard-autocannon-c-flechette",
+		sort: "ammo, Autocannon/c, Flechette",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 9000,
+		introduced: 3055,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 15,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 5,
+			medium: 10,
+			long: 15,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 10,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 3,
+			range_short: 1,
+			range_medium: 1,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/10 Precision)",
+			'de-DE': "de - Ammo (Autocannon/10 Precision)",
+		},
+		tag: "ammo-standard-autocannon-c-precision",
+		sort: "ammo, Autocannon/c, Precision",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 30000,
+		introduced: 3062,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 15,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 5,
+			medium: 10,
+			long: 15,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 5,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 3,
+			range_short: 1,
+			range_medium: 1,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/10 Tracer)",
+			'de-DE': "de - Ammo (Autocannon/10 Tracer)",
+		},
+		tag: "ammo-standard-autocannon-c-tracer",
+		sort: "ammo, Autocannon/c, Tracer",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 9000,
+		introduced: 2460,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 15,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 5,
+			medium: 10,
+			long: 15,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 10,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "b",
+		book: "TO",
+		page: 353,
+		alpha_strike: {
+			heat: 3,
+			range_short: 1,
+			range_medium: 1,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Autocannon/20",
+			'de-DE': "de - Autocannon/20",
+		},
+		tag: "standard-autocannon-d",
+		sort: "Autocannon/d",
+		category: {
+			'en-US': "Ballistic Weapons",
+			'de-DE': "de - Ballistic Weapons",
+		},
+		damage: 20,
+		damage_aero: 20,
+		accuracy_modifier: 0,
+		cbills: 300000,
+		introduced: 2500,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 178,
+		heat: 7,
+		weight: 14,
+		range_min: {
+			min: 0,
+			short: 3,
+			medium: 6,
+			long: 9,
+		},
+		space: {
+			battlemech: 10,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 10,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 5,
+		min_ammo_tons: 1,
+		explosive: false,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "c",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 7,
+			range_short: 2,
+			range_medium: 2,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/20)",
+			'de-DE': "de - Ammo (Autocannon/20)",
+		},
+		tag: "ammo-standard-autocannon-d",
+		sort: "ammo, Autocannon/d",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 10000,
+		introduced: 2500,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 22,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 3,
+			medium: 6,
+			long: 9,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 5,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "c",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 1,
+			range_short: 1,
+			range_medium: 1,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/20 Armor-Piercing)",
+			'de-DE': "de - Ammo (Autocannon/20 Armor-Piercing)",
+		},
+		tag: "ammo-standard-autocannon-d-armor-piercing",
+		sort: "ammo, Autocannon/d, Armor-Piercing",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 40000,
+		introduced: 3059,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 22,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 3,
+			medium: 6,
+			long: 9,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 2,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 7,
+			range_short: 2,
+			range_medium: 2,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/20 Caseless)",
+			'de-DE': "de - Ammo (Autocannon/20 Caseless)",
+		},
+		tag: "ammo-standard-autocannon-d-caseless",
+		sort: "ammo, Autocannon/d, Caseless",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 15000,
+		introduced: 3079,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 22,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 3,
+			medium: 6,
+			long: 9,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 90,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "d",
+		book: "TO",
+		page: 352,
+		alpha_strike: {
+			heat: 7,
+			range_short: 2,
+			range_medium: 2,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/20 Flak)",
+			'de-DE': "de - Ammo (Autocannon/20 Flak)",
+		},
+		tag: "ammo-standard-autocannon-d-flak",
+		sort: "ammo, Autocannon/d, Flak",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 15000,
+		introduced: 2500,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 22,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 3,
+			medium: 6,
+			long: 9,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 5,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "b",
+		book: "TO",
+		page: 352,
+		alpha_strike: {
+			heat: 7,
+			range_short: 2,
+			range_medium: 2,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/20 Flechette)",
+			'de-DE': "de - Ammo (Autocannon/20 Flechette)",
+		},
+		tag: "ammo-standard-autocannon-d-flechette",
+		sort: "ammo, Autocannon/d, Flechette",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 15000,
+		introduced: 3055,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 22,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 3,
+			medium: 6,
+			long: 9,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 5,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 7,
+			range_short: 2,
+			range_medium: 2,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/20 Precision)",
+			'de-DE': "de - Ammo (Autocannon/20 Precision)",
+		},
+		tag: "ammo-standard-autocannon-d-precision",
+		sort: "ammo, Autocannon/d, Precision",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 60000,
+		introduced: 3062,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 22,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 3,
+			medium: 6,
+			long: 9,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 2,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 7,
+			range_short: 2,
+			range_medium: 2,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Autocannon/20 Tracer)",
+			'de-DE': "de - Ammo (Autocannon/20 Tracer)",
+		},
+		tag: "ammo-standard-autocannon-d-tracer",
+		sort: "ammo, Autocannon/d, Tracer",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 15000,
+		introduced: 2500,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 22,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 3,
+			medium: 6,
+			long: 9,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 5,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "b",
+		book: "TO",
+		page: 353,
+		alpha_strike: {
+			heat: 7,
+			range_short: 2,
+			range_medium: 2,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Light Autocannon/2",
+			'de-DE': "de - Light Autocannon/2",
+		},
+		tag: "light-autocannon-2",
+		sort: "Light Autocannon/2",
+		category: {
+			'en-US': "Ballistic Weapons",
+			'de-DE': "de - Ballistic Weapons",
+		},
+		damage: 2,
+		damage_aero: 2,
+		accuracy_modifier: 0,
+		cbills: 100000,
+		introduced: 3068,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 30,
+		heat: 1,
+		weight: 4,
+		range_min: {
+			min: 0,
+			short: 6,
+			medium: 12,
+			long: 18,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 45,
+		min_ammo_tons: 1,
+		explosive: false,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.2,
+			range_medium: 0.2,
+			range_long: 0.2,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Light Autocannon/2)",
+			'de-DE': "de - Ammo (Light Autocannon/2)",
+		},
+		tag: "ammo-light-autocannon-2",
+		sort: "ammo, Light Autocannon/2",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 1000,
+		introduced: 3068,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 4,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 6,
+			medium: 12,
+			long: 18,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 45,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "c",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.2,
+			range_medium: 0.2,
+			range_long: 0.2,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Light Autocannon/2 Armor-Piercing)",
+			'de-DE': "de - Ammo (Light Autocannon/2 Armor-Piercing)",
+		},
+		tag: "ammo-light-autocannon-2-armor-piercing",
+		sort: "ammo, Light Autocannon/2, Armor-Piercing",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 4000,
+		introduced: 3068,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 4,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 6,
+			medium: 12,
+			long: 18,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 22,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.2,
+			range_medium: 0.2,
+			range_long: 0.2,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Light Autocannon/2 Caseless)",
+			'de-DE': "de - Ammo (Light Autocannon/2 Caseless)",
+		},
+		tag: "ammo-light-autocannon-2-caseless",
+		sort: "ammo, Light Autocannon/2, Caseless",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 1500,
+		introduced: 3079,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 4,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 6,
+			medium: 12,
+			long: 18,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 90,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "d",
+		book: "TO",
+		page: 352,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.2,
+			range_medium: 0.2,
+			range_long: 0.2,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Light Autocannon/2 Flak)",
+			'de-DE': "de - Ammo (Light Autocannon/2 Flak)",
+		},
+		tag: "ammo-light-autocannon-2-flak",
+		sort: "ammo, Light Autocannon/2, Flak",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 1500,
+		introduced: 3068,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 4,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 6,
+			medium: 12,
+			long: 18,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 45,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "b",
+		book: "TO",
+		page: 352,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.2,
+			range_medium: 0.2,
+			range_long: 0.2,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Light Autocannon/2 Flechette)",
+			'de-DE': "de - Ammo (Light Autocannon/2 Flechette)",
+		},
+		tag: "ammo-light-autocannon-2-flechette",
+		sort: "ammo, Light Autocannon/2, Flechette",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 1500,
+		introduced: 3068,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 4,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 6,
+			medium: 12,
+			long: 18,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 45,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.2,
+			range_medium: 0.2,
+			range_long: 0.2,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Light Autocannon/2 Precision)",
+			'de-DE': "de - Ammo (Light Autocannon/2 Precision)",
+		},
+		tag: "ammo-light-autocannon-2-precision",
+		sort: "ammo, Light Autocannon/2, Precision",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 6000,
+		introduced: 3068,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 4,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 6,
+			medium: 12,
+			long: 18,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 22,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.2,
+			range_medium: 0.2,
+			range_long: 0.2,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Light Autocannon/2 Tracer)",
+			'de-DE': "de - Ammo (Light Autocannon/2 Tracer)",
+		},
+		tag: "ammo-light-autocannon-2-tracer",
+		sort: "ammo, Light Autocannon/2, Tracer",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 1500,
+		introduced: 3068,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 4,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 6,
+			medium: 12,
+			long: 18,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 45,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "b",
+		book: "TO",
+		page: 353,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.2,
+			range_medium: 0.2,
+			range_long: 0.2,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+		{
+		name: {
+			'en-US': "Light Autocannon/5",
+			'de-DE': "de - Light Autocannon/5",
+		},
+		tag: "light-autocannon-5",
+		sort: "Light Autocannon/5",
+		category: {
+			'en-US': "Ballistic Weapons",
+			'de-DE': "de - Ballistic Weapons",
+		},
+		damage: 5,
+		damage_aero: 5,
+		accuracy_modifier: 0,
+		cbills: 150000,
+		introduced: 3068,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 62,
+		heat: 1,
+		weight: 5,
+		range_min: {
+			min: 0,
+			short: 5,
+			medium: 10,
+			long: 15,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 20,
+		min_ammo_tons: 1,
+		explosive: false,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.5,
+			range_medium: 0.5,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Light Autocannon/5)",
+			'de-DE': "de - Ammo (Light Autocannon/5)",
+		},
+		tag: "ammo-light-autocannon-5",
+		sort: "ammo, Light Autocannon/5",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 4500,
+		introduced: 3068,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 8,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 5,
+			medium: 10,
+			long: 15,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 20,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "c",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.5,
+			range_medium: 0.5,
+			range_long: 0.0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Light Autocannon/5 Armor-Piercing)",
+			'de-DE': "de - Ammo (Light Autocannon/5 Armor-Piercing)",
+		},
+		tag: "ammo-light-autocannon-5-armor-piercing",
+		sort: "ammo, Light Autocannon/5, Armor-Piercing",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 18000,
+		introduced: 3068,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 8,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 5,
+			medium: 10,
+			long: 15,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 10,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.5,
+			range_medium: 0.5,
+			range_long: 0.0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Light Autocannon/5 Caseless)",
+			'de-DE': "de - Ammo (Light Autocannon/5 Caseless)",
+		},
+		tag: "ammo-light-autocannon-5-caseless",
+		sort: "ammo, Light Autocannon/5, Caseless",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 6750,
+		introduced: 3079,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 8,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 5,
+			medium: 10,
+			long: 15,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 90,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "d",
+		book: "TO",
+		page: 352,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.5,
+			range_medium: 0.5,
+			range_long: 0.0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Light Autocannon/5 Flak)",
+			'de-DE': "de - Ammo (Light Autocannon/5 Flak)",
+		},
+		tag: "ammo-light-autocannon-5-flak",
+		sort: "ammo, Light Autocannon/5, Flak",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 6750,
+		introduced: 3068,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 8,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 5,
+			medium: 10,
+			long: 15,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 20,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "b",
+		book: "TO",
+		page: 352,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.5,
+			range_medium: 0.5,
+			range_long: 0.0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Light Autocannon/5 Flechette)",
+			'de-DE': "de - Ammo (Light Autocannon/5 Flechette)",
+		},
+		tag: "ammo-light-autocannon-5-flechette",
+		sort: "ammo, Light Autocannon/5, Flechette",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 6750,
+		introduced: 3068,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 8,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 5,
+			medium: 10,
+			long: 15,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 20,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.5,
+			range_medium: 0.5,
+			range_long: 0.0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Light Autocannon/5 Precision)",
+			'de-DE': "de - Ammo (Light Autocannon/5 Precision)",
+		},
+		tag: "ammo-light-autocannon-5-precision",
+		sort: "ammo, Light Autocannon/5, Precision",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 27000,
+		introduced: 3068,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 8,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 5,
+			medium: 10,
+			long: 15,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 10,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.5,
+			range_medium: 0.5,
+			range_long: 0.0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Light Autocannon/5 Tracer)",
+			'de-DE': "de - Ammo (Light Autocannon/5 Tracer)",
+		},
+		tag: "ammo-light-autocannon-5-tracer",
+		sort: "ammo, Light Autocannon/5, Tracer",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 6750,
+		introduced: 3068,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 8,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 5,
+			medium: 10,
+			long: 15,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 20,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "b",
+		book: "TO",
+		page: 353,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.5,
+			range_medium: 0.5,
+			range_long: 0.0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
 	// Machine Guns
 	{
 		name: {
@@ -2136,7 +4878,7 @@ var mechISEquipment = Array(
 		extinct: 0,
 		reintroduced: 0,
 		battlevalue: 5,
-		heat: 1,
+		heat: 0,
 		weight: 0.5,
 		range_min: {
 			min: 0,
@@ -2165,7 +4907,7 @@ var mechISEquipment = Array(
 		page: 227,
 		alpha_strike: {
 			heat: 0,
-			range_short: 0,
+			range_short: 0.2,
 			range_medium: 0,
 			range_long: 0,
 			range_extreme: 0,

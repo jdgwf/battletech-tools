@@ -45,7 +45,7 @@
 									</td>
 								</tr>
 
-								<tr ng-repeat="item in equipment_table | filter:{local_category: category.local_category}" class="" ng-class="{'grayed-out':item.isInSelectedEra == false,'hide':item.isInSelectedEra == false && mechIsStrict}">
+								<tr ng-repeat="item in equipment_table | filter:{local_category: category.local_category}" class="" ng-class="{'grayed-out':item.isInSelectedEra == false,'hide':(item.isInSelectedEra == false && mechIsStrict) || item.isAvailableAmmoType == false}">
 									<td>{{item.local_name}}</td>
 									<td>{{item.local_space}}</td>
 									<td>{{item.weight}}</td>
