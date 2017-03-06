@@ -6,7 +6,7 @@ var mechHeatSinkTypes = Array(
 		name: {
 			"en-US": "Single"
 		},
-		tag: "signle",
+		tag: "single",
 		dissipation: 1,
 		crits: {
 			clan: 1,

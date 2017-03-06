@@ -45,6 +45,12 @@
 							</select>
 						</label>
 
+						<label>
+							<span translate="BM_STEP1_IS_TYPE">Mech Internal Structure Type</span>:
+							<select ng-change="update_mech_selected_is_type(mech_selected_is_type)" ng-options="option.name for option in mech_is_options track by option.tag" ng-model="mech_selected_is_type">
+							</select>
+						</label>
+
 						<a class="button primary radius previous-button" href="#/battlemech-creator/"><i class="fa fa-arrow-left"></i> <span translate="BM_BACK_TO_WELCOME">Last Step</span></a>
 						<a class="button primary radius next-button" href="#/battlemech-creator/step2/"><span translate="BM_NEXT_STEP">Next Step</span> <i class="fa fa-arrow-right"></i></a>
 					</fieldset>

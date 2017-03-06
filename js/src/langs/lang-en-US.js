@@ -172,8 +172,10 @@ available_languages.push ({
 		BM_STEP1_MECH_TYPE: "Mech Type",
 		BM_STEP1_MECH_ERA: "Mech Era",
 		BM_STEP1_MECH_TONNAGE: "Mech Tonnage",
-		BM_STEP1_MECH_TECH: "Mech Tech",
+		BM_STEP1_MECH_TECH: "Technology Base",
 		BM_STEP1_SELECTED_STRICT: "Hide non-available weapons and equipment (will be gray otherwise)",
+		BM_STEP1_MECH_TECH: "Technology Base",
+		BM_STEP1_IS_TYPE: "Internal Structure Type",
 
 		BM_STEP2_TITLE: "Step 2",
 		BM_STEP2_DESC: "Install engine and control systems",

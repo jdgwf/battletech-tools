@@ -12,12 +12,7 @@
 				<div class="worksheet-area">
 					<fieldset class="fieldset">
 						<legend ng-bind-html="h3_title">Step 4</legend>
-						<div class="dev-note">
-							Everything here works great.<br />
-							<br />
-							<strong>TODO</strong>: A checkbox or dropdown for armor
-							type (standard vs ferro, vs stealth, etc) beneath (or above) tonnage selection
-						</div>
+
 						<label>
 							<span translate="BM_STEP4_ARMOR_TYPE">Armor Type</span>
 							<select ng-change="update_armor_type(selected_armor_type)" ng-options="item as item.local_name for item in availableArmorTypes track by item.tag" ng-model="selected_armor_type"></select>

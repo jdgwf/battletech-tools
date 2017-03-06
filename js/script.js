@@ -7310,7 +7310,7 @@ var mechHeatSinkTypes = Array(
 		name: {
 			"en-US": "Single"
 		},
-		tag: "signle",
+		tag: "single",
 		dissipation: 1,
 		crits: {
 			clan: 1,
@@ -7332,6 +7332,322 @@ var mechHeatSinkTypes = Array(
 			clan: 2,
 			is: 3
 		},
+		cost: 6000,
+		introduced: 2470,
+		extinct: 0,
+		reintroduced: 0
+	}
+);
+
+/*
+ * The data here is copyright NOT included in the MIT license.
+ */
+var mechInternalStructureTypes = Array(
+	{
+		name: {
+			"en-US": "Standard"
+		},
+		tag: "standard",
+		crits: {
+			clan: 0,
+			is: 0
+		},
+
+		perTon: {
+			20: {
+				tonnage: 2,
+				head: 3,
+				centerTorso: 6,
+				rlTorso: 5,
+				rlArm: 3,
+				rlLeg: 4
+			},
+			25: {
+				tonnage: 2.5,
+				head: 3,
+				centerTorso: 8,
+				rlTorso: 6,
+				rlArm: 4,
+				rlLeg: 6
+			},
+			30: {
+				tonnage: 3,
+				head: 3,
+				centerTorso: 10,
+				rlTorso: 7,
+				rlArm: 5,
+				rlLeg: 7
+			},
+			35: {
+				tonnage: 3.5,
+				head: 3,
+				centerTorso: 11,
+				rlTorso: 8,
+				rlArm: 6,
+				rlLeg: 8
+			},
+			40: {
+				tonnage: 4,
+				head: 3,
+				centerTorso: 12,
+				rlTorso: 10,
+				rlArm: 6,
+				rlLeg: 10
+			},
+			45: {
+				tonnage: 4.5,
+				head: 3,
+				centerTorso: 14,
+				rlTorso: 11,
+				rlArm: 7,
+				rlLeg: 11
+			},
+			50: {
+				tonnage: 5,
+				head: 3,
+				centerTorso: 16,
+				rlTorso: 12,
+				rlArm: 8,
+				rlLeg: 12
+			},
+			55: {
+				tonnage: 5.5,
+				head: 3,
+				centerTorso: 18,
+				rlTorso: 13,
+				rlArm: 9,
+				rlLeg: 13
+			},
+			60: {
+				tonnage: 6,
+				head: 3,
+				centerTorso: 20,
+				rlTorso: 14,
+				rlArm: 10,
+				rlLeg: 14
+			},
+			65: {
+				tonnage: 6.5,
+				head: 3,
+				centerTorso: 21,
+				rlTorso: 15,
+				rlArm: 10,
+				rlLeg: 15
+			},
+			70: {
+				tonnage: 7,
+				head: 3,
+				centerTorso: 22,
+				rlTorso: 15,
+				rlArm: 11,
+				rlLeg: 15
+			},
+			75: {
+				tonnage: 7.5,
+				head: 3,
+				centerTorso: 23,
+				rlTorso: 16,
+				rlArm: 12,
+				rlLeg: 16
+			},
+			80: {
+				tonnage: 8,
+				head: 3,
+				centerTorso: 25,
+				rlTorso: 17,
+				rlArm: 13,
+				rlLeg: 17
+			},
+			85: {
+				tonnage: 8.5,
+				head: 3,
+				centerTorso: 27,
+				rlTorso: 18,
+				rlArm: 14,
+				rlLeg: 18
+			},
+			90: {
+				tonnage: 9,
+				head: 3,
+				centerTorso: 29,
+				rlTorso: 19,
+				rlArm: 15,
+				rlLeg: 19
+			},
+			95: {
+				tonnage: 9.5,
+				head: 3,
+				centerTorso: 30,
+				rlTorso: 20,
+				rlArm: 16,
+				rlLeg: 20
+			},
+			100: {
+				tonnage: 10,
+				head: 3,
+				centerTorso: 31,
+				rlTorso: 21,
+				rlArm: 17,
+				rlLeg: 21
+			}
+		},
+
+		cost: 2000,
+		introduced: 2470,
+		extinct: 0,
+		reintroduced: 0
+	},
+	{
+		name: {
+			"en-US": "Endo-Steel"
+		},
+		tag: "endo-steel",
+		crits: {
+			clan: 7,
+			is: 14
+		},
+
+
+		perTon: {
+			20: {
+				tonnage: 1,
+				head: 3,
+				centerTorso: 6,
+				rlTorso: 5,
+				rlArm: 3,
+				rlLeg: 4
+			},
+			25: {
+				tonnage: 1.5,
+				head: 3,
+				centerTorso: 8,
+				rlTorso: 6,
+				rlArm: 4,
+				rlLeg: 6
+			},
+			30: {
+				tonnage: 1.5,
+				head: 3,
+				centerTorso: 10,
+				rlTorso: 7,
+				rlArm: 5,
+				rlLeg: 7
+			},
+			35: {
+				tonnage: 2,
+				head: 3,
+				centerTorso: 11,
+				rlTorso: 8,
+				rlArm: 6,
+				rlLeg: 8
+			},
+			40: {
+				tonnage: 2,
+				head: 3,
+				centerTorso: 12,
+				rlTorso: 10,
+				rlArm: 6,
+				rlLeg: 10
+			},
+			45: {
+				tonnage: 2.5,
+				head: 3,
+				centerTorso: 14,
+				rlTorso: 11,
+				rlArm: 7,
+				rlLeg: 11
+			},
+			50: {
+				tonnage: 2.5,
+				head: 3,
+				centerTorso: 16,
+				rlTorso: 12,
+				rlArm: 8,
+				rlLeg: 12
+			},
+			55: {
+				tonnage: 3,
+				head: 3,
+				centerTorso: 18,
+				rlTorso: 13,
+				rlArm: 9,
+				rlLeg: 13
+			},
+			60: {
+				tonnage: 3,
+				head: 3,
+				centerTorso: 20,
+				rlTorso: 14,
+				rlArm: 10,
+				rlLeg: 14
+			},
+			65: {
+				tonnage: 3.5,
+				head: 3,
+				centerTorso: 21,
+				rlTorso: 15,
+				rlArm: 10,
+				rlLeg: 15
+			},
+			70: {
+				tonnage: 3.5,
+				head: 3,
+				centerTorso: 22,
+				rlTorso: 15,
+				rlArm: 11,
+				rlLeg: 15
+			},
+			75: {
+				tonnage: 4,
+				head: 3,
+				centerTorso: 23,
+				rlTorso: 16,
+				rlArm: 12,
+				rlLeg: 16
+			},
+			80: {
+				tonnage: 4,
+				head: 3,
+				centerTorso: 25,
+				rlTorso: 17,
+				rlArm: 13,
+				rlLeg: 17
+			},
+			85: {
+				tonnage: 4.5,
+				head: 3,
+				centerTorso: 27,
+				rlTorso: 18,
+				rlArm: 14,
+				rlLeg: 18
+			},
+			90: {
+				tonnage: 4.5,
+				head: 3,
+				centerTorso: 29,
+				rlTorso: 19,
+				rlArm: 15,
+				rlLeg: 19
+			},
+			95: {
+				tonnage: 5,
+				head: 3,
+				centerTorso: 30,
+				rlTorso: 20,
+				rlArm: 16,
+				rlLeg: 20
+			},
+			100: {
+				tonnage: 5,
+				head: 3,
+				centerTorso: 31,
+				rlTorso: 21,
+				rlArm: 17,
+				rlLeg: 21
+			}
+		},
+
+
 		cost: 6000,
 		introduced: 2470,
 		extinct: 0,
@@ -13646,6 +13962,8 @@ function Mech (type) {
 
 	this.max_armor = 0;
 
+	this.selectedInternalStructure = mechInternalStructureTypes[0];
+
 	this.internalStructure = {};
 
 	this.internalStructure.head = 0;
@@ -15337,7 +15655,7 @@ Mech.prototype.setCockpitWeight = function(new_weight) {
 
 
 Mech.prototype.getInteralStructureWeight = function() {
-	return this.tonnage / 10;
+	return this.selectedInternalStructure.perTon[ this.getTonnage() ].tonnage;
 }
 
 Mech.prototype.getJumpJetWeight = function() {
@@ -16217,7 +16535,7 @@ Mech.prototype._calcCriticals = function() {
 
 	var armorObj = this.getArmorObj();
 	if( this.getTech().tag  == "clan" ) {
-		if( armorObj.crits.is > 0 ) {
+		if( armorObj.crits.clan > 0 ) {
 			if( armorObj.crit_locs ) {
 				for( var nameLoc in armorObj.crits_locs ) {
 					this._addCriticalItem(
@@ -16271,6 +16589,39 @@ Mech.prototype._calcCriticals = function() {
 					);
 				}
 			}
+		}
+	}
+
+	// Internal Structure critical Items
+	if( this.getTech().tag  == "clan" ) {
+		for( var aCounter = 0; aCounter < this.selectedInternalStructure.crits.clan; aCounter++ ) {
+			this.unallocatedCriticals.push(
+				{
+					name: this.selectedInternalStructure.name[this.useLang],
+					tag: this.selectedInternalStructure.tag,
+					rollAgain: true,
+					rear: false,
+					crits: 1,
+					obj: this.selectedInternalStructure,
+					movable: true
+				}
+			);
+		}
+
+
+	} else {
+		for( var aCounter = 0; aCounter < this.selectedInternalStructure.crits.is; aCounter++ ) {
+			this.unallocatedCriticals.push(
+				{
+					name: this.selectedInternalStructure.name[this.useLang],
+					tag: this.selectedInternalStructure.tag,
+					rollAgain: true,
+					rear: false,
+					crits: 1,
+					obj: this.selectedInternalStructure,
+					movable: true
+				}
+			);
 		}
 	}
 
@@ -16693,6 +17044,21 @@ Mech.prototype.setEngine = function(ratingNumber) {
 	return 0;
 }
 
+Mech.prototype.getInternalStructureType = function() {
+	return this.selectedInternalStructure.tag;
+}
+
+Mech.prototype.setInternalStructureType = function( isTag ) {
+	for( lCounter = 0; lCounter < mechInternalStructureTypes.length ;lCounter++) {
+		if( isTag == mechInternalStructureTypes[ lCounter ].tag ) {
+			this.selectedInternalStructure = mechInternalStructureTypes[ lCounter ];
+			return this.selectedInternalStructure;
+		}
+	}
+
+	return null;
+}
+
 
 Mech.prototype.getGyro = function()  {
 	return this.gyro;
@@ -16828,354 +17194,26 @@ Mech.prototype.getTonnage = function() {
 Mech.prototype.setTonnage = function(newValue) {
 	this.tonnage = parseInt(newValue);
 
-	switch( this.tonnage ) {
-		case 20:
-			this.internalStructure.head = 3;
+	console.log( this.selectedInternalStructure.perTon );
 
-			this.internalStructure.centerTorso = 6;
-			this.internalStructure.leftTorso = 5;
-			this.internalStructure.rightTorso = 5;
+	this.internalStructure.head = this.selectedInternalStructure.perTon[ this.getTonnage() ].head;
 
-			this.internalStructure.rightArm = 3;
-			this.internalStructure.leftArm = 3;
+	this.internalStructure.centerTorso = this.selectedInternalStructure.perTon[ this.getTonnage() ].centerTorso;
+	this.internalStructure.leftTorso =  this.selectedInternalStructure.perTon[ this.getTonnage() ].rlTorso;
+	this.internalStructure.rightTorso =  this.selectedInternalStructure.perTon[ this.getTonnage() ].rlTorso;
 
-			this.internalStructure.rightLeg = 4;
-			this.internalStructure.leftLeg = 4;
+	this.internalStructure.rightArm =  this.selectedInternalStructure.perTon[ this.getTonnage() ].rlArm;
+	this.internalStructure.leftArm =  this.selectedInternalStructure.perTon[ this.getTonnage() ].rlArm;
 
+	this.internalStructure.rightLeg =  this.selectedInternalStructure.perTon[ this.getTonnage() ].rlLeg;
+	this.internalStructure.leftLeg =  this.selectedInternalStructure.perTon[ this.getTonnage() ].rlLeg;
 
+	this.max_armor =  9 + this.internalStructure.centerTorso * 2 + this.internalStructure.leftTorso * 2 + this.internalStructure.rightTorso * 2 + this.internalStructure.rightLeg * 2 + this.internalStructure.leftLeg * 2;
+	if( this.mech_type.class.toLowerCase() == "biped")
+		this.max_armor +=  this.internalStructure.leftArm * 2 + this.internalStructure.rightArm * 2;
+	else
+		this.max_armor +=  this.internalStructure.rightLeg * 2 + this.internalStructure.leftLeg * 2;
 
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 69;
-			else
-				this.max_armor = 73;
-
-			break;
-		case 25:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 8;
-			this.internalStructure.leftTorso = 6;
-			this.internalStructure.rightTorso = 6;
-
-			this.internalStructure.rightArm = 4;
-			this.internalStructure.leftArm = 4;
-
-			this.internalStructure.rightLeg = 6;
-			this.internalStructure.leftLeg = 6;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 89;
-			else
-				this.max_armor = 97;
-
-			break;
-		case 30:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 10;
-			this.internalStructure.leftTorso = 7;
-			this.internalStructure.rightTorso = 7;
-
-			this.internalStructure.rightArm = 5;
-			this.internalStructure.leftArm = 5;
-
-			this.internalStructure.rightLeg = 7;
-			this.internalStructure.leftLeg = 7;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 105;
-			else
-				this.max_armor = 113;
-
-			break;
-
-		case 35:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 11;
-			this.internalStructure.leftTorso = 8;
-			this.internalStructure.rightTorso = 8;
-
-			this.internalStructure.rightArm = 6;
-			this.internalStructure.leftArm = 6;
-
-			this.internalStructure.rightLeg = 8;
-			this.internalStructure.leftLeg = 8;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 119;
-			else
-				this.max_armor = 127;
-
-			break;
-
-		case 40:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 12;
-			this.internalStructure.leftTorso = 10;
-			this.internalStructure.rightTorso = 10;
-
-			this.internalStructure.rightArm = 6;
-			this.internalStructure.leftArm = 6;
-
-			this.internalStructure.rightLeg = 10;
-			this.internalStructure.leftLeg = 10;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 137;
-			else
-				this.max_armor = 153;
-
-			break;
-
-		case 45:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 14;
-			this.internalStructure.leftTorso = 11;
-			this.internalStructure.rightTorso = 11;
-
-			this.internalStructure.rightArm = 7;
-			this.internalStructure.leftArm = 7;
-
-			this.internalStructure.rightLeg = 11;
-			this.internalStructure.leftLeg = 11;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 153;
-			else
-				this.max_armor = 169;
-
-			break;
-
-		case 50:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 16;
-			this.internalStructure.leftTorso = 12;
-			this.internalStructure.rightTorso = 12;
-
-			this.internalStructure.rightArm = 8;
-			this.internalStructure.leftArm = 8;
-
-			this.internalStructure.rightLeg = 12;
-			this.internalStructure.leftLeg = 12;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 169;
-			else
-				this.max_armor = 185;
-
-
-			break;
-
-		case 55:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 18;
-			this.internalStructure.leftTorso = 13;
-			this.internalStructure.rightTorso = 13;
-
-			this.internalStructure.rightArm = 9;
-			this.internalStructure.leftArm = 9;
-
-			this.internalStructure.rightLeg = 13;
-			this.internalStructure.leftLeg = 13;
-
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 285;
-			else
-				this.max_armor = 201;
-
-			break;
-
-		case 60:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 20;
-			this.internalStructure.leftTorso = 14;
-			this.internalStructure.rightTorso = 14;
-
-			this.internalStructure.rightArm = 10;
-			this.internalStructure.leftArm = 10;
-
-			this.internalStructure.rightLeg = 14;
-			this.internalStructure.leftLeg = 14;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 201;
-			else
-				this.max_armor = 217;
-
-
-		break;
-		case 65:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 21;
-			this.internalStructure.leftTorso = 15;
-			this.internalStructure.rightTorso = 15;
-
-			this.internalStructure.rightArm = 10;
-			this.internalStructure.leftArm = 10;
-
-			this.internalStructure.rightLeg = 15;
-			this.internalStructure.leftLeg = 15;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 211;
-			else
-				this.max_armor = 231;
-
-
-		break;
-		case 70:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 22;
-			this.internalStructure.leftTorso = 15;
-			this.internalStructure.rightTorso = 15;
-
-			this.internalStructure.rightArm = 11;
-			this.internalStructure.leftArm = 11;
-
-			this.internalStructure.rightLeg = 15;
-			this.internalStructure.leftLeg = 15;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 213;
-			else
-				this.max_armor = 233;
-
-
-		break;
-		case 75:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 23;
-			this.internalStructure.leftTorso = 16;
-			this.internalStructure.rightTorso = 16;
-
-			this.internalStructure.rightArm = 12;
-			this.internalStructure.leftArm = 12;
-
-			this.internalStructure.rightLeg = 16;
-			this.internalStructure.leftLeg = 16;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 231;
-			else
-				this.max_armor = 247;
-
-
-		break;
-		case 80:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 25;
-			this.internalStructure.leftTorso = 17;
-			this.internalStructure.rightTorso = 17;
-
-			this.internalStructure.rightArm = 13;
-			this.internalStructure.leftArm = 13;
-
-			this.internalStructure.rightLeg = 17;
-			this.internalStructure.leftLeg = 17;
-
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 247;
-			else
-				this.max_armor = 263;
-
-			break;
-		case 85:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 27;
-			this.internalStructure.leftTorso = 18;
-			this.internalStructure.rightTorso = 18;
-
-			this.internalStructure.rightArm = 14;
-			this.internalStructure.leftArm = 14;
-
-			this.internalStructure.rightLeg = 18;
-			this.internalStructure.leftLeg = 18;
-
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 263;
-			else
-				this.max_armor = 279;
-
-			break;
-
-		case 90:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 29;
-			this.internalStructure.leftTorso = 19;
-			this.internalStructure.rightTorso = 19;
-
-			this.internalStructure.rightArm = 15;
-			this.internalStructure.leftArm = 15;
-
-			this.internalStructure.rightLeg = 19;
-			this.internalStructure.leftLeg = 19;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 279;
-			else
-				this.max_armor = 295;
-
-
-			break;
-		case 95:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 30;
-			this.internalStructure.leftTorso = 20;
-			this.internalStructure.rightTorso = 20;
-
-			this.internalStructure.rightArm = 16;
-			this.internalStructure.leftArm = 16;
-
-			this.internalStructure.rightLeg = 20;
-			this.internalStructure.leftLeg = 20;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 293;
-			else
-				this.max_armor = 309;
-
-
-			break;
-		case 100:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 31;
-			this.internalStructure.leftTorso = 21;
-			this.internalStructure.rightTorso = 21;
-
-			this.internalStructure.rightArm = 17;
-			this.internalStructure.leftArm = 17;
-
-			this.internalStructure.rightLeg = 21;
-			this.internalStructure.leftLeg = 21;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 307;
-			else
-				this.max_armor = 323;
-
-			break;
-
-		default:
-			// error
-			break;
-	}
 
 	if( this.mech_type.class.toLowerCase() == "quad") {
 		this.internalStructure.rightArm = this.internalStructure.rightLeg;
@@ -17242,6 +17280,8 @@ Mech.prototype.exportJSON = function() {
 	export_object.tech = this.tech.id;
 
 	export_object.gyro = this.gyro.tag;
+
+	export_object.is_type = this.getInternalStructureType();
 
 	export_object.additional_heat_sinks = this.additional_heat_sinks;
 	export_object.heat_sink_type = this.getHeatSinksType();
@@ -17343,6 +17383,8 @@ Mech.prototype.importJSON = function(json_string) {
 			if( import_object.as_custom_name  )
 				this.setASCustomName( import_object.as_custom_name ) ;
 
+			if( import_object.is_type  )
+				this.setInternalStructureType( import_object.is_type ) ;
 
 			if( import_object.walkSpeed )
 				this.setWalkSpeed( import_object.walkSpeed );
@@ -18982,39 +19024,39 @@ var battlemechCreatorControllerStep1Array =
 				$location.url("/");
 			}
 			// create mech object, load from localStorage if exists
-			current_mech = new Mech();
+			$scope.current_mech = new Mech();
 
 			localStorage["backToPath"] = $location.$$path;
 
 
 			if( localStorage["tmp.current_mech"] ) {
-				current_mech.importJSON( localStorage["tmp.current_mech"] );
+				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
-				current_mech.uuid = generateUUID();
-				current_mech._calc();
+				$scope.current_mech.uuid = generateUUID();
+				$scope.current_mech._calc();
 			}
 
-			current_mech.useLang = localStorage["tmp.preferred_language"];
+			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
 
 
-			update_mech_status_bar_and_tro($scope, $translate, current_mech);
+			update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
 
 			$scope.selectedStrict = false;
 
-			if( current_mech.strictEra > 0 )
+			if( $scope.current_mech.strictEra > 0 )
 				$scope.selectedStrict = true;
 
 			$scope.update_mech_era_strict = function( newValue ) {
 				if( newValue )
-					current_mech.strictEra = 1;
+					$scope.current_mech.strictEra = 1;
 				else
-					current_mech.strictEra = 0;
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+					$scope.current_mech.strictEra = 0;
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
 			}
 
 			// fill out current data in forms
-			$scope.mech_name = current_mech.getName();
+			$scope.mech_name = $scope.current_mech.getName();
 			translated_btTechOptions = [];
 			translated_mechTypeOptions = [];
 			translated_btEraOptions = [];
@@ -19052,19 +19094,37 @@ var battlemechCreatorControllerStep1Array =
 				}
 			}
 
+
+			$scope.mech_is_options = [];
+			for( var filter_counter = 0; filter_counter < mechInternalStructureTypes.length; filter_counter++) {
+				var push = Object.create(mechInternalStructureTypes[filter_counter]);
+				if( push.name[ localStorage["tmp.preferred_language"] ] ) {
+					push.name = push.name[ localStorage["tmp.preferred_language"] ];
+					$scope.mech_is_options.push( push );
+				} else {
+					push.name = "( " + localStorage["tmp.preferred_language"] + " - " + push.name["en-US"] + ")";
+					$scope.mech_is_options.push( push );
+				}
+
+				if( $scope.current_mech.getInternalStructureType() == mechInternalStructureTypes[filter_counter].tag)
+					$scope.mech_selected_is_type = push;
+			}
+			if( !$scope.mech_selected_is_type )
+				$scope.mech_selected_is_type = $scope.mech_is_options[0];
+
 			$scope.mech_tech = {
 				availableOptions: translated_btTechOptions,
-				selectedOption: current_mech.getTech()
+				selectedOption: $scope.current_mech.getTech()
 			};
 
 			$scope.mech_type = {
 				availableOptions: translated_mechTypeOptions,
-				selectedOption: current_mech.getType()
+				selectedOption: $scope.current_mech.getType()
 			};
 
 			$scope.mech_era = {
 				availableOptions: translated_btEraOptions,
-				selectedOption: current_mech.getEra()
+				selectedOption: $scope.current_mech.getEra()
 			};
 
 			var tonnageOptions = [];
@@ -19074,52 +19134,61 @@ var battlemechCreatorControllerStep1Array =
 			}
 
 			$scope.mech_tonnage_options = tonnageOptions;
-			// $scope.mech_tonnage.selectedOption = current_mech.getTonnage();
+			// $scope.mech_tonnage.selectedOption = $scope.current_mech.getTonnage();
 			$scope.mech_tonnage = {
 				availableOptions: tonnageOptions,
-				selectedOption: current_mech.getTonnage()
+				selectedOption: $scope.current_mech.getTonnage()
 			};
 
 			// update functions
 			$scope.update_mech_name = function() {
-				current_mech.setName( $scope.mech_name );
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				$scope.current_mech.setName( $scope.mech_name );
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
 			};
 
 			$scope.update_mech_tech = function() {
-				current_mech.setTech( $scope.mech_tech.selectedOption.id );
+				$scope.current_mech.setTech( $scope.mech_tech.selectedOption.id );
 
-				$scope.mech_era.selectedOption = current_mech.getEra();
+				$scope.mech_era.selectedOption = $scope.current_mech.getEra();
 
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
 			};
 
 			$scope.update_mech_type = function() {
-				current_mech.setMechType( $scope.mech_type.selectedOption.id );
+				$scope.current_mech.setMechType( $scope.mech_type.selectedOption.id );
 				// Remove any assigned criticals in the arms...
-				current_mech.clearArmCriticalAllocationTable();
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				$scope.current_mech.clearArmCriticalAllocationTable();
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
 			};
 
 			$scope.update_mech_era = function() {
-				current_mech.setEra( $scope.mech_era.selectedOption.id );
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				$scope.current_mech.setEra( $scope.mech_era.selectedOption.id );
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
 			};
 
 			$scope.update_mech_tonnage = function() {
-				current_mech.setTonnage( $scope.mech_tonnage.selectedOption );
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
+				$scope.current_mech.setTonnage( $scope.mech_tonnage.selectedOption );
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
 			};
+
+			$scope.update_mech_selected_is_type = function( newISType ) {
+				//~ console.log( "newISType", newISType );
+				//~ console.log( "$scope.mech_selected_is_type.tag", $scope.mech_selected_is_type.tag );
+				$scope.current_mech.setInternalStructureType( $scope.mech_selected_is_type.tag );
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
+
+				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+			}
 
 		}
 	]
@@ -21770,8 +21839,10 @@ available_languages.push ({
 		BM_STEP1_MECH_TYPE: "Mech Type",
 		BM_STEP1_MECH_ERA: "Mech Era",
 		BM_STEP1_MECH_TONNAGE: "Mech Tonnage",
-		BM_STEP1_MECH_TECH: "Mech Tech",
+		BM_STEP1_MECH_TECH: "Technology Base",
 		BM_STEP1_SELECTED_STRICT: "Hide non-available weapons and equipment (will be gray otherwise)",
+		BM_STEP1_MECH_TECH: "Technology Base",
+		BM_STEP1_IS_TYPE: "Internal Structure Type",
 
 		BM_STEP2_TITLE: "Step 2",
 		BM_STEP2_DESC: "Install engine and control systems",

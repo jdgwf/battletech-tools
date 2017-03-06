@@ -12,6 +12,8 @@ function Mech (type) {
 
 	this.max_armor = 0;
 
+	this.selectedInternalStructure = mechInternalStructureTypes[0];
+
 	this.internalStructure = {};
 
 	this.internalStructure.head = 0;
@@ -1703,7 +1705,7 @@ Mech.prototype.setCockpitWeight = function(new_weight) {
 
 
 Mech.prototype.getInteralStructureWeight = function() {
-	return this.tonnage / 10;
+	return this.selectedInternalStructure.perTon[ this.getTonnage() ].tonnage;
 }
 
 Mech.prototype.getJumpJetWeight = function() {
@@ -2583,7 +2585,7 @@ Mech.prototype._calcCriticals = function() {
 
 	var armorObj = this.getArmorObj();
 	if( this.getTech().tag  == "clan" ) {
-		if( armorObj.crits.is > 0 ) {
+		if( armorObj.crits.clan > 0 ) {
 			if( armorObj.crit_locs ) {
 				for( var nameLoc in armorObj.crits_locs ) {
 					this._addCriticalItem(
@@ -2637,6 +2639,39 @@ Mech.prototype._calcCriticals = function() {
 					);
 				}
 			}
+		}
+	}
+
+	// Internal Structure critical Items
+	if( this.getTech().tag  == "clan" ) {
+		for( var aCounter = 0; aCounter < this.selectedInternalStructure.crits.clan; aCounter++ ) {
+			this.unallocatedCriticals.push(
+				{
+					name: this.selectedInternalStructure.name[this.useLang],
+					tag: this.selectedInternalStructure.tag,
+					rollAgain: true,
+					rear: false,
+					crits: 1,
+					obj: this.selectedInternalStructure,
+					movable: true
+				}
+			);
+		}
+
+
+	} else {
+		for( var aCounter = 0; aCounter < this.selectedInternalStructure.crits.is; aCounter++ ) {
+			this.unallocatedCriticals.push(
+				{
+					name: this.selectedInternalStructure.name[this.useLang],
+					tag: this.selectedInternalStructure.tag,
+					rollAgain: true,
+					rear: false,
+					crits: 1,
+					obj: this.selectedInternalStructure,
+					movable: true
+				}
+			);
 		}
 	}
 
@@ -3059,6 +3094,21 @@ Mech.prototype.setEngine = function(ratingNumber) {
 	return 0;
 }
 
+Mech.prototype.getInternalStructureType = function() {
+	return this.selectedInternalStructure.tag;
+}
+
+Mech.prototype.setInternalStructureType = function( isTag ) {
+	for( lCounter = 0; lCounter < mechInternalStructureTypes.length ;lCounter++) {
+		if( isTag == mechInternalStructureTypes[ lCounter ].tag ) {
+			this.selectedInternalStructure = mechInternalStructureTypes[ lCounter ];
+			return this.selectedInternalStructure;
+		}
+	}
+
+	return null;
+}
+
 
 Mech.prototype.getGyro = function()  {
 	return this.gyro;
@@ -3194,354 +3244,26 @@ Mech.prototype.getTonnage = function() {
 Mech.prototype.setTonnage = function(newValue) {
 	this.tonnage = parseInt(newValue);
 
-	switch( this.tonnage ) {
-		case 20:
-			this.internalStructure.head = 3;
+	console.log( this.selectedInternalStructure.perTon );
 
-			this.internalStructure.centerTorso = 6;
-			this.internalStructure.leftTorso = 5;
-			this.internalStructure.rightTorso = 5;
+	this.internalStructure.head = this.selectedInternalStructure.perTon[ this.getTonnage() ].head;
 
-			this.internalStructure.rightArm = 3;
-			this.internalStructure.leftArm = 3;
+	this.internalStructure.centerTorso = this.selectedInternalStructure.perTon[ this.getTonnage() ].centerTorso;
+	this.internalStructure.leftTorso =  this.selectedInternalStructure.perTon[ this.getTonnage() ].rlTorso;
+	this.internalStructure.rightTorso =  this.selectedInternalStructure.perTon[ this.getTonnage() ].rlTorso;
 
-			this.internalStructure.rightLeg = 4;
-			this.internalStructure.leftLeg = 4;
+	this.internalStructure.rightArm =  this.selectedInternalStructure.perTon[ this.getTonnage() ].rlArm;
+	this.internalStructure.leftArm =  this.selectedInternalStructure.perTon[ this.getTonnage() ].rlArm;
 
+	this.internalStructure.rightLeg =  this.selectedInternalStructure.perTon[ this.getTonnage() ].rlLeg;
+	this.internalStructure.leftLeg =  this.selectedInternalStructure.perTon[ this.getTonnage() ].rlLeg;
 
+	this.max_armor =  9 + this.internalStructure.centerTorso * 2 + this.internalStructure.leftTorso * 2 + this.internalStructure.rightTorso * 2 + this.internalStructure.rightLeg * 2 + this.internalStructure.leftLeg * 2;
+	if( this.mech_type.class.toLowerCase() == "biped")
+		this.max_armor +=  this.internalStructure.leftArm * 2 + this.internalStructure.rightArm * 2;
+	else
+		this.max_armor +=  this.internalStructure.rightLeg * 2 + this.internalStructure.leftLeg * 2;
 
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 69;
-			else
-				this.max_armor = 73;
-
-			break;
-		case 25:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 8;
-			this.internalStructure.leftTorso = 6;
-			this.internalStructure.rightTorso = 6;
-
-			this.internalStructure.rightArm = 4;
-			this.internalStructure.leftArm = 4;
-
-			this.internalStructure.rightLeg = 6;
-			this.internalStructure.leftLeg = 6;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 89;
-			else
-				this.max_armor = 97;
-
-			break;
-		case 30:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 10;
-			this.internalStructure.leftTorso = 7;
-			this.internalStructure.rightTorso = 7;
-
-			this.internalStructure.rightArm = 5;
-			this.internalStructure.leftArm = 5;
-
-			this.internalStructure.rightLeg = 7;
-			this.internalStructure.leftLeg = 7;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 105;
-			else
-				this.max_armor = 113;
-
-			break;
-
-		case 35:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 11;
-			this.internalStructure.leftTorso = 8;
-			this.internalStructure.rightTorso = 8;
-
-			this.internalStructure.rightArm = 6;
-			this.internalStructure.leftArm = 6;
-
-			this.internalStructure.rightLeg = 8;
-			this.internalStructure.leftLeg = 8;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 119;
-			else
-				this.max_armor = 127;
-
-			break;
-
-		case 40:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 12;
-			this.internalStructure.leftTorso = 10;
-			this.internalStructure.rightTorso = 10;
-
-			this.internalStructure.rightArm = 6;
-			this.internalStructure.leftArm = 6;
-
-			this.internalStructure.rightLeg = 10;
-			this.internalStructure.leftLeg = 10;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 137;
-			else
-				this.max_armor = 153;
-
-			break;
-
-		case 45:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 14;
-			this.internalStructure.leftTorso = 11;
-			this.internalStructure.rightTorso = 11;
-
-			this.internalStructure.rightArm = 7;
-			this.internalStructure.leftArm = 7;
-
-			this.internalStructure.rightLeg = 11;
-			this.internalStructure.leftLeg = 11;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 153;
-			else
-				this.max_armor = 169;
-
-			break;
-
-		case 50:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 16;
-			this.internalStructure.leftTorso = 12;
-			this.internalStructure.rightTorso = 12;
-
-			this.internalStructure.rightArm = 8;
-			this.internalStructure.leftArm = 8;
-
-			this.internalStructure.rightLeg = 12;
-			this.internalStructure.leftLeg = 12;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 169;
-			else
-				this.max_armor = 185;
-
-
-			break;
-
-		case 55:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 18;
-			this.internalStructure.leftTorso = 13;
-			this.internalStructure.rightTorso = 13;
-
-			this.internalStructure.rightArm = 9;
-			this.internalStructure.leftArm = 9;
-
-			this.internalStructure.rightLeg = 13;
-			this.internalStructure.leftLeg = 13;
-
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 285;
-			else
-				this.max_armor = 201;
-
-			break;
-
-		case 60:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 20;
-			this.internalStructure.leftTorso = 14;
-			this.internalStructure.rightTorso = 14;
-
-			this.internalStructure.rightArm = 10;
-			this.internalStructure.leftArm = 10;
-
-			this.internalStructure.rightLeg = 14;
-			this.internalStructure.leftLeg = 14;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 201;
-			else
-				this.max_armor = 217;
-
-
-		break;
-		case 65:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 21;
-			this.internalStructure.leftTorso = 15;
-			this.internalStructure.rightTorso = 15;
-
-			this.internalStructure.rightArm = 10;
-			this.internalStructure.leftArm = 10;
-
-			this.internalStructure.rightLeg = 15;
-			this.internalStructure.leftLeg = 15;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 211;
-			else
-				this.max_armor = 231;
-
-
-		break;
-		case 70:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 22;
-			this.internalStructure.leftTorso = 15;
-			this.internalStructure.rightTorso = 15;
-
-			this.internalStructure.rightArm = 11;
-			this.internalStructure.leftArm = 11;
-
-			this.internalStructure.rightLeg = 15;
-			this.internalStructure.leftLeg = 15;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 213;
-			else
-				this.max_armor = 233;
-
-
-		break;
-		case 75:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 23;
-			this.internalStructure.leftTorso = 16;
-			this.internalStructure.rightTorso = 16;
-
-			this.internalStructure.rightArm = 12;
-			this.internalStructure.leftArm = 12;
-
-			this.internalStructure.rightLeg = 16;
-			this.internalStructure.leftLeg = 16;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 231;
-			else
-				this.max_armor = 247;
-
-
-		break;
-		case 80:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 25;
-			this.internalStructure.leftTorso = 17;
-			this.internalStructure.rightTorso = 17;
-
-			this.internalStructure.rightArm = 13;
-			this.internalStructure.leftArm = 13;
-
-			this.internalStructure.rightLeg = 17;
-			this.internalStructure.leftLeg = 17;
-
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 247;
-			else
-				this.max_armor = 263;
-
-			break;
-		case 85:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 27;
-			this.internalStructure.leftTorso = 18;
-			this.internalStructure.rightTorso = 18;
-
-			this.internalStructure.rightArm = 14;
-			this.internalStructure.leftArm = 14;
-
-			this.internalStructure.rightLeg = 18;
-			this.internalStructure.leftLeg = 18;
-
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 263;
-			else
-				this.max_armor = 279;
-
-			break;
-
-		case 90:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 29;
-			this.internalStructure.leftTorso = 19;
-			this.internalStructure.rightTorso = 19;
-
-			this.internalStructure.rightArm = 15;
-			this.internalStructure.leftArm = 15;
-
-			this.internalStructure.rightLeg = 19;
-			this.internalStructure.leftLeg = 19;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 279;
-			else
-				this.max_armor = 295;
-
-
-			break;
-		case 95:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 30;
-			this.internalStructure.leftTorso = 20;
-			this.internalStructure.rightTorso = 20;
-
-			this.internalStructure.rightArm = 16;
-			this.internalStructure.leftArm = 16;
-
-			this.internalStructure.rightLeg = 20;
-			this.internalStructure.leftLeg = 20;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 293;
-			else
-				this.max_armor = 309;
-
-
-			break;
-		case 100:
-			this.internalStructure.head = 3;
-
-			this.internalStructure.centerTorso = 31;
-			this.internalStructure.leftTorso = 21;
-			this.internalStructure.rightTorso = 21;
-
-			this.internalStructure.rightArm = 17;
-			this.internalStructure.leftArm = 17;
-
-			this.internalStructure.rightLeg = 21;
-			this.internalStructure.leftLeg = 21;
-
-			if( this.mech_type.class.toLowerCase() == "biped")
-				this.max_armor = 307;
-			else
-				this.max_armor = 323;
-
-			break;
-
-		default:
-			// error
-			break;
-	}
 
 	if( this.mech_type.class.toLowerCase() == "quad") {
 		this.internalStructure.rightArm = this.internalStructure.rightLeg;
@@ -3608,6 +3330,8 @@ Mech.prototype.exportJSON = function() {
 	export_object.tech = this.tech.id;
 
 	export_object.gyro = this.gyro.tag;
+
+	export_object.is_type = this.getInternalStructureType();
 
 	export_object.additional_heat_sinks = this.additional_heat_sinks;
 	export_object.heat_sink_type = this.getHeatSinksType();
@@ -3709,6 +3433,8 @@ Mech.prototype.importJSON = function(json_string) {
 			if( import_object.as_custom_name  )
 				this.setASCustomName( import_object.as_custom_name ) ;
 
+			if( import_object.is_type  )
+				this.setInternalStructureType( import_object.is_type ) ;
 
 			if( import_object.walkSpeed )
 				this.setWalkSpeed( import_object.walkSpeed );
