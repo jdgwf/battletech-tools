@@ -1003,7 +1003,6 @@ function createCritAllocationTable( critData, xPos, yPos, rollAgainTranslated) {
 
 
 	for( var critC = 0; critC < critData.length; critC++ ) {
-		console.log( "critData", critData[ critC ] )
 
 		if( critData[ critC ] ) {
 			if( critData[ critC ].name == "placeholder" ) {
@@ -1525,12 +1524,17 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 
 
 	for( eq_count = 0; eq_count < mechData.sortedEquipmentList.length; eq_count++) {
-
+		console.log( "xx", mechData.sortedEquipmentList[ eq_count] );
 		if( eq_count % 2 == 0 )
 			svgCode += "<rect x=\"" + ( wacCol1 - 5 ) + "\" y=\"" + (weapAndEqpTop + 93 + eqLineHeight * eq_count) + "\" width=\"1180\" height=\"" + (eqLineHeight + 4 )  + "\" fill=\"" + colorVeryLightGray + "\" />\n";
 
 		svgCode += "<text x=\"" + ( wacCol1 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].count + "</text>\n";
-		svgCode += "<text x=\"" + ( wacCol2 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].local_name + "</text>\n";
+
+		if( mechData.sortedEquipmentList[ eq_count].ammo_per_ton && mechData.sortedEquipmentList[ eq_count].ammo_per_ton > 0 )
+			svgCode += "<text x=\"" + ( wacCol2 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].local_name + " " + mechData.sortedEquipmentList[ eq_count].ammo_per_ton + "</text>\n";
+		else
+			svgCode += "<text x=\"" + ( wacCol2 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].local_name + "</text>\n";
+
 		svgCode += "<text x=\"" + ( wacCol3 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].location.toUpperCase() + "</text>\n";
 		svgCode += "<text x=\"" + ( wacCol4 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].heat + "</text>\n";
 		svgCode += "<text x=\"" + ( wacCol5 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].damage + "</text>\n";
