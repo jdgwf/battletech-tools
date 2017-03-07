@@ -37,7 +37,7 @@ var battlemechCreatorControllerStep6Array =
 
 			current_mech.useLang = localStorage["tmp.preferred_language"];
 
-			update_mech_status_bar_and_tro($scope, $translate, current_mech);
+			updateMechStatusBarAndTRO($scope, $translate, current_mech);
 
 			update_step_6_items($scope, current_mech);
 
@@ -54,7 +54,7 @@ var battlemechCreatorControllerStep6Array =
 				$scope.label_right_torso = translation.TRO_ARMOR_RT;
 				$scope.label_left_torso = translation.TRO_ARMOR_LT;
 
-				if( current_mech.mech_type.class.toLowerCase() == "quad") {
+				if( current_mech.mechType.class.toLowerCase() == "quad") {
 					$scope.battlemech_is_quad = true;
 					$scope.label_right_arm = translation.TRO_ARMOR_RFL;
 					$scope.label_left_arm = translation.TRO_ARMOR_LFL;
@@ -174,7 +174,7 @@ var battlemechCreatorControllerStep6Array =
 								localStorage["tmp.current_mech"] = current_mech.exportJSON();
 
 								update_step_6_items($scope, current_mech);
-								update_mech_status_bar_and_tro($scope, $translate, current_mech);
+								updateMechStatusBarAndTRO($scope, $translate, current_mech);
 
 								$scope.selectedItem = null;
 							} else {
@@ -196,7 +196,7 @@ var battlemechCreatorControllerStep6Array =
 
 				localStorage["tmp.current_mech"] = current_mech.exportJSON();
 				update_step_6_items($scope, current_mech);
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, current_mech);
 
 			}
 			$scope.clickLowerLeftArmActuator = function() {
@@ -207,7 +207,7 @@ var battlemechCreatorControllerStep6Array =
 
 				localStorage["tmp.current_mech"] = current_mech.exportJSON();
 				update_step_6_items($scope, current_mech);
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, current_mech);
 
 			}
 			$scope.clickRightHandActuator = function() {
@@ -219,7 +219,7 @@ var battlemechCreatorControllerStep6Array =
 
 				localStorage["tmp.current_mech"] = current_mech.exportJSON();
 				update_step_6_items($scope, current_mech);
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, current_mech);
 
 			}
 			$scope.clickLeftHandActuator = function() {
@@ -230,7 +230,7 @@ var battlemechCreatorControllerStep6Array =
 
 				localStorage["tmp.current_mech"] = current_mech.exportJSON();
 				update_step_6_items($scope, current_mech);
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, current_mech);
 			}
 
 			$scope.resetAllocations = function() {
@@ -239,7 +239,7 @@ var battlemechCreatorControllerStep6Array =
 				current_mech._calc();
 				localStorage["tmp.current_mech"] = current_mech.exportJSON();
 				update_step_6_items($scope, current_mech);
-				update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, current_mech);
 			}
 
 		}

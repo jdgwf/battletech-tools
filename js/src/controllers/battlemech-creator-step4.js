@@ -37,14 +37,14 @@ var battlemechCreatorControllerStep4Array =
 
 			update_step4_page_items($scope, $translate, $scope.current_mech);
 
-			update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+			updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 
 			localStorage["backToPath"] = $location.$$path;
 
 			$scope.update_armor_weight = function() {
 				$scope.current_mech.setArmorWeight( $scope.selected_armor_weight.id );
 				update_step4_page_items($scope, $translate, $scope.current_mech);
-				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 
@@ -100,7 +100,7 @@ var battlemechCreatorControllerStep4Array =
 				$scope.current_mech.setArmorType( armorType.tag );
 				$scope.current_mech._calc();
 				update_step4_page_items($scope, $translate, $scope.current_mech);
-				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 
@@ -141,16 +141,16 @@ var battlemechCreatorControllerStep4Array =
 				}
 
 				update_step4_page_items($scope, $translate, $scope.current_mech);
-				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 
 			$scope.allocate_sanely = function() {
 
-				total_armor = $scope.current_mech.getTotalArmor();
+				totalArmor = $scope.current_mech.getTotalArmor();
 				internal_structure = $scope.current_mech.getInteralStructure();
 				maximum_armor = $scope.current_mech.getMaxArmor();
-				percentage = total_armor / maximum_armor;
+				percentage = totalArmor / maximum_armor;
 
 
 				arm_armor = Math.floor(internal_structure.rightArm * 2 * percentage);
@@ -161,66 +161,66 @@ var battlemechCreatorControllerStep4Array =
 				centerTorsoArmor = Math.floor(internal_structure.centerTorso * 1.75 * percentage);
 				centerTorsoArmorRear = Math.floor(internal_structure.centerTorso * .25 * percentage);
 
-				if( total_armor > arm_armor) {
+				if( totalArmor > arm_armor) {
 					head_armor = arm_armor;
 					if( head_armor > 9)
 						head_armor = 9;
-					if( total_armor >= head_armor) {
+					if( totalArmor >= head_armor) {
 					   $scope.current_mech.setHeadArmor(head_armor);
-					   total_armor -= head_armor;
+					   totalArmor -= head_armor;
 					} else {
 						$scope.current_mech.setHeadArmor(0);
 					}
 				}
 
 
-				if( total_armor > torso_armor) {
+				if( totalArmor > torso_armor) {
 				   $scope.current_mech.setRightTorsoArmor( torso_armor );
-				   total_armor -= torso_armor;
+				   totalArmor -= torso_armor;
 				}
 
-				if( total_armor > rear_armor) {
+				if( totalArmor > rear_armor) {
 				   $scope.current_mech.setRightTorsoRearArmor( rear_armor );
-					total_armor -= rear_armor;
+					totalArmor -= rear_armor;
 				}
 
-				if( total_armor > torso_armor) {
+				if( totalArmor > torso_armor) {
 					$scope.current_mech.setLeftTorsoArmor( torso_armor );
-					total_armor -= torso_armor;
+					totalArmor -= torso_armor;
 				}
-				if( total_armor > rear_armor) {
+				if( totalArmor > rear_armor) {
 					$scope.current_mech.setLeftTorsoRearArmor( rear_armor );
-				   total_armor -= rear_armor;
+				   totalArmor -= rear_armor;
 				}
 
-				if( total_armor > leg_armor) {
+				if( totalArmor > leg_armor) {
 					$scope.current_mech.setRightLegArmor( leg_armor );
-					total_armor -= leg_armor;
+					totalArmor -= leg_armor;
 				}
 
-				if( total_armor > leg_armor) {
+				if( totalArmor > leg_armor) {
 				   $scope.current_mech.setLeftLegArmor( leg_armor );
-				   total_armor -= leg_armor;
+				   totalArmor -= leg_armor;
 				}
 
-				if( total_armor > arm_armor) {
+				if( totalArmor > arm_armor) {
 					$scope.current_mech.setRightArmArmor( arm_armor );
-				   total_armor -= arm_armor;
+				   totalArmor -= arm_armor;
 				}
-				if( total_armor > arm_armor) {
+				if( totalArmor > arm_armor) {
 				   $scope.current_mech.setLeftArmArmor( arm_armor );
-				   total_armor -= arm_armor;
+				   totalArmor -= arm_armor;
 				}
 
-				if( total_armor > rear_armor) {
+				if( totalArmor > rear_armor) {
 				   $scope.current_mech.setCenterTorsoRearArmor( centerTorsoArmorRear );
-				   total_armor -= rear_armor;
+				   totalArmor -= rear_armor;
 				}
 
 				$scope.current_mech.setCenterTorsoArmor( centerTorsoArmor ); // everything else goes to center torso! :)
 
 				update_step4_page_items($scope, $translate, $scope.current_mech);
-				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 
@@ -246,7 +246,7 @@ var battlemechCreatorControllerStep4Array =
 				$scope.current_mech.setCenterTorsoArmor( 0 );
 
 				update_step4_page_items($scope, $translate, $scope.current_mech);
-				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 
@@ -288,7 +288,7 @@ var battlemechCreatorControllerStep4Array =
 
 				}
 				update_step4_page_items($scope, $translate, $scope.current_mech);
-				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
 			}
@@ -297,10 +297,10 @@ var battlemechCreatorControllerStep4Array =
 	]
 ;
 
-function make_armor_select_dd_options(max_armor) {
+function make_armor_select_dd_options(maxArmor) {
 
 	var return_armor = [];
-	for( var ascount = 0; ascount <= max_armor; ascount++) {
+	for( var ascount = 0; ascount <= maxArmor; ascount++) {
 		return_armor.push( {
 				id: ascount,
 				label: ascount

@@ -110,7 +110,7 @@ var battlemechCreatorControllerStep2Array =
 				$scope.current_mech.setEngineType( $scope.mech_engine.selectedOption.id );
 
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
-				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 			}
 
 			$scope.update_gyro_dropdowns = function( translate ) {
@@ -157,7 +157,7 @@ var battlemechCreatorControllerStep2Array =
 				$scope.current_mech.setGyroType( $scope.mech_gyro.selectedOption.id );
 
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
-				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 			}
 
 			// Set Page Title Tag
@@ -191,7 +191,7 @@ var battlemechCreatorControllerStep2Array =
 			localStorage["backToPath"] = $location.$$path;
 
 			$scope.update_walking_jumping_dropdowns( $translate );
-			update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+			updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 
 			$scope.update_engine_dropdowns( $translate );
 			$scope.update_gyro_dropdowns( $translate );
@@ -202,7 +202,7 @@ var battlemechCreatorControllerStep2Array =
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
 				$scope.update_walking_jumping_dropdowns( $translate );
-				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech );
+				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech );
 			}
 
 			$scope.update_mech_jumping = function() {
@@ -210,7 +210,7 @@ var battlemechCreatorControllerStep2Array =
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
 				$scope.update_walking_jumping_dropdowns( $scope, $translate );
-				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech );
+				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech );
 			}
 		}
 	]

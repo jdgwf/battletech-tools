@@ -61,14 +61,14 @@ var battlemechCreatorControllerStep3Array =
 
 			update_heat_sink_dropdown($scope, $translate, $scope.current_mech);
 
-			update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+			updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 			// make tro for sidebar
 
 
 			$scope.update_selected_heat_sinks = function() {
 				$scope.current_mech.setAdditionalHeatSinks( $scope.selected_heat_sinks.id );
 				update_heat_sink_dropdown($scope, $translate, $scope.current_mech);
-				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 
@@ -77,7 +77,7 @@ var battlemechCreatorControllerStep3Array =
 				$scope.current_mech.setHeatSinksType( $scope.selected_heat_sink_tech.tag );
 				$scope.current_mech.clearHeatSinkCriticals();
 				update_heat_sink_dropdown($scope, $translate, $scope.current_mech);
-				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 		}
@@ -104,10 +104,10 @@ function update_heat_sink_dropdown($scope, $translate, current_mech) {
 				};
 		}
 
-		remaining_tonnage = Math.floor( $scope.current_mech.getRemainingTonnage() )
-		if( remaining_tonnage < 0)
-			remaining_tonnage = 0;
-		for( var hscount = 1; hscount <= remaining_tonnage + current_heat_sinks; hscount++) {
+		remainingTonnage = Math.floor( $scope.current_mech.getRemainingTonnage() )
+		if( remainingTonnage < 0)
+			remainingTonnage = 0;
+		for( var hscount = 1; hscount <= remainingTonnage + current_heat_sinks; hscount++) {
 			$scope.heat_sink_list.push( {
 					id: hscount,
 					label: hscount

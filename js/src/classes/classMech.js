@@ -1,5 +1,5 @@
 function Mech (type) {
-	this.mech_type = mechTypeOptions[0];
+	this.mechType = mechTypeOptions[0];
 	this.tech = btTechOptions[0];
 	this.era = btEraOptions[1]; // Default to Succession Wars
 	this.make = "";
@@ -10,7 +10,7 @@ function Mech (type) {
 
 	this.armorType = mechArmorTypes[0];
 
-	this.max_armor = 0;
+	this.maxArmor = 0;
 
 	this.selectedInternalStructure = mechInternalStructureTypes[0];
 
@@ -22,25 +22,25 @@ function Mech (type) {
 	this.internalStructure.leftTorso = 0;
 	this.internalStructure.rightTorso = 0;
 
-	this.small_cockpit = false;
-	this.cockpit_weight = 3;
+	this.smallCockpit = false;
+	this.cockpitWeight = 3;
 
 	this.internalStructure.rightArm = 0;
 	this.internalStructure.leftArm = 0;
 
 	this.totalInternalStructurePoints = 0;
 
-	this.max_move_heat = 2;
-	this.max_weapon_heat = 0;
-	this.heat_dissipation = 0;
+	this.maxMoveHeat = 2;
+	this.maxWeaponHeat = 0;
+	this.heatDissipation = 0;
 
 	this.internalStructure.rightLeg = 0;
 	this.internalStructure.leftLeg = 0;
 
-	this.additional_heat_sinks = 0;
+	this.additionalHeatSinks = 0;
 
 	this.armorWeight = 0;
-	this.total_armor = 0;
+	this.totalArmor = 0;
 	this.unallocated_armor = 0;
 
 	this.armorAllocation = {};
@@ -101,7 +101,7 @@ function Mech (type) {
 	this.runSpeed = 0;
 	this.jumpSpeed = 0;
 
-	this.max_armor_tonnage = 0;
+	this.maxArmorTonnage = 0;
 
 	this.cbillCost = "n/a";
 	this.battleValue = "n/a";
@@ -688,14 +688,14 @@ Mech.prototype._calcAlphaStrike = function() {
 		this.calcLogAS += "Mech has no explosive components, gets ENE ability<br />\n";
 	}
 
-	var heat_dissipation = 0;
+	var heatDissipation = 0;
 
-	heat_dissipation += (10 + this.additional_heat_sinks) * this.heatSinkType.dissipation;
+	heatDissipation += (10 + this.additionalHeatSinks) * this.heatSinkType.dissipation;
 
 
 	var max_heat_output = move_heat + total_weapon_heat;
-	var overheat_value = move_heat + total_weapon_heat - heat_dissipation;
-	var long_overheat_value = move_heat + total_weapon_heat_long - heat_dissipation;
+	var overheat_value = move_heat + total_weapon_heat - heatDissipation;
+	var long_overheat_value = move_heat + total_weapon_heat_long - heatDissipation;
 
 	//~ var before_heat_range_short = this.alphaStrikeForceStats.damage.short.toFixed(0) /1;
 	//~ var before_heat_range_medium = this.alphaStrikeForceStats.damage.medium.toFixed(0) /1;
@@ -710,9 +710,9 @@ Mech.prototype._calcAlphaStrike = function() {
 		var heat_damage_short = 0;
 		var heat_damage_medium = 0;
 		if( this.alphaStrikeForceStats.damage.short != "0*")
-			heat_damage_short = Math.ceil( (this.alphaStrikeForceStats.damage.short * heat_dissipation ) / (max_heat_output - 4) );
+			heat_damage_short = Math.ceil( (this.alphaStrikeForceStats.damage.short * heatDissipation ) / (max_heat_output - 4) );
 		if( this.alphaStrikeForceStats.damage.medium != "0*")
-			heat_damage_medium =  Math.ceil( (this.alphaStrikeForceStats.damage.medium * heat_dissipation ) / (max_heat_output - 4) );
+			heat_damage_medium =  Math.ceil( (this.alphaStrikeForceStats.damage.medium * heatDissipation ) / (max_heat_output - 4) );
 
 
 		if( this.alphaStrikeForceStats.damage.short != "0*")
@@ -765,11 +765,11 @@ Mech.prototype._calcAlphaStrike = function() {
 			var heat_damage_long = this.alphaStrikeForceStats.damage.long;
 			var heat_damage_extreme = this.alphaStrikeForceStats.damage.extreme;
 
-			this.alphaStrikeForceStats.damage.long = Math.ceil( ( this.alphaStrikeForceStats.damage.long * heat_dissipation ) / (total_weapon_heat_long - 4) );
-			this.alphaStrikeForceStats.damage.extreme = Math.ceil( ( this.alphaStrikeForceStats.damage.long * heat_dissipation ) / (total_weapon_heat_long - 4) );
+			this.alphaStrikeForceStats.damage.long = Math.ceil( ( this.alphaStrikeForceStats.damage.long * heatDissipation ) / (total_weapon_heat_long - 4) );
+			this.alphaStrikeForceStats.damage.extreme = Math.ceil( ( this.alphaStrikeForceStats.damage.long * heatDissipation ) / (total_weapon_heat_long - 4) );
 
 			//~ console.log( "damage.long", this.alphaStrikeForceStats.damage.long );
-			//~ console.log( "heat_dissipation", heat_dissipation );
+			//~ console.log( "heatDissipation", heatDissipation );
 			//~ console.log( "heat_damage_long", heat_damage_long );
 			//~ console.log( "total_weapon_heat_long", total_weapon_heat_long );
 
@@ -839,7 +839,7 @@ Mech.prototype._calcAlphaStrike = function() {
 	this.calcLogAS += "Move Heat: " + move_heat + "<br />\n";
 	this.calcLogAS += "Weapon Heat: " + total_weapon_heat + "<br />\n";
 	this.calcLogAS += "Long Weapon Heat: " + total_weapon_heat_long + "<br />\n";
-	this.calcLogAS += "Heat Dissipation: " + heat_dissipation + "<br />\n";
+	this.calcLogAS += "Heat Dissipation: " + heatDissipation + "<br />\n";
 
 	this.calcLogAS += "Overheat Value: " + overheat_value + "<br />\n";
 	this.calcLogAS += "Long Overheat Value: " + long_overheat_value + "<br />\n";
@@ -1683,23 +1683,23 @@ Mech.prototype.getEngineRating = function() {
 }
 
 Mech.prototype.getHeatSinks = function() {
-	return 10 + this.additional_heat_sinks;
+	return 10 + this.additionalHeatSinks;
 }
 
 Mech.prototype.getHeatSinksWeight = function() {
-	return 0 + this.additional_heat_sinks;
+	return 0 + this.additionalHeatSinks;
 }
 
 Mech.prototype.getGyroWeight = function() {
 	return Math.ceil(  Math.ceil(this.engine.rating / 100) * this.gyro.weight_multiplier  );
 }
 Mech.prototype.getCockpitWeight = function() {
-	return this.cockpit_weight;
+	return this.cockpitWeight;
 }
 
 Mech.prototype.setCockpitWeight = function(new_weight) {
-	this.cockpit_weight = new_weight;
-	return this.cockpit_weight;
+	this.cockpitWeight = new_weight;
+	return this.cockpitWeight;
 }
 
 
@@ -1828,7 +1828,7 @@ Mech.prototype.makeTROBBCode = function() {
 	html += "" + this.getHeatSyncName().rpad(" ",col1Padding) + ""  + this.getHeatSinks().toString().rpad(" ", col2Padding) + "" + this.getHeatSinksWeight() + "\n";
 	html += "" + this.getGyroName().rpad(" ",col1Padding + col2Padding) + "" + this.getGyroWeight() + "\n";
 
-	if( this.small_cockpit ) {
+	if( this.smallCockpit ) {
 		html += "" + this.getTranslation("TRO_SMALL_COCKPIT").rpad(" ",col1Padding + col2Padding) + "" + this.getCockpitWeight() + "\n";
 	} else {
 		html += "" + this.getTranslation("TRO_COCKPIT").rpad(" ",col1Padding + col2Padding) + "" + this.getCockpitWeight() + "\n";
@@ -1838,7 +1838,7 @@ Mech.prototype.makeTROBBCode = function() {
 		//~ html += "" + this.getTranslation("TRO_JUMP_JETS").rpad(" ",col1Padding + col2Padding) + "" + this.getJumpJetWeight() + "\n";
 	//~ }
 
-	if( this.mech_type.class == "biped") {
+	if( this.mechType.class == "biped") {
 		html += "" + this.getTranslation("TRO_ARM_ACTUATORS") + ": ";
 		actuator_html = "";
 
@@ -1883,7 +1883,7 @@ Mech.prototype.makeTROBBCode = function() {
 		html += "" + this.getTranslation("TRO_ARMOR_LT").lpad(" ", col1Padding) + "" + this.internalStructure.leftTorso.toString().lpad(" ", col2Padding) + "" + this.armorAllocation.leftTorso.toString().lpad(" ", col3Padding) + "\n";
 		html += "" + this.getTranslation("TRO_ARMOR_LTR").lpad(" ", col1Padding) + "" + this.armorAllocation.leftTorsoRear.toString().lpad(" ", col2Padding) + "\n";
 	}
-	if( this.mech_type.class == "biped") {
+	if( this.mechType.class == "biped") {
 
 		if( this.armorAllocation.rightArm == this.armorAllocation.leftArm) {
 			html += "" + this.getTranslation("TRO_ARMOR_RLA").lpad(" ", col1Padding) + "" + this.internalStructure.rightArm.toString().lpad(" ", col2Padding) + "" + this.armorAllocation.rightArm.toString().lpad(" ", col3Padding) + "\n";
@@ -2065,7 +2065,7 @@ Mech.prototype.makeTROHTML = function() {
 	html += "<tr><td colspan=\"1\">" + this.getHeatSyncName() + "</td><td class=\"text-center\" colspan=\"2\">" + this.getHeatSinks() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getHeatSinksWeight() + "</td></tr>";
 	html += "<tr><td colspan=\"3\">" + this.getGyroName() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getGyroWeight() + "</td></tr>";
 
-	if( this.small_cockpit ) {
+	if( this.smallCockpit ) {
 		html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_SMALL_COCKPIT") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getCockpitWeight() + "</td></tr>";
 	} else {
 		html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_COCKPIT") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getCockpitWeight() + "</td></tr>";
@@ -2075,7 +2075,7 @@ Mech.prototype.makeTROHTML = function() {
 		//~ html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_JUMP_JETS") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getJumpJetWeight() + "</td></tr>";
 	//~ }
 
-	if( this.mech_type.class == "biped") {
+	if( this.mechType.class == "biped") {
 		html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_ARM_ACTUATORS") + ": ";
 		actuator_html = "";
 
@@ -2123,7 +2123,7 @@ Mech.prototype.makeTROHTML = function() {
 		html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_LT") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.leftTorso + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.leftTorso + "</td><td>&nbsp;</td></tr>";
 		html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_LTR") + "</td><td class=\"text-center\" colspan=\"1\">&nbsp;</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.leftTorsoRear + "</td><td>&nbsp;</td></tr>";
 	}
-	if( this.mech_type.class == "biped") {
+	if( this.mechType.class == "biped") {
 
 		if( this.armorAllocation.rightArm == this.armorAllocation.leftArm) {
 			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RLA") + "</td><td class=\"text-center\" colspan=\"1\">" + this.internalStructure.rightArm + "</td><td class=\"text-center\" colspan=\"1\">" + this.armorAllocation.rightArm + "</td><td>&nbsp;</td></tr>";
@@ -2263,15 +2263,15 @@ Mech.prototype.clearMech = function() {
 Mech.prototype._calc = function() {
 
 
-	this.max_move_heat = 2;
-	this.max_weapon_heat = 0;
-	this.heat_dissipation = 0;
+	this.maxMoveHeat = 2;
+	this.maxWeaponHeat = 0;
+	this.heatDissipation = 0;
 
 
 	this.weights = Array();
 	this.weights.push( {name:"Internal Structure", weight: this.getInteralStructureWeight() } );
 
-	if( this.small_cockpit ) {
+	if( this.smallCockpit ) {
 		this.setCockpitWeight( 2 );
 		this.weights.push( {name: "Small Cockpit", weight: this.getCockpitWeight() } );
 	} else {
@@ -2289,8 +2289,8 @@ Mech.prototype._calc = function() {
 		this.tech = btTechOptions[0];
 	}
 
-	if( this.mech_type == 0 ) {
-		this.mech_type = mechTypeOptions[0];
+	if( this.mechType == 0 ) {
+		this.mechType = mechTypeOptions[0];
 	}
 
 
@@ -2303,7 +2303,7 @@ Mech.prototype._calc = function() {
 	}
 
 	if( this.jumpSpeed > 0) {
-		this.max_move_heat = this.jumpSpeed;
+		this.maxMoveHeat = this.jumpSpeed;
 		if( this.jumpJetType == "Standard" ) {
 			// standard
 			this.weights.push( {name: "Jump Jets", weight: this.getJumpJetWeight() } );
@@ -2313,26 +2313,26 @@ Mech.prototype._calc = function() {
 		}
 	}
 
-	this.total_armor = this.armorWeight * 16;
+	this.totalArmor = this.armorWeight * 16;
 
 	//~ switch( this.getArmorType() ) {
 
 		//~ default: // standard
-			//~ this.total_armor = this.armorWeight * 16;
+			//~ this.totalArmor = this.armorWeight * 16;
 			//~ break;
 	//~ }
 	if( this.getTech().tag == "clan") {
-		 this.total_armor = Math.floor( this.armorWeight * this.getArmorObj().armormultiplier.clan );
+		 this.totalArmor = Math.floor( this.armorWeight * this.getArmorObj().armormultiplier.clan );
 	} else {
-		 this.total_armor = Math.floor( this.armorWeight * this.getArmorObj().armormultiplier.is );
+		 this.totalArmor = Math.floor( this.armorWeight * this.getArmorObj().armormultiplier.is );
 	}
 	//~ console.log( this.getArmorObj() );
 
-	if( this.total_armor > this.max_armor )
-		this.total_armor = this.max_armor;
+	if( this.totalArmor > this.maxArmor )
+		this.totalArmor = this.maxArmor;
 
 	this.weights.push( {name: "Armor", weight: this.armorWeight} );
-	this.unallocated_armor = this.total_armor;
+	this.unallocated_armor = this.totalArmor;
 	this.unallocated_armor -= this.armorAllocation.head;
 
 	this.unallocated_armor -= this.armorAllocation.centerTorso;
@@ -2350,8 +2350,8 @@ Mech.prototype._calc = function() {
 	this.unallocated_armor -= this.armorAllocation.leftLeg;
 
 
-	if( this.additional_heat_sinks > 0)
-		this.weights.push( {name: "Additional Heat Sinks", weight: this.additional_heat_sinks} );
+	if( this.additionalHeatSinks > 0)
+		this.weights.push( {name: "Additional Heat Sinks", weight: this.additionalHeatSinks} );
 
 	for( eq_count = 0; eq_count < this.equipmentList.length; eq_count++) {
 		if( this.equipmentList[eq_count].rear ) {
@@ -2360,7 +2360,7 @@ Mech.prototype._calc = function() {
 			this.weights.push( {name: this.equipmentList[eq_count].name + "", weight: this.equipmentList[eq_count].weight} );
 		}
 		if(  this.equipmentList[eq_count])
-			this.max_weapon_heat +=  this.equipmentList[eq_count].heat;
+			this.maxWeaponHeat +=  this.equipmentList[eq_count].heat;
 	}
 
 	this.current_tonnage = 0;
@@ -2368,35 +2368,35 @@ Mech.prototype._calc = function() {
 		this.current_tonnage += this.weights[weight_counter].weight;
 	}
 
-	this.remaining_tonnage = this.tonnage - this.current_tonnage;
+	this.remainingTonnage = this.tonnage - this.current_tonnage;
 
-	this.heat_sink_criticals = {};
-	this.heat_sink_criticals.number = 0;
-	//~ this.heat_sink_criticals.slots_type = "single slot";
-	this.heat_sink_criticals.slots_each = 1;
+	this.heatSinkCriticals = {};
+	this.heatSinkCriticals.number = 0;
+	//~ this.heatSinkCriticals.slots_type = "single slot";
+	this.heatSinkCriticals.slots_each = 1;
 
 	//~ if( this.heatSinkType == "double") {
 		//~ if( this.tech.tag == "clan") {
-			//~ this.heat_sink_criticals.slots_type = "double slot";
-			//~ this.heat_sink_criticals.slots_each = 2;
+			//~ this.heatSinkCriticals.slots_type = "double slot";
+			//~ this.heatSinkCriticals.slots_each = 2;
 		//~ } else {
-			//~ this.heat_sink_criticals.slots_type = "triple slot";
-			//~ this.heat_sink_criticals.slots_each = 3;
+			//~ this.heatSinkCriticals.slots_type = "triple slot";
+			//~ this.heatSinkCriticals.slots_each = 3;
 		//~ }
-		//~ this.heat_dissipation = (this.additional_heat_sinks + 10) * 2;
+		//~ this.heatDissipation = (this.additionalHeatSinks + 10) * 2;
 	//~ } else {
-		//~ this.heat_sink_criticals.slots_type = "single";
-		//~ this.heat_sink_criticals.slots_each = 1;
-		//~ this.heat_dissipation = this.additional_heat_sinks + 10;
+		//~ this.heatSinkCriticals.slots_type = "single";
+		//~ this.heatSinkCriticals.slots_each = 1;
+		//~ this.heatDissipation = this.additionalHeatSinks + 10;
 	//~ }
 
-	this.heat_dissipation = ( this.additional_heat_sinks + 10 ) * this.heatSinkType.dissipation;
-	this.heat_sink_criticals.slots_each = this.heatSinkType.crits[ this.getTech().tag ];
+	this.heatDissipation = ( this.additionalHeatSinks + 10 ) * this.heatSinkType.dissipation;
+	this.heatSinkCriticals.slots_each = this.heatSinkType.crits[ this.getTech().tag ];
 
 	if( this.getEngine().rating ) {
-		this.heat_sink_criticals.number =  this.additional_heat_sinks + 10  -  Math.floor(this.getEngine().rating / 25);
+		this.heatSinkCriticals.number =  this.additionalHeatSinks + 10  -  Math.floor(this.getEngine().rating / 25);
 	} else {
-		this.heat_sink_criticals.number = 0
+		this.heatSinkCriticals.number = 0
 	}
 
 	this._calcCriticals();
@@ -2448,7 +2448,7 @@ Mech.prototype._calcCriticals = function() {
 	this.unallocatedCriticals = Array();
 
 	// Add required components....
-	if( this.small_cockpit ) {
+	if( this.smallCockpit ) {
 		this._addCriticalItem( "life-support", this.getTranslation("BM_CRITS_LIFE_SUPPORT"), 1, "hd", 0);
 		this._addCriticalItem( "sensors", this.getTranslation("BM_CRITS_SENSORS"), 1, "hd", 1);
 		this._addCriticalItem( "cockpit", this.getTranslation("BM_CRITS_COCKPIT"), 1, "hd", 2);
@@ -2461,7 +2461,7 @@ Mech.prototype._calcCriticals = function() {
 		this._addCriticalItem( "life-support", this.getTranslation("BM_CRITS_LIFE_SUPPORT"), 1, "hd", 5);
 	}
 
-	if( this.mech_type.class.toLowerCase() == "quad") {
+	if( this.mechType.class.toLowerCase() == "quad") {
 		// quad
 		// Left Leg Components
 		this._addCriticalItem( "hip", this.getTranslation("BM_CRITS_ACTUATOR_HIP"), 1, "ra", 0);
@@ -2968,7 +2968,7 @@ Mech.prototype.trimCriticals = function() {
 	this.criticals.rightLeg = this.criticals.rightLeg.slice(0, 6);
 	this.criticals.leftLeg = this.criticals.leftLeg.slice(0, 6);
 
-	if( this.mech_type.class.toLowerCase() == "quad") {
+	if( this.mechType.class.toLowerCase() == "quad") {
 		this.criticals.rightArm = this.criticals.rightArm.slice(0, 6);
 		this.criticals.leftArm = this.criticals.leftArm.slice(0, 6);
 	} else {
@@ -3001,7 +3001,7 @@ Mech.prototype.getCurrentTonnage = function() {
 
 Mech.prototype.getHeatSinkCriticalRequirements = function() {
 
-	return this.heat_sink_criticals;
+	return this.heatSinkCriticals;
 }
 
 
@@ -3011,20 +3011,20 @@ Mech.prototype.getArmorAllocations = function() {
 
 Mech.prototype.getRemainingTonnage = function() {
 
-	return this.remaining_tonnage;
+	return this.remainingTonnage;
 
 }
 
 Mech.prototype.getMoveHeat = function() {
-	return this.max_move_heat;
+	return this.maxMoveHeat;
 }
 
 Mech.prototype.getWeaponHeat = function() {
-	return this.max_weapon_heat;
+	return this.maxWeaponHeat;
 }
 
 Mech.prototype.getHeatDissipation = function() {
-	return this.heat_dissipation;
+	return this.heatDissipation;
 }
 
 Mech.prototype.getWalkSpeed = function() {
@@ -3078,7 +3078,7 @@ Mech.prototype.setArmorType = function( armorTag ) {
 }
 
 Mech.prototype.getTotalArmor = function() {
-	return this.total_armor;
+	return this.totalArmor;
 }
 
 Mech.prototype.getUnallocatedArmor = function() {
@@ -3169,16 +3169,16 @@ Mech.prototype.setTech = function( techID )  {
 
 
 Mech.prototype.getMechType = function()  {
-	return this.mech_type;
+	return this.mechType;
 }
 
 Mech.prototype.setMechType = function( typeID )  {
 	for( lcounter = 0; lcounter < mechTypeOptions.length; lcounter++) {
 		if( typeID == mechTypeOptions[lcounter].id ) {
-			this.mech_type = mechTypeOptions[lcounter];
+			this.mechType = mechTypeOptions[lcounter];
 			this.setTonnage( this.tonnage );
 			this._calc();
-			return this.mech_type;
+			return this.mechType;
 		}
 	}
 
@@ -3270,19 +3270,19 @@ Mech.prototype.setTonnage = function(newValue) {
 	this.internalStructure.rightLeg =  this.selectedInternalStructure.perTon[ this.getTonnage() ].rlLeg;
 	this.internalStructure.leftLeg =  this.selectedInternalStructure.perTon[ this.getTonnage() ].rlLeg;
 
-	this.max_armor =  9 + this.internalStructure.centerTorso * 2 + this.internalStructure.leftTorso * 2 + this.internalStructure.rightTorso * 2 + this.internalStructure.rightLeg * 2 + this.internalStructure.leftLeg * 2;
-	if( this.mech_type.class.toLowerCase() == "biped")
-		this.max_armor +=  this.internalStructure.leftArm * 2 + this.internalStructure.rightArm * 2;
+	this.maxArmor =  9 + this.internalStructure.centerTorso * 2 + this.internalStructure.leftTorso * 2 + this.internalStructure.rightTorso * 2 + this.internalStructure.rightLeg * 2 + this.internalStructure.leftLeg * 2;
+	if( this.mechType.class.toLowerCase() == "biped")
+		this.maxArmor +=  this.internalStructure.leftArm * 2 + this.internalStructure.rightArm * 2;
 	else
-		this.max_armor +=  this.internalStructure.rightLeg * 2 + this.internalStructure.leftLeg * 2;
+		this.maxArmor +=  this.internalStructure.rightLeg * 2 + this.internalStructure.leftLeg * 2;
 
 
-	if( this.mech_type.class.toLowerCase() == "quad") {
+	if( this.mechType.class.toLowerCase() == "quad") {
 		this.internalStructure.rightArm = this.internalStructure.rightLeg;
 		this.internalStructure.leftArm = this.internalStructure.leftLeg;
 	}
 
-	this.max_armor_tonnage = this.max_armor / 16;
+	this.maxArmorTonnage = this.maxArmor / 16;
 
 	this.totalInternalStructurePoints = 0;
 
@@ -3306,23 +3306,23 @@ Mech.prototype.setTonnage = function(newValue) {
 
 
 Mech.prototype.getMaxArmorTonnage = function() {
-	return this.max_armor_tonnage;
+	return this.maxArmorTonnage;
 }
 
 Mech.prototype.getMaxArmor = function() {
-	return this.max_armor;
+	return this.maxArmor;
 }
 
 
 Mech.prototype.getType = function() {
-	return this.mech_type;
+	return this.mechType;
 }
 
 Mech.prototype.setType = function(newValue) {
-	this.mech_type = newValue;
+	this.mechType = newValue;
 	this.setTonnage( this.tonnage );
 	this._calc();
-	return this.mech_type;
+	return this.mechType;
 }
 
 
@@ -3330,40 +3330,40 @@ Mech.prototype.setType = function(newValue) {
 Mech.prototype.exportJSON = function() {
 	// TODO
 	this._calc();
-	var export_object = {};
-	export_object.name = this.getName();
-	export_object.tonnage = this.getTonnage();
-	export_object.walkSpeed = this.walkSpeed;
-	export_object.jumpSpeed = this.jumpSpeed;
-	export_object.engineType = this.getEngineType().tag;
+	var exportObject = {};
+	exportObject.name = this.getName();
+	exportObject.tonnage = this.getTonnage();
+	exportObject.walkSpeed = this.walkSpeed;
+	exportObject.jumpSpeed = this.jumpSpeed;
+	exportObject.engineType = this.getEngineType().tag;
 
-	export_object.mech_type = this.mech_type.id;
-	export_object.era = this.era.id;
-	export_object.tech = this.tech.id;
+	exportObject.mechType = this.mechType.id;
+	exportObject.era = this.era.id;
+	exportObject.tech = this.tech.id;
 
-	export_object.gyro = this.gyro.tag;
+	exportObject.gyro = this.gyro.tag;
 
-	export_object.is_type = this.getInternalStructureType();
+	exportObject.is_type = this.getInternalStructureType();
 
-	export_object.additional_heat_sinks = this.additional_heat_sinks;
-	export_object.heat_sink_type = this.getHeatSinksType();
+	exportObject.additionalHeatSinks = this.additionalHeatSinks;
+	exportObject.heat_sink_type = this.getHeatSinksType();
 
-	export_object.armor_weight = this.armorWeight;
+	exportObject.armor_weight = this.armorWeight;
 	if(!this.uuid)
 		this.uuid = generateUUID();
 
-	export_object.uuid = this.uuid;
+	exportObject.uuid = this.uuid;
 
-	export_object.strict_era = this.strictEra;
+	exportObject.strict_era = this.strictEra;
 
-	export_object.armor_allocation = this.armorAllocation;
+	exportObject.armor_allocation = this.armorAllocation;
 
-	export_object.armor_type = this.getArmorType();
+	exportObject.armor_type = this.getArmorType();
 
-	export_object.equipment = Array();
+	exportObject.equipment = Array();
 
 	for( eq_count = 0; eq_count < this.equipmentList.length; eq_count++) {
-		export_object.equipment.push(
+		exportObject.equipment.push(
 			{
 				tag: this.equipmentList[eq_count].tag,
 				loc: this.equipmentList[eq_count].location,
@@ -3372,25 +3372,25 @@ Mech.prototype.exportJSON = function() {
 		);
 	}
 
-	export_object.allocation = this.criticalAllocationTable;
-	export_object.features = Array();
+	exportObject.allocation = this.criticalAllocationTable;
+	exportObject.features = Array();
 	if( !this.hasLowerArmActuator("la") )
-		export_object.features.push("no_lala");
+		exportObject.features.push("no_lala");
 	if( !this.hasLowerArmActuator("ra") )
-		export_object.features.push("no_rala");
+		exportObject.features.push("no_rala");
 	if( !this.hasHandActuator("la") )
-		export_object.features.push("no_laha");
+		exportObject.features.push("no_laha");
 	if( !this.hasHandActuator("ra") )
-		export_object.features.push("no_raha");
-	if( this.small_cockpit )
-		export_object.features.push("sm_cockpit");
+		exportObject.features.push("no_raha");
+	if( this.smallCockpit )
+		exportObject.features.push("sm_cockpit");
 
-	export_object.pilot = this.pilot;
+	exportObject.pilot = this.pilot;
 
-	export_object.as_role = this.alphaStrikeForceStats.role;
-	export_object.as_custom_name = this.alphaStrikeForceStats.customName;
+	exportObject.as_role = this.alphaStrikeForceStats.role;
+	exportObject.as_custom_name = this.alphaStrikeForceStats.customName;
 
-	return JSON.stringify(export_object);
+	return JSON.stringify(exportObject);
 }
 
 Mech.prototype.getInteralStructure = function() {
@@ -3414,103 +3414,103 @@ Mech.prototype.importJSON = function(json_string) {
 	// TODO
 
 	try {
-		import_object = JSON.parse( json_string );
+		importObject = JSON.parse( json_string );
 	}
 	catch( err ) {
 		return false;
 	}
 
-	if( typeof(import_object) == "object") {
-			this.setName( import_object.name );
-			if( import_object.mech_type )
-				this.setMechType( import_object.mech_type );
+	if( typeof(importObject) == "object") {
+			this.setName( importObject.name );
+			if( importObject.mechType )
+				this.setMechType( importObject.mechType );
 
-			this.setTonnage( import_object.tonnage );
+			this.setTonnage( importObject.tonnage );
 
-			if( import_object.era )
-				this.setEra( import_object.era );
+			if( importObject.era )
+				this.setEra( importObject.era );
 
-			if( import_object.tech )
-				this.setTech( import_object.tech );
+			if( importObject.tech )
+				this.setTech( importObject.tech );
 
-			if( import_object.pilot )
-				this.pilot = import_object.pilot;
+			if( importObject.pilot )
+				this.pilot = importObject.pilot;
 
-			if( import_object.as_role )
-				this.setASRole( import_object.as_role );
+			if( importObject.as_role )
+				this.setASRole( importObject.as_role );
 
-			if( import_object.armor_type )
-				this.setArmorType( import_object.armor_type );
+			if( importObject.armor_type )
+				this.setArmorType( importObject.armor_type );
 
-			if( import_object.as_custom_name  )
-				this.setASCustomName( import_object.as_custom_name ) ;
+			if( importObject.as_custom_name  )
+				this.setASCustomName( importObject.as_custom_name ) ;
 
-			if( import_object.is_type  )
-				this.setInternalStructureType( import_object.is_type ) ;
+			if( importObject.is_type  )
+				this.setInternalStructureType( importObject.is_type ) ;
 
-			if( import_object.walkSpeed )
-				this.setWalkSpeed( import_object.walkSpeed );
+			if( importObject.walkSpeed )
+				this.setWalkSpeed( importObject.walkSpeed );
 
-			if( import_object.jumpSpeed )
-				this.setJumpSpeed( import_object.jumpSpeed );
+			if( importObject.jumpSpeed )
+				this.setJumpSpeed( importObject.jumpSpeed );
 
-			if( typeof(import_object.strict_era) != "undefined" ) {
-				if( import_object.strict_era )
+			if( typeof(importObject.strict_era) != "undefined" ) {
+				if( importObject.strict_era )
 					this.strictEra = 1;
 				else
 					this.strictEra = 0;
 			}
 
-			if( import_object.gyro )
-				this.setGyroType( import_object.gyro );
+			if( importObject.gyro )
+				this.setGyroType( importObject.gyro );
 
-			if( import_object.engineType )
-				this.setEngineType( import_object.engineType );
+			if( importObject.engineType )
+				this.setEngineType( importObject.engineType );
 
-			if( import_object.additional_heat_sinks )
-				this.setAdditionalHeatSinks( import_object.additional_heat_sinks );
+			if( importObject.additionalHeatSinks )
+				this.setAdditionalHeatSinks( importObject.additionalHeatSinks );
 
-			if( import_object.heat_sink_type )
-				this.setHeatSinksType( import_object.heat_sink_type );
-
-
-
-			if( import_object.armor_weight )
-				this.setArmorWeight( import_object.armor_weight );
-
-			if( import_object.armor_allocation )
-				this.armorAllocation = import_object.armor_allocation;
-
-			if( import_object.uuid )
-				this.uuid = import_object.uuid;
+			if( importObject.heat_sink_type )
+				this.setHeatSinksType( importObject.heat_sink_type );
 
 
-			if( import_object.features ) {
+
+			if( importObject.armor_weight )
+				this.setArmorWeight( importObject.armor_weight );
+
+			if( importObject.armor_allocation )
+				this.armorAllocation = importObject.armor_allocation;
+
+			if( importObject.uuid )
+				this.uuid = importObject.uuid;
+
+
+			if( importObject.features ) {
 
 
 				// Lower Arm Actuators
-				if ( import_object.features.indexOf( "no_rala" ) > -1 )
+				if ( importObject.features.indexOf( "no_rala" ) > -1 )
 					this.removeLowerArmActuator( "ra" );
-				if ( import_object.features.indexOf( "no_lala" ) > -1)
+				if ( importObject.features.indexOf( "no_lala" ) > -1)
 					this.removeLowerArmActuator( "la" );
 
 				// Hand Actuators
-				if ( import_object.features.indexOf( "no_raha" ) > -1 )
+				if ( importObject.features.indexOf( "no_raha" ) > -1 )
 					this.removeHandActuator( "ra" );
-				if ( import_object.features.indexOf( "no_laha" ) > -1)
+				if ( importObject.features.indexOf( "no_laha" ) > -1)
 					this.removeHandActuator( "la" );
 
 				// Small Cockpit
-				if ( import_object.features.indexOf( "sm_cockpit" ) > -1)
-					this.small_cockpit = true;
+				if ( importObject.features.indexOf( "sm_cockpit" ) > -1)
+					this.smallCockpit = true;
 
 				// Other features
 			}
 
-			if( import_object.equipment ) {
-				for( eq_count = 0; eq_count < import_object.equipment.length; eq_count++) {
+			if( importObject.equipment ) {
+				for( eq_count = 0; eq_count < importObject.equipment.length; eq_count++) {
 
-					import_item = import_object.equipment[eq_count];
+					import_item = importObject.equipment[eq_count];
 					// if( this.getTech().tag == "is")
 					// 	this.addEquipmentFromTag( import_item.tag, import_item.loc );
 					// if( this.getTech().tag == "clan")
@@ -3523,8 +3523,8 @@ Mech.prototype.importJSON = function(json_string) {
 				}
 			}
 
-			if( import_object.allocation ) {
-				this.criticalAllocationTable = import_object.allocation;
+			if( importObject.allocation ) {
+				this.criticalAllocationTable = importObject.allocation;
 
 				for( var eq_count = 0; eq_count < this.criticalAllocationTable.length; eq_count++) {
 					if( !this.criticalAllocationTable[ eq_count ].rear )
@@ -3616,7 +3616,7 @@ Mech.prototype.setRightTorsoRearArmor = function( armorValue ) {
 }
 
 Mech.prototype.getAdditionalHeatSinks = function() {
-	return this.additional_heat_sinks;
+	return this.additionalHeatSinks;
 };
 
 
@@ -3959,9 +3959,9 @@ Mech.prototype.setEquipmentLocation = function(equipment_index, location) {
 };
 
 Mech.prototype.setAdditionalHeatSinks = function(newValue) {
-	this.additional_heat_sinks = newValue / 1;
+	this.additionalHeatSinks = newValue / 1;
 	this._calc();
-	return this.additional_heat_sinks;
+	return this.additionalHeatSinks;
 };
 
 Mech.prototype.getUnallocatedCritCount = function() {

@@ -40,7 +40,7 @@ var battlemechCreatorControllerStep1Array =
 			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
 
 
-			update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+			updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 
 			$scope.selectedStrict = false;
 
@@ -53,7 +53,7 @@ var battlemechCreatorControllerStep1Array =
 				else
 					$scope.current_mech.strictEra = 0;
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
-				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 			}
 
 			// fill out current data in forms
@@ -118,7 +118,7 @@ var battlemechCreatorControllerStep1Array =
 				selectedOption: $scope.current_mech.getTech()
 			};
 
-			$scope.mech_type = {
+			$scope.mechType = {
 				availableOptions: translated_mechTypeOptions,
 				selectedOption: $scope.current_mech.getType()
 			};
@@ -146,7 +146,7 @@ var battlemechCreatorControllerStep1Array =
 				$scope.current_mech.setName( $scope.mech_name );
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
-				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 			};
 
 			$scope.update_mech_tech = function() {
@@ -156,30 +156,30 @@ var battlemechCreatorControllerStep1Array =
 
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
-				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 			};
 
-			$scope.update_mech_type = function() {
-				$scope.current_mech.setMechType( $scope.mech_type.selectedOption.id );
+			$scope.update_mechType = function() {
+				$scope.current_mech.setMechType( $scope.mechType.selectedOption.id );
 				// Remove any assigned criticals in the arms...
 				$scope.current_mech.clearArmCriticalAllocationTable();
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
-				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 			};
 
 			$scope.update_mech_era = function() {
 				$scope.current_mech.setEra( $scope.mech_era.selectedOption.id );
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
-				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 			};
 
 			$scope.update_mech_tonnage = function() {
 				$scope.current_mech.setTonnage( $scope.mech_tonnage.selectedOption );
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
-				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 			};
 
 			$scope.update_mech_selected_is_type = function( newISType ) {
@@ -188,7 +188,7 @@ var battlemechCreatorControllerStep1Array =
 				$scope.current_mech.setInternalStructureType( $scope.mech_selected_is_type.tag );
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
-				update_mech_status_bar_and_tro($scope, $translate, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 			}
 
 		}

@@ -58,7 +58,7 @@ var battlemechCreatorControllerSummaryArray =
 
 			$scope.setPilotName = function( newValue ) {
 				$scope.current_mech.pilot.name = newValue;
-				//~ update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				//~ updateMechStatusBarAndTRO($scope, $translate, current_mech);
 				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
 				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
@@ -66,7 +66,7 @@ var battlemechCreatorControllerSummaryArray =
 
 			$scope.setPilotPiloting = function( newValue ) {
 				$scope.current_mech.pilot.piloting = newValue;
-				//~ update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				//~ updateMechStatusBarAndTRO($scope, $translate, current_mech);
 				$scope.current_mech._calc();
 
 				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
@@ -76,7 +76,7 @@ var battlemechCreatorControllerSummaryArray =
 
 			$scope.setPilotGunnery = function( newValue ) {
 				$scope.current_mech.pilot.gunnery = newValue;
-				//~ update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				//~ updateMechStatusBarAndTRO($scope, $translate, current_mech);
 				$scope.current_mech._calc();
 				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
 				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
@@ -85,7 +85,7 @@ var battlemechCreatorControllerSummaryArray =
 
 			$scope.setASRole = function( newValue ) {
 				$scope.current_mech.setASRole( newValue );
-				//~ update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				//~ updateMechStatusBarAndTRO($scope, $translate, current_mech);
 				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
 				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
@@ -96,7 +96,7 @@ var battlemechCreatorControllerSummaryArray =
 				//~ console.log( "setASCustomName", newValue );
 				$scope.current_mech.setASCustomName( newValue );
 				//~ console.log("1", $scope.current_mech.alphaStrikeForceStats.customName);
-				//~ update_mech_status_bar_and_tro($scope, $translate, current_mech);
+				//~ updateMechStatusBarAndTRO($scope, $translate, current_mech);
 				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
 				//~ console.log("2", $scope.current_mech.alphaStrikeForceStats.customName);
 				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);

@@ -1,7 +1,7 @@
 var pdfFontSize = 10;
 var pdfFontFace = "helvetica";
 
-function update_mech_status_bar_and_tro($scope, $translate, current_mech) {
+function updateMechStatusBarAndTRO($scope, $translate, current_mech) {
 	$translate(
 		[
 			'BM_REMAINING_TONS', 'BM_UNALLOCATED_ARMOR', 'BM_UNALLOCATED_CRITS',
