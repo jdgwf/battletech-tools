@@ -20450,24 +20450,24 @@ var battlemechCreatorControllerStep6Array =
 			}
 
 			// create mech object, load from localStorage if exists
-			current_mech = new Mech();
+			$scope.current_mech = new Mech();
 
 			localStorage["backToPath"] = $location.$$path;
 
 			$scope.selectedItem = null;
 
 			if( localStorage["tmp.current_mech"] ) {
-				current_mech.importJSON( localStorage["tmp.current_mech"] );
+				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
-				current_mech.uuid = generateUUID();
-				current_mech._calc();
+				$scope.current_mech.uuid = generateUUID();
+				$scope.current_mech._calc();
 			}
 
-			current_mech.useLang = localStorage["tmp.preferred_language"];
+			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
 
-			updateMechStatusBarAndTRO($scope, $translate, current_mech);
+			updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 
-			update_step_6_items($scope, current_mech);
+			update_step_6_items($scope, $scope.current_mech);
 
 			$translate(
 				[
@@ -20482,7 +20482,7 @@ var battlemechCreatorControllerStep6Array =
 				$scope.label_right_torso = translation.TRO_ARMOR_RT;
 				$scope.label_left_torso = translation.TRO_ARMOR_LT;
 
-				if( current_mech.mechType.class.toLowerCase() == "quad") {
+				if( $scope.current_mech.mechType.class.toLowerCase() == "quad") {
 					$scope.battlemech_is_quad = true;
 					$scope.label_right_arm = translation.TRO_ARMOR_RFL;
 					$scope.label_left_arm = translation.TRO_ARMOR_LFL;
@@ -20584,7 +20584,7 @@ var battlemechCreatorControllerStep6Array =
 							var fromIndex =  $scope.selectedItem.index;
 							var toLocation = locationString;
 							var toIndex = indexLocation;
-							worked = current_mech.moveCritical(
+							worked = $scope.current_mech.moveCritical(
 								itemTag,
 								itemRear,
 								fromLocation,
@@ -20594,15 +20594,15 @@ var battlemechCreatorControllerStep6Array =
 							);
 
 							if( worked ) {
-								//~ console.log( "a", current_mech.criticals.leftTorso )
-								current_mech.updateCriticalAllocationTable();
-								//~ console.log("b", current_mech.criticals.leftTorso )
-								current_mech._calc();
-								//~ console.log("c", current_mech.criticals.leftTorso )
-								localStorage["tmp.current_mech"] = current_mech.exportJSON();
+								//~ console.log( "a", $scope.current_mech.criticals.leftTorso )
+								$scope.current_mech.updateCriticalAllocationTable();
+								//~ console.log("b", $scope.current_mech.criticals.leftTorso )
+								$scope.current_mech._calc();
+								//~ console.log("c", $scope.current_mech.criticals.leftTorso )
+								localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
-								update_step_6_items($scope, current_mech);
-								updateMechStatusBarAndTRO($scope, $translate, current_mech);
+								update_step_6_items($scope, $scope.current_mech);
+								updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 
 								$scope.selectedItem = null;
 							} else {
@@ -20618,89 +20618,89 @@ var battlemechCreatorControllerStep6Array =
 			// make tro for sidebar
 			$scope.clickLowerRightArmActuator = function() {
 				if( $scope.has_ra_lower_arm_actuator )
-					current_mech.addLowerArmActuator("ra");
+					$scope.current_mech.addLowerArmActuator("ra");
 				else
-					current_mech.removeLowerArmActuator("ra");
+					$scope.current_mech.removeLowerArmActuator("ra");
 
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
-				update_step_6_items($scope, current_mech);
-				updateMechStatusBarAndTRO($scope, $translate, current_mech);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
+				update_step_6_items($scope, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 
 			}
 			$scope.clickLowerLeftArmActuator = function() {
 				if( $scope.has_la_lower_arm_actuator )
-					current_mech.addLowerArmActuator("la");
+					$scope.current_mech.addLowerArmActuator("la");
 				else
-					current_mech.removeLowerArmActuator("la");
+					$scope.current_mech.removeLowerArmActuator("la");
 
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
-				update_step_6_items($scope, current_mech);
-				updateMechStatusBarAndTRO($scope, $translate, current_mech);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
+				update_step_6_items($scope, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 
 			}
 			$scope.clickRightHandActuator = function() {
 
 				if( $scope.has_ra_hand_actuator )
-					current_mech.addHandActuator("ra");
+					$scope.current_mech.addHandActuator("ra");
 				else
-					current_mech.removeHandActuator("ra");
+					$scope.current_mech.removeHandActuator("ra");
 
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
-				update_step_6_items($scope, current_mech);
-				updateMechStatusBarAndTRO($scope, $translate, current_mech);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
+				update_step_6_items($scope, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 
 			}
 			$scope.clickLeftHandActuator = function() {
 				if( $scope.has_la_hand_actuator )
-					current_mech.addHandActuator("la");
+					$scope.current_mech.addHandActuator("la");
 				else
-					current_mech.removeHandActuator("la");
+					$scope.current_mech.removeHandActuator("la");
 
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
-				update_step_6_items($scope, current_mech);
-				updateMechStatusBarAndTRO($scope, $translate, current_mech);
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
+				update_step_6_items($scope, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 			}
 
 			$scope.resetAllocations = function() {
 				$scope.selectedItem = null;
-				current_mech.clearCriticalAllocationTable();
-				current_mech._calc();
-				localStorage["tmp.current_mech"] = current_mech.exportJSON();
-				update_step_6_items($scope, current_mech);
-				updateMechStatusBarAndTRO($scope, $translate, current_mech);
+				$scope.current_mech.clearCriticalAllocationTable();
+				$scope.current_mech._calc();
+				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
+				update_step_6_items($scope);
+				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
 			}
 
 		}
 	]
 ;
 
-function update_step_6_items($scope, current_mech) {
+function update_step_6_items($scope) {
 
-	$scope.has_la_hand_actuator = current_mech.hasHandActuator("la");
-	$scope.has_ra_hand_actuator = current_mech.hasHandActuator("ra");
-	$scope.has_la_lower_arm_actuator = current_mech.hasLowerArmActuator("la");
-	$scope.has_ra_lower_arm_actuator = current_mech.hasLowerArmActuator("ra");
+	$scope.has_la_hand_actuator = $scope.current_mech.hasHandActuator("la");
+	$scope.has_ra_hand_actuator = $scope.current_mech.hasHandActuator("ra");
+	$scope.has_la_lower_arm_actuator = $scope.current_mech.hasLowerArmActuator("la");
+	$scope.has_ra_lower_arm_actuator = $scope.current_mech.hasLowerArmActuator("ra");
 
-//~ console.log(current_mech.criticals.head );
-	current_mech.trimCriticals();
+//~ console.log($scope.current_mech.criticals.head );
+	$scope.current_mech.trimCriticals();
 
-	$scope.battlemech_head = current_mech.criticals.head;
+	$scope.battlemech_head = $scope.current_mech.criticals.head;
 
-	$scope.battlemech_left_arm = current_mech.criticals.leftArm;
+	$scope.battlemech_left_arm = $scope.current_mech.criticals.leftArm;
 
-	$scope.battlemech_right_arm = current_mech.criticals.rightArm;
+	$scope.battlemech_right_arm = $scope.current_mech.criticals.rightArm;
 
-	$scope.battlemech_left_leg = current_mech.criticals.leftLeg;
+	$scope.battlemech_left_leg = $scope.current_mech.criticals.leftLeg;
 
-	$scope.battlemech_right_leg = current_mech.criticals.rightLeg;
+	$scope.battlemech_right_leg = $scope.current_mech.criticals.rightLeg;
 
-	$scope.battlemech_left_torso = current_mech.criticals.leftTorso;
+	$scope.battlemech_left_torso = $scope.current_mech.criticals.leftTorso;
 
-	$scope.battlemech_center_torso = current_mech.criticals.centerTorso;
+	$scope.battlemech_center_torso = $scope.current_mech.criticals.centerTorso;
 
-	$scope.battlemech_right_torso = current_mech.criticals.rightTorso;
+	$scope.battlemech_right_torso = $scope.current_mech.criticals.rightTorso;
 
-	$scope.battlemech_unallocated_items = current_mech.unallocatedCriticals;
+	$scope.battlemech_unallocated_items = $scope.current_mech.unallocatedCriticals;
 	//~ console.log( $scope.battlemech_head );
 }
 

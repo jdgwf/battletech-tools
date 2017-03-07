@@ -16,6 +16,11 @@ $secondaryBG: #fdfde3;
 $secondaryBGHover: #e4e4ce;
 $secondaryTextColor: #333;
 
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('fonts/ubuntu/Ubuntu-Regular.ttf')  format('truetype');
+}
+
 body {
 	background: $bodyBackground;
 	color: $fontColor;
