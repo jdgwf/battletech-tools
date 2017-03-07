@@ -4,6 +4,7 @@ body.plain {
 	padding: 0 !important;
 	margin: 0  !important;
 }
+.sticky-top,
 body.plain .sticky-top {
 	display: none !important;
 }

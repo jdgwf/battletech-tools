@@ -1141,6 +1141,9 @@ body.plain {
 
 
 	}
+	.sticky-top {
+		display: none !important;
+	}
 }
 
 @media only screen and (max-device-width: 400px) and (orientation: portrait) {
