@@ -34,9 +34,9 @@ var battlemechCreatorControllerStep3Array =
 			$scope.mechHeatSinkTypes = [];
 			for( var hsCounter = 0; hsCounter < mechHeatSinkTypes.length; hsCounter++ ) {
 				if( mechHeatSinkTypes[ hsCounter ].name[ $scope.current_mech.useLang ] )
-					mechHeatSinkTypes[ hsCounter ].local_name = hsItem.name[ $scope.current_mech.useLang ];
+					mechHeatSinkTypes[ hsCounter ].local_name = mechHeatSinkTypes[ hsCounter ].name[ $scope.current_mech.useLang ];
 				else
-					mechHeatSinkTypes[ hsCounter ].local_name = hsItem.name[ "en-US" ];
+					mechHeatSinkTypes[ hsCounter ].local_name = mechHeatSinkTypes[ hsCounter ].name[ "en-US" ];
 
 				$scope.mechHeatSinkTypes.push( mechHeatSinkTypes[ hsCounter ] );
 

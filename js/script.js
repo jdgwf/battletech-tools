@@ -17200,8 +17200,6 @@ Mech.prototype.getTonnage = function() {
 Mech.prototype.setTonnage = function(newValue) {
 	this.tonnage = parseInt(newValue);
 
-	//~ console.log( this.selectedInternalStructure.perTon );
-
 	this.internalStructure.head = this.selectedInternalStructure.perTon[ this.getTonnage() ].head;
 
 	this.internalStructure.centerTorso = this.selectedInternalStructure.perTon[ this.getTonnage() ].centerTorso;
@@ -19480,9 +19478,9 @@ var battlemechCreatorControllerStep3Array =
 			$scope.mechHeatSinkTypes = [];
 			for( var hsCounter = 0; hsCounter < mechHeatSinkTypes.length; hsCounter++ ) {
 				if( mechHeatSinkTypes[ hsCounter ].name[ $scope.current_mech.useLang ] )
-					mechHeatSinkTypes[ hsCounter ].local_name = hsItem.name[ $scope.current_mech.useLang ];
+					mechHeatSinkTypes[ hsCounter ].local_name = mechHeatSinkTypes[ hsCounter ].name[ $scope.current_mech.useLang ];
 				else
-					mechHeatSinkTypes[ hsCounter ].local_name = hsItem.name[ "en-US" ];
+					mechHeatSinkTypes[ hsCounter ].local_name = mechHeatSinkTypes[ hsCounter ].name[ "en-US" ];
 
 				$scope.mechHeatSinkTypes.push( mechHeatSinkTypes[ hsCounter ] );
 
@@ -19660,8 +19658,8 @@ var battlemechCreatorControllerStep4Array =
 			//~ console.log( "$scope.selected_armor_type", $scope.selected_armor_type );
 
 			for( var aCount = 0; aCount < mechArmorTypes.length; aCount++ ) {
-				console.log( "mechArmorTypes[ aCount ].armormultiplier", mechArmorTypes[ aCount ].armormultiplier );
-				console.log( "$scope.current_mech.getTech().tag", $scope.current_mech.getTech().tag );
+				//~ console.log( "mechArmorTypes[ aCount ].armormultiplier", mechArmorTypes[ aCount ].armormultiplier );
+				//~ console.log( "$scope.current_mech.getTech().tag", $scope.current_mech.getTech().tag );
 				if( mechArmorTypes[ aCount ].armormultiplier[ $scope.current_mech.getTech().tag ] ) {
 					$scope.availableArmorTypes.push( mechArmorTypes[ aCount ] );
 				}
@@ -19701,7 +19699,7 @@ var battlemechCreatorControllerStep4Array =
 
 
 			$scope.update_armor_type = function( armorType ) {
-				console.log( "update_armor_type", armorType );
+				//~ console.log( "update_armor_type", armorType );
 				$scope.current_mech.setArmorType( armorType.tag );
 				$scope.current_mech._calc();
 				update_step4_page_items($scope, $translate, $scope.current_mech);
@@ -19856,9 +19854,9 @@ var battlemechCreatorControllerStep4Array =
 			}
 
 			$scope.update_armor_allocation = function(armor_location) {
-				console.log("armor_location", armor_location);
+				//~ console.log("armor_location", armor_location);
 				if( armor_location == "hd") {
-					console.log("setHeadArmor", $scope.armor_current_hd.id);
+					//~ console.log("setHeadArmor", $scope.armor_current_hd.id);
 					$scope.current_mech.setHeadArmor( $scope.armor_current_hd.id );
 
 				} else if( armor_location == "ra") {

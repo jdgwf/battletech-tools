@@ -3243,8 +3243,6 @@ Mech.prototype.getTonnage = function() {
 Mech.prototype.setTonnage = function(newValue) {
 	this.tonnage = parseInt(newValue);
 
-	//~ console.log( this.selectedInternalStructure.perTon );
-
 	this.internalStructure.head = this.selectedInternalStructure.perTon[ this.getTonnage() ].head;
 
 	this.internalStructure.centerTorso = this.selectedInternalStructure.perTon[ this.getTonnage() ].centerTorso;
