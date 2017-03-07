@@ -679,7 +679,6 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 
 
 	for( eq_count = 0; eq_count < mechData.sortedEquipmentList.length; eq_count++) {
-		console.log( "xx", mechData.sortedEquipmentList[ eq_count] );
 		if( eq_count % 2 == 0 )
 			svgCode += "<rect x=\"" + ( wacCol1 - 5 ) + "\" y=\"" + (weapAndEqpTop + 93 + eqLineHeight * eq_count) + "\" width=\"1180\" height=\"" + (eqLineHeight + 4 )  + "\" fill=\"" + colorVeryLightGray + "\" />\n";
 
@@ -3830,15 +3829,20 @@ if( mechData.armorAllocation.centerTorso >= 55 ) {
 	svgCode += "<text x=\"" + (  boxX + 205 / 2 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"" + ( lineHeight * 2) + "\">" + mechData.getHeatSinks() + "</text>\n";
 
 	hCounter++;
-	if( mechData.heat_sink_type == "single" ) {
-		svgCode += "<text x=\"" + (  boxX + 205 / 2 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 6) + "\">Single</text>\n";
-	} else if( mechData.heat_sink_type == "double" ){
-		svgCode += "<text x=\"" + (  boxX + 205 / 2 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 6) + "\">Double</text>\n";
+	var heatSinks = mechData.getHeatSinksObj();
+	if( heatSinks.name[ mechData.useLang ] )
+		svgCode += "<text x=\"" + (  boxX + 205 / 2 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 6) + "\">" +  heatSinks.name[ mechData.useLang ] + "</text>\n";
+	else
+		svgCode += "<text x=\"" + (  boxX + 205 / 2 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 6) + "\">" +  heatSinks.name[ "en-US" ] + "</text>\n";
 
-	} else {
-		svgCode += "<text x=\"" + (  boxX + 205 / 2 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 6) + "\">" +  mechData.heat_sink_type + "</text>\n";
+	//~ if( heatSinks.tag == "single" ) {
+		//~ svgCode += "<text x=\"" + (  boxX + 205 / 2 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 6) + "\">Single</text>\n";
+	//~ } else if( mechData.heat_sink_type == "double" ){
+		//~ svgCode += "<text x=\"" + (  boxX + 205 / 2 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 6) + "\">Double</text>\n";
 
-	}
+	//~ } else {
+		//~ svgCode += "<text x=\"" + (  boxX + 205 / 2 ) + "\" y=\"" + (boxY + 75 + lineHeight * hCounter) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + ( lineHeight - 6) + "\">" +  mechData.heat_sink_type + "</text>\n";
+	//~ }
 	armorBubbleRadius = 15;
 	hsTop = 185;
 	hsLeft = 100;

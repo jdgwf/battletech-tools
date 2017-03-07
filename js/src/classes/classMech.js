@@ -2981,6 +2981,11 @@ Mech.prototype.getHeatSinksType = function() {
 	return this.heatSinkType.tag;
 }
 
+Mech.prototype.getHeatSinksObj = function() {
+	return this.heatSinkType;
+}
+
+
 Mech.prototype.setHeatSinksType = function(newValue) {
 	for( var lCounter = 0; lCounter < mechHeatSinkTypes.length; lCounter++ ) {
 		if( mechHeatSinkTypes[ lCounter ].tag == newValue )
