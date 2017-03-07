@@ -1819,7 +1819,7 @@ Mech.prototype.makeTROBBCode = function() {
 
 	// Equipment
 	html += "" + this.getTranslation("TRO_EQUIPMENT").rpad(" ",col1Padding + col2Padding) + "" + this.getTranslation("TRO_MASS") + "\n";
-	html += "" + this.getLocalTranslation( this.selectedInternalStructure.name ).rpad(" ",col1Padding + col2Padding) + "" + this.getInteralStructureWeight() + "\n";
+	html += "" + ( this.getTranslation("TRO_ARMOR_IS") + " (" + this.getLocalTranslation( this.selectedInternalStructure.name ) + ")").rpad(" ",col1Padding + col2Padding) + "" + this.getInteralStructureWeight() + "\n";
 	html += "" + this.getEngineName().rpad(" ",col1Padding) + "" + this.getEngineRating().toString().rpad(" ", col2Padding) + "" + this.getEngineWeight() + "\n";
 
 	html += "" + this.getTranslation("TRO_WALKING").lpad(" ", col1Padding - 10) + " " + this.getWalkSpeed().toString().lpad(" ", 3) + "\n";
@@ -1861,7 +1861,7 @@ Mech.prototype.makeTROBBCode = function() {
 		html += "\n";
 	}
 
-	html += "" +this.getLocalTranslation( this.armorType.name ).rpad(" ",col1Padding) + "" + this.getTotalArmor().toString().rpad(" ",col2Padding) + "" + this.getArmorWeight() + "\n";
+	html += "" + (this.getTranslation("TRO_ARMOR_FACTOR") + " (" + this.getLocalTranslation( this.armorType.name ) + ")").rpad(" ",col1Padding) + "" + this.getTotalArmor().toString().rpad(" ",col2Padding) + "" + this.getArmorWeight() + "\n";
 
 	var col1Padding = 20;
 	var col2Padding = 10;
@@ -2049,7 +2049,7 @@ Mech.prototype.makeTROHTML = function() {
 
 	// Equipment
 	html += "<tr><th class=\"text-left\" colspan=\"3\">" + this.getTranslation("TRO_EQUIPMENT") + "</th><th class=\"text-center\" colspan=\"1\">" + this.getTranslation("TRO_MASS") + "</th></tr>";
-	html += "<tr><td colspan=\"3\">" + this.getLocalTranslation( this.selectedInternalStructure.name ) + "</td><td class=\"text-center\" colspan=\"1\">" + this.getInteralStructureWeight() + "</td></tr>";
+	html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_ARMOR_IS") + " (" + this.getLocalTranslation( this.selectedInternalStructure.name ) + ")</td><td class=\"text-center\" colspan=\"1\">" + this.getInteralStructureWeight() + "</td></tr>";
 	html += "<tr><td colspan=\"1\">" + this.getEngineName() + "</td><td class=\"text-center\" colspan=\"2\">" + this.getEngineRating() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getEngineWeight() + "</td></tr>";
 
 	html += "<tr><td colspan=\"1\" class=\"text-right\">" + this.getTranslation("TRO_WALKING") + "</td><td class=\"text-center\" colspan=\"2\">" + this.getWalkSpeed() + "</td><td colspan=\"1\">&nbsp;</td></tr>";
@@ -2099,7 +2099,7 @@ Mech.prototype.makeTROHTML = function() {
 */
 
 
-	html += "<tr><th colspan=\"1\">" + this.getLocalTranslation( this.armorType.name ) + "</th><th class=\"text-center\" colspan=\"2\">" + this.getTotalArmor() + "</th><th class=\"text-center\" colspan=\"1\">" + this.getArmorWeight() + "</th></tr>";
+	html += "<tr><th colspan=\"1\">" + this.getTranslation("TRO_ARMOR_VALUE") + " (" + this.getLocalTranslation( this.armorType.name ) + ")</th><th class=\"text-center\" colspan=\"2\">" + this.getTotalArmor() + "</th><th class=\"text-center\" colspan=\"1\">" + this.getArmorWeight() + "</th></tr>";
 
 
 	// Armor Factor Table
@@ -3244,7 +3244,7 @@ Mech.prototype.getTonnage = function() {
 Mech.prototype.setTonnage = function(newValue) {
 	this.tonnage = parseInt(newValue);
 
-	console.log( this.selectedInternalStructure.perTon );
+	//~ console.log( this.selectedInternalStructure.perTon );
 
 	this.internalStructure.head = this.selectedInternalStructure.perTon[ this.getTonnage() ].head;
 
