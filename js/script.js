@@ -15299,9 +15299,9 @@ Mech.prototype._calcBattleValue = function() {
 			break;
 	 }
 
-	// Get Explosive Ammo Modifiers
+	// Get Explosive Ammo Modifiers - Tech Manual p302-303
 	var explosiveAmmoModifiers = 0;
-	this.calcLogBV += "<strong>Get Explosive Ammo Modifiers</strong><br />";
+	this.calcLogBV += "<strong>Get Explosive Ammo Modifiers (TM p302-303)</strong><br />";
 
 
 	var caseEnabled_HD = false;
@@ -15593,11 +15593,10 @@ Mech.prototype._calcBattleValue = function() {
 	 if( this.smallCockpit ) {
 		finalBattleValue = Math.round( finalBattleValue * .95 );
 		this.calcLogBV += "Small Cockpit, multiply total by .95 and round final BV: " + finalBattleValue + "<br />";
+	}
 
-
-	 }
-	this.calcLogBV += "<strong>Final Battle Value</strong>: " + finalBattleValue + "<br />";
-	this.battleValue = finalBattleValue + " (TODO / WIP)";
+	this.calcLogBV += "<strong>Final Battle Value</strong>: " + finalBattleValue + " rounded to " +  Math.round(finalBattleValue) + "<br />";
+	this.battleValue = Math.round(finalBattleValue) + " (TODO / WIP)";
 }
 
 Mech.prototype._calcCBillCost = function() {
@@ -16930,9 +16929,9 @@ Mech.prototype.getHeatSinksType = function() {
 }
 
 Mech.prototype.setHeatSinksType = function(newValue) {
-	for( let hsObj of mechHeatSinkTypes ) {
-		if( hsObj.tag == newValue )
-			this.heatSinkType = hsObj;
+	for( var lCounter = 0; lCounter < mechHeatSinkTypes.length; lCounter++ ) {
+		if( mechHeatSinkTypes[ lCounter ].tag == newValue )
+			this.heatSinkType = mechHeatSinkTypes[ lCounter ];
 	}
 
 	return this.heatSinkType;
@@ -19479,16 +19478,16 @@ var battlemechCreatorControllerStep3Array =
 			}
 
 			$scope.mechHeatSinkTypes = [];
-			for( let hsItem of mechHeatSinkTypes ) {
-				if( hsItem.name[ $scope.current_mech.useLang ] )
-					hsItem.local_name = hsItem.name[ $scope.current_mech.useLang ];
+			for( var hsCounter = 0; hsCounter < mechHeatSinkTypes.length; hsCounter++ ) {
+				if( mechHeatSinkTypes[ hsCounter ].name[ $scope.current_mech.useLang ] )
+					mechHeatSinkTypes[ hsCounter ].local_name = hsItem.name[ $scope.current_mech.useLang ];
 				else
-					hsItem.local_name = hsItem.name[ "en-US" ];
+					mechHeatSinkTypes[ hsCounter ].local_name = hsItem.name[ "en-US" ];
 
-				$scope.mechHeatSinkTypes.push( hsItem );
+				$scope.mechHeatSinkTypes.push( mechHeatSinkTypes[ hsCounter ] );
 
-				if( hsItem.tag == $scope.current_mech.getHeatSinksType() )
-					$scope.selected_heat_sink_tech = hsItem;
+				if( mechHeatSinkTypes[ hsCounter ].tag == $scope.current_mech.getHeatSinksType() )
+					$scope.selected_heat_sink_tech = mechHeatSinkTypes[ hsCounter ];
 			}
 
 			if( !$scope.selected_heat_sink_tech )
@@ -20192,9 +20191,10 @@ var battlemechCreatorControllerStep5Array =
 					}
 
 					// Scan the installed equipment to check if this item has the same tag (ammo always contains weapon tag)
-					for( let installedEquipment of $scope.current_mech.getInstalledEquipment() )
+					var installedEquipment = $scope.current_mech.getInstalledEquipment();
+					for( var eCounter = 0; eCounter <  installedEquipment.length; eCounter++ )
 					{
-						if ( $scope.equipment_table[eqc].tag.indexOf( installedEquipment.tag ) > -1 )
+						if ( $scope.equipment_table[eqc].tag.indexOf( installedEquipment[ eCounter].tag ) > -1 )
 						{
 							$scope.equipment_table[eqc].isAvailableAmmoType = true;
 						}

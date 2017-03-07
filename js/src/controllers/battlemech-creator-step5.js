@@ -152,9 +152,10 @@ var battlemechCreatorControllerStep5Array =
 					}
 
 					// Scan the installed equipment to check if this item has the same tag (ammo always contains weapon tag)
-					for( let installedEquipment of $scope.current_mech.getInstalledEquipment() )
+					var installedEquipment = $scope.current_mech.getInstalledEquipment();
+					for( var eCounter = 0; eCounter <  installedEquipment.length; eCounter++ )
 					{
-						if ( $scope.equipment_table[eqc].tag.indexOf( installedEquipment.tag ) > -1 )
+						if ( $scope.equipment_table[eqc].tag.indexOf( installedEquipment[ eCounter].tag ) > -1 )
 						{
 							$scope.equipment_table[eqc].isAvailableAmmoType = true;
 						}
