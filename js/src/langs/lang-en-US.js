@@ -64,6 +64,7 @@ available_languages.push ({
 		GENERAL_PRINT: "Print",
 		GENERAL_PRINT_VIEW: "View/Print",
 		GENERAL_TURN_OFF_PRINT_HEAD_FOOT: "Be sure to remember to turn off headers and footers when you print",
+		GENERAL_ROLL_AGAIN: "roll again",
 
 		GENERAL_FILTER: "Filter",
 		GENERAL_TYPE_HERE_TO_FILTER: "Type here to search for equipment",

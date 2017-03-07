@@ -139,7 +139,7 @@ svg += "</g></g></svg>";
 
 }
 
-function createCritAllocationTable( critData, xPos, yPos) {
+function createCritAllocationTable( critData, xPos, yPos, rollAgainTranslated) {
 
 	var textSVG = "";
 	var backgroundSVG = "";
@@ -155,6 +155,8 @@ function createCritAllocationTable( critData, xPos, yPos) {
 	yStartBox = -1;
 	lastWasPlaceHolder = false;
 	lastRollAgain = false;
+
+
 	for( var critC = 0; critC < critData.length; critC++ ) {
 		//~ console.log( "critData", critData[ critC ] )
 
@@ -190,7 +192,7 @@ function createCritAllocationTable( critData, xPos, yPos) {
 			}
 
 		} else {
-			textSVG += "<text x=\"" + ( xPos ) + "\" y=\"" + ( yPos + lineCount * (fontSize + lineBuffer) ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + fontSize + "\">...roll again</text>\n";
+			textSVG += "<text x=\"" + ( xPos ) + "\" y=\"" + ( yPos + lineCount * (fontSize + lineBuffer) ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"" + fontSize + "\">(" + rollAgainTranslated + ")</text>\n";
 			if( yStartBox > -1  && lastWasPlaceHolder) {
 
 				var boxHeight = (yPos + lineCount * (fontSize + lineBuffer) - yStartBox - lineBuffer );
@@ -2891,43 +2893,45 @@ if( mechData.armorAllocation.centerTorso >= 55 ) {
 	col2Start = 513;
 	col3Start = 925;
 
+	var transRollAgain = mechData.getTranslation("GENERAL_ROLL_AGAIN");
+
 	// Left Arm
 	svgCode += "<text x=\"" + ( critBoxLeft + col1Start ) + "\" y=\"" + (critBoxTop + 100) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"30\">LEFT ARM</text>\n";
-	svgCode += createCritAllocationTable( mechData.criticals.leftArm, critBoxLeft + col1Start, critBoxTop + 140);
+	svgCode += createCritAllocationTable( mechData.criticals.leftArm, critBoxLeft + col1Start, critBoxTop + 140, transRollAgain);
 
 	// Head
 	svgCode += "<text x=\"" + ( critBoxLeft + col2Start ) + "\" y=\"" + (critBoxTop + 100) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"30\">HEAD</text>\n";
-	svgCode += createCritAllocationTable( mechData.criticals.head, critBoxLeft + col2Start, critBoxTop + 140);
+	svgCode += createCritAllocationTable( mechData.criticals.head, critBoxLeft + col2Start, critBoxTop + 140, transRollAgain);
 
 	// Right Arm
 	svgCode += "<text x=\"" + ( critBoxLeft + col3Start ) + "\" y=\"" + (critBoxTop + 100) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"30\">RIGHT ARM</text>\n";
-	svgCode += createCritAllocationTable( mechData.criticals.rightArm, critBoxLeft + col3Start, critBoxTop + 140);
+	svgCode += createCritAllocationTable( mechData.criticals.rightArm, critBoxLeft + col3Start, critBoxTop + 140, transRollAgain);
 
 	// Left Torso
 	svgCode += "<text x=\"" + ( critBoxLeft + col1Start ) + "\" y=\"" + (critBoxTop + 550) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"30\">LEFT TORSO</text>\n";
-	svgCode += createCritAllocationTable( mechData.criticals.leftTorso, critBoxLeft + col1Start, critBoxTop + 575);
+	svgCode += createCritAllocationTable( mechData.criticals.leftTorso, critBoxLeft + col1Start, critBoxTop + 575, transRollAgain);
 
 	// Center Torso
 	svgCode += "<text x=\"" + ( critBoxLeft + col2Start ) + "\" y=\"" + (critBoxTop + 350) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"30\">CENTER TORSO</text>\n";
-	svgCode += createCritAllocationTable( mechData.criticals.centerTorso, critBoxLeft + col2Start, critBoxTop + 375);
+	svgCode += createCritAllocationTable( mechData.criticals.centerTorso, critBoxLeft + col2Start, critBoxTop + 375, transRollAgain);
 
 	// Right Torso
 	svgCode += "<text x=\"" + ( critBoxLeft + col3Start ) + "\" y=\"" + (critBoxTop + 550) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"30\">RIGHT TORSO</text>\n";
-	svgCode += createCritAllocationTable( mechData.criticals.rightTorso, critBoxLeft + col3Start, critBoxTop + 575);
+	svgCode += createCritAllocationTable( mechData.criticals.rightTorso, critBoxLeft + col3Start, critBoxTop + 575, transRollAgain);
 
 
-	// Left Torso
+	// Left Leg
 	svgCode += "<text x=\"" + ( critBoxLeft + col1Start ) + "\" y=\"" + (critBoxTop + 1010) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"30\">LEFT LEG</text>\n";
-	svgCode += createCritAllocationTable( mechData.criticals.leftLeg, critBoxLeft + col1Start, critBoxTop + 1050);
+	svgCode += createCritAllocationTable( mechData.criticals.leftLeg, critBoxLeft + col1Start, critBoxTop + 1050, transRollAgain);
 
 	// Damage Transfer Diagram
 	svgCode += rsDamageTransferSVG( false, colorBlack, colorBlack, critBoxLeft + critBoxWidth / 2 - damageTransferWidth / 2, critBoxTop + 820, damageTransferWidth);
 	svgCode += "<text x=\"" + ( critBoxLeft + critBoxWidth / 2 ) + "\" y=\"" + (critBoxTop + 1200) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"25\">DAMAGE TRANSFER</text>\n";
 	svgCode += "<text x=\"" + ( critBoxLeft + critBoxWidth / 2 ) + "\" y=\"" + (critBoxTop + 1220) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"25\">DIAGRAM</text>\n";
 
-	// Right TTorso
+	// Right Leg
 	svgCode += "<text x=\"" + ( critBoxLeft + col3Start ) + "\" y=\"" + (critBoxTop + 1010) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"30\">RIGHT LEG</text>\n";
-	svgCode += createCritAllocationTable( mechData.criticals.rightLeg, critBoxLeft + col3Start, critBoxTop + 1050);
+	svgCode += createCritAllocationTable( mechData.criticals.rightLeg, critBoxLeft + col3Start, critBoxTop + 1050, transRollAgain);
 
 
 	/*
