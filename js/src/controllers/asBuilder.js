@@ -203,6 +203,11 @@ var asBuilderArray = [
 			$scope.saveToLS();
 		}
 
+		$scope.clearSearch = function() {
+			$scope.foundMULItems = [];
+			$scope.currentSearch = "";
+		}
+
 		$scope.searchOnEnter = function(event) {
 			//console.log( event );
 			if( event.keyCode == 13 )

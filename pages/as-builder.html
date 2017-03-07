@@ -169,7 +169,16 @@
 					<label><input name="techFilter" ng-click="setTechFilter('all')" type="radio" ng-model="techFilter" ng-checked="techFilter == 'all'" value="" /> <span translate="GENERAL_ALL">All</span></label>
 				</div>
 			</div>
-			<button ng-disabled="currentSearch.length < 3" class="button expanded primary small radius" ng-click="updateMULList()" translate="GENERAL_SEARCH">Search</button>
+			<div class="row">
+				<div class="columns small-6">
+					<button class="button expanded primary small radius" ng-click="clearSearch()" translate="GENERAL_CLEAR_SEARCH">Clear</button>
+
+				</div>
+				<div class="columns small-6">
+					<button ng-disabled="currentSearch.length < 3" class="button expanded primary small radius" ng-click="updateMULList()" translate="GENERAL_SEARCH">Search</button>
+
+				</div>
+			</div>
 		</fieldset>
 
 

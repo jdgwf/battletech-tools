@@ -74,6 +74,8 @@ available_languages.push ({
 
 		GENERAL_REMOVE: "Remove",
 		GENERAL_SAVED: "Saved",
+		GENERAL_CLEAR: "Clear",
+		GENERAL_CLEAR_SEARCH: "Clear Search",
 
 		GENERAL_SAVE_AS_NEW: "Save as New",
 		GENERAL_SAVED_ITEM_AS: "Save Item As...",
