@@ -1052,10 +1052,12 @@ button.round, .button.round {
 .mouse-hand {
 	cursor: pointer;
 }
+/*
 svg {
 	width: 100% !important;
 	height: auto !important;
 }
+*/
 
 .bbcode-export {
 	width: 100%;
@@ -1106,6 +1108,7 @@ body.plain {
 		height: auto;
 		max-height: 100%;
 		max-width: 100%;
+		height: 90vh;
 	}
 	.sticky-top {
 		height: 5rem;
@@ -1133,8 +1136,8 @@ body.plain {
 		}
 
 		.roster-image {
-			width: 100%;
-			height: auto;
+			width: auto;
+			height: 100vh;
 			max-height: 100%;
 			max-width: 100%;
 		}

@@ -38,7 +38,6 @@ var battlemechCreatorControllerPrintingArray =
 			//~ $scope.isIOSStandAlone = true;
 			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
 
-
 			// make tro for sidebar
 			$scope.mech_tro = $scope.current_mech.makeTROHTML();
 			$scope.mech_bv_calc = $scope.current_mech.getBVCalcHTML();

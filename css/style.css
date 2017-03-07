@@ -938,21 +938,22 @@ button.round, .button.round {
 .mouse-hand {
   cursor: pointer; }
 
-/* line 1055, css/src/style.scss */
+/*
 svg {
-  width: 100% !important;
-  height: auto !important; }
-
-/* line 1060, css/src/style.scss */
+	width: 100% !important;
+	height: auto !important;
+}
+*/
+/* line 1062, css/src/style.scss */
 .bbcode-export {
   width: 100%;
   height: 1000px;
   font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace; }
 
-/* line 1065, css/src/style.scss */
+/* line 1067, css/src/style.scss */
 .svg-as-container {
   position: relative; }
-  /* line 1067, css/src/style.scss */
+  /* line 1069, css/src/style.scss */
   .svg-as-container .damage-select {
     position: absolute;
     padding: 30% 0 0 0;
@@ -962,28 +963,28 @@ svg {
     width: 100%;
     text-align: center;
     height: 100%; }
-    /* line 1077, css/src/style.scss */
+    /* line 1079, css/src/style.scss */
     .svg-as-container .damage-select button {
       font-size: 2vw; }
-    /* line 1080, css/src/style.scss */
+    /* line 1082, css/src/style.scss */
     .svg-as-container .damage-select h4 {
       font-size: 3vw; }
 
-/* line 1086, css/src/style.scss */
+/* line 1088, css/src/style.scss */
 .reveal-modal {
   position: fixed; }
 
-/* line 1091, css/src/style.scss */
+/* line 1093, css/src/style.scss */
 .even-modaler {
   z-index: 2000 !important; }
 
-/* line 1095, css/src/style.scss */
+/* line 1097, css/src/style.scss */
 body.plain {
   background: none;
   border: 0;
   padding: 5rem 0 0 0;
   margin: 0; }
-  /* line 1101, css/src/style.scss */
+  /* line 1103, css/src/style.scss */
   body.plain .roster-image {
     margin: 0 !important;
     padding: 0 !important;
@@ -991,11 +992,12 @@ body.plain {
     width: 100%;
     height: auto;
     max-height: 100%;
-    max-width: 100%; }
-  /* line 1110, css/src/style.scss */
+    max-width: 100%;
+    height: 90vh; }
+  /* line 1113, css/src/style.scss */
   body.plain .sticky-top {
     height: 5rem; }
-  /* line 1113, css/src/style.scss */
+  /* line 1116, css/src/style.scss */
   body.plain .mech-tro,
   body.plain .mech-tro tr,
   body.plain .mech-tro tr th,
@@ -1006,26 +1008,26 @@ body.plain {
     color: #000 !important; }
 
 @media print {
-  /* line 1125, css/src/style.scss */
+  /* line 1128, css/src/style.scss */
   body.plain {
     background: none  !important;
     border: 0  !important;
     padding: 0 !important;
     margin: 0  !important; }
-    /* line 1131, css/src/style.scss */
+    /* line 1134, css/src/style.scss */
     body.plain .sticky-top {
       display: none !important; }
-    /* line 1135, css/src/style.scss */
+    /* line 1138, css/src/style.scss */
     body.plain .roster-image {
-      width: 100%;
-      height: auto;
+      width: auto;
+      height: 100vh;
       max-height: 100%;
       max-width: 100%; }
-  /* line 1144, css/src/style.scss */
+  /* line 1147, css/src/style.scss */
   .sticky-top {
     display: none !important; } }
 
 @media only screen and (max-device-width: 400px) and (orientation: portrait) {
-  /* line 1150, css/src/style.scss */
+  /* line 1153, css/src/style.scss */
   .landscape-view-please {
     display: block; } }

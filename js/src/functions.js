@@ -112,7 +112,6 @@ function sortByLocalName( a, b ) {
 }
 
 function ifIEOrEdge() {
-	console.log( "ifIEorEdge", navigator.userAgent);
 	if (/MSIE 10/i.test(navigator.userAgent)) {
 	   // This is internet explorer 10
 	   return true;
@@ -129,6 +128,30 @@ function ifIEOrEdge() {
 	}
 
 
+
+	return false;
+}
+
+
+function ifEdge() {
+	if (/Edge\/\d./i.test(navigator.userAgent)){
+	   // This is Microsoft Edge
+	   return true;
+	}
+
+	return false;
+}
+
+function ifIE() {
+	if (/MSIE 10/i.test(navigator.userAgent)) {
+	   // This is internet explorer 10
+	   return true;
+	}
+
+	if (/MSIE 9/i.test(navigator.userAgent) || /rv:11.0/i.test(navigator.userAgent)) {
+	    // This is internet explorer 9 or 11
+	    return true;
+	}
 
 	return false;
 }
