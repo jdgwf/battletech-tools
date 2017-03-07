@@ -1959,8 +1959,15 @@ Mech.prototype.makeTROBBCode = function() {
 
 		item_location = "";
 		item_location = this.getLocationAbbr( this.equipmentList[eq_count].location );
-		html += "" + this.equipmentList[eq_count].name[ this.useLang ].rpad(" ", col1Padding) + "" + item_location.toUpperCase().toString().rpad(" ", col2Padding) + "" + this.equipmentList[eq_count].space.battlemech.toString().rpad(" ", col3Padding) + "" + this.equipmentList[eq_count].weight.toString().rpad(" ", col4Padding) + "\n";
+		if( this.equipmentList[eq_count].ammo_per_ton && this.equipmentList[eq_count].ammo_per_ton > 0)
+			html += "" + ( this.equipmentList[eq_count].name[ this.useLang ] +" " + this.equipmentList[eq_count].ammo_per_ton).rpad(" ", col1Padding) + "" + item_location.toUpperCase().toString().rpad(" ", col2Padding) + "" + this.equipmentList[eq_count].space.battlemech.toString().rpad(" ", col3Padding) + "" + this.equipmentList[eq_count].weight.toString().rpad(" ", col4Padding) + "\n";
+		else
+			html += "" + this.equipmentList[eq_count].name[ this.useLang ].rpad(" ", col1Padding) + "" + item_location.toUpperCase().toString().rpad(" ", col2Padding) + "" + this.equipmentList[eq_count].space.battlemech.toString().rpad(" ", col3Padding) + "" + this.equipmentList[eq_count].weight.toString().rpad(" ", col4Padding) + "\n";
+
+
 	}
+
+
 
 	// List Jump Jets Allocations...
 
@@ -2162,7 +2169,10 @@ Mech.prototype.makeTROHTML = function() {
 
 		item_location = "";
 		item_location = this.getLocationAbbr( this.equipmentList[eq_count].location );
-		html += "<tr><td class=\"text-left\">" + this.equipmentList[eq_count].name[ this.useLang ] + "</td><td class=\"text-center\">" + item_location.toUpperCase() + "</strong></td><td class=\"text-center\">" + this.equipmentList[eq_count].space.battlemech + "</td><td class=\"text-center\">" + this.equipmentList[eq_count].weight + "</td></tr>";
+		if( this.equipmentList[eq_count].ammo_per_ton && this.equipmentList[eq_count].ammo_per_ton > 0)
+			html += "<tr><td class=\"text-left\">" + this.equipmentList[eq_count].name[ this.useLang ] + " " + this.equipmentList[eq_count].ammo_per_ton + "</td><td class=\"text-center\">" + item_location.toUpperCase() + "</strong></td><td class=\"text-center\">" + this.equipmentList[eq_count].space.battlemech + "</td><td class=\"text-center\">" + this.equipmentList[eq_count].weight + "</td></tr>";
+		else
+			html += "<tr><td class=\"text-left\">" + this.equipmentList[eq_count].name[ this.useLang ] + "</td><td class=\"text-center\">" + item_location.toUpperCase() + "</strong></td><td class=\"text-center\">" + this.equipmentList[eq_count].space.battlemech + "</td><td class=\"text-center\">" + this.equipmentList[eq_count].weight + "</td></tr>";
 	}
 
 	// List Jump Jets Allocations...

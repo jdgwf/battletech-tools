@@ -2179,8 +2179,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/2)",
-			'de-DE': "de - Ammo (Autocannon/2)",
+			'en-US': "Ammo (AC/2)",
+			'de-DE': "de - Ammo (AC/2)",
 		},
 		tag: "ammo-standard-autocannon-a",
 		sort: "ammo, Autocannon/a",
@@ -2213,8 +2213,8 @@ var mechISEquipment = Array(
 			small_craft: 1,
 			drop_ship: 1
 		},
-		ammo_per_ton: 45,
-		min_ammo_tons: 1,
+		ammo_per_ton: 0,
+		min_ammo_tons: 0,
 		explosive: true,
 		weapon_type: Array(
 			"DB",
@@ -2236,8 +2236,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/2 Armor-Piercing)",
-			'de-DE': "de - Ammo (Autocannon/2 Armor-Piercing)",
+			'en-US': "Ammo (AC/2 Armor-Piercing)",
+			'de-DE': "de - Ammo (AC/2 Armor-Piercing)",
 		},
 		tag: "ammo-standard-autocannon-a-armor-piercing",
 		sort: "ammo, Autocannon/a, Armor-Piercing",
@@ -2293,8 +2293,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/2 Caseless)",
-			'de-DE': "de - Ammo (Autocannon/2 Caseless)",
+			'en-US': "Ammo (AC/2 Caseless)",
+			'de-DE': "de - Ammo (AC/2 Caseless)",
 		},
 		tag: "ammo-standard-autocannon-a-caseless",
 		sort: "ammo, Autocannon/a, Caseless",
@@ -2350,8 +2350,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/2 Flak)",
-			'de-DE': "de - Ammo (Autocannon/2 Flak)",
+			'en-US': "Ammo (AC/2 Flak)",
+			'de-DE': "de - Ammo (AC/2 Flak)",
 		},
 		tag: "ammo-standard-autocannon-a-flak",
 		sort: "ammo, Autocannon/a, Flak",
@@ -2407,8 +2407,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/2 Flechette)",
-			'de-DE': "de - Ammo (Autocannon/2 Flechette)",
+			'en-US': "Ammo (AC/2 Flechette)",
+			'de-DE': "de - Ammo (AC/2 Flechette)",
 		},
 		tag: "ammo-standard-autocannon-a-flechette",
 		sort: "ammo, Autocannon/a, Flechette",
@@ -2464,8 +2464,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/2 Precision)",
-			'de-DE': "de - Ammo (Autocannon/2 Precision)",
+			'en-US': "Ammo (AC/2 Precision)",
+			'de-DE': "de - Ammo (AC/2 Precision)",
 		},
 		tag: "ammo-standard-autocannon-a-precision",
 		sort: "ammo, Autocannon/a, Precision",
@@ -2521,8 +2521,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/2 Tracer)",
-			'de-DE': "de - Ammo (Autocannon/2 Tracer)",
+			'en-US': "Ammo (AC/2 Tracer)",
+			'de-DE': "de - Ammo (AC/2 Tracer)",
 		},
 		tag: "ammo-standard-autocannon-a-tracer",
 		sort: "ammo, Autocannon/a, Tracer",
@@ -2613,8 +2613,8 @@ var mechISEquipment = Array(
 			small_craft: 1,
 			drop_ship: 1
 		},
-		ammo_per_ton: 20,
-		min_ammo_tons: 1,
+		ammo_per_ton: 0,
+		min_ammo_tons: 0,
 		explosive: false,
 		weapon_type: Array(
 			"DB",
@@ -2636,8 +2636,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/5)",
-			'de-DE': "de - Ammo (Autocannon/5)",
+			'en-US': "Ammo (AC/5)",
+			'de-DE': "de - Ammo (AC/5)",
 		},
 		tag: "ammo-standard-autocannon-b",
 		sort: "ammo, Autocannon/b",
@@ -2693,8 +2693,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/5 Armor-Piercing)",
-			'de-DE': "de - Ammo (Autocannon/5 Armor-Piercing)",
+			'en-US': "Ammo (AC/5 Armor-Piercing)",
+			'de-DE': "de - Ammo (AC/5 Armor-Piercing)",
 		},
 		tag: "ammo-standard-autocannon-b-armor-piercing",
 		sort: "ammo, Autocannon/b, Armor-Piercing",
@@ -2750,8 +2750,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/5 Caseless)",
-			'de-DE': "de - Ammo (Autocannon/5 Caseless)",
+			'en-US': "Ammo (AC/5 Caseless)",
+			'de-DE': "de - Ammo (AC/5 Caseless)",
 		},
 		tag: "ammo-standard-autocannon-b-caseless",
 		sort: "ammo, Autocannon/b, Caseless",
@@ -2807,8 +2807,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/5 Flak)",
-			'de-DE': "de - Ammo (Autocannon/5 Flak)",
+			'en-US': "Ammo (AC/5 Flak)",
+			'de-DE': "de - Ammo (AC/5 Flak)",
 		},
 		tag: "ammo-standard-autocannon-b-flak",
 		sort: "ammo, Autocannon/b, Flak",
@@ -2864,8 +2864,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/5 Flechette)",
-			'de-DE': "de - Ammo (Autocannon/5 Flechette)",
+			'en-US': "Ammo (AC/5 Flechette)",
+			'de-DE': "de - Ammo (AC/5 Flechette)",
 		},
 		tag: "ammo-standard-autocannon-b-flechette",
 		sort: "ammo, Autocannon/b, Flechette",
@@ -2921,8 +2921,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/5 Precision)",
-			'de-DE': "de - Ammo (Autocannon/5 Precision)",
+			'en-US': "Ammo (AC/5 Precision)",
+			'de-DE': "de - Ammo (AC/5 Precision)",
 		},
 		tag: "ammo-standard-autocannon-b-precision",
 		sort: "ammo, Autocannon/b, Precision",
@@ -2978,8 +2978,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/5 Tracer)",
-			'de-DE': "de - Ammo (Autocannon/5 Tracer)",
+			'en-US': "Ammo (AC/5 Tracer)",
+			'de-DE': "de - Ammo (AC/5 Tracer)",
 		},
 		tag: "ammo-standard-autocannon-b-tracer",
 		sort: "ammo, Autocannon/b, Tracer",
@@ -3070,8 +3070,8 @@ var mechISEquipment = Array(
 			small_craft: 1,
 			drop_ship: 1
 		},
-		ammo_per_ton: 10,
-		min_ammo_tons: 1,
+		ammo_per_ton: 0,
+		min_ammo_tons: 0,
 		explosive: false,
 		weapon_type: Array(
 			"DB",
@@ -3093,8 +3093,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/10)",
-			'de-DE': "de - Ammo (Autocannon/10)",
+			'en-US': "Ammo (AC/10)",
+			'de-DE': "de - Ammo (AC/10)",
 		},
 		tag: "ammo-standard-autocannon-c",
 		sort: "ammo, Autocannon/c",
@@ -3150,8 +3150,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/10 Armor-Piercing)",
-			'de-DE': "de - Ammo (Autocannon/10 Armor-Piercing)",
+			'en-US': "Ammo (AC/10 Armor-Piercing)",
+			'de-DE': "de - Ammo (AC/10 Armor-Piercing)",
 		},
 		tag: "ammo-standard-autocannon-c-armor-piercing",
 		sort: "ammo, Autocannon/c, Armor-Piercing",
@@ -3207,8 +3207,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/10 Caseless)",
-			'de-DE': "de - Ammo (Autocannon/10 Caseless)",
+			'en-US': "Ammo (AC/10 Caseless)",
+			'de-DE': "de - Ammo (AC/10 Caseless)",
 		},
 		tag: "ammo-standard-autocannon-c-caseless",
 		sort: "ammo, Autocannon/c, Caseless",
@@ -3264,8 +3264,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/10 Flak)",
-			'de-DE': "de - Ammo (Autocannon/10 Flak)",
+			'en-US': "Ammo (AC/10 Flak)",
+			'de-DE': "de - Ammo (AC/10 Flak)",
 		},
 		tag: "ammo-standard-autocannon-c-flak",
 		sort: "ammo, Autocannon/c, Flak",
@@ -3321,8 +3321,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/10 Flechette)",
-			'de-DE': "de - Ammo (Autocannon/10 Flechette)",
+			'en-US': "Ammo (AC/10 Flechette)",
+			'de-DE': "de - Ammo (AC/10 Flechette)",
 		},
 		tag: "ammo-standard-autocannon-c-flechette",
 		sort: "ammo, Autocannon/c, Flechette",
@@ -3378,8 +3378,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/10 Precision)",
-			'de-DE': "de - Ammo (Autocannon/10 Precision)",
+			'en-US': "Ammo (AC/10 Precision)",
+			'de-DE': "de - Ammo (AC/10 Precision)",
 		},
 		tag: "ammo-standard-autocannon-c-precision",
 		sort: "ammo, Autocannon/c, Precision",
@@ -3435,8 +3435,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/10 Tracer)",
-			'de-DE': "de - Ammo (Autocannon/10 Tracer)",
+			'en-US': "Ammo (AC/10 Tracer)",
+			'de-DE': "de - Ammo (AC/10 Tracer)",
 		},
 		tag: "ammo-standard-autocannon-c-tracer",
 		sort: "ammo, Autocannon/c, Tracer",
@@ -3526,8 +3526,8 @@ var mechISEquipment = Array(
 			small_craft: 1,
 			drop_ship: 1
 		},
-		ammo_per_ton: 5,
-		min_ammo_tons: 1,
+		ammo_per_ton: 0,
+		min_ammo_tons: 0,
 		explosive: false,
 		weapon_type: Array(
 			"DB",
@@ -3549,8 +3549,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/20)",
-			'de-DE': "de - Ammo (Autocannon/20)",
+			'en-US': "Ammo (AC/20)",
+			'de-DE': "de - Ammo (AC/20)",
 		},
 		tag: "ammo-standard-autocannon-d",
 		sort: "ammo, Autocannon/d",
@@ -3566,7 +3566,7 @@ var mechISEquipment = Array(
 		extinct: 0,
 		reintroduced: 0,
 		battlevalue: 22,
-		heat: 1,
+		heat: 0,
 		weight: 1,
 		range_min: {
 			min: 0,
@@ -3606,8 +3606,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/20 Armor-Piercing)",
-			'de-DE': "de - Ammo (Autocannon/20 Armor-Piercing)",
+			'en-US': "Ammo (AC/20 Armor-Piercing)",
+			'de-DE': "de - Ammo (AC/20 Armor-Piercing)",
 		},
 		tag: "ammo-standard-autocannon-d-armor-piercing",
 		sort: "ammo, Autocannon/d, Armor-Piercing",
@@ -3623,7 +3623,7 @@ var mechISEquipment = Array(
 		extinct: 0,
 		reintroduced: 0,
 		battlevalue: 22,
-		heat: 1,
+		heat: 0,
 		weight: 1,
 		range_min: {
 			min: 0,
@@ -3663,8 +3663,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/20 Caseless)",
-			'de-DE': "de - Ammo (Autocannon/20 Caseless)",
+			'en-US': "Ammo (AC/20 Caseless)",
+			'de-DE': "de - Ammo (AC/20 Caseless)",
 		},
 		tag: "ammo-standard-autocannon-d-caseless",
 		sort: "ammo, Autocannon/d, Caseless",
@@ -3680,7 +3680,7 @@ var mechISEquipment = Array(
 		extinct: 0,
 		reintroduced: 0,
 		battlevalue: 22,
-		heat: 1,
+		heat: 0,
 		weight: 1,
 		range_min: {
 			min: 0,
@@ -3720,8 +3720,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/20 Flak)",
-			'de-DE': "de - Ammo (Autocannon/20 Flak)",
+			'en-US': "Ammo (AC/20 Flak)",
+			'de-DE': "de - Ammo (AC/20 Flak)",
 		},
 		tag: "ammo-standard-autocannon-d-flak",
 		sort: "ammo, Autocannon/d, Flak",
@@ -3737,7 +3737,7 @@ var mechISEquipment = Array(
 		extinct: 0,
 		reintroduced: 0,
 		battlevalue: 22,
-		heat: 1,
+		heat: 0,
 		weight: 1,
 		range_min: {
 			min: 0,
@@ -3777,8 +3777,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/20 Flechette)",
-			'de-DE': "de - Ammo (Autocannon/20 Flechette)",
+			'en-US': "Ammo (AC/20 Flechette)",
+			'de-DE': "de - Ammo (AC/20 Flechette)",
 		},
 		tag: "ammo-standard-autocannon-d-flechette",
 		sort: "ammo, Autocannon/d, Flechette",
@@ -3794,7 +3794,7 @@ var mechISEquipment = Array(
 		extinct: 0,
 		reintroduced: 0,
 		battlevalue: 22,
-		heat: 1,
+		heat: 0,
 		weight: 1,
 		range_min: {
 			min: 0,
@@ -3834,8 +3834,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/20 Precision)",
-			'de-DE': "de - Ammo (Autocannon/20 Precision)",
+			'en-US': "Ammo (AC/20 Precision)",
+			'de-DE': "de - Ammo (AC/20 Precision)",
 		},
 		tag: "ammo-standard-autocannon-d-precision",
 		sort: "ammo, Autocannon/d, Precision",
@@ -3851,7 +3851,7 @@ var mechISEquipment = Array(
 		extinct: 0,
 		reintroduced: 0,
 		battlevalue: 22,
-		heat: 1,
+		heat: 0,
 		weight: 1,
 		range_min: {
 			min: 0,
@@ -3891,8 +3891,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Autocannon/20 Tracer)",
-			'de-DE': "de - Ammo (Autocannon/20 Tracer)",
+			'en-US': "Ammo (AC/20 Tracer)",
+			'de-DE': "de - Ammo (AC/20 Tracer)",
 		},
 		tag: "ammo-standard-autocannon-d-tracer",
 		sort: "ammo, Autocannon/d, Tracer",
@@ -3908,7 +3908,7 @@ var mechISEquipment = Array(
 		extinct: 0,
 		reintroduced: 0,
 		battlevalue: 22,
-		heat: 1,
+		heat: 0,
 		weight: 1,
 		range_min: {
 			min: 0,
@@ -3965,7 +3965,7 @@ var mechISEquipment = Array(
 		extinct: 0,
 		reintroduced: 0,
 		battlevalue: 30,
-		heat: 1,
+		heat: 0,
 		weight: 4,
 		range_min: {
 			min: 0,
@@ -4022,7 +4022,7 @@ var mechISEquipment = Array(
 		extinct: 0,
 		reintroduced: 0,
 		battlevalue: 4,
-		heat: 1,
+		heat: 0,
 		weight: 1,
 		range_min: {
 			min: 0,
@@ -4079,7 +4079,7 @@ var mechISEquipment = Array(
 		extinct: 0,
 		reintroduced: 0,
 		battlevalue: 4,
-		heat: 1,
+		heat: 0,
 		weight: 1,
 		range_min: {
 			min: 0,
@@ -4136,7 +4136,7 @@ var mechISEquipment = Array(
 		extinct: 0,
 		reintroduced: 0,
 		battlevalue: 4,
-		heat: 1,
+		heat: 0,
 		weight: 1,
 		range_min: {
 			min: 0,
@@ -4193,7 +4193,7 @@ var mechISEquipment = Array(
 		extinct: 0,
 		reintroduced: 0,
 		battlevalue: 4,
-		heat: 1,
+		heat: 0,
 		weight: 1,
 		range_min: {
 			min: 0,
@@ -4250,7 +4250,7 @@ var mechISEquipment = Array(
 		extinct: 0,
 		reintroduced: 0,
 		battlevalue: 4,
-		heat: 1,
+		heat: 0,
 		weight: 1,
 		range_min: {
 			min: 0,
@@ -4307,7 +4307,7 @@ var mechISEquipment = Array(
 		extinct: 0,
 		reintroduced: 0,
 		battlevalue: 4,
-		heat: 1,
+		heat: 0,
 		weight: 1,
 		range_min: {
 			min: 0,
@@ -4364,7 +4364,7 @@ var mechISEquipment = Array(
 		extinct: 0,
 		reintroduced: 0,
 		battlevalue: 4,
-		heat: 1,
+		heat: 0,
 		weight: 1,
 		range_min: {
 			min: 0,
@@ -4421,7 +4421,7 @@ var mechISEquipment = Array(
 		extinct: 0,
 		reintroduced: 0,
 		battlevalue: 62,
-		heat: 1,
+		heat: 0,
 		weight: 5,
 		range_min: {
 			min: 0,
@@ -4478,7 +4478,7 @@ var mechISEquipment = Array(
 		extinct: 0,
 		reintroduced: 0,
 		battlevalue: 8,
-		heat: 1,
+		heat: 0,
 		weight: 1,
 		range_min: {
 			min: 0,
@@ -4535,7 +4535,7 @@ var mechISEquipment = Array(
 		extinct: 0,
 		reintroduced: 0,
 		battlevalue: 8,
-		heat: 1,
+		heat: 0,
 		weight: 1,
 		range_min: {
 			min: 0,
@@ -4592,7 +4592,7 @@ var mechISEquipment = Array(
 		extinct: 0,
 		reintroduced: 0,
 		battlevalue: 8,
-		heat: 1,
+		heat: 0,
 		weight: 1,
 		range_min: {
 			min: 0,
@@ -4649,7 +4649,7 @@ var mechISEquipment = Array(
 		extinct: 0,
 		reintroduced: 0,
 		battlevalue: 8,
-		heat: 1,
+		heat: 0,
 		weight: 1,
 		range_min: {
 			min: 0,
@@ -4706,7 +4706,7 @@ var mechISEquipment = Array(
 		extinct: 0,
 		reintroduced: 0,
 		battlevalue: 8,
-		heat: 1,
+		heat: 0,
 		weight: 1,
 		range_min: {
 			min: 0,
@@ -4763,7 +4763,7 @@ var mechISEquipment = Array(
 		extinct: 0,
 		reintroduced: 0,
 		battlevalue: 8,
-		heat: 1,
+		heat: 0,
 		weight: 1,
 		range_min: {
 			min: 0,
@@ -4820,7 +4820,7 @@ var mechISEquipment = Array(
 		extinct: 0,
 		reintroduced: 0,
 		battlevalue: 8,
-		heat: 1,
+		heat: 0,
 		weight: 1,
 		range_min: {
 			min: 0,
