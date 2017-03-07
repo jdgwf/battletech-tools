@@ -4895,7 +4895,7 @@ var mechISEquipment = Array(
 			small_craft: 1,
 			drop_ship: 1
 		},
-		ammo_per_ton: 200,
+		ammo_per_ton: 0,
 		min_ammo_tons: 0.5,
 		explosive: false,
 		weapon_type: Array(
@@ -4918,8 +4918,8 @@ var mechISEquipment = Array(
 	},
 	{
 		name: {
-			'en-US': "Ammo (Machine Gun)",
-			'de-DE': "de - Ammo (Machine Gun)",
+			'en-US': "Ammo (MG)",
+			'de-DE': "de - Ammo (MG)",
 		},
 		tag: "ammo-machine-gun",
 		sort: "ammo, machine gun",
