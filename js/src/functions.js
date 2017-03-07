@@ -1,3 +1,9 @@
+
+function getAppVersion() {
+	return "2016030601";
+}
+
+
 function generateUUID(){
     var d = new Date().getTime();
     if(window.performance && typeof window.performance.now === "function"){
@@ -127,9 +133,6 @@ function ifIEOrEdge() {
 	return false;
 }
 
-function getAppVersion() {
-	return "2016022702";
-}
 
 function isIOSStandAlone() {
 	if( window.navigator.standalone == true ){
