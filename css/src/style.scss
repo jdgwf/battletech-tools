@@ -1128,6 +1128,9 @@ body.plain {
 		color: #000 !important;
 	}
 }
+.header-bt-logo svg {
+	max-width: 100%;
+}
 
 @media print {
 	body.plain {

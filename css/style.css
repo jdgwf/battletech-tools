@@ -1011,27 +1011,31 @@ body.plain {
     background: transparent !important;
     color: #000 !important; }
 
+/* line 1131, css/src/style.scss */
+.header-bt-logo svg {
+  max-width: 100%; }
+
 @media print {
-  /* line 1133, css/src/style.scss */
+  /* line 1136, css/src/style.scss */
   body.plain {
     background: none  !important;
     border: 0  !important;
     padding: 0 !important;
     margin: 0  !important; }
-    /* line 1139, css/src/style.scss */
+    /* line 1142, css/src/style.scss */
     body.plain .sticky-top {
       display: none !important; }
-    /* line 1143, css/src/style.scss */
+    /* line 1146, css/src/style.scss */
     body.plain .roster-image {
       width: auto;
       height: 100vh;
       max-height: 100%;
       max-width: 100%; }
-  /* line 1152, css/src/style.scss */
+  /* line 1155, css/src/style.scss */
   .sticky-top {
     display: none !important; } }
 
 @media only screen and (max-device-width: 400px) and (orientation: portrait) {
-  /* line 1158, css/src/style.scss */
+  /* line 1161, css/src/style.scss */
   .landscape-view-please {
     display: block; } }

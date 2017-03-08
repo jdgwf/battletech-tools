@@ -1,7 +1,9 @@
 CACHE MANIFEST
-# Version 2016030805 (change this on any update!)
+# Version 2016-03-08:v06 (change this, or anything in this file, on any and every update!)
 
 CACHE:
+# Language Flag Image Files
+# Only Cache the languages that are currently supported, this saves an immense amount of space on the user's device
 # images/flags/64/KN.png
 # images/flags/64/SC.png
 # images/flags/64/PH.png
@@ -262,6 +264,8 @@ images/flags/64/US.png
 # images/flags/64/ZW.png
 # images/flags/64/IE.png
 # images/flags/64/_commonwealth.png
+
+
 images/favicons/ms-icon-150x150.png
 images/favicons/apple-icon-60x60.png
 images/favicons/apple-icon.png
@@ -289,12 +293,19 @@ images/favicons/android-icon-192x192.png
 images/favicons/apple-icon-152x152.png
 images/favicons/ms-icon-70x70.png
 images/favicons/ms-icon-310x310.png
-cordova.html
+
+# Base HTML files
 plain.html
 index.html
-favicon.ico
-js/script.min.js
+
+# Uncomment script.min.js if we ever use it.
+# js/script.min.js
+# js/sourcemap.map
+
+# If we use the minified, comment out the file below
 js/script.js
+
+# Active Javascript Files
 js/ng-sortable.min.js
 js/angular/angular-route.min.js
 js/angular/angular-sanitize.min.js
@@ -305,11 +316,10 @@ js/angular/angular-route.min.js.map
 js/angular/angular-sanitize.min.js.map
 js/angular/angular.min.js.map
 js/angular/angular-resource.min.js.map
-# js/ng-sortable.js
 js/mm-foundation-tpls-0.8.0.min.js
-# js/jspdf.debug.js
-js/sourcemap.map
 js/jspdf.min.js
+
+# HTML Pages Files
 pages/ios-standalone-pdf.html
 pages/settings.html
 pages/battlemech-print-svg.html
@@ -334,16 +344,13 @@ pages/battlemech-creator-summary.html
 pages/battlemech-creator-step2.html
 pages/as-play-view-svg.html
 pages/battlemech-creator-step6-unallocated-item.html
-gruntfile.js
-# css/ng-sortable.style.min.css
+
+# Active Style Sheets
 css/style.css
 css/ng-sortable.min.css
 css/print.css
 css/style.min.css
 css/foundation-6.1.2.min.css
-css/fonts/ubuntu/Ubuntu-Medium.ttf
-# css/ng-sortable.style.css
-# css/ng-sortable.css
 css/font-awesome-4.7.0/fonts/FontAwesome.otf
 css/font-awesome-4.7.0/fonts/fontawesome-webfont.woff2
 css/font-awesome-4.7.0/fonts/fontawesome-webfont.woff
@@ -351,9 +358,10 @@ css/font-awesome-4.7.0/fonts/fontawesome-webfont.eot
 css/font-awesome-4.7.0/fonts/fontawesome-webfont.svg
 css/font-awesome-4.7.0/fonts/fontawesome-webfont.ttf
 css/font-awesome-4.7.0/css/font-awesome.min.css
-css/font-awesome-4.7.0/css/font-awesome.css
 
+# The Ubuntu Font TTF File
+css/fonts/ubuntu/Ubuntu-Medium.ttf
 
 NETWORK:
-# Necessary for MUL calls.
+# Necessary for MUL calls and going to battletech.com from logo
 *
