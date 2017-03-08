@@ -1,6 +1,6 @@
 
 function getAppVersion() {
-	return "2016030601";
+	return "2016030802";
 }
 
 

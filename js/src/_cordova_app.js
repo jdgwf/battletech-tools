@@ -102,16 +102,16 @@ cordovaApp = angular.module(
 			})
 
 			//~ .when('/as/play-view', {
-				//~ templateUrl : 'pages/as-play-view.html?v=' + getAppVersion(),
+				//~ templateUrl : 'pages/as-play-view.html',
 				//~ controller  : 'asPlayViewController'
 			//~ })
 
 			//~ .when('/as/play-view-svg', {
-				//~ templateUrl : 'pages/as-play-view-svg.html?v=' + getAppVersion(),
+				//~ templateUrl : 'pages/as-play-view-svg.html',
 				//~ controller  : 'asPlayViewSVGController'
 			//~ })
 			.when('/as/play-view', {
-				templateUrl : 'pages/as-play-view-svg.html?v=' + getAppVersion(),
+				templateUrl : 'pages/as-play-view-svg.html',
 				controller  : 'asPlayViewSVGController'
 			})
 
