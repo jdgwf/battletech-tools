@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Ubuntu';
-  src: url("fonts/ubuntu/Ubuntu-Regular.ttf") format("truetype"); }
+  src: url("./fonts/ubuntu/Ubuntu-Regular.ttf") format("truetype"); }
 
 /* line 24, css/src/style.scss */
 body {
