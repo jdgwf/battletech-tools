@@ -171,6 +171,7 @@ var battlemechCreatorControllerWelcomeArray =
 					savedOn: new Date(),
 					tonnage: $scope.current_mech.getTonnage(),
 					tech: $scope.current_mech.getTech(),
+					bv: $scope.current_mech.getBattleValue(),
 					data: $scope.current_mech.exportJSON()
 				};
 

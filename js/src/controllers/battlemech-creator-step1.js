@@ -118,7 +118,7 @@ var battlemechCreatorControllerStep1Array =
 				selectedOption: $scope.current_mech.getTech()
 			};
 
-			$scope.mechType = {
+			$scope.mech_type = {
 				availableOptions: translated_mechTypeOptions,
 				selectedOption: $scope.current_mech.getType()
 			};

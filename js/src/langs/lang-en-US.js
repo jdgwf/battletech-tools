@@ -91,6 +91,7 @@ available_languages.push ({
 		GENERAL_STANDARD: "Standard",
 		GENERAL_ADVANCED: "Advanced",
 		GENERAL_CLOSE: "Close",
+		GENERAL_BATTLE_VALUE_ABBR: "BV",
 
 		GENERAL_IMPORT_ERROR: "There was an import error!",
 		GENERAL_EMPTY_JSON: "Input area was empty, no changes were made.",
@@ -165,6 +166,7 @@ available_languages.push ({
 		BM_WELCOME_CLEAR_MECH: "Clear Current 'Mech",
 		BM_WELCOME_LOAD_MECH: "Load 'Mech",
 		BM_WELCOME_SAVE_MECH: "Save Current 'Mech",
+		BM_DIALOG_SAVED_BV_NOTICE: "BV values are from when the 'mech was saved, and may not be current if the 'mech was saved before an update. Current value will show when 'mech is loaded. You will have to re-save if it's different.",
 
 		BM_WELCOME_IMPORT_JSON: "Import JSON",
 		BM_WELCOME_IMPORT_JSON_DESC: "Paste the import code below them press the \"Import\" button. <strong>Warning</strong>: This will clear out your current 'mech. Be sure to save your current work!",
@@ -293,6 +295,7 @@ available_languages.push ({
 		TRO_MASS: "Mass",
 
 		TRO_NOT_AVAILABLE: "n/a",
+
 
 		TRO_INTERNAL_STRUCTURE: "Internal Structure",
 		TRO_INTERNAL: "Internal",  // separate lines

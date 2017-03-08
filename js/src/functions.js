@@ -1,9 +1,3 @@
-
-function getAppVersion() {
-	return "2016030802";
-}
-
-
 function generateUUID(){
     var d = new Date().getTime();
     if(window.performance && typeof window.performance.now === "function"){
