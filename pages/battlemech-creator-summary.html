@@ -61,7 +61,8 @@
 					<div class="column small-12 medium-6 large-6">
 						<h4 class="text-center" translate="BM_SUMMARY_TRO">TRO</h4>
 						<div class="roster-image summary-block" ng-bind-html="mech_tro"></div>
-						<a href="javascript:window.location = 'plain.html#/battlemech-creator/print-tro/'"><button class="button primary expanded tiny" translate="GENERAL_PRINT_VIEW">View/Print</button></a>
+						<a ng-show="isInDebugMode == false" href="javascript:window.location = 'plain.html#/battlemech-creator/print-tro/'"><button class="button primary expanded tiny" translate="GENERAL_PRINT_VIEW">View/Print</button></a>
+						<a ng-show="isInDebugMode == true" href="javascript:window.location = 'debug-plain.html#/battlemech-creator/print-tro/'"><button class="button primary expanded tiny" translate="GENERAL_PRINT_VIEW">View/Print</button></a>
 
 					</div>
 					<div class="column small-12 medium-6">
@@ -69,8 +70,12 @@
 <!--
 						<img class="roster-image" id="recordSheetImage" width="100%" src='{{current_mech.makeSVGRecordSheet(false) | svg_to_dataurl}}' />
 -->
-						<a href="javascript:window.location = 'plain.html#/battlemech-creator/print-rs/'"><div class="roster-image" id="recordSheetImage" ng-bind-html="svgRecordSheet | to_trusted"></div></a>
-						<a href="javascript:window.location = 'plain.html#/battlemech-creator/print-rs/'"><button class="button primary expanded tiny" translate="GENERAL_PRINT_VIEW">View/Print</button></a>
+						<a ng-show="isInDebugMode == false" href="javascript:window.location = 'plain.html#/battlemech-creator/print-rs/'"><div class="roster-image" id="recordSheetImage" ng-bind-html="svgRecordSheet | to_trusted"></div></a>
+						<a ng-show="isInDebugMode == false" href="javascript:window.location = 'plain.html#/battlemech-creator/print-rs/'"><button class="button primary expanded tiny" translate="GENERAL_PRINT_VIEW">View/Print</button></a>
+
+						<a ng-show="isInDebugMode == true" href="javascript:window.location = 'debug-plain.html#/battlemech-creator/print-rs/'"><div class="roster-image" id="recordSheetImage" ng-bind-html="svgRecordSheet | to_trusted"></div></a>
+						<a ng-show="isInDebugMode == true" href="javascript:window.location = 'debug-plain.html#/battlemech-creator/print-rs/'"><button class="button primary expanded tiny" translate="GENERAL_PRINT_VIEW">View/Print</button></a>
+
 <!--
 						<div class="row">
 							<div class="column small-3 text-center ">
@@ -93,8 +98,12 @@
 						</div>
 -->
 						<br />
-						<a href="javascript:window.location = 'plain.html#/battlemech-creator/print-as/'"><div class="roster-image" id="asSheetImage" ng-bind-html="svgAlphaStrikeCard | to_trusted"></div></a>
-						<a href="javascript:window.location = 'plain.html#/battlemech-creator/print-as/'"><button class="button primary expanded tiny" translate="GENERAL_PRINT_VIEW">View/Print</button></a>
+						<a ng-show="isInDebugMode == false" href="javascript:window.location = 'plain.html#/battlemech-creator/print-as/'"><div class="roster-image" id="asSheetImage" ng-bind-html="svgAlphaStrikeCard | to_trusted"></div></a>
+						<a ng-show="isInDebugMode == false" href="javascript:window.location = 'plain.html#/battlemech-creator/print-as/'"><button class="button primary expanded tiny" translate="GENERAL_PRINT_VIEW">View/Print</button></a>
+
+						<a ng-show="isInDebugMode == true" href="javascript:window.location = 'debug-plain.html#/battlemech-creator/print-as/'"><div class="roster-image" id="asSheetImage" ng-bind-html="svgAlphaStrikeCard | to_trusted"></div></a>
+						<a ng-show="isInDebugMode == true" href="javascript:window.location = 'debug-plain.html#/battlemech-creator/print-as/'"><button class="button primary expanded tiny" translate="GENERAL_PRINT_VIEW">View/Print</button></a>
+
 <!--
 						<div class="row">
 							<div class="column small-3 text-center ">

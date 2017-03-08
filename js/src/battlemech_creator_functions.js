@@ -1,7 +1,7 @@
 var pdfFontSize = 10;
 var pdfFontFace = "helvetica";
 
-function updateMechStatusBarAndTRO($scope, $translate, current_mech) {
+function updateMechStatusBarAndTRO($scope, $translate) {
 	$translate(
 		[
 			'BM_REMAINING_TONS', 'BM_UNALLOCATED_ARMOR', 'BM_UNALLOCATED_CRITS',
@@ -11,26 +11,26 @@ function updateMechStatusBarAndTRO($scope, $translate, current_mech) {
 	).then(function (translation) {
 		$scope.mech_status_bar = "";
 
-		$scope.mech_status_bar += "<strong>" + translation.BM_MOVE_HEAT + "</strong>: " + current_mech.getMoveHeat();
-		$scope.mech_status_bar += " | <strong>" + translation.BM_WEAPON_HEAT + "</strong>: " + current_mech.getWeaponHeat();
-		$scope.mech_status_bar += " | <strong>" + translation.BM_HEAT_DISSIPATION + "</strong>: " + current_mech.getHeatDissipation();
+		$scope.mech_status_bar += "<strong>" + translation.BM_MOVE_HEAT + "</strong>: " + $scope.current_mech.getMoveHeat();
+		$scope.mech_status_bar += " | <strong>" + translation.BM_WEAPON_HEAT + "</strong>: " + $scope.current_mech.getWeaponHeat();
+		$scope.mech_status_bar += " | <strong>" + translation.BM_HEAT_DISSIPATION + "</strong>: " + $scope.current_mech.getHeatDissipation();
 
-		var heatSummary = current_mech.getMoveHeat() + current_mech.getWeaponHeat() - current_mech.getHeatDissipation()
+		var heatSummary = $scope.current_mech.getMoveHeat() + $scope.current_mech.getWeaponHeat() - $scope.current_mech.getHeatDissipation()
 		if( heatSummary > 0  ) {
 			$scope.mech_status_bar += " | <strong>" + translation.BM_HEAT_SUMMARY + "</strong>: <span class=\"color-red\">" + heatSummary + "</span>";
 		} else {
 			$scope.mech_status_bar += " | <strong>" + translation.BM_HEAT_SUMMARY + "</strong>: <span class=\"color-green\">" + heatSummary + "</span>";
 		}
 
-		$scope.mech_status_bar += " | <strong>" + translation.BM_REMAINING_TONS + "</strong>: " + current_mech.getRemainingTonnage();
-		$scope.mech_status_bar += " | <strong>" + translation.BM_UNALLOCATED_ARMOR + "</strong>: " + current_mech.getUnallocatedArmor();
-		$scope.mech_status_bar += " | <strong>" + translation.BM_UNALLOCATED_CRITS + "</strong>: " + current_mech.getUnallocatedCritCount();
+		$scope.mech_status_bar += " | <strong>" + translation.BM_REMAINING_TONS + "</strong>: " + $scope.current_mech.getRemainingTonnage();
+		$scope.mech_status_bar += " | <strong>" + translation.BM_UNALLOCATED_ARMOR + "</strong>: " + $scope.current_mech.getUnallocatedArmor();
+		$scope.mech_status_bar += " | <strong>" + translation.BM_UNALLOCATED_CRITS + "</strong>: " + $scope.current_mech.getUnallocatedCritCount();
 
 		$scope.mech_summary_html = current_mech.makeTROHTML();
 	});
 
 }
-
+/*
 function makeBattlemechRecordSheetPDF(battlemech_object) {
 
 //	var pdfDoc = new jsPDF('portrait', 'mm', 'letter');
@@ -475,4 +475,4 @@ function makeFooter(pdfDoc) {
     return pdfDoc;
 }
 
-
+*/

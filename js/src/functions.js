@@ -1,3 +1,21 @@
+
+var colorRed = "rgb(200,0,0)";
+var colorGreen = "rgb(0,200,0)";
+var colorBlue = "rgb(0,0,200)";
+var colorBlack = "rgb(0,0,0)";
+var colorWhite = "rgb(255,255,255)";
+var colorYellow = "rgb( 204, 187, 0 )";
+var colorOrange = "rgb( 236,87,16 )";
+var colorGrayBackground = "rgba( 255,255,255,.8)";
+
+var colorMediumGray = "rgb(102,102,102)";
+var colorDarkGray = "rgb(51,51,51)";
+var colorLightGray = "rgb(153,153,153)";
+var colorVeryLightGray = "rgb(225,225,225)";
+
+var colorGold = "rgb(223,171,45)";
+var colorTan = "rgb(253,253,227)";
+
 function generateUUID(){
     var d = new Date().getTime();
     if(window.performance && typeof window.performance.now === "function"){

@@ -61,14 +61,14 @@ var battlemechCreatorControllerStep3Array =
 
 			update_heat_sink_dropdown($scope, $translate, $scope.current_mech);
 
-			updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
+			updateMechStatusBarAndTRO($scope, $translate);
 			// make tro for sidebar
 
 
 			$scope.update_selected_heat_sinks = function() {
 				$scope.current_mech.setAdditionalHeatSinks( $scope.selected_heat_sinks.id );
 				update_heat_sink_dropdown($scope, $translate, $scope.current_mech);
-				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 
@@ -77,7 +77,7 @@ var battlemechCreatorControllerStep3Array =
 				$scope.current_mech.setHeatSinksType( $scope.selected_heat_sink_tech.tag );
 				$scope.current_mech.clearHeatSinkCriticals();
 				update_heat_sink_dropdown($scope, $translate, $scope.current_mech);
-				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 		}

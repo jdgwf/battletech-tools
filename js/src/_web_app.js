@@ -28,8 +28,6 @@ webApp = angular.module(
 			}
 			$translateProvider.preferredLanguage(preferred_language);
 
-
-
 			$routeProvider
 
 			// route for the home/welcome page

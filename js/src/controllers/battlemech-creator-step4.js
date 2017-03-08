@@ -37,14 +37,14 @@ var battlemechCreatorControllerStep4Array =
 
 			update_step4_page_items($scope, $translate, $scope.current_mech);
 
-			updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
+			updateMechStatusBarAndTRO($scope, $translate);
 
 			localStorage["backToPath"] = $location.$$path;
 
 			$scope.update_armor_weight = function() {
 				$scope.current_mech.setArmorWeight( $scope.selected_armor_weight.id );
 				update_step4_page_items($scope, $translate, $scope.current_mech);
-				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 
@@ -100,7 +100,7 @@ var battlemechCreatorControllerStep4Array =
 				$scope.current_mech.setArmorType( armorType.tag );
 				$scope.current_mech._calc();
 				update_step4_page_items($scope, $translate, $scope.current_mech);
-				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 
@@ -141,7 +141,7 @@ var battlemechCreatorControllerStep4Array =
 				}
 
 				update_step4_page_items($scope, $translate, $scope.current_mech);
-				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 
@@ -220,7 +220,7 @@ var battlemechCreatorControllerStep4Array =
 				$scope.current_mech.setCenterTorsoArmor( centerTorsoArmor ); // everything else goes to center torso! :)
 
 				update_step4_page_items($scope, $translate, $scope.current_mech);
-				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 
@@ -246,7 +246,7 @@ var battlemechCreatorControllerStep4Array =
 				$scope.current_mech.setCenterTorsoArmor( 0 );
 
 				update_step4_page_items($scope, $translate, $scope.current_mech);
-				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 			}
 
@@ -288,7 +288,7 @@ var battlemechCreatorControllerStep4Array =
 
 				}
 				update_step4_page_items($scope, $translate, $scope.current_mech);
-				updateMechStatusBarAndTRO($scope, $translate, $scope.current_mech);
+				updateMechStatusBarAndTRO($scope, $translate);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
 			}

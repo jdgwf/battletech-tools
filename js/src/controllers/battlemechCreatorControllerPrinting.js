@@ -26,6 +26,9 @@ var battlemechCreatorControllerPrintingArray =
 			// create mech object, load from localStorage if exists
 			$scope.current_mech = new Mech();
 
+			$scope.isInDebugMode = false;
+			if( isInDebugMode )
+				$scope.isInDebugMode = true;
 
 			if( localStorage["tmp.current_mech"] ) {
 				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
