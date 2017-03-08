@@ -126,16 +126,50 @@ cordovaApp = angular.module(
 	]
 );
 
-cordovaApp.config(['$compileProvider',
-    function ($compileProvider) {
-        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|blob):/);
-}]);
 
+angular.module('cordovaApp')
+    .filter('to_trusted', ['$sce', function($sce){
+        return function(text) {
+            return $sce.trustAsHtml(text);
+        };
+    }]);
+
+angular.module('cordovaApp')
+    .filter('svg_to_dataurl', ['$sce', function($sce){
+        return function(text) {
+			//~ console.log( text );
+            //~ return "data:image/svg+xml;base64," + btoa(text);
+
+           //~ return "data:image/svg+xml;utf8," + encodeURIComponent(text);
+
+			return "data:image/svg+xml;utf8," + text;
+        };
+    }]);
+
+angular.module('cordovaApp')
+    .filter('strip_nl', ['$sce', function($sce){
+        return function(text) {
+			//~ console.log( text );
+			while( text.indexOf( "\n" ) != -1 ) {
+				text = text.replace( "\n", "" );
+			}
+            return window.btoa(text);
+
+
+        };
+    }]);
 
 
 cordovaApp.run( function( $rootScope ) {
+	//~ $rootScope.svgBattleTechLogo = $rootScope.$sce.trustAsHtml( battleTechLogoSVG() );
 	$rootScope.svgBattleTechLogo = battleTechLogoSVG();
+
 });
+
+cordovaApp.config(['$compileProvider',
+    function ($compileProvider) {
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|blob|data):/);
+}]);
 
 
 angular.module('cordovaApp').controller(
@@ -144,7 +178,8 @@ angular.module('cordovaApp').controller(
 		'$translate',
 		'$scope',
 		'$route',
-		function ($translate, $scope, $route) {
+		'$location',
+		function ($translate, $scope, $route, $location) {
 
 			$scope.change_language = function (key) {
 				$translate.use(key);
@@ -390,7 +425,7 @@ function updateMechStatusBarAndTRO($scope, $translate) {
 		$scope.mech_status_bar += " | <strong>" + translation.BM_UNALLOCATED_ARMOR + "</strong>: " + $scope.current_mech.getUnallocatedArmor();
 		$scope.mech_status_bar += " | <strong>" + translation.BM_UNALLOCATED_CRITS + "</strong>: " + $scope.current_mech.getUnallocatedCritCount();
 
-		$scope.mech_summary_html = current_mech.makeTROHTML();
+		$scope.mech_summary_html = $scope.current_mech.makeTROHTML();
 	});
 
 }
@@ -20736,8 +20771,12 @@ var battlemechCreatorControllerSummaryArray =
 			localStorage["backToPath"] = $location.$$path;
 
 			$scope.isInDebugMode = false;
-			if( isInDebugMode )
+			if( typeof(isInDebugMode) != "undefined" && isInDebugMode )
 				$scope.isInDebugMode = true;
+
+			$scope.isInCordovaMode = false;
+			if( typeof(isInCordovaMode) != "undefined" && isInCordovaMode )
+				$scope.isInCordovaMode = true;
 
 			// create mech object, load from localStorage if exists
 			$scope.current_mech = new Mech();
@@ -21360,8 +21399,12 @@ var battlemechCreatorControllerPrintingArray =
 			$scope.current_mech = new Mech();
 
 			$scope.isInDebugMode = false;
-			if( isInDebugMode )
+			if( typeof(isInDebugMode) != "undefined" && isInDebugMode )
 				$scope.isInDebugMode = true;
+
+			$scope.isInCordovaMode = false;
+			if( typeof(isInCordovaMode) != "undefined" && isInCordovaMode )
+				$scope.isInCordovaMode = true;
 
 			if( localStorage["tmp.current_mech"] ) {
 				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
