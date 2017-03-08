@@ -1,27 +1,6 @@
 CACHE MANIFEST
-# 2016-03-03:v-74
-# Broken Cache on March 3rd - Seven-Fo
-CACHE:
-#HTML Files
-pages/battlemech-creator-step5.html
-pages/credits.html
-pages/battlemech-creator-step6.html
-pages/battlemech-creator-step1.html
-pages/battlemech-creator-step3.html
-pages/battlemech-creator-step6-critical-item.html
-pages/battlemech-creator-sidebar.html
-pages/battlemech-creator-exports.html
-pages/battlemech-creator-welcome.html
-pages/welcome.html
-pages/battlemech-creator-step4.html
-pages/battlemech-creator-summary.html
-pages/battlemech-creator-step2.html
-pages/battlemech-creator-step6-unallocated-item.html
-index.html
+# Version 2016030601 (change this on any update!)
 
-# Media Files
-/favicon.ico
-favicon.ico
 images/flags/64/KN.png
 images/flags/64/SC.png
 images/flags/64/PH.png
@@ -282,8 +261,6 @@ images/flags/64/AN.png
 images/flags/64/ZW.png
 images/flags/64/IE.png
 images/flags/64/_commonwealth.png
-images/BATTLETECH-Logo.png
-images/BATTLETECH-BoardGame-Logo-Official-600px.png
 images/favicons/ms-icon-150x150.png
 images/favicons/apple-icon-60x60.png
 images/favicons/apple-icon.png
@@ -291,6 +268,7 @@ images/favicons/android-icon-72x72.png
 images/favicons/apple-icon-72x72.png
 images/favicons/apple-icon-120x120.png
 images/favicons/favicon-16x16.png
+images/favicons/browserconfig.xml
 images/favicons/android-icon-96x96.png
 images/favicons/apple-icon-57x57.png
 images/favicons/android-icon-48x48.png
@@ -304,25 +282,78 @@ images/favicons/apple-icon-144x144.png
 images/favicons/ms-icon-144x144.png
 images/favicons/apple-icon-114x114.png
 images/favicons/favicon.ico
+images/favicons/manifest.json
 images/favicons/android-icon-144x144.png
 images/favicons/android-icon-192x192.png
 images/favicons/apple-icon-152x152.png
 images/favicons/ms-icon-70x70.png
 images/favicons/ms-icon-310x310.png
-
-# Javascript Files
-# Eventually we need to copy foundation and angular js files to local directories for hosted apps
+cordova.html
+cache.manifest
+robots.txt
+plain.html
+index.html
+favicon.ico
 js/script.min.js
+js/script.js
 js/ng-sortable.min.js
-js/angular-translate.min.js
+js/angular/angular-route.min.js
+js/angular/angular-sanitize.min.js
+js/angular/angular.min.js
+js/angular/angular-translate.min.js
+js/angular/angular-resource.min.js
+js/ng-sortable.js
+js/mm-foundation-tpls-0.8.0.min.js
 js/jspdf.debug.js
-
-# CSS Files
-# Eventually we need to copy foundation and angular js files to local directories for hosted apps
+js/sourcemap.map
+js/jspdf.min.js
+pages/ios-standalone-pdf.html
+pages/settings.html
+pages/battlemech-print-svg.html
+pages/as-builder.html
+pages/battlemech-creator-step5.html
+pages/credits.html
+pages/as-play-view.html
+pages/battlemech-mech-status-bar.html
+pages/battlemech-creator-step6.html
+pages/global-header.html
+pages/battlemech-creator-step1.html
+pages/battlemech-creator-step3.html
+pages/battlemech-creator-step6-critical-item.html
+pages/battlemech-creator-sidebar.html
+pages/as-card.html
+pages/battlemech-creator-exports.html
+pages/battlemech-creator-welcome.html
+pages/welcome.html
+pages/dialogs.html
+pages/battlemech-creator-step4.html
+pages/battlemech-creator-summary.html
+pages/battlemech-creator-step2.html
+pages/as-play-view-svg.html
+pages/battlemech-creator-step6-unallocated-item.html
+gruntfile.js
 css/ng-sortable.style.min.css
+css/style.css
 css/ng-sortable.min.css
+css/print.css
 css/style.min.css
-
-# Resources that require the user to be online.
-NETWORK:
-*
+css/foundation-6.1.2.min.css
+css/fonts/ubuntu/UFL.txt
+css/fonts/ubuntu/Ubuntu-LightItalic.ttf
+css/fonts/ubuntu/Ubuntu-Medium.ttf
+css/fonts/ubuntu/Ubuntu-Regular.ttf
+css/fonts/ubuntu/Ubuntu-MediumItalic.ttf
+css/fonts/ubuntu/Ubuntu-BoldItalic.ttf
+css/fonts/ubuntu/Ubuntu-Italic.ttf
+css/fonts/ubuntu/Ubuntu-Bold.ttf
+css/fonts/ubuntu/Ubuntu-Light.ttf
+css/ng-sortable.style.css
+css/ng-sortable.css
+css/font-awesome-4.7.0/fonts/FontAwesome.otf
+css/font-awesome-4.7.0/fonts/fontawesome-webfont.woff2
+css/font-awesome-4.7.0/fonts/fontawesome-webfont.woff
+css/font-awesome-4.7.0/fonts/fontawesome-webfont.eot
+css/font-awesome-4.7.0/fonts/fontawesome-webfont.svg
+css/font-awesome-4.7.0/fonts/fontawesome-webfont.ttf
+css/font-awesome-4.7.0/css/font-awesome.min.css
+css/font-awesome-4.7.0/css/font-awesome.css
