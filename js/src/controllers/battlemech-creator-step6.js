@@ -54,7 +54,7 @@ var battlemechCreatorControllerStep6Array =
 				$scope.label_right_torso = translation.TRO_ARMOR_RT;
 				$scope.label_left_torso = translation.TRO_ARMOR_LT;
 
-				if( $scope.current_mech.mechType.class.toLowerCase() == "quad") {
+				if( $scope.current_mech.getMechType().class.toLowerCase() == "quad") {
 					$scope.battlemech_is_quad = true;
 					$scope.label_right_arm = translation.TRO_ARMOR_RFL;
 					$scope.label_left_arm = translation.TRO_ARMOR_LFL;
@@ -256,23 +256,25 @@ function update_step_6_items($scope) {
 //~ console.log($scope.current_mech.criticals.head );
 	$scope.current_mech.trimCriticals();
 
-	$scope.battlemech_head = $scope.current_mech.criticals.head;
+	var criticals = $scope.current_mech.getCriticals();
 
-	$scope.battlemech_left_arm = $scope.current_mech.criticals.leftArm;
+	$scope.battlemech_head = criticals.head;
 
-	$scope.battlemech_right_arm = $scope.current_mech.criticals.rightArm;
+	$scope.battlemech_left_arm = criticals.leftArm;
 
-	$scope.battlemech_left_leg = $scope.current_mech.criticals.leftLeg;
+	$scope.battlemech_right_arm = criticals.rightArm;
 
-	$scope.battlemech_right_leg = $scope.current_mech.criticals.rightLeg;
+	$scope.battlemech_left_leg = criticals.leftLeg;
 
-	$scope.battlemech_left_torso = $scope.current_mech.criticals.leftTorso;
+	$scope.battlemech_right_leg = criticals.rightLeg;
 
-	$scope.battlemech_center_torso = $scope.current_mech.criticals.centerTorso;
+	$scope.battlemech_left_torso = criticals.leftTorso;
 
-	$scope.battlemech_right_torso = $scope.current_mech.criticals.rightTorso;
+	$scope.battlemech_center_torso = criticals.centerTorso;
 
-	$scope.battlemech_unallocated_items = $scope.current_mech.unallocatedCriticals;
+	$scope.battlemech_right_torso = criticals.rightTorso;
+
+	$scope.battlemech_unallocated_items = $scope.current_mech.getUnallocatedCriticals();
 	//~ console.log( $scope.battlemech_head );
 }
 

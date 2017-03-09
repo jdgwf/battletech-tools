@@ -46,14 +46,17 @@ var battlemechCreatorControllerSummaryArray =
 			//~ $scope.isIOSStandAlone = true;
 			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
 
-			$scope.asRole = $scope.current_mech.alphaStrikeForceStats.role;
-			$scope.asCustomName = $scope.current_mech.alphaStrikeForceStats.customName;
+			var alphaStrikeForceStats = $scope.current_mech.getAlphaStrikeForceStats();
+			var pilot = $scope.current_mech.getPilot();
+
+			$scope.asRole = alphaStrikeForceStats.role;
+			$scope.asCustomName = alphaStrikeForceStats.customName;
 
 
 
-			$scope.mechwarriorName = $scope.current_mech.pilot.name;
-			$scope.mechwarriorPiloting = $scope.current_mech.pilot.piloting;
-			$scope.mechwarriorGunnery = $scope.current_mech.pilot.gunnery;
+			$scope.mechwarriorName = pilot.name;
+			$scope.mechwarriorPiloting = pilot.piloting;
+			$scope.mechwarriorGunnery = pilot.gunnery;
 
 			// make tro for sidebar
 			$scope.mech_tro = $scope.current_mech.makeTROHTML();
@@ -65,7 +68,7 @@ var battlemechCreatorControllerSummaryArray =
 			$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
 
 			$scope.setPilotName = function( newValue ) {
-				$scope.current_mech.pilot.name = newValue;
+				$scope.current_mech.setPilotName( newValue );
 				//~ updateMechStatusBarAndTRO($scope, $translate, current_mech);
 				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
 				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
@@ -73,7 +76,8 @@ var battlemechCreatorControllerSummaryArray =
 			}
 
 			$scope.setPilotPiloting = function( newValue ) {
-				$scope.current_mech.pilot.piloting = newValue;
+
+				$scope.current_mech.setPilotPiloting( newValue );
 				//~ updateMechStatusBarAndTRO($scope, $translate, current_mech);
 				$scope.current_mech._calc();
 
@@ -83,7 +87,7 @@ var battlemechCreatorControllerSummaryArray =
 			}
 
 			$scope.setPilotGunnery = function( newValue ) {
-				$scope.current_mech.pilot.gunnery = newValue;
+				$scope.current_mech.setPilotGunnery( newValue );
 				//~ updateMechStatusBarAndTRO($scope, $translate, current_mech);
 				$scope.current_mech._calc();
 				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
@@ -103,14 +107,14 @@ var battlemechCreatorControllerSummaryArray =
 			$scope.setASCustomName = function( newValue ) {
 				//~ console.log( "setASCustomName", newValue );
 				$scope.current_mech.setASCustomName( newValue );
-				//~ console.log("1", $scope.current_mech.alphaStrikeForceStats.customName);
+				//~ console.log("1", alphaStrikeForceStats.customName);
 				//~ updateMechStatusBarAndTRO($scope, $translate, current_mech);
 				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
-				//~ console.log("2", $scope.current_mech.alphaStrikeForceStats.customName);
+				//~ console.log("2", alphaStrikeForceStats.customName);
 				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
-				//~ console.log("3", $scope.current_mech.alphaStrikeForceStats.customName);
+				//~ console.log("3", alphaStrikeForceStats.customName);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
-				//~ console.log("4", $scope.current_mech.alphaStrikeForceStats.customName);
+				//~ console.log("4", alphaStrikeForceStats.customName);
 				//~ console.log( 'localStorage["tmp.current_mech"]', localStorage["tmp.current_mech"]);
 			}
 

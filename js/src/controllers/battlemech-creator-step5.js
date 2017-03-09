@@ -85,7 +85,7 @@ var battlemechCreatorControllerStep5Array =
 				if( $scope.current_mech.strictEra > 0 )
 					$scope.mechIsStrict = true;
 
-				selectedEra = $scope.current_mech.era;
+				selectedEra = $scope.current_mech.getEra();
 
 				for(var eqc = $scope.category_list.length - 1; eqc > -1; eqc-- ) {
 

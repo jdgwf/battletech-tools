@@ -65,7 +65,7 @@ var battlemechCreatorControllerStep4Array =
 
 			$translate(['BM_STEP4_UNAVAILABLE_PAREN']).then(function (translation) {
 
-				var selectedEra = $scope.current_mech.era;
+				var selectedEra = $scope.current_mech.getEra();
 
 				for(var eqc = $scope.availableArmorTypes.length - 1; eqc > -1; eqc-- ) {
 					if( $scope.availableArmorTypes[eqc].name[ localStorage["tmp.preferred_language"] ])
@@ -378,7 +378,7 @@ function update_step4_page_items($scope, $translate, current_mech) {
 		label_armor_stats += translation.BM_STEP4_UNALLOCATED_ARMOR + ": " + $scope.current_mech.getUnallocatedArmor() + "<br />";
 
 		// Update Armor Select Dropdowns....
-		armor_allocations = $scope.current_mech.getArmorAllocations();
+		armor_allocations = $scope.current_mech.getArmorAllocation();
 		internal_structure = $scope.current_mech.getInteralStructure();
 
 
