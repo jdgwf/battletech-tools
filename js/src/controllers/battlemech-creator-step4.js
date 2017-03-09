@@ -30,7 +30,7 @@ var battlemechCreatorControllerStep4Array =
 				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
 				$scope.current_mech.uuid = generateUUID();
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 			}
 
 			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
@@ -98,7 +98,7 @@ var battlemechCreatorControllerStep4Array =
 			$scope.update_armor_type = function( armorType ) {
 				//~ console.log( "update_armor_type", armorType );
 				$scope.current_mech.setArmorType( armorType.tag );
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 				update_step4_page_items($scope, $translate, $scope.current_mech);
 				updateMechStatusBarAndTRO($scope, $translate);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();

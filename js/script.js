@@ -16621,10 +16621,10 @@ Mech.prototype.getLocationAbbr = function(location_tag) {
 Mech.prototype.clearMech = function() {
 	this.setMechType(1);
 	this.setTonnage(20);
-	this._calc();
+	this.calc();
 }
 
-Mech.prototype._calc = function() {
+Mech.prototype.calc = function() {
 
 
 	this._maxMoveHeat = 2;
@@ -17139,7 +17139,7 @@ Mech.prototype.removeHandActuator = function( location ) {
 	if( location == "la" ) {
 		this._no_left_arm_hand_actuator = true;
 	}
-	this._calc();
+	this.calc();
 
 }
 
@@ -17153,7 +17153,7 @@ Mech.prototype.removeLowerArmActuator = function( location ) {
 		this._no_left_arm_hand_actuator = true;
 		this._no_left_arm_lower_actuator = true;
 	}
-	this._calc();
+	this.calc();
 }
 
 Mech.prototype.addHandActuator = function( location ) {
@@ -17166,7 +17166,7 @@ Mech.prototype.addHandActuator = function( location ) {
 		this._no_left_arm_hand_actuator = false;
 		this._no_left_arm_lower_actuator = false;
 	}
-	this._calc();
+	this.calc();
 }
 
 Mech.prototype.addLowerArmActuator = function( location ) {
@@ -17179,7 +17179,7 @@ Mech.prototype.addLowerArmActuator = function( location ) {
 	//	this._no_left_arm_hand_actuator = false;
 		this._no_left_arm_lower_actuator = false;
 	}
-	this._calc();
+	this.calc();
 }
 
 Mech.prototype.getMaxMovementHeat = function() {
@@ -17415,7 +17415,7 @@ Mech.prototype.getJumpSpeed = function() {
 
 Mech.prototype.setJumpSpeed = function(jumpSpeed) {
 	this._jumpSpeed = jumpSpeed / 1;
-	this._calc();
+	this.calc();
 	return this._walkSpeed;
 }
 
@@ -17451,7 +17451,7 @@ Mech.prototype.getUnallocatedArmor = function() {
 
 Mech.prototype.setArmorWeight = function(armorWeight) {
 	this._armorWeight = armorWeight / 1;
-	this._calc();
+	this.calc();
 	return this._armorWeight;
 }
 
@@ -17464,11 +17464,11 @@ Mech.prototype.setEngine = function(ratingNumber) {
 	for( engine_count = 0; engine_count < mechEngineOptions.length; engine_count++ ) {
 		if( mechEngineOptions[engine_count].rating == ratingNumber) {
 			this._engine = mechEngineOptions[engine_count];
-			this._calc();
+			this.calc();
 			return this._engine;
 		}
 	}
-	this._calc();
+	this.calc();
 	return 0;
 }
 
@@ -17521,7 +17521,7 @@ Mech.prototype.setEra = function( eraID )  {
 	for( lcounter = 0; lcounter < btEraOptions.length; lcounter++) {
 		if( eraID == btEraOptions[lcounter].id ) {
 			this._era = btEraOptions[lcounter];
-			this._calc();
+			this.calc();
 			return this._era;
 		}
 	}
@@ -17537,7 +17537,7 @@ Mech.prototype.setTech = function( techID )  {
 	for( lcounter = 0; lcounter < btTechOptions.length; lcounter++) {
 		if( techID == btTechOptions[lcounter].id ) {
 			this._tech = btTechOptions[lcounter];
-			this._calc();
+			this.calc();
 
 			// set era to Clan Invasion (id 3) if the techID is 2 (Clan)
 			if( techID == 2 && this.getEra().id != 3 ) {
@@ -17581,7 +17581,7 @@ Mech.prototype.setMechType = function( typeID )  {
 		if( typeID == mechTypeOptions[lcounter].id ) {
 			this._mechType = mechTypeOptions[lcounter];
 			this.setTonnage( this._tonnage );
-			this._calc();
+			this.calc();
 			return this._mechType;
 		}
 	}
@@ -17593,7 +17593,7 @@ Mech.prototype.setEngineType = function(engineType) {
 	for( lcounter = 0; lcounter < mechEngineTypes.length; lcounter++) {
 		if( engineType.toLowerCase() == mechEngineTypes[lcounter].tag) {
 			this._engineType = mechEngineTypes[lcounter];
-			this._calc();
+			this.calc();
 			return this._engineType;
 		}
 	}
@@ -17606,7 +17606,7 @@ Mech.prototype.setGyroType = function(gyroType) {
 	for( lcounter = 0; lcounter < mechGyroTypes.length; lcounter++) {
 		if( gyroType.toLowerCase() == mechGyroTypes[lcounter].tag) {
 			this._gyro = mechGyroTypes[lcounter];
-			this._calc();
+			this.calc();
 			return this._gyro;
 		}
 	}
@@ -17703,7 +17703,7 @@ Mech.prototype.setTonnage = function(newValue) {
 	this._totalInternalStructurePoints += this._internalStructure.leftLeg;
 
 	this.setWalkSpeed( this._walkSpeed );
-	this._calc();
+	this.calc();
 
 	return this._tonnage;
 }
@@ -17725,7 +17725,7 @@ Mech.prototype.getType = function() {
 Mech.prototype.setType = function(newValue) {
 	this._mechType = newValue;
 	this.setTonnage( this._tonnage );
-	this._calc();
+	this.calc();
 	return this._mechType;
 }
 
@@ -17733,7 +17733,7 @@ Mech.prototype.setType = function(newValue) {
 
 Mech.prototype.exportJSON = function() {
 	// TODO
-	this._calc();
+	this.calc();
 	var exportObject = {};
 	exportObject.name = this.getName();
 	exportObject.tonnage = this.getTonnage();
@@ -17941,7 +17941,7 @@ Mech.prototype.importJSON = function(json_string) {
 			if( !this._useLang && localStorage["tmp.preferred_language"] )
 				this._useLang = localStorage["tmp.preferred_language"];
 
-			this._calc();
+			this.calc();
 			return true;
 	} else {
 			return false;
@@ -17955,67 +17955,67 @@ Mech.prototype.getWeightBreakdown = function() {
 
 Mech.prototype.setCenterTorsoArmor = function( armorValue ) {
 	this._armorAllocation.centerTorso = armorValue / 1;
-	this._calc();
+	this.calc();
 	return this._armorAllocation.centerTorso;
 }
 
 Mech.prototype.setCenterTorsoRearArmor = function( armorValue ) {
 	this._armorAllocation.centerTorsoRear = armorValue / 1;
-	this._calc();
+	this.calc();
 	return this._armorAllocation.centerTorsoRear;
 }
 
 Mech.prototype.setHeadArmor = function( armorValue ) {
 	this._armorAllocation.head = armorValue / 1;
-	this._calc();
+	this.calc();
 	return this._armorAllocation.head;
 }
 
 Mech.prototype.setLeftArmArmor = function( armorValue ) {
 	this._armorAllocation.leftArm = armorValue / 1;
-	this._calc();
+	this.calc();
 	return this._armorAllocation.leftArm;
 }
 
 Mech.prototype.setLeftLegArmor = function( armorValue ) {
 	this._armorAllocation.leftLeg = armorValue / 1;
-	this._calc();
+	this.calc();
 	return this._armorAllocation.leftLeg;
 }
 
 Mech.prototype.setLeftTorsoArmor = function( armorValue ) {
 	this._armorAllocation.leftTorso = armorValue / 1;
-	this._calc();
+	this.calc();
 	return this._armorAllocation.leftTorso;
 }
 
 Mech.prototype.setLeftTorsoRearArmor = function( armorValue ) {
 	this._armorAllocation.leftTorsoRear = armorValue / 1;
-	this._calc();
+	this.calc();
 	return this._armorAllocation.leftTorsoRear;
 }
 
 Mech.prototype.setRightArmArmor = function( armorValue ) {
 	this._armorAllocation.rightArm = armorValue / 1;
-	this._calc();
+	this.calc();
 	return this._armorAllocation.rightArm;
 }
 
 Mech.prototype.setRightLegArmor = function( armorValue ) {
 	this._armorAllocation.rightLeg = armorValue / 1;
-	this._calc();
+	this.calc();
 	return this._armorAllocation.rightLeg;
 }
 
 Mech.prototype.setRightTorsoArmor = function( armorValue ) {
 	this._armorAllocation.rightTorso = armorValue / 1;
-	this._calc();
+	this.calc();
 	return this._armorAllocation.rightTorso;
 }
 
 Mech.prototype.setRightTorsoRearArmor = function( armorValue ) {
 	this._armorAllocation.rightTorsoRear = armorValue / 1;
-	this._calc();
+	this.calc();
 	return this._armorAllocation.rightTorsoRear;
 }
 
@@ -18152,7 +18152,7 @@ Mech.prototype.updateCriticalAllocationTable = function() {
 			}
 		}
 	}
-	// this._calc();
+	// this.calc();
 
 
 };
@@ -18331,7 +18331,7 @@ Mech.prototype.clearHeatSinkCriticals = function() {
 			this._criticalAllocationTable.splice(alloc_c, 1);
 	}
 
-	this._calc();
+	this.calc();
 };
 
 Mech.prototype.clearArmCriticalAllocationTable = function() {
@@ -18344,13 +18344,13 @@ Mech.prototype.clearArmCriticalAllocationTable = function() {
 			this._criticalAllocationTable.splice(alloc_c, 1);
 		}
 	}
-	this._calc();
+	this.calc();
 }
 
 Mech.prototype.clearCriticalAllocationTable = function() {
 	this._criticalAllocationTable = Array();
 
-	this._calc();
+	this.calc();
 
 }
 
@@ -18364,7 +18364,7 @@ Mech.prototype.setEquipmentLocation = function(equipment_index, location) {
 
 Mech.prototype.setAdditionalHeatSinks = function(newValue) {
 	this._additionalHeatSinks = newValue / 1;
-	this._calc();
+	this.calc();
 	return this._additionalHeatSinks;
 };
 
@@ -19386,7 +19386,7 @@ var battlemechCreatorControllerExportsArray =
 				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
 				$scope.current_mech.uuid = generateUUID();
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 			}
 
 			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
@@ -19504,7 +19504,7 @@ var battlemechCreatorControllerStep1Array =
 				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
 				$scope.current_mech.uuid = generateUUID();
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 			}
 
 			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
@@ -19862,7 +19862,7 @@ var battlemechCreatorControllerStep2Array =
 				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
 				$scope.current_mech.uuid = generateUUID();
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 			}
 
 			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
@@ -19939,7 +19939,7 @@ var battlemechCreatorControllerStep3Array =
 				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
 				$scope.current_mech.uuid = generateUUID();
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 			}
 
 			$scope.mechHeatSinkTypes = [];
@@ -20100,7 +20100,7 @@ var battlemechCreatorControllerStep4Array =
 				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
 				$scope.current_mech.uuid = generateUUID();
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 			}
 
 			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
@@ -20168,7 +20168,7 @@ var battlemechCreatorControllerStep4Array =
 			$scope.update_armor_type = function( armorType ) {
 				//~ console.log( "update_armor_type", armorType );
 				$scope.current_mech.setArmorType( armorType.tag );
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 				update_step4_page_items($scope, $translate, $scope.current_mech);
 				updateMechStatusBarAndTRO($scope, $translate);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
@@ -20534,7 +20534,7 @@ var battlemechCreatorControllerStep5Array =
 				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
 				$scope.current_mech.uuid = generateUUID();
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 			}
 
 			localStorage["backToPath"] = $location.$$path;
@@ -20854,7 +20854,7 @@ var battlemechCreatorControllerStep6Array =
 				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
 				$scope.current_mech.uuid = generateUUID();
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 			}
 
 			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
@@ -20991,7 +20991,7 @@ var battlemechCreatorControllerStep6Array =
 								//~ console.log( "a", $scope.current_mech.criticals.leftTorso )
 								$scope.current_mech.updateCriticalAllocationTable();
 								//~ console.log("b", $scope.current_mech.criticals.leftTorso )
-								$scope.current_mech._calc();
+								$scope.current_mech.calc();
 								//~ console.log("c", $scope.current_mech.criticals.leftTorso )
 								localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
@@ -21058,7 +21058,7 @@ var battlemechCreatorControllerStep6Array =
 			$scope.resetAllocations = function() {
 				$scope.selectedItem = null;
 				$scope.current_mech.clearCriticalAllocationTable();
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 				update_step_6_items($scope);
 				updateMechStatusBarAndTRO($scope, $translate);
@@ -21153,7 +21153,7 @@ var battlemechCreatorControllerSummaryArray =
 				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
 				$scope.current_mech.uuid = generateUUID();
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 			}
 
 			$scope.isIOSStandAlone = isIOSStandAlone();
@@ -21193,7 +21193,7 @@ var battlemechCreatorControllerSummaryArray =
 
 				$scope.current_mech.setPilotPiloting( newValue );
 				//~ updateMechStatusBarAndTRO($scope, $translate, current_mech);
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 
 				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
 				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
@@ -21203,7 +21203,7 @@ var battlemechCreatorControllerSummaryArray =
 			$scope.setPilotGunnery = function( newValue ) {
 				$scope.current_mech.setPilotGunnery( newValue );
 				//~ updateMechStatusBarAndTRO($scope, $translate, current_mech);
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
 				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
@@ -21476,7 +21476,7 @@ var battlemechCreatorControllerWelcomeArray =
 				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
 				$scope.current_mech.uuid = generateUUID();
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 			}
 
 			$scope.importJSONData = "";
@@ -21781,7 +21781,7 @@ var battlemechCreatorControllerPrintingArray =
 				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
 				$scope.current_mech.uuid = generateUUID();
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 			}
 
 			$scope.isIOSStandAlone = isIOSStandAlone();

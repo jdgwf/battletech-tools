@@ -29,7 +29,7 @@ var battlemechCreatorControllerWelcomeArray =
 				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
 				$scope.current_mech.uuid = generateUUID();
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 			}
 
 			$scope.importJSONData = "";

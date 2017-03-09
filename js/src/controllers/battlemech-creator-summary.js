@@ -39,7 +39,7 @@ var battlemechCreatorControllerSummaryArray =
 				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
 				$scope.current_mech.uuid = generateUUID();
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 			}
 
 			$scope.isIOSStandAlone = isIOSStandAlone();
@@ -79,7 +79,7 @@ var battlemechCreatorControllerSummaryArray =
 
 				$scope.current_mech.setPilotPiloting( newValue );
 				//~ updateMechStatusBarAndTRO($scope, $translate, current_mech);
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 
 				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
 				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
@@ -89,7 +89,7 @@ var battlemechCreatorControllerSummaryArray =
 			$scope.setPilotGunnery = function( newValue ) {
 				$scope.current_mech.setPilotGunnery( newValue );
 				//~ updateMechStatusBarAndTRO($scope, $translate, current_mech);
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
 				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();

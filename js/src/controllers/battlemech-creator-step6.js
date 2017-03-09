@@ -32,7 +32,7 @@ var battlemechCreatorControllerStep6Array =
 				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
 				$scope.current_mech.uuid = generateUUID();
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 			}
 
 			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
@@ -169,7 +169,7 @@ var battlemechCreatorControllerStep6Array =
 								//~ console.log( "a", $scope.current_mech.criticals.leftTorso )
 								$scope.current_mech.updateCriticalAllocationTable();
 								//~ console.log("b", $scope.current_mech.criticals.leftTorso )
-								$scope.current_mech._calc();
+								$scope.current_mech.calc();
 								//~ console.log("c", $scope.current_mech.criticals.leftTorso )
 								localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
@@ -236,7 +236,7 @@ var battlemechCreatorControllerStep6Array =
 			$scope.resetAllocations = function() {
 				$scope.selectedItem = null;
 				$scope.current_mech.clearCriticalAllocationTable();
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 				update_step_6_items($scope);
 				updateMechStatusBarAndTRO($scope, $translate);
