@@ -27,12 +27,11 @@ var battlemechCreatorControllerPrintingArray =
 			$scope.current_mech = new Mech();
 
 			$scope.isInDebugMode = false;
-			if( isInDebugMode )
+			if( typeof(isInDebugMode) != "undefined" && isInDebugMode )
 				$scope.isInDebugMode = true;
-
-			$scope.cordovaEnabled = false;
-			if( cordovaEnabled )
-				$scope.cordovaEnabled = true;
+;
+			if( typeof(isInCordovaMode) != "undefined" && isInCordovaMode )
+				$scope.isInCordovaMode = true;
 
 			if( localStorage["tmp.current_mech"] ) {
 				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );

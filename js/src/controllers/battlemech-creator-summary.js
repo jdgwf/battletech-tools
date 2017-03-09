@@ -24,8 +24,12 @@ var battlemechCreatorControllerSummaryArray =
 			localStorage["backToPath"] = $location.$$path;
 
 			$scope.isInDebugMode = false;
-			if( isInDebugMode )
+			if( typeof(isInDebugMode) != "undefined" && isInDebugMode )
 				$scope.isInDebugMode = true;
+
+			$scope.isInCordovaMode = false;
+			if( typeof(isInCordovaMode) != "undefined" && isInCordovaMode )
+				$scope.isInCordovaMode = true;
 
 			// create mech object, load from localStorage if exists
 			$scope.current_mech = new Mech();

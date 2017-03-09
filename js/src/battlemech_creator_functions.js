@@ -26,7 +26,7 @@ function updateMechStatusBarAndTRO($scope, $translate) {
 		$scope.mech_status_bar += " | <strong>" + translation.BM_UNALLOCATED_ARMOR + "</strong>: " + $scope.current_mech.getUnallocatedArmor();
 		$scope.mech_status_bar += " | <strong>" + translation.BM_UNALLOCATED_CRITS + "</strong>: " + $scope.current_mech.getUnallocatedCritCount();
 
-		$scope.mech_summary_html = current_mech.makeTROHTML();
+		$scope.mech_summary_html = $scope.current_mech.makeTROHTML();
 	});
 
 }
