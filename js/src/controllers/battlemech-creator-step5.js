@@ -93,10 +93,6 @@ var battlemechCreatorControllerStep5Array =
 						$scope.category_list[eqc].local_category = $scope.category_list[eqc].category[ localStorage["tmp.preferred_language"] ];
 					else
 						$scope.category_list[eqc].local_category = $scope.category_list[eqc].category[ "en-US" ];
-					//~ console.log( "$scope.filterEquipmentTerm.toLowerCase().trim()", $scope.filterEquipmentTerm.toLowerCase().trim() );
-					//~ console.log( "$scope.equipment_table[eqc].local_name.toLowerCase()", $scope.equipment_table[eqc].local_name.toLowerCase() );
-					//~ console.log("meow", $scope.equipment_table[eqc].local_name.toLowerCase().indexOf( $scope.filterEquipmentTerm.toLowerCase().trim() ));
-
 
 				}
 
@@ -104,8 +100,6 @@ var battlemechCreatorControllerStep5Array =
 				if( $scope.selectedEquipmentCategory == "" ) {
 					 $scope.selectedEquipmentCategory = $scope.category_list[0].local_category;
 				}
-
-				//~ console.log( "filterEquipment", $scope.filterEquipmentTerm, $scope.selectedEquipmentCategory );
 
 				localStorage["tmp.filterEquipmentTerm"] = $scope.filterEquipmentTerm;
 				localStorage["tmp.selectedEquipmentCategory"] = $scope.selectedEquipmentCategory;
@@ -188,9 +182,6 @@ var battlemechCreatorControllerStep5Array =
 
 				$scope.equipment_table.sort( sortByCategoryThenSortThenName );
 
-
-				//~ console.log( "$scope.category_list", $scope.category_list );
-
 			}
 
 			$scope.filterEquipment( localStorage["tmp.filterEquipmentTerm"], localStorage["tmp.selectedEquipmentCategory"] );
@@ -233,8 +224,7 @@ var battlemechCreatorControllerStep5Array =
 
 				}
 				$scope.bm_location_list = {
-					availableOptions: location_list //,
-					// selectedOption: selected_jumping_mp
+					availableOptions: location_list
 				};
 			});
 
@@ -259,7 +249,6 @@ var battlemechCreatorControllerStep5Array =
 
 						$scope.installed_equipment_table[eqc].local_space = $scope.installed_equipment_table[eqc].space.battlemech;
 
-						//$scope.item_locations[eqc] = make_select_object($scope.installed_equipment_table[eqc].location);
 					}
 
 					$scope.installed_equipment_table = $scope.installed_equipment_table.sort( sortBySortThenName );

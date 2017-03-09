@@ -135,7 +135,7 @@ var battlemechCreatorControllerStep1Array =
 			}
 
 			$scope.mech_tonnage_options = tonnageOptions;
-			// $scope.mech_tonnage.selectedOption = $scope.current_mech.getTonnage();
+
 			$scope.mech_tonnage = {
 				availableOptions: tonnageOptions,
 				selectedOption: $scope.current_mech.getTonnage()
@@ -183,8 +183,6 @@ var battlemechCreatorControllerStep1Array =
 			};
 
 			$scope.update_mech_selected_is_type = function( newISType ) {
-				//~ console.log( "newISType", newISType );
-				//~ console.log( "$scope.mech_selected_is_type.tag", $scope.mech_selected_is_type.tag );
 				$scope.current_mech.setInternalStructureType( $scope.mech_selected_is_type.tag );
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 

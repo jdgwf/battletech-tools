@@ -84,7 +84,7 @@ var battlemechCreatorControllerStep6Array =
 				$scope.torsosAndHeadOnly = false;
 				$scope.legsAndTorsosOnly = false;
 
-				//~ console.log( "step6ItemClick", criticalItem, indexLocation, locationString );
+
 				if( $scope.selectedItem == null ) {
 					if( criticalItem != null) {
 						if( criticalItem.movable == true ) {
@@ -94,11 +94,10 @@ var battlemechCreatorControllerStep6Array =
 								 index: indexLocation
 							};
 						} else {
-							//~ console.log( "Unmovable item selected" );
+
 							$scope.errorCannotMove = true;
 						}
 					} else {
-						//~ console.log( "Unallocated area selected" );
 
 
 					}
@@ -106,7 +105,7 @@ var battlemechCreatorControllerStep6Array =
 					if( $scope.selectedItem.item == criticalItem ) {
 						$scope.selectedItem = null;
 					} else if( criticalItem ) {
-						//~ console.log( "Slot is already filled" );
+
 						$scope.errorCannotPlace = true;
 					} else {
 
@@ -253,8 +252,6 @@ function update_step_6_items($scope) {
 	$scope.has_la_lower_arm_actuator = $scope.current_mech.hasLowerArmActuator("la");
 	$scope.has_ra_lower_arm_actuator = $scope.current_mech.hasLowerArmActuator("ra");
 
-//~ console.log($scope.current_mech.criticals.head );
-	$scope.current_mech.trimCriticals();
 
 	var criticals = $scope.current_mech.getCriticals();
 
@@ -275,7 +272,6 @@ function update_step_6_items($scope) {
 	$scope.battlemech_right_torso = criticals.rightTorso;
 
 	$scope.battlemech_unallocated_items = $scope.current_mech.getUnallocatedCriticals();
-	//~ console.log( $scope.battlemech_head );
 }
 
 angular.module("webApp").controller(

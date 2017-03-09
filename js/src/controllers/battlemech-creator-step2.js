@@ -15,7 +15,7 @@ var battlemechCreatorControllerStep2Array =
 					selected_walking_mp = 0;
 					selected_jumping_mp = 0;
 
-					// TODO calculate the max engine size for tonnage
+					// Calculate the max engine size for tonnage
 					max_walking = (400/ $scope.current_mech.tonnage);
 					max_jumping = $scope.current_mech.getWalkSpeed();
 

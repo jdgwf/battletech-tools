@@ -96,7 +96,6 @@ var battlemechCreatorControllerStep4Array =
 
 
 			$scope.update_armor_type = function( armorType ) {
-				//~ console.log( "update_armor_type", armorType );
 				$scope.current_mech.setArmorType( armorType.tag );
 				$scope.current_mech.calc();
 				update_step4_page_items($scope, $translate, $scope.current_mech);
@@ -108,7 +107,7 @@ var battlemechCreatorControllerStep4Array =
 			$scope.allocate_max = function() {
 
 				internal_structure = $scope.current_mech.getInteralStructure();
-				//console.log( "internal_structure", internal_structure);
+
 				centerTorsoArmor = internal_structure.centerTorso * 2;
 				lrTorsoArmor = internal_structure.rightTorso * 2;
 

@@ -78,7 +78,7 @@ var battlemechCreatorControllerSummaryArray =
 			$scope.setPilotPiloting = function( newValue ) {
 
 				$scope.current_mech.setPilotPiloting( newValue );
-				//~ updateMechStatusBarAndTRO($scope, $translate, current_mech);
+
 				$scope.current_mech.calc();
 
 				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
@@ -88,7 +88,7 @@ var battlemechCreatorControllerSummaryArray =
 
 			$scope.setPilotGunnery = function( newValue ) {
 				$scope.current_mech.setPilotGunnery( newValue );
-				//~ updateMechStatusBarAndTRO($scope, $translate, current_mech);
+
 				$scope.current_mech.calc();
 				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
 				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
@@ -97,7 +97,7 @@ var battlemechCreatorControllerSummaryArray =
 
 			$scope.setASRole = function( newValue ) {
 				$scope.current_mech.setASRole( newValue );
-				//~ updateMechStatusBarAndTRO($scope, $translate, current_mech);
+
 				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
 				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
@@ -105,22 +105,21 @@ var battlemechCreatorControllerSummaryArray =
 
 
 			$scope.setASCustomName = function( newValue ) {
-				//~ console.log( "setASCustomName", newValue );
+
 				$scope.current_mech.setASCustomName( newValue );
-				//~ console.log("1", alphaStrikeForceStats.customName);
-				//~ updateMechStatusBarAndTRO($scope, $translate, current_mech);
+
+
 				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
-				//~ console.log("2", alphaStrikeForceStats.customName);
+
 				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
-				//~ console.log("3", alphaStrikeForceStats.customName);
+
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
-				//~ console.log("4", alphaStrikeForceStats.customName);
-				//~ console.log( 'localStorage["tmp.current_mech"]', localStorage["tmp.current_mech"]);
+
 			}
 
 
 			$scope.saveASPNG = function() {
-				//~ saveSvgAsPng(document.getElementById('asSheetImage'), $scope.current_mech.getName() + ' Alpha Strike Card.png', {scale: 10});
+
 				var image = new Image();
 				image.src = 'data:image/svg+xml;base64,' + window.btoa( $scope.current_mech.makeSVGAlphaStrikeCard() );
 				image.onload = function() {
@@ -140,7 +139,7 @@ var battlemechCreatorControllerSummaryArray =
 
 
 			$scope.saveASJPG = function() {
-				//~ saveSvgAsPng(document.getElementById('asSheetImage'), $scope.current_mech.getName() + ' Alpha Strike Card.png', {scale: 10});
+
 				var image = new Image();
 				image.src = 'data:image/svg+xml;base64,' + window.btoa( $scope.current_mech.makeSVGAlphaStrikeCard() );
 				image.onload = function() {
@@ -158,7 +157,7 @@ var battlemechCreatorControllerSummaryArray =
 				}
 			}
 			$scope.saveASPDF = function() {
-				//~ saveSvgAsPng(document.getElementById('asSheetImage'), $scope.current_mech.getName() + ' Alpha Strike Card.png', {scale: 10});
+
 				var image = new Image();
 				image.src = 'data:image/svg+xml;base64,' + window.btoa( $scope.current_mech.makeSVGAlphaStrikeCard() );
 				image.onload = function() {
@@ -169,23 +168,19 @@ var battlemechCreatorControllerSummaryArray =
 					context.drawImage(image, 0, 0);
 					var ratio = canvas.width / canvas.height;
 
-					//~ var a = document.createElement('a');
-					//~ a.download = $scope.current_mech.getName() + ' Record Sheet.jpg';
-					//~ a.href = canvas.toDataURL('image/jpeg');
-					//~ document.body.appendChild(a);
-					//~ a.click();
+
 					var imgData = canvas.toDataURL("image/jpeg", 1.0);
 					var pdf = new jsPDF("portrait", "in", "letter");
 
 					pdf.addImage(imgData, 'JPG', .25, 1, 8, 8 / ratio);
-					//var download = document.getElementById('download');
+
 
 					pdf.save($scope.current_mech.getName() + " - Alpha Strike Card.pdf");
 				}
 			}
 
 			$scope.saveRSPNG = function() {
-				//~ saveSvgAsPng(document.getElementById('asSheetImage'), $scope.current_mech.getName() + ' Alpha Strike Card.png', {scale: 10});
+
 				var image = new Image();
 				image.src = 'data:image/svg+xml;base64,' + window.btoa( $scope.current_mech.makeSVGRecordSheet() );
 				image.onload = function() {
@@ -204,7 +199,7 @@ var battlemechCreatorControllerSummaryArray =
 			}
 
 			$scope.saveRSJPG = function() {
-				//~ saveSvgAsPng(document.getElementById('asSheetImage'), $scope.current_mech.getName() + ' Alpha Strike Card.png', {scale: 10});
+
 				var image = new Image();
 				image.src = 'data:image/svg+xml;base64,' + window.btoa( $scope.current_mech.makeSVGRecordSheet() );
 				image.onload = function() {
@@ -223,7 +218,7 @@ var battlemechCreatorControllerSummaryArray =
 			}
 
 			$scope.saveRSPDF = function() {
-				//~ saveSvgAsPng(document.getElementById('asSheetImage'), $scope.current_mech.getName() + ' Alpha Strike Card.png', {scale: 10});
+
 				var image = new Image();
 				image.src = 'data:image/svg+xml;base64,' + window.btoa( $scope.current_mech.makeSVGRecordSheet() );
 				image.onload = function() {
@@ -235,84 +230,14 @@ var battlemechCreatorControllerSummaryArray =
 					var context = canvas.getContext('2d');
 					context.drawImage(image, 0, 0);
 
-					//~ var a = document.createElement('a');
-					//~ a.download = $scope.current_mech.getName() + ' Record Sheet.jpg';
-					//~ a.href = canvas.toDataURL('image/jpeg');
-					//~ document.body.appendChild(a);
-					//~ a.click();
 					var imgData = canvas.toDataURL("image/jpeg", 1.0);
 					var pdf = new jsPDF("portrait", "in", "letter");
 
 					pdf.addImage(imgData, 'JPG', .25, .25, 8, 8 / ratio );
-					//var download = document.getElementById('download');
+
 
 					pdf.save($scope.current_mech.getName() + " - Record Sheet.pdf");
 				}
-			}
-
-			/* Create IOS Data Link PDF URLs */
-			$scope.iosRSLink = "";
-			$scope.iosASLink = "";
-			//~ $scope.isIOSStandAlone = true;
-			if($scope.isIOSStandAlone == true) {
-
-				//~ console.log("creating as");
-				var ASimage = new Image();
-				ASimage.src = 'data:image/svg+xml;base64,' + window.btoa( $scope.current_mech.makeSVGAlphaStrikeCard() );
-				ASimage.onload = function() {
-					var AScanvas = document.createElement('canvas');
-					AScanvas.width = ASimage.width;
-					AScanvas.height = ASimage.height;
-
-					var ratio = AScanvas.width / AScanvas.height;
-					var AScontext = AScanvas.getContext('2d');
-					AScontext.drawImage(ASimage, 0, 0);
-
-					//~ var a = document.createElement('a');
-					//~ a.download = $scope.current_mech.getName() + ' Record Sheet.jpg';
-					//~ a.href = canvas.toDataURL('image/jpeg');
-					//~ document.body.appendChild(a);
-					//~ a.click();
-					var ASimgData = AScanvas.toDataURL("image/jpeg", 1.0);
-					var ASpdf = new jsPDF("portrait", "in", "letter");
-
-					ASpdf.addImage(ASimgData, 'JPG', .25, .25, 8, 8 / ratio );
-					//var download = document.getElementById('download');
-
-					var troPDFData = ASpdf.output('datauristring');
-					//~ console.log("created as");
-					$scope.iosASLink =  "pages/ios-standalone-pdf.html#" + troPDFData;
-				}
-
-				//~ console.log("creating rs");
-				var RSimage = new Image();
-				RSimage.src = 'data:image/svg+xml;base64,' + window.btoa( $scope.current_mech.makeSVGRecordSheet() );
-				RSimage.onload = function() {
-					var RScanvas = document.createElement('canvas');
-					RScanvas.width = RSimage.width;
-					RScanvas.height = RSimage.height;
-
-					var ratio = RScanvas.width / RScanvas.height;
-					var RScontext = RScanvas.getContext('2d');
-					RScontext.drawImage(RSimage, 0, 0);
-
-					//~ var a = document.createElement('a');
-					//~ a.download = $scope.current_mech.getName() + ' Record Sheet.jpg';
-					//~ a.href = canvas.toDataURL('image/jpeg');
-					//~ document.body.appendChild(a);
-					//~ a.click();
-					var RSimgData = RScanvas.toDataURL("image/jpeg", 1.0);
-					var RSpdf = new jsPDF("portrait", "in", "letter");
-
-					RSpdf.addImage(RSimgData, 'JPG', .25, .25, 8, 8 / ratio );
-					//var download = document.getElementById('download');
-
-					var troPDFData = RSpdf.output('datauristring');
-					//~ console.log("created rs");
-					$scope.iosRSLink =  "pages/ios-standalone-pdf.html#" + troPDFData;
-				}
-
-
 			}
 
 

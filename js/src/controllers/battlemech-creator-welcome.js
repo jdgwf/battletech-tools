@@ -138,7 +138,6 @@ var battlemechCreatorControllerWelcomeArray =
 
 				for( var itemC = 0; itemC < $scope.saved_items_mechs.length; itemC++) {
 
-					//var techO = JSON.parse( $scope.saved_items_mechs[ itemC ].tech );
 					$scope.saved_items_mechs[ itemC ].localTechName = $scope.saved_items_mechs[ itemC ].tech.name[ localStorage["tmp.preferred_language"] ];
 				}
 

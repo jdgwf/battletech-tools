@@ -49,60 +49,6 @@ var battlemechCreatorControllerExportsArray =
 			$scope.mech_bv_calc = $scope.current_mech.getBVCalcHTML();
 			$scope.mech_as_calc = $scope.current_mech.getASCalcHTML();
 
-			//~ $scope.isIOSStandAlone = isIOSStandAlone();
-
-
-			//~ $scope.troIOSPDFLinkClick = function() {
-				//~ var troPDF = makeBattlemechTROPDF($scope.current_mech);
-				//~ var troPDFData = troPDF.output('datauristring');
-				//~ $scope.troIOSPDFLink =  "pages/ios-standalone-pdf.html#" + troPDFData;
-			//~ }
-
-			//~ $scope.rsIOSPDFLinkClick = function() {
-				//~ var rsPDFData = makeBattlemechRecordSheetPDF($scope.current_mech);
-				//~ var rsPDFData = rsPDFData.output('datauristring');
-				//~ $scope.rsIOSPDFLink =  "pages/ios-standalone-pdf.html#" + rsPDFData;
-			//~ }
-
-			//~ $scope.combIOSPDFLinkClick = function() {
-				//~ var combPDF = makeBattlemechCombinedPDF($scope.current_mech);
-				//~ var combPDFData = combPDF.output('datauristring');
-				//~ $scope.combIOSPDFLink =  "pages/ios-standalone-pdf.html#" + combPDFData;
-			//~ }
-
-			//~ $scope.makeRecordSheet = function() {
-				//~ pdf = makeBattlemechRecordSheetPDF($scope.current_mech);
-			//~ //	pdf.save($scope.current_mech.getName() + ' - Record Sheet.pdf');
-			//~ }
-
-			//~ $scope.makeTROSheet = function() {
-				//~ pdf = makeBattlemechTROPDF($scope.current_mech);
-				//~ pdf.save($scope.current_mech.getName() + ' - TRO.pdf');
-			//~ }
-			//~ $scope.makeCombinedSheet = function() {
-				//~ pdf = makeBattlemechCombinedPDF($scope.current_mech);
-				//~ pdf.save($scope.current_mech.getName() + ' - Record Sheet and TRO.pdf');
-			//~ }
-
-			//~ $scope.updateSVG = function( tmpText ) {
-				//~ if( typeof( tmpText ) == "undefined" )
-					//~ tmpText = "";
-				//~ console.log( "updateSVG", tmpText );
-
-				//~ var rawSVG = $scope.current_mech.makeSVGRecordSheet(tmpText);
-				//~ var compiled = $scope.current_mech.makeSVGRecordSheet(rawSVG)
-				//~ $scope.recordSheetSVG =  $sce.trustAsHtml( compiled );
-				//~ compiled( $scope.recordSheetSVG  )
-				//~ var el = document.getElementById( 'testsvg' );
-				//~ angular.element(el).append( $compile( rawSVG )($scope) )
-				//~ el = $compile( angular.element( rawSVG ) )($scope);
-				//~ //var element = $compile(angular.element( rawSVG ))(scope);
-
-			//~ }
-
-			//~ $scope.updateSVG();
-
-
 		}
 	]
 ;

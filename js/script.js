@@ -17320,7 +17320,7 @@ Mech.prototype.canBeAssignedToArea = function( area_array, new_item, critical_co
 	return false;
 }
 
-Mech.prototype.trimCriticals = function() {
+Mech.prototype._trimCriticals = function() {
 	this._criticals.head = this._criticals.head.slice(0, 6);
 
 	this._criticals.centerTorso = this._criticals.centerTorso.slice(0, 12);
@@ -17502,6 +17502,7 @@ Mech.prototype.getEra = function()  {
 }
 
 Mech.prototype.getCriticals = function()  {
+	this._trimCriticals();
 	return this._criticals;
 }
 
@@ -19400,60 +19401,6 @@ var battlemechCreatorControllerExportsArray =
 			$scope.mech_bv_calc = $scope.current_mech.getBVCalcHTML();
 			$scope.mech_as_calc = $scope.current_mech.getASCalcHTML();
 
-			//~ $scope.isIOSStandAlone = isIOSStandAlone();
-
-
-			//~ $scope.troIOSPDFLinkClick = function() {
-				//~ var troPDF = makeBattlemechTROPDF($scope.current_mech);
-				//~ var troPDFData = troPDF.output('datauristring');
-				//~ $scope.troIOSPDFLink =  "pages/ios-standalone-pdf.html#" + troPDFData;
-			//~ }
-
-			//~ $scope.rsIOSPDFLinkClick = function() {
-				//~ var rsPDFData = makeBattlemechRecordSheetPDF($scope.current_mech);
-				//~ var rsPDFData = rsPDFData.output('datauristring');
-				//~ $scope.rsIOSPDFLink =  "pages/ios-standalone-pdf.html#" + rsPDFData;
-			//~ }
-
-			//~ $scope.combIOSPDFLinkClick = function() {
-				//~ var combPDF = makeBattlemechCombinedPDF($scope.current_mech);
-				//~ var combPDFData = combPDF.output('datauristring');
-				//~ $scope.combIOSPDFLink =  "pages/ios-standalone-pdf.html#" + combPDFData;
-			//~ }
-
-			//~ $scope.makeRecordSheet = function() {
-				//~ pdf = makeBattlemechRecordSheetPDF($scope.current_mech);
-			//~ //	pdf.save($scope.current_mech.getName() + ' - Record Sheet.pdf');
-			//~ }
-
-			//~ $scope.makeTROSheet = function() {
-				//~ pdf = makeBattlemechTROPDF($scope.current_mech);
-				//~ pdf.save($scope.current_mech.getName() + ' - TRO.pdf');
-			//~ }
-			//~ $scope.makeCombinedSheet = function() {
-				//~ pdf = makeBattlemechCombinedPDF($scope.current_mech);
-				//~ pdf.save($scope.current_mech.getName() + ' - Record Sheet and TRO.pdf');
-			//~ }
-
-			//~ $scope.updateSVG = function( tmpText ) {
-				//~ if( typeof( tmpText ) == "undefined" )
-					//~ tmpText = "";
-				//~ console.log( "updateSVG", tmpText );
-
-				//~ var rawSVG = $scope.current_mech.makeSVGRecordSheet(tmpText);
-				//~ var compiled = $scope.current_mech.makeSVGRecordSheet(rawSVG)
-				//~ $scope.recordSheetSVG =  $sce.trustAsHtml( compiled );
-				//~ compiled( $scope.recordSheetSVG  )
-				//~ var el = document.getElementById( 'testsvg' );
-				//~ angular.element(el).append( $compile( rawSVG )($scope) )
-				//~ el = $compile( angular.element( rawSVG ) )($scope);
-				//~ //var element = $compile(angular.element( rawSVG ))(scope);
-
-			//~ }
-
-			//~ $scope.updateSVG();
-
-
 		}
 	]
 ;
@@ -19605,7 +19552,7 @@ var battlemechCreatorControllerStep1Array =
 			}
 
 			$scope.mech_tonnage_options = tonnageOptions;
-			// $scope.mech_tonnage.selectedOption = $scope.current_mech.getTonnage();
+
 			$scope.mech_tonnage = {
 				availableOptions: tonnageOptions,
 				selectedOption: $scope.current_mech.getTonnage()
@@ -19653,8 +19600,6 @@ var battlemechCreatorControllerStep1Array =
 			};
 
 			$scope.update_mech_selected_is_type = function( newISType ) {
-				//~ console.log( "newISType", newISType );
-				//~ console.log( "$scope.mech_selected_is_type.tag", $scope.mech_selected_is_type.tag );
 				$scope.current_mech.setInternalStructureType( $scope.mech_selected_is_type.tag );
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
@@ -19694,7 +19639,7 @@ var battlemechCreatorControllerStep2Array =
 					selected_walking_mp = 0;
 					selected_jumping_mp = 0;
 
-					// TODO calculate the max engine size for tonnage
+					// Calculate the max engine size for tonnage
 					max_walking = (400/ $scope.current_mech.tonnage);
 					max_jumping = $scope.current_mech.getWalkSpeed();
 
@@ -19984,7 +19929,6 @@ var battlemechCreatorControllerStep3Array =
 			}
 
 			$scope.update_selected_heat_sink_tech = function() {
-				//~ console.log( "$scope.selected_heat_sink_tech", $scope.selected_heat_sink_tech);
 				$scope.current_mech.setHeatSinksType( $scope.selected_heat_sink_tech.tag );
 				$scope.current_mech.clearHeatSinkCriticals();
 				update_heat_sink_dropdown($scope, $translate, $scope.current_mech);
@@ -20038,7 +19982,7 @@ function update_heat_sink_dropdown($scope, $translate, current_mech) {
 			the_label = translation.BM_STEP3_CRITICAL_REQUIRED;
 			the_label_single = translation.BM_STEP3_CRITICAL_REQUIRED_SINGLE;
 			the_label_none = translation.BM_STEP3_CRITICAL_REQUIRED_NONE;
-			//~ console.log( "heat_sinks_required", heat_sinks_required);
+
 			$scope.hs_crits_required = heat_sinks_required.number * heat_sinks_required.slots_each;
 			hs_crit_count = heat_sinks_required.number * heat_sinks_required.slots_each;
 			if( hs_crit_count < 0)
@@ -20166,7 +20110,6 @@ var battlemechCreatorControllerStep4Array =
 
 
 			$scope.update_armor_type = function( armorType ) {
-				//~ console.log( "update_armor_type", armorType );
 				$scope.current_mech.setArmorType( armorType.tag );
 				$scope.current_mech.calc();
 				update_step4_page_items($scope, $translate, $scope.current_mech);
@@ -20178,7 +20121,7 @@ var battlemechCreatorControllerStep4Array =
 			$scope.allocate_max = function() {
 
 				internal_structure = $scope.current_mech.getInteralStructure();
-				//console.log( "internal_structure", internal_structure);
+
 				centerTorsoArmor = internal_structure.centerTorso * 2;
 				lrTorsoArmor = internal_structure.rightTorso * 2;
 
@@ -20597,10 +20540,6 @@ var battlemechCreatorControllerStep5Array =
 						$scope.category_list[eqc].local_category = $scope.category_list[eqc].category[ localStorage["tmp.preferred_language"] ];
 					else
 						$scope.category_list[eqc].local_category = $scope.category_list[eqc].category[ "en-US" ];
-					//~ console.log( "$scope.filterEquipmentTerm.toLowerCase().trim()", $scope.filterEquipmentTerm.toLowerCase().trim() );
-					//~ console.log( "$scope.equipment_table[eqc].local_name.toLowerCase()", $scope.equipment_table[eqc].local_name.toLowerCase() );
-					//~ console.log("meow", $scope.equipment_table[eqc].local_name.toLowerCase().indexOf( $scope.filterEquipmentTerm.toLowerCase().trim() ));
-
 
 				}
 
@@ -20608,8 +20547,6 @@ var battlemechCreatorControllerStep5Array =
 				if( $scope.selectedEquipmentCategory == "" ) {
 					 $scope.selectedEquipmentCategory = $scope.category_list[0].local_category;
 				}
-
-				//~ console.log( "filterEquipment", $scope.filterEquipmentTerm, $scope.selectedEquipmentCategory );
 
 				localStorage["tmp.filterEquipmentTerm"] = $scope.filterEquipmentTerm;
 				localStorage["tmp.selectedEquipmentCategory"] = $scope.selectedEquipmentCategory;
@@ -20692,9 +20629,6 @@ var battlemechCreatorControllerStep5Array =
 
 				$scope.equipment_table.sort( sortByCategoryThenSortThenName );
 
-
-				//~ console.log( "$scope.category_list", $scope.category_list );
-
 			}
 
 			$scope.filterEquipment( localStorage["tmp.filterEquipmentTerm"], localStorage["tmp.selectedEquipmentCategory"] );
@@ -20737,8 +20671,7 @@ var battlemechCreatorControllerStep5Array =
 
 				}
 				$scope.bm_location_list = {
-					availableOptions: location_list //,
-					// selectedOption: selected_jumping_mp
+					availableOptions: location_list
 				};
 			});
 
@@ -20763,7 +20696,6 @@ var battlemechCreatorControllerStep5Array =
 
 						$scope.installed_equipment_table[eqc].local_space = $scope.installed_equipment_table[eqc].space.battlemech;
 
-						//$scope.item_locations[eqc] = make_select_object($scope.installed_equipment_table[eqc].location);
 					}
 
 					$scope.installed_equipment_table = $scope.installed_equipment_table.sort( sortBySortThenName );
@@ -20906,7 +20838,7 @@ var battlemechCreatorControllerStep6Array =
 				$scope.torsosAndHeadOnly = false;
 				$scope.legsAndTorsosOnly = false;
 
-				//~ console.log( "step6ItemClick", criticalItem, indexLocation, locationString );
+
 				if( $scope.selectedItem == null ) {
 					if( criticalItem != null) {
 						if( criticalItem.movable == true ) {
@@ -20916,11 +20848,10 @@ var battlemechCreatorControllerStep6Array =
 								 index: indexLocation
 							};
 						} else {
-							//~ console.log( "Unmovable item selected" );
+
 							$scope.errorCannotMove = true;
 						}
 					} else {
-						//~ console.log( "Unallocated area selected" );
 
 
 					}
@@ -20928,7 +20859,7 @@ var battlemechCreatorControllerStep6Array =
 					if( $scope.selectedItem.item == criticalItem ) {
 						$scope.selectedItem = null;
 					} else if( criticalItem ) {
-						//~ console.log( "Slot is already filled" );
+
 						$scope.errorCannotPlace = true;
 					} else {
 
@@ -21075,8 +21006,6 @@ function update_step_6_items($scope) {
 	$scope.has_la_lower_arm_actuator = $scope.current_mech.hasLowerArmActuator("la");
 	$scope.has_ra_lower_arm_actuator = $scope.current_mech.hasLowerArmActuator("ra");
 
-//~ console.log($scope.current_mech.criticals.head );
-	$scope.current_mech.trimCriticals();
 
 	var criticals = $scope.current_mech.getCriticals();
 
@@ -21097,7 +21026,6 @@ function update_step_6_items($scope) {
 	$scope.battlemech_right_torso = criticals.rightTorso;
 
 	$scope.battlemech_unallocated_items = $scope.current_mech.getUnallocatedCriticals();
-	//~ console.log( $scope.battlemech_head );
 }
 
 angular.module("webApp").controller(
@@ -21192,7 +21120,7 @@ var battlemechCreatorControllerSummaryArray =
 			$scope.setPilotPiloting = function( newValue ) {
 
 				$scope.current_mech.setPilotPiloting( newValue );
-				//~ updateMechStatusBarAndTRO($scope, $translate, current_mech);
+
 				$scope.current_mech.calc();
 
 				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
@@ -21202,7 +21130,7 @@ var battlemechCreatorControllerSummaryArray =
 
 			$scope.setPilotGunnery = function( newValue ) {
 				$scope.current_mech.setPilotGunnery( newValue );
-				//~ updateMechStatusBarAndTRO($scope, $translate, current_mech);
+
 				$scope.current_mech.calc();
 				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
 				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
@@ -21211,7 +21139,7 @@ var battlemechCreatorControllerSummaryArray =
 
 			$scope.setASRole = function( newValue ) {
 				$scope.current_mech.setASRole( newValue );
-				//~ updateMechStatusBarAndTRO($scope, $translate, current_mech);
+
 				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
 				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
@@ -21219,22 +21147,21 @@ var battlemechCreatorControllerSummaryArray =
 
 
 			$scope.setASCustomName = function( newValue ) {
-				//~ console.log( "setASCustomName", newValue );
+
 				$scope.current_mech.setASCustomName( newValue );
-				//~ console.log("1", alphaStrikeForceStats.customName);
-				//~ updateMechStatusBarAndTRO($scope, $translate, current_mech);
+
+
 				$scope.svgRecordSheet = $scope.current_mech.makeSVGRecordSheet(false);
-				//~ console.log("2", alphaStrikeForceStats.customName);
+
 				$scope.svgAlphaStrikeCard = $scope.current_mech.makeSVGAlphaStrikeCard(false);
-				//~ console.log("3", alphaStrikeForceStats.customName);
+
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
-				//~ console.log("4", alphaStrikeForceStats.customName);
-				//~ console.log( 'localStorage["tmp.current_mech"]', localStorage["tmp.current_mech"]);
+
 			}
 
 
 			$scope.saveASPNG = function() {
-				//~ saveSvgAsPng(document.getElementById('asSheetImage'), $scope.current_mech.getName() + ' Alpha Strike Card.png', {scale: 10});
+
 				var image = new Image();
 				image.src = 'data:image/svg+xml;base64,' + window.btoa( $scope.current_mech.makeSVGAlphaStrikeCard() );
 				image.onload = function() {
@@ -21254,7 +21181,7 @@ var battlemechCreatorControllerSummaryArray =
 
 
 			$scope.saveASJPG = function() {
-				//~ saveSvgAsPng(document.getElementById('asSheetImage'), $scope.current_mech.getName() + ' Alpha Strike Card.png', {scale: 10});
+
 				var image = new Image();
 				image.src = 'data:image/svg+xml;base64,' + window.btoa( $scope.current_mech.makeSVGAlphaStrikeCard() );
 				image.onload = function() {
@@ -21272,7 +21199,7 @@ var battlemechCreatorControllerSummaryArray =
 				}
 			}
 			$scope.saveASPDF = function() {
-				//~ saveSvgAsPng(document.getElementById('asSheetImage'), $scope.current_mech.getName() + ' Alpha Strike Card.png', {scale: 10});
+
 				var image = new Image();
 				image.src = 'data:image/svg+xml;base64,' + window.btoa( $scope.current_mech.makeSVGAlphaStrikeCard() );
 				image.onload = function() {
@@ -21283,23 +21210,19 @@ var battlemechCreatorControllerSummaryArray =
 					context.drawImage(image, 0, 0);
 					var ratio = canvas.width / canvas.height;
 
-					//~ var a = document.createElement('a');
-					//~ a.download = $scope.current_mech.getName() + ' Record Sheet.jpg';
-					//~ a.href = canvas.toDataURL('image/jpeg');
-					//~ document.body.appendChild(a);
-					//~ a.click();
+
 					var imgData = canvas.toDataURL("image/jpeg", 1.0);
 					var pdf = new jsPDF("portrait", "in", "letter");
 
 					pdf.addImage(imgData, 'JPG', .25, 1, 8, 8 / ratio);
-					//var download = document.getElementById('download');
+
 
 					pdf.save($scope.current_mech.getName() + " - Alpha Strike Card.pdf");
 				}
 			}
 
 			$scope.saveRSPNG = function() {
-				//~ saveSvgAsPng(document.getElementById('asSheetImage'), $scope.current_mech.getName() + ' Alpha Strike Card.png', {scale: 10});
+
 				var image = new Image();
 				image.src = 'data:image/svg+xml;base64,' + window.btoa( $scope.current_mech.makeSVGRecordSheet() );
 				image.onload = function() {
@@ -21318,7 +21241,7 @@ var battlemechCreatorControllerSummaryArray =
 			}
 
 			$scope.saveRSJPG = function() {
-				//~ saveSvgAsPng(document.getElementById('asSheetImage'), $scope.current_mech.getName() + ' Alpha Strike Card.png', {scale: 10});
+
 				var image = new Image();
 				image.src = 'data:image/svg+xml;base64,' + window.btoa( $scope.current_mech.makeSVGRecordSheet() );
 				image.onload = function() {
@@ -21337,7 +21260,7 @@ var battlemechCreatorControllerSummaryArray =
 			}
 
 			$scope.saveRSPDF = function() {
-				//~ saveSvgAsPng(document.getElementById('asSheetImage'), $scope.current_mech.getName() + ' Alpha Strike Card.png', {scale: 10});
+
 				var image = new Image();
 				image.src = 'data:image/svg+xml;base64,' + window.btoa( $scope.current_mech.makeSVGRecordSheet() );
 				image.onload = function() {
@@ -21349,84 +21272,14 @@ var battlemechCreatorControllerSummaryArray =
 					var context = canvas.getContext('2d');
 					context.drawImage(image, 0, 0);
 
-					//~ var a = document.createElement('a');
-					//~ a.download = $scope.current_mech.getName() + ' Record Sheet.jpg';
-					//~ a.href = canvas.toDataURL('image/jpeg');
-					//~ document.body.appendChild(a);
-					//~ a.click();
 					var imgData = canvas.toDataURL("image/jpeg", 1.0);
 					var pdf = new jsPDF("portrait", "in", "letter");
 
 					pdf.addImage(imgData, 'JPG', .25, .25, 8, 8 / ratio );
-					//var download = document.getElementById('download');
+
 
 					pdf.save($scope.current_mech.getName() + " - Record Sheet.pdf");
 				}
-			}
-
-			/* Create IOS Data Link PDF URLs */
-			$scope.iosRSLink = "";
-			$scope.iosASLink = "";
-			//~ $scope.isIOSStandAlone = true;
-			if($scope.isIOSStandAlone == true) {
-
-				//~ console.log("creating as");
-				var ASimage = new Image();
-				ASimage.src = 'data:image/svg+xml;base64,' + window.btoa( $scope.current_mech.makeSVGAlphaStrikeCard() );
-				ASimage.onload = function() {
-					var AScanvas = document.createElement('canvas');
-					AScanvas.width = ASimage.width;
-					AScanvas.height = ASimage.height;
-
-					var ratio = AScanvas.width / AScanvas.height;
-					var AScontext = AScanvas.getContext('2d');
-					AScontext.drawImage(ASimage, 0, 0);
-
-					//~ var a = document.createElement('a');
-					//~ a.download = $scope.current_mech.getName() + ' Record Sheet.jpg';
-					//~ a.href = canvas.toDataURL('image/jpeg');
-					//~ document.body.appendChild(a);
-					//~ a.click();
-					var ASimgData = AScanvas.toDataURL("image/jpeg", 1.0);
-					var ASpdf = new jsPDF("portrait", "in", "letter");
-
-					ASpdf.addImage(ASimgData, 'JPG', .25, .25, 8, 8 / ratio );
-					//var download = document.getElementById('download');
-
-					var troPDFData = ASpdf.output('datauristring');
-					//~ console.log("created as");
-					$scope.iosASLink =  "pages/ios-standalone-pdf.html#" + troPDFData;
-				}
-
-				//~ console.log("creating rs");
-				var RSimage = new Image();
-				RSimage.src = 'data:image/svg+xml;base64,' + window.btoa( $scope.current_mech.makeSVGRecordSheet() );
-				RSimage.onload = function() {
-					var RScanvas = document.createElement('canvas');
-					RScanvas.width = RSimage.width;
-					RScanvas.height = RSimage.height;
-
-					var ratio = RScanvas.width / RScanvas.height;
-					var RScontext = RScanvas.getContext('2d');
-					RScontext.drawImage(RSimage, 0, 0);
-
-					//~ var a = document.createElement('a');
-					//~ a.download = $scope.current_mech.getName() + ' Record Sheet.jpg';
-					//~ a.href = canvas.toDataURL('image/jpeg');
-					//~ document.body.appendChild(a);
-					//~ a.click();
-					var RSimgData = RScanvas.toDataURL("image/jpeg", 1.0);
-					var RSpdf = new jsPDF("portrait", "in", "letter");
-
-					RSpdf.addImage(RSimgData, 'JPG', .25, .25, 8, 8 / ratio );
-					//var download = document.getElementById('download');
-
-					var troPDFData = RSpdf.output('datauristring');
-					//~ console.log("created rs");
-					$scope.iosRSLink =  "pages/ios-standalone-pdf.html#" + troPDFData;
-				}
-
-
 			}
 
 
@@ -21585,7 +21438,6 @@ var battlemechCreatorControllerWelcomeArray =
 
 				for( var itemC = 0; itemC < $scope.saved_items_mechs.length; itemC++) {
 
-					//var techO = JSON.parse( $scope.saved_items_mechs[ itemC ].tech );
 					$scope.saved_items_mechs[ itemC ].localTechName = $scope.saved_items_mechs[ itemC ].tech.name[ localStorage["tmp.preferred_language"] ];
 				}
 
@@ -21748,22 +21600,6 @@ var battlemechCreatorControllerPrintingArray =
 		'$scope',
 		'$location',
 		function ($rootScope, $translate, $scope, $location) {
-			// Set Page Title Tag
-			//~ $translate(['APP_TITLE', 'BM_SUMMARY_TITLE', 'BM_SUMMARY_DESC', 'WELCOME_BUTTON_MECH_CREATOR' ]).then(function (translation) {
-				//~ $rootScope.title_tag = translation.BM_SUMMARY_TITLE + " | " + translation.APP_TITLE;
-				//~ if( translation.BM_SUMMARY_DESC )
-					//~ $scope.h3_title = translation.BM_SUMMARY_TITLE + ": " + translation.BM_SUMMARY_DESC;
-				//~ else
-					//~ $scope.h3_title = translation.BM_SUMMARY_TITLE;
-				//~ $rootScope.subtitle_tag = "&raquo; " + translation.WELCOME_BUTTON_MECH_CREATOR;
-			//~ });
-
-			//~ $scope.goHome = function() {
-
-				//~ delete(localStorage["backToPath"]);
-				//~ $location.url("/");
-			//~ }
-
 			localStorage["backToPath"] = $location.$$path;
 
 			// create mech object, load from localStorage if exists
@@ -21785,14 +21621,13 @@ var battlemechCreatorControllerPrintingArray =
 			}
 
 			$scope.isIOSStandAlone = isIOSStandAlone();
-			//~ $scope.isIOSStandAlone = true;
 			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
 
 			// make tro for sidebar
-			$scope.mech_tro = $scope.current_mech.makeTROHTML();
-			$scope.mech_bv_calc = $scope.current_mech.getBVCalcHTML();
-			$scope.mech_as_calc = $scope.current_mech.getASCalcHTML();
-			$scope.mech_cbill_calc = $scope.current_mech.getCBillCalcHTML();
+			//~ $scope.mech_tro = $scope.current_mech.makeTROHTML();
+			//~ $scope.mech_bv_calc = $scope.current_mech.getBVCalcHTML();
+			//~ $scope.mech_as_calc = $scope.current_mech.getASCalcHTML();
+			//~ $scope.mech_cbill_calc = $scope.current_mech.getCBillCalcHTML();
 			//~ console.log( $location.$$url );
 			if( $location.$$url == "/battlemech-creator/print-tro/") {
 				$rootScope.title_tag = $scope.current_mech.getName() + " - Record Sheet";
@@ -22069,7 +21904,7 @@ var welcomeArray =
 		'$location',
 		function ($rootScope, $translate, $scope, $location) {
 			$translate(['APP_TITLE', 'INDEX_WELCOME']).then(function (translation) {
-				$rootScope.title_tag = translation.INDEX_WELCOME + " | " + translation.APP_TITLE;
+				$rootScope.title_tag = translation.APP_TITLE;
 				$rootScope.subtitle_tag = "&raquo; " + translation.INDEX_WELCOME;
 			});
 

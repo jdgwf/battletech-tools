@@ -3267,7 +3267,7 @@ Mech.prototype.canBeAssignedToArea = function( area_array, new_item, critical_co
 	return false;
 }
 
-Mech.prototype.trimCriticals = function() {
+Mech.prototype._trimCriticals = function() {
 	this._criticals.head = this._criticals.head.slice(0, 6);
 
 	this._criticals.centerTorso = this._criticals.centerTorso.slice(0, 12);
@@ -3449,6 +3449,7 @@ Mech.prototype.getEra = function()  {
 }
 
 Mech.prototype.getCriticals = function()  {
+	this._trimCriticals();
 	return this._criticals;
 }
 
