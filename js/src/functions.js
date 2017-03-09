@@ -41,6 +41,20 @@ function sortByLocationThenName( a, b ) {
 	return 0;
 }
 
+
+
+function sortByBVThenHeat( a, b ) {
+	if( a.battlevalue < b.battlevalue )
+		return 1;
+	if( a.battlevalue > b.battlevalue )
+		return -1;
+	if( a.heat < b.heat )
+		return 1;
+	if( a.heat > b.heat )
+		return -1;
+	return 0;
+}
+
 function sortByCategoryThenName( a, b ) {
 	if( a.local_category > b.local_category )
 		return 1;

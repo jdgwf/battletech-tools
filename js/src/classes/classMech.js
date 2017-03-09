@@ -16,6 +16,8 @@ function Mech (type) {
 
 	this.internalStructure = {};
 
+	this.hasTripleStrengthMyomer = false;
+
 	this.internalStructure.head = 0;
 
 	this.internalStructure.centerTorso = 0;
@@ -41,7 +43,7 @@ function Mech (type) {
 
 	this.armorWeight = 0;
 	this.totalArmor = 0;
-	this.unallocated_armor = 0;
+	this.unallocatedArmor = 0;
 
 	this.armorAllocation = {};
 
@@ -1126,7 +1128,7 @@ Mech.prototype._calcAlphaStrike = function() {
 	this.alphaStrikeForceStats.type = "BM";
 
 
-	this.alphaStrikeValue = Math.round(finalValue)  + " (TODO / WIP)";
+	this.alphaStrikeValue = Math.round(finalValue)  + " (WIP)";
 	var asMechData = [];
 	asMechData["BFPointValue"] = Math.round(finalValue);
 
@@ -1246,6 +1248,13 @@ Mech.prototype._adjustASDamage = function( incomingDamageObject, useZeros ) {
 }
 
 Mech.prototype._calcBattleValue = function() {
+
+	var hasCamo = false;
+	var hasBasicStealth = false;
+	var hasPrototypeStealth = false;
+	var hasStandardStealth = false;
+	var hasImprovedStealth = false;
+	var hasMimetic = false;
 
 	this.battleValue = 0;
 	this.calcLogBV = "";
@@ -1587,18 +1596,44 @@ Mech.prototype._calcBattleValue = function() {
 	else
 		moveModifier = runModifier;
 
-	var targetModifierRating = 1 + moveModifier / 10;
-	if( targetModifierRating < 1 )
-		targetModifierRating = 1;
+	this.calcLogBV += "Best TMM: " + moveModifier+ "<br />";
 
-	this.calcLogBV += "Target Move Modifier (targetModifierRating = 1 + moveModifier / 10): " + targetModifierRating + " = 1 + " + moveModifier + " / 10<br />";
+	var defensiveFactorModifier = 1 + moveModifier / 10;
+	if( defensiveFactorModifier < 1 )
+		defensiveFactorModifier = 1;
+
+	this.calcLogBV += "Defensive Factor (defensiveFactorModifier = 1 + TMM / 10): " + defensiveFactorModifier + " = 1 + " + moveModifier + " / 10<br />";
 
 	// TODO for equipment.... add camo, stealth, etc when it's available
-	this.calcLogBV += "<strong class=\"color-red\">TODO</strong>: targetModifierRating for equipment.... add camo, stealth, etc when tech is available<br />";
+	this.calcLogBV += "<strong> Defensive Factor Modifiers for equipment</strong>.... add camo, stealth, etc when tech is available<br />";
 
-	this.calcLogBV += "Defensive battle rating = Defensive battle rating * Target Modifier Rating : " + (defensiveBattleRating * targetModifierRating) + " = " + defensiveBattleRating + " x " + targetModifierRating + "<br />";
+	if( hasCamo ) {
+		defensiveFactorModifier += 0.2;
+	}
 
-	defensiveBattleRating = defensiveBattleRating * targetModifierRating;
+	if( hasBasicStealth ) {
+		defensiveFactorModifier += 0.2;
+	}
+
+	if( hasPrototypeStealth ) {
+		defensiveFactorModifier += 0.2;
+	}
+
+	if( hasStandardStealth ) {
+		defensiveFactorModifier += 0.2;
+	}
+
+	if( hasImprovedStealth ) {
+		defensiveFactorModifier += 0.3;
+	}
+
+	if( hasMimetic ) {
+		defensiveFactorModifier += 0.3;
+	}
+
+	this.calcLogBV += "Defensive battle rating = Defensive battle rating * Target Modifier Rating : " + (defensiveBattleRating * defensiveFactorModifier) + " = " + defensiveBattleRating + " x " + defensiveFactorModifier + "<br />";
+
+	defensiveBattleRating = defensiveBattleRating * defensiveFactorModifier;
 
 	this.calcLogBV += "<strong>Final defensive battle rating</strong>: " + defensiveBattleRating + "<br />";
 
@@ -1609,21 +1644,166 @@ Mech.prototype._calcBattleValue = function() {
 	 this.calcLogBV += "<strong>STEP 2: CALCULATE OFFENSIVE BATTLE RATING - TM p303</strong><br />";
 
 	// TODO
-	this.calcLogBV += "<strong class=\"color-red\">TODO</strong>: All offensive<br />";
+	this.calcLogBV += "<strong>Calculate Each Weapon’s Modified BV</strong><br />";
+
+	var ammoBV = {};
+	var weaponBV = {};
+
+	// Add up all the BV Sums, put each in an array for comparison
+	for( var eqC = 0; eqC < this.equipmentList.length; eqC++ ) {
+		if( this.equipmentList[ eqC ].tag.indexOf("ammo-") > -1 ) {
+			if( !ammoBV[ this.equipmentList[ eqC ].tag ] )
+				ammoBV[ this.equipmentList[ eqC ].tag ] = 0;
+			if( this.equipmentList[ eqC ].battlevalue )
+				ammoBV[ this.equipmentList[ eqC ].tag ] = this.equipmentList[ eqC ].battlevalue;
+
+			this.calcLogBV += "+ Adding " + this.getLocalTranslation( this.equipmentList[ eqC ].name) + " - " + this.equipmentList[ eqC ].battlevalue + "<br />";
+
+		} else {
+			if( !weaponBV[ this.equipmentList[ eqC ].tag ] )
+				weaponBV[ this.equipmentList[ eqC ].tag ] = 0;
+			if( this.equipmentList[ eqC ].battlevalue )
+				weaponBV[ this.equipmentList[ eqC ].tag ] = this.equipmentList[ eqC ].battlevalue;
+
+
+		}
+	}
+
+
+
+	var totalWeaponBV = 0;
+	var totalAmmoBV = 0;
+	var simplifiedAmmoBV = {};
+	for( var weaponKey in weaponBV ) {
+		for( var ammoKey in ammoBV ) {
+			if( ammoKey.indexOf( weaponKey ) > -1 ) {
+				if( !simplifiedAmmoBV[ weaponKey ] )
+					simplifiedAmmoBV[ weaponKey ] = 0;
+				simplifiedAmmoBV[ weaponKey ] += ammoBV[ ammoKey ];
+			}
+		}
+		totalWeaponBV += weaponBV[ weaponKey];
+	}
+
+	for( var ammoKey in simplifiedAmmoBV ) {
+		if( weaponBV[ ammoKey ] ) {
+			if( simplifiedAmmoBV[ ammoKey] > weaponBV[ ammoKey ] ) {
+				this.calcLogBV += "<strong>Excessive Ammo Rule</strong> setting " + ammoKey + " value to " +  weaponBV[ ammoKey ] + " from " + simplifiedAmmoBV[ ammoKey] + "<br />";
+
+				simplifiedAmmoBV[ ammoKey] = weaponBV[ ammoKey ];
+			}
+			totalAmmoBV += simplifiedAmmoBV[ ammoKey];
+		}
+	}
+
+	//~ console.log( "ammoBV", ammoBV );
+	//~ console.log( "simplifiedAmmoBV", simplifiedAmmoBV );
+	//~ console.log( "weaponBV", weaponBV );
+
+	//~ console.log( "totalWeaponBV", totalWeaponBV );
+	//~ console.log( "totalAmmoBV", totalAmmoBV );
+
+	this.calcLogBV += "<strong>Total Ammo BV</strong> " + totalAmmoBV + "<br />";
 
 
 	//~ console.log( "this.getHeatSinksType()", this.getHeatSinksType() );
 	var mechHeatEfficiency  = 0;
 	if( this.getHeatSinksType() == "single" ) {
-		mechHeatEfficiency = 6 + this.getHeatSinks()  +  this.getMaxMovementHeat()
+		mechHeatEfficiency = 6 + this.getHeatSinks()  -  this.getMaxMovementHeat();
+		this.calcLogBV += "<strong>Heat Efficiency</strong> " + mechHeatEfficiency + " (6 + " + this.getHeatSinks() + " - " + this.getMaxMovementHeat() + ")<br />";
+
 	} else if( this.getHeatSinksType() == "double" ) {
-		mechHeatEfficiency = 6 + this.getHeatSinks() * 2 +  this.getMaxMovementHeat()
+		mechHeatEfficiency = 6 + this.getHeatSinks() * 2 -  this.getMaxMovementHeat();
+		this.calcLogBV += "<strong>Heat Efficiency</strong> " + mechHeatEfficiency + " (6 + " + this.getHeatSinks() * 2 + " - " + this.getMaxMovementHeat() + ")<br />";
+	}
+
+	this.calcLogBV += "<strong>Total Weapon Heat</strong> ";
+	var totalWeaponHeat = 0;
+	for( var eqC = 0; eqC < this.equipmentList.length; eqC++ ) {
+		if( this.equipmentList[ eqC ].tag.indexOf("ammo-") == -1 ) {
+			if( !weaponBV[ this.equipmentList[ eqC ].tag ] )
+				weaponBV[ this.equipmentList[ eqC ].tag ] = 0;
+			if( this.equipmentList[ eqC ].battlevalue )
+				weaponBV[ this.equipmentList[ eqC ].tag ] = this.equipmentList[ eqC ].battlevalue;
+
+			this.calcLogBV += this.equipmentList[ eqC ].heat + " + ";
+
+			totalWeaponHeat += this.equipmentList[ eqC ].heat;
+
+		}
+	}
+
+	//~ console.log( "this.calcLogBV.substr( this.calcLogBV.length -3 )", this.calcLogBV.substr( this.calcLogBV.length -3 ));
+	if( this.calcLogBV.substr( this.calcLogBV.length -3 ) == " + " ) {
+		this.calcLogBV = this.calcLogBV.substr( 0, this.calcLogBV.length -3 )
+	}
+
+	this.calcLogBV += " = " + totalWeaponHeat;
+
+	this.calcLogBV += "<br />";
+
+	if( totalWeaponHeat >= mechHeatEfficiency ) {
+		var eqList = angular.copy ( this.equipmentList )
+		//~ console.log("eqList", eqList);
+		eqList.sort( sortByBVThenHeat );
+		//~ console.log("eqList", eqList);
+		var runningTotal = 0;
+		var runningHeat = 0;
+
+		for( var weaponC = 0; weaponC < eqList.length; weaponC++ ) {
+			if( eqList[ weaponC ].tag.indexOf("ammo-") == -1 ) {
+				runningHeat += eqList[ weaponC ].heat;
+				if( runningHeat >= mechHeatEfficiency && eqList[ weaponC ].heat > 0 ) {
+					// half efficiency
+					this.calcLogBV += "+ Adding Heat In-Efficient Weapon " + this.getLocalTranslation(eqList[ weaponC ].name) + " - " + eqList[weaponC].battlevalue + " / 2 = " + (eqList[weaponC].battlevalue /2 ) + "<br />";
+					runningTotal += (eqList[weaponC].battlevalue /2 );
+				} else {
+					// normal efficiency
+					this.calcLogBV += "+ Adding Weapon " + this.getLocalTranslation( eqList[ weaponC ].name) + " - " + eqList[ weaponC ].battlevalue + "<br />";
+					runningTotal += eqList[weaponC].battlevalue;
+				}
+			}
+		}
+
+		totalWeaponBV = runningTotal;
+
+		this.calcLogBV += "<strong>Total Weapon BV</strong> " + totalWeaponBV + "<br />";
+
+	} else {
+		// no problems, no need to go through steps 4-7 on TM pp 303-304
+		var eqList = angular.copy ( this.equipmentList )
+		//~ console.log("eqList", eqList);
+		eqList.sort( sortByBVThenHeat );
+		//~ console.log("eqList", eqList);
+		for( var weaponC = 0; weaponC < eqList.length; weaponC++ ) {
+			this.calcLogBV += "+ Adding Weapon " + this.getLocalTranslation( eqList[ weaponC ].name) + " - " + eqList[ weaponC ].battlevalue + "<br />";
+
+		}
+		this.calcLogBV += "<strong>Total Weapon BV</strong> " + totalWeaponBV + "<br />";
 	}
 
 	//~ console.log( "mechHeatEfficiency", mechHeatEfficiency );
 	//~ var mechHeatEfficiency = 6 + +  this.getMaxMovementHeat()
+	var modifiedMechTonnage = this.getTonnage();
 
-	this.calcLogBV += "<strong>Final offensive battle rating</strong>: " + offensiveBattleRating + "<br />";
+	// TODO WTF is TSM?
+	if( this.hasTripleStrengthMyomer ) {
+		modifiedMechTonnage = modifiedMechTonnage * 1.5;
+	}
+
+	offensiveBattleRating = totalWeaponBV + totalAmmoBV + modifiedMechTonnage;
+
+
+
+
+
+	var speedFactorModifier = this._getSpeedFactorModifier();
+	offensiveBattleRating = offensiveBattleRating * speedFactorModifier;
+
+	//~ offensiveBattleRating = offensiveBattleRating.toFixed( 2 );
+
+
+	this.calcLogBV += "<strong>Final offensive battle rating</strong>: " + offensiveBattleRating.toFixed( 2)  + " (" + totalWeaponBV + " (weaponBV) + " + totalAmmoBV + " (ammoBV) + "  + modifiedMechTonnage + "(mechTonnage) ) x " + speedFactorModifier + " (speed factor rating)<br />";
 
 	/* ***************************************************
 	 * STEP 3: CALCULATE FINAL BATTLE VALUE - TM p304
@@ -1631,15 +1811,75 @@ Mech.prototype._calcBattleValue = function() {
 
 	 this.calcLogBV += "<strong>STEP 3: CALCULATE FINAL BATTLE VALUE - TM p304</strong><br />";
 	 var finalBattleValue = defensiveBattleRating + offensiveBattleRating;
-	 this.calcLogBV += "finalBattleValue = defensiveBattleRating + offensiveBattleRating: " + finalBattleValue + " = " + defensiveBattleRating + " + " + offensiveBattleRating + "<br />";
+	 this.calcLogBV += "finalBattleValue = defensiveBattleRating + offensiveBattleRating: " + finalBattleValue.toFixed( 2)  + " = " + defensiveBattleRating.toFixed( 2)  + " + " + offensiveBattleRating.toFixed( 2)  + "<br />";
 
 	 if( this.smallCockpit ) {
 		finalBattleValue = Math.round( finalBattleValue * .95 );
-		this.calcLogBV += "Small Cockpit, multiply total by .95 and round final BV: " + finalBattleValue + "<br />";
+		this.calcLogBV += "Small Cockpit, multiply total by .95 and round final BV: " + finalBattleValue.toFixed( 2)  + "<br />";
 	}
 
-	this.calcLogBV += "<strong>Final Battle Value</strong>: " + finalBattleValue + " rounded to " +  Math.round(finalBattleValue) + "<br />";
-	this.battleValue = Math.round(finalBattleValue) + " (TODO / WIP)";
+	this.calcLogBV += "<strong>Final Battle Value</strong>: " + finalBattleValue.toFixed( 2)  + " rounded to " +  Math.round(finalBattleValue) + "<br />";
+	this.battleValue = Math.round(finalBattleValue) + " (WIP)";
+}
+
+Mech.prototype._getSpeedFactorModifier = function() {
+		var runSpeedAndHalfJumpSpeed = this.getRunSpeed() + this.getJumpSpeed() / 2;
+
+		if( runSpeedAndHalfJumpSpeed > 25) {
+			return (1 + Math.pow( (( this.getRunSpeed() + ( this.getJumpSpeed() / 2) - 5) / 10), 1.2)).toFixed(2);
+		} else if( runSpeedAndHalfJumpSpeed > 24) {
+			return 3.74; // 25
+		} else if( runSpeedAndHalfJumpSpeed > 23) {
+			return 3.59; // 24
+		} else if( runSpeedAndHalfJumpSpeed > 22) {
+			return 3.44; // 23
+		} else if( runSpeedAndHalfJumpSpeed > 21) {
+			return 3.29; // 22
+		} else if( runSpeedAndHalfJumpSpeed > 20) {
+			return 3.15; // 21
+		} else if( runSpeedAndHalfJumpSpeed > 19) {
+			return 3.00; // 20
+		} else if( runSpeedAndHalfJumpSpeed > 18) {
+			return 2.86; // 19
+		} else if( runSpeedAndHalfJumpSpeed > 17) {
+			return 2.72; // 18
+		} else if( runSpeedAndHalfJumpSpeed > 16) {
+			return 2.58; // 17
+		} else if( runSpeedAndHalfJumpSpeed > 15) {
+			return 2.44; // 16
+		} else if( runSpeedAndHalfJumpSpeed > 14) {
+			return 2.30; // 15
+		} else if( runSpeedAndHalfJumpSpeed > 13) {
+			return 2.16; // 14
+		} else if( runSpeedAndHalfJumpSpeed > 12) {
+			return 2.02; // 13
+		} else if( runSpeedAndHalfJumpSpeed > 11) {
+			return 1.89; // 12
+		} else if( runSpeedAndHalfJumpSpeed > 10) {
+			return 1.76; // 11
+		} else if( runSpeedAndHalfJumpSpeed > 9) {
+			return 1.63; // 10
+		} else if( runSpeedAndHalfJumpSpeed > 8) {
+			return 1.50; // 9
+		} else if( runSpeedAndHalfJumpSpeed > 7) {
+			return 1.37; // 8
+		} else if( runSpeedAndHalfJumpSpeed > 6) {
+			return 1.24; // 7
+		} else if( runSpeedAndHalfJumpSpeed > 5) {
+			return 1.12; // 6
+		} else if( runSpeedAndHalfJumpSpeed > 4) {
+			return 1.00; // 5
+		} else if( runSpeedAndHalfJumpSpeed > 3) {
+			return 0.88; // 4
+		} else if( runSpeedAndHalfJumpSpeed > 2) {
+			return 0.77; // 3
+		} else if( runSpeedAndHalfJumpSpeed > 1) {
+			return 0.65; // 2
+		} else if( runSpeedAndHalfJumpSpeed > 0) {
+			return 0.54; // 1
+		} else {
+			return 0.44;
+		}
 }
 
 Mech.prototype._calcCBillCost = function() {
@@ -2326,28 +2566,28 @@ Mech.prototype._calc = function() {
 	} else {
 		 this.totalArmor = Math.floor( this.armorWeight * this.getArmorObj().armormultiplier.is );
 	}
-	//~ console.log( this.getArmorObj() );
+
 
 	if( this.totalArmor > this.maxArmor )
 		this.totalArmor = this.maxArmor;
 
 	this.weights.push( {name: "Armor", weight: this.armorWeight} );
-	this.unallocated_armor = this.totalArmor;
-	this.unallocated_armor -= this.armorAllocation.head;
+	this.unallocatedArmor = this.totalArmor;
+	this.unallocatedArmor -= this.armorAllocation.head;
 
-	this.unallocated_armor -= this.armorAllocation.centerTorso;
-	this.unallocated_armor -= this.armorAllocation.leftTorso;
-	this.unallocated_armor -= this.armorAllocation.rightTorso;
+	this.unallocatedArmor -= this.armorAllocation.centerTorso;
+	this.unallocatedArmor -= this.armorAllocation.leftTorso;
+	this.unallocatedArmor -= this.armorAllocation.rightTorso;
 
-	this.unallocated_armor -= this.armorAllocation.centerTorsoRear;
-	this.unallocated_armor -= this.armorAllocation.leftTorsoRear;
-	this.unallocated_armor -= this.armorAllocation.rightTorsoRear;
+	this.unallocatedArmor -= this.armorAllocation.centerTorsoRear;
+	this.unallocatedArmor -= this.armorAllocation.leftTorsoRear;
+	this.unallocatedArmor -= this.armorAllocation.rightTorsoRear;
 
-	this.unallocated_armor -= this.armorAllocation.rightArm;
-	this.unallocated_armor -= this.armorAllocation.leftArm;
+	this.unallocatedArmor -= this.armorAllocation.rightArm;
+	this.unallocatedArmor -= this.armorAllocation.leftArm;
 
-	this.unallocated_armor -= this.armorAllocation.rightLeg;
-	this.unallocated_armor -= this.armorAllocation.leftLeg;
+	this.unallocatedArmor -= this.armorAllocation.rightLeg;
+	this.unallocatedArmor -= this.armorAllocation.leftLeg;
 
 
 	if( this.additionalHeatSinks > 0)
@@ -3082,7 +3322,7 @@ Mech.prototype.getTotalArmor = function() {
 }
 
 Mech.prototype.getUnallocatedArmor = function() {
-	return this.unallocated_armor;
+	return this.unallocatedArmor;
 }
 
 Mech.prototype.setArmorWeight = function(armorWeight) {
