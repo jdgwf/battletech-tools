@@ -1649,6 +1649,8 @@ Mech.prototype._calcBattleValue = function() {
 	var ammoBV = {};
 	var weaponBV = {};
 
+	var totalAmmoBV = 0;
+
 	// Add up all the BV Sums, put each in an array for comparison
 	for( var eqC = 0; eqC < this.equipmentList.length; eqC++ ) {
 		if( this.equipmentList[ eqC ].tag.indexOf("ammo-") > -1 ) {
@@ -1672,7 +1674,6 @@ Mech.prototype._calcBattleValue = function() {
 
 
 	var totalWeaponBV = 0;
-	var totalAmmoBV = 0;
 	var simplifiedAmmoBV = {};
 	for( var weaponKey in weaponBV ) {
 		for( var ammoKey in ammoBV ) {
@@ -1733,7 +1734,6 @@ Mech.prototype._calcBattleValue = function() {
 		}
 	}
 
-	//~ console.log( "this.calcLogBV.substr( this.calcLogBV.length -3 )", this.calcLogBV.substr( this.calcLogBV.length -3 ));
 	if( this.calcLogBV.substr( this.calcLogBV.length -3 ) == " + " ) {
 		this.calcLogBV = this.calcLogBV.substr( 0, this.calcLogBV.length -3 )
 	}
@@ -1742,20 +1742,21 @@ Mech.prototype._calcBattleValue = function() {
 
 	this.calcLogBV += "<br />";
 
+	var runningTotal = 0;
+	var runningHeat = 0;
 	if( totalWeaponHeat >= mechHeatEfficiency ) {
+		// Mech is heat inefficient, now we need to go through steps 4-7 on TM pp 303-304
+
 		var eqList = angular.copy ( this.equipmentList )
-		//~ console.log("eqList", eqList);
 		eqList.sort( sortByBVThenHeat );
-		//~ console.log("eqList", eqList);
-		var runningTotal = 0;
-		var runningHeat = 0;
+
 
 		for( var weaponC = 0; weaponC < eqList.length; weaponC++ ) {
 			if( eqList[ weaponC ].tag.indexOf("ammo-") == -1 ) {
 				runningHeat += eqList[ weaponC ].heat;
 				if( runningHeat >= mechHeatEfficiency && eqList[ weaponC ].heat > 0 ) {
 					// half efficiency
-					this.calcLogBV += "+ Adding Heat In-Efficient Weapon " + this.getLocalTranslation(eqList[ weaponC ].name) + " - " + eqList[weaponC].battlevalue + " / 2 = " + (eqList[weaponC].battlevalue /2 ) + "<br />";
+					this.calcLogBV += "+ Adding Heat Inefficient Weapon " + this.getLocalTranslation(eqList[ weaponC ].name) + " - " + eqList[weaponC].battlevalue + " / 2 = " + (eqList[weaponC].battlevalue /2 ) + "<br />";
 					runningTotal += (eqList[weaponC].battlevalue /2 );
 				} else {
 					// normal efficiency
@@ -1765,45 +1766,37 @@ Mech.prototype._calcBattleValue = function() {
 			}
 		}
 
-		totalWeaponBV = runningTotal;
-
-		this.calcLogBV += "<strong>Total Weapon BV</strong> " + totalWeaponBV + "<br />";
-
 	} else {
-		// no problems, no need to go through steps 4-7 on TM pp 303-304
-		var eqList = angular.copy ( this.equipmentList )
-		//~ console.log("eqList", eqList);
-		eqList.sort( sortByBVThenHeat );
-		//~ console.log("eqList", eqList);
-		for( var weaponC = 0; weaponC < eqList.length; weaponC++ ) {
-			this.calcLogBV += "+ Adding Weapon " + this.getLocalTranslation( eqList[ weaponC ].name) + " - " + eqList[ weaponC ].battlevalue + "<br />";
 
+		// Mech is heat efficient, no need to go through steps 4-7 on TM pp 303-304, just print and add up the weapons
+
+		var eqList = angular.copy ( this.equipmentList )
+		eqList.sort( sortByBVThenHeat );
+
+		for( var weaponC = 0; weaponC < eqList.length; weaponC++ ) {
+			if( eqList[ weaponC ].tag.indexOf("ammo-") == -1 ) {
+				this.calcLogBV += "+ Adding Weapon " + this.getLocalTranslation( eqList[ weaponC ].name) + " - " + eqList[ weaponC ].battlevalue + "<br />";
+				runningTotal += eqList[weaponC].battlevalue ;
+			}
 		}
-		this.calcLogBV += "<strong>Total Weapon BV</strong> " + totalWeaponBV + "<br />";
+
 	}
 
-	//~ console.log( "mechHeatEfficiency", mechHeatEfficiency );
-	//~ var mechHeatEfficiency = 6 + +  this.getMaxMovementHeat()
+	totalWeaponBV = runningTotal;
+	this.calcLogBV += "<strong>Total Weapon BV</strong> " + totalWeaponBV + "<br />";
+
 	var modifiedMechTonnage = this.getTonnage();
 
-	// TODO WTF is TSM?
 	if( this.hasTripleStrengthMyomer ) {
 		modifiedMechTonnage = modifiedMechTonnage * 1.5;
 	}
 
 	offensiveBattleRating = totalWeaponBV + totalAmmoBV + modifiedMechTonnage;
 
-
-
-
-
 	var speedFactorModifier = this._getSpeedFactorModifier();
 	offensiveBattleRating = offensiveBattleRating * speedFactorModifier;
 
-	//~ offensiveBattleRating = offensiveBattleRating.toFixed( 2 );
-
-
-	this.calcLogBV += "<strong>Final offensive battle rating</strong>: " + offensiveBattleRating.toFixed( 2)  + " (" + totalWeaponBV + " (weaponBV) + " + totalAmmoBV + " (ammoBV) + "  + modifiedMechTonnage + "(mechTonnage) ) x " + speedFactorModifier + " (speed factor rating)<br />";
+	this.calcLogBV += "<strong>Final offensive battle rating</strong>: " + offensiveBattleRating.toFixed( 2)  + " (" + totalWeaponBV + " (weaponBV) + " +  totalAmmoBV + " (ammoBV) + " + modifiedMechTonnage + "(mechTonnage) ) x " + speedFactorModifier + " (speed factor rating)<br />";
 
 	/* ***************************************************
 	 * STEP 3: CALCULATE FINAL BATTLE VALUE - TM p304
