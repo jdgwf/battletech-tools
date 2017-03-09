@@ -16,7 +16,7 @@ var battlemechCreatorControllerStep2Array =
 					selected_jumping_mp = 0;
 
 					// Calculate the max engine size for tonnage
-					max_walking = (400/ $scope.current_mech.tonnage);
+					max_walking = (400/ $scope.current_mech.getTonnage() );
 					max_jumping = $scope.current_mech.getWalkSpeed();
 
 					for( m_counter = 0; m_counter <= max_walking; m_counter++) {
@@ -32,7 +32,6 @@ var battlemechCreatorControllerStep2Array =
 							}
 						}
 					}
-
 					for( m_counter = 0; m_counter <= max_jumping; m_counter++) {
 						if( m_counter == 0 ) {
 							availble_jumping_mp.push( { id: m_counter, name: "- " + translation.BM_STEP2_SELECT_JUMP + " -"} );
