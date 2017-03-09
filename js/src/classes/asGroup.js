@@ -19,6 +19,5 @@ function asGroup () {
 		}
 
 		this.membersLabel = " (" + this.activeMembers + "/" + this.members.length + ")";
-		//console.log( this.membersLevel );
 	}
 }

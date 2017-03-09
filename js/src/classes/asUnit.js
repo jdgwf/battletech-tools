@@ -84,7 +84,6 @@ function asUnit (incomingMechData) {
 		if( typeof(incomingMechData["BFPointValue"]) != "undefined") {
 			// RAW Data From MUL
 
-			//~ console.log( "incomingMechData", incomingMechData );
 
 			this.class = incomingMechData["Marauder"];
 			this.costCR = incomingMechData["Cost"] / 1;
@@ -93,7 +92,6 @@ function asUnit (incomingMechData) {
 			this.variant = incomingMechData["Variant"];
 			this.name = incomingMechData["Name"];
 			this.dateIntroduced = incomingMechData["DateIntroduced"];
-			//this.era = incomingMechData["XXXX"];
 
 			this.tro = incomingMechData["TRO"];
 
@@ -112,7 +110,6 @@ function asUnit (incomingMechData) {
 			this.type = incomingMechData["BFType"];
 			this.size = incomingMechData["BFSize"];
 
-			//this.tmm = incomingMechData["XXXX"];
 
 			this.armor = incomingMechData["BFArmor"] / 1;
 			this.structure = incomingMechData["BFStructure"] / 1;
@@ -175,12 +172,6 @@ function asUnit (incomingMechData) {
 
 			}
 
-			//~ this.jumpMove = this.jumpMove.trim() / 1;
-			//~ this.move = this.move.trim() / 1;
-
-			//~ console.log( "after move", this.move );
-			//~ console.log( "after jumpMove", this.jumpMove );
-
 			this.currentSkill = 4;
 			this.currentHeat = 0;
 			this.currentPoints = this.basePoints / 1;
@@ -188,7 +179,6 @@ function asUnit (incomingMechData) {
 			if( incomingMechData["currentSkilll"] )
 				this.currentSkill = incomingMechData["currentSkilll"];
 
-			//~ this.calcCurrentVals();
 		} else {
 			// Interally Processed Data
 
@@ -204,7 +194,6 @@ function asUnit (incomingMechData) {
 			this.variant = incomingMechData.variant;
 			this.name = incomingMechData.name;
 			this.dateIntroduced = incomingMechData.dateIntroduced;
-			//this.era = incomingMechData["XXXX"];
 
 			this.tro = incomingMechData.tro;
 
@@ -217,7 +206,6 @@ function asUnit (incomingMechData) {
 
 			this.type = incomingMechData.type;
 			this.size = incomingMechData.size / 1;
-			//this.tmm = incomingMechData["XXXX"];
 
 			this.armor = incomingMechData.armor / 1;
 			this.structure = incomingMechData.structure / 1;
@@ -476,10 +464,6 @@ function asUnit (incomingMechData) {
 				extremeDamage = 0;
 		}
 
-		//~ mediumDamage = mediumDamage - currentWeaponHits;
-		//~ longDamage = longDamage - currentWeaponHits;
-		//~ extremeDamage = extremeDamage - currentWeaponHits;
-
 		if( shortDamage < 0 )
 			shortDamage = 0;
 
@@ -691,11 +675,6 @@ function asUnit (incomingMechData) {
 			}
 		}
 
-		//~ console.log("this.currentArmor", this.currentArmor);
-		//~ console.log("this.currentStructure", this.currentStructure);
-		//~ console.log("this.getCurrentStructure()", this.getCurrentStructure());
-		//~ console.log("this.getCurrentArmor()", this.getCurrentArmor());
-		//~ console.log("this.active", this.active);
 		this.calcCurrentVals();
 	}
 
