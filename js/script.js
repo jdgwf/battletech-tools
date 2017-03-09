@@ -10352,7 +10352,7 @@ var mechISEquipment = Array(
 		introduced: 2250,
 		extinct: 0,
 		reintroduced: 0,
-		battlevalue: 75,
+		battlevalue: 70,
 		heat: 1,
 		weight: 8,
 		range_min: {
@@ -15498,6 +15498,34 @@ Mech.prototype._calcBattleValue = function() {
 			}
 		}
 
+		// check lt
+		for( var lCrit = 0; lCrit < this.criticals.leftTorso.length; lCrit++) {
+			if( this.criticals.leftTorso[ lCrit ] ) {
+				if( this.criticals.leftTorso[ lCrit ] && this.criticals.leftTorso[ lCrit ].obj && this.criticals.leftTorso[ lCrit ].obj.explosive ) {
+					this.calcLogBV += "Explosive Ammo Crit in Left Torso (Clan,-15)<br />";
+					explosiveAmmoModifiers += 15;
+				}
+				if( this.criticals.leftTorso[ lCrit ] && this.criticals.leftTorso[ lCrit ].obj && this.criticals.leftTorso[ lCrit ].obj.gauss ) {
+					this.calcLogBV += "Gauss Crit in Left Torso (Clan, -1)<br />";
+					explosiveAmmoModifiers += 1;
+				}
+			}
+		}
+
+		// check rt
+		for( var lCrit = 0; lCrit < this.criticals.rightTorso.length; lCrit++) {
+			if( this.criticals.rightTorso[ lCrit ] ) {
+				if( this.criticals.rightTorso[ lCrit ] && this.criticals.rightTorso[ lCrit ].obj && this.criticals.rightTorso[ lCrit ].obj.explosive ) {
+					this.calcLogBV += "Explosive Ammo Crit in Right Torso (Clan,-15)<br />";
+					explosiveAmmoModifiers += 15;
+				}
+				if( this.criticals.rightTorso[ lCrit ] && this.criticals.rightTorso[ lCrit ].obj && this.criticals.rightTorso[ lCrit ].obj.gauss ) {
+					this.calcLogBV += "Gauss Crit in Center Right (Clan, -1)<br />";
+					explosiveAmmoModifiers += 1;
+				}
+			}
+		}
+
 		// check rl
 		for( var lCrit = 0; lCrit < this.criticals.rightLeg.length; lCrit++) {
 			if( this.criticals.rightLeg[ lCrit ] && this.criticals.rightLeg[ lCrit ].obj && this.criticals.rightLeg[ lCrit ].obj.explosive ) {
@@ -15543,6 +15571,34 @@ Mech.prototype._calcBattleValue = function() {
 				}
 				if( this.criticals.centerTorso[ lCrit ] && this.criticals.centerTorso[ lCrit ].obj && this.criticals.centerTorso[ lCrit ].obj.gauss ) {
 					this.calcLogBV += "Gauss Crit in Center Torso (Inner Sphere, -1)<br />";
+					explosiveAmmoModifiers += 1;
+				}
+			}
+		}
+
+		// check lt
+		for( var lCrit = 0; lCrit < this.criticals.leftTorso.length; lCrit++) {
+			if( this.criticals.leftTorso[ lCrit ] ) {
+				if( this.criticals.leftTorso[ lCrit ] && this.criticals.leftTorso[ lCrit ].obj && this.criticals.leftTorso[ lCrit ].obj.explosive ) {
+					this.calcLogBV += "Explosive Ammo Crit in Left Torso (Inner Sphere,-15)<br />";
+					explosiveAmmoModifiers += 15;
+				}
+				if( this.criticals.leftTorso[ lCrit ] && this.criticals.leftTorso[ lCrit ].obj && this.criticals.leftTorso[ lCrit ].obj.gauss ) {
+					this.calcLogBV += "Gauss Crit in Left Torso (Inner Sphere, -1)<br />";
+					explosiveAmmoModifiers += 1;
+				}
+			}
+		}
+
+		// check rt
+		for( var lCrit = 0; lCrit < this.criticals.rightTorso.length; lCrit++) {
+			if( this.criticals.rightTorso[ lCrit ] ) {
+				if( this.criticals.rightTorso[ lCrit ] && this.criticals.rightTorso[ lCrit ].obj && this.criticals.rightTorso[ lCrit ].obj.explosive ) {
+					this.calcLogBV += "Explosive Ammo Crit in Right Torso (Inner Sphere,-15)<br />";
+					explosiveAmmoModifiers += 15;
+				}
+				if( this.criticals.rightTorso[ lCrit ] && this.criticals.rightTorso[ lCrit ].obj && this.criticals.rightTorso[ lCrit ].obj.gauss ) {
+					this.calcLogBV += "Gauss Crit in Center Right (Inner Sphere, -1)<br />";
 					explosiveAmmoModifiers += 1;
 				}
 			}
@@ -15684,11 +15740,11 @@ Mech.prototype._calcBattleValue = function() {
 		defensiveFactorModifier += 0.3;
 	}
 
-	this.calcLogBV += "Defensive battle rating = Defensive battle rating * Target Modifier Rating : " + (defensiveBattleRating * defensiveFactorModifier) + " = " + defensiveBattleRating + " x " + defensiveFactorModifier + "<br />";
+	this.calcLogBV += "Defensive battle rating = Defensive battle rating * Target Modifier Rating : " + (defensiveBattleRating * defensiveFactorModifier).toFixed(2) + " = " + defensiveBattleRating + " x " + defensiveFactorModifier + "<br />";
 
 	defensiveBattleRating = defensiveBattleRating * defensiveFactorModifier;
 
-	this.calcLogBV += "<strong>Final defensive battle rating</strong>: " + defensiveBattleRating + "<br />";
+	this.calcLogBV += "<strong>Final defensive battle rating</strong>: " + defensiveBattleRating.toFixed(2) + "<br />";
 
 	/* ***************************************************
 	 *  STEP 2: CALCULATE OFFENSIVE BATTLE RATING - TM p303
@@ -15773,16 +15829,27 @@ Mech.prototype._calcBattleValue = function() {
 
 	this.calcLogBV += "<strong>Total Weapon Heat</strong> ";
 	var totalWeaponHeat = 0;
-	for( var eqC = 0; eqC < this.equipmentList.length; eqC++ ) {
-		if( this.equipmentList[ eqC ].tag.indexOf("ammo-") == -1 ) {
-			if( !weaponBV[ this.equipmentList[ eqC ].tag ] )
-				weaponBV[ this.equipmentList[ eqC ].tag ] = 0;
-			if( this.equipmentList[ eqC ].battlevalue )
-				weaponBV[ this.equipmentList[ eqC ].tag ] = this.equipmentList[ eqC ].battlevalue;
 
-			this.calcLogBV += this.equipmentList[ eqC ].heat + " + ";
+	var eqList = angular.copy ( this.equipmentList )
+	eqList.sort( sortByBVThenHeat );
 
-			totalWeaponHeat += this.equipmentList[ eqC ].heat;
+	for( var eqC = 0; eqC < eqList.length; eqC++ ) {
+		if( eqList[ eqC ].tag.indexOf("ammo-") == -1 ) {
+			if( !weaponBV[ eqList[ eqC ].tag ] )
+				weaponBV[ eqList[ eqC ].tag ] = 0;
+			if( eqList[ eqC ].battlevalue )
+				weaponBV[ eqList[ eqC ].tag ] = eqList[ eqC ].battlevalue;
+
+			this.calcLogBV += eqList[ eqC ].heat + " + ";
+
+			// TODO modify per weapon type
+			// one shot eqList[ eqC ].heat = eqList[ eqC ].heat / 4
+			// streak SRM eqList[ eqC ].heat = eqList[ eqC ].heat / 2
+			// ULTRA AC eqList[ eqC ].heat = eqList[ eqC ].heat * 2
+			// Rotary AC eqList[ eqC ].heat = eqList[ eqC ].heat * 6
+
+			totalWeaponHeat += eqList[ eqC ].heat;
+
 
 		}
 	}
@@ -15800,22 +15867,34 @@ Mech.prototype._calcBattleValue = function() {
 	if( totalWeaponHeat >= mechHeatEfficiency ) {
 		// Mech is heat inefficient, now we need to go through steps 4-7 on TM pp 303-304
 
-		var eqList = angular.copy ( this.equipmentList )
-		eqList.sort( sortByBVThenHeat );
 
+		var inHalfCost = false;
 
 		for( var weaponC = 0; weaponC < eqList.length; weaponC++ ) {
 			if( eqList[ weaponC ].tag.indexOf("ammo-") == -1 ) {
-				runningHeat += eqList[ weaponC ].heat;
-				if( runningHeat >= mechHeatEfficiency && eqList[ weaponC ].heat > 0 ) {
+
+
+
+
+				if( inHalfCost == true && eqList[ weaponC ].heat > 0 ) {
 					// half efficiency
-					this.calcLogBV += "+ Adding Heat Inefficient Weapon " + this.getLocalTranslation(eqList[ weaponC ].name) + " - " + eqList[weaponC].battlevalue + " / 2 = " + (eqList[weaponC].battlevalue /2 ) + "<br />";
+					this.calcLogBV += "+ Adding Heat Inefficient Weapon " + this.getLocalTranslation(eqList[ weaponC ].name) + " - " + eqList[weaponC].battlevalue + " / 2 = " + (eqList[weaponC].battlevalue /2 );
 					runningTotal += (eqList[weaponC].battlevalue /2 );
 				} else {
 					// normal efficiency
-					this.calcLogBV += "+ Adding Weapon " + this.getLocalTranslation( eqList[ weaponC ].name) + " - " + eqList[ weaponC ].battlevalue + "<br />";
+					this.calcLogBV += "+ Adding Weapon " + this.getLocalTranslation( eqList[ weaponC ].name) + " - " + eqList[ weaponC ].battlevalue;
 					runningTotal += eqList[weaponC].battlevalue;
 				}
+
+				runningHeat += eqList[ weaponC ].heat;
+				//~ console.log( "r,m", runningHeat + " > "   + mechHeatEfficiency );
+				if( runningHeat >= mechHeatEfficiency && eqList[ weaponC ].heat > 0 && inHalfCost == false ) {
+					inHalfCost = true;
+					this.calcLogBV +=  " (weapon is last heat efficient)";
+				}
+
+				this.calcLogBV += "<br />";
+
 			}
 		}
 
@@ -15823,8 +15902,7 @@ Mech.prototype._calcBattleValue = function() {
 
 		// Mech is heat efficient, no need to go through steps 4-7 on TM pp 303-304, just print and add up the weapons
 
-		var eqList = angular.copy ( this.equipmentList )
-		eqList.sort( sortByBVThenHeat );
+
 
 		for( var weaponC = 0; weaponC < eqList.length; weaponC++ ) {
 			if( eqList[ weaponC ].tag.indexOf("ammo-") == -1 ) {
@@ -17108,7 +17186,7 @@ Mech.prototype.getMaxMovementHeat = function() {
 	var maxMoveHeat = 2; // standard run heat.
 
 	if( this.getJumpSpeed() > 2 ) {
-		maxMoveHeat == this.getJumpSpeed();
+		maxMoveHeat = this.getJumpSpeed();
 	}
 
 
@@ -21648,7 +21726,8 @@ var battlemechCreatorControllerPrintingArray =
 			$scope.isInDebugMode = false;
 			if( typeof(isInDebugMode) != "undefined" && isInDebugMode )
 				$scope.isInDebugMode = true;
-;
+
+			$scope.isInCordovaMode = false;
 			if( typeof(isInCordovaMode) != "undefined" && isInCordovaMode )
 				$scope.isInCordovaMode = true;
 

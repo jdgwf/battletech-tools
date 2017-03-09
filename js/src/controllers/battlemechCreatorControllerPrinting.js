@@ -29,7 +29,8 @@ var battlemechCreatorControllerPrintingArray =
 			$scope.isInDebugMode = false;
 			if( typeof(isInDebugMode) != "undefined" && isInDebugMode )
 				$scope.isInDebugMode = true;
-;
+
+			$scope.isInCordovaMode = false;
 			if( typeof(isInCordovaMode) != "undefined" && isInCordovaMode )
 				$scope.isInCordovaMode = true;
 
