@@ -15943,7 +15943,7 @@ Mech.prototype._calcBattleValue = function() {
 	}
 
 	this.calcLogBV += "<strong>Final Battle Value</strong>: " + finalBattleValue.toFixed( 2)  + " rounded to " +  Math.round(finalBattleValue) + "<br />";
-	this.battleValue = Math.round(finalBattleValue) + " (WIP)";
+	this.battleValue = Math.round(finalBattleValue) + " (in testing)";
 }
 
 Mech.prototype._getSpeedFactorModifier = function() {
