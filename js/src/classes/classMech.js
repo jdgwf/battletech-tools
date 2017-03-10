@@ -2141,9 +2141,33 @@ function Mech(type) {
 		if( numberOfJumpJets ) {
 			var jumpJetName = this.getLocalTranslation( _jumpJetType.name );
 			var jumpJetCost = _jumpJetType.costmultiplier;
-			_calcLogCBill += "<tr><td><strong>Jump Jets: " + jumpJetName  + "</strong><br /><span class=\"smaller-text\">" +  addCommas( jumpJetCost ) + " x (# Jump Jets [" +  numberOfJumpJets + "])<sup>2</sup> Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( jumpJetCost * Math.pow( numberOfJumpJets, 2) *  this.getTonnage()  ) + "</td></tr>\n";
+			_calcLogCBill += "<tr><td><strong>Jump Jets: " + jumpJetName  + "</strong><br /><span class=\"smaller-text\">" +  addCommas( jumpJetCost ) + " x (# Jump Jets [" +  numberOfJumpJets + "])<sup>2</sup> x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( jumpJetCost * Math.pow( numberOfJumpJets, 2) *  this.getTonnage()  ) + "</td></tr>\n";
 			cbillTotal += jumpJetCost * Math.pow( numberOfJumpJets, 2) *  this.getTonnage()  ;
 		}
+
+		// Heat Sinks
+		var heatSinksName = this.getLocalTranslation( this.getHeatSinksObj().name );
+		var heatSinksCost =  this.getHeatSinksObj().cost ;
+		var numberOfHeatSinks = this.getHeatSinks();
+		var heatSinkType = this.getHeatSinksType();
+		//~ console.log( numberOfHeatSinks );
+		//~ console.log( heatSinkType );
+
+		switch (heatSinkType) {
+			case "single":
+				_calcLogCBill += "<tr><td><strong>Heat Sinks: " + heatSinksName  + "</strong><br /><span class=\"smaller-text\">" + addCommas(heatSinksCost) + " x (Number of Heat Sinks over 10 [" + (numberOfHeatSinks - 10 ) + "])</span></td><td>" +  addCommas( heatSinksCost * ( numberOfHeatSinks - 10 ) ) + "</td></tr>\n";
+				cbillTotal +=  heatSinksCost * ( numberOfHeatSinks - 10 )  ;
+
+				break;
+			case "double":
+				_calcLogCBill += "<tr><td><strong>Heat Sinks:  " + heatSinksName  + "</strong><br /><span class=\"smaller-text\">" + addCommas(heatSinksCost) + " x (Number of Heat Sinks  [" + (numberOfHeatSinks  ) + "])</span></td><td>" +  addCommas( heatSinksCost * ( numberOfHeatSinks ) ) + "</td></tr>\n";
+				cbillTotal +=  heatSinksCost * ( numberOfHeatSinks  )  ;
+
+				break;
+			default:
+				break;
+		}
+
 
 		// Armor
 		var armorName = this.getLocalTranslation( this.getArmorObj().name );
@@ -2155,8 +2179,13 @@ function Mech(type) {
 
 		// Equipment
 		for( var eqC = 0; eqC < _equipmentList.length; eqC++) {
-			_calcLogCBill += "<tr><td><strong>" + this.getLocalTranslation( _equipmentList[eqC].name ) + "</strong></td><td>" + addCommas(_equipmentList[eqC].cbills) + "</td></tr>\n";
-			cbillTotal += _equipmentList[eqC].cbills;
+			if( _equipmentList[eqC].tag.indexOf("ammo-") == -1) {
+				_calcLogCBill += "<tr><td><strong>" + this.getLocalTranslation( _equipmentList[eqC].name ) + "</strong></td><td>" + addCommas(_equipmentList[eqC].cbills) + "</td></tr>\n";
+				cbillTotal += _equipmentList[eqC].cbills;
+			} else {
+				_calcLogCBill += "<tr><td><strong>" + this.getLocalTranslation( _equipmentList[eqC].name ) + "</strong></td><td><span class=\"smaller-text\">(not included)</span></td></tr>\n";
+
+			}
 		}
 
 
@@ -2167,7 +2196,6 @@ function Mech(type) {
 
 		// (Structural Cost + Weapon/Equipment Costs) x (Omni Conversion Cost*) x (1 + [Total Tonnage ÷ 100])
 
-		cbillTotal
 		_calcLogCBill += "<tr><td colspan=\"2\" class=\"text-right\">&nbsp;</td></tr>\n";
 		_calcLogCBill += "<tr><td class=\"text-right\"><strong>Final Unit Cost</strong>:<br /><span class=\"smaller-text\">Sub Total [" + addCommas(cbillTotal) + "] x (1 + Unit Tonnage [" + this.getTonnage() + "] / 100) - rounded up</span></td><td>" + addCommas( Math.ceil(cbillTotal * ( 1 + this.getTonnage() / 100 ) ) ) + "</td></tr>\n";
 		cbillTotal = Math.ceil( cbillTotal * (1 + this.getTonnage() / 100) );
