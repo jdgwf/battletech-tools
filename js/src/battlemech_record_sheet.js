@@ -1,5 +1,73 @@
 
+function createDie( posX, posY, width, borderColor, dieFillColor, pipColor, numberPips ) {
 
+	if( !numberPips )
+		numberPips = 5;
+
+	pipRadius = width / 7;
+	svg = "";
+
+	svg += "<rect x=\"" + posX + "\" rx=\"" + (width / 5 ) + "\" ry=\"" + (width / 5 ) + "\" y=\"" +posY + "\" width=\"" + width  + "\" height=\"" + width + "\" stroke=\"" + borderColor + "\" stroke-width=\"2\" fill=\"" + dieFillColor + "\" />\n";
+
+	switch( numberPips ) {
+		case 1:
+			svg += "<circle cx=\"" + ( posX + width / 5  *2.5 )  + "\" cy=\"" + ( posY + width / 5 * 2.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+
+			break;
+		case 2:
+			svg += "<circle cx=\"" + ( posX + width / 5 *1.5 )  + "\" cy=\"" + ( posY + width / 5 * 1.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			//~ svg += "<circle cx=\"" + ( posX + width / 5 *1.5 )  + "\" cy=\"" + ( posY + width / 5 * 2.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			//~ svg += "<circle cx=\"" + ( posX + width / 5 *1.5  )  + "\" cy=\"" + ( posY  + width / 5 * 3.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+
+			//~ svg += "<circle cx=\"" + ( posX + width / 5  *3.5  )  + "\" cy=\"" + ( posY + width / 5 * 1.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			//~ svg += "<circle cx=\"" + ( posX + width / 5  *3.5 )  + "\" cy=\"" + ( posY + width / 5 * 2.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			svg += "<circle cx=\"" + ( posX + width / 5 *3.5  )  + "\" cy=\"" + ( posY + width / 5 * 3.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+
+			break;
+		case 3:
+			//~ svg += "<circle cx=\"" + ( posX + width / 5 *1.5 )  + "\" cy=\"" + ( posY + width / 5  )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			//~ svg += "<circle cx=\"" + ( posX + width / 5 *1.5 )  + "\" cy=\"" + ( posY + width / 5 * 2.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			svg += "<circle cx=\"" + ( posX + width / 5 *1.5  )  + "\" cy=\"" + ( posY  + width / 5 * 4 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+
+			svg += "<circle cx=\"" + ( posX + width / 5  *3.5  )  + "\" cy=\"" + ( posY + width / 5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			svg += "<circle cx=\"" + ( posX + width / 5  *2.5 )  + "\" cy=\"" + ( posY + width / 5 * 2.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			//~ svg += "<circle cx=\"" + ( posX + width / 5 *3.5  )  + "\" cy=\"" + ( posY + width / 5 * 4 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+
+			break;
+		case 4:
+			svg += "<circle cx=\"" + ( posX + width / 5 *1.5 )  + "\" cy=\"" + ( posY + width / 5 * 1.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			//~ svg += "<circle cx=\"" + ( posX + width / 5 *1.5 )  + "\" cy=\"" + ( posY + width / 5 * 2.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			svg += "<circle cx=\"" + ( posX + width / 5 *1.5  )  + "\" cy=\"" + ( posY  + width / 5 * 3.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+
+			svg += "<circle cx=\"" + ( posX + width / 5  *3.5  )  + "\" cy=\"" + ( posY + width / 5 * 1.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			//~ svg += "<circle cx=\"" + ( posX + width / 5  *3.5 )  + "\" cy=\"" + ( posY + width / 5 * 2.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			svg += "<circle cx=\"" + ( posX + width / 5 *3.5  )  + "\" cy=\"" + ( posY + width / 5 * 3.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+
+			break;
+		case 5:
+			svg += "<circle cx=\"" + ( posX + width / 5 *1.5 )  + "\" cy=\"" + ( posY + width / 5  )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			//~ svg += "<circle cx=\"" + ( posX + width / 5 *1.5 )  + "\" cy=\"" + ( posY + width / 5 * 2.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			svg += "<circle cx=\"" + ( posX + width / 5 *1.5  )  + "\" cy=\"" + ( posY  + width / 5 * 4 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+
+			svg += "<circle cx=\"" + ( posX + width / 5  *3.5  )  + "\" cy=\"" + ( posY + width / 5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			svg += "<circle cx=\"" + ( posX + width / 5  *2.5 )  + "\" cy=\"" + ( posY + width / 5 * 2.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			svg += "<circle cx=\"" + ( posX + width / 5 *3.5  )  + "\" cy=\"" + ( posY + width / 5 * 4 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+
+			break;
+		default: // 6
+			svg += "<circle cx=\"" + ( posX + width / 5 *1.5 )  + "\" cy=\"" + ( posY + width / 5  )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			svg += "<circle cx=\"" + ( posX + width / 5 *1.5 )  + "\" cy=\"" + ( posY + width / 5 * 2.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			svg += "<circle cx=\"" + ( posX + width / 5 *1.5  )  + "\" cy=\"" + ( posY  + width / 5 * 4 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+
+			svg += "<circle cx=\"" + ( posX + width / 5  *3.5  )  + "\" cy=\"" + ( posY + width / 5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			svg += "<circle cx=\"" + ( posX + width / 5  *3.5 )  + "\" cy=\"" + ( posY + width / 5 * 2.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			svg += "<circle cx=\"" + ( posX + width / 5 *3.5  )  + "\" cy=\"" + ( posY + width / 5 * 4 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			break;
+
+	}
+
+	return svg;
+}
 
 function rsRearArmorSVG( standAlone, baseFillColor, lineColor, xLoc, yLoc, width) {
 
@@ -606,14 +674,18 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 	// Walk
 	svgCode += "<text x=\"" + ( mechDataLeft + 220 ) + "\" y=\"" + (mechDataTop + 210) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"30\">Walking:</text>\n";
 	svgCode += "<text x=\"" + ( mechDataLeft + 240 ) + "\" y=\"" + (mechDataTop + 210) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"30\">" + mechData.getWalkSpeed() + "</text>\n";
+	svgCode += createDie(  mechDataLeft + 20, mechDataTop + 210 - 25, 30, colorBlack, colorWhite, colorBlack, 1 );
 
 	// Run
 	svgCode += "<text x=\"" + ( mechDataLeft + 220 ) + "\" y=\"" + (mechDataTop + 245) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"30\">Running</text>\n";
 	svgCode += "<text x=\"" + ( mechDataLeft + 240 ) + "\" y=\"" + (mechDataTop + 245) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"30\">" + mechData.getRunSpeed() + "</text>\n";
+	svgCode += createDie(  mechDataLeft + 20, mechDataTop + 245 - 25, 30, colorBlack, colorBlack, colorWhite, 2 );
+
 
 	// Jump
 	svgCode += "<text x=\"" + ( mechDataLeft + 220 ) + "\" y=\"" + (mechDataTop + 280) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"30\">Jumping</text>\n";
 	svgCode += "<text x=\"" + ( mechDataLeft + 240 ) + "\" y=\"" + (mechDataTop + 280) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"30\">" + mechData.getJumpSpeed() + "</text>\n";
+	svgCode += createDie(  mechDataLeft + 20, mechDataTop + 280 - 25, 30, colorRed, colorRed, colorWhite, 3 );
 
 	// Tonnage
 	svgCode += "<text x=\"" + ( mechDataLeft + 340 ) + "\" y=\"" + (mechDataTop + 160) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"25\">Tonnage:</text>\n";

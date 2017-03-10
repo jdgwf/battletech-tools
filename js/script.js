@@ -877,7 +877,75 @@ function makeFooter(pdfDoc) {
 */
 
 
+function createDie( posX, posY, width, borderColor, dieFillColor, pipColor, numberPips ) {
 
+	if( !numberPips )
+		numberPips = 5;
+
+	pipRadius = width / 7;
+	svg = "";
+
+	svg += "<rect x=\"" + posX + "\" rx=\"" + (width / 5 ) + "\" ry=\"" + (width / 5 ) + "\" y=\"" +posY + "\" width=\"" + width  + "\" height=\"" + width + "\" stroke=\"" + borderColor + "\" stroke-width=\"2\" fill=\"" + dieFillColor + "\" />\n";
+
+	switch( numberPips ) {
+		case 1:
+			svg += "<circle cx=\"" + ( posX + width / 5  *2.5 )  + "\" cy=\"" + ( posY + width / 5 * 2.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+
+			break;
+		case 2:
+			svg += "<circle cx=\"" + ( posX + width / 5 *1.5 )  + "\" cy=\"" + ( posY + width / 5 * 1.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			//~ svg += "<circle cx=\"" + ( posX + width / 5 *1.5 )  + "\" cy=\"" + ( posY + width / 5 * 2.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			//~ svg += "<circle cx=\"" + ( posX + width / 5 *1.5  )  + "\" cy=\"" + ( posY  + width / 5 * 3.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+
+			//~ svg += "<circle cx=\"" + ( posX + width / 5  *3.5  )  + "\" cy=\"" + ( posY + width / 5 * 1.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			//~ svg += "<circle cx=\"" + ( posX + width / 5  *3.5 )  + "\" cy=\"" + ( posY + width / 5 * 2.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			svg += "<circle cx=\"" + ( posX + width / 5 *3.5  )  + "\" cy=\"" + ( posY + width / 5 * 3.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+
+			break;
+		case 3:
+			//~ svg += "<circle cx=\"" + ( posX + width / 5 *1.5 )  + "\" cy=\"" + ( posY + width / 5  )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			//~ svg += "<circle cx=\"" + ( posX + width / 5 *1.5 )  + "\" cy=\"" + ( posY + width / 5 * 2.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			svg += "<circle cx=\"" + ( posX + width / 5 *1.5  )  + "\" cy=\"" + ( posY  + width / 5 * 4 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+
+			svg += "<circle cx=\"" + ( posX + width / 5  *3.5  )  + "\" cy=\"" + ( posY + width / 5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			svg += "<circle cx=\"" + ( posX + width / 5  *2.5 )  + "\" cy=\"" + ( posY + width / 5 * 2.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			//~ svg += "<circle cx=\"" + ( posX + width / 5 *3.5  )  + "\" cy=\"" + ( posY + width / 5 * 4 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+
+			break;
+		case 4:
+			svg += "<circle cx=\"" + ( posX + width / 5 *1.5 )  + "\" cy=\"" + ( posY + width / 5 * 1.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			//~ svg += "<circle cx=\"" + ( posX + width / 5 *1.5 )  + "\" cy=\"" + ( posY + width / 5 * 2.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			svg += "<circle cx=\"" + ( posX + width / 5 *1.5  )  + "\" cy=\"" + ( posY  + width / 5 * 3.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+
+			svg += "<circle cx=\"" + ( posX + width / 5  *3.5  )  + "\" cy=\"" + ( posY + width / 5 * 1.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			//~ svg += "<circle cx=\"" + ( posX + width / 5  *3.5 )  + "\" cy=\"" + ( posY + width / 5 * 2.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			svg += "<circle cx=\"" + ( posX + width / 5 *3.5  )  + "\" cy=\"" + ( posY + width / 5 * 3.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+
+			break;
+		case 5:
+			svg += "<circle cx=\"" + ( posX + width / 5 *1.5 )  + "\" cy=\"" + ( posY + width / 5  )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			//~ svg += "<circle cx=\"" + ( posX + width / 5 *1.5 )  + "\" cy=\"" + ( posY + width / 5 * 2.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			svg += "<circle cx=\"" + ( posX + width / 5 *1.5  )  + "\" cy=\"" + ( posY  + width / 5 * 4 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+
+			svg += "<circle cx=\"" + ( posX + width / 5  *3.5  )  + "\" cy=\"" + ( posY + width / 5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			svg += "<circle cx=\"" + ( posX + width / 5  *2.5 )  + "\" cy=\"" + ( posY + width / 5 * 2.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			svg += "<circle cx=\"" + ( posX + width / 5 *3.5  )  + "\" cy=\"" + ( posY + width / 5 * 4 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+
+			break;
+		default: // 6
+			svg += "<circle cx=\"" + ( posX + width / 5 *1.5 )  + "\" cy=\"" + ( posY + width / 5  )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			svg += "<circle cx=\"" + ( posX + width / 5 *1.5 )  + "\" cy=\"" + ( posY + width / 5 * 2.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			svg += "<circle cx=\"" + ( posX + width / 5 *1.5  )  + "\" cy=\"" + ( posY  + width / 5 * 4 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+
+			svg += "<circle cx=\"" + ( posX + width / 5  *3.5  )  + "\" cy=\"" + ( posY + width / 5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			svg += "<circle cx=\"" + ( posX + width / 5  *3.5 )  + "\" cy=\"" + ( posY + width / 5 * 2.5 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			svg += "<circle cx=\"" + ( posX + width / 5 *3.5  )  + "\" cy=\"" + ( posY + width / 5 * 4 )  + "\" r=\"" + pipRadius + "\" fill=\"" + pipColor + "\" />\n";
+			break;
+
+	}
+
+	return svg;
+}
 
 function rsRearArmorSVG( standAlone, baseFillColor, lineColor, xLoc, yLoc, width) {
 
@@ -1484,14 +1552,18 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 	// Walk
 	svgCode += "<text x=\"" + ( mechDataLeft + 220 ) + "\" y=\"" + (mechDataTop + 210) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"30\">Walking:</text>\n";
 	svgCode += "<text x=\"" + ( mechDataLeft + 240 ) + "\" y=\"" + (mechDataTop + 210) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"30\">" + mechData.getWalkSpeed() + "</text>\n";
+	svgCode += createDie(  mechDataLeft + 20, mechDataTop + 210 - 25, 30, colorBlack, colorWhite, colorBlack, 1 );
 
 	// Run
 	svgCode += "<text x=\"" + ( mechDataLeft + 220 ) + "\" y=\"" + (mechDataTop + 245) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"30\">Running</text>\n";
 	svgCode += "<text x=\"" + ( mechDataLeft + 240 ) + "\" y=\"" + (mechDataTop + 245) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"30\">" + mechData.getRunSpeed() + "</text>\n";
+	svgCode += createDie(  mechDataLeft + 20, mechDataTop + 245 - 25, 30, colorBlack, colorBlack, colorWhite, 2 );
+
 
 	// Jump
 	svgCode += "<text x=\"" + ( mechDataLeft + 220 ) + "\" y=\"" + (mechDataTop + 280) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"30\">Jumping</text>\n";
 	svgCode += "<text x=\"" + ( mechDataLeft + 240 ) + "\" y=\"" + (mechDataTop + 280) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"30\">" + mechData.getJumpSpeed() + "</text>\n";
+	svgCode += createDie(  mechDataLeft + 20, mechDataTop + 280 - 25, 30, colorRed, colorRed, colorWhite, 3 );
 
 	// Tonnage
 	svgCode += "<text x=\"" + ( mechDataLeft + 340 ) + "\" y=\"" + (mechDataTop + 160) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"25\">Tonnage:</text>\n";
@@ -14034,7 +14106,7 @@ class_dice.prototype = {
 }
 */
 
-function Mech (type) {
+function Mech(type) {
 	var _mechType = mechTypeOptions[0];
 	var _tech = btTechOptions[0];
 	var _era = btEraOptions[1]; // Default to Succession Wars
@@ -14071,7 +14143,6 @@ function Mech (type) {
 
 	var _smallCockpit = false;
 	var _cockpitWeight = 3;
-
 
 	var _totalInternalStructurePoints = 0;
 
@@ -14145,8 +14216,7 @@ function Mech (type) {
 	var _calcLogAS = "";
 	var _calcLogCBill = "";
 
-	this.validJJLocations = [
-		{
+	this.validJJLocations = [{
 			long: "leftTorso",
 			short: "lt"
 		},
@@ -14155,15 +14225,15 @@ function Mech (type) {
 			short: "ll"
 		},
 		{
-			long:  "rightLeg",
+			long: "rightLeg",
 			short: "rl"
 		},
 		{
-			long:  "rightTorso",
+			long: "rightTorso",
 			short: "rt"
 		},
 		{
-			long:  "centerTorso",
+			long: "centerTorso",
 			short: "ct"
 		},
 	];
@@ -14199,11 +14269,11 @@ function Mech (type) {
 	}
 
 
-	this.setMechType = function( typeID )  {
-		for( lcounter = 0; lcounter < mechTypeOptions.length; lcounter++) {
-			if( typeID == mechTypeOptions[lcounter].id ) {
+	this.setMechType = function(typeID) {
+		for (lcounter = 0; lcounter < mechTypeOptions.length; lcounter++) {
+			if (typeID == mechTypeOptions[lcounter].id) {
 				_mechType = mechTypeOptions[lcounter];
-				this.setTonnage( _tonnage );
+				this.setTonnage(_tonnage);
 				this.calc();
 				return _mechType;
 			}
@@ -14215,10 +14285,10 @@ function Mech (type) {
 
 	this._calcAlphaStrike = function() {
 
-		_alphaStrikeForceStats.name  = this.name;
+		_alphaStrikeForceStats.name = this.name;
 		//~ _alphaStrikeForceStats.model  = _model;
-		_alphaStrikeForceStats.move  = this.getWalkSpeed() * 2;
-		_alphaStrikeForceStats.jumpMove  = this.getJumpSpeed() * 2;
+		_alphaStrikeForceStats.move = this.getWalkSpeed() * 2;
+		_alphaStrikeForceStats.jumpMove = this.getJumpSpeed() * 2;
 		_alphaStrikeForceStats.pv = 0;
 		_alphaStrikeForceStats.damage.short = 0;
 		_alphaStrikeForceStats.damage.medium = 0;
@@ -14236,24 +14306,22 @@ function Mech (type) {
 		_alphaStrikeForceStats.longHeat = 0;
 		_alphaStrikeForceStats.abilityCodes = Array()
 
-		_alphaStrikeForceStats.getAbilityCode = function( abilityCode ) {
-			for( var abiC = 0; abiC < _alphaStrikeForceStats.abilityCodes.length; abiC++ ) {
-				if( abilityCode.toLowerCase().trim() == _alphaStrikeForceStats.abilityCodes[ abiC ].toLowerCase().trim() ) {
-					return _alphaStrikeForceStats.abilityCodes[ abiC ];
+		_alphaStrikeForceStats.getAbilityCode = function(abilityCode) {
+			for (var abiC = 0; abiC < _alphaStrikeForceStats.abilityCodes.length; abiC++) {
+				if (abilityCode.toLowerCase().trim() == _alphaStrikeForceStats.abilityCodes[abiC].toLowerCase().trim()) {
+					return _alphaStrikeForceStats.abilityCodes[abiC];
 				}
 			}
 
 			return null;
 		}
 
-		_alphaStrikeForceStats.addAbilityCode = function( abilityCode, abilityValue ) {
+		_alphaStrikeForceStats.addAbilityCode = function(abilityCode, abilityValue) {
 
-			 _alphaStrikeForceStats.abilityCodes.push(
-				{
-					code: abilityCode,
-					value: abilityValue
-				}
-			);
+			_alphaStrikeForceStats.abilityCodes.push({
+				code: abilityCode,
+				value: abilityValue
+			});
 
 
 		}
@@ -14263,20 +14331,20 @@ function Mech (type) {
 
 		// TODO - calculations
 		_calcLogAS += "Tonnage is " + _tonnage + "<br />\n";
-		if( _tonnage > 100) {
+		if (_tonnage > 100) {
 			_alphaStrikeForceStats.size_class = 4;
 			_alphaStrikeForceStats.size_class_name = "Superheavy";
 			_alphaStrikeForceStats.special_unit_abilities.push("LG");
 			_calcLogAS += "<strong>Setting Size to 4 (Superheavy)</strong><br />\n";
-		} else if( _tonnage >= 80) {
+		} else if (_tonnage >= 80) {
 			_alphaStrikeForceStats.size_class = 4;
 			_alphaStrikeForceStats.size_class_name = "Assault";
 			_calcLogAS += "<strong>Setting Size to 4 (Assault)</strong><br />\n";
-		} else if( _tonnage >= 60) {
+		} else if (_tonnage >= 60) {
 			_alphaStrikeForceStats.size_class = 3;
 			_alphaStrikeForceStats.size_class_name = "Heavy";
 			_calcLogAS += "<strong>Setting Size to 3 (Heavy)</strong><br />\n";
-		} else if( _tonnage >= 40) {
+		} else if (_tonnage >= 40) {
 			_alphaStrikeForceStats.size_class = 2;
 			_alphaStrikeForceStats.size_class_name = "Medium";
 			_calcLogAS += "<strong>Setting Size to 2 (Medium)</strong><br />\n";
@@ -14286,183 +14354,183 @@ function Mech (type) {
 			_calcLogAS += "<strong>Setting Size to 1 (Light)</strong><br />\n";
 		}
 
-		_alphaStrikeForceStats.armor = ( this.getTotalArmor() / 30).toFixed(0);
+		_alphaStrikeForceStats.armor = (this.getTotalArmor() / 30).toFixed(0);
 		_calcLogAS += "Converting total armor of " + this.getTotalArmor() + "<br />\n";
 		_calcLogAS += "<strong>Setting Armor to " + _alphaStrikeForceStats.armor + "</strong><br />\n";
 
-		if( this.getTech().tag == "is") {
+		if (this.getTech().tag == "is") {
 
 
-			switch( _engineType.tag ) {
+			switch (_engineType.tag) {
 				case "compact":
 					// Compact
 
-					if( _tonnage == 100) {
+					if (_tonnage == 100) {
 						_alphaStrikeForceStats.structure = 10;
-					} else if( _tonnage >= 95 ) {
+					} else if (_tonnage >= 95) {
 						_alphaStrikeForceStats.structure = 10;
-					} else if( _tonnage >= 90 ) {
+					} else if (_tonnage >= 90) {
 						_alphaStrikeForceStats.structure = 10;
-					} else if( _tonnage >= 85 ) {
+					} else if (_tonnage >= 85) {
 						_alphaStrikeForceStats.structure = 9;
-					} else if( _tonnage >= 80 ) {
+					} else if (_tonnage >= 80) {
 						_alphaStrikeForceStats.structure = 8;
-					} else if( _tonnage >= 75 ) {
+					} else if (_tonnage >= 75) {
 						_alphaStrikeForceStats.structure = 8;
-					} else if( _tonnage >= 70 ) {
+					} else if (_tonnage >= 70) {
 						_alphaStrikeForceStats.structure = 7;
-					} else if( _tonnage >= 65 ) {
+					} else if (_tonnage >= 65) {
 						_alphaStrikeForceStats.structure = 7;
-					} else if( _tonnage >= 60 ) {
+					} else if (_tonnage >= 60) {
 						_alphaStrikeForceStats.structure = 7;
-					} else if( _tonnage >= 55 ) {
+					} else if (_tonnage >= 55) {
 						_alphaStrikeForceStats.structure = 6;
-					} else if( _tonnage >= 50 ) {
+					} else if (_tonnage >= 50) {
 						_alphaStrikeForceStats.structure = 5;
-					} else if( _tonnage >= 45 ) {
+					} else if (_tonnage >= 45) {
 						_alphaStrikeForceStats.structure = 5;
-					} else if( _tonnage >= 40 ) {
+					} else if (_tonnage >= 40) {
 						_alphaStrikeForceStats.structure = 4;
-					} else if( _tonnage >= 35 ) {
+					} else if (_tonnage >= 35) {
 						_alphaStrikeForceStats.structure = 4;
-					} else if( _tonnage >= 30 ) {
+					} else if (_tonnage >= 30) {
 						_alphaStrikeForceStats.structure = 3;
-					} else if( _tonnage >= 25 ) {
+					} else if (_tonnage >= 25) {
 						_alphaStrikeForceStats.structure = 3;
-					} else if( _tonnage >= 20 ) {
+					} else if (_tonnage >= 20) {
 						_alphaStrikeForceStats.structure = 2;
-					} else if( _tonnage >= 15 ) {
+					} else if (_tonnage >= 15) {
 						_alphaStrikeForceStats.structure = 2;
-					} else if( _tonnage >= 10 ) {
+					} else if (_tonnage >= 10) {
 						_alphaStrikeForceStats.structure = 1;
 					}
 					_calcLogAS += "Engine is an IS Compact Engine <strong>setting structure to " + _alphaStrikeForceStats.structure + "</strong><br />\n";
 					break;
 				case "xl":
 					// XL
-					if( _tonnage == 100) {
+					if (_tonnage == 100) {
 						_alphaStrikeForceStats.structure = 5;
-					} else if( _tonnage >= 95 ) {
+					} else if (_tonnage >= 95) {
 						_alphaStrikeForceStats.structure = 5;
-					} else if( _tonnage >= 90 ) {
+					} else if (_tonnage >= 90) {
 						_alphaStrikeForceStats.structure = 5;
-					} else if( _tonnage >= 85 ) {
+					} else if (_tonnage >= 85) {
 						_alphaStrikeForceStats.structure = 5;
-					} else if( _tonnage >= 80 ) {
+					} else if (_tonnage >= 80) {
 						_alphaStrikeForceStats.structure = 4;
-					} else if( _tonnage >= 75 ) {
+					} else if (_tonnage >= 75) {
 						_alphaStrikeForceStats.structure = 4;
-					} else if( _tonnage >= 70 ) {
+					} else if (_tonnage >= 70) {
 						_alphaStrikeForceStats.structure = 4;
-					} else if( _tonnage >= 65 ) {
+					} else if (_tonnage >= 65) {
 						_alphaStrikeForceStats.structure = 4;
-					} else if( _tonnage >= 60 ) {
+					} else if (_tonnage >= 60) {
 						_alphaStrikeForceStats.structure = 3;
-					} else if( _tonnage >= 55 ) {
+					} else if (_tonnage >= 55) {
 						_alphaStrikeForceStats.structure = 3;
-					} else if( _tonnage >= 50 ) {
+					} else if (_tonnage >= 50) {
 						_alphaStrikeForceStats.structure = 3;
-					} else if( _tonnage >= 45 ) {
+					} else if (_tonnage >= 45) {
 						_alphaStrikeForceStats.structure = 2;
-					} else if( _tonnage >= 40 ) {
+					} else if (_tonnage >= 40) {
 						_alphaStrikeForceStats.structure = 2;
-					} else if( _tonnage >= 35 ) {
+					} else if (_tonnage >= 35) {
 						_alphaStrikeForceStats.structure = 2;
-					} else if( _tonnage >= 30 ) {
+					} else if (_tonnage >= 30) {
 						_alphaStrikeForceStats.structure = 2;
-					} else if( _tonnage >= 25 ) {
+					} else if (_tonnage >= 25) {
 						_alphaStrikeForceStats.structure = 1;
-					} else if( _tonnage >= 20 ) {
+					} else if (_tonnage >= 20) {
 						_alphaStrikeForceStats.structure = 1;
-					} else if( _tonnage >= 15 ) {
+					} else if (_tonnage >= 15) {
 						_alphaStrikeForceStats.structure = 1;
-					} else if( _tonnage >= 10 ) {
+					} else if (_tonnage >= 10) {
 						_alphaStrikeForceStats.structure = 1;
 					}
 					_calcLogAS += "Engine is a Clan XL Engine <strong>setting structure to " + _alphaStrikeForceStats.structure + "</strong><br />\n";
 					break;
 				case "light":
 					// Compact
-					if( _tonnage == 100) {
+					if (_tonnage == 100) {
 						_alphaStrikeForceStats.structure = 5;
-					} else if( _tonnage >= 95 ) {
+					} else if (_tonnage >= 95) {
 						_alphaStrikeForceStats.structure = 5;
-					} else if( _tonnage >= 90 ) {
+					} else if (_tonnage >= 90) {
 						_alphaStrikeForceStats.structure = 5;
-					} else if( _tonnage >= 85 ) {
+					} else if (_tonnage >= 85) {
 						_alphaStrikeForceStats.structure = 5;
-					} else if( _tonnage >= 80 ) {
+					} else if (_tonnage >= 80) {
 						_alphaStrikeForceStats.structure = 4;
-					} else if( _tonnage >= 75 ) {
+					} else if (_tonnage >= 75) {
 						_alphaStrikeForceStats.structure = 4;
-					} else if( _tonnage >= 70 ) {
+					} else if (_tonnage >= 70) {
 						_alphaStrikeForceStats.structure = 4;
-					} else if( _tonnage >= 65 ) {
+					} else if (_tonnage >= 65) {
 						_alphaStrikeForceStats.structure = 4;
-					} else if( _tonnage >= 60 ) {
+					} else if (_tonnage >= 60) {
 						_alphaStrikeForceStats.structure = 3;
-					} else if( _tonnage >= 55 ) {
+					} else if (_tonnage >= 55) {
 						_alphaStrikeForceStats.structure = 3;
-					} else if( _tonnage >= 50 ) {
+					} else if (_tonnage >= 50) {
 						_alphaStrikeForceStats.structure = 3;
-					} else if( _tonnage >= 45 ) {
+					} else if (_tonnage >= 45) {
 						_alphaStrikeForceStats.structure = 2;
-					} else if( _tonnage >= 40 ) {
+					} else if (_tonnage >= 40) {
 						_alphaStrikeForceStats.structure = 2;
-					} else if( _tonnage >= 35 ) {
+					} else if (_tonnage >= 35) {
 						_alphaStrikeForceStats.structure = 2;
-					} else if( _tonnage >= 30 ) {
+					} else if (_tonnage >= 30) {
 						_alphaStrikeForceStats.structure = 2;
-					} else if( _tonnage >= 25 ) {
+					} else if (_tonnage >= 25) {
 						_alphaStrikeForceStats.structure = 1;
-					} else if( _tonnage >= 20 ) {
+					} else if (_tonnage >= 20) {
 						_alphaStrikeForceStats.structure = 1;
-					} else if( _tonnage >= 15 ) {
+					} else if (_tonnage >= 15) {
 						_alphaStrikeForceStats.structure = 1;
-					} else if( _tonnage >= 10 ) {
+					} else if (_tonnage >= 10) {
 						_alphaStrikeForceStats.structure = 1;
 					}
 					_calcLogAS += "Engine is an IS Light Engine <strong>setting structure to " + _alphaStrikeForceStats.structure + "</strong><br />\n";
 					break;
 				default:
 					// Standard
-					if( _tonnage == 100) {
+					if (_tonnage == 100) {
 						_alphaStrikeForceStats.structure = 8;
-					} else if( _tonnage >= 95 ) {
+					} else if (_tonnage >= 95) {
 						_alphaStrikeForceStats.structure = 8;
-					} else if( _tonnage >= 90 ) {
+					} else if (_tonnage >= 90) {
 						_alphaStrikeForceStats.structure = 7;
-					} else if( _tonnage >= 85 ) {
+					} else if (_tonnage >= 85) {
 						_alphaStrikeForceStats.structure = 7;
-					} else if( _tonnage >= 80 ) {
+					} else if (_tonnage >= 80) {
 						_alphaStrikeForceStats.structure = 6;
-					} else if( _tonnage >= 75 ) {
+					} else if (_tonnage >= 75) {
 						_alphaStrikeForceStats.structure = 6;
-					} else if( _tonnage >= 70 ) {
+					} else if (_tonnage >= 70) {
 						_alphaStrikeForceStats.structure = 6;
-					} else if( _tonnage >= 65 ) {
+					} else if (_tonnage >= 65) {
 						_alphaStrikeForceStats.structure = 5;
-					} else if( _tonnage >= 60 ) {
+					} else if (_tonnage >= 60) {
 						_alphaStrikeForceStats.structure = 5;
-					} else if( _tonnage >= 55 ) {
+					} else if (_tonnage >= 55) {
 						_alphaStrikeForceStats.structure = 5;
-					} else if( _tonnage >= 50 ) {
+					} else if (_tonnage >= 50) {
 						_alphaStrikeForceStats.structure = 4;
-					} else if( _tonnage >= 45 ) {
+					} else if (_tonnage >= 45) {
 						_alphaStrikeForceStats.structure = 4;
-					} else if( _tonnage >= 40 ) {
+					} else if (_tonnage >= 40) {
 						_alphaStrikeForceStats.structure = 3;
-					} else if( _tonnage >= 35 ) {
+					} else if (_tonnage >= 35) {
 						_alphaStrikeForceStats.structure = 3;
-					} else if( _tonnage >= 30 ) {
+					} else if (_tonnage >= 30) {
 						_alphaStrikeForceStats.structure = 3;
-					} else if( _tonnage >= 25 ) {
+					} else if (_tonnage >= 25) {
 						_alphaStrikeForceStats.structure = 2;
-					} else if( _tonnage >= 20 ) {
+					} else if (_tonnage >= 20) {
 						_alphaStrikeForceStats.structure = 2;
-					} else if( _tonnage >= 15 ) {
+					} else if (_tonnage >= 15) {
 						_alphaStrikeForceStats.structure = 1;
-					} else if( _tonnage >= 10 ) {
+					} else if (_tonnage >= 10) {
 						_alphaStrikeForceStats.structure = 1;
 					}
 					_calcLogAS += "Engine is an IS Standard Engine <strong>setting structure to " + _alphaStrikeForceStats.structure + "</strong><br />\n";
@@ -14470,90 +14538,90 @@ function Mech (type) {
 			}
 		} else {
 			// Clan Engines...
-			switch( _engineType.tag ) {
+			switch (_engineType.tag) {
 				case "xl":
 				case "clan-xl":
 					// Compact
-					if( _tonnage == 100) {
+					if (_tonnage == 100) {
 						_alphaStrikeForceStats.structure = 5;
-					} else if( _tonnage >= 95 ) {
+					} else if (_tonnage >= 95) {
 						_alphaStrikeForceStats.structure = 5;
-					} else if( _tonnage >= 90 ) {
+					} else if (_tonnage >= 90) {
 						_alphaStrikeForceStats.structure = 5;
-					} else if( _tonnage >= 85 ) {
+					} else if (_tonnage >= 85) {
 						_alphaStrikeForceStats.structure = 5;
-					} else if( _tonnage >= 80 ) {
+					} else if (_tonnage >= 80) {
 						_alphaStrikeForceStats.structure = 4;
-					} else if( _tonnage >= 75 ) {
+					} else if (_tonnage >= 75) {
 						_alphaStrikeForceStats.structure = 4;
-					} else if( _tonnage >= 70 ) {
+					} else if (_tonnage >= 70) {
 						_alphaStrikeForceStats.structure = 4;
-					} else if( _tonnage >= 65 ) {
+					} else if (_tonnage >= 65) {
 						_alphaStrikeForceStats.structure = 4;
-					} else if( _tonnage >= 60 ) {
+					} else if (_tonnage >= 60) {
 						_alphaStrikeForceStats.structure = 3;
-					} else if( _tonnage >= 55 ) {
+					} else if (_tonnage >= 55) {
 						_alphaStrikeForceStats.structure = 3;
-					} else if( _tonnage >= 50 ) {
+					} else if (_tonnage >= 50) {
 						_alphaStrikeForceStats.structure = 3;
-					} else if( _tonnage >= 45 ) {
+					} else if (_tonnage >= 45) {
 						_alphaStrikeForceStats.structure = 2;
-					} else if( _tonnage >= 40 ) {
+					} else if (_tonnage >= 40) {
 						_alphaStrikeForceStats.structure = 2;
-					} else if( _tonnage >= 35 ) {
+					} else if (_tonnage >= 35) {
 						_alphaStrikeForceStats.structure = 2;
-					} else if( _tonnage >= 30 ) {
+					} else if (_tonnage >= 30) {
 						_alphaStrikeForceStats.structure = 2;
-					} else if( _tonnage >= 25 ) {
+					} else if (_tonnage >= 25) {
 						_alphaStrikeForceStats.structure = 1;
-					} else if( _tonnage >= 20 ) {
+					} else if (_tonnage >= 20) {
 						_alphaStrikeForceStats.structure = 1;
-					} else if( _tonnage >= 15 ) {
+					} else if (_tonnage >= 15) {
 						_alphaStrikeForceStats.structure = 1;
-					} else if( _tonnage >= 10 ) {
+					} else if (_tonnage >= 10) {
 						_alphaStrikeForceStats.structure = 1;
 					}
 					_calcLogAS += "Engine is a Clan XL Engine <strong>setting structure to " + _alphaStrikeForceStats.structure + "</strong><br />\n";
 					break;
 				default:
 					// Standard / Standard Fusion
-					if( _tonnage == 100) {
+					if (_tonnage == 100) {
 						_alphaStrikeForceStats.structure = 8;
-					} else if( _tonnage >= 95 ) {
+					} else if (_tonnage >= 95) {
 						_alphaStrikeForceStats.structure = 8;
-					} else if( _tonnage >= 90 ) {
+					} else if (_tonnage >= 90) {
 						_alphaStrikeForceStats.structure = 7;
-					} else if( _tonnage >= 85 ) {
+					} else if (_tonnage >= 85) {
 						_alphaStrikeForceStats.structure = 7;
-					} else if( _tonnage >= 80 ) {
+					} else if (_tonnage >= 80) {
 						_alphaStrikeForceStats.structure = 6;
-					} else if( _tonnage >= 75 ) {
+					} else if (_tonnage >= 75) {
 						_alphaStrikeForceStats.structure = 6;
-					} else if( _tonnage >= 70 ) {
+					} else if (_tonnage >= 70) {
 						_alphaStrikeForceStats.structure = 6;
-					} else if( _tonnage >= 65 ) {
+					} else if (_tonnage >= 65) {
 						_alphaStrikeForceStats.structure = 5;
-					} else if( _tonnage >= 60 ) {
+					} else if (_tonnage >= 60) {
 						_alphaStrikeForceStats.structure = 5;
-					} else if( _tonnage >= 55 ) {
+					} else if (_tonnage >= 55) {
 						_alphaStrikeForceStats.structure = 5;
-					} else if( _tonnage >= 50 ) {
+					} else if (_tonnage >= 50) {
 						_alphaStrikeForceStats.structure = 4;
-					} else if( _tonnage >= 45 ) {
+					} else if (_tonnage >= 45) {
 						_alphaStrikeForceStats.structure = 4;
-					} else if( _tonnage >= 40 ) {
+					} else if (_tonnage >= 40) {
 						_alphaStrikeForceStats.structure = 3;
-					} else if( _tonnage >= 35 ) {
+					} else if (_tonnage >= 35) {
 						_alphaStrikeForceStats.structure = 3;
-					} else if( _tonnage >= 30 ) {
+					} else if (_tonnage >= 30) {
 						_alphaStrikeForceStats.structure = 3;
-					} else if( _tonnage >= 25 ) {
+					} else if (_tonnage >= 25) {
 						_alphaStrikeForceStats.structure = 2;
-					} else if( _tonnage >= 20 ) {
+					} else if (_tonnage >= 20) {
 						_alphaStrikeForceStats.structure = 2;
-					} else if( _tonnage >= 15 ) {
+					} else if (_tonnage >= 15) {
 						_alphaStrikeForceStats.structure = 1;
-					} else if( _tonnage >= 10 ) {
+					} else if (_tonnage >= 10) {
 						_alphaStrikeForceStats.structure = 1;
 					}
 					_calcLogAS += "Engine is a Clan Standard Engine <strong>setting structure to " + _alphaStrikeForceStats.structure + "</strong><br />\n";
@@ -14619,18 +14687,18 @@ function Mech (type) {
 
 		var indirectFireRating = 0;
 
-		for( weapon_counter = 0; weapon_counter < _equipmentList.length; weapon_counter++) {
-			if( _equipmentList[weapon_counter].alpha_strike ) {
-				if( _equipmentList[weapon_counter].alpha_strike.range_long > 0){
+		for (weapon_counter = 0; weapon_counter < _equipmentList.length; weapon_counter++) {
+			if (_equipmentList[weapon_counter].alpha_strike) {
+				if (_equipmentList[weapon_counter].alpha_strike.range_long > 0) {
 					total_weapon_heat_long += _equipmentList[weapon_counter].alpha_strike.heat;
 				}
 
 
 
-				if( _equipmentList[weapon_counter].explosive )
+				if (_equipmentList[weapon_counter].explosive)
 					has_explosive = true;
 
-				if( _equipmentList[weapon_counter].rear ) {
+				if (_equipmentList[weapon_counter].rear) {
 					_calcLogAS += "Adding <strong>rear</strong> Weapon " + _equipmentList[weapon_counter].tag + " - ";
 					_calcLogAS += " (" + _equipmentList[weapon_counter].alpha_strike.range_short + ", ";
 					_calcLogAS += _equipmentList[weapon_counter].alpha_strike.range_medium + ", ";
@@ -14656,54 +14724,54 @@ function Mech (type) {
 
 				}
 
-				if( _equipmentList[weapon_counter].notes && _equipmentList[weapon_counter].notes.length > 0) {
-					for( var nC = 0; nC < _equipmentList[weapon_counter].notes.length; nC++) {
-						if( _alphaStrikeForceStats.abilityCodes.indexOf( _equipmentList[weapon_counter].notes[nC] ) === -1) {
-							_alphaStrikeForceStats.abilityCodes.push( _equipmentList[weapon_counter].notes[nC] );
+				if (_equipmentList[weapon_counter].notes && _equipmentList[weapon_counter].notes.length > 0) {
+					for (var nC = 0; nC < _equipmentList[weapon_counter].notes.length; nC++) {
+						if (_alphaStrikeForceStats.abilityCodes.indexOf(_equipmentList[weapon_counter].notes[nC]) === -1) {
+							_alphaStrikeForceStats.abilityCodes.push(_equipmentList[weapon_counter].notes[nC]);
 						}
 
-						if( _equipmentList[weapon_counter].notes[nC].toLowerCase() == "heat" ) {
+						if (_equipmentList[weapon_counter].notes[nC].toLowerCase() == "heat") {
 							heatDamage.short += _equipmentList[weapon_counter].alpha_strike.range_short;
 							heatDamage.medium += _equipmentList[weapon_counter].alpha_strike.range_medium;
 							heatDamage.long += _equipmentList[weapon_counter].alpha_strike.range_long;
 							heatDamage.extreme += _equipmentList[weapon_counter].alpha_strike.range_extreme;
 						}
 
-						if( _equipmentList[weapon_counter].notes[nC].toLowerCase() == "lrm" ) {
+						if (_equipmentList[weapon_counter].notes[nC].toLowerCase() == "lrm") {
 							lrmDamage.short += _equipmentList[weapon_counter].alpha_strike.range_short;
 							lrmDamage.medium += _equipmentList[weapon_counter].alpha_strike.range_medium;
 							lrmDamage.long += _equipmentList[weapon_counter].alpha_strike.range_long;
 							lrmDamage.extreme += _equipmentList[weapon_counter].alpha_strike.range_extreme;
 						}
 
-						if( _equipmentList[weapon_counter].notes[nC].toLowerCase() == "ac" ) {
+						if (_equipmentList[weapon_counter].notes[nC].toLowerCase() == "ac") {
 							acDamage.short += _equipmentList[weapon_counter].alpha_strike.range_short;
 							acDamage.medium += _equipmentList[weapon_counter].alpha_strike.range_medium;
 							acDamage.long += _equipmentList[weapon_counter].alpha_strike.range_long;
 							acDamage.extreme += _equipmentList[weapon_counter].alpha_strike.range_extreme;
 						}
 
-						if( _equipmentList[weapon_counter].notes[nC].toLowerCase() == "flak" ) {
+						if (_equipmentList[weapon_counter].notes[nC].toLowerCase() == "flak") {
 							flakDamage.short += _equipmentList[weapon_counter].alpha_strike.range_short;
 							flakDamage.medium += _equipmentList[weapon_counter].alpha_strike.range_medium;
 							flakDamage.long += _equipmentList[weapon_counter].alpha_strike.range_long;
 							flakDamage.extreme += _equipmentList[weapon_counter].alpha_strike.range_extreme;
 						}
 
-						if( _equipmentList[weapon_counter].notes[nC].toLowerCase() == "srm" ) {
+						if (_equipmentList[weapon_counter].notes[nC].toLowerCase() == "srm") {
 
 							indirectFireRating += _equipmentList[weapon_counter].alpha_strike.range_long;
 
 						}
 
-						if( _equipmentList[weapon_counter].notes[nC].toLowerCase() == "indirect fire" || _equipmentList[weapon_counter].notes[nC].toLowerCase() == "if") {
+						if (_equipmentList[weapon_counter].notes[nC].toLowerCase() == "indirect fire" || _equipmentList[weapon_counter].notes[nC].toLowerCase() == "if") {
 							srmDamage.short += _equipmentList[weapon_counter].alpha_strike.range_short;
 							srmDamage.medium += _equipmentList[weapon_counter].alpha_strike.range_medium;
 							srmDamage.long += _equipmentList[weapon_counter].alpha_strike.range_long;
 							srmDamage.extreme += _equipmentList[weapon_counter].alpha_strike.range_extreme;
 						}
 
-						if( _equipmentList[weapon_counter].notes[nC].toLowerCase() == "missile"  || _equipmentList[weapon_counter].notes[nC].toLowerCase() == "msl" ) {
+						if (_equipmentList[weapon_counter].notes[nC].toLowerCase() == "missile" || _equipmentList[weapon_counter].notes[nC].toLowerCase() == "msl") {
 							mslDamage.short += _equipmentList[weapon_counter].alpha_strike.range_short;
 							mslDamage.medium += _equipmentList[weapon_counter].alpha_strike.range_medium;
 							mslDamage.long += _equipmentList[weapon_counter].alpha_strike.range_long;
@@ -14718,8 +14786,8 @@ function Mech (type) {
 		}
 
 		var move_heat = 0;
-		if( this.getJumpSpeed() > 0 ) {
-			if( this.getJumpSpeed() < 3 )
+		if (this.getJumpSpeed() > 0) {
+			if (this.getJumpSpeed() < 3)
 				move_heat += 3;
 			else
 				move_heat += this.getJumpSpeed();
@@ -14731,7 +14799,7 @@ function Mech (type) {
 		}
 
 		// if there are no explosive components, then the mech gets the ENE ability :)
-		if( !has_explosive ) {
+		if (!has_explosive) {
 			_alphaStrikeForceStats.abilityCodes.push("ENE");
 			_calcLogAS += "Mech has no explosive components, gets ENE ability<br />\n";
 		}
@@ -14753,24 +14821,24 @@ function Mech (type) {
 		//~ _alphaStrikeForceStats.heat_damage = _alphaStrikeForceStats.damage;
 
 		var final_overheat_value = 0;
-		if( overheat_value > 3) {
+		if (overheat_value > 3) {
 			// Heat Modified Damage, p115 AS companion
 			var heat_damage_short = 0;
 			var heat_damage_medium = 0;
-			if( _alphaStrikeForceStats.damage.short != "0*")
-				heat_damage_short = Math.ceil( (_alphaStrikeForceStats.damage.short * heatDissipation ) / (max_heat_output - 4) );
-			if( _alphaStrikeForceStats.damage.medium != "0*")
-				heat_damage_medium =  Math.ceil( (_alphaStrikeForceStats.damage.medium * heatDissipation ) / (max_heat_output - 4) );
+			if (_alphaStrikeForceStats.damage.short != "0*")
+				heat_damage_short = Math.ceil((_alphaStrikeForceStats.damage.short * heatDissipation) / (max_heat_output - 4));
+			if (_alphaStrikeForceStats.damage.medium != "0*")
+				heat_damage_medium = Math.ceil((_alphaStrikeForceStats.damage.medium * heatDissipation) / (max_heat_output - 4));
 
 
-			if( _alphaStrikeForceStats.damage.short != "0*")
-				_alphaStrikeForceStats.damage.short = Math.ceil( _alphaStrikeForceStats.damage.short );
-			if( _alphaStrikeForceStats.damage.medium != "0*")
-				_alphaStrikeForceStats.damage.medium =  Math.ceil( _alphaStrikeForceStats.damage.medium );
+			if (_alphaStrikeForceStats.damage.short != "0*")
+				_alphaStrikeForceStats.damage.short = Math.ceil(_alphaStrikeForceStats.damage.short);
+			if (_alphaStrikeForceStats.damage.medium != "0*")
+				_alphaStrikeForceStats.damage.medium = Math.ceil(_alphaStrikeForceStats.damage.medium);
 			//~ if( _alphaStrikeForceStats.damage.short != "0*")
-				//~ _alphaStrikeForceStats.damage.long = Math.ceil( _alphaStrikeForceStats.damage.long );
+			//~ _alphaStrikeForceStats.damage.long = Math.ceil( _alphaStrikeForceStats.damage.long );
 			//~ if( _alphaStrikeForceStats.damage.medium != "0*")
-				//~ _alphaStrikeForceStats.damage.extreme =  Math.ceil( _alphaStrikeForceStats.damage.extreme );
+			//~ _alphaStrikeForceStats.damage.extreme =  Math.ceil( _alphaStrikeForceStats.damage.extreme );
 
 
 			//~ console.log( "damage.short", _alphaStrikeForceStats.damage.short );
@@ -14779,8 +14847,8 @@ function Mech (type) {
 			//~ console.log( "heat_damage_medium", heat_damage_medium );
 
 
-			if(  _alphaStrikeForceStats.damage.medium != "0*" && heat_damage_medium < _alphaStrikeForceStats.damage.medium ) {
-				final_overheat_value =  _alphaStrikeForceStats.damage.medium - heat_damage_medium ;
+			if (_alphaStrikeForceStats.damage.medium != "0*" && heat_damage_medium < _alphaStrikeForceStats.damage.medium) {
+				final_overheat_value = _alphaStrikeForceStats.damage.medium - heat_damage_medium;
 				_alphaStrikeForceStats.damage.medium = _alphaStrikeForceStats.damage.medium - final_overheat_value;
 				_alphaStrikeForceStats.damage.short = _alphaStrikeForceStats.damage.short - final_overheat_value;
 			}
@@ -14789,14 +14857,14 @@ function Mech (type) {
 
 
 		} else {
-			if( _alphaStrikeForceStats.damage.short != "0*")
-				_alphaStrikeForceStats.damage.short = Math.ceil( _alphaStrikeForceStats.damage.short );
-			if( _alphaStrikeForceStats.damage.medium != "0*")
-				_alphaStrikeForceStats.damage.medium =  Math.ceil( _alphaStrikeForceStats.damage.medium );
+			if (_alphaStrikeForceStats.damage.short != "0*")
+				_alphaStrikeForceStats.damage.short = Math.ceil(_alphaStrikeForceStats.damage.short);
+			if (_alphaStrikeForceStats.damage.medium != "0*")
+				_alphaStrikeForceStats.damage.medium = Math.ceil(_alphaStrikeForceStats.damage.medium);
 			//~ if( _alphaStrikeForceStats.damage.short != "0*")
-				//~ _alphaStrikeForceStats.damage.long = Math.ceil( _alphaStrikeForceStats.damage.long );
+			//~ _alphaStrikeForceStats.damage.long = Math.ceil( _alphaStrikeForceStats.damage.long );
 			//~ if( _alphaStrikeForceStats.damage.medium != "0*")
-				//~ _alphaStrikeForceStats.damage.extreme =  Math.ceil( _alphaStrikeForceStats.damage.extreme );
+			//~ _alphaStrikeForceStats.damage.extreme =  Math.ceil( _alphaStrikeForceStats.damage.extreme );
 
 		}
 
@@ -14804,17 +14872,17 @@ function Mech (type) {
 
 		//~ console.log( "_alphaStrikeForceStats.damage", _alphaStrikeForceStats.damage );
 
-		if( long_overheat_value > 4) {
+		if (long_overheat_value > 4) {
 
 			//~ console.log( "long_overheat_value", long_overheat_value );
 
-			if( _alphaStrikeForceStats.damage.long != "0*") {
+			if (_alphaStrikeForceStats.damage.long != "0*") {
 				//~ _alphaStrikeForceStats.heat_damage.long = _alphaStrikeForceStats.damage.long;
 				var heat_damage_long = _alphaStrikeForceStats.damage.long;
 				var heat_damage_extreme = _alphaStrikeForceStats.damage.extreme;
 
-				_alphaStrikeForceStats.damage.long = Math.ceil( ( _alphaStrikeForceStats.damage.long * heatDissipation ) / (total_weapon_heat_long - 4) );
-				_alphaStrikeForceStats.damage.extreme = Math.ceil( ( _alphaStrikeForceStats.damage.long * heatDissipation ) / (total_weapon_heat_long - 4) );
+				_alphaStrikeForceStats.damage.long = Math.ceil((_alphaStrikeForceStats.damage.long * heatDissipation) / (total_weapon_heat_long - 4));
+				_alphaStrikeForceStats.damage.extreme = Math.ceil((_alphaStrikeForceStats.damage.long * heatDissipation) / (total_weapon_heat_long - 4));
 
 				//~ console.log( "damage.long", _alphaStrikeForceStats.damage.long );
 				//~ console.log( "heatDissipation", heatDissipation );
@@ -14823,7 +14891,7 @@ function Mech (type) {
 
 
 
-				if( heat_damage_long > _alphaStrikeForceStats.damage.long) {
+				if (heat_damage_long > _alphaStrikeForceStats.damage.long) {
 					var final_long_overheat_value = heat_damage_long - _alphaStrikeForceStats.damage.long;
 					_alphaStrikeForceStats.damage.long = heat_damage_long - final_long_overheat_value;
 					_alphaStrikeForceStats.damage.extreme = heat_damage_extreme - final_long_overheat_value;
@@ -14835,18 +14903,18 @@ function Mech (type) {
 			}
 		} else {
 			//~ if( _alphaStrikeForceStats.damage.short != "0*")
-				//~ _alphaStrikeForceStats.damage.short = Math.ceil( _alphaStrikeForceStats.damage.short );
+			//~ _alphaStrikeForceStats.damage.short = Math.ceil( _alphaStrikeForceStats.damage.short );
 			//~ if( _alphaStrikeForceStats.damage.medium != "0*")
-				//~ _alphaStrikeForceStats.damage.medium =  Math.ceil( _alphaStrikeForceStats.damage.medium );
-			if( _alphaStrikeForceStats.damage.short != "0*")
-				_alphaStrikeForceStats.damage.long = Math.ceil( _alphaStrikeForceStats.damage.long );
-			if( _alphaStrikeForceStats.damage.medium != "0*")
-				_alphaStrikeForceStats.damage.extreme =  Math.ceil( _alphaStrikeForceStats.damage.extreme );
+			//~ _alphaStrikeForceStats.damage.medium =  Math.ceil( _alphaStrikeForceStats.damage.medium );
+			if (_alphaStrikeForceStats.damage.short != "0*")
+				_alphaStrikeForceStats.damage.long = Math.ceil(_alphaStrikeForceStats.damage.long);
+			if (_alphaStrikeForceStats.damage.medium != "0*")
+				_alphaStrikeForceStats.damage.extreme = Math.ceil(_alphaStrikeForceStats.damage.extreme);
 
 		}
 
-		if( final_long_overheat_value > 0 ) {
-			_alphaStrikeForceStats.abilityCodes.push( "OVL " + final_long_overheat_value);
+		if (final_long_overheat_value > 0) {
+			_alphaStrikeForceStats.abilityCodes.push("OVL " + final_long_overheat_value);
 
 		}
 
@@ -14856,7 +14924,7 @@ function Mech (type) {
 		//~ _alphaStrikeForceStats.damage.extreme = _alphaStrikeForceStats.damage.extreme.toFixed(0) /1;
 
 		//~ console.log( "_alphaStrikeForceStats.damage", _alphaStrikeForceStats.damage);
-		_alphaStrikeForceStats.damage = this._adjustASDamage( _alphaStrikeForceStats.damage, true );
+		_alphaStrikeForceStats.damage = this._adjustASDamage(_alphaStrikeForceStats.damage, true);
 		//~ console.log( "_alphaStrikeForceStats.damage", _alphaStrikeForceStats.damage);
 
 		// Determine Overheat Values - p116 AS Companion
@@ -14864,22 +14932,22 @@ function Mech (type) {
 
 
 		//~ if( _alphaStrikeForceStats.damage.medium != "0*" && before_heat_range_medium - _alphaStrikeForceStats.damage.medium > 0) {
-			//~ final_overheat_value = before_heat_range_medium - _alphaStrikeForceStats.damage.medium;
+		//~ final_overheat_value = before_heat_range_medium - _alphaStrikeForceStats.damage.medium;
 		//~ } else {
-			//~ // try short range bracket since the med range is low.
-			//~ if( _alphaStrikeForceStats.damage.short != "0*" )
-				//~ final_overheat_value = before_heat_range_short - _alphaStrikeForceStats.damage.short;
+		//~ // try short range bracket since the med range is low.
+		//~ if( _alphaStrikeForceStats.damage.short != "0*" )
+		//~ final_overheat_value = before_heat_range_short - _alphaStrikeForceStats.damage.short;
 		//~ }
 		//~ if( final_overheat_value > 4 )
-			//~ final_overheat_value = 4;
+		//~ final_overheat_value = 4;
 
 		// Determine Overheat Values - ASC - p116
 		//~ var final_long_overheat_value = 0;
 		//~ if( _alphaStrikeForceStats.damage.long != "0*" && before_heat_range_long - _alphaStrikeForceStats.damage.long > 0) {
-			//~ final_long_overheat_value = before_heat_range_long - _alphaStrikeForceStats.damage.long;
+		//~ final_long_overheat_value = before_heat_range_long - _alphaStrikeForceStats.damage.long;
 		//~ }
 
-		if( final_long_overheat_value > 4 )
+		if (final_long_overheat_value > 4)
 			final_long_overheat_value = 4;
 
 		_alphaStrikeForceStats.ov = final_overheat_value;
@@ -14919,13 +14987,13 @@ function Mech (type) {
 		_calcLogAS += "<strong>Step 1: Determine Unit’s Offensive Value ASC - p138</strong><br />\n";
 		var offensive_value = 0;
 		// Attack Damage Factor
-		if( _alphaStrikeForceStats.damage.short != "0*" && _alphaStrikeForceStats.damage.short != "-" )
+		if (_alphaStrikeForceStats.damage.short != "0*" && _alphaStrikeForceStats.damage.short != "-")
 			offensive_value += _alphaStrikeForceStats.damage.short;
-		if( _alphaStrikeForceStats.damage.medium != "0*" && _alphaStrikeForceStats.damage.medium != "-" )
+		if (_alphaStrikeForceStats.damage.medium != "0*" && _alphaStrikeForceStats.damage.medium != "-")
 			offensive_value += _alphaStrikeForceStats.damage.medium;
-		if( _alphaStrikeForceStats.damage.long != "0*" &&  _alphaStrikeForceStats.damage.long != "-" )
+		if (_alphaStrikeForceStats.damage.long != "0*" && _alphaStrikeForceStats.damage.long != "-")
 			offensive_value += _alphaStrikeForceStats.damage.long;
-		if( _alphaStrikeForceStats.damage.extreme != "0*" && _alphaStrikeForceStats.damage.extreme != "-" )
+		if (_alphaStrikeForceStats.damage.extreme != "0*" && _alphaStrikeForceStats.damage.extreme != "-")
 			offensive_value += _alphaStrikeForceStats.damage.extreme;
 
 		_calcLogAS += "Attack Damage Factor: " + offensive_value + " ( " + _alphaStrikeForceStats.damage.short + " + " + _alphaStrikeForceStats.damage.medium + " + " + _alphaStrikeForceStats.damage.long + " + " + _alphaStrikeForceStats.damage.extreme + " )<br />\n";
@@ -14936,11 +15004,11 @@ function Mech (type) {
 
 		// Overheat Factor
 		var overHeatFactor = 0;
-		if( _alphaStrikeForceStats.ov > 1 ) {
+		if (_alphaStrikeForceStats.ov > 1) {
 			offensive_value += 1;
-			offensive_value += ( _alphaStrikeForceStats.ov - 1 ) / 2;
+			offensive_value += (_alphaStrikeForceStats.ov - 1) / 2;
 			overHeatFactor += 1;
-			overHeatFactor +=  ( _alphaStrikeForceStats.ov - 1 ) / 2;
+			overHeatFactor += (_alphaStrikeForceStats.ov - 1) / 2;
 		} else {
 			offensive_value += _alphaStrikeForceStats.ov;
 			overHeatFactor += _alphaStrikeForceStats.ov;
@@ -14968,7 +15036,7 @@ function Mech (type) {
 		// Movement Factor:
 		var movementDefenseValue = 0;
 		var bestMovement = 0;
-		if( _alphaStrikeForceStats.move > _alphaStrikeForceStats.jumpMove ) {
+		if (_alphaStrikeForceStats.move > _alphaStrikeForceStats.jumpMove) {
 			movementDefenseValue += _alphaStrikeForceStats.move * .25;
 			bestMovement = _alphaStrikeForceStats.move;
 		} else {
@@ -14977,7 +15045,7 @@ function Mech (type) {
 		}
 		defensive_value += movementDefenseValue;
 
-		if(_alphaStrikeForceStats.jumpMove > 0 ) {
+		if (_alphaStrikeForceStats.jumpMove > 0) {
 			movementDefenseValue += .5;
 			_calcLogAS += "Movement Factor: " + movementDefenseValue + " (" + bestMovement + " * .25 + .5)<br />\n";
 		} else {
@@ -14986,83 +15054,81 @@ function Mech (type) {
 
 
 
-		if(
-			rearDamage.short > 0
-				||
-			rearDamage.medium > 0
-				||
+		if (
+			rearDamage.short > 0 ||
+			rearDamage.medium > 0 ||
 			rearDamage.long > 0
 		) {
 			_alphaStrikeForceStats.abilityCodes.push("Rear");
 		}
 
-		for( var aC = 0; aC < _alphaStrikeForceStats.abilityCodes.length; aC++ ) {
+		for (var aC = 0; aC < _alphaStrikeForceStats.abilityCodes.length; aC++) {
 
 			// Replace Heat with Heat X/X/X
-			if( _alphaStrikeForceStats.abilityCodes[ aC ].toLowerCase() == "heat" ) {
-				heatDamage = this._adjustASDamage( heatDamage );
-				_alphaStrikeForceStats.abilityCodes[ aC ] = "Heat " + heatDamage.short + "/" + heatDamage.medium + "/" + heatDamage.long;
-				highestDamage = this._getHighestDamage( heatDamage );
+			if (_alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "heat") {
+				heatDamage = this._adjustASDamage(heatDamage);
+				_alphaStrikeForceStats.abilityCodes[aC] = "Heat " + heatDamage.short + "/" + heatDamage.medium + "/" + heatDamage.long;
+				highestDamage = this._getHighestDamage(heatDamage);
 				offensive_value += highestDamage;
-				if( heatDamage.medium != "-" && heatDamage.medium > 0 )
+				if (heatDamage.medium != "-" && heatDamage.medium > 0)
 					offensive_value += .5;
 
 				_calcLogAS += "<strong>Adding</strong> Heat Ability: " + heatDamage.short + "/" + heatDamage.medium + "/" + heatDamage.long + "<br />\n";
 				_calcLogAS += "Adding Heat Damage Factor to PV: " + highestDamage + "<br />\n";
-				if( heatDamage.medium != "-" && heatDamage.medium > 0 )
+				if (heatDamage.medium != "-" && heatDamage.medium > 0)
 					_calcLogAS += "Adding Heat Medium Damage Bonus to PV: 0,5<br />\n";
 			}
 
 			// Replace LRM with LRM X/X/X
-			if( _alphaStrikeForceStats.abilityCodes[ aC ].toLowerCase() == "lrm" ) {
-				lrmDamage = this._adjustASDamage( lrmDamage );
-				_alphaStrikeForceStats.abilityCodes[ aC ] = "LRM " + lrmDamage.short + "/" + lrmDamage.medium + "/" + lrmDamage.long;
+			if (_alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "lrm") {
+				lrmDamage = this._adjustASDamage(lrmDamage);
+				_alphaStrikeForceStats.abilityCodes[aC] = "LRM " + lrmDamage.short + "/" + lrmDamage.medium + "/" + lrmDamage.long;
 				_calcLogAS += "<strong>Adding</strong> LRM Ability: " + lrmDamage.short + "/" + lrmDamage.medium + "/" + lrmDamage.long + "<br />\n";
 
 			}
 
 
 			// Replace Flak with Flak X/X/X
-			if( _alphaStrikeForceStats.abilityCodes[ aC ].toLowerCase() == "flak" ) {
-				flakDamage = this._adjustASDamage( flakDamage );
-				_alphaStrikeForceStats.abilityCodes[ aC ] = "Flak " + flakDamage.short + "/" + flakDamage.medium + "/" + flakDamage.long;
+			if (_alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "flak") {
+				flakDamage = this._adjustASDamage(flakDamage);
+				_alphaStrikeForceStats.abilityCodes[aC] = "Flak " + flakDamage.short + "/" + flakDamage.medium + "/" + flakDamage.long;
 				_calcLogAS += "<strong>Adding</strong> Flak Ability: " + flakDamage.short + "/" + flakDamage.medium + "/" + flakDamage.long + "<br />\n";
 			}
 
 
 			// Replace AC with AC X/X/X
-			if( _alphaStrikeForceStats.abilityCodes[ aC ].toLowerCase() == "ac" ) {
-				acDamage = this._adjustASDamage( acDamage );
-				_alphaStrikeForceStats.abilityCodes[ aC ] = "AC " + acDamage.short + "/" + acDamage.medium + "/" + acDamage.long;
+			if (_alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "ac") {
+				acDamage = this._adjustASDamage(acDamage);
+				_alphaStrikeForceStats.abilityCodes[aC] = "AC " + acDamage.short + "/" + acDamage.medium + "/" + acDamage.long;
 				_calcLogAS += "<strong>Adding</strong> AC Ability: " + acDamage.short + "/" + acDamage.medium + "/" + acDamage.long + "<br />\n";
 			}
 
 
 			// Replace SRM with SRM X/X/X
-			if( _alphaStrikeForceStats.abilityCodes[ aC ].toLowerCase() == "srm" ) {
-				srmDamage = this._adjustASDamage( srmDamage );
-				_alphaStrikeForceStats.abilityCodes[ aC ] = "SRM " + srmDamage.short + "/" + srmDamage.medium + "/" + srmDamage.long;
+			if (_alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "srm") {
+				srmDamage = this._adjustASDamage(srmDamage);
+				_alphaStrikeForceStats.abilityCodes[aC] = "SRM " + srmDamage.short + "/" + srmDamage.medium + "/" + srmDamage.long;
 				_calcLogAS += "<strong>Adding</strong> SRM Ability: " + srmDamage.short + "/" + srmDamage.medium + "/" + srmDamage.long + "<br />\n";
 			}
 
 			// Replace Missile with Missile X/X/X
-			if( _alphaStrikeForceStats.abilityCodes[ aC ].toLowerCase() == "missile" ||  _alphaStrikeForceStats.abilityCodes[ aC ].toLowerCase() == "msl"  ) {
-				mslDamage = this._adjustASDamage( mslDamage );
-				_alphaStrikeForceStats.abilityCodes[ aC ] = "MSL " + mslDamage.short + "/" + mslDamage.medium + "/" + mslDamage.long;
+			if (_alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "missile" || _alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "msl") {
+				mslDamage = this._adjustASDamage(mslDamage);
+				_alphaStrikeForceStats.abilityCodes[aC] = "MSL " + mslDamage.short + "/" + mslDamage.medium + "/" + mslDamage.long;
 				_calcLogAS += "<strong>Adding</strong> Missile Ability: " + mslDamage.short + "/" + mslDamage.medium + "/" + mslDamage.long + "<br />\n";
 			}
 
 			// Replace Rear with Rear X/X/X
-			if( _alphaStrikeForceStats.abilityCodes[ aC ].toLowerCase() == "rear" ) {
-				rearDamage = this._adjustASDamage( rearDamage );
-				_alphaStrikeForceStats.abilityCodes[ aC ] = "Rear " + rearDamage.short + "/" + rearDamage.medium + "/" + rearDamage.long;
+			if (_alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "rear") {
+				rearDamage = this._adjustASDamage(rearDamage);
+				_alphaStrikeForceStats.abilityCodes[aC] = "Rear " + rearDamage.short + "/" + rearDamage.medium + "/" + rearDamage.long;
 				_calcLogAS += "<strong>Adding</strong> Rear Ability: " + rearDamage.short + "/" + rearDamage.medium + "/" + rearDamage.long + "<br />\n";
 			}
 
 			// Replace IndirectFire with IF X
-			if( _alphaStrikeForceStats.abilityCodes[ aC ].toLowerCase() == "indirect fire" || _alphaStrikeForceStats.abilityCodes[ aC ].toLowerCase() == "if" ) {
-				rearDamage = this._adjustASDamage( rearDamage );
-				_alphaStrikeForceStats.abilityCodes[ aC ] = "IF " + indirectFireRating;
+			if (_alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "indirect fire" || _alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "if") {
+				rearDamage = this._adjustASDamage(rearDamage);
+				_alphaStrikeForceStats.abilityCodes[aC] = "IF " + indirectFireRating;
 				_calcLogAS += "<strong>Adding</strong> IF Ability: " + indirectFireRating + "<br />\n";
 				offensive_value += highestDamage;
 				_calcLogAS += "Adding IF Rating to PV: " + indirectFireRating + "<br />\n";
@@ -15084,7 +15150,7 @@ function Mech (type) {
 		var bmDIR = 0;
 		// Armor Factor
 		_calcLogAS += "Armor Factor: " + (_alphaStrikeForceStats.armor * 2) + " (" + _alphaStrikeForceStats.armor + " * 2)<br />\n";
-		bmDIR += _alphaStrikeForceStats.armor * 2;  // No need to do other types of armor, since this is BM only.
+		bmDIR += _alphaStrikeForceStats.armor * 2; // No need to do other types of armor, since this is BM only.
 
 		// Structure Factor
 		_calcLogAS += "Structure Factor: " + (_alphaStrikeForceStats.structure * 1) + " (" + _alphaStrikeForceStats.structure + " * 1)<br />\n";
@@ -15092,19 +15158,19 @@ function Mech (type) {
 
 		// Defense Factor
 
-		if( bestMovement > 34 ) {
+		if (bestMovement > 34) {
 			_calcLogAS += "Defense Factor: +5 (movement 35\"+)<br />\n";
 			bmDIR += 5;
-		} else if( bestMovement > 18 ) {
+		} else if (bestMovement > 18) {
 			_calcLogAS += "Defense Factor: +4 (movement 19\"-34\"+)<br />\n";
 			bmDIR += 4;
-		} else if( bestMovement > 12 ) {
+		} else if (bestMovement > 12) {
 			_calcLogAS += "Defense Factor: +3 (movement 13\"-18\"+)<br />\n";
 			bmDIR += 3;
-		} else if( bestMovement > 8 ) {
+		} else if (bestMovement > 8) {
 			_calcLogAS += "Defense Factor: +2 (movement 9\"-12\"+)<br />\n";
 			bmDIR += 2;
-		} else if( bestMovement > 4 ) {
+		} else if (bestMovement > 4) {
 			_calcLogAS += "Defense Factor: +1 (movement 4\"-8\"+)<br />\n";
 			bmDIR += 1;
 		} else {
@@ -15123,41 +15189,41 @@ function Mech (type) {
 		 * ******************************* */
 		_calcLogAS += "<strong>Step 3: Determine Unit’s Final Point Value ASC - p141</strong><br />\n";
 		baseFinalValue = offensive_value + bmDIR;
-		_calcLogAS += "Base Point Value: " + baseFinalValue  + " (" + offensive_value + " + " + bmDIR + ")<br />\n";
+		_calcLogAS += "Base Point Value: " + baseFinalValue + " (" + offensive_value + " + " + bmDIR + ")<br />\n";
 
 		finalValue = baseFinalValue;
-		if(
-			bestMovement >= 6
-			&& bestMovement <= 10
-			&& _alphaStrikeForceStats.damage.medium == 0
-			&& _alphaStrikeForceStats.damage.long == 0
-			&& _alphaStrikeForceStats.damage.extreme == 0
+		if (
+			bestMovement >= 6 &&
+			bestMovement <= 10 &&
+			_alphaStrikeForceStats.damage.medium == 0 &&
+			_alphaStrikeForceStats.damage.long == 0 &&
+			_alphaStrikeForceStats.damage.extreme == 0
 		) {
 			_calcLogAS += "Unit has 6 to 10\" of Move, but only delivers damage at Short range. Point Value * .75<br />\n";
-			_calcLogAS += "Modified Point Value: " + baseFinalValue * .75  + " (" + offensive_value + " + " + bmDIR + ")<br />\n";
+			_calcLogAS += "Modified Point Value: " + baseFinalValue * .75 + " (" + offensive_value + " + " + bmDIR + ")<br />\n";
 			finalValue = baseFinalValue * .75;
 		}
 
-		if(
-			bestMovement >= 2
-			&& bestMovement <= 5
-			&& _alphaStrikeForceStats.damage.medium == 0
-			&& _alphaStrikeForceStats.damage.long == 0
-			&& _alphaStrikeForceStats.damage.extreme == 0
+		if (
+			bestMovement >= 2 &&
+			bestMovement <= 5 &&
+			_alphaStrikeForceStats.damage.medium == 0 &&
+			_alphaStrikeForceStats.damage.long == 0 &&
+			_alphaStrikeForceStats.damage.extreme == 0
 		) {
 			_calcLogAS += "Unit has 2 to 5\" of Move, but only delivers damage at Short range. Point Value * .5<br />\n";
-			_calcLogAS += "Modified Point Value: " + baseFinalValue * .5  + " (" + offensive_value + " + " + bmDIR + ")<br />\n";
+			_calcLogAS += "Modified Point Value: " + baseFinalValue * .5 + " (" + offensive_value + " + " + bmDIR + ")<br />\n";
 			finalValue = baseFinalValue * .5;
 		}
 
-		if(
-			bestMovement >= 2
-			&& bestMovement <= 5
-			&& _alphaStrikeForceStats.damage.long == 0
-			&& _alphaStrikeForceStats.damage.extreme == 0
+		if (
+			bestMovement >= 2 &&
+			bestMovement <= 5 &&
+			_alphaStrikeForceStats.damage.long == 0 &&
+			_alphaStrikeForceStats.damage.extreme == 0
 		) {
 			_calcLogAS += "Unit has 2 to 5\" of Move, but only delivers damage at Short and Medium ranges. Point Value * .75<br />\n";
-			_calcLogAS += "Modified Point Value: " + baseFinalValue * .75  + " (" + offensive_value + " + " + bmDIR + ")<br />\n";
+			_calcLogAS += "Modified Point Value: " + baseFinalValue * .75 + " (" + offensive_value + " + " + bmDIR + ")<br />\n";
 			finalValue = baseFinalValue * .75;
 		}
 
@@ -15166,7 +15232,7 @@ function Mech (type) {
 		/* *********************************
 		 * Step 3a: Add Force Bonuses ASC - p141
 		 * ******************************* */
-		 _calcLogAS += "<strong>Step 3a: Add Force Bonuses ASC - p141</strong><br />\n";
+		_calcLogAS += "<strong>Step 3a: Add Force Bonuses ASC - p141</strong><br />\n";
 		// TODO
 		_calcLogAS += "<strong class=\"color-red\">TODO<br />\n";
 
@@ -15174,13 +15240,15 @@ function Mech (type) {
 		_alphaStrikeForceStats.type = "BM";
 
 
-		_alphaStrikeValue = Math.round(finalValue)  + " (WIP)";
+		_alphaStrikeValue = Math.round(finalValue) + " (WIP)";
 		var asMechData = [];
 		asMechData["BFPointValue"] = Math.round(finalValue);
 
 		asMechData["Name"] = this.getName();
 		asMechData["BFThreshold"] = 0;
-		asMechData["Role"] = { Name: _alphaStrikeForceStats.role };
+		asMechData["Role"] = {
+			Name: _alphaStrikeForceStats.role
+		};
 		asMechData["BFType"] = "BM";
 		asMechData["BFSize"] = _alphaStrikeForceStats.size_class;
 
@@ -15200,7 +15268,7 @@ function Mech (type) {
 		asMechData["customName"] = _alphaStrikeForceStats.customName;
 		asMechData["currentSkilll"] = _pilot.gunnery;
 
-		if( _alphaStrikeForceStats.jumpMove ) {
+		if (_alphaStrikeForceStats.jumpMove) {
 			asMechData["BFMove"] = _alphaStrikeForceStats.move.toString() + "\"/" + _alphaStrikeForceStats.jumpMove + "\"J";
 		} else {
 			asMechData["BFMove"] = _alphaStrikeForceStats.move.toString() + "\"";
@@ -15209,20 +15277,20 @@ function Mech (type) {
 		_alphaStrikeForceStats.abilityCodes.sort();
 		asMechData["BFAbilities"] = _alphaStrikeForceStats.abilityCodes.join(", ").toUpperCase();
 
-		_alphaStrikeForceStats = new asUnit( asMechData );
+		_alphaStrikeForceStats = new asUnit(asMechData);
 
 	}
 
-	this._getHighestDamage = function( incomingDamageObject ) {
+	this._getHighestDamage = function(incomingDamageObject) {
 		returnValue = 0;
-		for( var dC = 0; dC < incomingDamageObject.length; dC++ ) {
-			if(
-				incomingDamageObject[ dC ]
-				&& incomingDamageObject[ dC ] != "-"
-				&& incomingDamageObject[ dC ] != "0*"
+		for (var dC = 0; dC < incomingDamageObject.length; dC++) {
+			if (
+				incomingDamageObject[dC] &&
+				incomingDamageObject[dC] != "-" &&
+				incomingDamageObject[dC] != "0*"
 			) {
-				if( incomingDamageObject[ dC ] > returnValue ) {
-					returnValue = incomingDamageObject[ dC ] / 1;
+				if (incomingDamageObject[dC] > returnValue) {
+					returnValue = incomingDamageObject[dC] / 1;
 				}
 			}
 		}
@@ -15230,64 +15298,64 @@ function Mech (type) {
 		return returnValue;
 	}
 
-	this._adjustASDamage = function( incomingDamageObject, useZeros ) {
-		if( typeof(useZeros) == "undefined")
+	this._adjustASDamage = function(incomingDamageObject, useZeros) {
+		if (typeof(useZeros) == "undefined")
 			useZeros = false;
 
-		if( incomingDamageObject.short == 0 ) {
-			if( useZeros )
+		if (incomingDamageObject.short == 0) {
+			if (useZeros)
 				incomingDamageObject.short = 0;
 			else
 				incomingDamageObject.short = "-";
-		} else if ( incomingDamageObject.short < .5 ) {
+		} else if (incomingDamageObject.short < .5) {
 			//~ if( useZeros )
-				//~ incomingDamageObject.short = 0;
+			//~ incomingDamageObject.short = 0;
 			//~ else
-				incomingDamageObject.short = "0*";
+			incomingDamageObject.short = "0*";
 		} else {
-			incomingDamageObject.short = Math.round( incomingDamageObject.short );
+			incomingDamageObject.short = Math.round(incomingDamageObject.short);
 		}
 
-		if( incomingDamageObject.medium == 0 ) {
-			if( useZeros )
+		if (incomingDamageObject.medium == 0) {
+			if (useZeros)
 				incomingDamageObject.medium = 0;
 			else
 				incomingDamageObject.medium = "-";
-		} else if ( incomingDamageObject.medium < .5 ) {
+		} else if (incomingDamageObject.medium < .5) {
 			//~ if( useZeros )
-				//~ incomingDamageObject.medium = 0;
+			//~ incomingDamageObject.medium = 0;
 			//~ else
-				incomingDamageObject.medium = "0*";
+			incomingDamageObject.medium = "0*";
 		} else {
-			incomingDamageObject.medium = Math.round( incomingDamageObject.medium );
+			incomingDamageObject.medium = Math.round(incomingDamageObject.medium);
 		}
 
-		if( incomingDamageObject.long == 0 ) {
-			if( useZeros )
+		if (incomingDamageObject.long == 0) {
+			if (useZeros)
 				incomingDamageObject.long = 0;
 			else
 				incomingDamageObject.long = "-";
-		} else if ( incomingDamageObject.long < .5 ) {
+		} else if (incomingDamageObject.long < .5) {
 			//~ if( useZeros )
-				//~ incomingDamageObject.long = 0;
+			//~ incomingDamageObject.long = 0;
 			//~ else
-				incomingDamageObject.long = "0*";
+			incomingDamageObject.long = "0*";
 		} else {
-			incomingDamageObject.long = Math.round( incomingDamageObject.long );
+			incomingDamageObject.long = Math.round(incomingDamageObject.long);
 		}
 
-		if( incomingDamageObject.extreme == 0 ) {
-			if( useZeros )
+		if (incomingDamageObject.extreme == 0) {
+			if (useZeros)
 				incomingDamageObject.extreme = 0;
 			else
 				incomingDamageObject.extreme = "-";
-		} else if ( incomingDamageObject.extreme < .5 ) {
+		} else if (incomingDamageObject.extreme < .5) {
 			//~ if( useZeros )
-				//~ incomingDamageObject.extreme = 0;
+			//~ incomingDamageObject.extreme = 0;
 			//~ else
-				incomingDamageObject.extreme = "0*";
+			incomingDamageObject.extreme = "0*";
 		} else {
-			incomingDamageObject.extreme = Math.round( incomingDamageObject.extreme );
+			incomingDamageObject.extreme = Math.round(incomingDamageObject.extreme);
 		}
 
 		return incomingDamageObject;
@@ -15308,34 +15376,34 @@ function Mech (type) {
 		/* ***************************************************
 		 *  STEP 1: CALCULATE DEFENSIVE BATTLE RATING - TM p302
 		 * ************************************************ */
-		 var defensiveBattleRating = 0;
-		 _calcLogBV += "<strong>STEP 1: CALCULATE DEFENSIVE BATTLE RATING - TM p302</strong><br />";
-		 var totalArmorFactor = 2.5 * this.getTotalArmor();
-		 _calcLogBV += "Total Armor Factor = Armor Factor x 2.5: " + totalArmorFactor + " = 2.5 x " + this.getTotalArmor() + "<br />";
+		var defensiveBattleRating = 0;
+		_calcLogBV += "<strong>STEP 1: CALCULATE DEFENSIVE BATTLE RATING - TM p302</strong><br />";
+		var totalArmorFactor = 2.5 * this.getTotalArmor();
+		_calcLogBV += "Total Armor Factor = Armor Factor x 2.5: " + totalArmorFactor + " = 2.5 x " + this.getTotalArmor() + "<br />";
 
 
 		// Get Armor Rating
-		 switch( _armorType ) {
-			 case "commercial":
+		switch (_armorType) {
+			case "commercial":
 				_calcLogBV += "Total Armor Factor = 0.5 * Total Armor Factor Modifier for Commercial Armor: " + totalArmorFactor + " x 0.5 = " + (totalArmorFactor * .5) + "<br />";
 				totalArmorFactor = totalArmorFactor * 0.5;
 				break;
 			default:
 				_calcLogBV += "Total Armor Factor = 1.0 * Total Armor Factor Modifier for Non-Commercial Armor:  " + totalArmorFactor + " x 1 = " + (totalArmorFactor * 1) + "<br />";
 				break;
-		 }
+		}
 
-		 // Get for Internal Structure Rating
-		 var totalInternalStructurePoints = 1.5 * _totalInternalStructurePoints;
-		 _calcLogBV += "Total Internal Structure Points = Internal Structure Points x 1.5: " + totalInternalStructurePoints + " = 1.5 x " + _totalInternalStructurePoints + "<br />";
+		// Get for Internal Structure Rating
+		var totalInternalStructurePoints = 1.5 * _totalInternalStructurePoints;
+		_calcLogBV += "Total Internal Structure Points = Internal Structure Points x 1.5: " + totalInternalStructurePoints + " = 1.5 x " + _totalInternalStructurePoints + "<br />";
 
-		 // Adjust IS for Type
-		 switch( this.getInteralStructure().tag ) {
-			 case "industrial":
+		// Adjust IS for Type
+		switch (this.getInteralStructure().tag) {
+			case "industrial":
 				_calcLogBV += "Total Internal Structure BV = 0.5 x I.S. BV for Industrial Internal Structure: " + totalInternalStructurePoints + " x 0.5 = " + (totalInternalStructurePoints * .5) + "<br />";
 				totalInternalStructurePoints = totalInternalStructurePoints * 0.5;
 				break;
-			 case "endo-steel":
+			case "endo-steel":
 				_calcLogBV += "Total Internal Structure = 1.0 x I.S. BV for Endo-Steel Internal Structure: " + totalInternalStructurePoints + " x 1 = " + (totalInternalStructurePoints * 1) + "<br />";
 				totalInternalStructurePoints = totalInternalStructurePoints * 1;
 				break;
@@ -15343,16 +15411,16 @@ function Mech (type) {
 				_calcLogBV += "Total Internal Structure = 1.0 x I.S. BV for Standard Internal Structure:  " + totalInternalStructurePoints + " x 1 = " + (totalInternalStructurePoints * 1) + "<br />";
 				totalInternalStructurePoints = totalInternalStructurePoints * 1;
 				break;
-		 }
+		}
 
 		// Adjust IS for Engine Type
-		 switch( _engineType ) {
-			 case "light":
+		switch (_engineType) {
+			case "light":
 				_calcLogBV += "Total Internal Structure = 0.75 x I.S. BV for Light Engine: " + totalInternalStructurePoints + " x 0.5 = " + (totalInternalStructurePoints * .5) + "<br />";
 				totalInternalStructurePoints = totalInternalStructurePoints * .75;
 				break;
-			 case "xl":
-				if( this.getTech().tag == "clan" ) {
+			case "xl":
+				if (this.getTech().tag == "clan") {
 					// Clan XL
 					_calcLogBV += "Total Internal Structure = 0.75 x I.S. BV for Clan XL Engine: " + totalInternalStructurePoints + " x 0.5 = " + (totalInternalStructurePoints * .5) + "<br />";
 					totalInternalStructurePoints = totalInternalStructurePoints * .5;
@@ -15371,31 +15439,31 @@ function Mech (type) {
 				_calcLogBV += "Total Internal Structure = 1.0 x I.S. BV for Standard Engine:  " + totalInternalStructurePoints + " x 1 = " + (totalInternalStructurePoints * 1) + "<br />";
 				totalInternalStructurePoints = totalInternalStructurePoints * 1;
 				break;
-		 }
+		}
 
 
 
 
 		// Add in the Gyro Modifier
 		var totalGyroPoints = 0;
-		 switch( this.getInteralStructure().tag ) {
-			 case "compact":
-				_calcLogBV += "Total Gyro BV = 0.5 x Tonnage for Compact Gyro: " + this.getTonnage()  + " x 0.5 = " + (this.getTonnage()  * .5) + "<br />";
+		switch (this.getInteralStructure().tag) {
+			case "compact":
+				_calcLogBV += "Total Gyro BV = 0.5 x Tonnage for Compact Gyro: " + this.getTonnage() + " x 0.5 = " + (this.getTonnage() * .5) + "<br />";
 				totalGyroPoints = this.getTonnage() * 0.5;
 				break;
-			 case "xl":
-				_calcLogBV += "Total Gyro BV = 0.5 x Tonnage for Extra Light Gyro: " + this.getTonnage()  + " x 0.5 = " + (this.getTonnage()  * .5) + "<br />";
+			case "xl":
+				_calcLogBV += "Total Gyro BV = 0.5 x Tonnage for Extra Light Gyro: " + this.getTonnage() + " x 0.5 = " + (this.getTonnage() * .5) + "<br />";
 				totalGyroPoints = this.getTonnage() * 0.5;
 				break;
-			 case "heavy-duty":
-				_calcLogBV += "Total Gyro BV = 1 x Tonnage for Heavy Duty Gyro: " + this.getTonnage()  + " x 0.5 = " + (this.getTonnage()  * .5) + "<br />";
+			case "heavy-duty":
+				_calcLogBV += "Total Gyro BV = 1 x Tonnage for Heavy Duty Gyro: " + this.getTonnage() + " x 0.5 = " + (this.getTonnage() * .5) + "<br />";
 				totalGyroPoints = this.getTonnage() * 1;
 				break;
 			default:
-				_calcLogBV += "Total Gyro BV = 0.5 x Tonnage for Standard Gyro: " + this.getTonnage()  + " x 0.5 = " + (this.getTonnage()  * .5) + "<br />";
+				_calcLogBV += "Total Gyro BV = 0.5 x Tonnage for Standard Gyro: " + this.getTonnage() + " x 0.5 = " + (this.getTonnage() * .5) + "<br />";
 				totalGyroPoints = this.getTonnage() * 0.5;
 				break;
-		 }
+		}
 
 		// Get Explosive Ammo Modifiers - Tech Manual p302-303
 		var explosiveAmmoModifiers = 0;
@@ -15404,73 +15472,73 @@ function Mech (type) {
 
 		var caseEnabled_HD = false;
 		var caseEnabled_CT = false;
-		var caseEnabled_RL= false;
+		var caseEnabled_RL = false;
 		var caseEnabled_LL = false;
 		var caseEnabled_RA = false;
 		var caseEnabled_LA = false;
 		var caseEnabled_RT = false;
 		var caseEnabled_LT = false;
 
-		for( var lCrit = 0; lCrit < _criticals.head.length; lCrit++) {
-			if( _criticals.head[ lCrit ] && _criticals.head[ lCrit ].tag == "case" ) {
+		for (var lCrit = 0; lCrit < _criticals.head.length; lCrit++) {
+			if (_criticals.head[lCrit] && _criticals.head[lCrit].tag == "case") {
 				caseEnabled_HD = true;
 			}
 		}
 
-		for( var lCrit = 0; lCrit < _criticals.centerTorso.length; lCrit++) {
-			if( _criticals.centerTorso[ lCrit ] && _criticals.centerTorso[ lCrit ].tag == "case" ) {
+		for (var lCrit = 0; lCrit < _criticals.centerTorso.length; lCrit++) {
+			if (_criticals.centerTorso[lCrit] && _criticals.centerTorso[lCrit].tag == "case") {
 				caseEnabled_CT = true;
 			}
 		}
 
-		for( var lCrit = 0; lCrit < _criticals.rightLeg.length; lCrit++) {
-			if( _criticals.rightLeg[ lCrit ] && _criticals.rightLeg[ lCrit ].tag == "case" ) {
+		for (var lCrit = 0; lCrit < _criticals.rightLeg.length; lCrit++) {
+			if (_criticals.rightLeg[lCrit] && _criticals.rightLeg[lCrit].tag == "case") {
 				caseEnabled_RL = true;
 			}
 		}
 
-		for( var lCrit = 0; lCrit < _criticals.leftLeg.length; lCrit++) {
-			if( _criticals.leftLeg[ lCrit ] && _criticals.leftLeg[ lCrit ].tag == "case" ) {
+		for (var lCrit = 0; lCrit < _criticals.leftLeg.length; lCrit++) {
+			if (_criticals.leftLeg[lCrit] && _criticals.leftLeg[lCrit].tag == "case") {
 				caseEnabled_LL = true;
 			}
 		}
 
-		for( var lCrit = 0; lCrit < _criticals.rightArm.length; lCrit++) {
-			if( _criticals.rightArm[ lCrit ] && _criticals.rightArm[ lCrit ].tag == "case" ) {
+		for (var lCrit = 0; lCrit < _criticals.rightArm.length; lCrit++) {
+			if (_criticals.rightArm[lCrit] && _criticals.rightArm[lCrit].tag == "case") {
 				caseEnabled_RA = true;
 			}
 		}
 
-		for( var lCrit = 0; lCrit < _criticals.leftArm.length; lCrit++) {
-			if( _criticals.leftArm[ lCrit ] && _criticals.leftArm[ lCrit ].tag == "case" ) {
+		for (var lCrit = 0; lCrit < _criticals.leftArm.length; lCrit++) {
+			if (_criticals.leftArm[lCrit] && _criticals.leftArm[lCrit].tag == "case") {
 				caseEnabled_LA = true;
 			}
 		}
 
-		for( var lCrit = 0; lCrit < _criticals.rightTorso.length; lCrit++) {
-			if( _criticals.rightTorso[ lCrit ] && _criticals.rightTorso[ lCrit ].tag == "case" ) {
+		for (var lCrit = 0; lCrit < _criticals.rightTorso.length; lCrit++) {
+			if (_criticals.rightTorso[lCrit] && _criticals.rightTorso[lCrit].tag == "case") {
 				caseEnabled_RT = true;
 			}
 		}
 
-		for( var lCrit = 0; lCrit < _criticals.leftTorso.length; lCrit++) {
-			if( _criticals.leftTorso[ lCrit ] && _criticals.leftTorso[ lCrit ].tag == "case" ) {
+		for (var lCrit = 0; lCrit < _criticals.leftTorso.length; lCrit++) {
+			if (_criticals.leftTorso[lCrit] && _criticals.leftTorso[lCrit].tag == "case") {
 				caseEnabled_LT = true;
 			}
 		}
 
-		if( _tech.tag == "clan" ) {
+		if (_tech.tag == "clan") {
 
 			//Clan is Assumed to have CASE in BV Calculation (TM p303)
 
 			// check head
-			for( var lCrit = 0; lCrit < _criticals.head.length; lCrit++) {
-				if( _criticals.head[ lCrit ] ) {
-					if( _criticals.head[ lCrit ] && _criticals.head[ lCrit ].obj && _criticals.head[ lCrit ].obj.explosive ) {
+			for (var lCrit = 0; lCrit < _criticals.head.length; lCrit++) {
+				if (_criticals.head[lCrit]) {
+					if (_criticals.head[lCrit] && _criticals.head[lCrit].obj && _criticals.head[lCrit].obj.explosive) {
 						_calcLogBV += "Explosive Ammo Crit in Head (Clan, -15)<br />";
 						explosiveAmmoModifiers += 15;
 					}
-					if( _criticals.head[ lCrit ] && _criticals.head[ lCrit ].obj && _criticals.head[ lCrit ].obj.gauss ) {
+					if (_criticals.head[lCrit] && _criticals.head[lCrit].obj && _criticals.head[lCrit].obj.gauss) {
 						_calcLogBV += "Gauss Crit in Head (Clan, -1)<br />";
 						explosiveAmmoModifiers += 1;
 					}
@@ -15478,13 +15546,13 @@ function Mech (type) {
 			}
 
 			// check ct
-			for( var lCrit = 0; lCrit < _criticals.centerTorso.length; lCrit++) {
-				if( _criticals.centerTorso[ lCrit ] ) {
-					if( _criticals.centerTorso[ lCrit ] && _criticals.centerTorso[ lCrit ].obj && _criticals.centerTorso[ lCrit ].obj.explosive ) {
+			for (var lCrit = 0; lCrit < _criticals.centerTorso.length; lCrit++) {
+				if (_criticals.centerTorso[lCrit]) {
+					if (_criticals.centerTorso[lCrit] && _criticals.centerTorso[lCrit].obj && _criticals.centerTorso[lCrit].obj.explosive) {
 						_calcLogBV += "Explosive Ammo Crit in Center Torso (Clan, -15)<br />";
 						explosiveAmmoModifiers += 15;
 					}
-					if( _criticals.centerTorso[ lCrit ] && _criticals.centerTorso[ lCrit ].obj && _criticals.centerTorso[ lCrit ].obj.gauss ) {
+					if (_criticals.centerTorso[lCrit] && _criticals.centerTorso[lCrit].obj && _criticals.centerTorso[lCrit].obj.gauss) {
 						_calcLogBV += "Gauss Crit in Center Torso (Clan, -1)<br />";
 						explosiveAmmoModifiers += 1;
 					}
@@ -15492,13 +15560,13 @@ function Mech (type) {
 			}
 
 			// check lt
-			for( var lCrit = 0; lCrit < _criticals.leftTorso.length; lCrit++) {
-				if( _criticals.leftTorso[ lCrit ] ) {
-					if( _criticals.leftTorso[ lCrit ] && _criticals.leftTorso[ lCrit ].obj && _criticals.leftTorso[ lCrit ].obj.explosive ) {
+			for (var lCrit = 0; lCrit < _criticals.leftTorso.length; lCrit++) {
+				if (_criticals.leftTorso[lCrit]) {
+					if (_criticals.leftTorso[lCrit] && _criticals.leftTorso[lCrit].obj && _criticals.leftTorso[lCrit].obj.explosive) {
 						_calcLogBV += "Explosive Ammo Crit in Left Torso (Clan,-15)<br />";
 						explosiveAmmoModifiers += 15;
 					}
-					if( _criticals.leftTorso[ lCrit ] && _criticals.leftTorso[ lCrit ].obj && _criticals.leftTorso[ lCrit ].obj.gauss ) {
+					if (_criticals.leftTorso[lCrit] && _criticals.leftTorso[lCrit].obj && _criticals.leftTorso[lCrit].obj.gauss) {
 						_calcLogBV += "Gauss Crit in Left Torso (Clan, -1)<br />";
 						explosiveAmmoModifiers += 1;
 					}
@@ -15506,13 +15574,13 @@ function Mech (type) {
 			}
 
 			// check rt
-			for( var lCrit = 0; lCrit < _criticals.rightTorso.length; lCrit++) {
-				if( _criticals.rightTorso[ lCrit ] ) {
-					if( _criticals.rightTorso[ lCrit ] && _criticals.rightTorso[ lCrit ].obj && _criticals.rightTorso[ lCrit ].obj.explosive ) {
+			for (var lCrit = 0; lCrit < _criticals.rightTorso.length; lCrit++) {
+				if (_criticals.rightTorso[lCrit]) {
+					if (_criticals.rightTorso[lCrit] && _criticals.rightTorso[lCrit].obj && _criticals.rightTorso[lCrit].obj.explosive) {
 						_calcLogBV += "Explosive Ammo Crit in Right Torso (Clan,-15)<br />";
 						explosiveAmmoModifiers += 15;
 					}
-					if( _criticals.rightTorso[ lCrit ] && _criticals.rightTorso[ lCrit ].obj && _criticals.rightTorso[ lCrit ].obj.gauss ) {
+					if (_criticals.rightTorso[lCrit] && _criticals.rightTorso[lCrit].obj && _criticals.rightTorso[lCrit].obj.gauss) {
 						_calcLogBV += "Gauss Crit in Center Right (Clan, -1)<br />";
 						explosiveAmmoModifiers += 1;
 					}
@@ -15520,34 +15588,34 @@ function Mech (type) {
 			}
 
 			// check rl
-			for( var lCrit = 0; lCrit < _criticals.rightLeg.length; lCrit++) {
-				if( _criticals.rightLeg[ lCrit ] && _criticals.rightLeg[ lCrit ].obj && _criticals.rightLeg[ lCrit ].obj.explosive ) {
+			for (var lCrit = 0; lCrit < _criticals.rightLeg.length; lCrit++) {
+				if (_criticals.rightLeg[lCrit] && _criticals.rightLeg[lCrit].obj && _criticals.rightLeg[lCrit].obj.explosive) {
 					_calcLogBV += "Explosive Ammo Crit in Right Leg (Clan, -15)<br />";
 					explosiveAmmoModifiers += 15;
 				}
-				if( _criticals.rightLeg[ lCrit ] && _criticals.rightLeg[ lCrit ].obj && _criticals.rightLeg[ lCrit ].obj.gauss ) {
+				if (_criticals.rightLeg[lCrit] && _criticals.rightLeg[lCrit].obj && _criticals.rightLeg[lCrit].obj.gauss) {
 					_calcLogBV += "Gauss Crit in Right Leg (Clan, -1)<br />";
 					explosiveAmmoModifiers += 1;
 				}
 			}
 
 			// check ll
-			for( var lCrit = 0; lCrit < _criticals.leftLeg.length; lCrit++) {
-				if( _criticals.leftLeg[ lCrit ] && _criticals.leftLeg[ lCrit ].obj && _criticals.leftLeg[ lCrit ].obj.explosive ) {
+			for (var lCrit = 0; lCrit < _criticals.leftLeg.length; lCrit++) {
+				if (_criticals.leftLeg[lCrit] && _criticals.leftLeg[lCrit].obj && _criticals.leftLeg[lCrit].obj.explosive) {
 					_calcLogBV += "Explosive Ammo Crit in Left Leg (Clan, -15)<br />";
 					explosiveAmmoModifiers += 15;
 				}
-				if( _criticals.leftLeg[ lCrit ] && _criticals.leftLeg[ lCrit ].obj && _criticals.leftLeg[ lCrit ].obj.gauss ) {
+				if (_criticals.leftLeg[lCrit] && _criticals.leftLeg[lCrit].obj && _criticals.leftLeg[lCrit].obj.gauss) {
 					_calcLogBV += "Gauss Crit in Left Leg (Clan, -1)<br />";
 					explosiveAmmoModifiers += 1;
 				}
 			}
 
-		} else if( _tech.tag == "is" ) {
+		} else if (_tech.tag == "is") {
 			// check head
-			for( var lCrit = 0; lCrit < _criticals.head.length; lCrit++) {
-				if( _criticals.head[ lCrit ] ) {
-					if( _criticals.head[ lCrit ] && _criticals.head[ lCrit ].obj && _criticals.head[ lCrit ].obj.explosive ) {
+			for (var lCrit = 0; lCrit < _criticals.head.length; lCrit++) {
+				if (_criticals.head[lCrit]) {
+					if (_criticals.head[lCrit] && _criticals.head[lCrit].obj && _criticals.head[lCrit].obj.explosive) {
 						_calcLogBV += "Explosive Ammo Crit in Head (Inner Sphere,-15)<br />";
 						explosiveAmmoModifiers += 15;
 					}
@@ -15556,13 +15624,13 @@ function Mech (type) {
 			}
 
 			// check ct
-			for( var lCrit = 0; lCrit < _criticals.centerTorso.length; lCrit++) {
-				if( _criticals.centerTorso[ lCrit ] ) {
-					if( _criticals.centerTorso[ lCrit ] && _criticals.centerTorso[ lCrit ].obj && _criticals.centerTorso[ lCrit ].obj.explosive ) {
+			for (var lCrit = 0; lCrit < _criticals.centerTorso.length; lCrit++) {
+				if (_criticals.centerTorso[lCrit]) {
+					if (_criticals.centerTorso[lCrit] && _criticals.centerTorso[lCrit].obj && _criticals.centerTorso[lCrit].obj.explosive) {
 						_calcLogBV += "Explosive Ammo Crit in Center Torso (Inner Sphere,-15)<br />";
 						explosiveAmmoModifiers += 15;
 					}
-					if( _criticals.centerTorso[ lCrit ] && _criticals.centerTorso[ lCrit ].obj && _criticals.centerTorso[ lCrit ].obj.gauss ) {
+					if (_criticals.centerTorso[lCrit] && _criticals.centerTorso[lCrit].obj && _criticals.centerTorso[lCrit].obj.gauss) {
 						_calcLogBV += "Gauss Crit in Center Torso (Inner Sphere, -1)<br />";
 						explosiveAmmoModifiers += 1;
 					}
@@ -15570,13 +15638,13 @@ function Mech (type) {
 			}
 
 			// check lt
-			for( var lCrit = 0; lCrit < _criticals.leftTorso.length; lCrit++) {
-				if( _criticals.leftTorso[ lCrit ] ) {
-					if( _criticals.leftTorso[ lCrit ] && _criticals.leftTorso[ lCrit ].obj && _criticals.leftTorso[ lCrit ].obj.explosive ) {
+			for (var lCrit = 0; lCrit < _criticals.leftTorso.length; lCrit++) {
+				if (_criticals.leftTorso[lCrit]) {
+					if (_criticals.leftTorso[lCrit] && _criticals.leftTorso[lCrit].obj && _criticals.leftTorso[lCrit].obj.explosive) {
 						_calcLogBV += "Explosive Ammo Crit in Left Torso (Inner Sphere,-15)<br />";
 						explosiveAmmoModifiers += 15;
 					}
-					if( _criticals.leftTorso[ lCrit ] && _criticals.leftTorso[ lCrit ].obj && _criticals.leftTorso[ lCrit ].obj.gauss ) {
+					if (_criticals.leftTorso[lCrit] && _criticals.leftTorso[lCrit].obj && _criticals.leftTorso[lCrit].obj.gauss) {
 						_calcLogBV += "Gauss Crit in Left Torso (Inner Sphere, -1)<br />";
 						explosiveAmmoModifiers += 1;
 					}
@@ -15584,13 +15652,13 @@ function Mech (type) {
 			}
 
 			// check rt
-			for( var lCrit = 0; lCrit < _criticals.rightTorso.length; lCrit++) {
-				if( _criticals.rightTorso[ lCrit ] ) {
-					if( _criticals.rightTorso[ lCrit ] && _criticals.rightTorso[ lCrit ].obj && _criticals.rightTorso[ lCrit ].obj.explosive ) {
+			for (var lCrit = 0; lCrit < _criticals.rightTorso.length; lCrit++) {
+				if (_criticals.rightTorso[lCrit]) {
+					if (_criticals.rightTorso[lCrit] && _criticals.rightTorso[lCrit].obj && _criticals.rightTorso[lCrit].obj.explosive) {
 						_calcLogBV += "Explosive Ammo Crit in Right Torso (Inner Sphere,-15)<br />";
 						explosiveAmmoModifiers += 15;
 					}
-					if( _criticals.rightTorso[ lCrit ] && _criticals.rightTorso[ lCrit ].obj && _criticals.rightTorso[ lCrit ].obj.gauss ) {
+					if (_criticals.rightTorso[lCrit] && _criticals.rightTorso[lCrit].obj && _criticals.rightTorso[lCrit].obj.gauss) {
 						_calcLogBV += "Gauss Crit in Center Right (Inner Sphere, -1)<br />";
 						explosiveAmmoModifiers += 1;
 					}
@@ -15598,22 +15666,22 @@ function Mech (type) {
 			}
 
 			// check rl
-			for( var lCrit = 0; lCrit < _criticals.rightLeg.length; lCrit++) {
-				if( _criticals.rightLeg[ lCrit ] && _criticals.rightLeg[ lCrit ].obj && _criticals.rightLeg[ lCrit ].obj.explosive ) {
+			for (var lCrit = 0; lCrit < _criticals.rightLeg.length; lCrit++) {
+				if (_criticals.rightLeg[lCrit] && _criticals.rightLeg[lCrit].obj && _criticals.rightLeg[lCrit].obj.explosive) {
 					_calcLogBV += "Explosive Ammo Crit in Right Leg (Inner Sphere, -15)<br />";
 					explosiveAmmoModifiers += 15;
 				}
-				if( _criticals.rightLeg[ lCrit ] && _criticals.rightLeg[ lCrit ].obj && _criticals.rightLeg[ lCrit ].obj.gauss ) {
+				if (_criticals.rightLeg[lCrit] && _criticals.rightLeg[lCrit].obj && _criticals.rightLeg[lCrit].obj.gauss) {
 					_calcLogBV += "Gauss Crit in Right Leg (Inner Sphere, -1)<br />";
 					explosiveAmmoModifiers += 1;
 				}
 
-				if( caseEnabled_RT == false  && caseEnabled_RL == false) {
-					if( _criticals.rightLeg[ lCrit ] && _criticals.rightLeg[ lCrit ].obj && _criticals.rightLeg[ lCrit ].obj.explosive ) {
+				if (caseEnabled_RT == false && caseEnabled_RL == false) {
+					if (_criticals.rightLeg[lCrit] && _criticals.rightLeg[lCrit].obj && _criticals.rightLeg[lCrit].obj.explosive) {
 						_calcLogBV += "Explosive Ammo Crit in Right Leg, Right Torso and Right Leg to not have CASE (Inner Sphere, -15)<br />";
 						explosiveAmmoModifiers += 15;
 					}
-					if( _criticals.rightLeg[ lCrit ] && _criticals.rightLeg[ lCrit ].obj && _criticals.rightLeg[ lCrit ].obj.gauss ) {
+					if (_criticals.rightLeg[lCrit] && _criticals.rightLeg[lCrit].obj && _criticals.rightLeg[lCrit].obj.gauss) {
 						_calcLogBV += "Gauss Crit in Right Leg, Right Torso and Right Leg to not have CASE (Inner Sphere, -1)<br />";
 						explosiveAmmoModifiers += 1;
 					}
@@ -15621,22 +15689,22 @@ function Mech (type) {
 			}
 
 			// check ll
-			for( var lCrit = 0; lCrit < _criticals.leftLeg.length; lCrit++) {
-				if( _criticals.leftLeg[ lCrit ] && _criticals.leftLeg[ lCrit ].obj && _criticals.leftLeg[ lCrit ].obj.explosive ) {
+			for (var lCrit = 0; lCrit < _criticals.leftLeg.length; lCrit++) {
+				if (_criticals.leftLeg[lCrit] && _criticals.leftLeg[lCrit].obj && _criticals.leftLeg[lCrit].obj.explosive) {
 					_calcLogBV += "Explosive Ammo Crit in Left Leg (Inner Sphere, -15)<br />";
 					explosiveAmmoModifiers += 15;
 				}
-				if( _criticals.leftLeg[ lCrit ] && _criticals.leftLeg[ lCrit ].obj && _criticals.leftLeg[ lCrit ].obj.gauss ) {
+				if (_criticals.leftLeg[lCrit] && _criticals.leftLeg[lCrit].obj && _criticals.leftLeg[lCrit].obj.gauss) {
 					_calcLogBV += "Gauss Crit in Left Leg (Inner Sphere, -1)<br />";
 					explosiveAmmoModifiers += 1;
 				}
 
-				if( caseEnabled_LT == false  && caseEnabled_LL == false) {
-					if( _criticals.rightLeg[ lCrit ] && _criticals.rightLeg[ lCrit ].obj && _criticals.rightLeg[ lCrit ].obj.explosive ) {
+				if (caseEnabled_LT == false && caseEnabled_LL == false) {
+					if (_criticals.rightLeg[lCrit] && _criticals.rightLeg[lCrit].obj && _criticals.rightLeg[lCrit].obj.explosive) {
 						_calcLogBV += "Explosive Ammo Crit in Left Leg, Left Torso and Left Leg to not have CASE (Inner Sphere, -15)<br />";
 						explosiveAmmoModifiers += 15;
 					}
-					if( _criticals.leftLeg[ lCrit ] && _criticals.leftLeg[ lCrit ].obj && _criticals.leftLeg[ lCrit ].obj.gauss ) {
+					if (_criticals.leftLeg[lCrit] && _criticals.leftLeg[lCrit].obj && _criticals.leftLeg[lCrit].obj.gauss) {
 						_calcLogBV += "Gauss Crit in Left Leg, Left Torso and Left Leg to not have CASE (Inner Sphere, -1)<br />";
 						explosiveAmmoModifiers += 1;
 					}
@@ -15645,15 +15713,15 @@ function Mech (type) {
 			}
 
 			// check RA
-			for( var lCrit = 0; lCrit < _criticals.rightArm.length; lCrit++) {
+			for (var lCrit = 0; lCrit < _criticals.rightArm.length; lCrit++) {
 
 
-				if( caseEnabled_RT == false  && caseEnabled_RA == false) {
-					if( _criticals.rightArm[ lCrit ] && _criticals.rightArm[ lCrit ].obj && _criticals.rightArm[ lCrit ].obj.explosive ) {
+				if (caseEnabled_RT == false && caseEnabled_RA == false) {
+					if (_criticals.rightArm[lCrit] && _criticals.rightArm[lCrit].obj && _criticals.rightArm[lCrit].obj.explosive) {
 						_calcLogBV += "Explosive Ammo Crit in Right Arm, Right Torso and Right Arm to not have CASE (Inner Sphere, -15)<br />";
 						explosiveAmmoModifiers += 15;
 					}
-					if( _criticals.rightArm[ lCrit ] && _criticals.rightArm[ lCrit ].obj && _criticals.rightArm[ lCrit ].obj.gauss ) {
+					if (_criticals.rightArm[lCrit] && _criticals.rightArm[lCrit].obj && _criticals.rightArm[lCrit].obj.gauss) {
 						_calcLogBV += "Gauss Crit in Right Arm, Right Torso and Right Arm to not have CASE (Inner Sphere, -1)<br />";
 						explosiveAmmoModifiers += 1;
 					}
@@ -15662,15 +15730,15 @@ function Mech (type) {
 			}
 
 			// check LA
-			for( var lCrit = 0; lCrit < _criticals.leftArm.length; lCrit++) {
+			for (var lCrit = 0; lCrit < _criticals.leftArm.length; lCrit++) {
 
 
-				if( caseEnabled_LT == false  && caseEnabled_LA == false) {
-					if( _criticals.leftArm[ lCrit ] && _criticals.leftArm[ lCrit ].obj && _criticals.leftArm[ lCrit ].obj.explosive ) {
+				if (caseEnabled_LT == false && caseEnabled_LA == false) {
+					if (_criticals.leftArm[lCrit] && _criticals.leftArm[lCrit].obj && _criticals.leftArm[lCrit].obj.explosive) {
 						_calcLogBV += "Explosive Ammo Crit in Left Arm, Left Torso and Left Arm to not have CASE (Inner Sphere, -15)<br />";
 						explosiveAmmoModifiers += 15;
 					}
-					if( _criticals.leftArm[ lCrit ] && _criticals.leftArm[ lCrit ].obj && _criticals.leftArm[ lCrit ].obj.gauss ) {
+					if (_criticals.leftArm[lCrit] && _criticals.leftArm[lCrit].obj && _criticals.leftArm[lCrit].obj.gauss) {
 						_calcLogBV += "Gauss Crit in Left Arm, Left Torso and Left Arm to not have CASE (Inner Sphere, -1)<br />";
 						explosiveAmmoModifiers += 1;
 					}
@@ -15681,7 +15749,7 @@ function Mech (type) {
 
 
 		defensiveBattleRating = totalArmorFactor + totalInternalStructurePoints + totalGyroPoints - explosiveAmmoModifiers;
-		_calcLogBV += "Defensive battle rating = " + defensiveBattleRating +  " ( " + totalArmorFactor + " + " + totalInternalStructurePoints + " +  " + totalGyroPoints + " -  " + explosiveAmmoModifiers + "<br />";
+		_calcLogBV += "Defensive battle rating = " + defensiveBattleRating + " ( " + totalArmorFactor + " + " + totalInternalStructurePoints + " +  " + totalGyroPoints + " -  " + explosiveAmmoModifiers + "<br />";
 
 
 		// Get Defensive Factor Modifier
@@ -15689,19 +15757,19 @@ function Mech (type) {
 
 		var runSpeed = this.getRunSpeed();
 		var jumpSpeed = this.getJumpSpeed();
-		var runModifier = getMovementModifier( runSpeed );
-		var jumpModifier = getMovementModifier( jumpSpeed ) + 1;
+		var runModifier = getMovementModifier(runSpeed);
+		var jumpModifier = getMovementModifier(jumpSpeed) + 1;
 
 		var moveModifier = 0;
-		if( jumpModifier > runModifier )
+		if (jumpModifier > runModifier)
 			moveModifier = jumpModifier;
 		else
 			moveModifier = runModifier;
 
-		_calcLogBV += "Best TMM: " + moveModifier+ "<br />";
+		_calcLogBV += "Best TMM: " + moveModifier + "<br />";
 
 		var defensiveFactorModifier = 1 + moveModifier / 10;
-		if( defensiveFactorModifier < 1 )
+		if (defensiveFactorModifier < 1)
 			defensiveFactorModifier = 1;
 
 		_calcLogBV += "Defensive Factor (defensiveFactorModifier = 1 + TMM / 10): " + defensiveFactorModifier + " = 1 + " + moveModifier + " / 10<br />";
@@ -15709,27 +15777,27 @@ function Mech (type) {
 		// TODO for equipment.... add camo, stealth, etc when it's available
 		_calcLogBV += "<strong> Defensive Factor Modifiers for equipment</strong>.... add camo, stealth, etc when tech is available<br />";
 
-		if( hasCamo ) {
+		if (hasCamo) {
 			defensiveFactorModifier += 0.2;
 		}
 
-		if( hasBasicStealth ) {
+		if (hasBasicStealth) {
 			defensiveFactorModifier += 0.2;
 		}
 
-		if( hasPrototypeStealth ) {
+		if (hasPrototypeStealth) {
 			defensiveFactorModifier += 0.2;
 		}
 
-		if( hasStandardStealth ) {
+		if (hasStandardStealth) {
 			defensiveFactorModifier += 0.2;
 		}
 
-		if( hasImprovedStealth ) {
+		if (hasImprovedStealth) {
 			defensiveFactorModifier += 0.3;
 		}
 
-		if( hasMimetic ) {
+		if (hasMimetic) {
 			defensiveFactorModifier += 0.3;
 		}
 
@@ -15742,8 +15810,8 @@ function Mech (type) {
 		/* ***************************************************
 		 *  STEP 2: CALCULATE OFFENSIVE BATTLE RATING - TM p303
 		 * ************************************************ */
-		 var offensiveBattleRating = 0;
-		 _calcLogBV += "<strong>STEP 2: CALCULATE OFFENSIVE BATTLE RATING - TM p303</strong><br />";
+		var offensiveBattleRating = 0;
+		_calcLogBV += "<strong>STEP 2: CALCULATE OFFENSIVE BATTLE RATING - TM p303</strong><br />";
 
 		// TODO
 		_calcLogBV += "<strong>Calculate Each Weapon’s Modified BV</strong><br />";
@@ -15754,20 +15822,20 @@ function Mech (type) {
 		var totalAmmoBV = 0;
 
 		// Add up all the BV Sums, put each in an array for comparison
-		for( var eqC = 0; eqC < _equipmentList.length; eqC++ ) {
-			if( _equipmentList[ eqC ].tag.indexOf("ammo-") > -1 ) {
-				if( !ammoBV[ _equipmentList[ eqC ].tag ] )
-					ammoBV[ _equipmentList[ eqC ].tag ] = 0;
-				if( _equipmentList[ eqC ].battlevalue )
-					ammoBV[ _equipmentList[ eqC ].tag ] = _equipmentList[ eqC ].battlevalue;
+		for (var eqC = 0; eqC < _equipmentList.length; eqC++) {
+			if (_equipmentList[eqC].tag.indexOf("ammo-") > -1) {
+				if (!ammoBV[_equipmentList[eqC].tag])
+					ammoBV[_equipmentList[eqC].tag] = 0;
+				if (_equipmentList[eqC].battlevalue)
+					ammoBV[_equipmentList[eqC].tag] = _equipmentList[eqC].battlevalue;
 
-				_calcLogBV += "+ Adding " + this.getLocalTranslation( _equipmentList[ eqC ].name) + " - " + _equipmentList[ eqC ].battlevalue + "<br />";
+				_calcLogBV += "+ Adding " + this.getLocalTranslation(_equipmentList[eqC].name) + " - " + _equipmentList[eqC].battlevalue + "<br />";
 
 			} else {
-				if( !weaponBV[ _equipmentList[ eqC ].tag ] )
-					weaponBV[ _equipmentList[ eqC ].tag ] = 0;
-				if( _equipmentList[ eqC ].battlevalue )
-					weaponBV[ _equipmentList[ eqC ].tag ] = _equipmentList[ eqC ].battlevalue;
+				if (!weaponBV[_equipmentList[eqC].tag])
+					weaponBV[_equipmentList[eqC].tag] = 0;
+				if (_equipmentList[eqC].battlevalue)
+					weaponBV[_equipmentList[eqC].tag] = _equipmentList[eqC].battlevalue;
 
 
 			}
@@ -15777,25 +15845,25 @@ function Mech (type) {
 
 		var totalWeaponBV = 0;
 		var simplifiedAmmoBV = {};
-		for( var weaponKey in weaponBV ) {
-			for( var ammoKey in ammoBV ) {
-				if( ammoKey.indexOf( weaponKey ) > -1 ) {
-					if( !simplifiedAmmoBV[ weaponKey ] )
-						simplifiedAmmoBV[ weaponKey ] = 0;
-					simplifiedAmmoBV[ weaponKey ] += ammoBV[ ammoKey ];
+		for (var weaponKey in weaponBV) {
+			for (var ammoKey in ammoBV) {
+				if (ammoKey.indexOf(weaponKey) > -1) {
+					if (!simplifiedAmmoBV[weaponKey])
+						simplifiedAmmoBV[weaponKey] = 0;
+					simplifiedAmmoBV[weaponKey] += ammoBV[ammoKey];
 				}
 			}
-			totalWeaponBV += weaponBV[ weaponKey];
+			totalWeaponBV += weaponBV[weaponKey];
 		}
 
-		for( var ammoKey in simplifiedAmmoBV ) {
-			if( weaponBV[ ammoKey ] ) {
-				if( simplifiedAmmoBV[ ammoKey] > weaponBV[ ammoKey ] ) {
-					_calcLogBV += "<strong>Excessive Ammo Rule</strong> setting " + ammoKey + " value to " +  weaponBV[ ammoKey ] + " from " + simplifiedAmmoBV[ ammoKey] + "<br />";
+		for (var ammoKey in simplifiedAmmoBV) {
+			if (weaponBV[ammoKey]) {
+				if (simplifiedAmmoBV[ammoKey] > weaponBV[ammoKey]) {
+					_calcLogBV += "<strong>Excessive Ammo Rule</strong> setting " + ammoKey + " value to " + weaponBV[ammoKey] + " from " + simplifiedAmmoBV[ammoKey] + "<br />";
 
-					simplifiedAmmoBV[ ammoKey] = weaponBV[ ammoKey ];
+					simplifiedAmmoBV[ammoKey] = weaponBV[ammoKey];
 				}
-				totalAmmoBV += simplifiedAmmoBV[ ammoKey];
+				totalAmmoBV += simplifiedAmmoBV[ammoKey];
 			}
 		}
 
@@ -15810,30 +15878,30 @@ function Mech (type) {
 
 
 		//~ console.log( "this.getHeatSinksType()", this.getHeatSinksType() );
-		var mechHeatEfficiency  = 0;
-		if( this.getHeatSinksType() == "single" ) {
-			mechHeatEfficiency = 6 + this.getHeatSinks()  -  this.getMaxMovementHeat();
+		var mechHeatEfficiency = 0;
+		if (this.getHeatSinksType() == "single") {
+			mechHeatEfficiency = 6 + this.getHeatSinks() - this.getMaxMovementHeat();
 			_calcLogBV += "<strong>Heat Efficiency</strong> " + mechHeatEfficiency + " (6 + " + this.getHeatSinks() + " - " + this.getMaxMovementHeat() + ")<br />";
 
-		} else if( this.getHeatSinksType() == "double" ) {
-			mechHeatEfficiency = 6 + this.getHeatSinks() * 2 -  this.getMaxMovementHeat();
+		} else if (this.getHeatSinksType() == "double") {
+			mechHeatEfficiency = 6 + this.getHeatSinks() * 2 - this.getMaxMovementHeat();
 			_calcLogBV += "<strong>Heat Efficiency</strong> " + mechHeatEfficiency + " (6 + " + this.getHeatSinks() * 2 + " - " + this.getMaxMovementHeat() + ")<br />";
 		}
 
 		_calcLogBV += "<strong>Total Weapon Heat</strong> ";
 		var totalWeaponHeat = 0;
 
-		var eqList = angular.copy ( _equipmentList )
-		eqList.sort( sortByBVThenHeat );
+		var eqList = angular.copy(_equipmentList)
+		eqList.sort(sortByBVThenHeat);
 
-		for( var eqC = 0; eqC < eqList.length; eqC++ ) {
-			if( eqList[ eqC ].tag.indexOf("ammo-") == -1 ) {
-				if( !weaponBV[ eqList[ eqC ].tag ] )
-					weaponBV[ eqList[ eqC ].tag ] = 0;
-				if( eqList[ eqC ].battlevalue )
-					weaponBV[ eqList[ eqC ].tag ] = eqList[ eqC ].battlevalue;
+		for (var eqC = 0; eqC < eqList.length; eqC++) {
+			if (eqList[eqC].tag.indexOf("ammo-") == -1) {
+				if (!weaponBV[eqList[eqC].tag])
+					weaponBV[eqList[eqC].tag] = 0;
+				if (eqList[eqC].battlevalue)
+					weaponBV[eqList[eqC].tag] = eqList[eqC].battlevalue;
 
-				_calcLogBV += eqList[ eqC ].heat + " + ";
+				_calcLogBV += eqList[eqC].heat + " + ";
 
 				// TODO modify per weapon type
 				// one shot eqList[ eqC ].heat = eqList[ eqC ].heat / 4
@@ -15841,14 +15909,14 @@ function Mech (type) {
 				// ULTRA AC eqList[ eqC ].heat = eqList[ eqC ].heat * 2
 				// Rotary AC eqList[ eqC ].heat = eqList[ eqC ].heat * 6
 
-				totalWeaponHeat += eqList[ eqC ].heat;
+				totalWeaponHeat += eqList[eqC].heat;
 
 
 			}
 		}
 
-		if( _calcLogBV.substr( _calcLogBV.length -3 ) == " + " ) {
-			_calcLogBV = _calcLogBV.substr( 0, _calcLogBV.length -3 )
+		if (_calcLogBV.substr(_calcLogBV.length - 3) == " + ") {
+			_calcLogBV = _calcLogBV.substr(0, _calcLogBV.length - 3)
 		}
 
 		_calcLogBV += " = " + totalWeaponHeat;
@@ -15857,33 +15925,33 @@ function Mech (type) {
 
 		var runningTotal = 0;
 		var runningHeat = 0;
-		if( totalWeaponHeat >= mechHeatEfficiency ) {
+		if (totalWeaponHeat >= mechHeatEfficiency) {
 			// Mech is heat inefficient, now we need to go through steps 4-7 on TM pp 303-304
 
 
 			var inHalfCost = false;
 
-			for( var weaponC = 0; weaponC < eqList.length; weaponC++ ) {
-				if( eqList[ weaponC ].tag.indexOf("ammo-") == -1 ) {
+			for (var weaponC = 0; weaponC < eqList.length; weaponC++) {
+				if (eqList[weaponC].tag.indexOf("ammo-") == -1) {
 
 
 
 
-					if( inHalfCost == true && eqList[ weaponC ].heat > 0 ) {
+					if (inHalfCost == true && eqList[weaponC].heat > 0) {
 						// half efficiency
-						_calcLogBV += "+ Adding Heat Inefficient Weapon " + this.getLocalTranslation(eqList[ weaponC ].name) + " - " + eqList[weaponC].battlevalue + " / 2 = " + (eqList[weaponC].battlevalue /2 );
-						runningTotal += (eqList[weaponC].battlevalue /2 );
+						_calcLogBV += "+ Adding Heat Inefficient Weapon " + this.getLocalTranslation(eqList[weaponC].name) + " - " + eqList[weaponC].battlevalue + " / 2 = " + (eqList[weaponC].battlevalue / 2);
+						runningTotal += (eqList[weaponC].battlevalue / 2);
 					} else {
 						// normal efficiency
-						_calcLogBV += "+ Adding Weapon " + this.getLocalTranslation( eqList[ weaponC ].name) + " - " + eqList[ weaponC ].battlevalue;
+						_calcLogBV += "+ Adding Weapon " + this.getLocalTranslation(eqList[weaponC].name) + " - " + eqList[weaponC].battlevalue;
 						runningTotal += eqList[weaponC].battlevalue;
 					}
 
-					runningHeat += eqList[ weaponC ].heat;
+					runningHeat += eqList[weaponC].heat;
 					//~ console.log( "r,m", runningHeat + " > "   + mechHeatEfficiency );
-					if( runningHeat >= mechHeatEfficiency && eqList[ weaponC ].heat > 0 && inHalfCost == false ) {
+					if (runningHeat >= mechHeatEfficiency && eqList[weaponC].heat > 0 && inHalfCost == false) {
 						inHalfCost = true;
-						_calcLogBV +=  " (weapon is last heat efficient)";
+						_calcLogBV += " (weapon is last heat efficient)";
 					}
 
 					_calcLogBV += "<br />";
@@ -15897,10 +15965,10 @@ function Mech (type) {
 
 
 
-			for( var weaponC = 0; weaponC < eqList.length; weaponC++ ) {
-				if( eqList[ weaponC ].tag.indexOf("ammo-") == -1 ) {
-					_calcLogBV += "+ Adding Weapon " + this.getLocalTranslation( eqList[ weaponC ].name) + " - " + eqList[ weaponC ].battlevalue + "<br />";
-					runningTotal += eqList[weaponC].battlevalue ;
+			for (var weaponC = 0; weaponC < eqList.length; weaponC++) {
+				if (eqList[weaponC].tag.indexOf("ammo-") == -1) {
+					_calcLogBV += "+ Adding Weapon " + this.getLocalTranslation(eqList[weaponC].name) + " - " + eqList[weaponC].battlevalue + "<br />";
+					runningTotal += eqList[weaponC].battlevalue;
 				}
 			}
 
@@ -15911,7 +15979,7 @@ function Mech (type) {
 
 		var modifiedMechTonnage = this.getTonnage();
 
-		if( _hasTripleStrengthMyomer ) {
+		if (_hasTripleStrengthMyomer) {
 			modifiedMechTonnage = modifiedMechTonnage * 1.5;
 		}
 
@@ -15920,89 +15988,89 @@ function Mech (type) {
 		var speedFactorModifier = this._getSpeedFactorModifier();
 		offensiveBattleRating = offensiveBattleRating * speedFactorModifier;
 
-		_calcLogBV += "<strong>Final offensive battle rating</strong>: " + offensiveBattleRating.toFixed( 2)  + " (" + totalWeaponBV + " (weaponBV) + " +  totalAmmoBV + " (ammoBV) + " + modifiedMechTonnage + "(mechTonnage) ) x " + speedFactorModifier + " (speed factor rating)<br />";
+		_calcLogBV += "<strong>Final offensive battle rating</strong>: " + offensiveBattleRating.toFixed(2) + " (" + totalWeaponBV + " (weaponBV) + " + totalAmmoBV + " (ammoBV) + " + modifiedMechTonnage + "(mechTonnage) ) x " + speedFactorModifier + " (speed factor rating)<br />";
 
 		/* ***************************************************
 		 * STEP 3: CALCULATE FINAL BATTLE VALUE - TM p304
 		 * ************************************************ */
 
-		 _calcLogBV += "<strong>STEP 3: CALCULATE FINAL BATTLE VALUE - TM p304</strong><br />";
-		 var finalBattleValue = defensiveBattleRating + offensiveBattleRating;
-		 _calcLogBV += "finalBattleValue = defensiveBattleRating + offensiveBattleRating: " + finalBattleValue.toFixed( 2)  + " = " + defensiveBattleRating.toFixed( 2)  + " + " + offensiveBattleRating.toFixed( 2)  + "<br />";
+		_calcLogBV += "<strong>STEP 3: CALCULATE FINAL BATTLE VALUE - TM p304</strong><br />";
+		var finalBattleValue = defensiveBattleRating + offensiveBattleRating;
+		_calcLogBV += "finalBattleValue = defensiveBattleRating + offensiveBattleRating: " + finalBattleValue.toFixed(2) + " = " + defensiveBattleRating.toFixed(2) + " + " + offensiveBattleRating.toFixed(2) + "<br />";
 
-		 if( _smallCockpit ) {
-			finalBattleValue = Math.round( finalBattleValue * .95 );
-			_calcLogBV += "Small Cockpit, multiply total by .95 and round final BV: " + finalBattleValue.toFixed( 2)  + "<br />";
+		if (_smallCockpit) {
+			finalBattleValue = Math.round(finalBattleValue * .95);
+			_calcLogBV += "Small Cockpit, multiply total by .95 and round final BV: " + finalBattleValue.toFixed(2) + "<br />";
 		}
 
-		_calcLogBV += "<strong>Final Battle Value</strong>: " + finalBattleValue.toFixed( 2)  + " rounded to " +  Math.round(finalBattleValue) + "<br />";
+		_calcLogBV += "<strong>Final Battle Value</strong>: " + finalBattleValue.toFixed(2) + " rounded to " + Math.round(finalBattleValue) + "<br />";
 		_battleValue = Math.round(finalBattleValue) + " (in testing)";
 	}
 
 	this._getSpeedFactorModifier = function() {
-			var runSpeedAndHalfJumpSpeed = this.getRunSpeed() + this.getJumpSpeed() / 2;
+		var runSpeedAndHalfJumpSpeed = this.getRunSpeed() + this.getJumpSpeed() / 2;
 
-			if( runSpeedAndHalfJumpSpeed > 25) {
-				return (1 + Math.pow( (( this.getRunSpeed() + ( this.getJumpSpeed() / 2) - 5) / 10), 1.2)).toFixed(2);
-			} else if( runSpeedAndHalfJumpSpeed > 24) {
-				return 3.74; // 25
-			} else if( runSpeedAndHalfJumpSpeed > 23) {
-				return 3.59; // 24
-			} else if( runSpeedAndHalfJumpSpeed > 22) {
-				return 3.44; // 23
-			} else if( runSpeedAndHalfJumpSpeed > 21) {
-				return 3.29; // 22
-			} else if( runSpeedAndHalfJumpSpeed > 20) {
-				return 3.15; // 21
-			} else if( runSpeedAndHalfJumpSpeed > 19) {
-				return 3.00; // 20
-			} else if( runSpeedAndHalfJumpSpeed > 18) {
-				return 2.86; // 19
-			} else if( runSpeedAndHalfJumpSpeed > 17) {
-				return 2.72; // 18
-			} else if( runSpeedAndHalfJumpSpeed > 16) {
-				return 2.58; // 17
-			} else if( runSpeedAndHalfJumpSpeed > 15) {
-				return 2.44; // 16
-			} else if( runSpeedAndHalfJumpSpeed > 14) {
-				return 2.30; // 15
-			} else if( runSpeedAndHalfJumpSpeed > 13) {
-				return 2.16; // 14
-			} else if( runSpeedAndHalfJumpSpeed > 12) {
-				return 2.02; // 13
-			} else if( runSpeedAndHalfJumpSpeed > 11) {
-				return 1.89; // 12
-			} else if( runSpeedAndHalfJumpSpeed > 10) {
-				return 1.76; // 11
-			} else if( runSpeedAndHalfJumpSpeed > 9) {
-				return 1.63; // 10
-			} else if( runSpeedAndHalfJumpSpeed > 8) {
-				return 1.50; // 9
-			} else if( runSpeedAndHalfJumpSpeed > 7) {
-				return 1.37; // 8
-			} else if( runSpeedAndHalfJumpSpeed > 6) {
-				return 1.24; // 7
-			} else if( runSpeedAndHalfJumpSpeed > 5) {
-				return 1.12; // 6
-			} else if( runSpeedAndHalfJumpSpeed > 4) {
-				return 1.00; // 5
-			} else if( runSpeedAndHalfJumpSpeed > 3) {
-				return 0.88; // 4
-			} else if( runSpeedAndHalfJumpSpeed > 2) {
-				return 0.77; // 3
-			} else if( runSpeedAndHalfJumpSpeed > 1) {
-				return 0.65; // 2
-			} else if( runSpeedAndHalfJumpSpeed > 0) {
-				return 0.54; // 1
-			} else {
-				return 0.44;
-			}
+		if (runSpeedAndHalfJumpSpeed > 25) {
+			return (1 + Math.pow(((this.getRunSpeed() + (this.getJumpSpeed() / 2) - 5) / 10), 1.2)).toFixed(2);
+		} else if (runSpeedAndHalfJumpSpeed > 24) {
+			return 3.74; // 25
+		} else if (runSpeedAndHalfJumpSpeed > 23) {
+			return 3.59; // 24
+		} else if (runSpeedAndHalfJumpSpeed > 22) {
+			return 3.44; // 23
+		} else if (runSpeedAndHalfJumpSpeed > 21) {
+			return 3.29; // 22
+		} else if (runSpeedAndHalfJumpSpeed > 20) {
+			return 3.15; // 21
+		} else if (runSpeedAndHalfJumpSpeed > 19) {
+			return 3.00; // 20
+		} else if (runSpeedAndHalfJumpSpeed > 18) {
+			return 2.86; // 19
+		} else if (runSpeedAndHalfJumpSpeed > 17) {
+			return 2.72; // 18
+		} else if (runSpeedAndHalfJumpSpeed > 16) {
+			return 2.58; // 17
+		} else if (runSpeedAndHalfJumpSpeed > 15) {
+			return 2.44; // 16
+		} else if (runSpeedAndHalfJumpSpeed > 14) {
+			return 2.30; // 15
+		} else if (runSpeedAndHalfJumpSpeed > 13) {
+			return 2.16; // 14
+		} else if (runSpeedAndHalfJumpSpeed > 12) {
+			return 2.02; // 13
+		} else if (runSpeedAndHalfJumpSpeed > 11) {
+			return 1.89; // 12
+		} else if (runSpeedAndHalfJumpSpeed > 10) {
+			return 1.76; // 11
+		} else if (runSpeedAndHalfJumpSpeed > 9) {
+			return 1.63; // 10
+		} else if (runSpeedAndHalfJumpSpeed > 8) {
+			return 1.50; // 9
+		} else if (runSpeedAndHalfJumpSpeed > 7) {
+			return 1.37; // 8
+		} else if (runSpeedAndHalfJumpSpeed > 6) {
+			return 1.24; // 7
+		} else if (runSpeedAndHalfJumpSpeed > 5) {
+			return 1.12; // 6
+		} else if (runSpeedAndHalfJumpSpeed > 4) {
+			return 1.00; // 5
+		} else if (runSpeedAndHalfJumpSpeed > 3) {
+			return 0.88; // 4
+		} else if (runSpeedAndHalfJumpSpeed > 2) {
+			return 0.77; // 3
+		} else if (runSpeedAndHalfJumpSpeed > 1) {
+			return 0.65; // 2
+		} else if (runSpeedAndHalfJumpSpeed > 0) {
+			return 0.54; // 1
+		} else {
+			return 0.44;
+		}
 	}
 
 	this._calcCBillCost = function() {
 		// TODO Calculations
 		_calcLogCBill = "";
-		_cbillCost = 0  + " (TODO / WIP)";
+		_cbillCost = 0 + " (TODO / WIP)";
 		//~ _calcLogCBill = "TODO";
 		_calcLogCBill += "<strong class=\"color-red\">TODO<br />\n";
 
@@ -16021,18 +16089,18 @@ function Mech (type) {
 	}
 
 	this.getEngineWeight = function() {
-		if( _engine && _engine.weight ) {
-			if (_engineType.tag == "clan-xl" )
-				return _engine.weight[ "xl" ];
+		if (_engine && _engine.weight) {
+			if (_engineType.tag == "clan-xl")
+				return _engine.weight["xl"];
 			else
-				return _engine.weight[ _engineType.tag ];
+				return _engine.weight[_engineType.tag];
 		} else {
 			return 0;
 		}
 	}
 
 	this.getEngineRating = function() {
-		if( _engine && _engine.rating )
+		if (_engine && _engine.rating)
 			return _engine.rating;
 		else
 			return 0;
@@ -16048,7 +16116,7 @@ function Mech (type) {
 	}
 
 	this.getGyroWeight = function() {
-		return Math.ceil(  Math.ceil(_engine.rating / 100) * _gyro.weight_multiplier  );
+		return Math.ceil(Math.ceil(_engine.rating / 100) * _gyro.weight_multiplier);
 	}
 	this.getCockpitWeight = function() {
 		return _cockpitWeight;
@@ -16061,14 +16129,14 @@ function Mech (type) {
 
 
 	this.getInteralStructureWeight = function() {
-		return _selectedInternalStructure.perTon[ this.getTonnage() ].tonnage;
+		return _selectedInternalStructure.perTon[this.getTonnage()].tonnage;
 	}
 
 	this.getJumpJetWeight = function() {
-		if( _tonnage <= 55) {
+		if (_tonnage <= 55) {
 			// 10-55 tons
 			return _jumpSpeed * _jumpJetType.weight_multiplier.light;
-		} else if(_tonnage <= 85) {
+		} else if (_tonnage <= 85) {
 			// 60 - 85 tons
 			return _jumpSpeed * _jumpJetType.weight_multiplier.medium;
 		} else {
@@ -16079,10 +16147,10 @@ function Mech (type) {
 	}
 
 	this.getTranslation = function(langKey) {
-		for( lang_count = 0; lang_count < available_languages.length; lang_count++ ) {
-			if( available_languages[lang_count].short_code == _useLang ) {
+		for (lang_count = 0; lang_count < available_languages.length; lang_count++) {
+			if (available_languages[lang_count].short_code == _useLang) {
 
-				if(available_languages[lang_count].translations[langKey] ) {
+				if (available_languages[lang_count].translations[langKey]) {
 					return available_languages[lang_count].translations[langKey];
 				} else {
 					return langKey;
@@ -16091,12 +16159,12 @@ function Mech (type) {
 		}
 	}
 
-	this.getLocalTranslation = function( languageObject ) {
+	this.getLocalTranslation = function(languageObject) {
 
-		if( languageObject[ _useLang ] ) {
-			return languageObject[ _useLang ];
+		if (languageObject[_useLang]) {
+			return languageObject[_useLang];
 		} else {
-			return languageObject[ "en-US" ];
+			return languageObject["en-US"];
 		}
 	}
 
@@ -16113,20 +16181,20 @@ function Mech (type) {
 	}
 
 
-	this.makeSVGRecordSheet = function( inPlay, landscape ) {
-		if( typeof( landscape ) == "undefined" ) {
+	this.makeSVGRecordSheet = function(inPlay, landscape) {
+		if (typeof(landscape) == "undefined") {
 			landscape = false;
 		} else {
-			if( landscape )
+			if (landscape)
 				landscape = true;
 			else
 				landscape = false;
 		}
 
-		if( typeof( inPlay ) == "undefined" ) {
+		if (typeof(inPlay) == "undefined") {
 			inPlay = false;
 		} else {
-			if( inPlay )
+			if (inPlay)
 				inPlay = true;
 			else
 				inPlay = false;
@@ -16135,16 +16203,16 @@ function Mech (type) {
 
 
 
-		return createSVGRecordSheet( this, inPlay, landscape );
+		return createSVGRecordSheet(this, inPlay, landscape);
 
 
 	}
 
-	this.makeSVGAlphaStrikeCard = function( inPlay ) {
-		if( typeof( inPlay ) == "undefined" ) {
+	this.makeSVGAlphaStrikeCard = function(inPlay) {
+		if (typeof(inPlay) == "undefined") {
 			inPlay = false;
 		} else {
-			if( inPlay )
+			if (inPlay)
 				inPlay = true;
 			else
 				inPlay = false;
@@ -16152,16 +16220,16 @@ function Mech (type) {
 
 		//~ console.log( _alphaStrikeForceStats );
 
-		return createSVGAlphaStrike( _alphaStrikeForceStats, inPlay );
+		return createSVGAlphaStrike(_alphaStrikeForceStats, inPlay);
 	}
 
 	this.makeTROBBCode = function() {
 
 		html = "";
 		// Header Info
-		html +=  this.getTranslation("TRO_TYPE") + ": " + this.getName() + "\n";
-		html += this.getTranslation("TRO_TECHNOLOGY_BASE") + ": " + this.getTech().name[ _useLang ] + "\n";
-		html += this.getTranslation("TRO_ERA") + ": " + this.getEra().name[ _useLang ] + "\n";
+		html += this.getTranslation("TRO_TYPE") + ": " + this.getName() + "\n";
+		html += this.getTranslation("TRO_TECHNOLOGY_BASE") + ": " + this.getTech().name[_useLang] + "\n";
+		html += this.getTranslation("TRO_ERA") + ": " + this.getEra().name[_useLang] + "\n";
 		html += this.getTranslation("TRO_TONNAGE") + ": " + this.getTonnage() + "\n";
 		html += this.getTranslation("TRO_BATTLE_VALUE") + ": " + this.getBattleValue() + "\n";
 		html += this.getTranslation("TRO_ALPHA_STRIKE_VALUE") + ": " + this.getAlphaStrikeValue() + "\n";
@@ -16174,41 +16242,41 @@ function Mech (type) {
 		var col4Padding = 10;
 
 		// Equipment
-		html += "" + this.getTranslation("TRO_EQUIPMENT").rpad(" ",col1Padding + col2Padding) + "" + this.getTranslation("TRO_MASS") + "\n";
-		html += "" + ( this.getTranslation("TRO_ARMOR_IS") + " (" + this.getLocalTranslation( _selectedInternalStructure.name ) + ")").rpad(" ",col1Padding + col2Padding) + "" + this.getInteralStructureWeight() + "\n";
-		html += "" + this.getEngineName().rpad(" ",col1Padding) + "" + this.getEngineRating().toString().rpad(" ", col2Padding) + "" + this.getEngineWeight() + "\n";
+		html += "" + this.getTranslation("TRO_EQUIPMENT").rpad(" ", col1Padding + col2Padding) + "" + this.getTranslation("TRO_MASS") + "\n";
+		html += "" + (this.getTranslation("TRO_ARMOR_IS") + " (" + this.getLocalTranslation(_selectedInternalStructure.name) + ")").rpad(" ", col1Padding + col2Padding) + "" + this.getInteralStructureWeight() + "\n";
+		html += "" + this.getEngineName().rpad(" ", col1Padding) + "" + this.getEngineRating().toString().rpad(" ", col2Padding) + "" + this.getEngineWeight() + "\n";
 
 		html += "" + this.getTranslation("TRO_WALKING").lpad(" ", col1Padding - 10) + " " + this.getWalkSpeed().toString().lpad(" ", 3) + "\n";
 		html += "" + this.getTranslation("TRO_RUNNING").lpad(" ", col1Padding - 10) + " " + this.getRunSpeed().toString().lpad(" ", 3) + "\n";
 		html += "" + this.getTranslation("TRO_JUMPING").lpad(" ", col1Padding - 10) + " " + this.getJumpSpeed().toString().lpad(" ", 3) + "\n";
 
-		html += "" + this.getHeatSyncName().rpad(" ",col1Padding) + ""  + this.getHeatSinks().toString().rpad(" ", col2Padding) + "" + this.getHeatSinksWeight() + "\n";
-		html += "" + this.getGyroName().rpad(" ",col1Padding + col2Padding) + "" + this.getGyroWeight() + "\n";
+		html += "" + this.getHeatSyncName().rpad(" ", col1Padding) + "" + this.getHeatSinks().toString().rpad(" ", col2Padding) + "" + this.getHeatSinksWeight() + "\n";
+		html += "" + this.getGyroName().rpad(" ", col1Padding + col2Padding) + "" + this.getGyroWeight() + "\n";
 
-		if( _smallCockpit ) {
-			html += "" + this.getTranslation("TRO_SMALL_COCKPIT").rpad(" ",col1Padding + col2Padding) + "" + this.getCockpitWeight() + "\n";
+		if (_smallCockpit) {
+			html += "" + this.getTranslation("TRO_SMALL_COCKPIT").rpad(" ", col1Padding + col2Padding) + "" + this.getCockpitWeight() + "\n";
 		} else {
-			html += "" + this.getTranslation("TRO_COCKPIT").rpad(" ",col1Padding + col2Padding) + "" + this.getCockpitWeight() + "\n";
+			html += "" + this.getTranslation("TRO_COCKPIT").rpad(" ", col1Padding + col2Padding) + "" + this.getCockpitWeight() + "\n";
 		}
 
 		//~ if( this.getJumpJetWeight() > 0 ) {
-			//~ html += "" + this.getTranslation("TRO_JUMP_JETS").rpad(" ",col1Padding + col2Padding) + "" + this.getJumpJetWeight() + "\n";
+		//~ html += "" + this.getTranslation("TRO_JUMP_JETS").rpad(" ",col1Padding + col2Padding) + "" + this.getJumpJetWeight() + "\n";
 		//~ }
 
-		if( _mechType.class == "biped") {
+		if (_mechType.class == "biped") {
 			html += "" + this.getTranslation("TRO_ARM_ACTUATORS") + ": ";
 			actuator_html = "";
 
-			if( this.hasLowerArmActuator("ra") )
+			if (this.hasLowerArmActuator("ra"))
 				actuator_html += this.getTranslation("TRO_LOWER_RIGHT") + ", ";
-			if( this.hasLowerArmActuator("la") )
+			if (this.hasLowerArmActuator("la"))
 				actuator_html += this.getTranslation("TRO_LOWER_LEFT") + ", ";
-			if( this.hasHandActuator("ra") )
+			if (this.hasHandActuator("ra"))
 				actuator_html += this.getTranslation("TRO_RIGHT_HAND") + ", ";
-			if( this.hasHandActuator("la") )
+			if (this.hasHandActuator("la"))
 				actuator_html += this.getTranslation("TRO_LEFT_HAND") + ", ";
 
-			if( actuator_html == "")
+			if (actuator_html == "")
 				actuator_html = this.getTranslation("TRO_NO_LOWER_ARM_ACTUATORS");
 			else
 				actuator_html = actuator_html.substring(0, actuator_html.length - 2);
@@ -16217,7 +16285,7 @@ function Mech (type) {
 			html += "\n";
 		}
 
-		html += "" + (this.getTranslation("TRO_ARMOR_FACTOR") + " (" + this.getLocalTranslation( _armorType.name ) + ")").rpad(" ",col1Padding) + "" + this.getTotalArmor().toString().rpad(" ",col2Padding) + "" + this.getArmorWeight() + "\n";
+		html += "" + (this.getTranslation("TRO_ARMOR_FACTOR") + " (" + this.getLocalTranslation(_armorType.name) + ")").rpad(" ", col1Padding) + "" + this.getTotalArmor().toString().rpad(" ", col2Padding) + "" + this.getArmorWeight() + "\n";
 
 		var col1Padding = 20;
 		var col2Padding = 10;
@@ -16227,10 +16295,10 @@ function Mech (type) {
 		// Armor Factor Table
 
 		html += this.getTranslation("TRO_ARMOR_IS").lpad(" ", col1Padding + col2Padding) + "" + this.getTranslation("TRO_ARMOR_VALUE").lpad(" ", col3Padding) + "\n";
-		html += "" + this.getTranslation("TRO_ARMOR_HD").lpad(" ", col1Padding)  + "" + _internalStructure.head.toString().lpad(" ", col2Padding) + "" + _armorAllocation.head.toString().lpad(" ", col3Padding) + "\n";
+		html += "" + this.getTranslation("TRO_ARMOR_HD").lpad(" ", col1Padding) + "" + _internalStructure.head.toString().lpad(" ", col2Padding) + "" + _armorAllocation.head.toString().lpad(" ", col3Padding) + "\n";
 		html += "" + this.getTranslation("TRO_ARMOR_CT").lpad(" ", col1Padding) + "" + _internalStructure.centerTorso.toString().lpad(" ", col2Padding) + "" + _armorAllocation.centerTorso.toString().lpad(" ", col3Padding) + "\n";
 		html += "" + this.getTranslation("TRO_ARMOR_CTR").lpad(" ", col1Padding) + "" + _armorAllocation.centerTorsoRear.toString().lpad(" ", col2Padding) + "\n";
-		if( _armorAllocation.rightTorso == _armorAllocation.leftTorso && _armorAllocation.rightTorsoRear == _armorAllocation.leftTorsoRear ) {
+		if (_armorAllocation.rightTorso == _armorAllocation.leftTorso && _armorAllocation.rightTorsoRear == _armorAllocation.leftTorsoRear) {
 			html += "" + this.getTranslation("TRO_ARMOR_RLT").lpad(" ", col1Padding) + "" + _internalStructure.rightTorso.toString().lpad(" ", col2Padding) + "" + _armorAllocation.rightTorso.toString().lpad(" ", col3Padding) + "\n";
 			html += "" + this.getTranslation("TRO_ARMOR_RLTR").lpad(" ", col1Padding) + "" + _armorAllocation.rightTorsoRear.toString().lpad(" ", col2Padding) + "\n";
 		} else {
@@ -16240,30 +16308,30 @@ function Mech (type) {
 			html += "" + this.getTranslation("TRO_ARMOR_LT").lpad(" ", col1Padding) + "" + _internalStructure.leftTorso.toString().lpad(" ", col2Padding) + "" + _armorAllocation.leftTorso.toString().lpad(" ", col3Padding) + "\n";
 			html += "" + this.getTranslation("TRO_ARMOR_LTR").lpad(" ", col1Padding) + "" + _armorAllocation.leftTorsoRear.toString().lpad(" ", col2Padding) + "\n";
 		}
-		if( _mechType.class == "biped") {
+		if (_mechType.class == "biped") {
 
-			if( _armorAllocation.rightArm == _armorAllocation.leftArm) {
+			if (_armorAllocation.rightArm == _armorAllocation.leftArm) {
 				html += "" + this.getTranslation("TRO_ARMOR_RLA").lpad(" ", col1Padding) + "" + _internalStructure.rightArm.toString().lpad(" ", col2Padding) + "" + _armorAllocation.rightArm.toString().lpad(" ", col3Padding) + "\n";
 			} else {
 				html += "" + this.getTranslation("TRO_ARMOR_RA").lpad(" ", col1Padding) + "" + _internalStructure.rightArm.toString().lpad(" ", col2Padding) + "" + _armorAllocation.rightArm.toString().lpad(" ", col3Padding) + "\n";
 				html += "" + this.getTranslation("TRO_ARMOR_LA").lpad(" ", col1Padding) + "" + _internalStructure.leftArm.toString().lpad(" ", col2Padding) + "" + _armorAllocation.leftArm.toString().lpad(" ", col3Padding) + "\n";
 			}
 
-			if( _armorAllocation.rightLeg == _armorAllocation.leftLeg) {
+			if (_armorAllocation.rightLeg == _armorAllocation.leftLeg) {
 				html += "" + this.getTranslation("TRO_ARMOR_RLL").lpad(" ", col1Padding) + "" + _internalStructure.rightLeg.toString().lpad(" ", col2Padding) + "" + _armorAllocation.rightLeg.toString().lpad(" ", col3Padding) + "\n";
 			} else {
 				html += "" + this.getTranslation("TRO_ARMOR_RL").lpad(" ", col1Padding) + "" + _internalStructure.rightLeg.toString().lpad(" ", col2Padding) + "" + _armorAllocation.rightLeg.toString().lpad(" ", col3Padding) + "\n";
 				html += "" + this.getTranslation("TRO_ARMOR_LL").lpad(" ", col1Padding) + "" + _internalStructure.leftLeg.toString().lpad(" ", col2Padding) + "" + _armorAllocation.leftLeg.toString().lpad(" ", col3Padding) + "\n";
 			}
 		} else {
-			if( _armorAllocation.rightArm == _armorAllocation.leftArm) {
+			if (_armorAllocation.rightArm == _armorAllocation.leftArm) {
 				html += "" + this.getTranslation("TRO_ARMOR_RLFL").lpad(" ", col1Padding) + "" + _internalStructure.rightArm.toString().lpad(" ", col2Padding) + "" + _armorAllocation.rightArm.toString().lpad(" ", col3Padding) + "\n";
 			} else {
 				html += "" + this.getTranslation("TRO_ARMOR_RFL").lpad(" ", col1Padding) + "" + _internalStructure.rightArm.toString().lpad(" ", col2Padding) + "" + _armorAllocation.rightArm.toString().lpad(" ", col3Padding) + "\n";
 				html += "" + this.getTranslation("TRO_ARMOR_LFL").lpad(" ", col1Padding) + "" + _internalStructure.leftArm.toString().lpad(" ", col2Padding) + "" + _armorAllocation.leftArm.toString().lpad(" ", col3Padding) + "\n";
 			}
 
-			if( _armorAllocation.rightLeg == _armorAllocation.leftLeg) {
+			if (_armorAllocation.rightLeg == _armorAllocation.leftLeg) {
 				html += "" + this.getTranslation("TRO_ARMOR_RLRL").lpad(" ", col1Padding) + "" + _internalStructure.rightLeg.toString().lpad(" ", col2Padding) + "" + _armorAllocation.rightLeg.toString().lpad(" ", col3Padding) + "\n";
 			} else {
 				html += "" + this.getTranslation("TRO_ARMOR_RRL").lpad(" ", col1Padding) + "" + _internalStructure.rightLeg.toString().lpad(" ", col2Padding) + "" + _armorAllocation.rightLeg.toString().lpad(" ", col3Padding) + "\n";
@@ -16279,25 +16347,25 @@ function Mech (type) {
 		var col2Padding = 10;
 		var col3Padding = 10;
 		var col4Padding = 10;
-		_equipmentList.sort( sortByLocationThenName );
+		_equipmentList.sort(sortByLocationThenName);
 
 		// Weapons and Ammo
-		for( eq_count = 0; eq_count < _equipmentList.length; eq_count++) {
-			if(_equipmentList[eq_count].name[ _useLang ].length  + 3 > col1Padding)
-				col1Padding = _equipmentList[eq_count].name[ _useLang ].length  + 3;
+		for (eq_count = 0; eq_count < _equipmentList.length; eq_count++) {
+			if (_equipmentList[eq_count].name[_useLang].length + 3 > col1Padding)
+				col1Padding = _equipmentList[eq_count].name[_useLang].length + 3;
 		}
 
-		for( var locC = 0; locC < this.validJJLocations.length; locC++ ) {
+		for (var locC = 0; locC < this.validJJLocations.length; locC++) {
 
 			var jjObjs = [];
-			for( var critC = 0; critC < _criticals[ this.validJJLocations[locC].long ].length; critC++ ) {
-				if(
-					_criticals[ this.validJJLocations[locC].long ][ critC ]
-					&& _criticals[ this.validJJLocations[locC].long ][ critC ].tag
-					&& _criticals[ this.validJJLocations[locC].long ][ critC ].tag.indexOf( "jj-") === 0
+			for (var critC = 0; critC < _criticals[this.validJJLocations[locC].long].length; critC++) {
+				if (
+					_criticals[this.validJJLocations[locC].long][critC] &&
+					_criticals[this.validJJLocations[locC].long][critC].tag &&
+					_criticals[this.validJJLocations[locC].long][critC].tag.indexOf("jj-") === 0
 				) {
-					if(_criticals[ this.validJJLocations[locC].long ][ critC ].name + 3 > col1Padding)
-						col1Padding = _criticals[ this.validJJLocations[locC].long ][ critC ].name + 3;
+					if (_criticals[this.validJJLocations[locC].long][critC].name + 3 > col1Padding)
+						col1Padding = _criticals[this.validJJLocations[locC].long][critC].name + 3;
 				}
 			}
 		}
@@ -16306,20 +16374,20 @@ function Mech (type) {
 
 		html += "" + this.getTranslation("TRO_WEAPONS") + "\n";
 
-		html +=this.getTranslation("TRO_AND_AMMO").rpad(" ", col1Padding) + "" + this.getTranslation("TRO_LOCATION").rpad(" ", col2Padding) + "" + this.getTranslation("TRO_CRITICAL").rpad(" ", col3Padding) + "" + this.getTranslation("TRO_TONNAGE").rpad(" ", col4Padding) + "\n";
+		html += this.getTranslation("TRO_AND_AMMO").rpad(" ", col1Padding) + "" + this.getTranslation("TRO_LOCATION").rpad(" ", col2Padding) + "" + this.getTranslation("TRO_CRITICAL").rpad(" ", col3Padding) + "" + this.getTranslation("TRO_TONNAGE").rpad(" ", col4Padding) + "\n";
 
 
 
-		for( eq_count = 0; eq_count < _equipmentList.length; eq_count++) {
-			if( typeof( _equipmentList[eq_count].location ) == "undefined" )
+		for (eq_count = 0; eq_count < _equipmentList.length; eq_count++) {
+			if (typeof(_equipmentList[eq_count].location) == "undefined")
 				_equipmentList[eq_count].location = "n/a";
 
 			item_location = "";
-			item_location = this.getLocationAbbr( _equipmentList[eq_count].location );
-			if( _equipmentList[eq_count].ammo_per_ton && _equipmentList[eq_count].ammo_per_ton > 0)
-				html += "" + ( _equipmentList[eq_count].name[ _useLang ] +" " + _equipmentList[eq_count].ammo_per_ton).rpad(" ", col1Padding) + "" + item_location.toUpperCase().toString().rpad(" ", col2Padding) + "" + _equipmentList[eq_count].space.battlemech.toString().rpad(" ", col3Padding) + "" + _equipmentList[eq_count].weight.toString().rpad(" ", col4Padding) + "\n";
+			item_location = this.getLocationAbbr(_equipmentList[eq_count].location);
+			if (_equipmentList[eq_count].ammo_per_ton && _equipmentList[eq_count].ammo_per_ton > 0)
+				html += "" + (_equipmentList[eq_count].name[_useLang] + " " + _equipmentList[eq_count].ammo_per_ton).rpad(" ", col1Padding) + "" + item_location.toUpperCase().toString().rpad(" ", col2Padding) + "" + _equipmentList[eq_count].space.battlemech.toString().rpad(" ", col3Padding) + "" + _equipmentList[eq_count].weight.toString().rpad(" ", col4Padding) + "\n";
 			else
-				html += "" + _equipmentList[eq_count].name[ _useLang ].rpad(" ", col1Padding) + "" + item_location.toUpperCase().toString().rpad(" ", col2Padding) + "" + _equipmentList[eq_count].space.battlemech.toString().rpad(" ", col3Padding) + "" + _equipmentList[eq_count].weight.toString().rpad(" ", col4Padding) + "\n";
+				html += "" + _equipmentList[eq_count].name[_useLang].rpad(" ", col1Padding) + "" + item_location.toUpperCase().toString().rpad(" ", col2Padding) + "" + _equipmentList[eq_count].space.battlemech.toString().rpad(" ", col3Padding) + "" + _equipmentList[eq_count].weight.toString().rpad(" ", col4Padding) + "\n";
 
 
 		}
@@ -16328,25 +16396,25 @@ function Mech (type) {
 
 		// List Jump Jets Allocations...
 
-		for( var locC = 0; locC < this.validJJLocations.length; locC++ ) {
+		for (var locC = 0; locC < this.validJJLocations.length; locC++) {
 
 			var jjObjs = [];
-			for( var critC = 0; critC < _criticals[ this.validJJLocations[locC].long ].length; critC++ ) {
-				if(
-					_criticals[ this.validJJLocations[locC].long ][ critC ]
-					&& _criticals[ this.validJJLocations[locC].long ][ critC ].tag
-					&& _criticals[ this.validJJLocations[locC].long ][ critC ].tag.indexOf( "jj-") === 0
+			for (var critC = 0; critC < _criticals[this.validJJLocations[locC].long].length; critC++) {
+				if (
+					_criticals[this.validJJLocations[locC].long][critC] &&
+					_criticals[this.validJJLocations[locC].long][critC].tag &&
+					_criticals[this.validJJLocations[locC].long][critC].tag.indexOf("jj-") === 0
 				) {
-					jjObjs.push( _criticals[ this.validJJLocations[locC].long ][ critC ] );
+					jjObjs.push(_criticals[this.validJJLocations[locC].long][critC]);
 				}
 			}
 
-			if( jjObjs.length > 0 ) {
+			if (jjObjs.length > 0) {
 				var areaWeight = 0;
-				if( _tonnage <= 55) {
+				if (_tonnage <= 55) {
 					// 10-55 tons
 					areaWeight = jjObjs.length * _jumpJetType.weight_multiplier.light;
-				} else if(_tonnage <= 85) {
+				} else if (_tonnage <= 85) {
 					// 60 - 85 tons
 					areaWeight = jjObjs.length * _jumpJetType.weight_multiplier.medium;
 				} else {
@@ -16360,29 +16428,29 @@ function Mech (type) {
 
 		var jjObjs = [];
 
-		for( var critC = 0; critC < _unallocatedCriticals.length; critC++ ) {
-			if(
-				_unallocatedCriticals[ critC ]
-				&& _unallocatedCriticals[ critC ].tag
-				&& _unallocatedCriticals[ critC ].tag.indexOf( "jj-") === 0
+		for (var critC = 0; critC < _unallocatedCriticals.length; critC++) {
+			if (
+				_unallocatedCriticals[critC] &&
+				_unallocatedCriticals[critC].tag &&
+				_unallocatedCriticals[critC].tag.indexOf("jj-") === 0
 			) {
-				jjObjs.push(_unallocatedCriticals[ critC ] );
+				jjObjs.push(_unallocatedCriticals[critC]);
 			}
 		}
 
-		if( jjObjs.length > 0 ) {
+		if (jjObjs.length > 0) {
 			var areaWeight = 0;
-			if( _tonnage <= 55) {
+			if (_tonnage <= 55) {
 				// 10-55 tons
 				areaWeight = jjObjs.length * _jumpJetType.weight_multiplier.light;
-			} else if(_tonnage <= 85) {
+			} else if (_tonnage <= 85) {
 				// 60 - 85 tons
 				areaWeight = jjObjs.length * _jumpJetType.weight_multiplier.medium;
 			} else {
 				// 90+ tons
 				areaWeight = jjObjs.length * _jumpJetType.weight_multiplier.heavy;
 			}
-				html += "" + jjObjs[0].name.rpad(" ", col1Padding) + "" + "n/a".toUpperCase().rpad(" ", col2Padding) + "" + jjObjs.length.toString().rpad(" ", col3Padding) + "" + areaWeight.toString().rpad(" ", col4Padding) + "\n";
+			html += "" + jjObjs[0].name.rpad(" ", col1Padding) + "" + "n/a".toUpperCase().rpad(" ", col2Padding) + "" + jjObjs.length.toString().rpad(" ", col3Padding) + "" + areaWeight.toString().rpad(" ", col4Padding) + "\n";
 
 		}
 
@@ -16391,7 +16459,7 @@ function Mech (type) {
 		var createdBy = "\n\nCreated with BattleTech Tools: [url]https://jdgwf.github.io/battletech-tools/[/url]\n\n";
 
 
-		return "[code]" +  html + "[/code]" + createdBy;
+		return "[code]" + html + "[/code]" + createdBy;
 
 	}
 
@@ -16402,8 +16470,8 @@ function Mech (type) {
 
 		// Header Info
 		html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_TYPE") + ": " + this.getName() + "</td></tr>";
-		html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_TECHNOLOGY_BASE") + ": " + this.getTech().name[ _useLang ] + "</td></tr>";
-		html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_ERA") + ": " + this.getEra().name[ _useLang ] + "</td></tr>";
+		html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_TECHNOLOGY_BASE") + ": " + this.getTech().name[_useLang] + "</td></tr>";
+		html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_ERA") + ": " + this.getEra().name[_useLang] + "</td></tr>";
 		html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_TONNAGE") + ": " + this.getTonnage() + "</td></tr>";
 		html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_BATTLE_VALUE") + ": " + this.getBattleValue() + "</td></tr>";
 		html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_ALPHA_STRIKE_VALUE") + ": " + this.getAlphaStrikeValue() + "</td></tr>";
@@ -16412,7 +16480,7 @@ function Mech (type) {
 
 		// Equipment
 		html += "<tr><th class=\"text-left\" colspan=\"3\">" + this.getTranslation("TRO_EQUIPMENT") + "</th><th class=\"text-center\" colspan=\"1\">" + this.getTranslation("TRO_MASS") + "</th></tr>";
-		html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_ARMOR_IS") + " (" + this.getLocalTranslation( _selectedInternalStructure.name ) + ")</td><td class=\"text-center\" colspan=\"1\">" + this.getInteralStructureWeight() + "</td></tr>";
+		html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_ARMOR_IS") + " (" + this.getLocalTranslation(_selectedInternalStructure.name) + ")</td><td class=\"text-center\" colspan=\"1\">" + this.getInteralStructureWeight() + "</td></tr>";
 		html += "<tr><td colspan=\"1\">" + this.getEngineName() + "</td><td class=\"text-center\" colspan=\"2\">" + this.getEngineRating() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getEngineWeight() + "</td></tr>";
 
 		html += "<tr><td colspan=\"1\" class=\"text-right\">" + this.getTranslation("TRO_WALKING") + "</td><td class=\"text-center\" colspan=\"2\">" + this.getWalkSpeed() + "</td><td colspan=\"1\">&nbsp;</td></tr>";
@@ -16422,30 +16490,30 @@ function Mech (type) {
 		html += "<tr><td colspan=\"1\">" + this.getHeatSyncName() + "</td><td class=\"text-center\" colspan=\"2\">" + this.getHeatSinks() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getHeatSinksWeight() + "</td></tr>";
 		html += "<tr><td colspan=\"3\">" + this.getGyroName() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getGyroWeight() + "</td></tr>";
 
-		if( _smallCockpit ) {
+		if (_smallCockpit) {
 			html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_SMALL_COCKPIT") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getCockpitWeight() + "</td></tr>";
 		} else {
 			html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_COCKPIT") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getCockpitWeight() + "</td></tr>";
 		}
 
 		//~ if( this.getJumpJetWeight() > 0 ) {
-			//~ html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_JUMP_JETS") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getJumpJetWeight() + "</td></tr>";
+		//~ html += "<tr><td colspan=\"3\">" + this.getTranslation("TRO_JUMP_JETS") + "</td><td class=\"text-center\" colspan=\"1\">" + this.getJumpJetWeight() + "</td></tr>";
 		//~ }
 
-		if( _mechType.class == "biped") {
+		if (_mechType.class == "biped") {
 			html += "<tr><td colspan=\"4\">" + this.getTranslation("TRO_ARM_ACTUATORS") + ": ";
 			actuator_html = "";
 
-			if( this.hasLowerArmActuator("ra") )
+			if (this.hasLowerArmActuator("ra"))
 				actuator_html += this.getTranslation("TRO_LOWER_RIGHT") + ", ";
-			if( this.hasLowerArmActuator("la") )
+			if (this.hasLowerArmActuator("la"))
 				actuator_html += this.getTranslation("TRO_LOWER_LEFT") + ", ";
-			if( this.hasHandActuator("ra") )
+			if (this.hasHandActuator("ra"))
 				actuator_html += this.getTranslation("TRO_RIGHT_HAND") + ", ";
-			if( this.hasHandActuator("la") )
+			if (this.hasHandActuator("la"))
 				actuator_html += this.getTranslation("TRO_LEFT_HAND") + ", ";
 
-			if( actuator_html == "")
+			if (actuator_html == "")
 				actuator_html = this.getTranslation("TRO_NO_LOWER_ARM_ACTUATORS");
 			else
 				actuator_html = actuator_html.substring(0, actuator_html.length - 2);
@@ -16453,16 +16521,16 @@ function Mech (type) {
 			html += actuator_html;
 			html += "</td></tr>";
 		}
-	/*
-		TRO_ACTUATORS: "Actuators",
-			TRO_LOWER_LEFT: "Lower Left",
-			TRO_LEFT_HAND: "Left Hand",
-			TRO_LOWER_RIGHT: "Lower Right",
-			TRO_RIGHT_HAND: "Right Hand",
-	*/
+		/*
+			TRO_ACTUATORS: "Actuators",
+				TRO_LOWER_LEFT: "Lower Left",
+				TRO_LEFT_HAND: "Left Hand",
+				TRO_LOWER_RIGHT: "Lower Right",
+				TRO_RIGHT_HAND: "Right Hand",
+		*/
 
 
-		html += "<tr><th colspan=\"1\">" + this.getTranslation("TRO_ARMOR_VALUE") + " (" + this.getLocalTranslation( _armorType.name ) + ")</th><th class=\"text-center\" colspan=\"2\">" + this.getTotalArmor() + "</th><th class=\"text-center\" colspan=\"1\">" + this.getArmorWeight() + "</th></tr>";
+		html += "<tr><th colspan=\"1\">" + this.getTranslation("TRO_ARMOR_VALUE") + " (" + this.getLocalTranslation(_armorType.name) + ")</th><th class=\"text-center\" colspan=\"2\">" + this.getTotalArmor() + "</th><th class=\"text-center\" colspan=\"1\">" + this.getArmorWeight() + "</th></tr>";
 
 
 		// Armor Factor Table
@@ -16470,7 +16538,7 @@ function Mech (type) {
 		html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_HD") + "</td><td class=\"text-center\" colspan=\"1\">" + _internalStructure.head + "</td><td class=\"text-center\" colspan=\"1\">" + _armorAllocation.head + "</td><td>&nbsp;</td></tr>";
 		html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_CT") + "</td><td class=\"text-center\" colspan=\"1\">" + _internalStructure.centerTorso + "</td><td class=\"text-center\" colspan=\"1\">" + _armorAllocation.centerTorso + "</td><td>&nbsp;</td></tr>";
 		html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_CTR") + "</td><td class=\"text-center\" colspan=\"1\">&nbsp;</td><td class=\"text-center\" colspan=\"1\">" + _armorAllocation.centerTorsoRear + "</td><td>&nbsp;</td></tr>";
-		if( _armorAllocation.rightTorso == _armorAllocation.leftTorso && _armorAllocation.rightTorsoRear == _armorAllocation.leftTorsoRear ) {
+		if (_armorAllocation.rightTorso == _armorAllocation.leftTorso && _armorAllocation.rightTorsoRear == _armorAllocation.leftTorsoRear) {
 			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RLT") + "</td><td class=\"text-center\" colspan=\"1\">" + _internalStructure.rightTorso + "</td><td class=\"text-center\" colspan=\"1\">" + _armorAllocation.rightTorso + "</td><td>&nbsp;</td></tr>";
 			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RLTR") + "</td><td class=\"text-center\" colspan=\"1\">&nbsp;</td><td class=\"text-center\" colspan=\"1\">" + _armorAllocation.rightTorsoRear + "</td><td>&nbsp;</td></tr>";
 		} else {
@@ -16480,30 +16548,30 @@ function Mech (type) {
 			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_LT") + "</td><td class=\"text-center\" colspan=\"1\">" + _internalStructure.leftTorso + "</td><td class=\"text-center\" colspan=\"1\">" + _armorAllocation.leftTorso + "</td><td>&nbsp;</td></tr>";
 			html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_LTR") + "</td><td class=\"text-center\" colspan=\"1\">&nbsp;</td><td class=\"text-center\" colspan=\"1\">" + _armorAllocation.leftTorsoRear + "</td><td>&nbsp;</td></tr>";
 		}
-		if( _mechType.class == "biped") {
+		if (_mechType.class == "biped") {
 
-			if( _armorAllocation.rightArm == _armorAllocation.leftArm) {
+			if (_armorAllocation.rightArm == _armorAllocation.leftArm) {
 				html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RLA") + "</td><td class=\"text-center\" colspan=\"1\">" + _internalStructure.rightArm + "</td><td class=\"text-center\" colspan=\"1\">" + _armorAllocation.rightArm + "</td><td>&nbsp;</td></tr>";
 			} else {
 				html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RA") + "</td><td class=\"text-center\" colspan=\"1\">" + _internalStructure.rightArm + "</td><td class=\"text-center\" colspan=\"1\">" + _armorAllocation.rightArm + "</td><td>&nbsp;</td></tr>";
 				html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_LA") + "</td><td class=\"text-center\" colspan=\"1\">" + _internalStructure.leftArm + "</td><td class=\"text-center\" colspan=\"1\">" + _armorAllocation.leftArm + "</td><td>&nbsp;</td></tr>";
 			}
 
-			if( _armorAllocation.rightLeg == _armorAllocation.leftLeg) {
+			if (_armorAllocation.rightLeg == _armorAllocation.leftLeg) {
 				html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RLL") + "</td><td class=\"text-center\" colspan=\"1\">" + _internalStructure.rightLeg + "</td><td class=\"text-center\" colspan=\"1\">" + _armorAllocation.rightLeg + "</td><td>&nbsp;</td></tr>";
 			} else {
 				html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RL") + "</td><td class=\"text-center\" colspan=\"1\">" + _internalStructure.rightLeg + "</td><td class=\"text-center\" colspan=\"1\">" + _armorAllocation.rightLeg + "</td><td>&nbsp;</td></tr>";
 				html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_LL") + "</td><td class=\"text-center\" colspan=\"1\">" + _internalStructure.leftLeg + "</td><td class=\"text-center\" colspan=\"1\">" + _armorAllocation.leftLeg + "</td><td>&nbsp;</td></tr>";
 			}
 		} else {
-			if( _armorAllocation.rightArm == _armorAllocation.leftArm) {
+			if (_armorAllocation.rightArm == _armorAllocation.leftArm) {
 				html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RLFL") + "</td><td class=\"text-center\" colspan=\"1\">" + _internalStructure.rightArm + "</td><td class=\"text-center\" colspan=\"1\">" + _armorAllocation.rightArm + "</td><td>&nbsp;</td></tr>";
 			} else {
 				html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RFL") + "</td><td class=\"text-center\" colspan=\"1\">" + _internalStructure.rightArm + "</td><td class=\"text-center\" colspan=\"1\">" + _armorAllocation.rightArm + "</td><td>&nbsp;</td></tr>";
 				html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_LFL") + "</td><td class=\"text-center\" colspan=\"1\">" + _internalStructure.leftArm + "</td><td class=\"text-center\" colspan=\"1\">" + _armorAllocation.leftArm + "</td><td>&nbsp;</td></tr>";
 			}
 
-			if( _armorAllocation.rightLeg == _armorAllocation.leftLeg) {
+			if (_armorAllocation.rightLeg == _armorAllocation.leftLeg) {
 				html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RLRL") + "</td><td class=\"text-center\" colspan=\"1\">" + _internalStructure.rightLeg + "</td><td class=\"text-center\" colspan=\"1\">" + _armorAllocation.rightLeg + "</td><td>&nbsp;</td></tr>";
 			} else {
 				html += "<tr><td  class=\"text-right\"colspan=\"1\">" + this.getTranslation("TRO_ARMOR_RRL") + "</td><td class=\"text-center\" colspan=\"1\">" + _internalStructure.rightLeg + "</td><td class=\"text-center\" colspan=\"1\">" + _armorAllocation.rightLeg + "</td><td>&nbsp;</td></tr>";
@@ -16518,41 +16586,41 @@ function Mech (type) {
 		html += "<table class=\"mech-tro\">";
 		html += "<tr><th class=\"text-left\">" + this.getTranslation("TRO_WEAPONS") + "<br />" + this.getTranslation("TRO_AND_AMMO") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_LOCATION") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_CRITICAL") + "</th><th class=\"text-center\">" + this.getTranslation("TRO_TONNAGE") + "</th></tr>";
 
-		_equipmentList.sort( sortByLocationThenName );
+		_equipmentList.sort(sortByLocationThenName);
 
-		for( eq_count = 0; eq_count < _equipmentList.length; eq_count++) {
-			if( typeof( _equipmentList[eq_count].location ) == "undefined" )
+		for (eq_count = 0; eq_count < _equipmentList.length; eq_count++) {
+			if (typeof(_equipmentList[eq_count].location) == "undefined")
 				_equipmentList[eq_count].location = "n/a";
 
 			item_location = "";
-			item_location = this.getLocationAbbr( _equipmentList[eq_count].location );
-			if( _equipmentList[eq_count].ammo_per_ton && _equipmentList[eq_count].ammo_per_ton > 0)
-				html += "<tr><td class=\"text-left\">" + _equipmentList[eq_count].name[ _useLang ] + " " + _equipmentList[eq_count].ammo_per_ton + "</td><td class=\"text-center\">" + item_location.toUpperCase() + "</strong></td><td class=\"text-center\">" + _equipmentList[eq_count].space.battlemech + "</td><td class=\"text-center\">" + _equipmentList[eq_count].weight + "</td></tr>";
+			item_location = this.getLocationAbbr(_equipmentList[eq_count].location);
+			if (_equipmentList[eq_count].ammo_per_ton && _equipmentList[eq_count].ammo_per_ton > 0)
+				html += "<tr><td class=\"text-left\">" + _equipmentList[eq_count].name[_useLang] + " " + _equipmentList[eq_count].ammo_per_ton + "</td><td class=\"text-center\">" + item_location.toUpperCase() + "</strong></td><td class=\"text-center\">" + _equipmentList[eq_count].space.battlemech + "</td><td class=\"text-center\">" + _equipmentList[eq_count].weight + "</td></tr>";
 			else
-				html += "<tr><td class=\"text-left\">" + _equipmentList[eq_count].name[ _useLang ] + "</td><td class=\"text-center\">" + item_location.toUpperCase() + "</strong></td><td class=\"text-center\">" + _equipmentList[eq_count].space.battlemech + "</td><td class=\"text-center\">" + _equipmentList[eq_count].weight + "</td></tr>";
+				html += "<tr><td class=\"text-left\">" + _equipmentList[eq_count].name[_useLang] + "</td><td class=\"text-center\">" + item_location.toUpperCase() + "</strong></td><td class=\"text-center\">" + _equipmentList[eq_count].space.battlemech + "</td><td class=\"text-center\">" + _equipmentList[eq_count].weight + "</td></tr>";
 		}
 
 		// List Jump Jets Allocations...
 
-		for( var locC = 0; locC < this.validJJLocations.length; locC++ ) {
+		for (var locC = 0; locC < this.validJJLocations.length; locC++) {
 
 			var jjObjs = [];
-			for( var critC = 0; critC < _criticals[ this.validJJLocations[locC].long ].length; critC++ ) {
-				if(
-					_criticals[ this.validJJLocations[locC].long ][ critC ]
-					&& _criticals[ this.validJJLocations[locC].long ][ critC ].tag
-					&& _criticals[ this.validJJLocations[locC].long ][ critC ].tag.indexOf( "jj-") === 0
+			for (var critC = 0; critC < _criticals[this.validJJLocations[locC].long].length; critC++) {
+				if (
+					_criticals[this.validJJLocations[locC].long][critC] &&
+					_criticals[this.validJJLocations[locC].long][critC].tag &&
+					_criticals[this.validJJLocations[locC].long][critC].tag.indexOf("jj-") === 0
 				) {
-					jjObjs.push( _criticals[ this.validJJLocations[locC].long ][ critC ] );
+					jjObjs.push(_criticals[this.validJJLocations[locC].long][critC]);
 				}
 			}
 
-			if( jjObjs.length > 0 ) {
+			if (jjObjs.length > 0) {
 				var areaWeight = 0;
-				if( _tonnage <= 55) {
+				if (_tonnage <= 55) {
 					// 10-55 tons
 					areaWeight = jjObjs.length * _jumpJetType.weight_multiplier.light;
-				} else if(_tonnage <= 85) {
+				} else if (_tonnage <= 85) {
 					// 60 - 85 tons
 					areaWeight = jjObjs.length * _jumpJetType.weight_multiplier.medium;
 				} else {
@@ -16566,29 +16634,29 @@ function Mech (type) {
 
 		var jjObjs = [];
 
-		for( var critC = 0; critC < _unallocatedCriticals.length; critC++ ) {
-			if(
-				_unallocatedCriticals[ critC ]
-				&& _unallocatedCriticals[ critC ].tag
-				&& _unallocatedCriticals[ critC ].tag.indexOf( "jj-") === 0
+		for (var critC = 0; critC < _unallocatedCriticals.length; critC++) {
+			if (
+				_unallocatedCriticals[critC] &&
+				_unallocatedCriticals[critC].tag &&
+				_unallocatedCriticals[critC].tag.indexOf("jj-") === 0
 			) {
-				jjObjs.push(_unallocatedCriticals[ critC ] );
+				jjObjs.push(_unallocatedCriticals[critC]);
 			}
 		}
 
-		if( jjObjs.length > 0 ) {
+		if (jjObjs.length > 0) {
 			var areaWeight = 0;
-			if( _tonnage <= 55) {
+			if (_tonnage <= 55) {
 				// 10-55 tons
 				areaWeight = jjObjs.length * _jumpJetType.weight_multiplier.light;
-			} else if(_tonnage <= 85) {
+			} else if (_tonnage <= 85) {
 				// 60 - 85 tons
 				areaWeight = jjObjs.length * _jumpJetType.weight_multiplier.medium;
 			} else {
 				// 90+ tons
 				areaWeight = jjObjs.length * _jumpJetType.weight_multiplier.heavy;
 			}
-				html += "<tr><td class=\"text-left\">" + jjObjs[0].name + "</td><td class=\"text-center\">" + "n/a".toUpperCase() + "</strong></td><td class=\"text-center\">" + jjObjs.length + "</td><td class=\"text-center\">" + areaWeight + "</td></tr>";
+			html += "<tr><td class=\"text-left\">" + jjObjs[0].name + "</td><td class=\"text-center\">" + "n/a".toUpperCase() + "</strong></td><td class=\"text-center\">" + jjObjs.length + "</td><td class=\"text-center\">" + areaWeight + "</td></tr>";
 
 		}
 
@@ -16600,15 +16668,15 @@ function Mech (type) {
 	this.getLocationAbbr = function(location_tag) {
 
 
-		for(loc_count = 0; loc_count < battlemechLocations.length; loc_count++) {
-			if( location_tag == battlemechLocations[loc_count].tag ) {
-				if( battlemechLocations[loc_count].abbr[ _useLang ] != "undefined" )
-					return battlemechLocations[loc_count].abbr[ _useLang ];
+		for (loc_count = 0; loc_count < battlemechLocations.length; loc_count++) {
+			if (location_tag == battlemechLocations[loc_count].tag) {
+				if (battlemechLocations[loc_count].abbr[_useLang] != "undefined")
+					return battlemechLocations[loc_count].abbr[_useLang];
 				else
-					return battlemechLocations[loc_count].abbr[ _useLang ];
+					return battlemechLocations[loc_count].abbr[_useLang];
 			}
 		}
-		return this.getTranslation("TRO_NOT_AVAILABLE") ;
+		return this.getTranslation("TRO_NOT_AVAILABLE");
 	}
 
 	this.clearMech = function() {
@@ -16626,47 +16694,68 @@ function Mech (type) {
 
 
 		_weights = Array();
-		_weights.push( {name:"Internal Structure", weight: this.getInteralStructureWeight() } );
+		_weights.push({
+			name: "Internal Structure",
+			weight: this.getInteralStructureWeight()
+		});
 
-		if( _smallCockpit ) {
-			this.setCockpitWeight( 2 );
-			_weights.push( {name: "Small Cockpit", weight: this.getCockpitWeight() } );
+		if (_smallCockpit) {
+			this.setCockpitWeight(2);
+			_weights.push({
+				name: "Small Cockpit",
+				weight: this.getCockpitWeight()
+			});
 		} else {
-			this.setCockpitWeight( 3 );
-			_weights.push( {name: "Cockpit", weight: this.getCockpitWeight() } );
+			this.setCockpitWeight(3);
+			_weights.push({
+				name: "Cockpit",
+				weight: this.getCockpitWeight()
+			});
 		}
 
 		_runSpeed = Math.ceil(_walkSpeed * 1.5);
 
-		if( _era == 0 ) {
+		if (_era == 0) {
 			_era = btEraOptions[1];
 		}
 
-		if( _tech == 0 ) {
+		if (_tech == 0) {
 			_tech = btTechOptions[0];
 		}
 
-		if( _mechType == 0 ) {
+		if (_mechType == 0) {
 			_mechType = mechTypeOptions[0];
 		}
 
 
-		if( _engine ) {
+		if (_engine) {
 
-			_weights.push( {name: _engineType.name[_useLang] + " - " + _engineType.rating, weight: this.getEngineWeight() } );
+			_weights.push({
+				name: _engineType.name[_useLang] + " - " + _engineType.rating,
+				weight: this.getEngineWeight()
+			});
 
-			_weights.push( {name: _gyro.name[_useLang], weight: this.getGyroWeight()} );
+			_weights.push({
+				name: _gyro.name[_useLang],
+				weight: this.getGyroWeight()
+			});
 
 		}
 
-		if( _jumpSpeed > 0) {
+		if (_jumpSpeed > 0) {
 			_maxMoveHeat = _jumpSpeed;
-			if( _jumpJetType == "Standard" ) {
+			if (_jumpJetType == "Standard") {
 				// standard
-				_weights.push( {name: "Jump Jets", weight: this.getJumpJetWeight() } );
+				_weights.push({
+					name: "Jump Jets",
+					weight: this.getJumpJetWeight()
+				});
 			} else {
 				// improved
-				_weights.push( {name: "Improved Jets", weight: this.getJumpJetWeight() } );
+				_weights.push({
+					name: "Improved Jets",
+					weight: this.getJumpJetWeight()
+				});
 			}
 		}
 
@@ -16674,21 +16763,24 @@ function Mech (type) {
 
 		//~ switch( this.getArmorType() ) {
 
-			//~ default: // standard
-				//~ _totalArmor = _armorWeight * 16;
-				//~ break;
+		//~ default: // standard
+		//~ _totalArmor = _armorWeight * 16;
+		//~ break;
 		//~ }
-		if( this.getTech().tag == "clan") {
-			 _totalArmor = Math.floor( _armorWeight * this.getArmorObj().armormultiplier.clan );
+		if (this.getTech().tag == "clan") {
+			_totalArmor = Math.floor(_armorWeight * this.getArmorObj().armormultiplier.clan);
 		} else {
-			 _totalArmor = Math.floor( _armorWeight * this.getArmorObj().armormultiplier.is );
+			_totalArmor = Math.floor(_armorWeight * this.getArmorObj().armormultiplier.is);
 		}
 
 
-		if( _totalArmor > _maxArmor )
+		if (_totalArmor > _maxArmor)
 			_totalArmor = _maxArmor;
 
-		_weights.push( {name: "Armor", weight: _armorWeight} );
+		_weights.push({
+			name: "Armor",
+			weight: _armorWeight
+		});
 		_unallocatedArmor = _totalArmor;
 		_unallocatedArmor -= _armorAllocation.head;
 
@@ -16707,21 +16799,30 @@ function Mech (type) {
 		_unallocatedArmor -= _armorAllocation.leftLeg;
 
 
-		if( _additionalHeatSinks > 0)
-			_weights.push( {name: "Additional Heat Sinks", weight: _additionalHeatSinks} );
+		if (_additionalHeatSinks > 0)
+			_weights.push({
+				name: "Additional Heat Sinks",
+				weight: _additionalHeatSinks
+			});
 
-		for( eq_count = 0; eq_count < _equipmentList.length; eq_count++) {
-			if( _equipmentList[eq_count].rear ) {
-				_weights.push( {name: _equipmentList[eq_count].name + " (" + this.getTranslation("GENERAL_REAR") + ")", weight: _equipmentList[eq_count].weight} );
+		for (eq_count = 0; eq_count < _equipmentList.length; eq_count++) {
+			if (_equipmentList[eq_count].rear) {
+				_weights.push({
+					name: _equipmentList[eq_count].name + " (" + this.getTranslation("GENERAL_REAR") + ")",
+					weight: _equipmentList[eq_count].weight
+				});
 			} else {
-				_weights.push( {name: _equipmentList[eq_count].name + "", weight: _equipmentList[eq_count].weight} );
+				_weights.push({
+					name: _equipmentList[eq_count].name + "",
+					weight: _equipmentList[eq_count].weight
+				});
 			}
-			if(  _equipmentList[eq_count])
-				_maxWeaponHeat +=  _equipmentList[eq_count].heat;
+			if (_equipmentList[eq_count])
+				_maxWeaponHeat += _equipmentList[eq_count].heat;
 		}
 
 		_currentTonnage = 0;
-		for( weight_counter = 0; weight_counter < _weights.length; weight_counter++) {
+		for (weight_counter = 0; weight_counter < _weights.length; weight_counter++) {
 			_currentTonnage += _weights[weight_counter].weight;
 		}
 
@@ -16733,25 +16834,25 @@ function Mech (type) {
 		this.heatSinkCriticals.slots_each = 1;
 
 		//~ if( _heatSinkType == "double") {
-			//~ if( _tech.tag == "clan") {
-				//~ this.heatSinkCriticals.slots_type = "double slot";
-				//~ this.heatSinkCriticals.slots_each = 2;
-			//~ } else {
-				//~ this.heatSinkCriticals.slots_type = "triple slot";
-				//~ this.heatSinkCriticals.slots_each = 3;
-			//~ }
-			//~ _heatDissipation = (_additionalHeatSinks + 10) * 2;
+		//~ if( _tech.tag == "clan") {
+		//~ this.heatSinkCriticals.slots_type = "double slot";
+		//~ this.heatSinkCriticals.slots_each = 2;
 		//~ } else {
-			//~ this.heatSinkCriticals.slots_type = "single";
-			//~ this.heatSinkCriticals.slots_each = 1;
-			//~ _heatDissipation = _additionalHeatSinks + 10;
+		//~ this.heatSinkCriticals.slots_type = "triple slot";
+		//~ this.heatSinkCriticals.slots_each = 3;
+		//~ }
+		//~ _heatDissipation = (_additionalHeatSinks + 10) * 2;
+		//~ } else {
+		//~ this.heatSinkCriticals.slots_type = "single";
+		//~ this.heatSinkCriticals.slots_each = 1;
+		//~ _heatDissipation = _additionalHeatSinks + 10;
 		//~ }
 
-		_heatDissipation = ( _additionalHeatSinks + 10 ) * _heatSinkType.dissipation;
-		this.heatSinkCriticals.slots_each = _heatSinkType.crits[ this.getTech().tag ];
+		_heatDissipation = (_additionalHeatSinks + 10) * _heatSinkType.dissipation;
+		this.heatSinkCriticals.slots_each = _heatSinkType.crits[this.getTech().tag];
 
-		if( this.getEngine().rating ) {
-			this.heatSinkCriticals.number =  _additionalHeatSinks + 10  -  Math.floor(this.getEngine().rating / 25);
+		if (this.getEngine().rating) {
+			this.heatSinkCriticals.number = _additionalHeatSinks + 10 - Math.floor(this.getEngine().rating / 25);
 		} else {
 			this.heatSinkCriticals.number = 0
 		}
@@ -16761,17 +16862,16 @@ function Mech (type) {
 		this._calcBattleValue();
 		this._calcCBillCost();
 
-		_equipmentList = _equipmentList.sort( sortByLocationThenName );
-	 	this.sortedEquipmentList = [];
-		for( eq_count = 0; eq_count < _equipmentList.length; eq_count++) {
+		_equipmentList = _equipmentList.sort(sortByLocationThenName);
+		this.sortedEquipmentList = [];
+		for (eq_count = 0; eq_count < _equipmentList.length; eq_count++) {
 
 
 			var foundIt = false;
 
-			for( var se_count = 0; se_count < this.sortedEquipmentList.length; se_count++ ) {
-				if(
-					_equipmentList[eq_count].location == this.sortedEquipmentList[se_count].location
-						&&
+			for (var se_count = 0; se_count < this.sortedEquipmentList.length; se_count++) {
+				if (
+					_equipmentList[eq_count].location == this.sortedEquipmentList[se_count].location &&
 					_equipmentList[eq_count].tag == this.sortedEquipmentList[se_count].tag
 				) {
 					this.sortedEquipmentList[se_count].count++;
@@ -16779,11 +16879,11 @@ function Mech (type) {
 				}
 			}
 
-			if( !foundIt ) {
-				var eqItem = angular.copy( _equipmentList[eq_count] );
-				eqItem.local_name = this.getLocalTranslation( eqItem.name );
+			if (!foundIt) {
+				var eqItem = angular.copy(_equipmentList[eq_count]);
+				eqItem.local_name = this.getLocalTranslation(eqItem.name);
 				eqItem.count = 1;
-				this.sortedEquipmentList.push( eqItem );
+				this.sortedEquipmentList.push(eqItem);
 			}
 		}
 	}
@@ -16805,55 +16905,55 @@ function Mech (type) {
 		_unallocatedCriticals = Array();
 
 		// Add required components....
-		if( _smallCockpit ) {
-			this._addCriticalItem( "life-support", this.getTranslation("BM_CRITS_LIFE_SUPPORT"), 1, "hd", 0);
-			this._addCriticalItem( "sensors", this.getTranslation("BM_CRITS_SENSORS"), 1, "hd", 1);
-			this._addCriticalItem( "cockpit", this.getTranslation("BM_CRITS_COCKPIT"), 1, "hd", 2);
-			this._addCriticalItem( "sensors", this.getTranslation("BM_CRITS_SENSORS"), 1, "hd", 3);
+		if (_smallCockpit) {
+			this._addCriticalItem("life-support", this.getTranslation("BM_CRITS_LIFE_SUPPORT"), 1, "hd", 0);
+			this._addCriticalItem("sensors", this.getTranslation("BM_CRITS_SENSORS"), 1, "hd", 1);
+			this._addCriticalItem("cockpit", this.getTranslation("BM_CRITS_COCKPIT"), 1, "hd", 2);
+			this._addCriticalItem("sensors", this.getTranslation("BM_CRITS_SENSORS"), 1, "hd", 3);
 		} else {
-			this._addCriticalItem( "life-support", this.getTranslation("BM_CRITS_LIFE_SUPPORT"), 1, "hd", 0);
-			this._addCriticalItem( "sensors", this.getTranslation("BM_CRITS_SENSORS"), 1, "hd", 1);
-			this._addCriticalItem( "cockpit", this.getTranslation("BM_CRITS_COCKPIT"), 1, "hd", 2);
-			this._addCriticalItem( "sensors", this.getTranslation("BM_CRITS_SENSORS"), 1, "hd", 4);
-			this._addCriticalItem( "life-support", this.getTranslation("BM_CRITS_LIFE_SUPPORT"), 1, "hd", 5);
+			this._addCriticalItem("life-support", this.getTranslation("BM_CRITS_LIFE_SUPPORT"), 1, "hd", 0);
+			this._addCriticalItem("sensors", this.getTranslation("BM_CRITS_SENSORS"), 1, "hd", 1);
+			this._addCriticalItem("cockpit", this.getTranslation("BM_CRITS_COCKPIT"), 1, "hd", 2);
+			this._addCriticalItem("sensors", this.getTranslation("BM_CRITS_SENSORS"), 1, "hd", 4);
+			this._addCriticalItem("life-support", this.getTranslation("BM_CRITS_LIFE_SUPPORT"), 1, "hd", 5);
 		}
 
-		if( _mechType.class.toLowerCase() == "quad") {
+		if (_mechType.class.toLowerCase() == "quad") {
 			// quad
 			// Left Leg Components
-			this._addCriticalItem( "hip", this.getTranslation("BM_CRITS_ACTUATOR_HIP"), 1, "ra", 0);
-			this._addCriticalItem( "upper-leg-actuator", this.getTranslation("BM_CRITS_ACTUATOR_UPPER_LEG"), 1, "ra", 1);
-			this._addCriticalItem( "lower-leg-actuator", this.getTranslation("BM_CRITS_ACTUATOR_LOWER_LEG"), 1, "ra", 2);
-			this._addCriticalItem( "foot-actuator", this.getTranslation("BM_CRITS_ACTUATOR_FOOT"), 1, "ra", 3);
+			this._addCriticalItem("hip", this.getTranslation("BM_CRITS_ACTUATOR_HIP"), 1, "ra", 0);
+			this._addCriticalItem("upper-leg-actuator", this.getTranslation("BM_CRITS_ACTUATOR_UPPER_LEG"), 1, "ra", 1);
+			this._addCriticalItem("lower-leg-actuator", this.getTranslation("BM_CRITS_ACTUATOR_LOWER_LEG"), 1, "ra", 2);
+			this._addCriticalItem("foot-actuator", this.getTranslation("BM_CRITS_ACTUATOR_FOOT"), 1, "ra", 3);
 
 			// Right Leg Components
-			this._addCriticalItem( "hip", this.getTranslation("BM_CRITS_ACTUATOR_HIP"), 1, "la", 0);
-			this._addCriticalItem( "upper-leg-actuator", this.getTranslation("BM_CRITS_ACTUATOR_UPPER_LEG"), 1, "la", 1);
-			this._addCriticalItem( "lower-leg-actuator", this.getTranslation("BM_CRITS_ACTUATOR_LOWER_LEG"), 1, "la", 2);
-			this._addCriticalItem( "foot-actuator", this.getTranslation("BM_CRITS_ACTUATOR_FOOT"), 1, "la", 3);
+			this._addCriticalItem("hip", this.getTranslation("BM_CRITS_ACTUATOR_HIP"), 1, "la", 0);
+			this._addCriticalItem("upper-leg-actuator", this.getTranslation("BM_CRITS_ACTUATOR_UPPER_LEG"), 1, "la", 1);
+			this._addCriticalItem("lower-leg-actuator", this.getTranslation("BM_CRITS_ACTUATOR_LOWER_LEG"), 1, "la", 2);
+			this._addCriticalItem("foot-actuator", this.getTranslation("BM_CRITS_ACTUATOR_FOOT"), 1, "la", 3);
 
 		} else {
 			// biped
 			// Left Arm Components
-			this._addCriticalItem( "shoulder", this.getTranslation("BM_CRITS_ACTUATOR_SHOULDER") , 1, "la", 0);
-			this._addCriticalItem( "upper-arm-actuator", this.getTranslation("BM_CRITS_ACTUATOR_UPPER_ARM"), 1, "la", 1);
-			if( this.hasLowerArmActuator("la") ) {
-				this._addCriticalItem( "lower-arm-actuator", this.getTranslation("BM_CRITS_ACTUATOR_LOWER_ARM"), 1, "la", 2);
-				if( this.hasHandActuator("la") ) {
+			this._addCriticalItem("shoulder", this.getTranslation("BM_CRITS_ACTUATOR_SHOULDER"), 1, "la", 0);
+			this._addCriticalItem("upper-arm-actuator", this.getTranslation("BM_CRITS_ACTUATOR_UPPER_ARM"), 1, "la", 1);
+			if (this.hasLowerArmActuator("la")) {
+				this._addCriticalItem("lower-arm-actuator", this.getTranslation("BM_CRITS_ACTUATOR_LOWER_ARM"), 1, "la", 2);
+				if (this.hasHandActuator("la")) {
 
-					this._addCriticalItem( "hand-actuator", this.getTranslation("BM_CRITS_ACTUATOR_HAND"), 1, "la", 3);
+					this._addCriticalItem("hand-actuator", this.getTranslation("BM_CRITS_ACTUATOR_HAND"), 1, "la", 3);
 				}
 			}
 
 
 			// Right Arm Components
-			this._addCriticalItem( "shoulder", this.getTranslation("BM_CRITS_ACTUATOR_SHOULDER"), 1, "ra", 0);
-			this._addCriticalItem( "upper-arm-actuator", this.getTranslation("BM_CRITS_ACTUATOR_UPPER_ARM"), 1, "ra", 1);
-			if( this.hasLowerArmActuator("ra") ) {
-				this._addCriticalItem( "lower-arm-actuator", this.getTranslation("BM_CRITS_ACTUATOR_LOWER_ARM"), 1, "ra", 2);
-				if( this.hasHandActuator("ra") ) {
+			this._addCriticalItem("shoulder", this.getTranslation("BM_CRITS_ACTUATOR_SHOULDER"), 1, "ra", 0);
+			this._addCriticalItem("upper-arm-actuator", this.getTranslation("BM_CRITS_ACTUATOR_UPPER_ARM"), 1, "ra", 1);
+			if (this.hasLowerArmActuator("ra")) {
+				this._addCriticalItem("lower-arm-actuator", this.getTranslation("BM_CRITS_ACTUATOR_LOWER_ARM"), 1, "ra", 2);
+				if (this.hasHandActuator("ra")) {
 
-					this._addCriticalItem( "hand-actuator", this.getTranslation("BM_CRITS_ACTUATOR_HAND"), 1, "ra", 3);
+					this._addCriticalItem("hand-actuator", this.getTranslation("BM_CRITS_ACTUATOR_HAND"), 1, "ra", 3);
 				}
 			}
 		}
@@ -16862,225 +16962,212 @@ function Mech (type) {
 
 		// Engine
 
-		if(
-			_engineType
-			&& _engineType.criticals
-			&& _engineType.criticals[ this.getTech().tag ]
-			&& _engineType.criticals[ this.getTech().tag ].ct > 3
+		if (
+			_engineType &&
+			_engineType.criticals &&
+			_engineType.criticals[this.getTech().tag] &&
+			_engineType.criticals[this.getTech().tag].ct > 3
 		) {
 			this._addCriticalItem(
-				"engine", 									// item_tag
-				_engineType.name[_useLang], 		// item_name
-				3, 											// critical_count
-				"ct" 										// location
-															// slot
+				"engine", // item_tag
+				_engineType.name[_useLang], // item_name
+				3, // critical_count
+				"ct" // location
+				// slot
 			);
 		} else {
 			// reset back to standard, engine not available for tech
-			console.log( "warning", "resetting engine to standard ", _engineType.criticals, this.getTech().tag, _tech) ;
-			this.setEngineType( "standard" );
+			console.log("warning", "resetting engine to standard ", _engineType.criticals, this.getTech().tag, _tech);
+			this.setEngineType("standard");
 			this._addCriticalItem(
-				"engine", 												// item_tag
-				_engineType.name[_useLang], 					// item_name
-				_engineType.criticals[ this.getTech().tag ].ct, 	// critical_count
-				"ct" 													// location
-																		// slot
+				"engine", // item_tag
+				_engineType.name[_useLang], // item_name
+				_engineType.criticals[this.getTech().tag].ct, // critical_count
+				"ct" // location
+				// slot
 			);
 		}
 
-		if(
-			_engineType.criticals[ this.getTech().tag ]
-				&&
-			_engineType.criticals[ this.getTech().tag ].rt
+		if (
+			_engineType.criticals[this.getTech().tag] &&
+			_engineType.criticals[this.getTech().tag].rt
 		) {
-			this._addCriticalItem( "engine", _engineType.name[_useLang], _engineType.criticals[ this.getTech().tag ].rt, "rt");
+			this._addCriticalItem("engine", _engineType.name[_useLang], _engineType.criticals[this.getTech().tag].rt, "rt");
 		}
-		if(
-			_engineType.criticals[ this.getTech().tag ]
-				&&
-			_engineType.criticals[ this.getTech().tag ].lt
+		if (
+			_engineType.criticals[this.getTech().tag] &&
+			_engineType.criticals[this.getTech().tag].lt
 		) {
-			this._addCriticalItem( "engine", _engineType.name[_useLang], _engineType.criticals[ this.getTech().tag ].lt, "lt");
+			this._addCriticalItem("engine", _engineType.name[_useLang], _engineType.criticals[this.getTech().tag].lt, "lt");
 		}
 
 		// Gyro
 		this._addCriticalItem(
-			"gyro", 										// item_tag
-			_gyro.name[_useLang], 					// item_name
-			_gyro.criticals, 							// critical_count
-			"ct"											// location
+			"gyro", // item_tag
+			_gyro.name[_useLang], // item_name
+			_gyro.criticals, // critical_count
+			"ct" // location
 		);
 
 		// Extra engine bits....
-		if( _engineType.criticals[ this.getTech().tag ].ct > 3 ){
+		if (_engineType.criticals[this.getTech().tag].ct > 3) {
 			this._addCriticalItem(
-				"engine", 													// item_tag
-				_engineType.name[_useLang], 						// item_name
-				_engineType.criticals[ this.getTech().tag ].ct - 3, 	// critical_count
-				"ct"														// location
+				"engine", // item_tag
+				_engineType.name[_useLang], // item_name
+				_engineType.criticals[this.getTech().tag].ct - 3, // critical_count
+				"ct" // location
 			);
 		}
 
 		// Left Leg Components
-		this._addCriticalItem( "hip", this.getTranslation("BM_CRITS_ACTUATOR_HIP"), 1, "ll", 0);
-		this._addCriticalItem( "upper-leg-actuator", this.getTranslation("BM_CRITS_ACTUATOR_UPPER_LEG"), 1, "ll", 1);
-		this._addCriticalItem( "lower-leg-actuator", this.getTranslation("BM_CRITS_ACTUATOR_LOWER_LEG"), 1, "ll", 2);
-		this._addCriticalItem( "foot-actuator", this.getTranslation("BM_CRITS_ACTUATOR_FOOT"), 1, "ll", 3);
+		this._addCriticalItem("hip", this.getTranslation("BM_CRITS_ACTUATOR_HIP"), 1, "ll", 0);
+		this._addCriticalItem("upper-leg-actuator", this.getTranslation("BM_CRITS_ACTUATOR_UPPER_LEG"), 1, "ll", 1);
+		this._addCriticalItem("lower-leg-actuator", this.getTranslation("BM_CRITS_ACTUATOR_LOWER_LEG"), 1, "ll", 2);
+		this._addCriticalItem("foot-actuator", this.getTranslation("BM_CRITS_ACTUATOR_FOOT"), 1, "ll", 3);
 
 		// Right Leg Components
-		this._addCriticalItem( "hip", this.getTranslation("BM_CRITS_ACTUATOR_HIP"), 1, "rl", 0);
-		this._addCriticalItem( "upper-leg-actuator", this.getTranslation("BM_CRITS_ACTUATOR_UPPER_LEG"), 1, "rl", 1);
-		this._addCriticalItem( "lower-leg-actuator", this.getTranslation("BM_CRITS_ACTUATOR_LOWER_LEG"), 1, "rl", 2);
-		this._addCriticalItem( "foot-actuator", this.getTranslation("BM_CRITS_ACTUATOR_FOOT"), 1, "rl", 3);
+		this._addCriticalItem("hip", this.getTranslation("BM_CRITS_ACTUATOR_HIP"), 1, "rl", 0);
+		this._addCriticalItem("upper-leg-actuator", this.getTranslation("BM_CRITS_ACTUATOR_UPPER_LEG"), 1, "rl", 1);
+		this._addCriticalItem("lower-leg-actuator", this.getTranslation("BM_CRITS_ACTUATOR_LOWER_LEG"), 1, "rl", 2);
+		this._addCriticalItem("foot-actuator", this.getTranslation("BM_CRITS_ACTUATOR_FOOT"), 1, "rl", 3);
 
 		// Jump Jets
 		jump_move = this.getJumpSpeed();
-		for(var jmc = 0; jmc < jump_move; jmc++ ) {
-			_unallocatedCriticals.push(
-				{
-					name: _jumpJetType.name[_useLang],
-					tag: "jj-" + _jumpJetType.tag,
-					rear: false,
-					movable: true,
-					crits: _jumpJetType.criticals
-				}
-			);
+		for (var jmc = 0; jmc < jump_move; jmc++) {
+			_unallocatedCriticals.push({
+				name: _jumpJetType.name[_useLang],
+				tag: "jj-" + _jumpJetType.tag,
+				rear: false,
+				movable: true,
+				crits: _jumpJetType.criticals
+			});
 		}
 
 		// Armor
 
 		var armorObj = this.getArmorObj();
-		if( this.getTech().tag  == "clan" ) {
-			if( armorObj.crits.clan > 0 ) {
-				if( armorObj.crit_locs ) {
-					for( var nameLoc in armorObj.crits_locs ) {
+		if (this.getTech().tag == "clan") {
+			if (armorObj.crits.clan > 0) {
+				if (armorObj.crit_locs) {
+					for (var nameLoc in armorObj.crits_locs) {
 						this._addCriticalItem(
-							armorObj.tag, 						// item_tag
-							armorObj.name[_useLang], 		// item_name
-							armorObj.crits_loc [ nameLoc ], 		// critical_count
-							nameLoc									// location
-																	// slot
+							armorObj.tag, // item_tag
+							armorObj.name[_useLang], // item_name
+							armorObj.crits_loc[nameLoc], // critical_count
+							nameLoc // location
+							// slot
 						);
 					}
 				} else {
-					for( var aCounter = 0; aCounter < armorObj.crits.clan; aCounter++ ) {
-						_unallocatedCriticals.push(
-							{
-								name: armorObj.name[_useLang],
-								tag: armorObj.tag,
-								rollAgain: true,
-								rear: false,
-								crits: 1,
-								obj: armorObj,
-								movable: true
-							}
-						);
+					for (var aCounter = 0; aCounter < armorObj.crits.clan; aCounter++) {
+						_unallocatedCriticals.push({
+							name: armorObj.name[_useLang],
+							tag: armorObj.tag,
+							rollAgain: true,
+							rear: false,
+							crits: 1,
+							obj: armorObj,
+							movable: true
+						});
 					}
 				}
 			}
 		} else {
-			if( armorObj.crits.is > 0 ) {
-				if( armorObj.crit_locs ) {
-					for( var nameLoc in armorObj.crits_locs ) {
+			if (armorObj.crits.is > 0) {
+				if (armorObj.crit_locs) {
+					for (var nameLoc in armorObj.crits_locs) {
 						this._addCriticalItem(
-							armorObj.tag, 						// item_tag
-							armorObj.name[_useLang], 		// item_name
-							armorObj.crits_loc [ nameLoc ], 		// critical_count
-							nameLoc									// location
-																	// slot
+							armorObj.tag, // item_tag
+							armorObj.name[_useLang], // item_name
+							armorObj.crits_loc[nameLoc], // critical_count
+							nameLoc // location
+							// slot
 						);
 					}
 				} else {
-					for( var aCounter = 0; aCounter < armorObj.crits.is; aCounter++ ) {
-						_unallocatedCriticals.push(
-							{
-								name: armorObj.name[_useLang],
-								tag: armorObj.tag,
-								rear: false,
-								rollAgain: true,
-								crits: 1,
-								obj: armorObj,
-								movable: true
-							}
-						);
+					for (var aCounter = 0; aCounter < armorObj.crits.is; aCounter++) {
+						_unallocatedCriticals.push({
+							name: armorObj.name[_useLang],
+							tag: armorObj.tag,
+							rear: false,
+							rollAgain: true,
+							crits: 1,
+							obj: armorObj,
+							movable: true
+						});
 					}
 				}
 			}
 		}
 
 		// Internal Structure critical Items
-		if( this.getTech().tag  == "clan" ) {
-			for( var aCounter = 0; aCounter < _selectedInternalStructure.crits.clan; aCounter++ ) {
-				_unallocatedCriticals.push(
-					{
-						name: _selectedInternalStructure.name[_useLang],
-						tag: _selectedInternalStructure.tag,
-						rollAgain: true,
-						rear: false,
-						crits: 1,
-						obj: _selectedInternalStructure,
-						movable: true
-					}
-				);
+		if (this.getTech().tag == "clan") {
+			for (var aCounter = 0; aCounter < _selectedInternalStructure.crits.clan; aCounter++) {
+				_unallocatedCriticals.push({
+					name: _selectedInternalStructure.name[_useLang],
+					tag: _selectedInternalStructure.tag,
+					rollAgain: true,
+					rear: false,
+					crits: 1,
+					obj: _selectedInternalStructure,
+					movable: true
+				});
 			}
 
 
 		} else {
-			for( var aCounter = 0; aCounter < _selectedInternalStructure.crits.is; aCounter++ ) {
-				_unallocatedCriticals.push(
-					{
-						name: _selectedInternalStructure.name[_useLang],
-						tag: _selectedInternalStructure.tag,
-						rollAgain: true,
-						rear: false,
-						crits: 1,
-						obj: _selectedInternalStructure,
-						movable: true
-					}
-				);
+			for (var aCounter = 0; aCounter < _selectedInternalStructure.crits.is; aCounter++) {
+				_unallocatedCriticals.push({
+					name: _selectedInternalStructure.name[_useLang],
+					tag: _selectedInternalStructure.tag,
+					rollAgain: true,
+					rear: false,
+					crits: 1,
+					obj: _selectedInternalStructure,
+					movable: true
+				});
 			}
 		}
 
 
 		// Get optional equipment...
-		for(var elc = 0; elc < _equipmentList.length; elc++ ) {
+		for (var elc = 0; elc < _equipmentList.length; elc++) {
 			//~ _equipmentList[elc].location = "";
 			var rearTag = "";
-			if( _equipmentList[elc].rear )
+			if (_equipmentList[elc].rear)
 				rearTag = " (" + this.getTranslation("GENERAL_REAR") + ")";
-			_unallocatedCriticals.push(
-				{
-					name: _equipmentList[elc].name[_useLang] + rearTag,
-					tag: _equipmentList[elc].tag,
-					rear: _equipmentList[elc].rear,
-					crits: _equipmentList[elc].space.battlemech,
-					obj: _equipmentList[elc],
-					movable: true
-				} );
+			_unallocatedCriticals.push({
+				name: _equipmentList[elc].name[_useLang] + rearTag,
+				tag: _equipmentList[elc].tag,
+				rear: _equipmentList[elc].rear,
+				crits: _equipmentList[elc].space.battlemech,
+				obj: _equipmentList[elc],
+				movable: true
+			});
 		}
 
 
 		// Heat Sink Requirements
 		hs_requirements = this.getHeatSinkCriticalRequirements();
-		if( hs_requirements.slots_each > 1 )
+		if (hs_requirements.slots_each > 1)
 			hs_name = this.getTranslation("BM_CRITS_DOUBLE_HEAT_SINK");
 		else
 			hs_name = this.getTranslation("BM_CRITS_HEAT_SINK");
-		for(var hsc = 0; hsc < hs_requirements.number; hsc++ ) {
+		for (var hsc = 0; hsc < hs_requirements.number; hsc++) {
 
-			_unallocatedCriticals.push( {
+			_unallocatedCriticals.push({
 				name: hs_name,
 				rear: false,
 				tag: "heat-sink",
 				crits: hs_requirements.slots_each,
 				movable: true
-			} );
+			});
 		}
 
 
 
 		// Allocate items per allocation table.
-		for( alt_c = 0; alt_c < _criticalAllocationTable.length; alt_c++) {
+		for (alt_c = 0; alt_c < _criticalAllocationTable.length; alt_c++) {
 			this._allocateCritical(
 				_criticalAllocationTable[alt_c].tag,
 				_criticalAllocationTable[alt_c].rear,
@@ -17092,84 +17179,84 @@ function Mech (type) {
 
 
 		// remove location tag for remaining unallocated
-		for( var lCount = 0; lCount < _unallocatedCriticals.length; lCount++ ) {
-			if( _unallocatedCriticals[lCount].obj )
+		for (var lCount = 0; lCount < _unallocatedCriticals.length; lCount++) {
+			if (_unallocatedCriticals[lCount].obj)
 				_unallocatedCriticals[lCount].obj.location = "";
 		}
 
 	}
 
-	this.hasHandActuator = function( location ){
-		if( location == "ra" )
-			if( _no_right_arm_hand_actuator )
+	this.hasHandActuator = function(location) {
+		if (location == "ra")
+			if (_no_right_arm_hand_actuator)
 				return false;
-		if( location == "la" )
-			if( _no_left_arm_hand_actuator )
+		if (location == "la")
+			if (_no_left_arm_hand_actuator)
 				return false;
 		return true;
 	}
 
-	this.localizeLocationAbbreviation = function( locationAbbr ) {
+	this.localizeLocationAbbreviation = function(locationAbbr) {
 		// TODO
 		return locationAbbr;
 	}
 
-	this.hasLowerArmActuator = function( location ){
-		if( location == "ra" )
-			if( _no_right_arm_lower_actuator )
+	this.hasLowerArmActuator = function(location) {
+		if (location == "ra")
+			if (_no_right_arm_lower_actuator)
 				return false;
-		if( location == "la" )
-			if( _no_left_arm_lower_actuator )
+		if (location == "la")
+			if (_no_left_arm_lower_actuator)
 				return false;
 		return true;
 	}
 
 
-	this.removeHandActuator = function( location ) {
-		if( location == "ra" ) {
+	this.removeHandActuator = function(location) {
+		if (location == "ra") {
 			_no_right_arm_hand_actuator = true;
 		}
-		if( location == "la" ) {
+		if (location == "la") {
 			_no_left_arm_hand_actuator = true;
 		}
 		this.calc();
 
 	}
 
-	this.removeLowerArmActuator = function( location ) {
-		if( location == "ra" ) {
+	this.removeLowerArmActuator = function(location) {
+		if (location == "ra") {
 			_no_right_arm_hand_actuator = true;
 			_no_right_arm_lower_actuator = true;
 
 		}
-		if( location == "la" ) {
+		if (location == "la") {
 			_no_left_arm_hand_actuator = true;
 			_no_left_arm_lower_actuator = true;
 		}
 		this.calc();
 	}
 
-	this.addHandActuator = function( location ) {
-		if( location == "ra" ) {
+	this.addHandActuator = function(location) {
+		if (location == "ra") {
 			_no_right_arm_hand_actuator = false;
 			_no_right_arm_lower_actuator = false;
 
 		}
-		if( location == "la" ) {
+		if (location == "la") {
 			_no_left_arm_hand_actuator = false;
 			_no_left_arm_lower_actuator = false;
 		}
 		this.calc();
 	}
 
-	this.addLowerArmActuator = function( location ) {
-		if( location == "ra" ) {
-		//	_no_right_arm_hand_actuator = false;
+	this.addLowerArmActuator = function(location) {
+		if (location == "ra") {
+			//	_no_right_arm_hand_actuator = false;
 			_no_right_arm_lower_actuator = false;
 
 		}
-		if( location == "la" ) {
-		//	_no_left_arm_hand_actuator = false;
+		if (location == "la") {
+			//	_no_left_arm_hand_actuator = false;
 			_no_left_arm_lower_actuator = false;
 		}
 		this.calc();
@@ -17178,55 +17265,67 @@ function Mech (type) {
 	this.getMaxMovementHeat = function() {
 		var maxMoveHeat = 2; // standard run heat.
 
-		if( this.getJumpSpeed() > 2 ) {
+		if (this.getJumpSpeed() > 2) {
 			maxMoveHeat = this.getJumpSpeed();
 		}
 
 
 		// Stealth Armor
-		if( this.getArmorType() == "stealth") {
+		if (this.getArmorType() == "stealth") {
 			maxMoveHeat += 10;
 		}
 
 		return maxMoveHeat;
 	}
 
-	this._addCriticalItem = function( item_tag, item_name, critical_count, location, slot, movable ) {
+	this._addCriticalItem = function(item_tag, item_name, critical_count, location, slot, movable) {
 		uuid = generateUUID();
-		if( movable != "undefined" && movable != null)
-			item = { tag: item_tag, name: item_name, crits: critical_count, movable: true, uuid: uuid };
+		if (movable != "undefined" && movable != null)
+			item = {
+				tag: item_tag,
+				name: item_name,
+				crits: critical_count,
+				movable: true,
+				uuid: uuid
+			};
 		else
-			item = { tag: item_tag, name: item_name, crits: critical_count, movable: false, uuid: uuid };
+			item = {
+				tag: item_tag,
+				name: item_name,
+				crits: critical_count,
+				movable: false,
+				uuid: uuid
+			};
 
-		if( typeof(slot) == "undefined" || slot == null)
+		if (typeof(slot) == "undefined" || slot == null)
 			slot = null;
 
-		if( typeof(location) != "undefined" && location != null) {
-			if( location == "hd" ) {
-				this._assignItemToArea( _criticals.head, item, critical_count, slot );
+		if (typeof(location) != "undefined" && location != null) {
+			if (location == "hd") {
+				this._assignItemToArea(_criticals.head, item, critical_count, slot);
 
-			} else if( location == "ct" ) {
-				this._assignItemToArea( _criticals.centerTorso, item, critical_count, slot );
+			} else if (location == "ct") {
+				this._assignItemToArea(_criticals.centerTorso, item, critical_count, slot);
 
-			} else if( location == "lt" ) {
-				this._assignItemToArea( _criticals.leftTorso, item, critical_count, slot );
+			} else if (location == "lt") {
+				this._assignItemToArea(_criticals.leftTorso, item, critical_count, slot);
 
-			} else if( location == "rt" ) {
-				this._assignItemToArea( _criticals.rightTorso, item, critical_count, slot );
+			} else if (location == "rt") {
+				this._assignItemToArea(_criticals.rightTorso, item, critical_count, slot);
 
-			} else if( location == "ra" ) {
-				this._assignItemToArea( _criticals.rightArm, item, critical_count, slot );
+			} else if (location == "ra") {
+				this._assignItemToArea(_criticals.rightArm, item, critical_count, slot);
 
-			} else if( location == "la" ) {
-				this._assignItemToArea( _criticals.leftArm, item, critical_count, slot );
+			} else if (location == "la") {
+				this._assignItemToArea(_criticals.leftArm, item, critical_count, slot);
 
-			} else if( location == "rl" ) {
-				this._assignItemToArea( _criticals.rightLeg, item, critical_count, slot );
+			} else if (location == "rl") {
+				this._assignItemToArea(_criticals.rightLeg, item, critical_count, slot);
 
-			} else if( location == "ll" ) {
-				this._assignItemToArea( _criticals.leftLeg, item, critical_count, slot );
+			} else if (location == "ll") {
+				this._assignItemToArea(_criticals.leftLeg, item, critical_count, slot);
 
-			} else  {
+			} else {
 				return item;
 			}
 
@@ -17235,17 +17334,17 @@ function Mech (type) {
 		}
 	}
 
-	this._isNextXCritsAvailable = function( area_array, critical_count, begin_slot ) {
+	this._isNextXCritsAvailable = function(area_array, critical_count, begin_slot) {
 		returnValue = true;
-		for( isca_c = 0; isca_c < critical_count; isca_c++ ) {
-			if( area_array[begin_slot + isca_c] != null) {
+		for (isca_c = 0; isca_c < critical_count; isca_c++) {
+			if (area_array[begin_slot + isca_c] != null) {
 				returnValue = false;
 			}
 		}
 		return returnValue;
 	}
 
-	this._assignItemToArea = function( area_array, new_item, critical_count, slot_number ) {
+	this._assignItemToArea = function(area_array, new_item, critical_count, slot_number) {
 
 		var placeholder = {
 			uuid: new_item.uuid,
@@ -17253,13 +17352,13 @@ function Mech (type) {
 			placeholder: true
 		};
 
-		if( typeof(slot_number) == "undefined" || slot_number === null) {
+		if (typeof(slot_number) == "undefined" || slot_number === null) {
 			// place anywhere available
-			for( array_count = 0; array_count < area_array.length; array_count++) {
-				if(area_array[array_count] == null ) {
-					if( this._isNextXCritsAvailable( area_array, critical_count - 1, array_count + 1) ) {
-						for( var aita_c = 0; aita_c < critical_count; aita_c++ ) {
-							if( aita_c == 0) {
+			for (array_count = 0; array_count < area_array.length; array_count++) {
+				if (area_array[array_count] == null) {
+					if (this._isNextXCritsAvailable(area_array, critical_count - 1, array_count + 1)) {
+						for (var aita_c = 0; aita_c < critical_count; aita_c++) {
+							if (aita_c == 0) {
 								area_array[aita_c + array_count] = new_item;
 							} else {
 								area_array[aita_c + array_count] = placeholder;
@@ -17271,11 +17370,11 @@ function Mech (type) {
 			}
 		} else {
 			// at specified slot
-			if(area_array[slot_number] == null ) {
-				if( this._isNextXCritsAvailable( area_array, critical_count - 1, slot_number + 1) ) {
+			if (area_array[slot_number] == null) {
+				if (this._isNextXCritsAvailable(area_array, critical_count - 1, slot_number + 1)) {
 
-					for( var aita_c = 0; aita_c < critical_count; aita_c++ ) {
-						if( aita_c == 0) {
+					for (var aita_c = 0; aita_c < critical_count; aita_c++) {
+						if (aita_c == 0) {
 							area_array[aita_c + slot_number] = new_item;
 						} else {
 							area_array[aita_c + slot_number] = placeholder;
@@ -17290,21 +17389,21 @@ function Mech (type) {
 	}
 
 
-	this.canBeAssignedToArea = function( area_array, new_item, critical_count, slot_number ) {
+	this.canBeAssignedToArea = function(area_array, new_item, critical_count, slot_number) {
 
-		if( typeof(slot_number) == "undefined" || slot_number === null) {
+		if (typeof(slot_number) == "undefined" || slot_number === null) {
 			// place anywhere available
-			for( array_count = 0; array_count < area_array.length; array_count++) {
-				if(area_array[array_count] == null ) {
-					if( this._isNextXCritsAvailable( area_array, critical_count - 1, array_count + 1) ) {
+			for (array_count = 0; array_count < area_array.length; array_count++) {
+				if (area_array[array_count] == null) {
+					if (this._isNextXCritsAvailable(area_array, critical_count - 1, array_count + 1)) {
 						return true;
 					}
 				}
 			}
 		} else {
 			// at specified slot
-			if(area_array[slot_number] == null ) {
-				if( this._isNextXCritsAvailable( area_array, critical_count - 1, slot_number + 1) ) {
+			if (area_array[slot_number] == null) {
+				if (this._isNextXCritsAvailable(area_array, critical_count - 1, slot_number + 1)) {
 					return true;
 				}
 			}
@@ -17325,7 +17424,7 @@ function Mech (type) {
 		_criticals.rightLeg = _criticals.rightLeg.slice(0, 6);
 		_criticals.leftLeg = _criticals.leftLeg.slice(0, 6);
 
-		if( _mechType.class.toLowerCase() == "quad") {
+		if (_mechType.class.toLowerCase() == "quad") {
 			_criticals.rightArm = _criticals.rightArm.slice(0, 6);
 			_criticals.leftArm = _criticals.leftArm.slice(0, 6);
 		} else {
@@ -17344,9 +17443,9 @@ function Mech (type) {
 
 
 	this.setHeatSinksType = function(newValue) {
-		for( var lCounter = 0; lCounter < mechHeatSinkTypes.length; lCounter++ ) {
-			if( mechHeatSinkTypes[ lCounter ].tag == newValue )
-				_heatSinkType = mechHeatSinkTypes[ lCounter ];
+		for (var lCounter = 0; lCounter < mechHeatSinkTypes.length; lCounter++) {
+			if (mechHeatSinkTypes[lCounter].tag == newValue)
+				_heatSinkType = mechHeatSinkTypes[lCounter];
 		}
 
 		return _heatSinkType;
@@ -17390,10 +17489,10 @@ function Mech (type) {
 
 	this.setWalkSpeed = function(walkSpeed) {
 		_walkSpeed = walkSpeed / 1;
-		this.setEngine( _tonnage * _walkSpeed );
+		this.setEngine(_tonnage * _walkSpeed);
 
-		if( _jumpSpeed > _walkSpeed )
-			this.setJumpSpeed( _walkSpeed );
+		if (_jumpSpeed > _walkSpeed)
+			this.setJumpSpeed(_walkSpeed);
 
 		return _walkSpeed;
 	}
@@ -17425,10 +17524,10 @@ function Mech (type) {
 	}
 
 
-	this.setArmorType = function( armorTag ) {
-		for( var aCount = 0; aCount < mechArmorTypes.length; aCount++ ) {
-			if( mechArmorTypes[ aCount ].tag == armorTag ) {
-				_armorType = mechArmorTypes[ aCount ];
+	this.setArmorType = function(armorTag) {
+		for (var aCount = 0; aCount < mechArmorTypes.length; aCount++) {
+			if (mechArmorTypes[aCount].tag == armorTag) {
+				_armorType = mechArmorTypes[aCount];
 			}
 		}
 		return _armorType;
@@ -17454,8 +17553,8 @@ function Mech (type) {
 
 	this.setEngine = function(ratingNumber) {
 		ratingNumber = ratingNumber / 1;
-		for( engine_count = 0; engine_count < mechEngineOptions.length; engine_count++ ) {
-			if( mechEngineOptions[engine_count].rating == ratingNumber) {
+		for (engine_count = 0; engine_count < mechEngineOptions.length; engine_count++) {
+			if (mechEngineOptions[engine_count].rating == ratingNumber) {
 				_engine = mechEngineOptions[engine_count];
 				this.calc();
 				return _engine;
@@ -17473,10 +17572,10 @@ function Mech (type) {
 		return _internalStructure;
 	}
 
-	this.setInternalStructureType = function( isTag ) {
-		for( lCounter = 0; lCounter < mechInternalStructureTypes.length ;lCounter++) {
-			if( isTag == mechInternalStructureTypes[ lCounter ].tag ) {
-				_selectedInternalStructure = mechInternalStructureTypes[ lCounter ];
+	this.setInternalStructureType = function(isTag) {
+		for (lCounter = 0; lCounter < mechInternalStructureTypes.length; lCounter++) {
+			if (isTag == mechInternalStructureTypes[lCounter].tag) {
+				_selectedInternalStructure = mechInternalStructureTypes[lCounter];
 				return _selectedInternalStructure;
 			}
 		}
@@ -17485,35 +17584,35 @@ function Mech (type) {
 	}
 
 
-	this.getGyro = function()  {
+	this.getGyro = function() {
 		return _gyro;
 	}
 
 
-	this.getEra = function()  {
+	this.getEra = function() {
 		return _era;
 	}
 
-	this.getCriticals = function()  {
+	this.getCriticals = function() {
 		this._trimCriticals();
 		return _criticals;
 	}
 
 
-	this.getUnallocatedCriticals = function()  {
+	this.getUnallocatedCriticals = function() {
 		return _unallocatedCriticals;
 	}
 
 
 
-	this.getEra = function()  {
+	this.getEra = function() {
 		return _era;
 	}
 
-	this.setEra = function( eraID )  {
+	this.setEra = function(eraID) {
 
-		for( lcounter = 0; lcounter < btEraOptions.length; lcounter++) {
-			if( eraID == btEraOptions[lcounter].id ) {
+		for (lcounter = 0; lcounter < btEraOptions.length; lcounter++) {
+			if (eraID == btEraOptions[lcounter].id) {
 				_era = btEraOptions[lcounter];
 				this.calc();
 				return _era;
@@ -17523,19 +17622,19 @@ function Mech (type) {
 	}
 
 
-	this.getTech = function()  {
+	this.getTech = function() {
 		return _tech;
 	}
 
-	this.setTech = function( techID )  {
-		for( lcounter = 0; lcounter < btTechOptions.length; lcounter++) {
-			if( techID == btTechOptions[lcounter].id ) {
+	this.setTech = function(techID) {
+		for (lcounter = 0; lcounter < btTechOptions.length; lcounter++) {
+			if (techID == btTechOptions[lcounter].id) {
 				_tech = btTechOptions[lcounter];
 				this.calc();
 
 				// set era to Clan Invasion (id 3) if the techID is 2 (Clan)
-				if( techID == 2 && this.getEra().id != 3 ) {
-					this.setEra( 3 );
+				if (techID == 2 && this.getEra().id != 3) {
+					this.setEra(3);
 				}
 
 				return _tech;
@@ -17545,7 +17644,7 @@ function Mech (type) {
 	}
 
 
-	this.getMechType = function()  {
+	this.getMechType = function() {
 		return _mechType;
 	}
 
@@ -17558,22 +17657,22 @@ function Mech (type) {
 	}
 
 
-	this.setPilotName = function( newValue ) {
+	this.setPilotName = function(newValue) {
 		_pilot.name = newValue;
 	}
 
-	this.setPilotPiloting = function( newValue ) {
+	this.setPilotPiloting = function(newValue) {
 		_pilot.piloting = newValue;
 	}
 
-	this.setPilotGunnery = function( newValue ) {
+	this.setPilotGunnery = function(newValue) {
 		_pilot.gunnery = newValue;
 	}
 
 
 	this.setEngineType = function(engineType) {
-		for( lcounter = 0; lcounter < mechEngineTypes.length; lcounter++) {
-			if( engineType.toLowerCase() == mechEngineTypes[lcounter].tag) {
+		for (lcounter = 0; lcounter < mechEngineTypes.length; lcounter++) {
+			if (engineType.toLowerCase() == mechEngineTypes[lcounter].tag) {
 				_engineType = mechEngineTypes[lcounter];
 				this.calc();
 				return _engineType;
@@ -17585,8 +17684,8 @@ function Mech (type) {
 	}
 
 	this.setGyroType = function(gyroType) {
-		for( lcounter = 0; lcounter < mechGyroTypes.length; lcounter++) {
-			if( gyroType.toLowerCase() == mechGyroTypes[lcounter].tag) {
+		for (lcounter = 0; lcounter < mechGyroTypes.length; lcounter++) {
+			if (gyroType.toLowerCase() == mechGyroTypes[lcounter].tag) {
 				_gyro = mechGyroTypes[lcounter];
 				this.calc();
 				return _gyro;
@@ -17603,26 +17702,26 @@ function Mech (type) {
 
 
 	this.getEngineName = function() {
-		if( _engineType.name[ _useLang ] )
-			return _engineType.name[ _useLang ];
+		if (_engineType.name[_useLang])
+			return _engineType.name[_useLang];
 		else
 			return _engineType.name["en-US"];
 	}
 
 	this.getHeatSyncName = function() {
 
-		if( this.heat_sink_type == "single" ) {
-			return this.getTranslation( "BM_STEP3_SINGLE_HS" );
+		if (this.heat_sink_type == "single") {
+			return this.getTranslation("BM_STEP3_SINGLE_HS");
 		} else {
-			return this.getTranslation( "BM_STEP3_DOUBLE_HS" );
+			return this.getTranslation("BM_STEP3_DOUBLE_HS");
 		}
 
 
 	}
 
 	this.getGyroName = function() {
-		if( _gyro.name[ _useLang ] )
-			return _gyro.name[ _useLang ];
+		if (_gyro.name[_useLang])
+			return _gyro.name[_useLang];
 		else
 			return _gyro.name["en-US"];
 	}
@@ -17644,26 +17743,26 @@ function Mech (type) {
 	this.setTonnage = function(newValue) {
 		_tonnage = parseInt(newValue);
 
-		_internalStructure.head = _selectedInternalStructure.perTon[ this.getTonnage() ].head;
+		_internalStructure.head = _selectedInternalStructure.perTon[this.getTonnage()].head;
 
-		_internalStructure.centerTorso = _selectedInternalStructure.perTon[ this.getTonnage() ].centerTorso;
-		_internalStructure.leftTorso =  _selectedInternalStructure.perTon[ this.getTonnage() ].rlTorso;
-		_internalStructure.rightTorso =  _selectedInternalStructure.perTon[ this.getTonnage() ].rlTorso;
+		_internalStructure.centerTorso = _selectedInternalStructure.perTon[this.getTonnage()].centerTorso;
+		_internalStructure.leftTorso = _selectedInternalStructure.perTon[this.getTonnage()].rlTorso;
+		_internalStructure.rightTorso = _selectedInternalStructure.perTon[this.getTonnage()].rlTorso;
 
-		_internalStructure.rightArm =  _selectedInternalStructure.perTon[ this.getTonnage() ].rlArm;
-		_internalStructure.leftArm =  _selectedInternalStructure.perTon[ this.getTonnage() ].rlArm;
+		_internalStructure.rightArm = _selectedInternalStructure.perTon[this.getTonnage()].rlArm;
+		_internalStructure.leftArm = _selectedInternalStructure.perTon[this.getTonnage()].rlArm;
 
-		_internalStructure.rightLeg =  _selectedInternalStructure.perTon[ this.getTonnage() ].rlLeg;
-		_internalStructure.leftLeg =  _selectedInternalStructure.perTon[ this.getTonnage() ].rlLeg;
+		_internalStructure.rightLeg = _selectedInternalStructure.perTon[this.getTonnage()].rlLeg;
+		_internalStructure.leftLeg = _selectedInternalStructure.perTon[this.getTonnage()].rlLeg;
 
-		_maxArmor =  9 + _internalStructure.centerTorso * 2 + _internalStructure.leftTorso * 2 + _internalStructure.rightTorso * 2 + _internalStructure.rightLeg * 2 + _internalStructure.leftLeg * 2;
-		if( _mechType.class.toLowerCase() == "biped")
-			_maxArmor +=  _internalStructure.leftArm * 2 + _internalStructure.rightArm * 2;
+		_maxArmor = 9 + _internalStructure.centerTorso * 2 + _internalStructure.leftTorso * 2 + _internalStructure.rightTorso * 2 + _internalStructure.rightLeg * 2 + _internalStructure.leftLeg * 2;
+		if (_mechType.class.toLowerCase() == "biped")
+			_maxArmor += _internalStructure.leftArm * 2 + _internalStructure.rightArm * 2;
 		else
-			_maxArmor +=  _internalStructure.rightLeg * 2 + _internalStructure.leftLeg * 2;
+			_maxArmor += _internalStructure.rightLeg * 2 + _internalStructure.leftLeg * 2;
 
 
-		if( _mechType.class.toLowerCase() == "quad") {
+		if (_mechType.class.toLowerCase() == "quad") {
 			_internalStructure.rightArm = _internalStructure.rightLeg;
 			_internalStructure.leftArm = _internalStructure.leftLeg;
 		}
@@ -17684,7 +17783,7 @@ function Mech (type) {
 		_totalInternalStructurePoints += _internalStructure.rightLeg;
 		_totalInternalStructurePoints += _internalStructure.leftLeg;
 
-		this.setWalkSpeed( _walkSpeed );
+		this.setWalkSpeed(_walkSpeed);
 		this.calc();
 
 		return _tonnage;
@@ -17706,7 +17805,7 @@ function Mech (type) {
 
 	this.setType = function(newValue) {
 		_mechType = newValue;
-		this.setTonnage( _tonnage );
+		this.setTonnage(_tonnage);
 		this.calc();
 		return _mechType;
 	}
@@ -17735,7 +17834,7 @@ function Mech (type) {
 		exportObject.heat_sink_type = this.getHeatSinksType();
 
 		exportObject.armor_weight = _armorWeight;
-		if(!_uuid)
+		if (!_uuid)
 			_uuid = generateUUID();
 
 		exportObject.uuid = _uuid;
@@ -17748,27 +17847,25 @@ function Mech (type) {
 
 		exportObject.equipment = Array();
 
-		for( eq_count = 0; eq_count < _equipmentList.length; eq_count++) {
-			exportObject.equipment.push(
-				{
-					tag: _equipmentList[eq_count].tag,
-					loc: _equipmentList[eq_count].location,
-					rear: _equipmentList[eq_count].rear
-				}
-			);
+		for (eq_count = 0; eq_count < _equipmentList.length; eq_count++) {
+			exportObject.equipment.push({
+				tag: _equipmentList[eq_count].tag,
+				loc: _equipmentList[eq_count].location,
+				rear: _equipmentList[eq_count].rear
+			});
 		}
 
 		exportObject.allocation = _criticalAllocationTable;
 		exportObject.features = Array();
-		if( !this.hasLowerArmActuator("la") )
+		if (!this.hasLowerArmActuator("la"))
 			exportObject.features.push("no_lala");
-		if( !this.hasLowerArmActuator("ra") )
+		if (!this.hasLowerArmActuator("ra"))
 			exportObject.features.push("no_rala");
-		if( !this.hasHandActuator("la") )
+		if (!this.hasHandActuator("la"))
 			exportObject.features.push("no_laha");
-		if( !this.hasHandActuator("ra") )
+		if (!this.hasHandActuator("ra"))
 			exportObject.features.push("no_raha");
-		if( _smallCockpit )
+		if (_smallCockpit)
 			exportObject.features.push("sm_cockpit");
 
 		exportObject.pilot = _pilot;
@@ -17783,15 +17880,15 @@ function Mech (type) {
 		return _internalStructure;
 	}
 
-	this.setASRole = function( newValue ) {
+	this.setASRole = function(newValue) {
 		return _alphaStrikeForceStats.role = newValue;
 	}
 
-	this.setASCustomName = function( newValue ) {
+	this.setASCustomName = function(newValue) {
 		return _alphaStrikeForceStats.customName = newValue;
 	}
 
-	this.getASCustomName = function( newValue ) {
+	this.getASCustomName = function(newValue) {
 		return _alphaStrikeForceStats.customName;
 	}
 
@@ -17800,133 +17897,132 @@ function Mech (type) {
 		// TODO
 
 		try {
-			importObject = JSON.parse( json_string );
-		}
-		catch( err ) {
+			importObject = JSON.parse(json_string);
+		} catch (err) {
 			return false;
 		}
 
-		if( typeof(importObject) == "object") {
-				this.setName( importObject.name );
-				if( importObject.mechType )
-					this.setMechType( importObject.mechType );
+		if (typeof(importObject) == "object") {
+			this.setName(importObject.name);
+			if (importObject.mechType)
+				this.setMechType(importObject.mechType);
 
-				this.setTonnage( importObject.tonnage );
+			this.setTonnage(importObject.tonnage);
 
-				if( importObject.era )
-					this.setEra( importObject.era );
+			if (importObject.era)
+				this.setEra(importObject.era);
 
-				if( importObject.tech )
-					this.setTech( importObject.tech );
+			if (importObject.tech)
+				this.setTech(importObject.tech);
 
-				if( importObject.pilot )
-					_pilot = importObject.pilot;
+			if (importObject.pilot)
+				_pilot = importObject.pilot;
 
-				if( importObject.as_role )
-					this.setASRole( importObject.as_role );
+			if (importObject.as_role)
+				this.setASRole(importObject.as_role);
 
-				if( importObject.armor_type )
-					this.setArmorType( importObject.armor_type );
+			if (importObject.armor_type)
+				this.setArmorType(importObject.armor_type);
 
-				if( importObject.as_custom_name  )
-					this.setASCustomName( importObject.as_custom_name ) ;
+			if (importObject.as_custom_name)
+				this.setASCustomName(importObject.as_custom_name);
 
-				if( importObject.is_type  )
-					this.setInternalStructureType( importObject.is_type ) ;
+			if (importObject.is_type)
+				this.setInternalStructureType(importObject.is_type);
 
-				if( importObject.walkSpeed )
-					this.setWalkSpeed( importObject.walkSpeed );
+			if (importObject.walkSpeed)
+				this.setWalkSpeed(importObject.walkSpeed);
 
-				if( importObject.jumpSpeed )
-					this.setJumpSpeed( importObject.jumpSpeed );
+			if (importObject.jumpSpeed)
+				this.setJumpSpeed(importObject.jumpSpeed);
 
-				if( typeof(importObject.strict_era) != "undefined" ) {
-					if( importObject.strict_era )
-						_strictEra = 1;
+			if (typeof(importObject.strict_era) != "undefined") {
+				if (importObject.strict_era)
+					_strictEra = 1;
+				else
+					_strictEra = 0;
+			}
+
+			if (importObject.gyro)
+				this.setGyroType(importObject.gyro);
+
+			if (importObject.engineType)
+				this.setEngineType(importObject.engineType);
+
+			if (importObject.additionalHeatSinks)
+				this.setAdditionalHeatSinks(importObject.additionalHeatSinks);
+
+			if (importObject.heat_sink_type)
+				this.setHeatSinksType(importObject.heat_sink_type);
+
+
+
+			if (importObject.armor_weight)
+				this.setArmorWeight(importObject.armor_weight);
+
+			if (importObject.armor_allocation)
+				_armorAllocation = importObject.armor_allocation;
+
+			if (importObject.uuid)
+				_uuid = importObject.uuid;
+
+
+			if (importObject.features) {
+
+
+				// Lower Arm Actuators
+				if (importObject.features.indexOf("no_rala") > -1)
+					this.removeLowerArmActuator("ra");
+				if (importObject.features.indexOf("no_lala") > -1)
+					this.removeLowerArmActuator("la");
+
+				// Hand Actuators
+				if (importObject.features.indexOf("no_raha") > -1)
+					this.removeHandActuator("ra");
+				if (importObject.features.indexOf("no_laha") > -1)
+					this.removeHandActuator("la");
+
+				// Small Cockpit
+				if (importObject.features.indexOf("sm_cockpit") > -1)
+					_smallCockpit = true;
+
+				// Other features
+			}
+
+			if (importObject.equipment) {
+				for (eq_count = 0; eq_count < importObject.equipment.length; eq_count++) {
+
+					import_item = importObject.equipment[eq_count];
+					// if( this.getTech().tag == "is")
+					// 	this.addEquipmentFromTag( import_item.tag, import_item.loc );
+					// if( this.getTech().tag == "clan")
+					// 	this.addEquipmentFromTag( import_item.tag), null, import_item.loc );
+					if (import_item.rear && import_item.rear > 0)
+						import_item.rear = true;
 					else
-						_strictEra = 0;
+						import_item.rear = false;
+					this.addEquipmentFromTag(import_item.tag, this.getTech().tag, import_item.loc, import_item.rear);
 				}
+			}
 
-				if( importObject.gyro )
-					this.setGyroType( importObject.gyro );
+			if (importObject.allocation) {
+				_criticalAllocationTable = importObject.allocation;
 
-				if( importObject.engineType )
-					this.setEngineType( importObject.engineType );
-
-				if( importObject.additionalHeatSinks )
-					this.setAdditionalHeatSinks( importObject.additionalHeatSinks );
-
-				if( importObject.heat_sink_type )
-					this.setHeatSinksType( importObject.heat_sink_type );
-
-
-
-				if( importObject.armor_weight )
-					this.setArmorWeight( importObject.armor_weight );
-
-				if( importObject.armor_allocation )
-					_armorAllocation = importObject.armor_allocation;
-
-				if( importObject.uuid )
-					_uuid = importObject.uuid;
-
-
-				if( importObject.features ) {
-
-
-					// Lower Arm Actuators
-					if ( importObject.features.indexOf( "no_rala" ) > -1 )
-						this.removeLowerArmActuator( "ra" );
-					if ( importObject.features.indexOf( "no_lala" ) > -1)
-						this.removeLowerArmActuator( "la" );
-
-					// Hand Actuators
-					if ( importObject.features.indexOf( "no_raha" ) > -1 )
-						this.removeHandActuator( "ra" );
-					if ( importObject.features.indexOf( "no_laha" ) > -1)
-						this.removeHandActuator( "la" );
-
-					// Small Cockpit
-					if ( importObject.features.indexOf( "sm_cockpit" ) > -1)
-						_smallCockpit = true;
-
-					// Other features
+				for (var eq_count = 0; eq_count < _criticalAllocationTable.length; eq_count++) {
+					if (!_criticalAllocationTable[eq_count].rear)
+						_criticalAllocationTable[eq_count].rear = false;
+					else
+						_criticalAllocationTable[eq_count].rear = true;
 				}
+			}
 
-				if( importObject.equipment ) {
-					for( eq_count = 0; eq_count < importObject.equipment.length; eq_count++) {
+			if (!_useLang && localStorage["tmp.preferred_language"])
+				_useLang = localStorage["tmp.preferred_language"];
 
-						import_item = importObject.equipment[eq_count];
-						// if( this.getTech().tag == "is")
-						// 	this.addEquipmentFromTag( import_item.tag, import_item.loc );
-						// if( this.getTech().tag == "clan")
-						// 	this.addEquipmentFromTag( import_item.tag), null, import_item.loc );
-						if( import_item.rear && import_item.rear > 0)
-							import_item.rear = true;
-						else
-							import_item.rear = false;
-						this.addEquipmentFromTag( import_item.tag, this.getTech().tag, import_item.loc, import_item.rear );
-					}
-				}
-
-				if( importObject.allocation ) {
-					_criticalAllocationTable = importObject.allocation;
-
-					for( var eq_count = 0; eq_count < _criticalAllocationTable.length; eq_count++) {
-						if( !_criticalAllocationTable[ eq_count ].rear )
-							_criticalAllocationTable[ eq_count ].rear = false;
-						else
-							_criticalAllocationTable[ eq_count ].rear = true;
-					}
-				}
-
-				if( !_useLang && localStorage["tmp.preferred_language"] )
-					_useLang = localStorage["tmp.preferred_language"];
-
-				this.calc();
-				return true;
+			this.calc();
+			return true;
 		} else {
-				return false;
+			return false;
 		}
 
 	}
@@ -17935,67 +18031,67 @@ function Mech (type) {
 		return _weights;
 	}
 
-	this.setCenterTorsoArmor = function( armorValue ) {
+	this.setCenterTorsoArmor = function(armorValue) {
 		_armorAllocation.centerTorso = armorValue / 1;
 		this.calc();
 		return _armorAllocation.centerTorso;
 	}
 
-	this.setCenterTorsoRearArmor = function( armorValue ) {
+	this.setCenterTorsoRearArmor = function(armorValue) {
 		_armorAllocation.centerTorsoRear = armorValue / 1;
 		this.calc();
 		return _armorAllocation.centerTorsoRear;
 	}
 
-	this.setHeadArmor = function( armorValue ) {
+	this.setHeadArmor = function(armorValue) {
 		_armorAllocation.head = armorValue / 1;
 		this.calc();
 		return _armorAllocation.head;
 	}
 
-	this.setLeftArmArmor = function( armorValue ) {
+	this.setLeftArmArmor = function(armorValue) {
 		_armorAllocation.leftArm = armorValue / 1;
 		this.calc();
 		return _armorAllocation.leftArm;
 	}
 
-	this.setLeftLegArmor = function( armorValue ) {
+	this.setLeftLegArmor = function(armorValue) {
 		_armorAllocation.leftLeg = armorValue / 1;
 		this.calc();
 		return _armorAllocation.leftLeg;
 	}
 
-	this.setLeftTorsoArmor = function( armorValue ) {
+	this.setLeftTorsoArmor = function(armorValue) {
 		_armorAllocation.leftTorso = armorValue / 1;
 		this.calc();
 		return _armorAllocation.leftTorso;
 	}
 
-	this.setLeftTorsoRearArmor = function( armorValue ) {
+	this.setLeftTorsoRearArmor = function(armorValue) {
 		_armorAllocation.leftTorsoRear = armorValue / 1;
 		this.calc();
 		return _armorAllocation.leftTorsoRear;
 	}
 
-	this.setRightArmArmor = function( armorValue ) {
+	this.setRightArmArmor = function(armorValue) {
 		_armorAllocation.rightArm = armorValue / 1;
 		this.calc();
 		return _armorAllocation.rightArm;
 	}
 
-	this.setRightLegArmor = function( armorValue ) {
+	this.setRightLegArmor = function(armorValue) {
 		_armorAllocation.rightLeg = armorValue / 1;
 		this.calc();
 		return _armorAllocation.rightLeg;
 	}
 
-	this.setRightTorsoArmor = function( armorValue ) {
+	this.setRightTorsoArmor = function(armorValue) {
 		_armorAllocation.rightTorso = armorValue / 1;
 		this.calc();
 		return _armorAllocation.rightTorso;
 	}
 
-	this.setRightTorsoRearArmor = function( armorValue ) {
+	this.setRightTorsoRearArmor = function(armorValue) {
 		_armorAllocation.rightTorsoRear = armorValue / 1;
 		this.calc();
 		return _armorAllocation.rightTorsoRear;
@@ -18008,29 +18104,29 @@ function Mech (type) {
 
 	this.addEquipment = function(equipment_index, equipment_list_tag, location, rear) {
 		equipment_list = Array();
-		if( equipment_list_tag == "is") {
+		if (equipment_list_tag == "is") {
 			equipment_list = mechISEquipment;
 
 		}
 
-		if( equipment_list_tag == "clan" ){
+		if (equipment_list_tag == "clan") {
 			equipment_list = mechClanEquipment;
 		}
 
-		if( equipment_list[equipment_index] ) {
-			if( typeof(jQuery) != "undefined" ) {
+		if (equipment_list[equipment_index]) {
+			if (typeof(jQuery) != "undefined") {
 				equipment_item = jQuery.extend({}, equipment_list[equipment_index]);
 			}
-			if( typeof(angular) != "undefined" ) {
-				equipment_item = angular.copy(equipment_list[add_counter] );
+			if (typeof(angular) != "undefined") {
+				equipment_item = angular.copy(equipment_list[add_counter]);
 			}
-			if( typeof(location) != "undefined" )
+			if (typeof(location) != "undefined")
 				equipment_item.location = location;
-			if( typeof(rear) != "undefined" )
+			if (typeof(rear) != "undefined")
 				equipment_item.rear = rear;
 			else
 				equipment_item.rear = false;
-			_equipmentList.push( equipment_item );
+			_equipmentList.push(equipment_item);
 			return equipment_item;
 		}
 
@@ -18040,31 +18136,31 @@ function Mech (type) {
 	this.addEquipmentFromTag = function(equipment_tag, equipment_list_tag, location, rear) {
 		equipment_list = Array();
 
-		if( !equipment_list_tag ) {
+		if (!equipment_list_tag) {
 			equipment_list_tag = _tech.tag;
 		}
 
-		if( equipment_list_tag == "is") {
+		if (equipment_list_tag == "is") {
 			equipment_list = mechISEquipment;
 
 		}
 
-		if( equipment_list_tag == "clan" ){
+		if (equipment_list_tag == "clan") {
 			equipment_list = mechClanEquipment;
 		}
 
-		for( add_counter = 0; add_counter < equipment_list.length; add_counter++) {
-			if( equipment_tag == equipment_list[add_counter].tag ) {
-				if( typeof(jQuery) != "undefined" ) {
+		for (add_counter = 0; add_counter < equipment_list.length; add_counter++) {
+			if (equipment_tag == equipment_list[add_counter].tag) {
+				if (typeof(jQuery) != "undefined") {
 					equipment_item = jQuery.extend({}, equipment_list[equipment_index]);
 				}
-				if( typeof(angular) != "undefined" ) {
-					equipment_item = angular.copy(equipment_list[add_counter] );
+				if (typeof(angular) != "undefined") {
+					equipment_item = angular.copy(equipment_list[add_counter]);
 				}
-				if( typeof(location) != "undefined" )
+				if (typeof(location) != "undefined")
 					equipment_item.location = location;
 				equipment_item.rear = rear;
-				_equipmentList.push( equipment_item );
+				_equipmentList.push(equipment_item);
 				return equipment_item;
 			}
 		}
@@ -18073,7 +18169,7 @@ function Mech (type) {
 	};
 
 	this.removeEquipment = function(equipment_index) {
-		if( _equipmentList[equipment_index] ) {
+		if (_equipmentList[equipment_index]) {
 			_equipmentList.splice(equipment_index, 1);
 			return 1;
 		}
@@ -18081,7 +18177,7 @@ function Mech (type) {
 	};
 
 	this.setRear = function(equipment_index, newValue) {
-		if( _equipmentList[equipment_index] ) {
+		if (_equipmentList[equipment_index]) {
 			_equipmentList[equipment_index].rear = newValue;
 		}
 		return _equipmentList[equipment_index].rear;
@@ -18089,48 +18185,46 @@ function Mech (type) {
 
 	this.updateCriticalAllocationTable = function() {
 		_criticalAllocationTable = Array();
-		for( mech_location in _criticals ) {
+		for (mech_location in _criticals) {
 
-			for( var crit_item_counter = 0; crit_item_counter < _criticals[mech_location].length; crit_item_counter++) {
-				if(
+			for (var crit_item_counter = 0; crit_item_counter < _criticals[mech_location].length; crit_item_counter++) {
+				if (
 					_criticals[mech_location] &&
 					_criticals[mech_location][crit_item_counter] &&
 					_criticals[mech_location][crit_item_counter].movable
 				) {
 					short_loc = "";
-					if(mech_location == "head" ) {
+					if (mech_location == "head") {
 						short_loc = "hd";
-					} else if( mech_location == "centerTorso" ) {
+					} else if (mech_location == "centerTorso") {
 						short_loc = "ct";
-					} else if( mech_location == "rightTorso" ) {
+					} else if (mech_location == "rightTorso") {
 						short_loc = "rt";
-					} else if( mech_location == "rightLeg" ) {
+					} else if (mech_location == "rightLeg") {
 						short_loc = "rl";
-					} else if( mech_location == "rightArm" ) {
+					} else if (mech_location == "rightArm") {
 						short_loc = "ra";
-					} else if( mech_location == "leftTorso" ) {
+					} else if (mech_location == "leftTorso") {
 						short_loc = "lt";
-					} else if( mech_location == "leftLeg" ) {
+					} else if (mech_location == "leftLeg") {
 						short_loc = "ll";
-					} else if( mech_location == "leftArm" ) {
+					} else if (mech_location == "leftArm") {
 						short_loc = "la";
 					}
 
 					var rear = false;
-					if( _criticals[mech_location][crit_item_counter].rear || ( _criticals[mech_location][crit_item_counter].obj && _criticals[mech_location][crit_item_counter].obj.rear )  )
+					if (_criticals[mech_location][crit_item_counter].rear || (_criticals[mech_location][crit_item_counter].obj && _criticals[mech_location][crit_item_counter].obj.rear))
 						rear = true;
 
-					if(_criticals[mech_location][crit_item_counter] && _criticals[mech_location][crit_item_counter].obj)
+					if (_criticals[mech_location][crit_item_counter] && _criticals[mech_location][crit_item_counter].obj)
 						_criticals[mech_location][crit_item_counter].obj.location = short_loc;
 
-					_criticalAllocationTable.push(
-						{
-							tag: _criticals[mech_location][crit_item_counter].tag,
-							loc: short_loc,
-							rear: rear,
-							slot: crit_item_counter
-						}
-					);
+					_criticalAllocationTable.push({
+						tag: _criticals[mech_location][crit_item_counter].tag,
+						loc: short_loc,
+						rear: rear,
+						slot: crit_item_counter
+					});
 				}
 			}
 		}
@@ -18139,87 +18233,87 @@ function Mech (type) {
 
 	};
 
-	this.moveCritical = function ( itemTag, itemRear, fromLocation, fromIndex, toLocation, toIndex ) {
+	this.moveCritical = function(itemTag, itemRear, fromLocation, fromIndex, toLocation, toIndex) {
 
 
 
 		fromItem = null
 		fromLocationObj = null;
-		if( fromLocation == "un" ) {
-			if( _unallocatedCriticals[fromIndex] ) {
+		if (fromLocation == "un") {
+			if (_unallocatedCriticals[fromIndex]) {
 				fromItem = _unallocatedCriticals[fromIndex];
 
 			}
 			fromLocationObj = _unallocatedCriticals;
-		} else if(fromLocation == "hd" ) {
-			if( _criticals.head[fromIndex] ) {
+		} else if (fromLocation == "hd") {
+			if (_criticals.head[fromIndex]) {
 				fromItem = _criticals.head[fromIndex];
 				fromLocationObj = _criticals.head;
 			}
-		} else if( fromLocation == "ct" ) {
-			if( _criticals.centerTorso[fromIndex] ) {
+		} else if (fromLocation == "ct") {
+			if (_criticals.centerTorso[fromIndex]) {
 				fromItem = _criticals.centerTorso[fromIndex];
 				fromLocationObj = _criticals.centerTorso;
 			}
-		} else if( fromLocation == "rt" ) {
-			if( _criticals.rightTorso[fromIndex] ) {
+		} else if (fromLocation == "rt") {
+			if (_criticals.rightTorso[fromIndex]) {
 				fromItem = _criticals.rightTorso[fromIndex];
 				fromLocationObj = _criticals.rightTorso;
 			}
-		} else if( fromLocation == "ra" ) {
-			if( _criticals.rightArm[fromIndex] ) {
+		} else if (fromLocation == "ra") {
+			if (_criticals.rightArm[fromIndex]) {
 				fromItem = _criticals.rightArm[fromIndex];
 				fromLocationObj = _criticals.rightArm;
 			}
-		} else if( fromLocation == "rl" ) {
-			if( _criticals.rightLeg[fromIndex] ) {
+		} else if (fromLocation == "rl") {
+			if (_criticals.rightLeg[fromIndex]) {
 				fromItem = _criticals.rightLeg[fromIndex];
 				fromLocationObj = _criticals.rightLeg;
 			}
-		} else if( fromLocation == "lt" ) {
-			if( _criticals.leftTorso[fromIndex] ) {
+		} else if (fromLocation == "lt") {
+			if (_criticals.leftTorso[fromIndex]) {
 				fromItem = _criticals.leftTorso[fromIndex];
 				fromLocationObj = _criticals.leftTorso;
 			}
-		} else if( fromLocation == "la" ) {
-			if( _criticals.leftArm[fromIndex] ) {
+		} else if (fromLocation == "la") {
+			if (_criticals.leftArm[fromIndex]) {
 				fromItem = _criticals.leftArm[fromIndex];
 				fromLocationObj = _criticals.leftArm;
 			}
-		} else if( fromLocation == "ll" ) {
-			if( _criticals.leftLeg[fromIndex] ) {
+		} else if (fromLocation == "ll") {
+			if (_criticals.leftLeg[fromIndex]) {
 				fromItem = _criticals.leftLeg[fromIndex];
 				fromLocationObj = _criticals.leftLeg;
 			}
 		}
 
-	;
+		;
 
-		if( fromItem ) {
+		if (fromItem) {
 
-			if( toLocation == "hd" ) {
-				return this._moveItemToArea( fromLocationObj, itemRear, fromItem, fromIndex, _criticals.head, toIndex );
-			} else if( toLocation == "ct" ) {
-				return this._moveItemToArea( fromLocationObj, itemRear, fromItem, fromIndex, _criticals.centerTorso, toIndex );
-			} else if( toLocation == "rt" ) {
-				return this._moveItemToArea( fromLocationObj, itemRear, fromItem, fromIndex, _criticals.rightTorso, toIndex );
-			} else if( toLocation == "rl" ) {
-				return this._moveItemToArea( fromLocationObj, itemRear, fromItem, fromIndex, _criticals.rightLeg, toIndex );
-			} else if( toLocation == "ra" ) {
-				return this._moveItemToArea( fromLocationObj, itemRear, fromItem, fromIndex, _criticals.rightArm, toIndex );
-			} else if( toLocation == "lt" ) {
-				return this._moveItemToArea( fromLocationObj, itemRear, fromItem, fromIndex, _criticals.leftTorso, toIndex );
-			} else if( toLocation == "ll" ) {
-				return this._moveItemToArea( fromLocationObj, itemRear, fromItem, fromIndex, _criticals.leftLeg, toIndex );
-			} else if( toLocation == "la" ) {
-				return this._moveItemToArea( fromLocationObj, itemRear, fromItem, fromIndex, _criticals.leftArm, toIndex );
+			if (toLocation == "hd") {
+				return this._moveItemToArea(fromLocationObj, itemRear, fromItem, fromIndex, _criticals.head, toIndex);
+			} else if (toLocation == "ct") {
+				return this._moveItemToArea(fromLocationObj, itemRear, fromItem, fromIndex, _criticals.centerTorso, toIndex);
+			} else if (toLocation == "rt") {
+				return this._moveItemToArea(fromLocationObj, itemRear, fromItem, fromIndex, _criticals.rightTorso, toIndex);
+			} else if (toLocation == "rl") {
+				return this._moveItemToArea(fromLocationObj, itemRear, fromItem, fromIndex, _criticals.rightLeg, toIndex);
+			} else if (toLocation == "ra") {
+				return this._moveItemToArea(fromLocationObj, itemRear, fromItem, fromIndex, _criticals.rightArm, toIndex);
+			} else if (toLocation == "lt") {
+				return this._moveItemToArea(fromLocationObj, itemRear, fromItem, fromIndex, _criticals.leftTorso, toIndex);
+			} else if (toLocation == "ll") {
+				return this._moveItemToArea(fromLocationObj, itemRear, fromItem, fromIndex, _criticals.leftLeg, toIndex);
+			} else if (toLocation == "la") {
+				return this._moveItemToArea(fromLocationObj, itemRear, fromItem, fromIndex, _criticals.leftArm, toIndex);
 			}
 		}
 
 		return false;
 	};
 
-	this._moveItemToArea = function( fromLocation, itemRear, fromItem, fromIndex, toLocation, toIndex) {
+	this._moveItemToArea = function(fromLocation, itemRear, fromItem, fromIndex, toLocation, toIndex) {
 
 
 		// Step One check to see if TO has enough slots for item....
@@ -18231,31 +18325,29 @@ function Mech (type) {
 
 
 		hasSpace = true;
-		if( toLocation.length < toIndex + fromItem.crits )
+		if (toLocation.length < toIndex + fromItem.crits)
 			return false;
-		for( var testC = 0; testC < fromItem.crits; testC++ ) {
-			if( toLocation[ toIndex + testC ] ) {
+		for (var testC = 0; testC < fromItem.crits; testC++) {
+			if (toLocation[toIndex + testC]) {
 				hasSpace = false;
 			}
 		}
 
-		if( hasSpace ) {
-			toLocation[ toIndex ] = fromItem;
-			for( var phC = 1; phC < toLocation[ toIndex ].crits; phC++ ) {
-				toLocation[ toIndex + phC ] = placeholder;
+		if (hasSpace) {
+			toLocation[toIndex] = fromItem;
+			for (var phC = 1; phC < toLocation[toIndex].crits; phC++) {
+				toLocation[toIndex + phC] = placeholder;
 			}
 
 
-			fromLocation[ fromIndex ] = null;
+			fromLocation[fromIndex] = null;
 			nextCounter = 1;
-			while(
-				fromLocation[ fromIndex + nextCounter]
-					&&
-				fromLocation[ fromIndex + nextCounter].name == "placeholder"
-					&&
+			while (
+				fromLocation[fromIndex + nextCounter] &&
+				fromLocation[fromIndex + nextCounter].name == "placeholder" &&
 				nextCounter < fromLocation.length
 			) {
-				fromLocation[ fromIndex  + nextCounter ] = null;
+				fromLocation[fromIndex + nextCounter] = null;
 				nextCounter++;
 			}
 			return true;
@@ -18268,36 +18360,35 @@ function Mech (type) {
 
 	this._allocateCritical = function(equipment_tag, equipment_rear, mech_location, slot_number, remove_from_unallocated) {
 
-		for(uaet_c = 0; uaet_c < _unallocatedCriticals.length; uaet_c++) {
+		for (uaet_c = 0; uaet_c < _unallocatedCriticals.length; uaet_c++) {
 
-			if(
-				equipment_tag == _unallocatedCriticals[uaet_c].tag
-					&&
+			if (
+				equipment_tag == _unallocatedCriticals[uaet_c].tag &&
 				_unallocatedCriticals[uaet_c].rear == equipment_rear
 			) {
-				if(  _unallocatedCriticals[uaet_c] && _unallocatedCriticals[uaet_c].obj )
+				if (_unallocatedCriticals[uaet_c] && _unallocatedCriticals[uaet_c].obj)
 					_unallocatedCriticals[uaet_c].obj.location = mech_location;
 
-				if(mech_location == "hd" ) {
-					this._assignItemToArea( _criticals.head, _unallocatedCriticals[uaet_c], _unallocatedCriticals[uaet_c].crits, slot_number );
-				} else if( mech_location == "ct" ) {
-					this._assignItemToArea( _criticals.centerTorso, _unallocatedCriticals[uaet_c], _unallocatedCriticals[uaet_c].crits, slot_number );
-				} else if( mech_location == "rt" ) {
-					this._assignItemToArea( _criticals.rightTorso, _unallocatedCriticals[uaet_c], _unallocatedCriticals[uaet_c].crits, slot_number );
-				} else if( mech_location == "rl" ) {
-					this._assignItemToArea( _criticals.rightLeg, _unallocatedCriticals[uaet_c], _unallocatedCriticals[uaet_c].crits, slot_number );
-				} else if( mech_location == "ra" ) {
-					this._assignItemToArea( _criticals.rightArm, _unallocatedCriticals[uaet_c], _unallocatedCriticals[uaet_c].crits, slot_number );
-				} else if( mech_location == "lt" ) {
-					this._assignItemToArea( _criticals.leftTorso, _unallocatedCriticals[uaet_c], _unallocatedCriticals[uaet_c].crits, slot_number );
-				} else if( mech_location == "ll" ) {
-					this._assignItemToArea( _criticals.leftLeg, _unallocatedCriticals[uaet_c], _unallocatedCriticals[uaet_c].crits, slot_number );
-				} else if( mech_location == "la" ) {
-					this._assignItemToArea( _criticals.leftArm, _unallocatedCriticals[uaet_c], _unallocatedCriticals[uaet_c].crits, slot_number );
+				if (mech_location == "hd") {
+					this._assignItemToArea(_criticals.head, _unallocatedCriticals[uaet_c], _unallocatedCriticals[uaet_c].crits, slot_number);
+				} else if (mech_location == "ct") {
+					this._assignItemToArea(_criticals.centerTorso, _unallocatedCriticals[uaet_c], _unallocatedCriticals[uaet_c].crits, slot_number);
+				} else if (mech_location == "rt") {
+					this._assignItemToArea(_criticals.rightTorso, _unallocatedCriticals[uaet_c], _unallocatedCriticals[uaet_c].crits, slot_number);
+				} else if (mech_location == "rl") {
+					this._assignItemToArea(_criticals.rightLeg, _unallocatedCriticals[uaet_c], _unallocatedCriticals[uaet_c].crits, slot_number);
+				} else if (mech_location == "ra") {
+					this._assignItemToArea(_criticals.rightArm, _unallocatedCriticals[uaet_c], _unallocatedCriticals[uaet_c].crits, slot_number);
+				} else if (mech_location == "lt") {
+					this._assignItemToArea(_criticals.leftTorso, _unallocatedCriticals[uaet_c], _unallocatedCriticals[uaet_c].crits, slot_number);
+				} else if (mech_location == "ll") {
+					this._assignItemToArea(_criticals.leftLeg, _unallocatedCriticals[uaet_c], _unallocatedCriticals[uaet_c].crits, slot_number);
+				} else if (mech_location == "la") {
+					this._assignItemToArea(_criticals.leftArm, _unallocatedCriticals[uaet_c], _unallocatedCriticals[uaet_c].crits, slot_number);
 				}
 
 
-				if( remove_from_unallocated ) {
+				if (remove_from_unallocated) {
 					_unallocatedCriticals.splice(uaet_c, 1);
 				}
 
@@ -18308,8 +18399,8 @@ function Mech (type) {
 	};
 
 	this.clearHeatSinkCriticals = function() {
-		for( alloc_c = _criticalAllocationTable.length; alloc_c >= 0; alloc_c--) {
-			if( _criticalAllocationTable[alloc_c] && _criticalAllocationTable[alloc_c].tag == "heat-sink" )
+		for (alloc_c = _criticalAllocationTable.length; alloc_c >= 0; alloc_c--) {
+			if (_criticalAllocationTable[alloc_c] && _criticalAllocationTable[alloc_c].tag == "heat-sink")
 				_criticalAllocationTable.splice(alloc_c, 1);
 		}
 
@@ -18317,10 +18408,9 @@ function Mech (type) {
 	};
 
 	this.clearArmCriticalAllocationTable = function() {
-		for( alloc_c = _criticalAllocationTable.length; alloc_c >= 0; alloc_c--) {
-			if(
-				_criticalAllocationTable[alloc_c] && _criticalAllocationTable[alloc_c].loc == "ra"
-					||
+		for (alloc_c = _criticalAllocationTable.length; alloc_c >= 0; alloc_c--) {
+			if (
+				_criticalAllocationTable[alloc_c] && _criticalAllocationTable[alloc_c].loc == "ra" ||
 				_criticalAllocationTable[alloc_c] && _criticalAllocationTable[alloc_c].loc == "la"
 			) {
 				_criticalAllocationTable.splice(alloc_c, 1);
@@ -18337,7 +18427,7 @@ function Mech (type) {
 	}
 
 	this.setEquipmentLocation = function(equipment_index, location) {
-		if( _equipmentList[equipment_index] ) {
+		if (_equipmentList[equipment_index]) {
 			_equipmentList[equipment_index].location = location;
 			return _equipmentList[equipment_index];
 		}
