@@ -27,8 +27,6 @@ function Mech (type) {
 		rightLeg: 0
 	};
 
-
-
 	var _no_right_arm_hand_actuator = false;
 	var _no_right_arm_lower_actuator = false;
 

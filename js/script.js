@@ -5596,9 +5596,8 @@ var colorVeryLightGray = "rgb(225,225,225)";
 var colorGold = "rgb(223,171,45)";
 var colorTan = "rgb(253,253,227)";
 
-
 function getAppVersion() {
-	return "1.0.0 alpha";
+	return "0.0.4 alpha";
 }
 
 function generateUUID(){
@@ -14062,8 +14061,6 @@ function Mech (type) {
 		leftLeg: 0,
 		rightLeg: 0
 	};
-
-
 
 	var _no_right_arm_hand_actuator = false;
 	var _no_right_arm_lower_actuator = false;

@@ -16,9 +16,8 @@ var colorVeryLightGray = "rgb(225,225,225)";
 var colorGold = "rgb(223,171,45)";
 var colorTan = "rgb(253,253,227)";
 
-
 function getAppVersion() {
-	return "1.0.0 alpha";
+	return "0.0.4 alpha";
 }
 
 function generateUUID(){
