@@ -159,8 +159,8 @@ var battlemechCreatorControllerStep1Array =
 				updateMechStatusBarAndTRO($scope, $translate);
 			};
 
-			$scope.update_mechType = function() {
-				$scope.current_mech.setMechType( $scope.mechType.selectedOption.id );
+			$scope.update_mech_type = function() {
+				$scope.current_mech.setMechType( $scope.mech_type.selectedOption.id );
 				// Remove any assigned criticals in the arms...
 				$scope.current_mech.clearArmCriticalAllocationTable();
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();

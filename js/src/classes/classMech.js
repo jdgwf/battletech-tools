@@ -1959,6 +1959,13 @@ function Mech(type) {
 		}
 	}
 
+	this.isQuad = function() {
+		if (_mechType.class.toLowerCase() == "quad")
+			return true;
+		else
+			return false;
+	}
+
 	this._calcCBillCost = function() {
 		// TODO Calculations
 		_calcLogCBill = "";
@@ -4037,6 +4044,7 @@ function Mech(type) {
 
 		if (typeof(importObject) == "object") {
 			this.setName(importObject.name);
+			//~ console.log( "importObject.mechType", importObject.mechType );
 			if (importObject.mechType)
 				this.setMechType(importObject.mechType);
 
