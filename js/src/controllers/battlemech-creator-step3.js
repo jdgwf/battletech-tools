@@ -28,7 +28,7 @@ var battlemechCreatorControllerStep3Array =
 				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
 				$scope.current_mech.uuid = generateUUID();
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 			}
 
 			$scope.mechHeatSinkTypes = [];
@@ -73,7 +73,6 @@ var battlemechCreatorControllerStep3Array =
 			}
 
 			$scope.update_selected_heat_sink_tech = function() {
-				//~ console.log( "$scope.selected_heat_sink_tech", $scope.selected_heat_sink_tech);
 				$scope.current_mech.setHeatSinksType( $scope.selected_heat_sink_tech.tag );
 				$scope.current_mech.clearHeatSinkCriticals();
 				update_heat_sink_dropdown($scope, $translate, $scope.current_mech);
@@ -127,7 +126,7 @@ function update_heat_sink_dropdown($scope, $translate, current_mech) {
 			the_label = translation.BM_STEP3_CRITICAL_REQUIRED;
 			the_label_single = translation.BM_STEP3_CRITICAL_REQUIRED_SINGLE;
 			the_label_none = translation.BM_STEP3_CRITICAL_REQUIRED_NONE;
-			//~ console.log( "heat_sinks_required", heat_sinks_required);
+
 			$scope.hs_crits_required = heat_sinks_required.number * heat_sinks_required.slots_each;
 			hs_crit_count = heat_sinks_required.number * heat_sinks_required.slots_each;
 			if( hs_crit_count < 0)

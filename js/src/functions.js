@@ -16,6 +16,11 @@ var colorVeryLightGray = "rgb(225,225,225)";
 var colorGold = "rgb(223,171,45)";
 var colorTan = "rgb(253,253,227)";
 
+
+function getAppVersion() {
+	return "1.0.0 alpha";
+}
+
 function generateUUID(){
     var d = new Date().getTime();
     if(window.performance && typeof window.performance.now === "function"){
@@ -37,6 +42,20 @@ function sortByLocationThenName( a, b ) {
 	if( a.name > b.name )
 		return 1;
 	if( a.name < b.name )
+		return -1;
+	return 0;
+}
+
+
+
+function sortByBVThenHeat( a, b ) {
+	if( a.battlevalue < b.battlevalue )
+		return 1;
+	if( a.battlevalue > b.battlevalue )
+		return -1;
+	if( a.heat < b.heat )
+		return 1;
+	if( a.heat > b.heat )
 		return -1;
 	return 0;
 }

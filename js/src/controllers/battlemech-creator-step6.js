@@ -32,7 +32,7 @@ var battlemechCreatorControllerStep6Array =
 				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
 				$scope.current_mech.uuid = generateUUID();
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 			}
 
 			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
@@ -54,7 +54,7 @@ var battlemechCreatorControllerStep6Array =
 				$scope.label_right_torso = translation.TRO_ARMOR_RT;
 				$scope.label_left_torso = translation.TRO_ARMOR_LT;
 
-				if( $scope.current_mech.mechType.class.toLowerCase() == "quad") {
+				if( $scope.current_mech.getMechType().class.toLowerCase() == "quad") {
 					$scope.battlemech_is_quad = true;
 					$scope.label_right_arm = translation.TRO_ARMOR_RFL;
 					$scope.label_left_arm = translation.TRO_ARMOR_LFL;
@@ -84,7 +84,7 @@ var battlemechCreatorControllerStep6Array =
 				$scope.torsosAndHeadOnly = false;
 				$scope.legsAndTorsosOnly = false;
 
-				//~ console.log( "step6ItemClick", criticalItem, indexLocation, locationString );
+
 				if( $scope.selectedItem == null ) {
 					if( criticalItem != null) {
 						if( criticalItem.movable == true ) {
@@ -94,11 +94,10 @@ var battlemechCreatorControllerStep6Array =
 								 index: indexLocation
 							};
 						} else {
-							//~ console.log( "Unmovable item selected" );
+
 							$scope.errorCannotMove = true;
 						}
 					} else {
-						//~ console.log( "Unallocated area selected" );
 
 
 					}
@@ -106,7 +105,7 @@ var battlemechCreatorControllerStep6Array =
 					if( $scope.selectedItem.item == criticalItem ) {
 						$scope.selectedItem = null;
 					} else if( criticalItem ) {
-						//~ console.log( "Slot is already filled" );
+
 						$scope.errorCannotPlace = true;
 					} else {
 
@@ -169,7 +168,7 @@ var battlemechCreatorControllerStep6Array =
 								//~ console.log( "a", $scope.current_mech.criticals.leftTorso )
 								$scope.current_mech.updateCriticalAllocationTable();
 								//~ console.log("b", $scope.current_mech.criticals.leftTorso )
-								$scope.current_mech._calc();
+								$scope.current_mech.calc();
 								//~ console.log("c", $scope.current_mech.criticals.leftTorso )
 								localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 
@@ -236,7 +235,7 @@ var battlemechCreatorControllerStep6Array =
 			$scope.resetAllocations = function() {
 				$scope.selectedItem = null;
 				$scope.current_mech.clearCriticalAllocationTable();
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
 				update_step_6_items($scope);
 				updateMechStatusBarAndTRO($scope, $translate);
@@ -253,27 +252,26 @@ function update_step_6_items($scope) {
 	$scope.has_la_lower_arm_actuator = $scope.current_mech.hasLowerArmActuator("la");
 	$scope.has_ra_lower_arm_actuator = $scope.current_mech.hasLowerArmActuator("ra");
 
-//~ console.log($scope.current_mech.criticals.head );
-	$scope.current_mech.trimCriticals();
 
-	$scope.battlemech_head = $scope.current_mech.criticals.head;
+	var criticals = $scope.current_mech.getCriticals();
 
-	$scope.battlemech_left_arm = $scope.current_mech.criticals.leftArm;
+	$scope.battlemech_head = criticals.head;
 
-	$scope.battlemech_right_arm = $scope.current_mech.criticals.rightArm;
+	$scope.battlemech_left_arm = criticals.leftArm;
 
-	$scope.battlemech_left_leg = $scope.current_mech.criticals.leftLeg;
+	$scope.battlemech_right_arm = criticals.rightArm;
 
-	$scope.battlemech_right_leg = $scope.current_mech.criticals.rightLeg;
+	$scope.battlemech_left_leg = criticals.leftLeg;
 
-	$scope.battlemech_left_torso = $scope.current_mech.criticals.leftTorso;
+	$scope.battlemech_right_leg = criticals.rightLeg;
 
-	$scope.battlemech_center_torso = $scope.current_mech.criticals.centerTorso;
+	$scope.battlemech_left_torso = criticals.leftTorso;
 
-	$scope.battlemech_right_torso = $scope.current_mech.criticals.rightTorso;
+	$scope.battlemech_center_torso = criticals.centerTorso;
 
-	$scope.battlemech_unallocated_items = $scope.current_mech.unallocatedCriticals;
-	//~ console.log( $scope.battlemech_head );
+	$scope.battlemech_right_torso = criticals.rightTorso;
+
+	$scope.battlemech_unallocated_items = $scope.current_mech.getUnallocatedCriticals();
 }
 
 angular.module("webApp").controller(

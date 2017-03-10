@@ -15,8 +15,8 @@ var battlemechCreatorControllerStep2Array =
 					selected_walking_mp = 0;
 					selected_jumping_mp = 0;
 
-					// TODO calculate the max engine size for tonnage
-					max_walking = (400/ $scope.current_mech.tonnage);
+					// Calculate the max engine size for tonnage
+					max_walking = (400/ $scope.current_mech.getTonnage() );
 					max_jumping = $scope.current_mech.getWalkSpeed();
 
 					for( m_counter = 0; m_counter <= max_walking; m_counter++) {
@@ -32,7 +32,6 @@ var battlemechCreatorControllerStep2Array =
 							}
 						}
 					}
-
 					for( m_counter = 0; m_counter <= max_jumping; m_counter++) {
 						if( m_counter == 0 ) {
 							availble_jumping_mp.push( { id: m_counter, name: "- " + translation.BM_STEP2_SELECT_JUMP + " -"} );
@@ -65,11 +64,11 @@ var battlemechCreatorControllerStep2Array =
 
 				for( var lCount = mechEngineTypes.length - 1; lCount > -1; lCount -- ) {
 					if(
-						getItemAvailability (mechEngineTypes[ lCount ], $scope.current_mech.era)
+						getItemAvailability (mechEngineTypes[ lCount ], $scope.current_mech.getEra() )
 							&&
 						// Make sure that the engine is available to the tech selected
 						(
-							mechEngineTypes[ lCount ].criticals[ $scope.current_mech.tech.tag ]
+							mechEngineTypes[ lCount ].criticals[ $scope.current_mech.getTech().tag ]
 						)
 					) {
 						var localName = "";
@@ -118,7 +117,7 @@ var battlemechCreatorControllerStep2Array =
 				var availble_options = [];
 
 				for( var lCount = mechGyroTypes.length - 1; lCount > -1; lCount -- ) {
-					if( getItemAvailability(mechGyroTypes[ lCount ], $scope.current_mech.era) ) {
+					if( getItemAvailability(mechGyroTypes[ lCount ], $scope.current_mech.getEra()) ) {
 						var localName = "";
 						if( mechGyroTypes[ lCount ].name[ localStorage["tmp.preferred_language"] ] ) {
 							localName = mechGyroTypes[ lCount ].name[ localStorage["tmp.preferred_language"] ];
@@ -137,7 +136,7 @@ var battlemechCreatorControllerStep2Array =
 				if( $scope.current_mech.gyro) {
 
 					for( var lCount = 0; lCount < availble_options.length; lCount++ ) {
-						if( availble_options[ lCount ].id == $scope.current_mech.gyro.tag ) {
+						if( availble_options[ lCount ].id == $scope.current_mech.getGyro().tag ) {
 							selected_option = availble_options[ lCount ];
 						}
 					}
@@ -183,7 +182,7 @@ var battlemechCreatorControllerStep2Array =
 				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
 				$scope.current_mech.uuid = generateUUID();
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 			}
 
 			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];

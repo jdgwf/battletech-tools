@@ -30,7 +30,7 @@ var battlemechCreatorControllerStep4Array =
 				$scope.current_mech.importJSON( localStorage["tmp.current_mech"] );
 			} else {
 				$scope.current_mech.uuid = generateUUID();
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 			}
 
 			$scope.current_mech.useLang = localStorage["tmp.preferred_language"];
@@ -65,7 +65,7 @@ var battlemechCreatorControllerStep4Array =
 
 			$translate(['BM_STEP4_UNAVAILABLE_PAREN']).then(function (translation) {
 
-				var selectedEra = $scope.current_mech.era;
+				var selectedEra = $scope.current_mech.getEra();
 
 				for(var eqc = $scope.availableArmorTypes.length - 1; eqc > -1; eqc-- ) {
 					if( $scope.availableArmorTypes[eqc].name[ localStorage["tmp.preferred_language"] ])
@@ -96,9 +96,8 @@ var battlemechCreatorControllerStep4Array =
 
 
 			$scope.update_armor_type = function( armorType ) {
-				//~ console.log( "update_armor_type", armorType );
 				$scope.current_mech.setArmorType( armorType.tag );
-				$scope.current_mech._calc();
+				$scope.current_mech.calc();
 				update_step4_page_items($scope, $translate, $scope.current_mech);
 				updateMechStatusBarAndTRO($scope, $translate);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
@@ -108,7 +107,7 @@ var battlemechCreatorControllerStep4Array =
 			$scope.allocate_max = function() {
 
 				internal_structure = $scope.current_mech.getInteralStructure();
-				//console.log( "internal_structure", internal_structure);
+
 				centerTorsoArmor = internal_structure.centerTorso * 2;
 				lrTorsoArmor = internal_structure.rightTorso * 2;
 
@@ -378,7 +377,7 @@ function update_step4_page_items($scope, $translate, current_mech) {
 		label_armor_stats += translation.BM_STEP4_UNALLOCATED_ARMOR + ": " + $scope.current_mech.getUnallocatedArmor() + "<br />";
 
 		// Update Armor Select Dropdowns....
-		armor_allocations = $scope.current_mech.getArmorAllocations();
+		armor_allocations = $scope.current_mech.getArmorAllocation();
 		internal_structure = $scope.current_mech.getInteralStructure();
 
 

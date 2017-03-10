@@ -2595,7 +2595,7 @@ var mechISEquipment = Array(
 		introduced: 2250,
 		extinct: 0,
 		reintroduced: 0,
-		battlevalue: 75,
+		battlevalue: 70,
 		heat: 1,
 		weight: 8,
 		range_min: {
