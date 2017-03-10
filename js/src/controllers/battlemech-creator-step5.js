@@ -88,6 +88,8 @@ var battlemechCreatorControllerStep5Array =
 
 				selectedEra = $scope.current_mech.getEra();
 
+
+				var ammunitionLocalName = "Ammunition";
 				for(var eqc = $scope.category_list.length - 1; eqc > -1; eqc-- ) {
 
 					if( $scope.category_list[eqc].category[ localStorage["tmp.preferred_language"] ])
@@ -95,12 +97,22 @@ var battlemechCreatorControllerStep5Array =
 					else
 						$scope.category_list[eqc].local_category = $scope.category_list[eqc].category[ "en-US" ];
 
+					if( $scope.category_list[0].category["en-US"] == "Ammunition" )
+						ammunitionLocalName = $scope.category_list[eqc].local_category;
 				}
+
 
 
 				if( $scope.selectedEquipmentCategory == "" ) {
 					 $scope.selectedEquipmentCategory = $scope.category_list[0].local_category;
+
+
 				}
+
+				$scope.selectedOnAmmoCategory = false;
+
+				if( $scope.selectedEquipmentCategory == ammunitionLocalName )
+					$scope.selectedOnAmmoCategory = true;
 
 				localStorage["tmp.filterEquipmentTerm"] = $scope.filterEquipmentTerm;
 				localStorage["tmp.selectedEquipmentCategory"] = $scope.selectedEquipmentCategory;
@@ -118,6 +130,7 @@ var battlemechCreatorControllerStep5Array =
 					}
 				}
 
+				$scope.showAmmoNotification = false;
 				for(var eqc = $scope.equipment_table.length - 1; eqc > -1; eqc-- ) {
 					if( $scope.equipment_table[eqc].name[ localStorage["tmp.preferred_language"] ])
 						$scope.equipment_table[eqc].local_name = $scope.equipment_table[eqc].name[ localStorage["tmp.preferred_language"] ];
@@ -144,6 +157,7 @@ var battlemechCreatorControllerStep5Array =
 					if ( $scope.equipment_table[eqc].tag.indexOf("ammo") == -1 )
 					{
 						$scope.equipment_table[eqc].isAvailableAmmoType = true;
+						$scope.showAmmoNotification = true;
 					}
 
 					// Scan the installed equipment to check if this item has the same tag (ammo always contains weapon tag)
@@ -153,6 +167,7 @@ var battlemechCreatorControllerStep5Array =
 						if ( $scope.equipment_table[eqc].tag.indexOf( installedEquipment[ eCounter].tag ) > -1 )
 						{
 							$scope.equipment_table[eqc].isAvailableAmmoType = true;
+							$scope.showAmmoNotification = true;
 						}
 					}
 
@@ -266,8 +281,10 @@ var battlemechCreatorControllerStep5Array =
 			$scope.removeItem = function( index_number ) {
 				$scope.current_mech.removeEquipment( index_number );
 				$scope.item_locations.splice(index_number, 1);
+				$scope.filterEquipment( localStorage["tmp.filterEquipmentTerm"], localStorage["tmp.selectedEquipmentCategory"] )
 				updateMechStatusBarAndTRO($scope, $translate);
 				localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
+
 			};
 
 			$scope.updateLocation = function( index_number ) {

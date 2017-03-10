@@ -49,6 +49,13 @@
 										<span translate="BM_STEP5_NO_ITEMS_IN_CATEGORY">No Items</span>
 									</td>
 								</tr>
+
+								<tr ng-show="category.category['en-US'] == 'Ammunition' && showAmmoNotification == true && selectedOnAmmoCategory == true ">
+									<td colspan="4" class="text-center">
+										<span translate="BM_STEP5_ADD_BALLISTIC_OR_MISSILE">No Items</span>
+									</td>
+								</tr>
+
 							</tbody>
 
 							<tbody ng-show="filterEquipmentTerm.trim().length > 2">

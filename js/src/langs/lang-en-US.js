@@ -234,6 +234,7 @@ available_languages.push ({
 		BM_STEP5_AVAILABLE_EQUIPMENT: "Available Equipment",
 		BM_STEP5_ITEM_REAR: "Rear?",
 		BM_STEP5_NO_ITEMS_IN_CATEGORY: "No available items in this category",
+		BM_STEP5_ADD_BALLISTIC_OR_MISSILE: "Add a missile or ballistic weapon to view available ammunition",
 
 		BM_STEP6_TITLE: "Step 6",
 		BM_STEP6_DESC: "Complete the record sheet",
