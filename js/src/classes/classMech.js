@@ -1962,10 +1962,223 @@ function Mech(type) {
 	this._calcCBillCost = function() {
 		// TODO Calculations
 		_calcLogCBill = "";
-		_cbillCost = 0 + " (TODO / WIP)";
-		//~ _calcLogCBill = "TODO";
-		_calcLogCBill += "<strong class=\"color-red\">TODO<br />\n";
 
+		var cbillTotal = 0;
+		//~ _calcLogCBill = "TODO";
+
+		_calcLogCBill += "<table class=\"cbill-cost\">\n";
+
+		_calcLogCBill += "<tbody>\n";
+		// Cockpit
+		if( _smallCockpit ) {
+			_calcLogCBill += "<tr><td><strong>Small Cockpit</strong></td><td>175,000</td></tr>\n";
+			cbillTotal += 175000;
+		} else {
+			_calcLogCBill += "<tr><td><strong>Standard Cockpit</strong></td><td>200,000</td></tr>\n";
+			cbillTotal += 200000;
+		}
+
+		// Life Support
+		_calcLogCBill += "<tr><td><strong>Life Support</strong></td><td>50,000</td></tr>\n";
+		cbillTotal += 50000;
+
+		// Sensors
+		_calcLogCBill += "<tr><td><strong>Sensors</strong><br /><span class=\"smaller-text\">2,000 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" + addCommas( 2000 * this.getTonnage()) + "</td></tr>\n";
+		cbillTotal += 2000 * this.getTonnage() ;
+
+		_calcLogCBill += "<tr><td colspan=\"2\" class=\"text-right\"><strong>Cockpit Subtotal: " + addCommas(cbillTotal) + "</strong></td></tr>\n";
+
+
+		// Myomer
+		if( _hasTripleStrengthMyomer ) {
+			_calcLogCBill += "<tr><td><strong>Triple-Strength Myomer</strong><br /><span class=\"smaller-text\">16,000 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 16000 * this.getTonnage() ) + "</td></tr>\n";
+			cbillTotal += 16000 * this.getTonnage() ;
+		} else {
+			_calcLogCBill += "<tr><td><strong>Standard Musculature</strong><br /><span class=\"smaller-text\">2,000 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 2000 * this.getTonnage() ) + "</td></tr>\n";
+			cbillTotal += 2000 * this.getTonnage() ;
+		}
+
+		// Internal Structure
+		//~ console.log(  this.getLocalTranslation( _selectedInternalStructure.name ) );
+		_calcLogCBill += "<tr><td><strong>Internal Structure: " + this.getLocalTranslation( _selectedInternalStructure.name)  + "</strong><br />" +  addCommas( _selectedInternalStructure.cost ) + " x Unit Tonnage [" + this.getTonnage() + "]</td><td>" +  addCommas( _selectedInternalStructure.cost * this.getTonnage() ) + "</td></tr>\n";
+		cbillTotal += _selectedInternalStructure.cost * this.getTonnage() ;
+
+
+		_calcLogCBill += "<tr><td colspan=\"2\"><strong>Actuators</strong></td></tr>\n";
+
+		var actuatorTotal = 0;
+		// Actuators
+		if (_mechType.class.toLowerCase() == "quad") {
+			_calcLogCBill += "<tr><td>Right Front Upper Leg Actuator<br /><span class=\"smaller-text\">150 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 150 * this.getTonnage() ) + "</td></tr>\n";
+			cbillTotal += 150 * this.getTonnage() ;
+			actuatorTotal += 150 * this.getTonnage() ;
+
+
+			_calcLogCBill += "<tr><td>Right Front Lower Leg Actuator<br /><span class=\"smaller-text\">80 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 80 * this.getTonnage() ) + "</td></tr>\n";
+			cbillTotal += 80 * this.getTonnage() ;
+			actuatorTotal += 80 * this.getTonnage() ;
+
+			_calcLogCBill += "<tr><td>Right Front Foot Actuator<br /><span class=\"smaller-text\">120 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 120 * this.getTonnage() ) + "</td></tr>\n";
+			cbillTotal += 120 * this.getTonnage() ;
+			actuatorTotal += 120 * this.getTonnage() ;
+
+			_calcLogCBill += "<tr><td>Left Front Upper Leg Actuator<br /><span class=\"smaller-text\">150 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 150 * this.getTonnage() ) + "</td></tr>\n";
+			cbillTotal += 150 * this.getTonnage() ;
+			actuatorTotal += 150 * this.getTonnage() ;
+
+			_calcLogCBill += "<tr><td>Left Front Lower Leg Actuator<br /><span class=\"smaller-text\">80 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 80 * this.getTonnage() ) + "</td></tr>\n";
+			cbillTotal += 80 * this.getTonnage() ;
+			actuatorTotal += 80 * this.getTonnage() ;
+
+			_calcLogCBill += "<tr><td>Left Front Foot Actuator<br /><span class=\"smaller-text\">120 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 120 * this.getTonnage() ) + "</td></tr>\n";
+			cbillTotal += 120 * this.getTonnage() ;
+			actuatorTotal += 120 * this.getTonnage() ;
+
+			_calcLogCBill += "<tr><td>Right Rear Upper Leg Actuator<br /><span class=\"smaller-text\">150 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 150 * this.getTonnage() ) + "</td></tr>\n";
+			cbillTotal += 150 * this.getTonnage() ;
+			actuatorTotal += 150 * this.getTonnage() ;
+
+			_calcLogCBill += "<tr><td>Right Rear Lower Leg Actuator<br /><span class=\"smaller-text\">80 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 80 * this.getTonnage() ) + "</td></tr>\n";
+			cbillTotal += 80 * this.getTonnage() ;
+			actuatorTotal += 80 * this.getTonnage() ;
+
+			_calcLogCBill += "<tr><td>Right Rear Foot Actuator<br /><span class=\"smaller-text\">120 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 120 * this.getTonnage() ) + "</td></tr>\n";
+			cbillTotal += 120 * this.getTonnage() ;
+			actuatorTotal += 120 * this.getTonnage() ;
+
+			_calcLogCBill += "<tr><td>Left Rear Upper Leg Actuator<br /><span class=\"smaller-text\">150 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 150 * this.getTonnage() ) + "</td></tr>\n";
+			cbillTotal += 150 * this.getTonnage() ;
+			actuatorTotal += 150 * this.getTonnage() ;
+
+			_calcLogCBill += "<tr><td>Left Rear Lower Leg Actuator<br /><span class=\"smaller-text\">80 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 80 * this.getTonnage() ) + "</td></tr>\n";
+			cbillTotal += 80 * this.getTonnage() ;
+			actuatorTotal += 80 * this.getTonnage() ;
+
+			_calcLogCBill += "<tr><td>Left Rear Foot Actuator<br /><span class=\"smaller-text\">120 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 120 * this.getTonnage() ) + "</td></tr>\n";
+			cbillTotal += 120 * this.getTonnage() ;
+			actuatorTotal += 120 * this.getTonnage() ;
+		} else {
+
+			_calcLogCBill += "<tr><td>Right Upper Leg Actuator<br /><span class=\"smaller-text\">150 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 150 * this.getTonnage() ) + "</td></tr>\n";
+			cbillTotal += 150 * this.getTonnage() ;
+			actuatorTotal += 150 * this.getTonnage() ;
+
+			_calcLogCBill += "<tr><td>Right Lower Leg Actuator<br /><span class=\"smaller-text\">80 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 80 * this.getTonnage() ) + "</td></tr>\n";
+			cbillTotal += 80 * this.getTonnage() ;
+			actuatorTotal += 80 * this.getTonnage() ;
+
+			_calcLogCBill += "<tr><td>Right Foot Actuator<br /><span class=\"smaller-text\">120 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 120 * this.getTonnage() ) + "</td></tr>\n";
+			cbillTotal += 120 * this.getTonnage() ;
+			actuatorTotal += 120 * this.getTonnage() ;
+
+			_calcLogCBill += "<tr><td>Left Upper Leg Actuator<br /><span class=\"smaller-text\">150 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 150 * this.getTonnage() ) + "</td></tr>\n";
+			cbillTotal += 150 * this.getTonnage() ;
+			actuatorTotal += 150 * this.getTonnage() ;
+
+			_calcLogCBill += "<tr><td>Left Lower Leg Actuator<br /><span class=\"smaller-text\">80 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 80 * this.getTonnage() ) + "</td></tr>\n";
+			cbillTotal += 80 * this.getTonnage() ;
+			actuatorTotal += 80 * this.getTonnage() ;
+
+			_calcLogCBill += "<tr><td>Left Foot Actuator<br /><span class=\"smaller-text\">120 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 120 * this.getTonnage() ) + "</td></tr>\n";
+			cbillTotal += 120 * this.getTonnage() ;
+			actuatorTotal += 120 * this.getTonnage() ;
+
+
+			_calcLogCBill += "<tr><td>Right Upper Arm Actuator<br /><span class=\"smaller-text\">100 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 100 * this.getTonnage() ) + "</td></tr>\n";
+			cbillTotal += 100 * this.getTonnage() ;
+			actuatorTotal += 100 * this.getTonnage() ;
+
+			if( _no_right_arm_lower_actuator == false ) {
+				_calcLogCBill += "<tr><td>Right Lower Arm Actuator<br /><span class=\"smaller-text\">50 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 50 * this.getTonnage() ) + "</td></tr>\n";
+				cbillTotal += 50 * this.getTonnage() ;
+				actuatorTotal += 50 * this.getTonnage() ;
+			}
+
+			if( _no_right_arm_hand_actuator == false ) {
+				_calcLogCBill += "<tr><td>Right Hand Actuator<br /><span class=\"smaller-text\">80 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 80 * this.getTonnage() ) + "</td></tr>\n";
+				cbillTotal += 80 * this.getTonnage() ;
+				actuatorTotal += 80 * this.getTonnage() ;
+			}
+
+
+			_calcLogCBill += "<tr><td>Left Upper Arm Actuator<br /><span class=\"smaller-text\">100 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 100 * this.getTonnage() ) + "</td></tr>\n";
+			cbillTotal += 100 * this.getTonnage() ;
+			actuatorTotal += 100 * this.getTonnage() ;
+
+			if( _no_left_arm_lower_actuator == false ) {
+				_calcLogCBill += "<tr><td>Left Lower Arm Actuator<br /><span class=\"smaller-text\">50 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 50 * this.getTonnage() ) + "</td></tr>\n";
+				cbillTotal += 50 * this.getTonnage() ;
+				actuatorTotal += 50 * this.getTonnage() ;
+			}
+
+			if( _no_left_arm_hand_actuator == false ) {
+				_calcLogCBill += "<tr><td>Left Hand Actuator<br /><span class=\"smaller-text\">80 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 80 * this.getTonnage() ) + "</td></tr>\n";
+				cbillTotal += 80 * this.getTonnage() ;
+				actuatorTotal += 80 * this.getTonnage() ;
+			}
+
+		}
+		_calcLogCBill += "<tr><td colspan=\"2\" class=\"text-right\"><strong>Actuator Subtotal: " + addCommas(actuatorTotal) + "</strong></td></tr>\n";
+
+
+		// Engine
+		var engineName = this.getLocalTranslation( this.getEngineType().name );
+		var engineRating  = this.getEngineRating();
+		var engineCostMultiplier = this.getEngineType().costmultiplier;
+		_calcLogCBill += "<tr><td><strong>Engine: " + engineName  + "</strong><br /><span class=\"smaller-text\">" +  addCommas( engineCostMultiplier ) + " x Engine Rating  [" + engineRating + "] x Unit Tonnage [" + this.getTonnage() + "] / 75</span></td><td>" +  addCommas( engineCostMultiplier * engineRating * this.getTonnage() / 75 ) + "</td></tr>\n";
+		cbillTotal += engineCostMultiplier * engineRating * this.getTonnage() / 75;
+
+		// Gyro
+		var gyroName = this.getGyroName();
+		var gyroCostMultiplier = this.getGyro().costmultiplier;
+		var gyroTonnage = this.getGyroWeight();
+
+		_calcLogCBill += "<tr><td><strong>Gyro: " + gyroName  + "</strong><br /><span class=\"smaller-text\">" +  addCommas( gyroCostMultiplier ) + " x Gyro Tonnage [" + gyroTonnage + "]</span></td><td>" +  addCommas( gyroCostMultiplier * gyroTonnage  ) + "</td></tr>\n";
+		cbillTotal += gyroCostMultiplier * gyroTonnage ;
+
+		// Jump Jets
+		var numberOfJumpJets = this._getNumberOfJumpJets();
+		if( numberOfJumpJets ) {
+			var jumpJetName = this.getLocalTranslation( _jumpJetType.name );
+			var jumpJetCost = _jumpJetType.costmultiplier;
+			_calcLogCBill += "<tr><td><strong>Jump Jets: " + jumpJetName  + "</strong><br /><span class=\"smaller-text\">" +  addCommas( jumpJetCost ) + " x (# Jump Jets [" +  numberOfJumpJets + "])<sup>2</sup> Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( jumpJetCost * Math.pow( numberOfJumpJets, 2) *  this.getTonnage()  ) + "</td></tr>\n";
+			cbillTotal += jumpJetCost * Math.pow( numberOfJumpJets, 2) *  this.getTonnage()  ;
+		}
+
+		// Armor
+		var armorName = this.getLocalTranslation( this.getArmorObj().name );
+		var armorCostMultiplier = this.getArmorObj().costmultiplier;
+		var armorTonnage = this.getArmorWeight();
+
+		_calcLogCBill += "<tr><td><strong>Armor: " + armorName  + "</strong><br /><span class=\"smaller-text\">" +  addCommas( armorCostMultiplier ) + " x Armor Tonnage [" + armorTonnage + "]</span></td><td>" +  addCommas( armorCostMultiplier * armorTonnage  ) + "</td></tr>\n";
+		cbillTotal += armorCostMultiplier * armorTonnage ;
+
+		// Equipment
+		for( var eqC = 0; eqC < _equipmentList.length; eqC++) {
+			_calcLogCBill += "<tr><td><strong>" + this.getLocalTranslation( _equipmentList[eqC].name ) + "</strong></td><td>" + addCommas(_equipmentList[eqC].cbills) + "</td></tr>\n";
+			cbillTotal += _equipmentList[eqC].cbills;
+		}
+
+
+		// NOTE - for some reason SSW and the MUL are 1000 less here than the actual summation even when all the line items are right.
+		_calcLogCBill += "<tr><td colspan=\"2\" class=\"text-right\">&nbsp;</td></tr>\n";
+		_calcLogCBill += "<tr><td colspan=\"2\" class=\"text-right\"><strong>Subtotal: " + addCommas(cbillTotal) + "</strong></td></tr>\n";
+
+
+		// (Structural Cost + Weapon/Equipment Costs) x (Omni Conversion Cost*) x (1 + [Total Tonnage ÷ 100])
+
+		cbillTotal
+		_calcLogCBill += "<tr><td colspan=\"2\" class=\"text-right\">&nbsp;</td></tr>\n";
+		_calcLogCBill += "<tr><td class=\"text-right\"><strong>Final Unit Cost</strong>:<br /><span class=\"smaller-text\">Sub Total [" + addCommas(cbillTotal) + "] x (1 + Unit Tonnage [" + this.getTonnage() + "] / 100)</span></td><td>" + addCommas(cbillTotal * ( 1 + this.getTonnage() / 100 ) ) + "</td></tr>\n";
+		_cbillCost = cbillTotal * (1 + this.getTonnage() / 100);
+
+
+		_calcLogCBill += "</tbody></table>";
+		_cbillCost = addCommas(cbillTotal) + " (in testing)";
+	}
+
+	this._getNumberOfJumpJets = function() {
+		return this.getJumpSpeed();
 	}
 
 	this.getBattleValue = function() {

@@ -151,7 +151,7 @@ var mechInternalStructureTypes = Array(
 			}
 		},
 
-		cost: 2000,
+		cost: 400,
 		introduced: 2470,
 		extinct: 0,
 		reintroduced: 0
@@ -307,7 +307,7 @@ var mechInternalStructureTypes = Array(
 		},
 
 
-		cost: 6000,
+		cost: 1600,
 		introduced: 2470,
 		extinct: 0,
 		reintroduced: 0

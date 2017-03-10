@@ -1135,6 +1135,16 @@ body.plain {
 	font-size:  1vw;
 }
 
+.cbill-cost {
+	tr {
+		td {
+			.smaller-text {
+				font-size:  .75vw;
+			}
+		}
+	}
+}
+
 @media print {
 	body.plain {
 		background: none  !important;

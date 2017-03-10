@@ -681,7 +681,6 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 	svgCode += "<text x=\"" + ( mechDataLeft + 240 ) + "\" y=\"" + (mechDataTop + 245) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"30\">" + mechData.getRunSpeed() + "</text>\n";
 	svgCode += createDie(  mechDataLeft + 20, mechDataTop + 245 - 25, 30, colorBlack, colorBlack, colorWhite, 2 );
 
-
 	// Jump
 	svgCode += "<text x=\"" + ( mechDataLeft + 220 ) + "\" y=\"" + (mechDataTop + 280) + "\" text-anchor=\"end\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"30\">Jumping</text>\n";
 	svgCode += "<text x=\"" + ( mechDataLeft + 240 ) + "\" y=\"" + (mechDataTop + 280) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"30\">" + mechData.getJumpSpeed() + "</text>\n";
