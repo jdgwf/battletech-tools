@@ -30,7 +30,6 @@ function Mech (type) {
 	var _no_right_arm_hand_actuator = false;
 	var _no_right_arm_lower_actuator = false;
 
-
 	var _no_left_arm_hand_actuator = false;
 	var _no_left_arm_lower_actuator = false;
 
@@ -43,8 +42,6 @@ function Mech (type) {
 	var _maxMoveHeat = 2;
 	var _maxWeaponHeat = 0;
 	var _heatDissipation = 0;
-
-
 
 	var _additionalHeatSinks = 0;
 

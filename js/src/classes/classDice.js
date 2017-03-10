@@ -1,6 +1,7 @@
 /*
  * To be deleted or replaced... artifact from another project
  *
+ *
 var class_dice = function() {};
 
 class_dice.prototype = {

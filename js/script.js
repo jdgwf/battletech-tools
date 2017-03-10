@@ -2,7 +2,7 @@ var available_languages = [];
 
 cordovaApp = angular.module(
 	'cordovaApp',
-	['ngRoute', 'ngResource', 'ngSanitize','pascalprecht.translate', 'as.sortable', 'mm.foundation'],
+	['ngRoute', 'ngResource', 'ngSanitize','pascalprecht.translate', 'as.sortable', 'mm.foundation','angulartics','angulartics.google.analytics','angulartics.google.analytics.cordova'],
 	[
 		'$routeProvider',
 		'$translateProvider',
@@ -195,7 +195,7 @@ var available_languages = [];
 
 webApp = angular.module(
 	'webApp',
-	['ngRoute', 'ngResource', 'ngSanitize','pascalprecht.translate', 'as.sortable', 'mm.foundation'],
+	['ngRoute', 'ngResource', 'ngSanitize','pascalprecht.translate', 'as.sortable', 'mm.foundation','angulartics', 'angulartics.google.analytics'],
 	[
 		'$routeProvider',
 		'$translateProvider',
@@ -13561,6 +13561,7 @@ function asUnit (incomingMechData) {
 /*
  * To be deleted or replaced... artifact from another project
  *
+ *
 var class_dice = function() {};
 
 class_dice.prototype = {
@@ -14065,7 +14066,6 @@ function Mech (type) {
 	var _no_right_arm_hand_actuator = false;
 	var _no_right_arm_lower_actuator = false;
 
-
 	var _no_left_arm_hand_actuator = false;
 	var _no_left_arm_lower_actuator = false;
 
@@ -14078,8 +14078,6 @@ function Mech (type) {
 	var _maxMoveHeat = 2;
 	var _maxWeaponHeat = 0;
 	var _heatDissipation = 0;
-
-
 
 	var _additionalHeatSinks = 0;
 
@@ -20434,7 +20432,8 @@ var battlemechCreatorControllerStep5Array =
 		'$translate',
 		'$scope',
 		'$location',
-		function ($rootScope, $translate, $scope, $location) {
+		'$analytics',
+		function ($rootScope, $translate, $scope, $location, $analytics) {
 
 
 			// Set Page Title Tag
@@ -20660,6 +20659,7 @@ var battlemechCreatorControllerStep5Array =
 
 			$scope.addItem = function( index_number ) {
 				if( $scope.equipment_table[index_number].tag ) {
+					$analytics.eventTrack('Add', {  category: $scope.equipment_table[index_number].local_category, label: $scope.equipment_table[index_number].local_name });
 					$scope.current_mech.addEquipmentFromTag( $scope.equipment_table[index_number].tag );
 					updateMechStatusBarAndTRO($scope, $translate);
 					localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
