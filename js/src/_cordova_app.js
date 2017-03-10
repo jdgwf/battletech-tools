@@ -2,7 +2,7 @@ var available_languages = [];
 
 cordovaApp = angular.module(
 	'cordovaApp',
-	['ngRoute', 'ngResource', 'ngSanitize','pascalprecht.translate', 'as.sortable', 'mm.foundation'],
+	['ngRoute', 'ngResource', 'ngSanitize','pascalprecht.translate', 'as.sortable', 'mm.foundation','angulartics','angulartics.google.analytics','angulartics.google.analytics.cordova'],
 	[
 		'$routeProvider',
 		'$translateProvider',

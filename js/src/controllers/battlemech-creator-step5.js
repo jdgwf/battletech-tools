@@ -4,7 +4,8 @@ var battlemechCreatorControllerStep5Array =
 		'$translate',
 		'$scope',
 		'$location',
-		function ($rootScope, $translate, $scope, $location) {
+		'$analytics',
+		function ($rootScope, $translate, $scope, $location, $analytics) {
 
 
 			// Set Page Title Tag
@@ -240,6 +241,7 @@ var battlemechCreatorControllerStep5Array =
 
 			$scope.addItem = function( index_number ) {
 				if( $scope.equipment_table[index_number].tag ) {
+					$analytics.eventTrack('Add', {  category: $scope.equipment_table[index_number].local_category, label: $scope.equipment_table[index_number].local_name });
 					$scope.current_mech.addEquipmentFromTag( $scope.equipment_table[index_number].tag );
 					updateMechStatusBarAndTRO($scope, $translate);
 					localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
