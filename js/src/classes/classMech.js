@@ -2169,8 +2169,8 @@ function Mech(type) {
 
 		cbillTotal
 		_calcLogCBill += "<tr><td colspan=\"2\" class=\"text-right\">&nbsp;</td></tr>\n";
-		_calcLogCBill += "<tr><td class=\"text-right\"><strong>Final Unit Cost</strong>:<br /><span class=\"smaller-text\">Sub Total [" + addCommas(cbillTotal) + "] x (1 + Unit Tonnage [" + this.getTonnage() + "] / 100)</span></td><td>" + addCommas(cbillTotal * ( 1 + this.getTonnage() / 100 ) ) + "</td></tr>\n";
-		cbillTotal = cbillTotal * (1 + this.getTonnage() / 100);
+		_calcLogCBill += "<tr><td class=\"text-right\"><strong>Final Unit Cost</strong>:<br /><span class=\"smaller-text\">Sub Total [" + addCommas(cbillTotal) + "] x (1 + Unit Tonnage [" + this.getTonnage() + "] / 100) - rounded up</span></td><td>" + addCommas( Math.ceil(cbillTotal * ( 1 + this.getTonnage() / 100 ) ) ) + "</td></tr>\n";
+		cbillTotal = Math.ceil( cbillTotal * (1 + this.getTonnage() / 100) );
 
 
 		_calcLogCBill += "</tbody></table>";
