@@ -13347,6 +13347,120 @@ var mechISEquipment = Array(
 			)
 		}
 	},
+	// Gauss Rifles
+	{
+		name: {
+			'en-US': "Gauss Rifle",
+			'de-DE': "de - Gauss Rifle",
+		},
+		tag: "gauss-rifle",
+		// Sort standard gauss rifle to the top
+		sort: "gauss rifle, a",
+		category: {
+			'en-US': "Ballistic Weapons",
+			'de-DE': "de - Ballistic Weapons",
+		},
+		damage: 15,
+		damage_aero: 15,
+		accuracy_modifier: 0,
+		cbills: 300000,
+		introduced: 2590,
+		extinct: 2865,
+		reintroduced: 3040,
+		battlevalue: 320,
+		heat: 1,  
+		weight: 15,
+		range_min: {
+			min: 2,
+			short: 7,
+			medium: 15,
+			long: 22,
+		},
+		space: {
+			battlemech: 7,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 7,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 0,
+		min_ammo_tons: 1,
+		gauss: true,
+		weapon_type: Array(
+			"DB"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 219,
+		alpha_strike: {
+			heat: 1,
+			range_short: 1.245,
+			range_medium: 1.5,
+			range_long: 1.5,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Gauss)",
+			'de-DE': "de - Ammo (Gauss)",
+		},
+		tag: "ammo-gauss-rifle",
+		sort: "ammo, gauss rifle, a",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 20000,
+		introduced: 2590,
+		extinct: 2865,
+		reintroduced: 3040,
+		battlevalue: 40,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 2,
+			short: 7,
+			medium: 15,
+			long: 22,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 8,
+		min_ammo_tons: 1,
+		explosive: false,
+		weapon_type: Array(
+			"DB"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 219,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
 	// Machine Guns
 	{
 		name: {
@@ -21587,7 +21701,7 @@ var battlemechCreatorControllerStep5Array =
 					var installedEquipment = $scope.current_mech.getInstalledEquipment();
 					for( var eCounter = 0; eCounter <  installedEquipment.length; eCounter++ )
 					{
-						if ( $scope.equipment_table[eqc].tag.indexOf( installedEquipment[ eCounter].tag ) > -1 )
+						if ( $scope.equipment_table[eqc].tag.indexOf( installedEquipment[ eCounter ].tag ) > -1 )
 						{
 							$scope.equipment_table[eqc].isAvailableAmmoType = true;
 							$scope.showAmmoNotification = true;

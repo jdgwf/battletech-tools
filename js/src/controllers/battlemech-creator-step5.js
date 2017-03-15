@@ -164,7 +164,7 @@ var battlemechCreatorControllerStep5Array =
 					var installedEquipment = $scope.current_mech.getInstalledEquipment();
 					for( var eCounter = 0; eCounter <  installedEquipment.length; eCounter++ )
 					{
-						if ( $scope.equipment_table[eqc].tag.indexOf( installedEquipment[ eCounter].tag ) > -1 )
+						if ( $scope.equipment_table[eqc].tag.indexOf( installedEquipment[ eCounter ].tag ) > -1 )
 						{
 							$scope.equipment_table[eqc].isAvailableAmmoType = true;
 							$scope.showAmmoNotification = true;
