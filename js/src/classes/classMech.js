@@ -2976,6 +2976,7 @@ function Mech(type) {
 				weight: _additionalHeatSinks
 			});
 
+		this._calcVariableEquipment();
 		for (eq_count = 0; eq_count < _equipmentList.length; eq_count++) {
 			if (_equipmentList[eq_count].rear) {
 				_weights.push({
@@ -3302,7 +3303,7 @@ function Mech(type) {
 
 
 		// Get optional equipment...
-		this._calcVariableEquipment();
+		//~ this._calcVariableEquipment();
 		for (var elc = 0; elc < _equipmentList.length; elc++) {
 			//~ _equipmentList[elc].location = "";
 			var rearTag = "";
