@@ -1021,13 +1021,21 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 		svgCode += "<text x=\"" + ( wacCol3 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].location.toUpperCase() + "</text>\n";
 		svgCode += "<text x=\"" + ( wacCol4 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].heat + "</text>\n";
 		svgCode += "<text x=\"" + ( wacCol5 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].damage + "</text>\n";
-		if(mechData.sortedEquipmentList[eq_count].range_min.min == 0)
-			svgCode += "<text x=\"" + ( wacCol6 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + "-" + "</text>\n";
-		else
-			svgCode += "<text x=\"" + ( wacCol6 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].range_min.min + "</text>\n";
-		svgCode += "<text x=\"" + ( wacCol7 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].range_min.short + "</text>\n";
-		svgCode += "<text x=\"" + ( wacCol8 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].range_min.medium + "</text>\n";
-		svgCode += "<text x=\"" + ( wacCol9 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].range_min.long + "</text>\n";
+
+		if( mechData.sortedEquipmentList[eq_count].is_melee ) {
+			svgCode += "<text x=\"" + ( wacCol7 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\"> MELEE </text>\n";
+
+		} else {
+
+
+			if(mechData.sortedEquipmentList[eq_count].range_min.min == 0)
+				svgCode += "<text x=\"" + ( wacCol6 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + "-" + "</text>\n";
+			else
+				svgCode += "<text x=\"" + ( wacCol6 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].range_min.min + "</text>\n";
+			svgCode += "<text x=\"" + ( wacCol7 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].range_min.short + "</text>\n";
+			svgCode += "<text x=\"" + ( wacCol8 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].range_min.medium + "</text>\n";
+			svgCode += "<text x=\"" + ( wacCol9 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].range_min.long + "</text>\n";
+		}
 	}
 
 	/*

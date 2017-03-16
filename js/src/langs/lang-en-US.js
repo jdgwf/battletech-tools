@@ -41,6 +41,7 @@ available_languages.push ({
 		GENERAL_MECH: '\'Mech',
 		GENERAL_GROUP: 'Group',
 		GENERAL_TON: 'Ton',
+		GENERAL_AS_ROLE: 'Alpha Strike Role',
 		GENERAL_TONS: 'Tons',
 		GENERAL_CLAN: 'Clan',
 		GENERAL_SKILL: 'Skill',

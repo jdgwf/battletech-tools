@@ -132,6 +132,22 @@ var battlemechCreatorControllerStep5Array =
 
 				$scope.showAmmoNotification = false;
 				for(var eqc = $scope.equipment_table.length - 1; eqc > -1; eqc-- ) {
+
+					$scope.equipment_table[eqc].local_space = $scope.equipment_table[eqc].space.battlemech;
+
+					if( $scope.equipment_table[eqc].variable_size ) {
+						var numberOfCrits = 0;
+						var itemWeight = 0;
+						if(  $scope.equipment_table[eqc].criticals_divisior ) {
+							numberOfCrits = Math.ceil( $scope.current_mech.getTonnage() / $scope.equipment_table[eqc].criticals_divisior);
+							$scope.equipment_table[eqc].local_space = numberOfCrits;
+						}
+						if(  $scope.equipment_table[eqc].weight_divisior ) {
+							itemWeight = Math.ceil( $scope.current_mech.getTonnage() / $scope.equipment_table[eqc].weight_divisior);
+							$scope.equipment_table[eqc].weight = itemWeight;
+						}
+					}
+
 					if( $scope.equipment_table[eqc].name[ localStorage["tmp.preferred_language"] ])
 						$scope.equipment_table[eqc].local_name = $scope.equipment_table[eqc].name[ localStorage["tmp.preferred_language"] ];
 					else
@@ -143,7 +159,7 @@ var battlemechCreatorControllerStep5Array =
 						$scope.equipment_table[eqc].local_category = $scope.equipment_table[eqc].category[ "en-US" ];
 
 
-					$scope.equipment_table[eqc].local_space = $scope.equipment_table[eqc].space.battlemech;
+
 
 					$scope.equipment_table[eqc].isInSelectedEra = false;
 
@@ -193,6 +209,7 @@ var battlemechCreatorControllerStep5Array =
 						}
 
 					}
+
 
 				}
 

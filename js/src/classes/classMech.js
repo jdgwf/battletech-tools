@@ -1719,7 +1719,7 @@ function Mech(type) {
 				if (!ammoBV[_equipmentList[eqC].tag])
 					ammoBV[_equipmentList[eqC].tag] = 0;
 				if (_equipmentList[eqC].battlevalue)
-					ammoBV[_equipmentList[eqC].tag] = _equipmentList[eqC].battlevalue;
+					ammoBV[_equipmentList[eqC].tag] += _equipmentList[eqC].battlevalue;
 
 				_calcLogBV += "+ Adding " + this.getLocalTranslation(_equipmentList[eqC].name) + " - " + _equipmentList[eqC].battlevalue + "<br />";
 
@@ -2848,6 +2848,7 @@ function Mech(type) {
 	}
 
 	this.clearMech = function() {
+		this.setEngineType( "standard" );
 		this.setMechType(1);
 		this.setTonnage(20);
 		this.calc();
@@ -3299,11 +3300,14 @@ function Mech(type) {
 
 
 		// Get optional equipment...
+		this._calcVariableEquipment();
 		for (var elc = 0; elc < _equipmentList.length; elc++) {
 			//~ _equipmentList[elc].location = "";
 			var rearTag = "";
 			if (_equipmentList[elc].rear)
 				rearTag = " (" + this.getTranslation("GENERAL_REAR") + ")";
+
+
 			_unallocatedCriticals.push({
 				name: _equipmentList[elc].name[_useLang] + rearTag,
 				tag: _equipmentList[elc].tag,
@@ -3312,6 +3316,7 @@ function Mech(type) {
 				obj: _equipmentList[elc],
 				movable: true
 			});
+
 		}
 
 
@@ -4614,6 +4619,29 @@ function Mech(type) {
 	}
 
 	this.getInstalledEquipment = function() {
+		this._calcVariableEquipment();
 		return _equipmentList;
 	};
+
+	this._calcVariableEquipment = function() {
+		for( var eqC = 0; eqC < _equipmentList.length; eqC++) {
+			if( _equipmentList[ eqC ].variable_size ) {
+				//~ console.log( " _equipmentList[ eqC ]",  _equipmentList[ eqC ]);
+				_equipmentList[ eqC ].criticals_divisior
+					_equipmentList[ eqC ].criticals = Math.ceil( this.getTonnage() / _equipmentList[ eqC ].criticals_divisior );
+				_equipmentList[ eqC ].weight_divisior
+					_equipmentList[ eqC ].weight = Math.ceil( this.getTonnage() / _equipmentList[ eqC ].weight_divisior );
+				_equipmentList[ eqC ].damage_divisior
+					_equipmentList[ eqC ].damage = Math.ceil( this.getTonnage() / _equipmentList[ eqC ].damage_divisior );
+				_equipmentList[ eqC ].criticals_divisior
+					_equipmentList[ eqC ].space.battlemech = Math.ceil( this.getTonnage() / _equipmentList[ eqC ].criticals_divisior );
+
+				if( _equipmentList[ eqC ].battlevalue_per_item_damage )
+					_equipmentList[ eqC ].battlevalue = _equipmentList[ eqC ].battlevalue_per_item_damage * _equipmentList[ eqC ].damage;
+				if( _equipmentList[ eqC ].cost_per_item_ton )
+					_equipmentList[ eqC ].cbills = _equipmentList[ eqC ].cost_per_item_ton * _equipmentList[ eqC ].weight;
+				//~ console.log( " _equipmentList[ eqC ]",  _equipmentList[ eqC ]);
+			}
+		}
+	}
 }

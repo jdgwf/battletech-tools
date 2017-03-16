@@ -62,7 +62,9 @@ var battlemechCreatorControllerStep2Array =
 				var selected_option = null;
 				var availble_options = [];
 
-				for( var lCount = mechEngineTypes.length - 1; lCount > -1; lCount -- ) {
+				console.log( "mechEngineTypes", mechEngineTypes );
+
+				for( var lCount = 0; lCount < mechEngineTypes.length ;  lCount++ ) {
 					if(
 						getItemAvailability (mechEngineTypes[ lCount ], $scope.current_mech.getEra() )
 							&&
@@ -86,13 +88,15 @@ var battlemechCreatorControllerStep2Array =
 					}
 				}
 
-				if( $scope.current_mech.engineType) {
-
+				if( $scope.current_mech.getEngineType() ) {
+					console.log( "$scope.current_mech.getEngineType().tag",  $scope.current_mech.getEngineType().tag );
 					for( var lCount = 0; lCount < availble_options.length; lCount++ ) {
-						if( availble_options[ lCount ].id == $scope.current_mech.engineType.tag ) {
+						if( availble_options[ lCount ].id == $scope.current_mech.getEngineType().tag ) {
 							selected_option = availble_options[ lCount ];
 						}
 					}
+					console.log( "availble_options",  availble_options );
+					console.log( "selected_option",  selected_option );
 
 				}
 
@@ -116,7 +120,7 @@ var battlemechCreatorControllerStep2Array =
 				var selected_option = null;
 				var availble_options = [];
 
-				for( var lCount = mechGyroTypes.length - 1; lCount > -1; lCount -- ) {
+				for( var lCount = 0; lCount < mechGyroTypes.length; lCount++ ) {
 					if( getItemAvailability(mechGyroTypes[ lCount ], $scope.current_mech.getEra()) ) {
 						var localName = "";
 						if( mechGyroTypes[ lCount ].name[ localStorage["tmp.preferred_language"] ] ) {

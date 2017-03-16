@@ -1899,13 +1899,21 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 		svgCode += "<text x=\"" + ( wacCol3 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].location.toUpperCase() + "</text>\n";
 		svgCode += "<text x=\"" + ( wacCol4 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].heat + "</text>\n";
 		svgCode += "<text x=\"" + ( wacCol5 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].damage + "</text>\n";
-		if(mechData.sortedEquipmentList[eq_count].range_min.min == 0)
-			svgCode += "<text x=\"" + ( wacCol6 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + "-" + "</text>\n";
-		else
-			svgCode += "<text x=\"" + ( wacCol6 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].range_min.min + "</text>\n";
-		svgCode += "<text x=\"" + ( wacCol7 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].range_min.short + "</text>\n";
-		svgCode += "<text x=\"" + ( wacCol8 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].range_min.medium + "</text>\n";
-		svgCode += "<text x=\"" + ( wacCol9 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].range_min.long + "</text>\n";
+
+		if( mechData.sortedEquipmentList[eq_count].is_melee ) {
+			svgCode += "<text x=\"" + ( wacCol7 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\"> MELEE </text>\n";
+
+		} else {
+
+
+			if(mechData.sortedEquipmentList[eq_count].range_min.min == 0)
+				svgCode += "<text x=\"" + ( wacCol6 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + "-" + "</text>\n";
+			else
+				svgCode += "<text x=\"" + ( wacCol6 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].range_min.min + "</text>\n";
+			svgCode += "<text x=\"" + ( wacCol7 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].range_min.short + "</text>\n";
+			svgCode += "<text x=\"" + ( wacCol8 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].range_min.medium + "</text>\n";
+			svgCode += "<text x=\"" + ( wacCol9 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].range_min.long + "</text>\n";
+		}
 	}
 
 	/*
@@ -15254,7 +15262,7 @@ var mechISEquipment = Array(
 		extinct: 2865,
 		reintroduced: 3040,
 		battlevalue: 320,
-		heat: 1,  
+		heat: 1,
 		weight: 15,
 		range_min: {
 			min: 2,
@@ -15461,6 +15469,55 @@ var mechISEquipment = Array(
 			notes: Array(
 			)
 		}
+	},
+	{
+		name: {
+			'en-US': "Hatchet",
+			'de-DE': "de - Hatchet",
+		},
+		tag: "melee-hatchet",
+		sort: "melee, hatchet",
+		category: {
+			'en-US': "Melee",
+			'de-DE': "de - Melee",
+		},
+
+		variable_size: true,
+		is_melee: true,
+
+		weight_divisior: 15,
+		damage_divisior: 5,
+		criticals_divisior: 15,
+		requires_hand_actuator: true,
+		introduced: 3022,
+		extinct: 0,
+		heat: 0,
+		unique: true,
+		cost_per_item_ton: 5000,
+		battlevalue_per_item_damage: 1.5,
+
+		book: "TM",
+		page: 220,
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: "n/a",
+			support_vehicle: "n/a",
+			aerospace_fighter: "n/a",
+			small_craft: "n/a",
+			drop_ship: "n/a"
+		},
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+				"MEL"
+			)
+		}
 	}
 );
 
@@ -15502,6 +15559,11 @@ var mechJumpJetTypes = Array(
 		reintroduced: 0
 	}
 );
+
+/*
+ * The data here is copyright NOT included in the MIT license.
+ */
+
 
 /*
  * The data here is copyright NOT included in the MIT license.
@@ -18483,7 +18545,7 @@ function Mech(type) {
 				if (!ammoBV[_equipmentList[eqC].tag])
 					ammoBV[_equipmentList[eqC].tag] = 0;
 				if (_equipmentList[eqC].battlevalue)
-					ammoBV[_equipmentList[eqC].tag] = _equipmentList[eqC].battlevalue;
+					ammoBV[_equipmentList[eqC].tag] += _equipmentList[eqC].battlevalue;
 
 				_calcLogBV += "+ Adding " + this.getLocalTranslation(_equipmentList[eqC].name) + " - " + _equipmentList[eqC].battlevalue + "<br />";
 
@@ -19612,6 +19674,7 @@ function Mech(type) {
 	}
 
 	this.clearMech = function() {
+		this.setEngineType( "standard" );
 		this.setMechType(1);
 		this.setTonnage(20);
 		this.calc();
@@ -20063,11 +20126,14 @@ function Mech(type) {
 
 
 		// Get optional equipment...
+		this._calcVariableEquipment();
 		for (var elc = 0; elc < _equipmentList.length; elc++) {
 			//~ _equipmentList[elc].location = "";
 			var rearTag = "";
 			if (_equipmentList[elc].rear)
 				rearTag = " (" + this.getTranslation("GENERAL_REAR") + ")";
+
+
 			_unallocatedCriticals.push({
 				name: _equipmentList[elc].name[_useLang] + rearTag,
 				tag: _equipmentList[elc].tag,
@@ -20076,6 +20142,7 @@ function Mech(type) {
 				obj: _equipmentList[elc],
 				movable: true
 			});
+
 		}
 
 
@@ -21378,8 +21445,31 @@ function Mech(type) {
 	}
 
 	this.getInstalledEquipment = function() {
+		this._calcVariableEquipment();
 		return _equipmentList;
 	};
+
+	this._calcVariableEquipment = function() {
+		for( var eqC = 0; eqC < _equipmentList.length; eqC++) {
+			if( _equipmentList[ eqC ].variable_size ) {
+				//~ console.log( " _equipmentList[ eqC ]",  _equipmentList[ eqC ]);
+				_equipmentList[ eqC ].criticals_divisior
+					_equipmentList[ eqC ].criticals = Math.ceil( this.getTonnage() / _equipmentList[ eqC ].criticals_divisior );
+				_equipmentList[ eqC ].weight_divisior
+					_equipmentList[ eqC ].weight = Math.ceil( this.getTonnage() / _equipmentList[ eqC ].weight_divisior );
+				_equipmentList[ eqC ].damage_divisior
+					_equipmentList[ eqC ].damage = Math.ceil( this.getTonnage() / _equipmentList[ eqC ].damage_divisior );
+				_equipmentList[ eqC ].criticals_divisior
+					_equipmentList[ eqC ].space.battlemech = Math.ceil( this.getTonnage() / _equipmentList[ eqC ].criticals_divisior );
+
+				if( _equipmentList[ eqC ].battlevalue_per_item_damage )
+					_equipmentList[ eqC ].battlevalue = _equipmentList[ eqC ].battlevalue_per_item_damage * _equipmentList[ eqC ].damage;
+				if( _equipmentList[ eqC ].cost_per_item_ton )
+					_equipmentList[ eqC ].cbills = _equipmentList[ eqC ].cost_per_item_ton * _equipmentList[ eqC ].weight;
+				//~ console.log( " _equipmentList[ eqC ]",  _equipmentList[ eqC ]);
+			}
+		}
+	}
 }
 
 var asBuilderArray = [
@@ -22691,7 +22781,9 @@ var battlemechCreatorControllerStep2Array =
 				var selected_option = null;
 				var availble_options = [];
 
-				for( var lCount = mechEngineTypes.length - 1; lCount > -1; lCount -- ) {
+				console.log( "mechEngineTypes", mechEngineTypes );
+
+				for( var lCount = 0; lCount < mechEngineTypes.length ;  lCount++ ) {
 					if(
 						getItemAvailability (mechEngineTypes[ lCount ], $scope.current_mech.getEra() )
 							&&
@@ -22715,13 +22807,15 @@ var battlemechCreatorControllerStep2Array =
 					}
 				}
 
-				if( $scope.current_mech.engineType) {
-
+				if( $scope.current_mech.getEngineType() ) {
+					console.log( "$scope.current_mech.getEngineType().tag",  $scope.current_mech.getEngineType().tag );
 					for( var lCount = 0; lCount < availble_options.length; lCount++ ) {
-						if( availble_options[ lCount ].id == $scope.current_mech.engineType.tag ) {
+						if( availble_options[ lCount ].id == $scope.current_mech.getEngineType().tag ) {
 							selected_option = availble_options[ lCount ];
 						}
 					}
+					console.log( "availble_options",  availble_options );
+					console.log( "selected_option",  selected_option );
 
 				}
 
@@ -22745,7 +22839,7 @@ var battlemechCreatorControllerStep2Array =
 				var selected_option = null;
 				var availble_options = [];
 
-				for( var lCount = mechGyroTypes.length - 1; lCount > -1; lCount -- ) {
+				for( var lCount = 0; lCount < mechGyroTypes.length; lCount++ ) {
 					if( getItemAvailability(mechGyroTypes[ lCount ], $scope.current_mech.getEra()) ) {
 						var localName = "";
 						if( mechGyroTypes[ lCount ].name[ localStorage["tmp.preferred_language"] ] ) {
@@ -23583,6 +23677,22 @@ var battlemechCreatorControllerStep5Array =
 
 				$scope.showAmmoNotification = false;
 				for(var eqc = $scope.equipment_table.length - 1; eqc > -1; eqc-- ) {
+
+					$scope.equipment_table[eqc].local_space = $scope.equipment_table[eqc].space.battlemech;
+
+					if( $scope.equipment_table[eqc].variable_size ) {
+						var numberOfCrits = 0;
+						var itemWeight = 0;
+						if(  $scope.equipment_table[eqc].criticals_divisior ) {
+							numberOfCrits = Math.ceil( $scope.current_mech.getTonnage() / $scope.equipment_table[eqc].criticals_divisior);
+							$scope.equipment_table[eqc].local_space = numberOfCrits;
+						}
+						if(  $scope.equipment_table[eqc].weight_divisior ) {
+							itemWeight = Math.ceil( $scope.current_mech.getTonnage() / $scope.equipment_table[eqc].weight_divisior);
+							$scope.equipment_table[eqc].weight = itemWeight;
+						}
+					}
+
 					if( $scope.equipment_table[eqc].name[ localStorage["tmp.preferred_language"] ])
 						$scope.equipment_table[eqc].local_name = $scope.equipment_table[eqc].name[ localStorage["tmp.preferred_language"] ];
 					else
@@ -23594,7 +23704,7 @@ var battlemechCreatorControllerStep5Array =
 						$scope.equipment_table[eqc].local_category = $scope.equipment_table[eqc].category[ "en-US" ];
 
 
-					$scope.equipment_table[eqc].local_space = $scope.equipment_table[eqc].space.battlemech;
+
 
 					$scope.equipment_table[eqc].isInSelectedEra = false;
 
@@ -23644,6 +23754,7 @@ var battlemechCreatorControllerStep5Array =
 						}
 
 					}
+
 
 				}
 
@@ -25059,6 +25170,7 @@ available_languages.push ({
 		GENERAL_MECH: '\'Mech',
 		GENERAL_GROUP: 'Group',
 		GENERAL_TON: 'Ton',
+		GENERAL_AS_ROLE: 'Alpha Strike Role',
 		GENERAL_TONS: 'Tons',
 		GENERAL_CLAN: 'Clan',
 		GENERAL_SKILL: 'Skill',

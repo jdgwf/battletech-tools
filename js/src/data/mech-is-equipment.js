@@ -4879,7 +4879,7 @@ var mechISEquipment = Array(
 		extinct: 2865,
 		reintroduced: 3040,
 		battlevalue: 320,
-		heat: 1,  
+		heat: 1,
 		weight: 15,
 		range_min: {
 			min: 2,
@@ -5084,6 +5084,55 @@ var mechISEquipment = Array(
 			range_extreme: 0,
 			tc: 0,
 			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Hatchet",
+			'de-DE': "de - Hatchet",
+		},
+		tag: "melee-hatchet",
+		sort: "melee, hatchet",
+		category: {
+			'en-US': "Melee",
+			'de-DE': "de - Melee",
+		},
+
+		variable_size: true,
+		is_melee: true,
+
+		weight_divisior: 15,
+		damage_divisior: 5,
+		criticals_divisior: 15,
+		requires_hand_actuator: true,
+		introduced: 3022,
+		extinct: 0,
+		heat: 0,
+		unique: true,
+		cost_per_item_ton: 5000,
+		battlevalue_per_item_damage: 1.5,
+
+		book: "TM",
+		page: 220,
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: "n/a",
+			support_vehicle: "n/a",
+			aerospace_fighter: "n/a",
+			small_craft: "n/a",
+			drop_ship: "n/a"
+		},
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+				"MEL"
 			)
 		}
 	}
