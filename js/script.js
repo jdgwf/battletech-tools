@@ -1281,7 +1281,7 @@ function createCritAllocationTable( critData, xPos, yPos, rollAgainTranslated) {
 		if( critData[ critC ] ) {
 			rearDesignation = "";
 
-			critData[ critC ].name.replace("(rear)", "[R]");
+			critData[ critC ].name = critData[ critC ].name.replace("(rear)", "[R]");
 
 			if( critData[ critC ].name == "placeholder" ) {
 				textSVG += "<text x=\"" + ( xPos ) + "\" y=\"" + ( yPos + lineCount * (fontSize + lineBuffer) ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + fontSize + "\">" + lastName + "</text>\n";

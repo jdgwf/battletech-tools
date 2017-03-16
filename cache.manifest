@@ -301,11 +301,11 @@ index.html
 plain.html
 
 # Uncomment script.min.js and sourcemap.map if we ever use it.
-# js/script.min.js
-# js/sourcemap.map
+js/script.min.js
+js/sourcemap.map
 
 # If we use the minified (there's a good chance in the future), comment out the file below
-js/script.js
+# js/script.js
 
 # Active Javascript Files
 js/angular/angular-resource.min.js
