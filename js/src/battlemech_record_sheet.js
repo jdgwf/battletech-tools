@@ -401,6 +401,10 @@ function createCritAllocationTable( critData, xPos, yPos, rollAgainTranslated) {
 	for( var critC = 0; critC < critData.length; critC++ ) {
 
 		if( critData[ critC ] ) {
+			rearDesignation = "";
+
+			critData[ critC ].name = critData[ critC ].name.replace("(rear)", "[R]");
+
 			if( critData[ critC ].name == "placeholder" ) {
 				textSVG += "<text x=\"" + ( xPos ) + "\" y=\"" + ( yPos + lineCount * (fontSize + lineBuffer) ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + fontSize + "\">" + lastName + "</text>\n";
 				lastWasPlaceHolder = true;
@@ -408,6 +412,7 @@ function createCritAllocationTable( critData, xPos, yPos, rollAgainTranslated) {
 				if( critData[ critC ].rollAgain ) {
 					textSVG += "<text x=\"" + ( xPos ) + "\" y=\"" + ( yPos + lineCount * (fontSize + lineBuffer) ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorMediumGray + "\" style=\"font-weight: 100;\" font-size=\"" + fontSize + "\">(" + critData[ critC ].name + ")</text>\n";
 				} else {
+
 					if( critData[ critC ].obj && critData[ critC ].obj.ammo_per_ton )
 						textSVG += "<text x=\"" + ( xPos ) + "\" y=\"" + ( yPos + lineCount * (fontSize + lineBuffer) ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"" + fontSize + "\">" + critData[ critC ].name + " " + critData[ critC ].obj.ammo_per_ton + "</text>\n";
 					else
@@ -998,17 +1003,20 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 	svgCode += "<text x=\"" + ( wacCol8 ) + "\" y=\"" + (weapAndEqpTop + 80) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"35\">Med</text>\n";
 	svgCode += "<text x=\"" + ( wacCol9 ) + "\" y=\"" + (weapAndEqpTop + 80) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"35\">Lng</text>\n";
 
-
+	var rearDesignation = "";
 	for( eq_count = 0; eq_count < mechData.sortedEquipmentList.length; eq_count++) {
 		if( eq_count % 2 == 0 )
 			svgCode += "<rect x=\"" + ( wacCol1 - 5 ) + "\" y=\"" + (weapAndEqpTop + 93 + eqLineHeight * eq_count) + "\" width=\"1180\" height=\"" + (eqLineHeight + 4 )  + "\" fill=\"" + colorVeryLightGray + "\" />\n";
 
 		svgCode += "<text x=\"" + ( wacCol1 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].count + "</text>\n";
 
+		rearDesignation = "";
+		if(  mechData.sortedEquipmentList[ eq_count].rear )
+			rearDesignation = " [R]"
 		if( mechData.sortedEquipmentList[ eq_count].ammo_per_ton && mechData.sortedEquipmentList[ eq_count].ammo_per_ton > 0 )
-			svgCode += "<text x=\"" + ( wacCol2 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].local_name + " " + mechData.sortedEquipmentList[ eq_count].ammo_per_ton + "</text>\n";
+			svgCode += "<text x=\"" + ( wacCol2 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].local_name + rearDesignation  + " " + mechData.sortedEquipmentList[ eq_count].ammo_per_ton + "</text>\n";
 		else
-			svgCode += "<text x=\"" + ( wacCol2 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].local_name + "</text>\n";
+			svgCode += "<text x=\"" + ( wacCol2 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].local_name + rearDesignation + "</text>\n";
 
 		svgCode += "<text x=\"" + ( wacCol3 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].location.toUpperCase() + "</text>\n";
 		svgCode += "<text x=\"" + ( wacCol4 + 30 ) + "\" y=\"" + (weapAndEqpTop + 120 + eqLineHeight * eq_count ) + "\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 100;\" font-size=\"30\">" + mechData.sortedEquipmentList[eq_count].heat + "</text>\n";
@@ -5556,8 +5564,6 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 		isCenterAdjust = 4;
 		distanceFromCenter = 0;
 
-		//~ mechData.getInternalStructure().centerTorso = 99;
-
 		rowMultiplier  = 0;
 		if( mechData.getInternalStructure().centerTorso >= 33 )
 			svgCode += damageCircle( isBoxLeft + isBoxWidth / 2 - isBubbleRadius * 5 - distanceFromCenter + isCenterAdjust, isBoxTop + ctISTop + armorBubbleRadius * rowMultiplier * 2.25, armorBubbleRadius );
@@ -5824,8 +5830,6 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 		rowMultiplier = 0;
 		var distanceFromCenter = 130;
 
-		mechData.getInternalStructure().rightArm = 30;
-
 		rowMultiplier = 0;
 		if( mechData.getInternalStructure().rightArm >= 1 )
 			svgCode += damageCircle( isBoxLeft + isCenterAdjust + distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.25, isBoxTop + raISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
@@ -5935,8 +5939,6 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 		var laISTop = 257;
 		rowMultiplier = 0;
 		var distanceFromCenter = 117;
-
-		mechData.getInternalStructure().leftArm = 30;
 
 		rowMultiplier = 0;
 		if( mechData.getInternalStructure().leftArm >= 1 )
@@ -6123,14 +6125,12 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 		if( mechData.getInternalStructure().leftLeg >= 14 )
 			svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.12, isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
 
-
 		distanceFromCenter += 0;
 		rowMultiplier++;
 		if( mechData.getInternalStructure().leftLeg >= 5 )
 			svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 + isBubbleRadius * 1.12 , isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
 		if( mechData.getInternalStructure().leftLeg >= 15 )
 			svgCode += damageCircle( isBoxLeft + isCenterAdjust - distanceFromCenter + isBoxWidth / 2 - isBubbleRadius * 1.12, isBoxTop + llISTop +  isBubbleRadius * rowMultiplier * 2, isBubbleRadius );
-
 
 		rowMultiplier++;
 		distanceFromCenter += 0;

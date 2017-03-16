@@ -1784,7 +1784,7 @@ function Mech(type) {
 		var totalWeaponHeat = 0;
 
 		var eqList = angular.copy(_equipmentList)
-		eqList.sort(sortByBVThenHeat);
+		eqList.sort(sortByBVThenRearThenHeat);
 
 		for (var eqC = 0; eqC < eqList.length; eqC++) {
 			if (eqList[eqC].tag.indexOf("ammo-") == -1) {
@@ -1831,12 +1831,25 @@ function Mech(type) {
 
 					if (inHalfCost == true && eqList[weaponC].heat > 0) {
 						// half efficiency
-						_calcLogBV += "+ Adding Heat Inefficient Weapon " + this.getLocalTranslation(eqList[weaponC].name) + " - " + eqList[weaponC].battlevalue + " / 2 = " + (eqList[weaponC].battlevalue / 2);
-						runningTotal += (eqList[weaponC].battlevalue / 2);
+						if( eqList[weaponC].rear ) {
+							_calcLogBV += "+ Adding Heat Inefficient Rear Weapon " + this.getLocalTranslation(eqList[weaponC].name) + " - " + eqList[weaponC].battlevalue + " / 4 = " + (eqList[weaponC].battlevalue / 4);
+							runningTotal += (eqList[weaponC].battlevalue / 4);
+						} else {
+							_calcLogBV += "+ Adding Heat Inefficient Weapon " + this.getLocalTranslation(eqList[weaponC].name) + " - " + eqList[weaponC].battlevalue + " / 2 = " + (eqList[weaponC].battlevalue / 2);
+							runningTotal += (eqList[weaponC].battlevalue / 2);
+						}
 					} else {
 						// normal efficiency
-						_calcLogBV += "+ Adding Weapon " + this.getLocalTranslation(eqList[weaponC].name) + " - " + eqList[weaponC].battlevalue;
-						runningTotal += eqList[weaponC].battlevalue;
+
+						//~ console.log(  eqList[weaponC] );
+						if( eqList[weaponC].rear ) {
+							_calcLogBV += "+ Adding Rear Weapon " + this.getLocalTranslation(eqList[weaponC].name) + " - " + (eqList[weaponC].battlevalue / 2 ) + "<br />";
+							runningTotal += (eqList[weaponC].battlevalue / 2);
+						} else {
+							_calcLogBV += "+ Adding Weapon " + this.getLocalTranslation(eqList[weaponC].name) + " - " + eqList[weaponC].battlevalue;
+
+							runningTotal += eqList[weaponC].battlevalue;
+						}
 					}
 
 					runningHeat += eqList[weaponC].heat;
@@ -1859,8 +1872,15 @@ function Mech(type) {
 
 			for (var weaponC = 0; weaponC < eqList.length; weaponC++) {
 				if (eqList[weaponC].tag.indexOf("ammo-") == -1) {
-					_calcLogBV += "+ Adding Weapon " + this.getLocalTranslation(eqList[weaponC].name) + " - " + eqList[weaponC].battlevalue + "<br />";
-					runningTotal += eqList[weaponC].battlevalue;
+					if( eqList[weaponC].rear ) {
+						_calcLogBV += "+ Adding Rear Weapon " + this.getLocalTranslation(eqList[weaponC].name) + " - " + (eqList[weaponC].battlevalue / 2 ) + "<br />";
+
+						runningTotal += (eqList[weaponC].battlevalue / 2);
+					} else {
+						_calcLogBV += "+ Adding Weapon " + this.getLocalTranslation(eqList[weaponC].name) + " - " + eqList[weaponC].battlevalue + "<br />";
+
+						runningTotal += eqList[weaponC].battlevalue;
+					}
 				}
 			}
 
@@ -2524,11 +2544,15 @@ function Mech(type) {
 
 			item_location = "";
 			item_location = this.getLocationAbbr(_equipmentList[eq_count].location);
-			if (_equipmentList[eq_count].ammo_per_ton && _equipmentList[eq_count].ammo_per_ton > 0)
-				html += "" + (_equipmentList[eq_count].name[_useLang] + " " + _equipmentList[eq_count].ammo_per_ton).rpad(" ", col1Padding) + "" + item_location.toUpperCase().toString().rpad(" ", col2Padding) + "" + _equipmentList[eq_count].space.battlemech.toString().rpad(" ", col3Padding) + "" + _equipmentList[eq_count].weight.toString().rpad(" ", col4Padding) + "\n";
-			else
-				html += "" + _equipmentList[eq_count].name[_useLang].rpad(" ", col1Padding) + "" + item_location.toUpperCase().toString().rpad(" ", col2Padding) + "" + _equipmentList[eq_count].space.battlemech.toString().rpad(" ", col3Padding) + "" + _equipmentList[eq_count].weight.toString().rpad(" ", col4Padding) + "\n";
 
+			if( _equipmentList[eq_count].rear)
+				item_location += " (R)"
+
+			if (_equipmentList[eq_count].ammo_per_ton && _equipmentList[eq_count].ammo_per_ton > 0) {
+				html += "" + (_equipmentList[eq_count].name[_useLang] + " " + _equipmentList[eq_count].ammo_per_ton).rpad(" ", col1Padding) + "" + item_location.toUpperCase().toString().rpad(" ", col2Padding) + "" + _equipmentList[eq_count].space.battlemech.toString().rpad(" ", col3Padding) + "" + _equipmentList[eq_count].weight.toString().rpad(" ", col4Padding) + "\n";
+			} else {
+				html += "" + _equipmentList[eq_count].name[_useLang].rpad(" ", col1Padding) + "" + item_location.toUpperCase().toString().rpad(" ", col2Padding) + "" + _equipmentList[eq_count].space.battlemech.toString().rpad(" ", col3Padding) + "" + _equipmentList[eq_count].weight.toString().rpad(" ", col4Padding) + "\n";
+			}
 
 		}
 
@@ -2734,6 +2758,10 @@ function Mech(type) {
 
 			item_location = "";
 			item_location = this.getLocationAbbr(_equipmentList[eq_count].location);
+
+			if( _equipmentList[eq_count].rear)
+				item_location += " (R)"
+
 			if (_equipmentList[eq_count].ammo_per_ton && _equipmentList[eq_count].ammo_per_ton > 0)
 				html += "<tr><td class=\"text-left\">" + _equipmentList[eq_count].name[_useLang] + " " + _equipmentList[eq_count].ammo_per_ton + "</td><td class=\"text-center\">" + item_location.toUpperCase() + "</strong></td><td class=\"text-center\">" + _equipmentList[eq_count].space.battlemech + "</td><td class=\"text-center\">" + _equipmentList[eq_count].weight + "</td></tr>";
 			else

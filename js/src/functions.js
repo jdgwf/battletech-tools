@@ -51,6 +51,34 @@ function addCommas( numericalValue ) {
   });
 }
 
+function sortByBVThenRearThenHeat( a, b ) {
+	if( a.rear )
+		a.rear = true;
+	else
+		a.rear = false;
+
+	if( b.rear )
+		b.rear = true;
+	else
+		b.rear = false;
+
+	if( a.battlevalue < b.battlevalue )
+		return 1;
+	if( a.battlevalue > b.battlevalue )
+		return -1;
+
+	if( a.rear < b.rear )
+		return -1;
+	if( a.rear > b.rear )
+		return 1;
+
+	if( a.heat < b.heat )
+		return 1;
+	if( a.heat > b.heat )
+		return -1;
+	return 0;
+}
+
 function sortByBVThenHeat( a, b ) {
 	if( a.battlevalue < b.battlevalue )
 		return 1;
