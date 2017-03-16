@@ -24494,6 +24494,8 @@ var battlemechCreatorControllerWelcomeArray =
 					if( $scope.current_mech.importJSON( $scope.importJSONData ) == true ) {
 						$scope.showImportJSONDialog = false;
 						$scope.importJSONData= "";
+						localStorage["tmp.current_mech"] = $scope.current_mech.exportJSON();
+						//~ console.log ("$scope.current_mech", $scope.current_mech );
 						$location.url( "battlemech-creator/step1" );
 					} else {
 						console.log("import error");
