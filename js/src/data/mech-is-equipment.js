@@ -2174,6 +2174,7 @@ var mechISEquipment = Array(
 			range_extreme: 0.2,
 			tc: 1,
 			notes: Array(
+				"ac"
 			)
 		}
 	},
@@ -2631,6 +2632,7 @@ var mechISEquipment = Array(
 			range_extreme: 0,
 			tc: 1,
 			notes: Array(
+				"ac"
 			)
 		}
 	},
@@ -3088,6 +3090,7 @@ var mechISEquipment = Array(
 			range_extreme: 0,
 			tc: 1,
 			notes: Array(
+				"ac"
 			)
 		}
 	},
@@ -3544,6 +3547,7 @@ var mechISEquipment = Array(
 			range_extreme: 0,
 			tc: 1,
 			notes: Array(
+				"ac"
 			)
 		}
 	},
@@ -4000,6 +4004,7 @@ var mechISEquipment = Array(
 			range_extreme: 0,
 			tc: 1,
 			notes: Array(
+				"ac"
 			)
 		}
 	},

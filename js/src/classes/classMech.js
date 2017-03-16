@@ -585,8 +585,6 @@ function Mech(type) {
 					total_weapon_heat_long += _equipmentList[weapon_counter].alpha_strike.heat;
 				}
 
-
-
 				if (_equipmentList[weapon_counter].explosive)
 					has_explosive = true;
 
@@ -616,54 +614,58 @@ function Mech(type) {
 
 				}
 
-				if (_equipmentList[weapon_counter].notes && _equipmentList[weapon_counter].notes.length > 0) {
-					for (var nC = 0; nC < _equipmentList[weapon_counter].notes.length; nC++) {
-						if (_alphaStrikeForceStats.abilityCodes.indexOf(_equipmentList[weapon_counter].notes[nC]) === -1) {
-							_alphaStrikeForceStats.abilityCodes.push(_equipmentList[weapon_counter].notes[nC]);
+				if ( _equipmentList[weapon_counter].alpha_strike.notes && _equipmentList[weapon_counter].alpha_strike.notes.length && _equipmentList[weapon_counter].alpha_strike.notes.length > 0) {
+					for (var nC = 0; nC < _equipmentList[weapon_counter].alpha_strike.notes.length; nC++) {
+						if (_alphaStrikeForceStats.abilityCodes.indexOf(_equipmentList[weapon_counter].alpha_strike.notes[nC]) === -1) {
+							_alphaStrikeForceStats.abilityCodes.push(_equipmentList[weapon_counter].alpha_strike.notes[nC]);
 						}
 
-						if (_equipmentList[weapon_counter].notes[nC].toLowerCase() == "heat") {
+						if (_equipmentList[weapon_counter].alpha_strike.notes[nC].toLowerCase() == "mel") {
+							_alphaStrikeForceStats.special_unit_abilities.push( "MEL" );
+						}
+
+						if (_equipmentList[weapon_counter].alpha_strike.notes[nC].toLowerCase() == "heat") {
 							heatDamage.short += _equipmentList[weapon_counter].alpha_strike.range_short;
 							heatDamage.medium += _equipmentList[weapon_counter].alpha_strike.range_medium;
 							heatDamage.long += _equipmentList[weapon_counter].alpha_strike.range_long;
 							heatDamage.extreme += _equipmentList[weapon_counter].alpha_strike.range_extreme;
 						}
 
-						if (_equipmentList[weapon_counter].notes[nC].toLowerCase() == "lrm") {
+						if (_equipmentList[weapon_counter].alpha_strike.notes[nC].toLowerCase() == "lrm") {
 							lrmDamage.short += _equipmentList[weapon_counter].alpha_strike.range_short;
 							lrmDamage.medium += _equipmentList[weapon_counter].alpha_strike.range_medium;
 							lrmDamage.long += _equipmentList[weapon_counter].alpha_strike.range_long;
 							lrmDamage.extreme += _equipmentList[weapon_counter].alpha_strike.range_extreme;
 						}
 
-						if (_equipmentList[weapon_counter].notes[nC].toLowerCase() == "ac") {
+						if (_equipmentList[weapon_counter].alpha_strike.notes[nC].toLowerCase() == "ac") {
 							acDamage.short += _equipmentList[weapon_counter].alpha_strike.range_short;
 							acDamage.medium += _equipmentList[weapon_counter].alpha_strike.range_medium;
 							acDamage.long += _equipmentList[weapon_counter].alpha_strike.range_long;
 							acDamage.extreme += _equipmentList[weapon_counter].alpha_strike.range_extreme;
 						}
 
-						if (_equipmentList[weapon_counter].notes[nC].toLowerCase() == "flak") {
+						if (_equipmentList[weapon_counter].alpha_strike.notes[nC].toLowerCase() == "flak") {
 							flakDamage.short += _equipmentList[weapon_counter].alpha_strike.range_short;
 							flakDamage.medium += _equipmentList[weapon_counter].alpha_strike.range_medium;
 							flakDamage.long += _equipmentList[weapon_counter].alpha_strike.range_long;
 							flakDamage.extreme += _equipmentList[weapon_counter].alpha_strike.range_extreme;
 						}
 
-						if (_equipmentList[weapon_counter].notes[nC].toLowerCase() == "srm") {
+						if (_equipmentList[weapon_counter].alpha_strike.notes[nC].toLowerCase() == "srm") {
 
 							indirectFireRating += _equipmentList[weapon_counter].alpha_strike.range_long;
 
 						}
 
-						if (_equipmentList[weapon_counter].notes[nC].toLowerCase() == "indirect fire" || _equipmentList[weapon_counter].notes[nC].toLowerCase() == "if") {
+						if (_equipmentList[weapon_counter].alpha_strike.notes[nC].toLowerCase() == "indirect fire" || _equipmentList[weapon_counter].alpha_strike.notes[nC].toLowerCase() == "if") {
 							srmDamage.short += _equipmentList[weapon_counter].alpha_strike.range_short;
 							srmDamage.medium += _equipmentList[weapon_counter].alpha_strike.range_medium;
 							srmDamage.long += _equipmentList[weapon_counter].alpha_strike.range_long;
 							srmDamage.extreme += _equipmentList[weapon_counter].alpha_strike.range_extreme;
 						}
 
-						if (_equipmentList[weapon_counter].notes[nC].toLowerCase() == "missile" || _equipmentList[weapon_counter].notes[nC].toLowerCase() == "msl") {
+						if (_equipmentList[weapon_counter].alpha_strike.notes[nC].toLowerCase() == "missile" || _equipmentList[weapon_counter].alpha_strike.notes[nC].toLowerCase() == "msl") {
 							mslDamage.short += _equipmentList[weapon_counter].alpha_strike.range_short;
 							mslDamage.medium += _equipmentList[weapon_counter].alpha_strike.range_medium;
 							mslDamage.long += _equipmentList[weapon_counter].alpha_strike.range_long;
