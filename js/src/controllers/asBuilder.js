@@ -20,7 +20,7 @@ var asBuilderArray = [
 
 		});
 
-			localStorage["backToPath"] = $location.$$path;
+		localStorage["backToPath"] = $location.$$path;
 
 		$scope.addToOptions = Array();
 		$scope.activeView = false;
@@ -46,6 +46,15 @@ var asBuilderArray = [
 			for( lanceCount = 0; lanceCount < $scope.currentLances.length; lanceCount++ ) {
 				$scope.currentLances[lanceCount].getActiveMembers();
 			}
+
+			$scope.forceTotalPoints = 0;
+
+			$scope.totalCount = 0;
+			for( var lanceCount = 0; lanceCount < $scope.currentLances.length; lanceCount++) {
+				$scope.totalCount += $scope.currentLances[lanceCount].members.length;
+				$scope.forceTotalPoints += $scope.currentLances[lanceCount].groupPoints;
+			}
+			$scope.totalGroups = $scope.currentLances.length;
 		}
 
 		$scope.addFavoriteUnit = function( favoriteGroupIndex, favoriteMechIndex, addToGroup ) {
@@ -222,14 +231,7 @@ var asBuilderArray = [
 			localStorage["as_builder_favorites"] = JSON.stringify( $scope.favoriteGroups) ;
 
 			$scope.updateMemberCounts();
-			$scope.forceTotalPoints = 0;
 
-			$scope.totalCount = 0;
-			for( var lanceCount = 0; lanceCount < $scope.currentLances.length; lanceCount++) {
-				$scope.totalCount += $scope.currentLances[lanceCount].members.length;
-				$scope.forceTotalPoints += $scope.currentLances[lanceCount].groupPoints;
-			}
-			$scope.totalGroups = $scope.currentLances.length;
 			//console.log( $scope.totalCount  ) ;
 			$scope.makeAddToOptions();
 
@@ -289,6 +291,7 @@ var asBuilderArray = [
 				}
 
 				$scope.currentLances.push( incomingLance );
+				$scope.updateMemberCounts();
 			}
 		}
 

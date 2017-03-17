@@ -13,14 +13,13 @@ var asPlayViewSVGArray = [
 		});
 
 		$scope.goHome = function() {
-
 			delete(localStorage["backToPath"]);
 			$location.url("/");
 		}
 
 		$scope.activeView = true;
 
-			localStorage["backToPath"] = $location.$$path;
+		localStorage["backToPath"] = $location.$$path;
 
 		incomingLance = Array();
 		$scope.currentLances = Array()
