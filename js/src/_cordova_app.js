@@ -115,6 +115,11 @@ cordovaApp = angular.module(
 				controller  : 'asPlayViewSVGController'
 			})
 
+			.when('/as/play-view-smaller', {
+				templateUrl : 'pages/as-play-view-svg-smaller.html',
+				controller  : 'asPlayViewSVGController'
+			})
+
 			// route for the credits page
 			.when('/settings', {
 				templateUrl : 'pages/settings.html',

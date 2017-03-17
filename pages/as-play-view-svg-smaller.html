@@ -12,14 +12,15 @@
 			<span ng-hide="currentLance.customName">Group {{$index +1 }}{{currentLance.membersLabel}}</span>
 		</button>
 
-		<a href="#/as/play-view-smaller/" class="pull-right"><h3 class="no-margins"><i class="fa fa-th"></i></h3></a>
+		<a href="#/as/play-view/" class="pull-right"><h3 class="no-margins"><i class="fa fa-reorder"></i></h3></a>
 	</div>
 </div>
 <div class="top-bar-padding">
 </div>
+
 <div ng-repeat="currentLance in currentLances track by $index" ng-show="$index == viewingLance" class="row">
-	<div ng-repeat="viewingMech in currentLance.members" class="row">
-		<div class="columns medium-12">
+	<div ng-repeat="viewingMech in currentLance.members" >
+		<div class="columns small-12 medium-6">
 			<div class="svg-as-container">
 				<div id="current-mech-{{$parent.$index}}-{{$index}}" ng-bind-html="viewingMech.makeSVGAlphaStrikeCard(true, 'current-mech-' + $parent.$index + '-' + $index) | to_trusted"></div>
 				<div ng-show="viewingMech.showDamageBar" class="damage-select">
@@ -41,4 +42,5 @@
 		</div>
 
 	</div>
+
 </div>
