@@ -970,7 +970,11 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 	svgCode += "<text x=\"" + ( mechDataLeft + 15 ) + "\" y=\"" + (mechDataTop + 380) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"25\">" + mechData.getCBillCost()  + "</text>\n";
 	// BV
 	svgCode += "<text x=\"" + ( mechDataLeft + 340 ) + "\" y=\"" + (mechDataTop + 350) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"30\">BattleValue (BV2)</text>\n";
-	svgCode += "<text x=\"" + ( mechDataLeft + 340 ) + "\" y=\"" + (mechDataTop + 380) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"25\">" + mechData.getBattleValue()  + "</text>\n";
+
+	var battleValue = mechData.getBattleValue();
+	if( battleValue != mechData.getPilotAdjustedBattleValue() )
+		battleValue = battleValue + " (" + mechData.getPilotAdjustedBattleValue() + ")";
+	svgCode += "<text x=\"" + ( mechDataLeft + 340 ) + "\" y=\"" + (mechDataTop + 380) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"25\">" + battleValue  + "</text>\n";
 
 
 	/*

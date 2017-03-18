@@ -1858,7 +1858,11 @@ function createSVGRecordSheet( mechData, inPlay, landscape, itemIDField ) {
 	svgCode += "<text x=\"" + ( mechDataLeft + 15 ) + "\" y=\"" + (mechDataTop + 380) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"25\">" + mechData.getCBillCost()  + "</text>\n";
 	// BV
 	svgCode += "<text x=\"" + ( mechDataLeft + 340 ) + "\" y=\"" + (mechDataTop + 350) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 700;\" font-size=\"30\">BattleValue (BV2)</text>\n";
-	svgCode += "<text x=\"" + ( mechDataLeft + 340 ) + "\" y=\"" + (mechDataTop + 380) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"25\">" + mechData.getBattleValue()  + "</text>\n";
+
+	var battleValue = mechData.getBattleValue();
+	if( battleValue != mechData.getPilotAdjustedBattleValue() )
+		battleValue = battleValue + " (" + mechData.getPilotAdjustedBattleValue() + ")";
+	svgCode += "<text x=\"" + ( mechDataLeft + 340 ) + "\" y=\"" + (mechDataTop + 380) + "\" text-anchor=\"start\" font-family=\"sans-serif\" fill=\"" + colorBlack + "\" style=\"font-weight: 500;\" font-size=\"25\">" + battleValue  + "</text>\n";
 
 
 	/*
@@ -8491,7 +8495,7 @@ function getItemAvailability( item, currentEra )
 
 
 /*
- * The data here is copyright NOT included in the MIT license.
+ * The data here is/may be copyrighted and NOT included in the MIT license.
  * Based on BattleTech Master Unit List eras: http://masterunitlist.info/Era/Index
  */
 var btEraOptions = Array(
@@ -8597,7 +8601,7 @@ var btEraOptions = Array(
 );
 
 /*
- * The data here is copyright NOT included in the MIT license.
+ * The data here is/may be copyrighted and NOT included in the MIT license.
  */
 battlemechLocations = Array(
 	{
@@ -8747,7 +8751,7 @@ battlemechLocations = Array(
 );
 
 /*
- * The data here is copyright NOT included in the MIT license.
+ * The data here is/may be copyrighted and NOT included in the MIT license.
  */
 var mechArmorTypes = Array(
 	{
@@ -8855,13 +8859,70 @@ var mechArmorTypes = Array(
 );
 
 /*
- * The data here is copyright NOT included in the MIT license.
+ * The data here is/may be copyrighted and NOT included in the MIT license.
  */
 var mechClanEquipment = Array(
+{
+		name: {
+			'en-US': "Extended-Range PPC",
+			'de-DE': "de - Extended-Range PPC",
+		},
+		tag: "er-ppc",
+		sort: "ppc, er",
+		category: {
+			'en-US': "Energy Weapons",
+			'de-DE': "de - Energy Weapons",
+		},
+		damage: 15,
+		damage_aero: 15,
+		accuracy_modifier: 0,
+		cbills: 300000,
+		introduced: 2751,
+		extinct: 2860,
+		reintroduced: 3037,
+		battlevalue: 412,
+		ammo_battlevalue: 0,
+		heat: 15,
+		weight: 6,
+		range_min: {
+			min: 0,
+			short: 7,
+			medium: 14,
+			long: 23,
+		},
+		space: {
+			battlemech: 2,
+			protomech: 1,
+			combat_vehicle: 1,
+			support_vehicle: 2,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 0,
+		min_ammo_tons: 1,
+		explosive: false,
+		weapon_type: Array(
+			"DE"
+		),
+		tech_rating: "f",
+		book: "TM",
+		page: 233,
+		alpha_strike: {
+			heat: 15,
+			range_short: 1.5,
+			range_medium: 1.5,
+			range_long: 1.5,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	}
 );
 
 /*
- * The data here is copyright NOT included in the MIT license.
+ * The data here is/may be copyrighted and NOT included in the MIT license.
  */
 var mechEngineOptions = Array(
 	{
@@ -9895,7 +9956,7 @@ var mechEngineOptions = Array(
 );
 
 /*
- * The data here is copyright NOT included in the MIT license.
+ * The data here is/may be copyrighted and NOT included in the MIT license.
  */
 var mechEngineTypes = Array(
 	{
@@ -9985,7 +10046,7 @@ var mechEngineTypes = Array(
 );
 
 /*
- * The data here is copyright NOT included in the MIT license.
+ * The data here is/may be copyrighted and NOT included in the MIT license.
  */
 var mechGyroTypes = Array(
 	{
@@ -10039,7 +10100,7 @@ var mechGyroTypes = Array(
 );
 
 /*
- * The data here is copyright NOT included in the MIT license.
+ * The data here is/may be copyrighted and NOT included in the MIT license.
  */
 var mechHeatSinkTypes = Array(
 	{
@@ -10076,7 +10137,7 @@ var mechHeatSinkTypes = Array(
 );
 
 /*
- * The data here is copyright NOT included in the MIT license.
+ * The data here is/may be copyrighted and NOT included in the MIT license.
  */
 var mechInternalStructureTypes = Array(
 	{
@@ -10392,7 +10453,7 @@ var mechInternalStructureTypes = Array(
 );
 
 /*
- * The data here is copyright NOT included in the MIT license.
+ * The data here is/may be copyrighted and NOT included in the MIT license.
  */
 var mechISEquipment = Array(
 	/*
@@ -15537,7 +15598,7 @@ var mechISEquipment = Array(
 );
 
 /*
- * The data here is copyright NOT included in the MIT license.
+ * The data here is/may be copyrighted and NOT included in the MIT license.
  */
 var mechJumpJetTypes = Array(
 	{
@@ -15576,7 +15637,7 @@ var mechJumpJetTypes = Array(
 );
 
 /*
- * The data here is copyright NOT included in the MIT license.
+ * The data here is/may be copyrighted and NOT included in the MIT license.
  */
 var mechTypeOptions = Array(
 	{
@@ -15598,7 +15659,7 @@ var mechTypeOptions = Array(
 );
 
 /*
- * The data here is copyright NOT included in the MIT license.
+ * The data here is/may be copyrighted and NOT included in the MIT license.
  */
 var btTechOptions = Array(
 	{
@@ -16938,6 +16999,7 @@ function Mech(type) {
 
 	var _cbillCost = "n/a";
 	var _battleValue = "n/a";
+	var _pilotAdjustedBattleValue = "n/a";
 	var _alphaStrikeValue = "n/a";
 
 	var _calcLogBV = "";
@@ -18754,7 +18816,180 @@ function Mech(type) {
 		}
 
 		_calcLogBV += "<strong>Final Battle Value</strong>: " + finalBattleValue.toFixed(2) + " rounded to " + Math.round(finalBattleValue) + "<br />";
-		_battleValue = Math.round(finalBattleValue) + " (in testing)";
+		_battleValue = Math.round(finalBattleValue);
+
+		this._setPilotAdjustedBattleValue();
+
+	}
+
+	this._setPilotAdjustedBattleValue = function() {
+		_pilotAdjustedBattleValue = _battleValue;
+
+
+		if( _pilot.gunnery == 0 && _pilot.piloting == 0 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 2.80;
+		} else if( _pilot.gunnery == 1 && _pilot.piloting == 0 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 2.56;
+		} else if( _pilot.gunnery == 2 && _pilot.piloting == 0 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 2.24;
+		} else if( _pilot.gunnery == 3 && _pilot.piloting == 0 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.92;
+		} else if( _pilot.gunnery == 4 && _pilot.piloting == 0 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.60;
+		} else if( _pilot.gunnery == 5 && _pilot.piloting == 0 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.50;
+		} else if( _pilot.gunnery == 6 && _pilot.piloting == 0 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.43;
+		} else if( _pilot.gunnery == 7 && _pilot.piloting == 0 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.36;
+		} else if( _pilot.gunnery == 8 && _pilot.piloting == 0 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.28;
+		} else if( _pilot.gunnery == 0 && _pilot.piloting == 1 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 2.63;
+		} else if( _pilot.gunnery == 1 && _pilot.piloting == 1 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 2.40;
+		} else if( _pilot.gunnery == 2 && _pilot.piloting == 1 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 2.10;
+		} else if( _pilot.gunnery == 3 && _pilot.piloting == 1 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.80;
+		} else if( _pilot.gunnery == 4 && _pilot.piloting == 1 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.50;
+		} else if( _pilot.gunnery == 5 && _pilot.piloting == 1 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.35;
+		} else if( _pilot.gunnery == 6 && _pilot.piloting == 1 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.33;
+		} else if( _pilot.gunnery == 7 && _pilot.piloting == 1 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.26;
+		} else if( _pilot.gunnery == 8 && _pilot.piloting == 1 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.19;
+		} else if( _pilot.gunnery == 0 && _pilot.piloting == 2 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 2.45;
+		} else if( _pilot.gunnery == 1 && _pilot.piloting == 2 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 2.24;
+		} else if( _pilot.gunnery == 2 && _pilot.piloting == 2 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.96;
+		} else if( _pilot.gunnery == 3 && _pilot.piloting == 2 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.68;
+		} else if( _pilot.gunnery == 4 && _pilot.piloting == 2 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.40;
+		} else if( _pilot.gunnery == 5 && _pilot.piloting == 2 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.26;
+		} else if( _pilot.gunnery == 6 && _pilot.piloting == 2 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.19;
+		} else if( _pilot.gunnery == 7 && _pilot.piloting == 2 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.16;
+		} else if( _pilot.gunnery == 8 && _pilot.piloting == 2 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.10;
+		} else if( _pilot.gunnery == 0 && _pilot.piloting == 3 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 2.28;
+		} else if( _pilot.gunnery == 1 && _pilot.piloting == 3 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 2.08;
+		} else if( _pilot.gunnery == 2 && _pilot.piloting == 3 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.82;
+		} else if( _pilot.gunnery == 3 && _pilot.piloting == 3 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.56;
+		} else if( _pilot.gunnery == 4 && _pilot.piloting == 3 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.30;
+		} else if( _pilot.gunnery == 5 && _pilot.piloting == 3 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.17;
+		} else if( _pilot.gunnery == 6 && _pilot.piloting == 3 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.11;
+		} else if( _pilot.gunnery == 7 && _pilot.piloting == 3 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.04;
+		} else if( _pilot.gunnery == 8 && _pilot.piloting == 3 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.01;
+		} else if( _pilot.gunnery == 0 && _pilot.piloting == 4 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 2.01;
+		} else if( _pilot.gunnery == 1 && _pilot.piloting == 4 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.84;
+		} else if( _pilot.gunnery == 2 && _pilot.piloting == 4 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.61;
+		} else if( _pilot.gunnery == 3 && _pilot.piloting == 4 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.38;
+		} else if( _pilot.gunnery == 4 && _pilot.piloting == 4 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.15;
+		} else if( _pilot.gunnery == 5 && _pilot.piloting == 1 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.04;
+		} else if( _pilot.gunnery == 6 && _pilot.piloting == 1 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.98;
+		} else if( _pilot.gunnery == 7 && _pilot.piloting == 4 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.92;
+		} else if( _pilot.gunnery == 8 && _pilot.piloting == 4 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.86;
+		} else if( _pilot.gunnery == 0 && _pilot.piloting == 5 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.82;
+		} else if( _pilot.gunnery == 1 && _pilot.piloting == 5 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.60;
+		} else if( _pilot.gunnery == 2 && _pilot.piloting == 5 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.40;
+		} else if( _pilot.gunnery == 3 && _pilot.piloting == 5 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.20;
+		} else if( _pilot.gunnery == 4 && _pilot.piloting == 5 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.0;
+		} else if( _pilot.gunnery == 5 && _pilot.piloting == 5 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.90;
+		} else if( _pilot.gunnery == 6 && _pilot.piloting == 5 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.85;
+		} else if( _pilot.gunnery == 7 && _pilot.piloting == 5 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.80;
+		} else if( _pilot.gunnery == 8 && _pilot.piloting == 5 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.75;
+		} else if( _pilot.gunnery == 0 && _pilot.piloting == 6 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.75;
+		} else if( _pilot.gunnery == 1 && _pilot.piloting == 6 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.58;
+		} else if( _pilot.gunnery == 2 && _pilot.piloting == 6 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.33;
+		} else if( _pilot.gunnery == 3 && _pilot.piloting == 6 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.14;
+		} else if( _pilot.gunnery == 4 && _pilot.piloting == 6 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.95;
+		} else if( _pilot.gunnery == 5 && _pilot.piloting == 6 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.86;
+		} else if( _pilot.gunnery == 6 && _pilot.piloting == 6 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.81;
+		} else if( _pilot.gunnery == 7 && _pilot.piloting == 6 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.76;
+		} else if( _pilot.gunnery == 8 && _pilot.piloting == 6 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.71;
+		} else if( _pilot.gunnery == 0 && _pilot.piloting == 7 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.67;
+		} else if( _pilot.gunnery == 1 && _pilot.piloting == 7 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.51;
+		} else if( _pilot.gunnery == 2 && _pilot.piloting == 7 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.31;
+		} else if( _pilot.gunnery == 3 && _pilot.piloting == 7 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.08;
+		} else if( _pilot.gunnery == 4 && _pilot.piloting == 7 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.90;
+		} else if( _pilot.gunnery == 5 && _pilot.piloting == 7 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.81;
+		} else if( _pilot.gunnery == 6 && _pilot.piloting == 7 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.77;
+		} else if( _pilot.gunnery == 7 && _pilot.piloting == 7 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.72;
+		} else if( _pilot.gunnery == 8 && _pilot.piloting == 7 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.68;
+		} else if( _pilot.gunnery == 0 && _pilot.piloting == 8 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.59;
+		} else if( _pilot.gunnery == 1 && _pilot.piloting == 8 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.44;
+		} else if( _pilot.gunnery == 2 && _pilot.piloting == 8 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.25;
+		} else if( _pilot.gunnery == 3 && _pilot.piloting == 8 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.06;
+		} else if( _pilot.gunnery == 4 && _pilot.piloting == 8 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.85;
+		} else if( _pilot.gunnery == 5 && _pilot.piloting == 8 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.77;
+		} else if( _pilot.gunnery == 6 && _pilot.piloting == 8 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.72;
+		} else if( _pilot.gunnery == 7 && _pilot.piloting == 8 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.68;
+		} else if( _pilot.gunnery == 8 && _pilot.piloting == 8 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.64;
+		}
+		_pilotAdjustedBattleValue = Math.round( _pilotAdjustedBattleValue );
 	}
 
 	this._getSpeedFactorModifier = function() {
@@ -19067,7 +19302,7 @@ function Mech(type) {
 
 
 		_calcLogCBill += "</tbody></table>";
-		_cbillCost = addCommas(cbillTotal) + " (in testing)";
+		_cbillCost = addCommas(cbillTotal);
 	}
 
 	this._getNumberOfJumpJets = function() {
@@ -19076,6 +19311,10 @@ function Mech(type) {
 
 	this.getBattleValue = function() {
 		return _battleValue;
+	}
+
+	this.getPilotAdjustedBattleValue = function() {
+		return _pilotAdjustedBattleValue;
 	}
 
 	this.getAlphaStrikeValue = function() {
@@ -25090,7 +25329,7 @@ angular.module("cordovaApp").controller(
 );
 
 /*
- * The data here is copyright NOT included in the MIT license.
+ * The data here is/may be copyrighted and NOT included in the MIT license.
  */
 available_languages.push ({
 	english_name: "German",
@@ -25145,7 +25384,7 @@ available_languages.push ({
 } );
 
 /*
- * The data here is copyright NOT included in the MIT license.
+ * The data here is/may be copyrighted and NOT included in the MIT license.
  */
 available_languages.push ({
 	english_name: "English",

@@ -1,5 +1,5 @@
 /*
- * The data here is copyright NOT included in the MIT license.
+ * The data here is/may be copyrighted and NOT included in the MIT license.
  */
 var mechArmorTypes = Array(
 	{

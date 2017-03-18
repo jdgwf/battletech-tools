@@ -102,6 +102,7 @@ function Mech(type) {
 
 	var _cbillCost = "n/a";
 	var _battleValue = "n/a";
+	var _pilotAdjustedBattleValue = "n/a";
 	var _alphaStrikeValue = "n/a";
 
 	var _calcLogBV = "";
@@ -1918,7 +1919,180 @@ function Mech(type) {
 		}
 
 		_calcLogBV += "<strong>Final Battle Value</strong>: " + finalBattleValue.toFixed(2) + " rounded to " + Math.round(finalBattleValue) + "<br />";
-		_battleValue = Math.round(finalBattleValue) + " (in testing)";
+		_battleValue = Math.round(finalBattleValue);
+
+		this._setPilotAdjustedBattleValue();
+
+	}
+
+	this._setPilotAdjustedBattleValue = function() {
+		_pilotAdjustedBattleValue = _battleValue;
+
+
+		if( _pilot.gunnery == 0 && _pilot.piloting == 0 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 2.80;
+		} else if( _pilot.gunnery == 1 && _pilot.piloting == 0 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 2.56;
+		} else if( _pilot.gunnery == 2 && _pilot.piloting == 0 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 2.24;
+		} else if( _pilot.gunnery == 3 && _pilot.piloting == 0 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.92;
+		} else if( _pilot.gunnery == 4 && _pilot.piloting == 0 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.60;
+		} else if( _pilot.gunnery == 5 && _pilot.piloting == 0 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.50;
+		} else if( _pilot.gunnery == 6 && _pilot.piloting == 0 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.43;
+		} else if( _pilot.gunnery == 7 && _pilot.piloting == 0 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.36;
+		} else if( _pilot.gunnery == 8 && _pilot.piloting == 0 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.28;
+		} else if( _pilot.gunnery == 0 && _pilot.piloting == 1 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 2.63;
+		} else if( _pilot.gunnery == 1 && _pilot.piloting == 1 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 2.40;
+		} else if( _pilot.gunnery == 2 && _pilot.piloting == 1 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 2.10;
+		} else if( _pilot.gunnery == 3 && _pilot.piloting == 1 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.80;
+		} else if( _pilot.gunnery == 4 && _pilot.piloting == 1 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.50;
+		} else if( _pilot.gunnery == 5 && _pilot.piloting == 1 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.35;
+		} else if( _pilot.gunnery == 6 && _pilot.piloting == 1 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.33;
+		} else if( _pilot.gunnery == 7 && _pilot.piloting == 1 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.26;
+		} else if( _pilot.gunnery == 8 && _pilot.piloting == 1 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.19;
+		} else if( _pilot.gunnery == 0 && _pilot.piloting == 2 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 2.45;
+		} else if( _pilot.gunnery == 1 && _pilot.piloting == 2 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 2.24;
+		} else if( _pilot.gunnery == 2 && _pilot.piloting == 2 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.96;
+		} else if( _pilot.gunnery == 3 && _pilot.piloting == 2 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.68;
+		} else if( _pilot.gunnery == 4 && _pilot.piloting == 2 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.40;
+		} else if( _pilot.gunnery == 5 && _pilot.piloting == 2 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.26;
+		} else if( _pilot.gunnery == 6 && _pilot.piloting == 2 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.19;
+		} else if( _pilot.gunnery == 7 && _pilot.piloting == 2 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.16;
+		} else if( _pilot.gunnery == 8 && _pilot.piloting == 2 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.10;
+		} else if( _pilot.gunnery == 0 && _pilot.piloting == 3 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 2.28;
+		} else if( _pilot.gunnery == 1 && _pilot.piloting == 3 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 2.08;
+		} else if( _pilot.gunnery == 2 && _pilot.piloting == 3 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.82;
+		} else if( _pilot.gunnery == 3 && _pilot.piloting == 3 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.56;
+		} else if( _pilot.gunnery == 4 && _pilot.piloting == 3 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.30;
+		} else if( _pilot.gunnery == 5 && _pilot.piloting == 3 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.17;
+		} else if( _pilot.gunnery == 6 && _pilot.piloting == 3 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.11;
+		} else if( _pilot.gunnery == 7 && _pilot.piloting == 3 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.04;
+		} else if( _pilot.gunnery == 8 && _pilot.piloting == 3 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.01;
+		} else if( _pilot.gunnery == 0 && _pilot.piloting == 4 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 2.01;
+		} else if( _pilot.gunnery == 1 && _pilot.piloting == 4 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.84;
+		} else if( _pilot.gunnery == 2 && _pilot.piloting == 4 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.61;
+		} else if( _pilot.gunnery == 3 && _pilot.piloting == 4 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.38;
+		} else if( _pilot.gunnery == 4 && _pilot.piloting == 4 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.15;
+		} else if( _pilot.gunnery == 5 && _pilot.piloting == 1 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.04;
+		} else if( _pilot.gunnery == 6 && _pilot.piloting == 1 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.98;
+		} else if( _pilot.gunnery == 7 && _pilot.piloting == 4 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.92;
+		} else if( _pilot.gunnery == 8 && _pilot.piloting == 4 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.86;
+		} else if( _pilot.gunnery == 0 && _pilot.piloting == 5 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.82;
+		} else if( _pilot.gunnery == 1 && _pilot.piloting == 5 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.60;
+		} else if( _pilot.gunnery == 2 && _pilot.piloting == 5 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.40;
+		} else if( _pilot.gunnery == 3 && _pilot.piloting == 5 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.20;
+		} else if( _pilot.gunnery == 4 && _pilot.piloting == 5 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.0;
+		} else if( _pilot.gunnery == 5 && _pilot.piloting == 5 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.90;
+		} else if( _pilot.gunnery == 6 && _pilot.piloting == 5 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.85;
+		} else if( _pilot.gunnery == 7 && _pilot.piloting == 5 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.80;
+		} else if( _pilot.gunnery == 8 && _pilot.piloting == 5 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.75;
+		} else if( _pilot.gunnery == 0 && _pilot.piloting == 6 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.75;
+		} else if( _pilot.gunnery == 1 && _pilot.piloting == 6 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.58;
+		} else if( _pilot.gunnery == 2 && _pilot.piloting == 6 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.33;
+		} else if( _pilot.gunnery == 3 && _pilot.piloting == 6 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.14;
+		} else if( _pilot.gunnery == 4 && _pilot.piloting == 6 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.95;
+		} else if( _pilot.gunnery == 5 && _pilot.piloting == 6 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.86;
+		} else if( _pilot.gunnery == 6 && _pilot.piloting == 6 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.81;
+		} else if( _pilot.gunnery == 7 && _pilot.piloting == 6 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.76;
+		} else if( _pilot.gunnery == 8 && _pilot.piloting == 6 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.71;
+		} else if( _pilot.gunnery == 0 && _pilot.piloting == 7 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.67;
+		} else if( _pilot.gunnery == 1 && _pilot.piloting == 7 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.51;
+		} else if( _pilot.gunnery == 2 && _pilot.piloting == 7 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.31;
+		} else if( _pilot.gunnery == 3 && _pilot.piloting == 7 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.08;
+		} else if( _pilot.gunnery == 4 && _pilot.piloting == 7 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.90;
+		} else if( _pilot.gunnery == 5 && _pilot.piloting == 7 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.81;
+		} else if( _pilot.gunnery == 6 && _pilot.piloting == 7 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.77;
+		} else if( _pilot.gunnery == 7 && _pilot.piloting == 7 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.72;
+		} else if( _pilot.gunnery == 8 && _pilot.piloting == 7 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.68;
+		} else if( _pilot.gunnery == 0 && _pilot.piloting == 8 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.59;
+		} else if( _pilot.gunnery == 1 && _pilot.piloting == 8 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.44;
+		} else if( _pilot.gunnery == 2 && _pilot.piloting == 8 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.25;
+		} else if( _pilot.gunnery == 3 && _pilot.piloting == 8 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 1.06;
+		} else if( _pilot.gunnery == 4 && _pilot.piloting == 8 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.85;
+		} else if( _pilot.gunnery == 5 && _pilot.piloting == 8 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.77;
+		} else if( _pilot.gunnery == 6 && _pilot.piloting == 8 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.72;
+		} else if( _pilot.gunnery == 7 && _pilot.piloting == 8 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.68;
+		} else if( _pilot.gunnery == 8 && _pilot.piloting == 8 ) {
+			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 0.64;
+		}
+		_pilotAdjustedBattleValue = Math.round( _pilotAdjustedBattleValue );
 	}
 
 	this._getSpeedFactorModifier = function() {
@@ -2231,7 +2405,7 @@ function Mech(type) {
 
 
 		_calcLogCBill += "</tbody></table>";
-		_cbillCost = addCommas(cbillTotal) + " (in testing)";
+		_cbillCost = addCommas(cbillTotal);
 	}
 
 	this._getNumberOfJumpJets = function() {
@@ -2240,6 +2414,10 @@ function Mech(type) {
 
 	this.getBattleValue = function() {
 		return _battleValue;
+	}
+
+	this.getPilotAdjustedBattleValue = function() {
+		return _pilotAdjustedBattleValue;
 	}
 
 	this.getAlphaStrikeValue = function() {
