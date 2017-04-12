@@ -1,8 +1,8 @@
-#BattleTech Tools
-##Purpose
+# BattleTech Tools
+## Purpose
 The purpose of these tools is to have a centralized, accessible set of tools for 'mech creation and eventually force building.
 
-##Development
+## Development
 ### Technology
 This application is an Angular Javascript application that allows a user to create a BattleMech (and evenutually more!) from any device with access to a modern web browser.
 
@@ -15,13 +15,13 @@ There are no server moving parts for the application itself, but I'm seeing the 
 
 [MoonSword22](https://github.com/MoonSword22), Data Entry and consulting
 
-###Current Development Targets
+### Current Development Targets
 * Critical Allocations are better, but still wonky
 * Data entry for equipment
 * PDF Generation (this one is tricky, as I'll probably have to end up creating my own sheet(s) for proper copyright care.
     * A landscape option would be awesome
 
-###Road Map to Initial Release
+### Road Map to Initial Release
 1. Get Succession Wars BattleMech creator working
     1. Continue to add pre 3039 equipment
     2. Filter lists as per the selected era
@@ -31,7 +31,7 @@ There are no server moving parts for the application itself, but I'm seeing the 
 4. Printable PDFs for created 'mechs
 5. Test, test test!
 
-###Eventual Goals
+### Eventual Goals
 1. Add Battle Point force builder for common 'mechs for CBT. Records sheets are out of the question.
 2. Add Force Builder for Alpha Strike
     * This would require access to the MUL data

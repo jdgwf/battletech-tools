@@ -1928,7 +1928,6 @@ function Mech(type) {
 	this._setPilotAdjustedBattleValue = function() {
 		_pilotAdjustedBattleValue = _battleValue;
 
-
 		if( _pilot.gunnery == 0 && _pilot.piloting == 0 ) {
 			_pilotAdjustedBattleValue = _pilotAdjustedBattleValue * 2.80;
 		} else if( _pilot.gunnery == 1 && _pilot.piloting == 0 ) {
