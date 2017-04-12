@@ -4866,12 +4866,123 @@ var mechISEquipment = Array(
 	// Gauss Rifles
 	{
 		name: {
+			'en-US': "Light Gauss Rifle",
+			'de-DE': "de - Light Gauss Rifle",
+		},
+		tag: "light-gauss-rifle",
+		sort: "gauss rifle, a",
+		category: {
+			'en-US': "Ballistic Weapons",
+			'de-DE': "de - Ballistic Weapons",
+		},
+		damage: 8,
+		damage_aero: 8,
+		accuracy_modifier: 0,
+		cbills: 275000,
+		introduced: 3056,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 159,
+		heat: 1,
+		weight: 12,
+		range_min: {
+			min: 3,
+			short: 8,
+			medium: 17,
+			long: 25,
+		},
+		space: {
+			battlemech: 5,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 5,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 0,
+		min_ammo_tons: 1,
+		gauss: true,
+		weapon_type: Array(
+			"DB"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 219,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.6,
+			range_medium: 0.8,
+			range_long: 0.8,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Light Gauss)",
+			'de-DE': "de - Ammo (Light Gauss)",
+		},
+		tag: "ammo-light-gauss-rifle",
+		sort: "ammo, gauss rifle, a",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 20000,
+		introduced: 3056,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 20,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 3,
+			short: 8,
+			medium: 17,
+			long: 25,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 16,
+		min_ammo_tons: 1,
+		explosive: false,
+		weapon_type: Array(
+			"DB"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 219,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
 			'en-US': "Gauss Rifle",
 			'de-DE': "de - Gauss Rifle",
 		},
-		tag: "gauss-rifle",
-		// Sort standard gauss rifle to the top
-		sort: "gauss rifle, a",
+		tag: "standard-gauss-rifle",
+		sort: "gauss rifle, b",
 		category: {
 			'en-US': "Ballistic Weapons",
 			'de-DE': "de - Ballistic Weapons",
@@ -4926,8 +5037,8 @@ var mechISEquipment = Array(
 			'en-US': "Ammo (Gauss)",
 			'de-DE': "de - Ammo (Gauss)",
 		},
-		tag: "ammo-gauss-rifle",
-		sort: "ammo, gauss rifle, a",
+		tag: "ammo-standard-gauss-rifle",
+		sort: "ammo, gauss rifle, b",
 		category: {
 			'en-US': "Ammunition",
 			'de-DE': "de - Ammunition",
@@ -4966,6 +5077,466 @@ var mechISEquipment = Array(
 		tech_rating: "e",
 		book: "TM",
 		page: 219,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Heavy Gauss Rifle",
+			'de-DE': "de - Heavy Gauss Rifle",
+		},
+		tag: "heavy-gauss-rifle",
+		sort: "gauss rifle, c",
+		category: {
+			'en-US': "Ballistic Weapons",
+			'de-DE': "de - Ballistic Weapons",
+		},
+		damage: {
+			short: 25,
+			medium: 20,
+			long: 10,
+			aero_short: 25,
+			aero_medium: 20,
+			aero_long: 10
+		},
+		accuracy_modifier: 0,
+		cbills: 500000,
+		introduced: 3061,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 346,
+		heat: 2,
+		weight: 18,
+		range_min: {
+			min: 4,
+			short: 6,
+			medium: 13,
+			long: 20,
+		},
+		space: {
+			battlemech: 11,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 11,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 0,
+		min_ammo_tons: 1,
+		gauss: true,
+		weapon_type: Array(
+			"DB"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 218,
+		alpha_strike: {
+			heat: 2,
+			range_short: 1.65,
+			range_medium: 2,
+			range_long: 1,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Heavy Gauss)",
+			'de-DE': "de - Ammo (Heavy Gauss)",
+		},
+		tag: "ammo-heavy-gauss-rifle",
+		sort: "ammo, gauss rifle, c",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 20000,
+		introduced: 3061,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 43,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 4,
+			short: 6,
+			medium: 13,
+			long: 20,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 4,
+		min_ammo_tons: 1,
+		explosive: false,
+		weapon_type: Array(
+			"DB"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 218,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Improved Heavy Gauss Rifle",
+			'de-DE': "de - Improved Heavy Gauss Rifle",
+		},
+		// Tag is in a different order to prevent mismatches
+		tag: "heavy-improved-gauss-rifle",
+		sort: "gauss rifle, d",
+		category: {
+			'en-US': "Ballistic Weapons",
+			'de-DE': "de - Ballistic Weapons",
+		},
+		damage: 22,
+		damage_aero: 22,
+		accuracy_modifier: 0,
+		cbills: 500000,
+		introduced: 3081,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 346,
+		heat: 2,
+		weight: 20,
+		range_min: {
+			min: 3,
+			short: 6,
+			medium: 12,
+			long: 19,
+		},
+		space: {
+			battlemech: 11,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 11,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 0,
+		min_ammo_tons: 1,
+		gauss: true,
+		weapon_type: Array(
+			"DB"
+		),
+		tech_rating: "e",
+		book: "TO",
+		page: 313,
+		alpha_strike: {
+			heat: 2,
+			range_short: 1.65,
+			range_medium: 2.2,
+			range_long: 2.2,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (IHGR)",
+			'de-DE': "de - Ammo (IHGR)",
+		},
+		tag: "ammo-heavy-improved-gauss-rifle",
+		sort: "ammo, gauss rifle, d",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 20000,
+		introduced: 3081,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 48,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 3,
+			short: 6,
+			medium: 12,
+			long: 19,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 4,
+		min_ammo_tons: 1,
+		explosive: false,
+		weapon_type: Array(
+			"DB"
+		),
+		tech_rating: "e",
+		book: "TO",
+		page: 313,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Silver Bullet Gauss Rifle",
+			'de-DE': "de - Silver Bullet Gauss Rifle",
+		},
+		tag: "silver-bullet-gauss-rifle",
+		sort: "gauss rifle, e",
+		category: {
+			'en-US': "Ballistic Weapons",
+			'de-DE': "de - Ballistic Weapons",
+		},
+		damage_per_cluster: 1,
+		damage_clusters: 15,
+		damage_aero: 9,
+		accuracy_modifier: -1,
+		cbills: 350000,
+		introduced: 3080,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 198,
+		heat: 1,
+		weight: 15,
+		range_min: {
+			min: 2,
+			short: 7,
+			medium: 15,
+			long: 22,
+		},
+		space: {
+			battlemech: 7,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 7,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 0,
+		min_ammo_tons: 1,
+		gauss: true,
+		weapon_type: Array(
+			"DB",
+			"C",
+			"F"
+		),
+		tech_rating: "e",
+		book: "TO",
+		page: 314,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.784,
+			range_medium: 0.945,
+			range_long: 0.945,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (SB Gauss)",
+			'de-DE': "de - Ammo (SB Gauss)",
+		},
+		tag: "ammo-silver-bullet-gauss-rifle",
+		sort: "ammo, gauss rifle, e",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 25000,
+		introduced: 3081,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 25,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 2,
+			short: 7,
+			medium: 15,
+			long: 22,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 8,
+		min_ammo_tons: 1,
+		explosive: false,
+		weapon_type: Array(
+			"DB",
+			"C",
+			"F"
+		),
+		tech_rating: "e",
+		book: "TO",
+		page: 314,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "MagShot Gauss Rifle",
+			'de-DE': "de - MagShot Gauss Rifle",
+		},
+		tag: "magshot-gauss-rifle",
+		sort: "gauss rifle, f",
+		category: {
+			'en-US': "Ballistic Weapons",
+			'de-DE': "de - Ballistic Weapons",
+		},
+		damage: 2,
+		damage_aero: 2,
+		accuracy_modifier: 0,
+		cbills: 8500,
+		introduced: 3072,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 15,
+		heat: 1,
+		weight: 0.5,
+		range_min: {
+			min: 0,
+			short: 3,
+			medium: 6,
+			long: 9,
+		},
+		space: {
+			battlemech: 2,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 2,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 0,
+		min_ammo_tons: 1,
+		gauss: true,
+		weapon_type: Array(
+			"DB"
+		),
+		tech_rating: "e",
+		book: "TO",
+		page: 314,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.2,
+			range_medium: 0.2,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (MagShot)",
+			'de-DE': "de - Ammo (MagShot)",
+		},
+		tag: "ammo-magshot-gauss-rifle",
+		sort: "ammo, gauss rifle, f",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 1000,
+		introduced: 3072,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 2,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 3,
+			medium: 6,
+			long: 9,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 50,
+		min_ammo_tons: 1,
+		explosive: false,
+		weapon_type: Array(
+			"DB"
+		),
+		tech_rating: "e",
+		book: "TO",
+		page: 314,
 		alpha_strike: {
 			heat: 0,
 			range_short: 0,
