@@ -4863,6 +4863,719 @@ var mechISEquipment = Array(
 			)
 		}
 	},
+	// LB-X Autocannons
+	// LB 2-X
+	{
+		name: {
+			'en-US': "LB 2-X AC",
+			'de-DE': "de - LB 2-X AC",
+		},
+		tag: "lb-x-autocannon-a",
+		sort: "LB a-X AC",
+		category: {
+			'en-US': "Ballistic Weapons",
+			'de-DE': "de - Ballistic Weapons",
+		},
+		damage_per_cluster: 1,
+		damage_clusters: 2,
+		damage_aero: 2,
+		accuracy_modifier: 0,
+		cbills: 150000,
+		introduced: 3058,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 42,
+		heat: 1,
+		weight: 6,
+		range_min: {
+			min: 4,
+			short: 9,
+			medium: 18,
+			long: 27,
+		},
+		space: {
+			battlemech: 4,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 4,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 45,
+		min_ammo_tons: 1,
+		explosive: false,
+		weapon_type: Array(
+			"DB",
+			"C",
+			"S",
+			"F"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 207,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.069,
+			range_medium: 0.105,
+			range_long: 0.105,
+			range_extreme: 0.105,
+			tc: 1,
+			notes: Array(
+				"flak"
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (LB 2-X)",
+			'de-DE': "de - Ammo (LB 2-X)",
+		},
+		tag: "ammo-lb-x-autocannon-a",
+		sort: "ammo, LB a-X",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 2000,
+		introduced: 3058,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 5,
+		heat: 0,
+		weight: 1,
+		range_min: {
+			min: 4,
+			short: 9,
+			medium: 18,
+			long: 27,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 45,
+		min_ammo_tons: 0,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 207,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (LB 2-X) Cluster",
+			'de-DE': "de - Ammo (LB 2-X) Cluster",
+		},
+		tag: "ammo-lb-x-autocannon-a-cluster",
+		sort: "ammo, LB a-X, Cluster",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 3300,
+		introduced: 3058,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 5,
+		heat: 0,
+		weight: 1,
+		range_min: {
+			min: 4,
+			short: 9,
+			medium: 18,
+			long: 27,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 45,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"C",
+			"S",
+			"F"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 207,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
+	// LB 5-X
+	{
+		name: {
+			'en-US': "LB 5-X AC",
+			'de-DE': "de - LB 5-X AC",
+		},
+		tag: "lb-x-autocannon-b",
+		sort: "LB b-X AC",
+		category: {
+			'en-US': "Ballistic Weapons",
+			'de-DE': "de - Ballistic Weapons",
+		},
+		damage_per_cluster: 1,
+		damage_clusters: 5,
+		damage_aero: 3,
+		accuracy_modifier: 0,
+		cbills: 250000,
+		introduced: 3058,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 83,
+		heat: 1,
+		weight: 8,
+		range_min: {
+			min: 3,
+			short: 7,
+			medium: 14,
+			long: 21,
+		},
+		space: {
+			battlemech: 5,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 5,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 20,
+		min_ammo_tons: 1,
+		explosive: false,
+		weapon_type: Array(
+			"DB",
+			"C",
+			"S",
+			"F"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 207,
+		alpha_strike: {
+			heat: 1,
+			range_short: 0.236,
+			range_medium: 0.315,
+			range_long: 0.315,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+				"flak"
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (LB 5-X)",
+			'de-DE': "de - Ammo (LB 5-X)",
+		},
+		tag: "ammo-lb-x-autocannon-b",
+		sort: "ammo, LB b-X",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 9000,
+		introduced: 3058,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 5,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 3,
+			short: 7,
+			medium: 14,
+			long: 21,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 20,
+		min_ammo_tons: 0,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 207,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (LB 5-X) Cluster",
+			'de-DE': "de - Ammo (LB 5-X) Cluster",
+		},
+		tag: "ammo-lb-x-autocannon-b-cluster",
+		sort: "ammo, LB b-X, Cluster",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 15000,
+		introduced: 3058,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 5,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 3,
+			short: 7,
+			medium: 14,
+			long: 21,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 20,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"C",
+			"S",
+			"F"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 207,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
+	// LB 10-X
+	{
+		name: {
+			'en-US': "LB 10-X AC",
+			'de-DE': "de - LB 10-X AC",
+		},
+		tag: "lc-X-autocannon-c",
+		sort: "LB c-X AC",
+		category: {
+			'en-US': "Ballistic Weapons",
+			'de-DE': "de - Ballistic Weapons",
+		},
+		damage_per_cluster: 1,
+		damage_clusters: 10,
+		damage_aero: 6,
+		accuracy_modifier: 0,
+		cbills: 400000,
+		introduced: 2595,
+		extinct: 2840,
+		reintroduced: 3035,
+		battlevalue: 148,
+		heat: 2,
+		weight: 11,
+		range_min: {
+			min: 0,
+			short: 6,
+			medium: 12,
+			long: 18,
+		},
+		space: {
+			battlemech: 6,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 6,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 10,
+		min_ammo_tons: 1,
+		explosive: false,
+		weapon_type: Array(
+			"DB",
+			"C",
+			"S",
+			"F"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 207,
+		alpha_strike: {
+			heat: 2,
+			range_short: 0.63,
+			range_medium: 0.63,
+			range_long: 0.63,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+				"flak"
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (LB 10-X)",
+			'de-DE': "de - Ammo (LB 10-X)",
+		},
+		tag: "ammo-lc-X-autocannon-c",
+		sort: "ammo, LB c-X",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 12000,
+		introduced: 2595,
+		extinct: 2840,
+		reintroduced: 3035,
+		battlevalue: 19,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 6,
+			medium: 12,
+			long: 18,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 10,
+		min_ammo_tons: 0,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 207,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (LB 10-X) Cluster",
+			'de-DE': "de - Ammo (LB 10-X) Cluster",
+		},
+		tag: "ammo-lc-X-autocannon-c-cluster",
+		sort: "ammo, LB c-X, Cluster",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 20000,
+		introduced: 2595,
+		extinct: 2840,
+		reintroduced: 3035,
+		battlevalue: 19,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 6,
+			medium: 12,
+			long: 18,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 10,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"C",
+			"S",
+			"F"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 207,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
+	// LB 20-X
+	{
+		name: {
+			'en-US': "LB 20-X AC",
+			'de-DE': "de - LB 20-X AC",
+		},
+		tag: "ld-X-autocannon-d",
+		sort: "LB d-X AC",
+		category: {
+			'en-US': "Ballistic Weapons",
+			'de-DE': "de - Ballistic Weapons",
+		},
+		damage_per_cluster: 1,
+		damage_clusters: 20,
+		damage_aero: 12,
+		accuracy_modifier: 0,
+		cbills: 600000,
+		introduced: 3058,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 237,
+		heat: 6,
+		weight: 14,
+		range_min: {
+			min: 0,
+			short: 4,
+			medium: 8,
+			long: 12,
+		},
+		space: {
+			battlemech: 11,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 11,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 5,
+		min_ammo_tons: 1,
+		explosive: false,
+		weapon_type: Array(
+			"DB",
+			"C",
+			"S",
+			"F"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 207,
+		alpha_strike: {
+			heat: 6,
+			range_short: 1.26,
+			range_medium: 1.26,
+			range_long: 0.0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+				"flak"
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (LB 20-X)",
+			'de-DE': "de - Ammo (LB 20-X)",
+		},
+		tag: "ammo-ld-X-autocannon-d",
+		sort: "ammo, LB d-X",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 20000,
+		introduced: 3058,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 30,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 4,
+			medium: 8,
+			long: 12,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 20,
+		min_ammo_tons: 0,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"S"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 207,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (LB 20-X) Cluster",
+			'de-DE': "de - Ammo (LB 20-X) Cluster",
+		},
+		tag: "ammo-ld-X-autocannon-d-cluster",
+		sort: "ammo, LB d-X, Cluster",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 34000,
+		introduced: 3058,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 30,
+		heat: 1,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 4,
+			medium: 8,
+			long: 12,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 20,
+		min_ammo_tons: 1,
+		explosive: true,
+		weapon_type: Array(
+			"DB",
+			"C",
+			"S",
+			"F"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 207,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
 	// Gauss Rifles
 	{
 		name: {
