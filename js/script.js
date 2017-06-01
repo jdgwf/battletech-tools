@@ -19490,23 +19490,23 @@ function Mech(type) {
 		}
 
 		// Adjust IS for Engine Type
-		switch (_engineType) {
+		console.log( "_engineType", _engineType );
+		switch (_engineType.tag ) {
 			case "light":
 				_calcLogBV += "Total Internal Structure = 0.75 x I.S. BV for Light Engine: " + totalInternalStructurePoints + " x 0.5 = " + (totalInternalStructurePoints * .5) + "<br />";
 				totalInternalStructurePoints = totalInternalStructurePoints * .75;
 				break;
 			case "xl":
-				if (this.getTech().tag == "clan") {
-					// Clan XL
-					_calcLogBV += "Total Internal Structure = 0.75 x I.S. BV for Clan XL Engine: " + totalInternalStructurePoints + " x 0.5 = " + (totalInternalStructurePoints * .5) + "<br />";
-					totalInternalStructurePoints = totalInternalStructurePoints * .5;
-					break;
-				} else {
-					// Inner Sphere
-					_calcLogBV += "Total Internal Structure = 0.75 x I.S. BV for Inner Sphere XL Engine: " + totalInternalStructurePoints + " x 0.75 = " + (totalInternalStructurePoints * .75) + "<br />";
-					totalInternalStructurePoints = totalInternalStructurePoints * .75;
-					break;
-				}
+				// Inner Sphere
+				_calcLogBV += "Total Internal Structure = 0.75 x I.S. BV for Inner Sphere XL Engine: " + totalInternalStructurePoints + " x 0.75 = " + (totalInternalStructurePoints * .75) + "<br />";
+				totalInternalStructurePoints = totalInternalStructurePoints * .75;
+				break;
+
+			case "clan-xl":
+				// Clan XL
+				_calcLogBV += "Total Internal Structure = 0.75 x I.S. BV for Clan XL Engine: " + totalInternalStructurePoints + " x 0.5 = " + (totalInternalStructurePoints * .5) + "<br />";
+				totalInternalStructurePoints = totalInternalStructurePoints * .75;
+				break;
 			case "compact":
 				_calcLogBV += "Total Internal Structure = 1.0 x I.S. BV for Compact Engine:  " + totalInternalStructurePoints + " x 1 = " + (totalInternalStructurePoints * 1) + "<br />";
 				totalInternalStructurePoints = totalInternalStructurePoints * 1;
