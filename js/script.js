@@ -16241,6 +16241,479 @@ var mechISEquipment = Array(
 			)
 		}
 	},
+	// Ultra Autocannons
+	// Ultra/2
+	{
+		name: {
+			'en-US': "Ultra AC/2",
+			'de-DE': "de - Ultra AC/2",
+		},
+		tag: "ultra-autocannon-a",
+		sort: "Ultra AC/a",
+		category: {
+			'en-US': "Ballistic Weapons",
+			'de-DE': "de - Ballistic Weapons",
+		},
+		damage_per_cluster: 2,
+		damage_clusters: 2,
+		damage_aero: 3,
+		accuracy_modifier: 0,
+		cbills: 150000,
+		introduced: 3057,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 56,
+		heat: 1,
+		weight: 7,
+		range_min: {
+			min: 3,
+			short: 8,
+			medium: 17,
+			long: 25,
+		},
+		space: {
+			battlemech: 3,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 3,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 45,
+		min_ammo_tons: 1,
+		explosive: false,
+		weapon_type: Array(
+			"R",
+			"C",
+			"R2"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 2,
+			range_short: 0.225,
+			range_medium: 0.3,
+			range_long: 0.3,
+			range_extreme: 0.3,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Ultra AC/2)",
+			'de-DE': "de - Ammo (Ultra AC/2)",
+		},
+		tag: "ammo-ultra-autocannon-a",
+		sort: "ammo, Ultra AC/a",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 1000,
+		introduced: 3057,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 7,
+		heat: 0,
+		weight: 1,
+		range_min: {
+			min: 3,
+			short: 8,
+			medium: 17,
+			long: 25,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 45,
+		min_ammo_tons: 0,
+		explosive: true,
+		weapon_type: Array(
+			"R",
+			"C",
+			"R2"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
+	// Ultra/5
+	{
+		name: {
+			'en-US': "Ultra AC/5",
+			'de-DE': "de - Ultra AC/5",
+		},
+		tag: "ultra-autocannon-b",
+		sort: "Ultra AC/b",
+		category: {
+			'en-US': "Ballistic Weapons",
+			'de-DE': "de - Ballistic Weapons",
+		},
+		damage_per_cluster: 5,
+		damage_clusters: 2,
+		damage_aero: 7,
+		accuracy_modifier: 0,
+		cbills: 200000,
+		introduced: 3035,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 112,
+		heat: 1,
+		weight: 9,
+		range_min: {
+			min: 2,
+			short: 6,
+			medium: 13,
+			long: 20,
+		},
+		space: {
+			battlemech: 5,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 5,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 20,
+		min_ammo_tons: 1,
+		explosive: false,
+		weapon_type: Array(
+			"R",
+			"C",
+			"R2"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 2,
+			range_short: 0.623,
+			range_medium: 0.75,
+			range_long: 0.75,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Ultra AC/5)",
+			'de-DE': "de - Ammo (Ultra AC/5)",
+		},
+		tag: "ammo-ultra-autocannon-b",
+		sort: "ammo, Ultra AC/b",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 9000,
+		introduced: 3035,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 14,
+		heat: 0,
+		weight: 1,
+		range_min: {
+			min: 2,
+			short: 6,
+			medium: 13,
+			long: 20,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 20,
+		min_ammo_tons: 0,
+		explosive: true,
+		weapon_type: Array(
+			"R",
+			"C",
+			"R2"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
+	// Ultra/10
+	{
+		name: {
+			'en-US': "Ultra AC/10",
+			'de-DE': "de - Ultra AC/10",
+		},
+		tag: "ultra-autocannon-c",
+		sort: "Ultra AC/c",
+		category: {
+			'en-US': "Ballistic Weapons",
+			'de-DE': "de - Ballistic Weapons",
+		},
+		damage_per_cluster: 10,
+		damage_clusters: 2,
+		damage_aero: 15,
+		accuracy_modifier: 0,
+		cbills: 320000,
+		introduced: 3057,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 210,
+		heat: 4,
+		weight: 13,
+		range_min: {
+			min: 0,
+			short: 6,
+			medium: 12,
+			long: 18,
+		},
+		space: {
+			battlemech: 7,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 7,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 10,
+		min_ammo_tons: 1,
+		explosive: false,
+		weapon_type: Array(
+			"R",
+			"C",
+			"R2"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 8,
+			range_short: 1.5,
+			range_medium: 1.5,
+			range_long: 1.5,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Ultra AC/10)",
+			'de-DE': "de - Ammo (Ultra AC/10)",
+		},
+		tag: "ammo-ultra-autocannon-c",
+		sort: "ammo, Ultra AC/c",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 12000,
+		introduced: 3057,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 26,
+		heat: 0,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 6,
+			medium: 12,
+			long: 18,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 10,
+		min_ammo_tons: 0,
+		explosive: true,
+		weapon_type: Array(
+			"R",
+			"C",
+			"R2"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
+	// Ultra/20
+	{
+		name: {
+			'en-US': "Ultra AC/20",
+			'de-DE': "de - Ultra AC/20",
+		},
+		tag: "ultra-autocannon-d",
+		sort: "Ultra AC/d",
+		category: {
+			'en-US': "Ballistic Weapons",
+			'de-DE': "de - Ballistic Weapons",
+		},
+		damage_per_cluster: 20,
+		damage_clusters: 2,
+		damage_aero: 30,
+		accuracy_modifier: 0,
+		cbills: 480000,
+		introduced: 3060,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 281,
+		heat: 8,
+		weight: 15,
+		range_min: {
+			min: 0,
+			short: 3,
+			medium: 7,
+			long: 10,
+		},
+		space: {
+			battlemech: 10,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 10,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 5,
+		min_ammo_tons: 1,
+		explosive: false,
+		weapon_type: Array(
+			"R",
+			"C",
+			"R2"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 16,
+			range_short: 3,
+			range_medium: 3,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 1,
+			notes: Array(
+			)
+		}
+	},
+	{
+		name: {
+			'en-US': "Ammo (Ultra AC/20)",
+			'de-DE': "de - Ammo (Ultra AC/20)",
+		},
+		tag: "ammo-ultra-autocannon-d",
+		sort: "ammo, Ultra AC/d",
+		category: {
+			'en-US': "Ammunition",
+			'de-DE': "de - Ammunition",
+		},
+		damage: 0,
+		damage_aero: 0,
+		accuracy_modifier: 0,
+		cbills: 20000,
+		introduced: 3060,
+		extinct: 0,
+		reintroduced: 0,
+		battlevalue: 35,
+		heat: 0,
+		weight: 1,
+		range_min: {
+			min: 0,
+			short: 3,
+			medium: 7,
+			long: 10,
+		},
+		space: {
+			battlemech: 1,
+			protomech: "n/a",
+			combat_vehicle: 1,
+			support_vehicle: 1,
+			aerospace_fighter: 1,
+			small_craft: 1,
+			drop_ship: 1
+		},
+		ammo_per_ton: 5,
+		min_ammo_tons: 0,
+		explosive: true,
+		weapon_type: Array(
+			"R",
+			"C",
+			"R2"
+		),
+		tech_rating: "e",
+		book: "TM",
+		page: 208,
+		alpha_strike: {
+			heat: 0,
+			range_short: 0,
+			range_medium: 0,
+			range_long: 0,
+			range_extreme: 0,
+			tc: 0,
+			notes: Array(
+			)
+		}
+	},
 	// LB-X Autocannons
 	// LB 2-X
 	{
