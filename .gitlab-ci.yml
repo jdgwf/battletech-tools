@@ -8,5 +8,5 @@ pages:
     paths:
     - public
   only:
-  - master
+  - gh-pages
 
