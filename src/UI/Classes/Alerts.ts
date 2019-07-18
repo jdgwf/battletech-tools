@@ -1,4 +1,4 @@
-import App from "../UI/AppRouter";
+import App from "../AppRouter";
 
 export interface IAlert {
     level: string;

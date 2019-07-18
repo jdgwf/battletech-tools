@@ -7,7 +7,7 @@ import About from "./Pages/About";
 import { Modal, Button } from 'react-bootstrap';
 import {CONFIGSiteTitle} from '../configVars';
 import SanitizedHTML from './Components/SanitizedHTML';
-import Alerts from '../Classes/Alerts';
+import Alerts from './Classes/Alerts';
 import AlphaStrikeRosterRouter from './Pages/AlphaStrikeRoster/_Router'
 import MechCreatorRouter from './Pages/MechCreator/_Router'
 

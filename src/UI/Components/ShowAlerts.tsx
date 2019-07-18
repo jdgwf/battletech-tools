@@ -1,6 +1,6 @@
 import * as React from 'react';
 import SanitizedHTML from './SanitizedHTML';
-import {IAlert} from '../../Classes/Alerts';
+import {IAlert} from '../Classes/Alerts';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
