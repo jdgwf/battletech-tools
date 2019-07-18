@@ -57,7 +57,11 @@ body {
     }
   }
   .modal-dialog {
+    .modal-footer {
+      background: $headerFooterBackground;
+    }
     .modal-header {
+      background: $headerFooterBackground;
       .close {
         color: $primaryBG;
         text-shadow: none;
