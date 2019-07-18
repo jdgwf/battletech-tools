@@ -1,6 +1,7 @@
 import React from 'react';
 import ShowAlerts from '../Components/ShowAlerts';
 import {IAppGlobals} from '../AppRouter';
+import TopMenu from '../Components/TopMenu';
 
 export default class Error404 extends React.Component<IError404Props, IError404State> {
     constructor(props: IError404Props) {
@@ -17,8 +18,9 @@ export default class Error404 extends React.Component<IError404Props, IError404S
     render() {
       return (
         <div className="page-ui">
-          <ShowAlerts appGlobals={this.props.appGlobals} />
+          <TopMenu current="home" appGlobals={this.props.appGlobals} />
           <div className="content">
+          <ShowAlerts appGlobals={this.props.appGlobals} />
             404 - Not Found
           </div>
         </div>

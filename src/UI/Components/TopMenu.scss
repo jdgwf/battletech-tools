@@ -1,7 +1,8 @@
 @import "../../common.scss";
 
 .topmenu {
-
+    position: relative;
+    z-index: 1000;
     ul {
         background: $headerFooterBackground;
         color: $headerFontColor;
@@ -12,11 +13,18 @@
             margin: 0;
             padding: 0;
             display: inline;
+
+            &.mobile-menu-button {
+                display: inline;
+                font-size: 2rem;
+                padding: 0 1rem;
+                cursor: pointer;
+            }
             a {
                 display: inline-block;
                 color: $primaryBG;
                 text-decoration: none;
-                padding: .5rem 1rem;
+                padding: .5rem .75rem;
 
                 border-top-left-radius: .5rem;
                 border-top-right-radius: .5rem;
@@ -54,4 +62,23 @@
         margin: 0 0 1rem 0;
     }
 
+}
+.mobile-menu {
+    ul {
+        li {
+            a {
+                border: solid 1px $primaryBG;
+                padding: .5rem 1rem;
+                display: block;
+                margin: 0 0 .5rem 0;
+                border-radius: .5rem;
+                &.current {
+                    background: $primaryBG;
+                    color: $headerFooterBackground;
+
+                    color: $primaryTextColor;
+                }
+            }
+        }
+    }
 }

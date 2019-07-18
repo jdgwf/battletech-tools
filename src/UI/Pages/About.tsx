@@ -18,13 +18,13 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
 
     render() {
       return (
-        <div className="ui-page">
-          <TopMenu current="about" />
+        <div className={this.props.appGlobals.showMobile ? "ui-page show-mobile" : "ui-page"}>
+          <TopMenu current="about" appGlobals={this.props.appGlobals} />
           <div className="content">
             <ShowAlerts appGlobals={this.props.appGlobals} />
 
 		<div className="text-right">
-			<strong className="ng-scope">Version</strong> <span ng-bind="appVersion" className="ng-binding">0.0.4 alpha</span>
+			{/* <strong className="ng-scope">Version</strong> <span ng-bind="appVersion" className="ng-binding">0.0.4 alpha</span> */}
 		</div>
     <div className="row">
         <div className="col-md-6">
@@ -35,9 +35,10 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
               <strong>Developer and Designer</strong> - <a href="https://twitter.com/gauthic/">@Gauthic</a><br />
               <p>Jeff has been playing BattleTech since 1985 and has been a professional developer since 1996.
               These tools, and several others, including
-              <a target="_blank" rel="noopener noreferrer" href="https://jdgwf.github.io/savage-worlds-web-tools/">the Savage Worlds Web Tools project</a>
-              and <a target="_blank" rel="noopener noreferrer" href="https://jdgwf.github.io/tournament-tracker/">Tournament Tracker</a>
-              are all created and updated in his spare time while juggling work, family, and writing a handful of novels.</p>
+              &nbsp;<a target="_blank" rel="noopener noreferrer" href="https://jdgwf.github.io/savage-worlds-web-tools/">the Savage Worlds Web Tools project</a>,
+              &nbsp;<a target="_blank" rel="noopener noreferrer" href="https://savaged.us">Savaged.us</a>,
+              &nbsp;and <a target="_blank" rel="noopener noreferrer" href="https://jdgwf.github.io/tournament-tracker/">Tournament Tracker</a>
+              &nbsp;are all created and updated in his spare time while juggling work, family, and writing a handful of novels.</p>
 
               <h4><a href="https://github.com/MoonSword22" rel="noopener noreferrer" target="_blank">MoonSword22</a></h4>
               <p><strong>Data Entry and consulting</strong></p>

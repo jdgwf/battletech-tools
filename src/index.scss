@@ -27,7 +27,7 @@ code {
   background-color: $bodyBackground;
   width: 100%;
   color: $fontColor;
-
+  position: relative;
   a {
     color: $primaryBG;
     outline: none !important;
@@ -36,8 +36,34 @@ code {
     }
   }
 
+  .mobile-menu {
+    width: 300px;
+    left: -302px;
+    border-right: solid 2px $primaryBG;
+    background: $headerFooterBackground;
+    transition: left .5s;
+    height: 100vh;
+    top: 0;
+    position: fixed;
+    padding: 4rem 1rem;
+  }
+
   .content {
+    position: absolute;
+    left: 0;
+    top: 4rem;
     padding: 0 2rem;
+    transition: left .5s;
+    width: 100%;
+  }
+
+  &.show-mobile {
+    .mobile-menu {
+      left: 0;
+    }
+    .content {
+      left: 302px;
+    }
   }
 }
 

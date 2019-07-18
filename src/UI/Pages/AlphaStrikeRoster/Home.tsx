@@ -18,8 +18,8 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
     render() {
       return (
-        <div className="ui-page">
-          <TopMenu current="alpha-strike-roster" sub="home" />
+        <div className={this.props.appGlobals.showMobile ? "ui-page show-mobile" : "ui-page"}>
+          <TopMenu current="alpha-strike-roster" sub="home" appGlobals={this.props.appGlobals} />
           <div className="content">
             <ShowAlerts appGlobals={this.props.appGlobals} />
             This will be the Alpha Strike Roster home page.

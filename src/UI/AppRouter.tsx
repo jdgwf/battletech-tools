@@ -12,6 +12,7 @@ import AlphaStrikeRosterRouter from './Pages/AlphaStrikeRoster/_Router'
 import MechCreatorRouter from './Pages/MechCreator/_Router'
 
 export default class AppRouter extends React.Component<IAppRouterProps, IAppRouterState> {
+
     constructor(props: IAppRouterProps) {
         super(props);
 
@@ -20,14 +21,15 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         this.closeConfirmDialog = this.closeConfirmDialog.bind(this);
         this.confirmConfirmDialog = this.confirmConfirmDialog.bind(this);
         this.refreshGlobalState = this.refreshGlobalState.bind(this);
-
+        this.toggleMobile = this.toggleMobile.bind(this);
+        this.closeMobile = this.closeMobile.bind(this);
 
         this.state = {
             updated: false,
             appGlobals: {
                 currentPageTitle: "",
                 siteAlerts: new Alerts( this ),
-
+                showMobile: false,
                 confirmDialogMessage: "",
                 confirmDialogTitle: "",
                 confirmDialogYesLabel: "",
@@ -37,9 +39,29 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                 makeDocumentTitle: this.makeDocumentTitle,
                 openConfirmDialog: this.openConfirmDialog,
                 refreshGlobalState: this.refreshGlobalState,
+                toggleMobile: this.toggleMobile,
+                closeMobile: this.closeMobile,
             }
         }
 
+    }
+
+    toggleMobile() {
+        let appGlobals = this.state.appGlobals;
+        appGlobals.showMobile = !appGlobals.showMobile;
+        this.setState({
+            appGlobals: appGlobals,
+            updated: true,
+        })
+    }
+
+    closeMobile() {
+        let appGlobals = this.state.appGlobals;
+        appGlobals.showMobile = false;
+        this.setState({
+            appGlobals: appGlobals,
+            updated: true,
+        })
     }
 
     makeDocumentTitle( subTitle: string = "" ) {
@@ -191,7 +213,7 @@ interface IAppRouterState {
 export interface IAppGlobals {
     currentPageTitle: string;
     siteAlerts: Alerts;
-
+    showMobile: boolean;
     confirmDialogMessage: string;
     confirmDialogTitle: string;
     confirmDialogYesLabel: string;
@@ -201,6 +223,9 @@ export interface IAppGlobals {
     refreshGlobalState(appGlobals: IAppGlobals | null): void;
 
     makeDocumentTitle( subTitle: string ): void;
+
+    toggleMobile(): void;
+    closeMobile(): void;
 
     openConfirmDialog(
         confirmTitle: string,

@@ -18,8 +18,8 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
 
     render() {
       return (
-        <div className="ui-page">
-          <TopMenu current="home" />
+        <div className={this.props.appGlobals.showMobile ? "ui-page show-mobile" : "ui-page"}>
+          <TopMenu current="home" appGlobals={this.props.appGlobals} />
           <div className="content">
             <ShowAlerts appGlobals={this.props.appGlobals} />
             This will be the home page.

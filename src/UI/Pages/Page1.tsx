@@ -48,8 +48,8 @@ export default class Page1 extends React.Component<IPage1Props, IPage1State> {
 
     render() {
       return (
-        <div className="ui-page">
-          <TopMenu  current="page1" />
+        <div className={this.props.appGlobals.showMobile ? "ui-page show-mobile" : "ui-page"}>
+          <TopMenu current="page1" appGlobals={this.props.appGlobals} />
           <div className="content">
             <ShowAlerts appGlobals={this.props.appGlobals} />
             <p>This is just a test page for the router and scaffolding components.</p>

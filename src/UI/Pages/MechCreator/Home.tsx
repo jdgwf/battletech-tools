@@ -18,8 +18,8 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
 
     render() {
       return (
-        <div className="ui-page">
-          <TopMenu current="mech-creator" sub="home"  />
+        <div className={this.props.appGlobals.showMobile ? "ui-page show-mobile" : "ui-page"}>
+          <TopMenu current="mech-creator" sub="home" appGlobals={this.props.appGlobals}  />
           <div className="content">
             <ShowAlerts appGlobals={this.props.appGlobals} />
             This will be the 'Mech Creator home page.

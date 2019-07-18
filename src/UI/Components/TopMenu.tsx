@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './TopMenu.scss';
 import BattleTechLogo from './BattleTechLogo';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {IAppGlobals} from '../AppRouter';
 
 export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuState> {
     constructor(props: ITopMenuProps) {
@@ -9,17 +12,29 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
         this.state = {
             updated: false,
         }
+        this.toggleMobile = this.toggleMobile.bind(this);
+        this.closeMobile = this.closeMobile.bind(this);
     }
+
+    toggleMobile() {
+        this.props.appGlobals.toggleMobile();
+    }
+    closeMobile() {
+        this.props.appGlobals.closeMobile();
+    }
+
     render() {
       return (
+          <>
           <header className="topmenu">
-
             <ul>
-                <li><Link className={this.props.current === "home" ? "current" : "" } to="/">Home</Link></li>
-                <li><Link className={this.props.current === "page1" ? "current" : "" } to="/page1">Page1</Link></li>
-                <li><Link className={this.props.current === "mech-creator" ? "current" : "" } to="/mech-creator">'Mech Creator</Link></li>
-                <li><Link className={this.props.current === "alpha-strike-roster" ? "current" : "" } to="/alpha-strike-roster">Alpha Strike Roster</Link></li>
-                <li><Link className={this.props.current === "about" ? "current" : "" } to="/about">About</Link></li>
+                <li onClick={this.toggleMobile} className="mobile-menu-button d-inline d-md-none"><FontAwesomeIcon icon={faBars} /></li>
+                <li className="d-none d-md-inline"><Link className={this.props.current === "home" ? "current" : "" } to="/">Home</Link></li>
+                <li className="d-none d-md-inline"><Link className={this.props.current === "page1" ? "current" : "" } to="/page1">Page1</Link></li>
+                <li className="d-none d-md-inline"><Link className={this.props.current === "mech-creator" ? "current" : "" } to="/mech-creator">'Mech Creator</Link></li>
+                <li className="d-none d-md-inline"><Link className={this.props.current === "alpha-strike-roster" ? "current" : "" } to="/alpha-strike-roster">Alpha Strike Roster</Link></li>
+                <li className="d-none d-md-inline"><Link className={this.props.current === "about" ? "current" : "" } to="/about">About</Link></li>
+
                 <li className="logo">
                     <a
                         href="https://battltech.com"
@@ -33,6 +48,17 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
             </ul>
 
           </header>
+            <div className="mobile-menu">
+                <ul className="styleless">
+                    <li><Link onClick={this.closeMobile} className={this.props.current === "home" ? "current" : "" } to="/">Home</Link></li>
+                    <li><Link onClick={this.closeMobile} className={this.props.current === "page1" ? "current" : "" } to="/page1">Page1</Link></li>
+                    <li><Link onClick={this.closeMobile} className={this.props.current === "mech-creator" ? "current" : "" } to="/mech-creator">'Mech Creator</Link></li>
+                    <li><Link onClick={this.closeMobile} className={this.props.current === "alpha-strike-roster" ? "current" : "" } to="/alpha-strike-roster">Alpha Strike Roster</Link></li>
+                    <li><Link onClick={this.closeMobile} className={this.props.current === "about" ? "current" : "" } to="/about">About</Link></li>
+                </ul>
+
+            </div>
+          </>
       );
     }
 }
@@ -40,10 +66,10 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
 interface ITopMenuProps {
     current?: string;
     sub?: string;
+    appGlobals: IAppGlobals;
 }
 
 interface ITopMenuState {
-    // appGlobals: IAppGlobals;
     updated: boolean;
 
 }
