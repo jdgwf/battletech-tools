@@ -1,6 +1,7 @@
 import React from 'react';
 import './Page1.scss';
 import TopMenu from '../Components/TopMenu';
+import ShowAlerts from '../Components/ShowAlerts';
 import {IAppGlobals} from '../AppRouter';
 import { Button } from 'react-bootstrap';
 
@@ -15,6 +16,7 @@ export default class Page1 extends React.Component<IPage1Props, IPage1State> {
       this.props.appGlobals.makeDocumentTitle("Page 1");
 
       this.openTestModal = this.openTestModal.bind(this);
+      this.injectAlert = this.injectAlert.bind(this);
     }
 
     openTestModal() {
@@ -28,13 +30,34 @@ export default class Page1 extends React.Component<IPage1Props, IPage1State> {
         }
       );
     }
+
+    injectAlert() {
+      this.props.appGlobals.siteAlerts.addAlert(
+        "info", // level string
+        "Just an alert", // title string
+        "this is neat :)", // message string
+         "", // messageclass string
+         true, // dismissable boolean
+         null, // dismissFunction Function,
+         5, // autoDismissSeconds number
+         "", // externalURL string
+         "", // link string
+         "", // extraclass string
+    );
+    }
+
     render() {
       return (
         <div className="ui-page">
           <TopMenu  current="page1" />
           <div className="content">
+            <ShowAlerts appGlobals={this.props.appGlobals} />
             <p>This is just a test page for the router and scaffolding components.</p>
-            <Button variant="primary" onClick={this.openTestModal}>Open Test Dialog</Button>
+            <Button variant="primary" onClick={this.openTestModal}>Primary Button</Button> (Opens A Confirmation Dialog)
+            <br /><Button variant="secondary" onClick={this.injectAlert}>Secondary Button</Button> (Adds an auto-dismissing alert)
+
+            <br /><Button variant="primary" disabled={true}>Primary Disabled</Button>
+            <br /><Button variant="secondary" disabled={true}>Secondary Disabled</Button>
           </div>
         </div>
       );

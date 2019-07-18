@@ -46,14 +46,33 @@ body {
       background-color: $primaryBGHover;
       border-color: $primaryBGHover;
     }
+    &:disabled {
+      background-color: #222;
+      border-color: #000;
+      color: 0;
+    }
   }
 
+  ul.styleless {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    li {
+      margin: 0;
+      padding: 0;
+    }
+  }
   .btn-secondary {
     background-color: $secondaryBG;
     border-color: $secondaryBG;
     &:hover {
       background-color: $secondaryBGHover;
       border-color: $secondaryBGHover;
+    }
+    &:disabled {
+      background-color: #222;
+      border-color: #000;
+      color: 0;
     }
   }
   .modal-dialog {
@@ -75,6 +94,143 @@ body {
       background: $bodyBackground;
       border: solid 2px $primaryBG;
       color: $fontColor;
+    }
+  }
+
+  .pull-right,
+  .float-right {
+    float: right;
+  }
+
+  .pull-left,
+  .float-left {
+    float: left;
+  }
+
+  .alert {
+    overflow: hidden;
+    a {
+        color: #000;
+        &:hover {
+            color: #333;
+        }
+    }
+
+    .alert-countdown {
+        position: absolute;
+        top: -.5rem;
+        right: 1.5rem;
+        width: 90%;
+        text-align: right;
+        display: block;
+        .alert-countdown-bar {
+            display: inline-block;
+            -webkit-transition: width 1s ease;
+            -moz-transition: width 1s ease;
+            -ms-transition: width 1s ease;
+            transition: width 1s ease;
+            background-color: $bodyBackground;
+            height: 5px;
+            width: 100%;
+            &.dismiss-time-1 {
+                -webkit-transition: width 1s ease;
+                -moz-transition: width 1s ease;
+                -ms-transition: width 1s ease;
+                transition: width 1s ease;
+            }
+            &.dismiss-time-2 {
+                -webkit-transition: width 2s ease;
+                -moz-transition: width 2s ease;
+                -ms-transition: width 2s ease;
+                transition: width 2s ease;
+            }
+            &.dismiss-time-3 {
+                -webkit-transition: width 3s ease;
+                -moz-transition: width 3s ease;
+                -ms-transition: width 3s ease;
+                transition: width 3s ease;
+            }
+            &.dismiss-time-4 {
+                -webkit-transition: width 4s ease;
+                -moz-transition: width 4s ease;
+                -ms-transition: width 4s ease;
+                transition: width 4s ease;
+            }
+            &.dismiss-time-5 {
+                -webkit-transition: width 5s ease;
+                -moz-transition: width 5s ease;
+                -ms-transition: width 5s ease;
+                transition: width 5s ease;
+            }
+            &.dismiss-time-10 {
+                -webkit-transition: width 10s ease;
+                -moz-transition: width 10s ease;
+                -ms-transition: width 10s ease;
+                transition: width 10s ease;
+            }
+            &.dismiss-time-15 {
+                -webkit-transition: width 15s ease;
+                -moz-transition: width 15s ease;
+                -ms-transition: width 15s ease;
+                transition: width 15s ease;
+            }
+            &.dismiss-time-30 {
+                -webkit-transition: width 30s ease;
+                -moz-transition: width 30s ease;
+                -ms-transition: width 30s ease;
+                transition: width 30s ease;
+            }
+            &.dismiss-time-60 {
+                -webkit-transition: width 60s ease;
+                -moz-transition: width 60s ease;
+                -ms-transition: width 60s ease;
+                transition: width 60s ease;
+            }
+        }
+
+    }
+
+
+    p {
+        color: #333;
+    }
+    &.alert-fade {
+        -webkit-transition: height .2s ease;
+        -moz-transition: height .2s ease;
+        -ms-transition: height .2s ease;
+        transition: height .2s ease;
+
+        -webkit-transition: padding .2s ease;
+        -moz-transition: padding .2s ease;
+        -ms-transition: padding .2s ease;
+        transition: padding .2s ease;
+
+        -webkit-transition: border .2s ease;
+        -moz-transition: border .2s ease;
+        -ms-transition: border .2s ease;
+        transition: border .2s ease;
+        * {
+            -webkit-transition: padding .2s ease;
+            -moz-transition: padding .2s ease;
+            -ms-transition: padding .2s ease;
+            transition: padding .2s ease;
+        }
+    }
+    &.fade-away {
+        height: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        * {
+            padding-bottom: 0px !important;
+        }
+        border-top: 0 !important;
+        border-bottom: 0 !important;
+    }
+    // &.alert-out {
+    //     height: 0px !important;
+    // }
+    &.alert-sm {
+        padding: 0.45rem 1.25rem !important;
     }
   }
 }

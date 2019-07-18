@@ -57,8 +57,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         }
     }
 
-
-    refreshGlobalState(appGlobals: IAppGlobals) {
+    refreshGlobalState(appGlobals: IAppGlobals | null = null) {
         if( !appGlobals ) {
             this.setState({
                 updated: true,
@@ -180,7 +179,7 @@ export interface IAppGlobals {
     confirmDialogNoLabel: string;
     showConfirmDialog: boolean;
     confirmDialogConfirm: Function | null;
-    refreshGlobalState(appGlobals: IAppGlobals): void;
+    refreshGlobalState(appGlobals: IAppGlobals | null): void;
 
     makeDocumentTitle( subTitle: string ): void;
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import './Home.scss';
 import TopMenu from '../Components/TopMenu';
+import ShowAlerts from '../Components/ShowAlerts';
 import {IAppGlobals} from '../AppRouter';
 
 export default class Home extends React.Component<IHomeProps, IHomeState> {
@@ -11,7 +12,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
         }
     }
 
-    componentDidMount () {
+    componentDidMount ()  {
       this.props.appGlobals.makeDocumentTitle("Home");
     }
 
@@ -20,6 +21,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
         <div className="ui-page">
           <TopMenu current="home" />
           <div className="content">
+            <ShowAlerts appGlobals={this.props.appGlobals} />
             This will be the home page.
           </div>
         </div>

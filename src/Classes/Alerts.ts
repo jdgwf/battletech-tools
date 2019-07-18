@@ -55,7 +55,7 @@ export default class Alerts {
                             dismissFunction();
                         }
 
-                        this._app.refreshGlobalState( this._app.state.appGlobals );
+                        this._app.refreshGlobalState();
                     },
                     100
                 );
@@ -73,7 +73,7 @@ export default class Alerts {
         message: string,
         messageclass: string = "",
         dismissable: boolean = true,
-        dismissFunction: Function,
+        dismissFunction: Function | null,
         autoDismissSeconds: number = 0,
         externalURL: string = "",
         link: string = "",
@@ -95,7 +95,7 @@ export default class Alerts {
         );
 
         let dismissIndex = this.activeAlerts.length - 1;
-
+        this._app.refreshGlobalState();
         if( autoDismissSeconds > 0 ) {
             window.setTimeout(
                 () => {
@@ -124,7 +124,7 @@ export default class Alerts {
                         dismissFunction();
                     }
 
-                    this._app.refreshGlobalState( this._app.state.appGlobals );
+                    this._app.refreshGlobalState();
                 },
                 autoDismissSeconds * 1000
             );
