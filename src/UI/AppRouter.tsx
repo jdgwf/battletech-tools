@@ -8,7 +8,8 @@ import { Modal, Button } from 'react-bootstrap';
 import {CONFIGSiteTitle} from '../configVars';
 import SanitizedHTML from './Components/SanitizedHTML';
 import Alerts from '../Classes/Alerts';
-
+import AlphaStrikeRosterRouter from './Pages/AlphaStrikeRoster/_Router'
+import MechCreatorRouter from './Pages/MechCreator/_Router'
 
 export default class AppRouter extends React.Component<IAppRouterProps, IAppRouterState> {
     constructor(props: IAppRouterProps) {
@@ -155,11 +156,23 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                         appGlobals={this.state.appGlobals}
                     />
                 </Route>
+                <Route path="/alpha-strike-roster">
+                    <AlphaStrikeRosterRouter
+                        appGlobals={this.state.appGlobals}
+                    />
+                </Route>
+                <Route path="/mech-creator/">
+                    <MechCreatorRouter
+                        appGlobals={this.state.appGlobals}
+                    />
+                </Route>
+
                 <Route>
                     <Error404
                         appGlobals={this.state.appGlobals}
                     />
                 </Route>
+
             </Switch>
             </Router>
         );

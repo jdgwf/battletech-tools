@@ -17,6 +17,8 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
             <ul>
                 <li><Link className={this.props.current === "home" ? "current" : "" } to="/">Home</Link></li>
                 <li><Link className={this.props.current === "page1" ? "current" : "" } to="/page1">Page1</Link></li>
+                <li><Link className={this.props.current === "mech-creator" ? "current" : "" } to="/mech-creator">'Mech Creator</Link></li>
+                <li><Link className={this.props.current === "alpha-strike-roster" ? "current" : "" } to="/alpha-strike-roster">Alpha Strike Roster</Link></li>
                 <li><Link className={this.props.current === "about" ? "current" : "" } to="/about">About</Link></li>
                 <li className="logo">
                     <a
@@ -37,6 +39,7 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
 
 interface ITopMenuProps {
     current?: string;
+    sub?: string;
 }
 
 interface ITopMenuState {
