@@ -1,39 +1,44 @@
-# BattleTech Tools
-## Purpose
-The purpose of these tools is to have a centralized, accessible set of tools for 'mech creation and eventually force building.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Development
-### Technology
-This application is an Angular Javascript application that allows a user to create a BattleMech (and evenutually more!) from any device with access to a modern web browser.
+## Available Scripts
 
-The tools are powered by HTML, Foundation 6 and AngularJS. All data and logic are then compiled and handled by grunt via npm.
+In the project directory, you can run:
 
-There are no server moving parts for the application itself, but I'm seeing the need for a backend database and exporting of the data to the application itself.
+### `npm start`
 
-### Team
-[Jeffrey D. Gordon](https://github.com/jdgwf) ([@gauthic](https://twitter.com/gauthic)), Lead Developer and designer
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-[MoonSword22](https://github.com/MoonSword22), Data Entry and consulting
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
 
-### Current Development Targets
-* Critical Allocations are better, but still wonky
-* Data entry for equipment
-* PDF Generation (this one is tricky, as I'll probably have to end up creating my own sheet(s) for proper copyright care.
-    * A landscape option would be awesome
+### `npm test`
 
-### Road Map to Initial Release
-1. Get Succession Wars BattleMech creator working
-    1. Continue to add pre 3039 equipment
-    2. Filter lists as per the selected era
-    3. Filter 'mech options as per selected era (double heat sinks, endo-steel, etc)
-2. Add Clans
-3. Calculate battle value, alpha strike and 'mech costs
-4. Printable PDFs for created 'mechs
-5. Test, test test!
+Launches the test runner in the interactive watch mode.<br>
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### Eventual Goals
-1. Add Battle Point force builder for common 'mechs for CBT. Records sheets are out of the question.
-2. Add Force Builder for Alpha Strike
-    * This would require access to the MUL data
-3. Printable PDFs for A.S.
-    * This should still all be done in the client's browser
+### `npm run build`
+
+Builds the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).

@@ -1,0 +1,30 @@
+@import "./common.scss";
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: $bodyBackground;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.ui-page {
+  background-color: $bodyBackground;
+  width: 100%;
+  color: white;
+
+  a {
+    color: $primaryBG;
+    outline: none !important;
+    &:hover {
+      color: $primaryBGHover;
+    }
+  }
+}
