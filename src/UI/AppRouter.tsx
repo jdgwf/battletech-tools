@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./Pages/Home";
 import Error404 from "./Pages/Error404";
 import Page1 from "./Pages/Page1";
+import About from "./Pages/About";
 import { Modal, Button } from 'react-bootstrap';
 import {CONFIGSiteTitle} from '../configVars';
 import SanitizedHTML from './Components/SanitizedHTML';
@@ -146,6 +147,11 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                 </Route>
                 <Route path="/page1" exact>
                     <Page1
+                        appGlobals={this.state.appGlobals}
+                    />
+                </Route>
+                <Route path="/about" exact>
+                    <About
                         appGlobals={this.state.appGlobals}
                     />
                 </Route>
