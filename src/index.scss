@@ -18,13 +18,51 @@ code {
 .ui-page {
   background-color: $bodyBackground;
   width: 100%;
-  color: white;
+  color: $fontColor;
 
   a {
     color: $primaryBG;
     outline: none !important;
     &:hover {
       color: $primaryBGHover;
+    }
+  }
+}
+
+// Bootstrap overrrides
+body {
+  .btn-primary {
+    background-color: $primaryBG;
+    border-color: $primaryBG;
+    &:hover {
+      background-color: $primaryBGHover;
+      border-color: $primaryBGHover;
+    }
+  }
+
+  .btn-secondary {
+    background-color: $secondaryBG;
+    border-color: $secondaryBG;
+    &:hover {
+      background-color: $secondaryBGHover;
+      border-color: $secondaryBGHover;
+    }
+  }
+  .modal-dialog {
+    .modal-header {
+      .close {
+        color: $primaryBG;
+        text-shadow: none;
+        opacity: 1;
+        &:hover {
+          color: $primaryBGHover;
+        }
+      }
+    }
+    .modal-content {
+      background: $bodyBackground;
+      border: solid 2px $primaryBG;
+      color: $fontColor;
     }
   }
 }

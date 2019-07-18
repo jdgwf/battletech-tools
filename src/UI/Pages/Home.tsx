@@ -1,6 +1,7 @@
 import React from 'react';
 import './Home.scss';
 import TopMenu from '../Components/TopMenu';
+import {IAppGlobals} from '../AppRouter';
 
 export default class Home extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -9,6 +10,11 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
             updated: false,
         }
     }
+
+    componentDidMount () {
+      this.props.appGlobals.makeDocumentTitle("Home");
+    }
+
     render() {
       return (
         <div className="ui-page">
@@ -22,11 +28,10 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
 }
 
 interface IHomeProps {
-
+  appGlobals: IAppGlobals;
 }
 
 interface IHomeState {
-    // appGlobals: IAppGlobals;
     updated: boolean;
 
 }

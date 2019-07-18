@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './TopMenu.scss';
-import getBattleTechLogoSVG from '../../getBattleTechLogoSVG'
-import SanitizedHTML from './SanitizedHTML';
+import BattleTechLogo from './BattleTechLogo';
 
 export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuState> {
     constructor(props: ITopMenuProps) {
@@ -19,7 +18,10 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                 <li><Link className={this.props.current === "home" ? "current" : "" } to="/">Home</Link></li>
                 <li><Link className={this.props.current === "page1" ? "current" : "" } to="/page1">Page1</Link></li>
                 <li className="logo">
-                    <a href="https://battltech.com" target="_blank"><SanitizedHTML raw={true} html={ getBattleTechLogoSVG() } /></a>
+                    <a href="https://battltech.com" rel="noopener noreferrer" target="_blank">
+                        {/* <SanitizedHTML raw={true} html={ getBattleTechLogoSVG() } /> */}
+                        <BattleTechLogo />
+                    </a>
                 </li>
             </ul>
 
