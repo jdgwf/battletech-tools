@@ -27,10 +27,18 @@ code {
       color: $primaryBGHover;
     }
   }
+
+  .content {
+    padding: 0 2rem;
+  }
 }
 
 // Bootstrap overrrides
 body {
+  .btn {
+    outline: none !important;
+    box-shadow: none !important;
+  }
   .btn-primary {
     background-color: $primaryBG;
     border-color: $primaryBG;

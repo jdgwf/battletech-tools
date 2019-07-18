@@ -20,7 +20,7 @@ export default class Page1 extends React.Component<IPage1Props, IPage1State> {
     openTestModal() {
       this.props.appGlobals.openConfirmDialog(
         "Testing",
-        "This is just a test confirm.<br />Press \"Yes\" to get an alert ;)",
+        "This is just a test confirm.<br />Press \"Yes\" to get an called-function alert ;)",
         "Yes",
         "No",
         () => {
@@ -33,7 +33,7 @@ export default class Page1 extends React.Component<IPage1Props, IPage1State> {
         <div className="ui-page">
           <TopMenu  current="page1" />
           <div className="content">
-            <p>This is just a test page for the router.</p>
+            <p>This is just a test page for the router and scaffolding components.</p>
             <Button variant="primary" onClick={this.openTestModal}>Open Test Dialog</Button>
           </div>
         </div>
