@@ -16,9 +16,8 @@ There are no server moving parts for the application itself, and I'm going to do
 [MoonSword22](https://github.com/MoonSword22), Data Entry and consulting
 
 
-### Eventual Goals
-1. Add Battle Point force builder for common 'mechs for CBT. Records sheets are out of the question.
-2. Add Force Builder for Alpha Strike
-    * This would require access to the MUL data
-3. Printable PDFs for A.S.
-    * This should still all be done in the client's browser
+### Rewrite Progress
+1. Get React Scaffolding Up and Going
+2. Rewrite/Convert old Classes to Typescript Interfaces and Classes
+3. Convert existing UI to react components.
+4. Profit! (well, not really)
