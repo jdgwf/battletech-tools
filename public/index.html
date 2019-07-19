@@ -32,20 +32,27 @@
 		<link rel="icon" type="image/png" sizes="192x192"  href="./favicons/android-icon-192x192.png">
 		<link rel="icon" type="image/png" sizes="32x32" href="./favicons/favicon-32x32.png">
 		<link rel="icon" type="image/png" sizes="96x96" href="./favicons/favicon-96x96.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="./favicons/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicons/favicon-16x16.png">
+    <script type="text/javascript">
+
+      (function(l) {
+        if (l.search) {
+
+          if( l.search.indexOf("?rd=") === 0 ) {
+            let newPath = "/battletech-tools" + l.search.replace("?rd=%2Fbattletech-tools", "").replace("%2F", "/");
+            window.history.replaceState(
+              null,
+              null,
+              newPath
+            );
+          }
+
+        }
+      }(window.location))
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
   </body>
 </html>

@@ -16,7 +16,7 @@ export default class AlphaStrikeRosterRouter extends React.Component<IAlphaStrik
             <Switch>
 
 
-                <Route exact path="/alpha-strike-roster/">
+                <Route exact path={`${process.env.PUBLIC_URL}/alpha-strike-roster`}>
                     <Home
                         appGlobals={this.props.appGlobals}
                     />

@@ -29,11 +29,11 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
           <header className="topmenu">
             <ul>
                 <li onClick={this.toggleMobile} className="mobile-menu-button d-inline d-md-none"><FontAwesomeIcon icon={faBars} /></li>
-                <li className="d-none d-md-inline"><Link className={this.props.current === "home" ? "current" : "" } to="/">Home</Link></li>
-                <li className="d-none d-md-inline"><Link className={this.props.current === "page1" ? "current" : "" } to="/page1">Page1</Link></li>
-                <li className="d-none d-md-inline"><Link className={this.props.current === "mech-creator" ? "current" : "" } to="/mech-creator">'Mech Creator</Link></li>
-                <li className="d-none d-md-inline"><Link className={this.props.current === "alpha-strike-roster" ? "current" : "" } to="/alpha-strike-roster">Alpha Strike Roster</Link></li>
-                <li className="d-none d-md-inline"><Link className={this.props.current === "about" ? "current" : "" } to="/about">About</Link></li>
+                <li className="d-none d-md-inline"><Link className={this.props.current === "home" ? "current" : "" } to={`${process.env.PUBLIC_URL}/`}>Home</Link></li>
+                <li className="d-none d-md-inline"><Link className={this.props.current === "page1" ? "current" : "" } to={`${process.env.PUBLIC_URL}/page1`}>Page1</Link></li>
+                <li className="d-none d-md-inline"><Link className={this.props.current === "mech-creator" ? "current" : "" } to={`${process.env.PUBLIC_URL}/mech-creator`}>'Mech Creator</Link></li>
+                <li className="d-none d-md-inline"><Link className={this.props.current === "alpha-strike-roster" ? "current" : "" } to={`${process.env.PUBLIC_URL}/alpha-strike-roster`}>Alpha Strike Roster</Link></li>
+                <li className="d-none d-md-inline"><Link className={this.props.current === "about" ? "current" : "" } to={`${process.env.PUBLIC_URL}/about`}>About</Link></li>
 
                 <li className="logo">
                     <a
@@ -50,11 +50,11 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
           </header>
             <div className="mobile-menu">
                 <ul className="styleless">
-                    <li><Link onClick={this.closeMobile} className={this.props.current === "home" ? "current" : "" } to="/">Home</Link></li>
-                    <li><Link onClick={this.closeMobile} className={this.props.current === "page1" ? "current" : "" } to="/page1">Page1</Link></li>
-                    <li><Link onClick={this.closeMobile} className={this.props.current === "mech-creator" ? "current" : "" } to="/mech-creator">'Mech Creator</Link></li>
-                    <li><Link onClick={this.closeMobile} className={this.props.current === "alpha-strike-roster" ? "current" : "" } to="/alpha-strike-roster">Alpha Strike Roster</Link></li>
-                    <li><Link onClick={this.closeMobile} className={this.props.current === "about" ? "current" : "" } to="/about">About</Link></li>
+                    <li><Link onClick={this.closeMobile} className={this.props.current === "home" ? "current" : "" } to={`${process.env.PUBLIC_URL}/`}>Home</Link></li>
+                    <li><Link onClick={this.closeMobile} className={this.props.current === "page1" ? "current" : "" } to={`${process.env.PUBLIC_URL}/page1`}>Page1</Link></li>
+                    <li><Link onClick={this.closeMobile} className={this.props.current === "mech-creator" ? "current" : "" } to={`${process.env.PUBLIC_URL}/mech-creator`}>'Mech Creator</Link></li>
+                    <li><Link onClick={this.closeMobile} className={this.props.current === "alpha-strike-roster" ? "current" : "" } to={`${process.env.PUBLIC_URL}/alpha-strike-roster`}>Alpha Strike Roster</Link></li>
+                    <li><Link onClick={this.closeMobile} className={this.props.current === "about" ? "current" : "" } to={`${process.env.PUBLIC_URL}/about`}>About</Link></li>
                 </ul>
 
             </div>

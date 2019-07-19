@@ -16,7 +16,7 @@ export default class MechCreatorRouter extends React.Component<IMechCreatorRoute
             <Switch>
 
 
-                <Route exact path="/mech-creator/">
+                <Route exact path={`${process.env.PUBLIC_URL}/mech-creator/`}>
                     <Home
                         appGlobals={this.props.appGlobals}
                     />

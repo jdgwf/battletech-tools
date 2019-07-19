@@ -163,27 +163,27 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                 </Modal.Footer>
             </Modal>
             <Switch>
-                <Route path="/" exact>
+                <Route path={`${process.env.PUBLIC_URL}/`} exact>
                     <Home
                         appGlobals={this.state.appGlobals}
                     />
                 </Route>
-                <Route path="/page1" exact>
+                <Route path={`${process.env.PUBLIC_URL}/page1`} exact>
                     <Page1
                         appGlobals={this.state.appGlobals}
                     />
                 </Route>
-                <Route path="/about" exact>
+                <Route path={`${process.env.PUBLIC_URL}/about`} exact>
                     <About
                         appGlobals={this.state.appGlobals}
                     />
                 </Route>
-                <Route path="/alpha-strike-roster">
+                <Route path={`${process.env.PUBLIC_URL}/alpha-strike-roster`}>
                     <AlphaStrikeRosterRouter
                         appGlobals={this.state.appGlobals}
                     />
                 </Route>
-                <Route path="/mech-creator/">
+                <Route path={`${process.env.PUBLIC_URL}/mech-creator`}>
                     <MechCreatorRouter
                         appGlobals={this.state.appGlobals}
                     />

@@ -22,6 +22,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
           <TopMenu current="alpha-strike-roster" sub="home" appGlobals={this.props.appGlobals} />
           <div className="content">
             <ShowAlerts appGlobals={this.props.appGlobals} />
+
             This will be the Alpha Strike Roster home page.
           </div>
         </div>
