@@ -37,7 +37,7 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
 
                 <li className="logo">
                     <a
-                        href="https://battltech.com"
+                        href="https://battletech.com"
                         rel="noopener noreferrer"
                         target="_blank"
                         title="Click here to go to the official BattleTech website!"
