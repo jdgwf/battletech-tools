@@ -24,7 +24,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
             <ShowAlerts appGlobals={this.props.appGlobals} />
             <div className="alert alert-warning">
               <h4>Under redevelopment</h4>
-              <p>Please bear with me (rarw!), as I'm recoding the site to React+Typescript... most of the cose is pretty compatible, the UI will take a bit to refactor.</p>
+              <p>Please bear with me (rarw!), as I'm recoding the site to React+Typescript... most of the old code logic is somewhat compatible, the UI will take a bit to refactor.</p>
             </div>
             This will be the home page.
           </div>

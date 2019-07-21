@@ -1,3 +1,5 @@
+import { number } from "prop-types";
+
 export interface IAlphaStrikeDamage {
     short: string;
     medium: string;
@@ -11,8 +13,70 @@ export interface IMoveNumber {
     type: string;
 };
 
+export interface ASMULType {
+    Id: number;
+    Image: string;
+    Name: string;
+    SortOrder: number;
+}
+export interface ASMULRole {
+    Id: number;
+    Image: string;
+    Name: string;
+    SortOrder: number;
+}
+export interface ASMULTech {
+    Id: number;
+    Image: string;
+    Name: string;
+    SortOrder: number;
+}
+export interface IASMULUnit {
+    BFAbilities: string;
+    BFArmor: number;
+    BFDamageExtreme: number;
+    BFDamageLong: number;
+    BFDamageMedium: number;
+    BFDamageShort: number;
+    BFMove: string;
+    BFOverheat: number;
+    BFPointValue: number;
+    BFSize: number;
+    BFStructure: number;
+    BFTMM: number;
+    BFThreshold: number;
+    BFType: string;
+    BattleValue: number;
+    Class: string;
+    Cost: number;
+    DateIntroduced: string;
+    EraIcon:string;
+    EraId: number;
+    EraStart: number;
+    Id: number;
+    ImageUrl: string;
+    IsFeatured: true
+    IsPublished: true
+    Name: string;
+    RS: string;
+    RSId: number;
+    Release: number;
+    Role: ASMULRole;
+    Rules: string;
+    Skill: number;
+    TRO: string;
+    TROId: number;
+    Technology: ASMULTech;
+    Tonnage: number;
+    Type: ASMULType;
+    Variant: string;
+
+    customName?: string;
+    currentSkill?: number;
+}
+
 export class AlphaStrikeUnit {
-    originalStats = null;
+    originalStats:IASMULUnit | null = null;
 
     classification: string = "";
     costCR: number = 0;
@@ -38,7 +102,10 @@ export class AlphaStrikeUnit {
     size: number = 0;
     tmm: number = 0;
 
-    imageURL: string = "";
+    ImageUrl: string = "";
+
+    currentMove: string = "";
+    currentTMM: string = "";
 
     armor: number = 0;
     structure: number = 0;
@@ -108,65 +175,70 @@ export class AlphaStrikeUnit {
     }
 
     constructor( incomingMechData: any ) {
-        if( typeof(incomingMechData) != "undefined" && incomingMechData != null ) {
+        if( typeof(incomingMechData) !== "undefined" && incomingMechData !== null ) {
 
-            if( typeof(incomingMechData["BFPointValue"]) != "undefined") {
+            if( typeof(incomingMechData.BFPointValue) !== "undefined") {
                 // RAW Data From MUL
 
-                this.classification = incomingMechData["Marauder"];
-            this.costCR = incomingMechData["Cost"] / 1;
+                // this.classification = incomingMechData["Marauder"];
+            this.costCR = +incomingMechData.Cost;
 
-            this.variant = incomingMechData["Variant"];
-            this.name = incomingMechData["Name"];
-            this.dateIntroduced = incomingMechData["DateIntroduced"];
+            this.variant = incomingMechData.Variant;
+            this.name = incomingMechData.Name;
+            this.dateIntroduced = incomingMechData.DateIntroduced;
 
-            this.tro = incomingMechData["TRO"];
+            this.tro = incomingMechData.TRO;
 
-            this.mulID = incomingMechData["Id"];
+            this.mulID = incomingMechData.Id;
 
-            this.tonnage = incomingMechData["Tonnage"] / 1;
+            this.tonnage = +incomingMechData.Tonnage;
 
-            this.threshold = incomingMechData["BFThreshold"] / 1;
+            this.threshold = +incomingMechData.BFThreshold;
 
-                if( incomingMechData["Role"] && incomingMechData["Role"]["Name"] ) {
-                    this.role = incomingMechData["Role"]["Name"];
-                } else {
-                    this.role = "Not Specified";
-                }
+            if( incomingMechData.Role && incomingMechData.Role.Name ) {
+                this.role = incomingMechData.Role.Name;
+            } else {
+                this.role = "Not Specified";
+            }
 
-                this.type = incomingMechData["BFType"];
-            this.size = incomingMechData["BFSize"];
+            this.type = incomingMechData.BFType;
+            this.size = incomingMechData.BFSize;
 
-            this.armor = incomingMechData["BFArmor"] / 1;
-            this.structure = incomingMechData["BFStructure"] / 1;
+            this.armor = +incomingMechData.BFArmor;
+            this.structure = +incomingMechData.BFStructure;
 
             this.damage = {
-                    short: incomingMechData["BFDamageShort"] ,
-                    medium: incomingMechData["BFDamageMedium"] ,
-                    long: incomingMechData["BFDamageLong"],
+                    short: incomingMechData.BFDamageShort,
+                    medium: incomingMechData.BFDamageMedium,
+                    long: incomingMechData.BFDamageLong,
                     extreme: "0",
                 };
 
-            if( incomingMechData["BFDamamgeExtreme"] ) {
-                this.damage.extreme = incomingMechData["BFDamamgeExtreme"]
+            if( incomingMechData.BFDamamgeExtreme ) {
+                this.damage.extreme = incomingMechData.BFDamamgeExtreme;
             } else {
                 this.damage.extreme = "0";
             }
 
-            this.abilities = incomingMechData["BFAbilities"];
+            this.abilities = incomingMechData.BFAbilities;
 
-            this.overheat = incomingMechData["BFOverheat"] / 1;
+            this.overheat = +incomingMechData.BFOverheat;
 
-            this.basePoints = incomingMechData["BFPointValue"] / 1;
+            this.basePoints = +incomingMechData.BFPointValue;
 
-            if( incomingMechData["customName"] ) {
-                this.customName = incomingMechData["customName"];
+            if( incomingMechData.customName ) {
+                this.customName = incomingMechData.customName;
             }
 
-            this.imageURL = incomingMechData["ImageUrl"];
+            this.ImageUrl = incomingMechData.ImageUrl;
 
-            var tmpMove = incomingMechData["BFMove"];
+            var tmpMove = incomingMechData.BFMove;
             this.move = [];
+            let tmpMoveObj: IMoveNumber = {
+                move: 0,
+                currentMove: 0,
+                type: ""
+            }
             while( tmpMove.indexOf('"') > 0 )
                 tmpMove = tmpMove.replace('"', "");
             if( tmpMove.indexOf("/") > 0 ) {
@@ -174,7 +246,7 @@ export class AlphaStrikeUnit {
                 var moveArray = tmpMove.split( "/" );
 
                 for( var moveCount = 0; moveCount < moveArray.length; moveCount++ ) {
-                    var tmpMoveObj: IMoveNumber = {
+                    tmpMoveObj = {
                         move: 0,
                         currentMove: 0,
                         type: ""
@@ -188,7 +260,7 @@ export class AlphaStrikeUnit {
 
             } else {
 
-                var tmpMoveObj = {
+                tmpMoveObj = {
                     move: 0,
                     currentMove: 0,
                     type: ""
@@ -206,8 +278,8 @@ export class AlphaStrikeUnit {
             this.currentHeat = 0;
             this.currentPoints = this.basePoints / 1;
 
-                if( incomingMechData["currentSkilll"] )
-                    this.currentSkill = incomingMechData["currentSkilll"];
+                if( incomingMechData.currentSkill )
+                    this.currentSkill = incomingMechData.currentSkill;
 
             } else {
                 // Interally Processed Data
@@ -217,7 +289,7 @@ export class AlphaStrikeUnit {
 
             this.mulID = incomingMechData.mulID / 1;
 
-            this.imageURL = incomingMechData.imageURL;
+            this.ImageUrl = incomingMechData.ImageUrl;
 
             this.currentHeat = incomingMechData.currentHeat;
 
@@ -303,9 +375,9 @@ export class AlphaStrikeUnit {
     public calcCurrentVals() {
 
         if(
-            this.type.trim().toLowerCase() == "sv"
+            this.type.trim().toLowerCase() === "sv"
                 ||
-            this.type.trim().toLowerCase() == "cv"
+            this.type.trim().toLowerCase() === "cv"
         ) {
             while( this.mpControlHits.length < 5 ) {
                 this.mpControlHits.push( false );
@@ -315,18 +387,18 @@ export class AlphaStrikeUnit {
 
         this.isAerospace = false;
         if(
-            this.type.trim().toLowerCase() == "af"
+            this.type.trim().toLowerCase() === "af"
                     ||
-            this.type.trim().toLowerCase() == "cf"
+            this.type.trim().toLowerCase() === "cf"
         ) {
             this.isAerospace = true;
         }
 
         this.isInfantry = false;
         if(
-            this.type.trim().toLowerCase() == "ba"
+            this.type.trim().toLowerCase() === "ba"
                     ||
-            this.type.trim().toLowerCase() == "ci"
+            this.type.trim().toLowerCase() === "ci"
         ) {
             this.isInfantry = true;
         }
@@ -391,37 +463,37 @@ export class AlphaStrikeUnit {
             this.currentPoints = this.basePoints;
         }
 
-        if( typeof( this.currentArmor ) == "undefined" || this.currentArmor.length == 0 ) {
+        if( typeof( this.currentArmor ) === "undefined" || this.currentArmor.length === 0 ) {
             this.currentArmor = [];
             for( var armorCount = 0; armorCount < this.armor; armorCount++)
                 this.currentArmor.push( false );
         }
 
-        if( typeof( this.currentStructure ) == "undefined" || this.currentStructure.length == 0 ) {
+        if( typeof( this.currentStructure ) === "undefined" || this.currentStructure.length === 0 ) {
             this.currentStructure = [];
             for( var structureCount = 0; structureCount < this.structure; structureCount++)
                 this.currentStructure.push( false );
         }
 
-        if( typeof( this.engineHits ) == "undefined"  || this.engineHits.length == 0  ) {
+        if( typeof( this.engineHits ) === "undefined"  || this.engineHits.length === 0  ) {
             this.engineHits = [];
             for( var engineHitsCount = 0; engineHitsCount < 2; engineHitsCount++)
                 this.engineHits.push( false );
         }
 
-        if( typeof( this.fireControlHits ) == "undefined"  || this.fireControlHits.length == 0  ) {
+        if( typeof( this.fireControlHits ) === "undefined"  || this.fireControlHits.length === 0  ) {
             this.fireControlHits = [];
             for( var fcHitsCount = 0; fcHitsCount < 4; fcHitsCount++)
                 this.fireControlHits.push( false );
         }
 
-        if( typeof( this.mpControlHits ) == "undefined"  || this.mpControlHits.length == 0  ) {
+        if( typeof( this.mpControlHits ) === "undefined"  || this.mpControlHits.length === 0  ) {
             this.mpControlHits = [];
             for( var mpHitsCount = 0; mpHitsCount < 4; mpHitsCount++)
                 this.mpControlHits.push( false );
         }
 
-        if( typeof( this.weaponHits ) == "undefined"  || this.weaponHits.length == 0  ) {
+        if( typeof( this.weaponHits ) === "undefined"  || this.weaponHits.length === 0  ) {
             this.weaponHits = [];
             for( var weaponHitsCount = 0; weaponHitsCount < 4; weaponHitsCount++)
                 this.weaponHits.push( false );
@@ -457,28 +529,28 @@ export class AlphaStrikeUnit {
         var longDamage = this.damage.long;
         var extremeDamage = this.damage.extreme;
 
-        if( shortDamage != "0*") {
+        if( shortDamage !== "0*") {
             shortDamage = (+shortDamage - currentWeaponHits).toString();
         } else {
             if( currentWeaponHits )
                 shortDamage = "0";
         }
 
-        if( mediumDamage != "0*") {
+        if( mediumDamage !== "0*") {
             mediumDamage = (+mediumDamage - currentWeaponHits).toString();
         } else {
             if( currentWeaponHits )
                 mediumDamage = "0";
         }
 
-        if( longDamage != "0*") {
+        if( longDamage !== "0*") {
             longDamage = (+longDamage - currentWeaponHits).toString();
         } else {
             if( currentWeaponHits )
                 longDamage = "0";
         }
 
-        if( extremeDamage != "0*") {
+        if( extremeDamage !== "0*") {
             extremeDamage = (+extremeDamage - currentWeaponHits).toString();
         } else {
             if( currentWeaponHits )
@@ -510,9 +582,9 @@ export class AlphaStrikeUnit {
 
         // Calculate Critical Movement
         if(
-            this.type.toLowerCase() == "bm"
+            this.type.toLowerCase() === "bm"
                 ||
-            this.type.toLowerCase() == "im"
+            this.type.toLowerCase() === "im"
         ) {
             // for BattleMechs
             for( var mpHitsCount = 0; mpHitsCount < this.mpControlHits.length; mpHitsCount++) {
@@ -534,9 +606,9 @@ export class AlphaStrikeUnit {
         }
 
         if(
-            this.type.trim().toLowerCase() == "sv"
+            this.type.trim().toLowerCase() === "sv"
                 ||
-            this.type.trim().toLowerCase() == "cv"
+            this.type.trim().toLowerCase() === "cv"
         ) {
             var numMPHits = 0;
             for( var mpHitsCount = 0; mpHitsCount < this.mpControlHits.length; mpHitsCount++) {
@@ -571,18 +643,18 @@ export class AlphaStrikeUnit {
 
         }
 
-        let currentMove = "";
-        let currentTMM = "";
+        this.currentMove = "";
+        this.currentTMM = "";
 
         let immobile = true;
         for( var moveC = 0; moveC < this.move.length; moveC++ ) {
 
             // Subtract Heat from Current Move
-            if( this.move[moveC].type != "j" ) {
+            if( this.move[moveC].type !== "j" ) {
                 this.move[moveC].currentMove = this.move[moveC].currentMove - this.currentHeat * 2;
             }
 
-        currentMove += "" + this.move[moveC].currentMove + "\"" + this.move[moveC].type;
+        this.currentMove += "" + this.move[moveC].currentMove + "\"" + this.move[moveC].type;
             let tmpTMM = 0;
             if( this.move[moveC].currentMove < 5 ) {
                 tmpTMM = 0;
@@ -598,7 +670,7 @@ export class AlphaStrikeUnit {
                 tmpTMM = 5;
             }
 
-            if( this.move[moveC].type == "j" ) {
+            if( this.move[moveC].type === "j" ) {
                 tmpTMM++;
             }
 
@@ -606,17 +678,17 @@ export class AlphaStrikeUnit {
                 this.move[moveC].currentMove = 0;
             }
 
-            if( this.move[moveC].currentMove == 0 )
+            if( this.move[moveC].currentMove === 0 )
                 tmpTMM = 0;
 
             if( this.move[moveC].currentMove > 0 )
             immobile = false;
 
-        currentTMM += "" + tmpTMM + this.move[moveC].type;
+        this.currentTMM += "" + tmpTMM + this.move[moveC].type;
 
-            if( moveC != this.move.length - 1 ) {
-            currentTMM += "/";
-            currentMove += "/";
+            if( moveC !== this.move.length - 1 ) {
+            this.currentTMM += "/";
+            this.currentMove += "/";
             }
 
         }
@@ -630,7 +702,7 @@ export class AlphaStrikeUnit {
         this.currentHeat = this.currentHeat / 1;
 
         // Engine Hit Heat Effects
-        if( currentEngineHits == 1 )
+        if( currentEngineHits === 1 )
             if( this.currentHeat < 1)
                 this.currentHeat = 1;
 
@@ -657,7 +729,7 @@ export class AlphaStrikeUnit {
         //~ console.log("TODO: takeDamage();", numberOfPoints);
         for( var pointCounter = 0; pointCounter < numberOfPoints; pointCounter++ ) {
             for( var armorCounter = 0; armorCounter < this.currentArmor.length; armorCounter++ ) {
-                if( this.currentArmor[armorCounter] == false ) {
+                if( this.currentArmor[armorCounter] === false ) {
                     if( leftOverPoints > 0 ) {
                         this.currentArmor[armorCounter] = true;
                         leftOverPoints--;
@@ -667,12 +739,12 @@ export class AlphaStrikeUnit {
             }
 
             for( var structureCounter = 0; structureCounter < this.currentStructure.length; structureCounter++ ) {
-                if( this.currentStructure[structureCounter] == false ) {
+                if( this.currentStructure[structureCounter] === false ) {
                     if( leftOverPoints > 0 ) {
                         this.currentStructure[structureCounter] = true;
                         leftOverPoints--;
 
-                        if( this.getCurrentStructure() == 0 )
+                        if( this.getCurrentStructure() === 0 )
                             this.active = false;
                         else
                             this.active = true;
@@ -687,7 +759,7 @@ export class AlphaStrikeUnit {
     public getCurrentArmor() {
         var armorPoints = 0;
         for( var armorCounter = 0; armorCounter < this.currentArmor.length; armorCounter++ ) {
-            if( this.currentArmor[armorCounter] == false ) {
+            if( this.currentArmor[armorCounter] === false ) {
                 armorPoints++;
             }
         }
@@ -697,7 +769,7 @@ export class AlphaStrikeUnit {
     public getCurrentStructure() {
         var structPoints = 0;
         for( var structureCounter = 0; structureCounter < this.currentStructure.length; structureCounter++ ) {
-            if( this.currentStructure[structureCounter] == false ) {
+            if( this.currentStructure[structureCounter] === false ) {
                 structPoints++;
             }
         }

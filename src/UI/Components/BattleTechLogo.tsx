@@ -1,15 +1,47 @@
 import React from 'react';
 
 export default class BattleTechLogo extends React.Component<IBattleTechLogoProps, IBattleTechLogoState> {
+    width = 210;
+    height = 28;
+    xLoc = 0;
+    yLoc = 0;
 
+
+    constructor( props: IBattleTechLogoProps ) {
+        super(props);
+
+        var baseWidth = 210;
+        var baseHeight = 28;
+        if( typeof( this.props.width ) == "undefined" || this.props.width == 0) {
+            this.width = 210;
+            this.height = 28;
+        } else {
+            this.width = this.props.width;
+            this.height = Math.round( this.props.width / baseWidth * baseHeight );
+        }
+
+        if( typeof( this.props.xLoc ) === "undefined" ) {
+            this.xLoc = 0;
+        } else {
+            this.xLoc = this.props.xLoc;
+        }
+
+        if( typeof( this.props.yLoc ) === "undefined" ) {
+            this.yLoc = 0;
+        } else {
+            this.yLoc = this.props.yLoc;
+        }
+    }
     render() {
         return (
             <svg
                 version="1.1"
                 xmlns="http://www.w3.org/2000/svg"
                 xmlSpace="preserve"
-                height="28px"
-                width="210px"
+                height={ this.height + "px"}
+                width={ this.width + "px"}
+                x={this.xLoc +  'px'}
+                y={this.yLoc +  'px'}
                 viewBox="0 0 790 100"
             >
                 <g>
@@ -38,6 +70,9 @@ export default class BattleTechLogo extends React.Component<IBattleTechLogoProps
 }
 
 interface IBattleTechLogoProps {
+    xLoc?: number;
+    yLoc?: number;
+    width?: number;
 }
 
 interface IBattleTechLogoState {

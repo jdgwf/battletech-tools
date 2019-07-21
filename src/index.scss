@@ -65,13 +65,80 @@ code {
       left: 302px;
     }
   }
+  table {
+    thead, tbody {
+      tr {
+        th, td {
+          color: $fontColor;
+        }
+      }
+    }
+  }
+}
+
+.modal {
+  &.modal-lg {
+
+  }
+  &.modal-xl {
+    width: 100%;
+    max-width: 100%;
+    .modal-dialog {
+      max-width: 95vw;
+      width: 95vw;
+      margin: 1rem auto;
+      .modal-content {
+        min-height: 95vh;
+      }
+    }
+  }
+}
+
+.modal-backdrop.show {
+  opacity: 0.8;
+}
+
+.text-section {
+  // border-top-left-radius: .5rem;
+  // border-top-right-radius: .5rem;
+  border-radius: .5rem;
+  margin: 0 0 1rem 0;
+  overflow: hidden;
+  border: solid 2px $primaryBG;
+  background: $textSectionBG;
+  color: $textSectionFG;
+  h2 {
+      background: $headerFooterBackground;
+      color: $headerFontColor;
+      border-bottom: solid 2px $primaryBG;
+      margin: 0 0 1rem 0;
+      padding: 0 1rem .125rem 1rem;
+  }
+  .section-content {
+      padding: 0 1rem;
+  }
 }
 
 // Bootstrap overrrides
 body {
+  .no-right-margin {
+    margin-right: 0 !important;
+  }
+  .no-left-margin {
+    margin-left: 0 !important;
+  }
+  .no-top-margin {
+    margin-top: 0 !important;
+  }
+  .no-bottom-margin {
+    margin-bottom: 0 !important;
+  }
   .btn {
     outline: none !important;
     box-shadow: none !important;
+    margin-right: .25rem;
+    margin-left: .25rem;
+    margin-bottom: .25rem;
   }
   .btn-primary {
     background-color: $primaryBG;
@@ -84,6 +151,9 @@ body {
       background-color: #222;
       border-color: #000;
       color: 0;
+    }
+    .no-margins {
+      margin: 0 !important;
     }
   }
 
