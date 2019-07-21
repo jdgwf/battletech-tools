@@ -8,3 +8,7 @@ npm-debug.log
 old
 old/*
 old*
+
+build/*
+build*
+build
