@@ -121,6 +121,10 @@ code {
 
 // Bootstrap overrrides
 body {
+  svg {
+    max-height: 80vh;
+    max-width: 90vw;
+  }
   .no-right-margin {
     margin-right: 0 !important;
   }
@@ -185,6 +189,7 @@ body {
     }
     .modal-header {
       background: $headerFooterBackground;
+      padding: .25rem 1rem;
       .close {
         color: $primaryBG;
         text-shadow: none;
@@ -198,6 +203,10 @@ body {
       background: $bodyBackground;
       border: solid 2px $primaryBG;
       color: $fontColor;
+      max-height: 80vh;
+      svg {
+        max-height: 75vh;
+      }
     }
   }
 
@@ -293,6 +302,7 @@ body {
         }
 
     }
+
 
 
     p {

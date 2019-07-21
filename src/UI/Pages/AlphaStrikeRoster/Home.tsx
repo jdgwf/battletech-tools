@@ -140,7 +140,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                     Viewing Unit: {this.state.showASUnit ? (this.state.showASUnit.name ) : ( "" ) }
                   </Modal.Title>
               </Modal.Header>
-              <Modal.Body id="book-select-contents">
+              <Modal.Body className="text-center">
                   <AlphaStrikeUnitSVG
                     height="auto"
                     width="100%"

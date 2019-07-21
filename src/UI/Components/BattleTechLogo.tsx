@@ -12,7 +12,7 @@ export default class BattleTechLogo extends React.Component<IBattleTechLogoProps
 
         var baseWidth = 210;
         var baseHeight = 28;
-        if( typeof( this.props.width ) == "undefined" || this.props.width == 0) {
+        if( typeof( this.props.width ) === "undefined" || this.props.width === 0) {
             this.width = 210;
             this.height = 28;
         } else {

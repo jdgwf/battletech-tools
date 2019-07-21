@@ -144,7 +144,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                             {this.state.appGlobals.confirmDialogTitle}
                     </Modal.Title>
                 </Modal.Header>
-                <Modal.Body id="book-select-contents">
+                <Modal.Body>
                     <div className="form">
                         <div>
                             <SanitizedHTML html={this.state.appGlobals.confirmDialogMessage} />

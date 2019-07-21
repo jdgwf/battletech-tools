@@ -1,5 +1,3 @@
-import { number } from "prop-types";
-
 export interface IAlphaStrikeDamage {
     short: string;
     medium: string;
@@ -83,6 +81,7 @@ export class AlphaStrikeUnit {
 
     isAerospace: boolean = false;
     isInfantry: boolean = false;
+    immobile: boolean = false;
 
     variant: string = "";
     name: string = "";
@@ -232,7 +231,7 @@ export class AlphaStrikeUnit {
 
             this.ImageUrl = incomingMechData.ImageUrl;
 
-            var tmpMove = incomingMechData.BFMove;
+            let tmpMove = incomingMechData.BFMove;
             this.move = [];
             let tmpMoveObj: IMoveNumber = {
                 move: 0,
@@ -243,9 +242,9 @@ export class AlphaStrikeUnit {
                 tmpMove = tmpMove.replace('"', "");
             if( tmpMove.indexOf("/") > 0 ) {
                 //split move....
-                var moveArray = tmpMove.split( "/" );
+                let moveArray = tmpMove.split( "/" );
 
-                for( var moveCount = 0; moveCount < moveArray.length; moveCount++ ) {
+                for( let moveCount = 0; moveCount < moveArray.length; moveCount++ ) {
                     tmpMoveObj = {
                         move: 0,
                         currentMove: 0,
@@ -403,9 +402,9 @@ export class AlphaStrikeUnit {
             this.isInfantry = true;
         }
 
+        let pvDifference = 0;
         if( this.currentSkill < 4) {
             // improved skill....
-            var pvDifference = 0;
 
             if( this.basePoints <= 7) {
                 pvDifference = 1;
@@ -465,69 +464,69 @@ export class AlphaStrikeUnit {
 
         if( typeof( this.currentArmor ) === "undefined" || this.currentArmor.length === 0 ) {
             this.currentArmor = [];
-            for( var armorCount = 0; armorCount < this.armor; armorCount++)
+            for( let armorCount = 0; armorCount < this.armor; armorCount++)
                 this.currentArmor.push( false );
         }
 
         if( typeof( this.currentStructure ) === "undefined" || this.currentStructure.length === 0 ) {
             this.currentStructure = [];
-            for( var structureCount = 0; structureCount < this.structure; structureCount++)
+            for( let structureCount = 0; structureCount < this.structure; structureCount++)
                 this.currentStructure.push( false );
         }
 
         if( typeof( this.engineHits ) === "undefined"  || this.engineHits.length === 0  ) {
             this.engineHits = [];
-            for( var engineHitsCount = 0; engineHitsCount < 2; engineHitsCount++)
+            for( let engineHitsCount = 0; engineHitsCount < 2; engineHitsCount++)
                 this.engineHits.push( false );
         }
 
         if( typeof( this.fireControlHits ) === "undefined"  || this.fireControlHits.length === 0  ) {
             this.fireControlHits = [];
-            for( var fcHitsCount = 0; fcHitsCount < 4; fcHitsCount++)
+            for( let fcHitsCount = 0; fcHitsCount < 4; fcHitsCount++)
                 this.fireControlHits.push( false );
         }
 
         if( typeof( this.mpControlHits ) === "undefined"  || this.mpControlHits.length === 0  ) {
             this.mpControlHits = [];
-            for( var mpHitsCount = 0; mpHitsCount < 4; mpHitsCount++)
+            for( let mpHitsCount = 0; mpHitsCount < 4; mpHitsCount++)
                 this.mpControlHits.push( false );
         }
 
         if( typeof( this.weaponHits ) === "undefined"  || this.weaponHits.length === 0  ) {
             this.weaponHits = [];
-            for( var weaponHitsCount = 0; weaponHitsCount < 4; weaponHitsCount++)
+            for( let weaponHitsCount = 0; weaponHitsCount < 4; weaponHitsCount++)
                 this.weaponHits.push( false );
         }
 
-        var currentWeaponHits = 0;
-        for( var weaponHitsCount = 0; weaponHitsCount < this.weaponHits.length; weaponHitsCount++) {
+        let currentWeaponHits = 0;
+        for( let weaponHitsCount = 0; weaponHitsCount < this.weaponHits.length; weaponHitsCount++) {
             if( this.weaponHits[ weaponHitsCount ] )
                 currentWeaponHits++;
         }
 
-        var currentFCHits = 0;
-        for( var fcHitsCount = 0; fcHitsCount < this.fireControlHits.length; fcHitsCount++) {
+        let currentFCHits = 0;
+        for( let fcHitsCount = 0; fcHitsCount < this.fireControlHits.length; fcHitsCount++) {
             if( this.fireControlHits[ fcHitsCount ] )
                 currentFCHits++;
         }
 
-        var currentMPHits = 0;
-        for( var mpHitsCount = 0; mpHitsCount < this.mpControlHits.length; mpHitsCount++) {
-            if( this.mpControlHits[ mpHitsCount ] )
-                currentMPHits++;
-        }
+        // let currentMPHits = 0;
+        // for( let mpHitsCount = 0; mpHitsCount < this.mpControlHits.length; mpHitsCount++) {
+        //     if( this.mpControlHits[ mpHitsCount ] )
+        //         currentMPHits++;
+        // }
 
-        var currentEngineHits = 0;
-        for( var engineHitsCount = 0; engineHitsCount < this.engineHits.length; engineHitsCount++) {
+        let currentEngineHits = 0;
+        for( let engineHitsCount = 0; engineHitsCount < this.engineHits.length; engineHitsCount++) {
             if( this.engineHits[ engineHitsCount ] )
                 currentEngineHits++;
         }
 
         // Calculate Current Damage Values from Crits...
-        var shortDamage = this.damage.short;
-        var mediumDamage = this.damage.medium;
-        var longDamage = this.damage.long;
-        var extremeDamage = this.damage.extreme;
+        let shortDamage = this.damage.short;
+        let mediumDamage = this.damage.medium;
+        let longDamage = this.damage.long;
+        let extremeDamage = this.damage.extreme;
 
         if( shortDamage !== "0*") {
             shortDamage = (+shortDamage - currentWeaponHits).toString();
@@ -576,7 +575,7 @@ export class AlphaStrikeUnit {
             extreme: extremeDamage
         };
 
-        for( var moveC = 0; moveC < this.move.length; moveC++ ) {
+        for( let moveC = 0; moveC < this.move.length; moveC++ ) {
             this.move[moveC].currentMove = this.move[moveC].move;
         }
 
@@ -587,11 +586,11 @@ export class AlphaStrikeUnit {
             this.type.toLowerCase() === "im"
         ) {
             // for BattleMechs
-            for( var mpHitsCount = 0; mpHitsCount < this.mpControlHits.length; mpHitsCount++) {
+            for( let mpHitsCount = 0; mpHitsCount < this.mpControlHits.length; mpHitsCount++) {
                 if( this.mpControlHits[ mpHitsCount ] ) {
 
-                    for( var moveC = 0; moveC < this.move.length; moveC++ ) {
-                        var movePenalty = Math.round(this.move[moveC].currentMove / 2);
+                    for( let moveC = 0; moveC < this.move.length; moveC++ ) {
+                        let movePenalty = Math.round(this.move[moveC].currentMove / 2);
                         if( movePenalty < 2 )
                             movePenalty = 2;
 
@@ -610,8 +609,8 @@ export class AlphaStrikeUnit {
                 ||
             this.type.trim().toLowerCase() === "cv"
         ) {
-            var numMPHits = 0;
-            for( var mpHitsCount = 0; mpHitsCount < this.mpControlHits.length; mpHitsCount++) {
+            let numMPHits = 0;
+            for( let mpHitsCount = 0; mpHitsCount < this.mpControlHits.length; mpHitsCount++) {
                 if( this.mpControlHits[ mpHitsCount ] ) {
                     numMPHits++;
                 }
@@ -619,7 +618,7 @@ export class AlphaStrikeUnit {
 
             if( numMPHits > 0 ) {
                 if( numMPHits < 3 ) {
-                    for( var moveC = 0; moveC < this.move.length; moveC++ ) {
+                    for( let moveC = 0; moveC < this.move.length; moveC++ ) {
 
                         this.move[moveC].currentMove = this.move[moveC].currentMove - 2;
 
@@ -627,7 +626,7 @@ export class AlphaStrikeUnit {
                             this.move[moveC].currentMove = 0;
                     }
                 } else if( numMPHits < 5 ) {
-                    for( var moveC = 0; moveC < this.move.length; moveC++ ) {
+                    for( let moveC = 0; moveC < this.move.length; moveC++ ) {
 
                         this.move[moveC].currentMove = Math.round(this.move[moveC].currentMove / 2);
 
@@ -635,7 +634,7 @@ export class AlphaStrikeUnit {
                             this.move[moveC].currentMove = 0;
                     }
                 } else {
-                    for( var moveC = 0; moveC < this.move.length; moveC++ ) {
+                    for( let moveC = 0; moveC < this.move.length; moveC++ ) {
                         this.move[moveC].currentMove = 0;
                     }
                 }
@@ -646,8 +645,8 @@ export class AlphaStrikeUnit {
         this.currentMove = "";
         this.currentTMM = "";
 
-        let immobile = true;
-        for( var moveC = 0; moveC < this.move.length; moveC++ ) {
+        this.immobile = true;
+        for( let moveC = 0; moveC < this.move.length; moveC++ ) {
 
             // Subtract Heat from Current Move
             if( this.move[moveC].type !== "j" ) {
@@ -682,7 +681,7 @@ export class AlphaStrikeUnit {
                 tmpTMM = 0;
 
             if( this.move[moveC].currentMove > 0 )
-            immobile = false;
+            this.immobile = false;
 
         this.currentTMM += "" + tmpTMM + this.move[moveC].type;
 
@@ -727,8 +726,8 @@ export class AlphaStrikeUnit {
     public takeDamage( numberOfPoints: number ) {
         let leftOverPoints = numberOfPoints;
         //~ console.log("TODO: takeDamage();", numberOfPoints);
-        for( var pointCounter = 0; pointCounter < numberOfPoints; pointCounter++ ) {
-            for( var armorCounter = 0; armorCounter < this.currentArmor.length; armorCounter++ ) {
+        for( let pointCounter = 0; pointCounter < numberOfPoints; pointCounter++ ) {
+            for( let armorCounter = 0; armorCounter < this.currentArmor.length; armorCounter++ ) {
                 if( this.currentArmor[armorCounter] === false ) {
                     if( leftOverPoints > 0 ) {
                         this.currentArmor[armorCounter] = true;
@@ -738,7 +737,7 @@ export class AlphaStrikeUnit {
                 }
             }
 
-            for( var structureCounter = 0; structureCounter < this.currentStructure.length; structureCounter++ ) {
+            for( let structureCounter = 0; structureCounter < this.currentStructure.length; structureCounter++ ) {
                 if( this.currentStructure[structureCounter] === false ) {
                     if( leftOverPoints > 0 ) {
                         this.currentStructure[structureCounter] = true;
@@ -757,8 +756,8 @@ export class AlphaStrikeUnit {
     }
 
     public getCurrentArmor() {
-        var armorPoints = 0;
-        for( var armorCounter = 0; armorCounter < this.currentArmor.length; armorCounter++ ) {
+        let armorPoints = 0;
+        for( let armorCounter = 0; armorCounter < this.currentArmor.length; armorCounter++ ) {
             if( this.currentArmor[armorCounter] === false ) {
                 armorPoints++;
             }
@@ -767,8 +766,8 @@ export class AlphaStrikeUnit {
     }
 
     public getCurrentStructure() {
-        var structPoints = 0;
-        for( var structureCounter = 0; structureCounter < this.currentStructure.length; structureCounter++ ) {
+        let structPoints = 0;
+        for( let structureCounter = 0; structureCounter < this.currentStructure.length; structureCounter++ ) {
             if( this.currentStructure[structureCounter] === false ) {
                 structPoints++;
             }

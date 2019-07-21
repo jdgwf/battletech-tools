@@ -37,7 +37,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
     ): JSX.Element[] {
         let dots: JSX.Element[] = []
 
-        if( radius == 0 ) {
+        if( radius === 0 ) {
             radius = this.buttonRadius - 5;
         }
 
@@ -197,7 +197,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 {this.critLineStart += this.critLineHeight}
 
 
-                {this.props.asUnit.type.toLowerCase() == 'bm' || this.props.asUnit.type.toLowerCase() == 'pm' ? (
+                {this.props.asUnit.type.toLowerCase() === 'bm' || this.props.asUnit.type.toLowerCase() === 'pm' ? (
                     <>
                         <text x="750"y={this.critLineStart} textAnchor="end" fontFamily="sans-serif" fontSize="20">MP</text>
                         {this.props.asUnit.mpControlHits.map( (mpValue, mpIndex) => {
@@ -229,7 +229,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 <text x="750" y={this.critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">-1 Damage Each</text>
                 {this.critLineStart += this.critLineHeight}
 
-                {this.props.asUnit.type.toLowerCase() == 'cv' ||  this.props.asUnit.type.toLowerCase() == 'sv'? (
+                {this.props.asUnit.type.toLowerCase() === 'cv' ||  this.props.asUnit.type.toLowerCase() === 'sv'? (
                     <>
                         <text x="750" y={this.critLineStart} textAnchor="end" fontFamily="sans-serif" fontSize="20">MOTIVE</text>
                         <circle className="" cx="770" cy={this.critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
