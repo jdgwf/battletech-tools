@@ -137,7 +137,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
             >
               <Modal.Header closeButton>
                   <Modal.Title>
-                    {this.props.appGlobals.confirmDialogTitle}
+                    Viewing Unit: {this.state.showASUnit ? (this.state.showASUnit.name ) : ( "" ) }
                   </Modal.Title>
               </Modal.Header>
               <Modal.Body id="book-select-contents">
@@ -145,7 +145,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                     height="auto"
                     width="100%"
                     asUnit={this.state.showASUnit}
-                    inPlay={true}
+                    // inPlay={true}
                   />
               </Modal.Body>
               {/* <Modal.Footer>
