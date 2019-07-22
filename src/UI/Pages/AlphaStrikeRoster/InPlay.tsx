@@ -74,6 +74,9 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
 
           </header>
           {this.props.appGlobals.currentASForce.groups.map( (group, groupIndex) => {
+            if( group.members.length == 0) {
+              return (<></>);
+            }
             return (
               <React.Fragment key={groupIndex}>
               <div className="text-section">

@@ -132,13 +132,14 @@ select, input, label {
   // border-top-right-radius: .5rem;
   border-radius: .5rem;
   margin: 0 0 1rem 0;
-  overflow: hidden;
+  // overflow: hidden;
   border: solid 2px $primaryBG;
   background: $textSectionBG;
   color: $textSectionFG;
   h2 {
       background: $headerFooterBackground;
       color: $headerFontColor;
+      border-radius: .5rem;
       border-bottom: solid 2px $primaryBG;
       margin: 0 0 1rem 0;
       padding: 0 1rem .125rem 1rem;
@@ -171,6 +172,9 @@ body {
   .no-bottom-margin {
     margin-bottom: 0 !important;
   }
+  .min-width {
+    width: 1%;
+  }
   .drop-down-menu-container {
     position: relative;
     display: inline-block;
@@ -178,7 +182,7 @@ body {
       display: none;
       position: absolute;
       top: 2rem;
-      right: 0;
+      left: 0;
       border: solid 1px $primaryBGHover;
       z-index: 1000;
       &.active {

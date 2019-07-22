@@ -376,9 +376,10 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                     <table className="table">
                       <thead>
                         <tr>
+                          <th>&nbsp;</th>
                           <th>Name</th>
                           <th>Points</th>
-                          <th>&nbsp;</th>
+
                         </tr>
                       </thead>
                       <tbody>
@@ -387,16 +388,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                         {asGroup.members.map( (asUnit, asUnitIndex) => {
                           return (
                             <tr key={asUnitIndex}>
-                              <td>
-                                {asUnit.customName ? (
-                                  <><strong>{asUnit.customName}</strong><br /></>
-                                ) : (
-                                  <></>
-                                )}
-                                {asUnit.name}
-                              </td>
-                              <td>{asUnit.currentPoints}</td>
-                              <td className="text-right no-wrap">
+                              <td className="text-left min-width no-wrap">
                                 {this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
                                 (
                                   <div className="drop-down-menu-container">
@@ -456,6 +448,16 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                                   <FontAwesomeIcon icon={faTrash} />
                                 </Button>
                               </td>
+                              <td>
+                                {asUnit.customName ? (
+                                  <><strong>{asUnit.customName}</strong><br /></>
+                                ) : (
+                                  <></>
+                                )}
+                                {asUnit.name}
+                              </td>
+                              <td>{asUnit.currentPoints}</td>
+
                             </tr>
                           )
                         })}
@@ -535,13 +537,13 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                   <table className="table">
                     <thead>
                       <tr>
-
+                        <th>&nbsp;</th>
                         <th>Name</th>
                         <th>Rules</th>
                         <th>Tech</th>
                         <th>Type</th>
                         <th>Points</th>
-                        <th>&nbsp;</th>
+
                       </tr>
                     </thead>
                     <tbody>
@@ -550,59 +552,59 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                         {this.state.searchResults.map( (asUnit: IASMULUnit, unitIndex: number) => {
                           return (
                             <tr key={unitIndex}>
+                              <td className="text-left min-width no-wrap">
 
+
+{this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
+  (
+    <div className="drop-down-menu-container">
+      <Button
+        variant="primary"
+        className="btn-sm"
+        onClick={() => this.toggleContextMenuSearch(unitIndex)}
+      >
+        <FontAwesomeIcon icon={faBars} />
+      </Button>
+      <ul
+        className={this.state.contextMenuSearch === unitIndex ? "styleless dd-menu active" : "styleless dd-menu"}
+      >
+        {this.props.appGlobals.currentASForce.groups.map( (asGroup, asGroupIndex) => {
+          return (
+            <li
+              onClick={() => this.addToGroup(asUnit, asGroupIndex)}
+            >
+              <FontAwesomeIcon icon={faPlus} />&nbsp;
+              Add to {asGroup.getName(asGroupIndex + 1)}
+            </li>
+          )
+        })}
+
+      </ul>
+    </div>
+  ) : (
+    <Button
+      variant="primary"
+      className="btn-sm no-right-margin"
+      onClick={() => this.addToGroup(asUnit, 0)}
+    >
+      <FontAwesomeIcon icon={faPlus} />
+    </Button>
+)}
+
+  <Button
+    variant="primary"
+    className="btn-sm"
+    onClick={() => this.openViewUnit(asUnit)}
+  >
+    <FontAwesomeIcon icon={faEye} />
+  </Button>
+</td>
                               <td>{asUnit.Name}</td>
                               <td>{asUnit.Rules}</td>
                               <td>{asUnit.Technology.Name}</td>
                               <td>{asUnit.BFType}</td>
                               <td>{asUnit.BFPointValue}</td>
-                              <td className="no-wrap">
 
-
-                              {this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
-                                (
-                                  <div className="drop-down-menu-container">
-                                    <Button
-                                      variant="primary"
-                                      className="btn-sm"
-                                      onClick={() => this.toggleContextMenuSearch(unitIndex)}
-                                    >
-                                      <FontAwesomeIcon icon={faBars} />
-                                    </Button>
-                                    <ul
-                                      className={this.state.contextMenuSearch === unitIndex ? "styleless dd-menu active" : "styleless dd-menu"}
-                                    >
-                                      {this.props.appGlobals.currentASForce.groups.map( (asGroup, asGroupIndex) => {
-                                        return (
-                                          <li
-                                            onClick={() => this.addToGroup(asUnit, asGroupIndex)}
-                                          >
-                                            <FontAwesomeIcon icon={faPlus} />&nbsp;
-                                            Add to {asGroup.getName(asGroupIndex + 1)}
-                                          </li>
-                                        )
-                                      })}
-
-                                    </ul>
-                                  </div>
-                                ) : (
-                                  <Button
-                                    variant="primary"
-                                    className="btn-sm no-right-margin"
-                                    onClick={() => this.addToGroup(asUnit, 0)}
-                                  >
-                                    <FontAwesomeIcon icon={faPlus} />
-                                  </Button>
-                              )}
-
-                                <Button
-                                  variant="primary"
-                                  className="btn-sm"
-                                  onClick={() => this.openViewUnit(asUnit)}
-                                >
-                                  <FontAwesomeIcon icon={faEye} />
-                                </Button>
-                              </td>
                             </tr>
                           )
                         })}
