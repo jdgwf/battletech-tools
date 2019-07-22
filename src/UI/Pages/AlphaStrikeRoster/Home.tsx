@@ -70,7 +70,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
         this.addToGroup = this.addToGroup.bind(this);
         this.renameGroup = this.renameGroup.bind(this);
         this.removeUnitFromGroup = this.removeUnitFromGroup.bind(this);
-
+        this.newGroup = this.newGroup.bind(this);
 
         this.updateSearchResults();
     }
@@ -158,6 +158,11 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
     }
 
+    newGroup() {
+      this.props.appGlobals.currentASForce.newGroup();
+      this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+    }
+
     updateUnitSkill(event: React.FormEvent<HTMLSelectElement>) {
       if(this.state.showASUnit) {
         this.state.showASUnit.setSkill( +event.currentTarget.value );
@@ -167,7 +172,11 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
     renameUnit(event: React.FormEvent<HTMLInputElement>) {
       if(this.state.showASUnit) {
-        this.state.showASUnit.customName = event.currentTarget.value;
+        let asUnit = this.state.showASUnit;
+        asUnit.customName = event.currentTarget.value;
+        this.setState({
+          showASUnit: asUnit,
+        })
         this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
       }
     }
@@ -196,7 +205,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
               <Modal.Body className="text-center">
                     {this.state.editASUnit && this.state.showASUnit ? (
                       <div className="row">
-                        <div className="col-md-6 col-lg-8" >
+                        <div className="col-md-6 col-lg-8 text-left" >
                           <label>
                             Custom Unit Name:<br />
                             <input
@@ -207,7 +216,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                             />
                           </label>
                         </div>
-                        <div className="col-md-6 col-lg-4">
+                        <div className="col-md-6 col-lg-4 text-left">
                           <label>
                             Skill Level:<br />
                             <select
@@ -250,12 +259,11 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
           <div className="content">
             <ShowAlerts appGlobals={this.props.appGlobals} />
 
-            This will be the Alpha Strike Roster home page.
-
           <div className="row">
             <div className="col-md-6 col-lg-5">
               <div className="text-section">
                 <h2>Current Force</h2>
+                <div className="section-content">
                 {this.props.appGlobals.currentASForce.groups.map( (asGroup, asGroupIndex) => {
                   return (<fieldset key={asGroupIndex} className="fieldset">
                     <legend>Group #{asGroupIndex + 1}</legend>
@@ -319,115 +327,134 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                   </fieldset>
                   )
                 })}
+                <p>
+                  <Button
+                    variant="primary"
+                    onClick={this.newGroup}
+                    className="display-block text-center full-width no-margin"
+                  >
+                    New Group
+                  </Button>
+                </p>
+                <p className="text-right">
+                  <strong>Total Groups</strong>: {this.props.appGlobals.currentASForce.getTotalGroups()}<br />
+                  <strong>Total Units</strong>: {this.props.appGlobals.currentASForce.getTotalUnits()}<br />
+                  <strong>Total Points</strong>: {this.props.appGlobals.currentASForce.getTotalPoints()}<br />
+                </p>
+                </div>
               </div>
             </div>
             <div className="col-md-6 col-lg-7">
               <div className="text-section">
                 <h2>Search for Units</h2>
-                <div className="row">
-                  <div className="col-md-4 text-center">
-                  <label>
-                  Search Name:<br />
-                  <input
-                    type="search"
-                    onChange={this.updateSearch}
-                    value={this.state.searchText}
-                  />
-                </label>
-                  </div>
-                  <div className="col-md-4 text-center">
-                  <label>
-                  Search Rules:<br />
-                  <select
-                    onChange={this.updateRules}
-                    value={this.searchRules.toLowerCase()}
-                  >
-                    <option value="">All</option>
-                    <option value="introductory">Introductory</option>
-                    <option value="standard">Standard</option>
-                    <option value="advanced">Advanced</option>
-                  </select>
-                </label>
-                  </div>
-                  <div className="col-md-4 text-center">
-                  <label>
-                  Search Tech:<br />
-                  <select
-                    onChange={this.updateTech}
-                    value={this.searchTech.toLowerCase()}
-                  >
-                    <option value="">All</option>
-                    <option value="inner sphere">Inner Sphere</option>
-                    <option value="clan">Clan</option>
-                  </select>
-                </label>
-                  </div>
-                </div>
+                <div className="section-content">
+                  <fieldset className="fieldset">
+                    <div className="row">
+                      <div className="col-md-4 text-center">
+                      <label>
+                      Search Name:<br />
+                      <input
+                        type="search"
+                        onChange={this.updateSearch}
+                        value={this.state.searchText}
+                      />
+                    </label>
+                      </div>
+                      <div className="col-md-4 text-center">
+                      <label>
+                      Search Rules:<br />
+                      <select
+                        onChange={this.updateRules}
+                        value={this.searchRules.toLowerCase()}
+                      >
+                        <option value="">All</option>
+                        <option value="introductory">Introductory</option>
+                        <option value="standard">Standard</option>
+                        <option value="advanced">Advanced</option>
+                      </select>
+                    </label>
+                      </div>
+                      <div className="col-md-4 text-center">
+                      <label>
+                      Search Tech:<br />
+                      <select
+                        onChange={this.updateTech}
+                        value={this.searchTech.toLowerCase()}
+                      >
+                        <option value="">All</option>
+                        <option value="inner sphere">Inner Sphere</option>
+                        <option value="clan">Clan</option>
+                      </select>
+                    </label>
+                      </div>
+                    </div>
+                  </fieldset>
 
-              <h3 className="text-center">Search Results</h3>
-                <table className="table">
-                  <thead>
-                    <tr>
-                      <th>&nbsp;</th>
-                      <th>Name</th>
-                      <th>Rules</th>
-                      <th>Tech</th>
-                      <th>Type</th>
-                      <th>Points</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  {this.state.searchResults.length > 0 ? (
-                    <>
-                      {this.state.searchResults.map( (asUnit: IASMULUnit, unitIndex: number) => {
-                        return (
-                          <tr key={unitIndex}>
-                            <td className="no-wrap">
-                              <Button
-                                variant="primary"
-                                className="btn-sm"
-                                onClick={() => this.openViewUnit(asUnit)}
-                              >
-                                <FontAwesomeIcon icon={faSearch} />
-                              </Button>
-
-                              <Button
-                                variant="primary"
-                                className="btn-sm no-right-margin"
-                                onClick={() => this.addToGroup(asUnit, 0)}
-                              >
-                                <FontAwesomeIcon icon={faPlus} />
-                              </Button>
-                            </td>
-                            <td>{asUnit.Name}</td>
-                            <td>{asUnit.Rules}</td>
-                            <td>{asUnit.Technology.Name}</td>
-                            <td>{asUnit.BFType}</td>
-                            <td>{asUnit.BFPointValue}</td>
-                          </tr>
-                        )
-                      })}
-                    </>
-                  ) : (
-                    <>
-                    {this.searchRules.length > 2 ? (
+                <h3 className="text-center">Search Results</h3>
+                  <table className="table">
+                    <thead>
                       <tr>
-                        <td className="text-center" colSpan={6}>
-                          Please type a search term 3 or more characters.
-                        </td>
+                        <th>&nbsp;</th>
+                        <th>Name</th>
+                        <th>Rules</th>
+                        <th>Tech</th>
+                        <th>Type</th>
+                        <th>Points</th>
                       </tr>
+                    </thead>
+                    <tbody>
+                    {this.state.searchResults.length > 0 ? (
+                      <>
+                        {this.state.searchResults.map( (asUnit: IASMULUnit, unitIndex: number) => {
+                          return (
+                            <tr key={unitIndex}>
+                              <td className="no-wrap">
+                                <Button
+                                  variant="primary"
+                                  className="btn-sm"
+                                  onClick={() => this.openViewUnit(asUnit)}
+                                >
+                                  <FontAwesomeIcon icon={faSearch} />
+                                </Button>
+
+                                <Button
+                                  variant="primary"
+                                  className="btn-sm no-right-margin"
+                                  onClick={() => this.addToGroup(asUnit, 0)}
+                                >
+                                  <FontAwesomeIcon icon={faPlus} />
+                                </Button>
+                              </td>
+                              <td>{asUnit.Name}</td>
+                              <td>{asUnit.Rules}</td>
+                              <td>{asUnit.Technology.Name}</td>
+                              <td>{asUnit.BFType}</td>
+                              <td>{asUnit.BFPointValue}</td>
+                            </tr>
+                          )
+                        })}
+                      </>
                     ) : (
-                      <tr>
-                        <td className="text-center" colSpan={6}>
-                          Sorry, there are no matches with those parameters
-                        </td>
-                      </tr>
+                      <>
+                      {this.searchRules.length > 2 ? (
+                        <tr>
+                          <td className="text-center" colSpan={6}>
+                            Please type a search term 3 or more characters.
+                          </td>
+                        </tr>
+                      ) : (
+                        <tr>
+                          <td className="text-center" colSpan={6}>
+                            Sorry, there are no matches with those parameters
+                          </td>
+                        </tr>
+                      )}
+                      </>
                     )}
-                    </>
-                  )}
 
-                  </tbody>
-                </table>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>

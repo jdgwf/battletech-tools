@@ -57,13 +57,43 @@ export default class AlphaStrikeForce {
         }
     }
 
-    removeUnitFromGroup(asGroupIndex: number, asUnitIndex: number) {
+    public newGroup() {
+        this.groups.push( new AlphaStrikeGroup() );
+    }
+
+    public removeUnitFromGroup(asGroupIndex: number, asUnitIndex: number) {
         if( this.groups.length > asGroupIndex && this.groups[asGroupIndex]) {
             if( this.groups[asGroupIndex].members.length > asUnitIndex && this.groups[asGroupIndex].members[asUnitIndex]) {
                 this.groups[asGroupIndex].members.splice( asUnitIndex, 1);
             }
         }
     }
+
+    public getTotalGroups(): number {
+        return this.groups.length;
+    }
+
+
+    public getTotalUnits(): number {
+        let returnValue: number = 0;
+
+        for( let group of this.groups ) {
+            returnValue += group.members.length;
+        }
+
+        return returnValue;
+    }
+
+    public getTotalPoints(): number {
+        let returnValue: number = 0;
+
+        for( let group of this.groups ) {
+            for( let unit of group.members ) {
+                returnValue += unit.currentPoints;
+            }
+        }
+
+        return returnValue;    }
 
     public export(): IASForceExport {
         let returnValue: IASForceExport = {

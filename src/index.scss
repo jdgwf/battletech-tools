@@ -23,6 +23,24 @@ code {
 //     margin: .5rem;
 //   }
 // }
+select, input, label {
+  width: 100%;
+  display: block;
+}
+.fieldset {
+  border: solid 2px $primaryBG;
+  margin: 0 0 .5rem 0;
+  padding: .5rem;
+  legend {
+    background: $primaryBG;
+    color: $primaryTextColor;
+    padding: 0 .5rem;
+    border-radius: .5rem;
+    display: inline-block;
+    width: auto;
+    margin: 0 0 0 1rem;
+  }
+}
 .ui-page {
   background-color: $bodyBackground;
   width: 100%;
@@ -122,6 +140,7 @@ code {
 // Bootstrap overrrides
 body {
 
+
   .no-wrap {
     white-space: nowrap;
   }
@@ -147,6 +166,14 @@ body {
     margin-right: .25rem;
     margin-left: .25rem;
     margin-bottom: .25rem;
+    &.more-margin {
+      margin-right: .5rem;
+      margin-left: .5rem;
+      margin-bottom: .5rem;
+    }
+    &.no-margin {
+      margin: 0;
+    }
   }
   .btn-primary {
     background-color: $primaryBG;
@@ -222,6 +249,14 @@ body {
   .pull-left,
   .float-left {
     float: left;
+  }
+
+  .display-block {
+    display: block;
+  }
+
+  .full-width {
+    width: 100%;
   }
 
   .alert {
