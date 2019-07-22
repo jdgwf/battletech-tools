@@ -2,7 +2,7 @@ import React from 'react';
 import './InPlay.scss';
 import {IAppGlobals} from '../../AppRouter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {  faArrowAltCircleLeft, faTh, faBars, faList } from '@fortawesome/free-solid-svg-icons';
+import {  faArrowAltCircleLeft, faTh, faList } from '@fortawesome/free-solid-svg-icons';
 import AlphaStrikeUnitSVG from '../../Components/AlphaStrikeUnitSVG';
 import { Link } from 'react-router-dom';
 import BattleTechLogo from '../../Components/BattleTechLogo';
@@ -53,9 +53,9 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
                 <li className="d-none d-md-inline"><Link className="current" to={`${process.env.PUBLIC_URL}/alpha-strike-roster`}><FontAwesomeIcon icon={faArrowAltCircleLeft} /></Link></li>
 
                 {this.state.cardMode ? (
-                  <li title="Switch a large list mode" className="d-none d-md-inline"><a className="current" onClick={() => this.toggleCardMode()}><FontAwesomeIcon icon={faList} /></a></li>
+                  <li title="Switch a large list mode" className="d-none d-md-inline"><span className="current" onClick={this.toggleCardMode}><FontAwesomeIcon icon={faList} /></span></li>
                 ) : (
-                  <li title="Switch to showing 2+ cards per row" className="d-none d-md-inline"><a className="current" onClick={() => this.toggleCardMode()}><FontAwesomeIcon icon={faTh} /></a></li>
+                  <li title="Switch to showing 2+ cards per row" className="d-none d-md-inline"><span className="current" onClick={this.toggleCardMode}><FontAwesomeIcon icon={faTh} /></span></li>
 
                 )}
 
@@ -74,7 +74,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
 
           </header>
           {this.props.appGlobals.currentASForce.groups.map( (group, groupIndex) => {
-            if( group.members.length == 0) {
+            if( group.members.length === 0) {
               return (<></>);
             }
             return (

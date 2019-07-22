@@ -23,9 +23,23 @@ code {
 //     margin: .5rem;
 //   }
 // }
-select, input, label {
+select, input, label, textarea {
   width: 100%;
   display: block;
+}
+select,
+textarea,
+input[type=text],
+input[type=search],
+input[type=number] {
+  padding: 0.125rem .5rem;
+  border: solid 2px #000;
+  outline: none;
+  background: $colorTan;
+  &:focus {
+    border: solid 2px $primaryBG;
+    background: #fff;
+  }
 }
 .fieldset {
   border: solid 2px $primaryBG;

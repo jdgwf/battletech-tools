@@ -20,9 +20,10 @@
                 padding: 0 1rem;
                 cursor: pointer;
             }
-            a {
+            span, a {
                 display: inline-block;
                 color: $primaryBG;
+                cursor: pointer;
                 text-decoration: none;
                 padding: .5rem .75rem;
 
