@@ -207,6 +207,10 @@ body {
     margin-right: .25rem;
     margin-left: .25rem;
     margin-bottom: .25rem;
+    color: $primaryTextColor;
+    &:hover {
+      color: $primaryTextColor;
+    }
     &.more-margin {
       margin-right: .5rem;
       margin-left: .5rem;
@@ -216,12 +220,19 @@ body {
       margin: 0;
     }
   }
+
+  .small-margins {
+    margin: 0 .5rem .5rem .5rem;
+  }
+
   .btn-primary {
     background-color: $primaryBG;
     border-color: $primaryBG;
+    color: $primaryTextColor;
     &:hover {
       background-color: $primaryBGHover;
       border-color: $primaryBGHover;
+      color: $primaryTextColor;
     }
     &:disabled {
       background-color: #222;
@@ -245,9 +256,11 @@ body {
   .btn-secondary {
     background-color: $secondaryBG;
     border-color: $secondaryBG;
+    color: $primaryTextColor;
     &:hover {
       background-color: $secondaryBGHover;
       border-color: $secondaryBGHover;
+      color: $primaryTextColor;
     }
     &:disabled {
       background-color: #222;

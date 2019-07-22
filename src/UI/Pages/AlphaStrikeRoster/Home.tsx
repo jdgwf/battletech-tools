@@ -10,6 +10,7 @@ import { faPlus, faTrash, faEdit, faBars, faEye } from '@fortawesome/free-solid-
 import { Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import AlphaStrikeUnitSVG from '../../Components/AlphaStrikeUnitSVG';
+import { Link } from 'react-router-dom';
 
 export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, IHomeState> {
     searchTech: string = "";
@@ -338,6 +339,15 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
           <div className="content">
             <ShowAlerts appGlobals={this.props.appGlobals} />
 
+          {this.props.appGlobals.currentASForce.getTotalUnits() > 0 ? (
+            <>
+              <Link to={`${process.env.PUBLIC_URL}/alpha-strike-roster/play`} className="btn btn-primary full-width">
+                  Play Mode
+              </Link>
+            </>
+          ) : (
+            <></>
+          )}
           <div className="row">
             <div className="col-md-6 col-lg-5">
               <div className="text-section">

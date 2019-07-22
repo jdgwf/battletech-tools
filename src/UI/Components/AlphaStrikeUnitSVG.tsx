@@ -149,7 +149,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                         fill={strokeColor}
                         onClick={() => this.toggleArmorOrStructure( target, currentCount )}
                     />
-                    {target == "armor" ? (
+                    {target === "armor" ? (
                         <circle className={this.props.inPlay ? "cursor-pointer" : ""}
                             cx={this.damageLeftBase + xLoc + (currentCount * (radius * 2 + 9)) }
                             cy={yLoc}
@@ -182,7 +182,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         return (
 
             <>
-                <svg version="1.1" x="0px" y="0px" viewBox="0 0 1000 640" xmlns="http://www.w3.org/2000/svg">
+                <svg className={this.props.className} version="1.1" x="0px" y="0px" viewBox="0 0 1000 640" xmlns="http://www.w3.org/2000/svg">
                 <g transform="translate(0, 0)">
                 <rect x="0" y="0" width="1000" height="640px" fill="rgb(0,0,0)"></rect>
                 {this.props.asUnit.active === false ? (
@@ -616,7 +616,7 @@ interface IAlphaStrikeUnitSVGProps {
     asUnit: AlphaStrikeUnit | null;
     inPlay?: boolean;
     appGlobals: IAppGlobals;
-
+    className?: string;
 }
 
 interface IAlphaStrikeUnitSVGState {
