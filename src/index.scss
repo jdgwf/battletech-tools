@@ -41,6 +41,9 @@ select, input, label {
     margin: 0 0 0 1rem;
   }
 }
+.cursor-pointer {
+  cursor: pointer;
+}
 .ui-page {
   background-color: $bodyBackground;
   width: 100%;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { AlphaStrikeUnit } from '../../Classes/AlphaStrikeUnit';
 import BattleTechLogo from './BattleTechLogo';
+import { IAppGlobals } from '../AppRouter';
 
 export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnitSVGProps, IAlphaStrikeUnitSVGState> {
     height: string = "100%";
@@ -8,8 +9,9 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
     damageLeftBase = 0;
     buttonRadius = 15;
 
+    activeDotColor = "rgb(200,0,0)";
+
     critLineHeight = 50;
-    critLineStart = 325;
 
     constructor(props: IAlphaStrikeUnitSVGProps) {
         super(props);
@@ -27,6 +29,68 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         }
     }
 
+    toggleArmorOrStructure( target: string, indexNumber: number ) {
+        if( this.props.inPlay && this.props.asUnit ) {
+            if( target === "armor" ) {
+                if( this.props.asUnit.currentArmor.length > indexNumber) {
+                    this.props.asUnit.currentArmor[indexNumber] = !this.props.asUnit.currentArmor[indexNumber];
+                    this.props.asUnit.calcCurrentVals();
+                    this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+                }
+
+            } else {
+                if( this.props.asUnit.currentStructure.length > indexNumber) {
+                    this.props.asUnit.currentStructure[indexNumber] = !this.props.asUnit.currentStructure[indexNumber];
+                    this.props.asUnit.calcCurrentVals();
+                    this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+                }
+            }
+        }
+    }
+
+    toggleEngineHit(  indexNumber: number ) {
+        if( this.props.inPlay && this.props.asUnit ) {
+
+            if( this.props.asUnit.engineHits.length > indexNumber) {
+                this.props.asUnit.engineHits[indexNumber] = !this.props.asUnit.engineHits[indexNumber];
+                this.props.asUnit.calcCurrentVals();
+                this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+            }
+        }
+    }
+    toggleWeaponHit(indexNumber: number ) {
+        if( this.props.inPlay && this.props.asUnit ) {
+
+            if( this.props.asUnit.weaponHits.length > indexNumber) {
+                this.props.asUnit.weaponHits[indexNumber] = !this.props.asUnit.weaponHits[indexNumber];
+                this.props.asUnit.calcCurrentVals();
+                this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+            }
+        }
+    }
+
+    toggleFireControlHit( indexNumber: number ) {
+        if( this.props.inPlay && this.props.asUnit ) {
+
+            if( this.props.asUnit.fireControlHits.length > indexNumber) {
+                this.props.asUnit.fireControlHits[indexNumber] = !this.props.asUnit.fireControlHits[indexNumber];
+                this.props.asUnit.calcCurrentVals();
+                this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+            }
+        }
+    }
+
+    toggleMPHit( indexNumber: number ) {
+        if( this.props.inPlay && this.props.asUnit ) {
+
+            if( this.props.asUnit.mpControlHits.length > indexNumber) {
+                this.props.asUnit.mpControlHits[indexNumber] = !this.props.asUnit.mpControlHits[indexNumber];
+                this.props.asUnit.calcCurrentVals();
+                this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+            }
+        }
+    }
+
     makeArmorDots(
         count: number,
         xLoc: number,
@@ -34,6 +98,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         fillColor: string = "rgb(255,255,255)",
         strokeColor: string = "rgb(0,0,0)",
         radius: number = 0,
+        target: string = "armor",
     ): JSX.Element[] {
         let dots: JSX.Element[] = []
 
@@ -43,19 +108,34 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
         for( let currentCount = 0; currentCount < count; currentCount++ ) {
             dots.push(
-                <React.Fragment key={currentCount}>
-                    <circle className=""
+                <React.Fragment
+                    key={currentCount}
+                >
+                    <circle className={this.props.inPlay ? "cursor-pointer" : ""}
                         cx={this.damageLeftBase + xLoc + (currentCount * (radius * 2 + 9)) }
                         cy={yLoc}
                         r={radius + 3}
                         fill={strokeColor}
+                        onClick={() => this.toggleArmorOrStructure( target, currentCount )}
                     />
-                    <circle className=""
-                        cx={this.damageLeftBase + xLoc + (currentCount * (radius * 2 + 9)) }
-                        cy={yLoc}
-                        r={radius}
-                        fill={fillColor}
-                    />
+                    {target == "armor" ? (
+                        <circle className={this.props.inPlay ? "cursor-pointer" : ""}
+                            cx={this.damageLeftBase + xLoc + (currentCount * (radius * 2 + 9)) }
+                            cy={yLoc}
+                            r={radius}
+                            fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentArmor.length > currentCount && this.props.asUnit.currentArmor[currentCount] ? this.activeDotColor : fillColor}
+                            onClick={() => this.toggleArmorOrStructure( target, currentCount )}
+                        />
+                    ) : (
+                        <circle className={this.props.inPlay ? "cursor-pointer" : ""}
+                            cx={this.damageLeftBase + xLoc + (currentCount * (radius * 2 + 9)) }
+                            cy={yLoc}
+                            r={radius}
+                            fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentStructure.length > currentCount && this.props.asUnit.currentStructure[currentCount] ? this.activeDotColor : fillColor}
+                            onClick={() => this.toggleArmorOrStructure( target, currentCount )}
+                        />
+                    )}
+
                 </React.Fragment>
             )
         }
@@ -67,16 +147,21 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         if( !this.props.asUnit ) {
             return <></>
         }
-
-        console.log("xx", this.props.asUnit.ImageUrl)
-
+        let critLineStart = 325;
         return (
 
             <>
                 <svg version="1.1" x="0px" y="0px" viewBox="0 0 1000 640" xmlns="http://www.w3.org/2000/svg">
                 <g transform="translate(0, 0)">
                 <rect x="0" y="0" width="1000" height="640px" fill="rgb(0,0,0)"></rect>
-                <rect x="10" y="10" style={{zIndex: -1}} width="980" height="580" fill="rgb(255,255,255)"></rect>
+                {this.props.asUnit.active === false ? (
+                    <>
+                    <rect x="10" y="10" style={{zIndex: -1}} width="980" height="580" fill={this.activeDotColor}></rect>
+                    </>
+                ) : (
+                    <rect x="10" y="10" style={{zIndex: -1}} width="980" height="580" fill="rgb(255,255,255)"></rect>
+                )}
+
                 {this.props.asUnit.ImageUrl ? (
                     <image x="440" y="10" href={this.props.asUnit.ImageUrl} width="550" height="500"></image>
                 ) : (
@@ -152,12 +237,28 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 {/* Armor */}
                 <text x={this.damageLeftBase + 40} y="440" fontFamily="sans-serif" fontSize="25">A: </text>
 
-                {this.makeArmorDots( this.props.asUnit.armor, 90, 432, "rgb(255,255,255)", "rgb(0,0,0)" )}
+                {this.makeArmorDots(
+                    this.props.asUnit.armor,
+                    90,
+                    432,
+                    "rgb(255,255,255)",
+                    "rgb(0,0,0)",
+                    0,
+                    "armor",
+                )}
                 {/* End Armor */}
 
                 {/* Structure */}
                 <text x={this.damageLeftBase + 40} y="485" fontFamily="sans-serif" fontSize="25">S: </text>
-                {this.makeArmorDots( this.props.asUnit.structure, 90, 477, "rgb(153,153,153)", "rgb(0,0,0)" )}
+                {this.makeArmorDots(
+                    this.props.asUnit.structure,
+                    90,
+                    477,
+                    "rgb(153,153,153)",
+                    "rgb(0,0,0)",
+                    0,
+                    "structure",
+                )}
                 {/* End Structure */}
 
                 {/* End Armor and Structure Box */}
@@ -175,85 +276,163 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 <text x="785" y="275" textAnchor="middle" fontFamily="sans-serif" fontSize="25">CRITICAL HITS</text>
                 {/* End Outline Box and Title */}
 
+
+
                 {this.props.asUnit.type.toLowerCase() !== "pm" ? (
 
                     <>
-                        <text x="750" y={this.critLineStart} textAnchor="end" fontFamily="sans-serif" fontSize="20">ENGINE</text>
-                        <circle cx="770" cy={this.critLineStart - 27 + this.buttonRadius + 2} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
-                        <circle cx="770" cy={this.critLineStart - 27 + this.buttonRadius + 2} r={this.buttonRadius - 3}  fill="rgb(255,255,255)"></circle>
+                        <text x="750" y={critLineStart} textAnchor="end" fontFamily="sans-serif" fontSize="20">ENGINE</text>
 
-                        <circle cx="803" cy={this.critLineStart - 27 + this.buttonRadius + 2} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
-                        <circle cx="803" cy={this.critLineStart - 27 + this.buttonRadius + 2} r={this.buttonRadius - 3} fill="rgb(255,255,255)"></circle>
+                        {this.props.asUnit.engineHits.map( (ehValue, ehIndex) => {
+                            let fillColor = "rgb(255,255,255)";
+                            if( ehValue ) {
+                                fillColor = this.activeDotColor;
+                            }
+                            return (
+                                <React.Fragment key={ehIndex}>
+                                    <circle
+                                        cx={770 + (this.buttonRadius * 2 + 3 ) * ehIndex}
+                                        cy={critLineStart - 27 + this.buttonRadius + 2}
+                                        r={this.buttonRadius}
+                                        fill="rgb(0,0,0)"
+                                        className={this.props.inPlay ? "cursor-pointer" : ""}
+                                        onClick={() => this.toggleEngineHit(ehIndex)}
+                                    ></circle>
+                                    <circle
+                                        cx={770 + (this.buttonRadius * 2 + 3 ) * ehIndex}
+                                        cy={critLineStart - 27 + this.buttonRadius + 2}
+                                        r={this.buttonRadius - 3}
+                                        fill={fillColor}
+                                        className={this.props.inPlay ? "cursor-pointer" : ""}
+                                        onClick={() => this.toggleEngineHit(ehIndex)}
+                                    ></circle>
+                                </React.Fragment>
+                            )
+                        })}
 
-                        <text x="750" y={this.critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">+1 Heat/Firing Weapons</text>
-                        {this.critLineStart += this.critLineHeight}
+
+                        <text x="750" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">+1 Heat/Firing Weapons</text>
+                        {critLineStart += this.critLineHeight}
                     </>
                 ) : (
                     <></>
                 )}
 
-                <text x="750" y={this.critLineStart} textAnchor="end" fontFamily="sans-serif" fontSize="20">FIRE CONTROL</text>
+                <text x="750" y={critLineStart} textAnchor="end" fontFamily="sans-serif" fontSize="20">FIRE CONTROL</text>
                 {this.props.asUnit.fireControlHits.map( (fcValue, fcIndex) => {
-                    return (
-                        <React.Fragment key={fcIndex}>
-                            <circle cx={770 + (this.buttonRadius * 2 + 3 ) * fcIndex} cy={this.critLineStart - 27 + this.buttonRadius + 2} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
-                            <circle cx={770 + (this.buttonRadius * 2 + 3 ) * fcIndex} cy={this.critLineStart - 27 + this.buttonRadius + 2} r={this.buttonRadius - 3} fill="rgb(255,255,255)"></circle>
-                        </React.Fragment>
-                    )
+                            let fillColor = "rgb(255,255,255)";
+                            if( fcValue ) {
+                                fillColor = this.activeDotColor;
+                            }
+                            return (
+                                <React.Fragment key={fcIndex}>
+                                    <circle
+                                        cx={770 + (this.buttonRadius * 2 + 3 ) * fcIndex}
+                                        cy={critLineStart - 27 + this.buttonRadius + 2}
+                                        r={this.buttonRadius}
+                                        fill="rgb(0,0,0)"
+                                        className={this.props.inPlay ? "cursor-pointer" : ""}
+                                        onClick={() => this.toggleFireControlHit(fcIndex)}
+                                    ></circle>
+                                    <circle
+                                        cx={770 + (this.buttonRadius * 2 + 3 ) * fcIndex}
+                                        cy={critLineStart - 27 + this.buttonRadius + 2}
+                                        r={this.buttonRadius - 3}
+                                        fill={fillColor}
+                                        className={this.props.inPlay ? "cursor-pointer" : ""}
+                                        onClick={() => this.toggleFireControlHit(fcIndex)}
+                                    ></circle>
+                                </React.Fragment>
+                            )
                 })}
-                <text x="750" y={this.critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">+2 To Hit Each</text>
-                {this.critLineStart += this.critLineHeight}
+                <text x="750" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">+2 To Hit Each</text>
+                {critLineStart += this.critLineHeight}
 
 
                 {this.props.asUnit.type.toLowerCase() === 'bm' || this.props.asUnit.type.toLowerCase() === 'pm' ? (
                     <>
-                        <text x="750"y={this.critLineStart} textAnchor="end" fontFamily="sans-serif" fontSize="20">MP</text>
+                        <text x="750"y={critLineStart} textAnchor="end" fontFamily="sans-serif" fontSize="20">MP</text>
                         {this.props.asUnit.mpControlHits.map( (mpValue, mpIndex) => {
+                            let fillColor = "rgb(255,255,255)";
+                            if( mpValue ) {
+                                fillColor = this.activeDotColor;
+                            }
                             return (
                                 <React.Fragment key={mpIndex}>
-                                    <circle cx={770 + (this.buttonRadius * 2 + 3 ) * mpIndex} cy={this.critLineStart - 27 + this.buttonRadius + 2} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
-                                    <circle cx={770 + (this.buttonRadius * 2 + 3 ) * mpIndex} cy={this.critLineStart - 27 + this.buttonRadius + 2} r={this.buttonRadius - 3} fill="rgb(255,255,255)"></circle>
+                                    <circle
+                                        cx={770 + (this.buttonRadius * 2 + 3 ) * mpIndex}
+                                        cy={critLineStart - 27 + this.buttonRadius + 2}
+                                        r={this.buttonRadius}
+                                        fill="rgb(0,0,0)"
+                                        className={this.props.inPlay ? "cursor-pointer" : ""}
+                                        onClick={() => this.toggleMPHit(mpIndex)}
+                                    ></circle>
+                                    <circle
+                                        cx={770 + (this.buttonRadius * 2 + 3 ) * mpIndex}
+                                        cy={critLineStart - 27 + this.buttonRadius + 2}
+                                        r={this.buttonRadius - 3}
+                                        fill={fillColor}
+                                        className={this.props.inPlay ? "cursor-pointer" : ""}
+                                        onClick={() => this.toggleMPHit(mpIndex)}
+                                    ></circle>
                                 </React.Fragment>
                             )
                         })}
-                        <text x="750" y={this.critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">1/2 Move Each</text>
-                        {this.critLineStart += this.critLineHeight}
+                        <text x="750" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">1/2 Move Each</text>
+                        {critLineStart += this.critLineHeight}
                     </>
                 ) :
                 (
                     <></>
                 )}
 
-
-                <text x="750" y={this.critLineStart} textAnchor="end" fontFamily="sans-serif" fontSize="20">WEAPONS</text>
+                <text x="750" y={critLineStart} textAnchor="end" fontFamily="sans-serif" fontSize="20">WEAPONS</text>
                 {this.props.asUnit.weaponHits.map( (whValue, whIndex) => {
-                    return (
-                        <React.Fragment key={whIndex}>
-                            <circle cx={770 + (this.buttonRadius * 2 + 3 ) * whIndex} cy={this.critLineStart - 27 + this.buttonRadius + 2} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
-                            <circle cx={770 + (this.buttonRadius * 2 + 3 ) * whIndex} cy={this.critLineStart - 27 + this.buttonRadius + 2} r={this.buttonRadius - 3} fill="rgb(255,255,255)"></circle>
-                        </React.Fragment>
-                    )
+                            let fillColor = "rgb(255,255,255)";
+                            if( whValue ) {
+                                fillColor = this.activeDotColor;
+                            }
+                            return (
+                                <React.Fragment key={whIndex}>
+                                    <circle
+                                        cx={770 + (this.buttonRadius * 2 + 3 ) * whIndex}
+                                        cy={critLineStart - 27 + this.buttonRadius + 2}
+                                        r={this.buttonRadius}
+                                        fill="rgb(0,0,0)"
+                                        className={this.props.inPlay ? "cursor-pointer" : ""}
+                                        onClick={() => this.toggleWeaponHit(whIndex)}
+                                    ></circle>
+                                    <circle
+                                        cx={770 + (this.buttonRadius * 2 + 3 ) * whIndex}
+                                        cy={critLineStart - 27 + this.buttonRadius + 2}
+                                        r={this.buttonRadius - 3}
+                                        fill={fillColor}
+                                        className={this.props.inPlay ? "cursor-pointer" : ""}
+                                        onClick={() => this.toggleWeaponHit(whIndex)}
+                                    ></circle>
+                                </React.Fragment>
+                            )
                 })}
-                <text x="750" y={this.critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">-1 Damage Each</text>
-                {this.critLineStart += this.critLineHeight}
+                <text x="750" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">-1 Damage Each</text>
+                {critLineStart += this.critLineHeight}
 
                 {this.props.asUnit.type.toLowerCase() === 'cv' ||  this.props.asUnit.type.toLowerCase() === 'sv'? (
                     <>
-                        <text x="750" y={this.critLineStart} textAnchor="end" fontFamily="sans-serif" fontSize="20">MOTIVE</text>
-                        <circle className="" cx="770" cy={this.critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
-                        <circle className="" cx="770" cy={this.critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill="rgb(255,255,255)"></circle>
-                        <circle className="" cx="801" cy={this.critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
-                        <circle className="" cx="801" cy={this.critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill="rgb(255,255,255)"></circle>
-                        <circle className="" cx="847" cy={this.critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
-                        <circle className="" cx="847" cy={this.critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill="rgb(255,255,255)"></circle>
-                        <circle className="" cx="878" cy={this.critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
-                        <circle className="" cx="878" cy={this.critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill="rgb(255,255,255)"></circle>
-                        <circle className="" cx="934" cy={this.critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
-                        <circle className="" cx="934" cy={this.critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill="rgb(255,255,255)"></circle>
-                        <text x="775" y={this.critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">-2 MV</text>
-                        <text x="827" y={this.critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">½ Move Each</text>
-                        <text x="919" y={this.critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">0 MV</text>
-                        {this.critLineStart += this.critLineHeight}
+                        <text x="750" y={critLineStart} textAnchor="end" fontFamily="sans-serif" fontSize="20">MOTIVE</text>
+                        <circle className="" cx="770" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
+                        <circle className="" cx="770" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill="rgb(255,255,255)"></circle>
+                        <circle className="" cx="801" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
+                        <circle className="" cx="801" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill="rgb(255,255,255)"></circle>
+                        <circle className="" cx="847" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
+                        <circle className="" cx="847" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill="rgb(255,255,255)"></circle>
+                        <circle className="" cx="878" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
+                        <circle className="" cx="878" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill="rgb(255,255,255)"></circle>
+                        <circle className="" cx="934" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
+                        <circle className="" cx="934" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill="rgb(255,255,255)"></circle>
+                        <text x="775" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">-2 MV</text>
+                        <text x="827" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">½ Move Each</text>
+                        <text x="919" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">0 MV</text>
+                        {critLineStart += this.critLineHeight}
                     </>
                 ) : (
                     <></>
@@ -267,6 +446,14 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 )}
 
                 {/* End Critical Hits */}
+
+                {this.props.asUnit.active === false ? (
+                    <>
+                    <text x="50" y="100" font-family="sans-serif" transform="rotate( 30, 50, 100)" font-size="150" stroke="rgb(255,255,255)" stroke-width="4" fill="rgb(200,0,0)">WRECKED</text>
+                    </>
+                ) : (
+                    <></>
+                )}
 
                 <rect x="10" y="610" width="960" height="35" fill="rgb(0,0,0)"></rect>
                 <text x="20" y="625" textAnchor="start" fontFamily="sans-serif" fill="rgb(253,253,227)" style={{fontWeight: 700}} fontSize="30">ALPHA STRIKE</text>
@@ -288,6 +475,7 @@ interface IAlphaStrikeUnitSVGProps {
     width?: string;
     asUnit: AlphaStrikeUnit | null;
     inPlay?: boolean;
+    appGlobals: IAppGlobals;
 }
 
 interface IAlphaStrikeUnitSVGState {

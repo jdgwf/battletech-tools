@@ -49,13 +49,14 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
           {this.props.appGlobals.currentASForce.groups.map( (group, groupIndex) => {
             return (
               <React.Fragment key={groupIndex}>
-              <h2>{group.getName(groupIndex)}</h2>
+              <h2>{group.getName(groupIndex + 1)}</h2>
               {group.members.map( (unit, unitIndex) => {
                 return (
                 <React.Fragment key={unitIndex}>
                   <AlphaStrikeUnitSVG
                     asUnit={unit}
                     inPlay={true}
+                    appGlobals={this.props.appGlobals}
                   />
                 </React.Fragment>
                 )

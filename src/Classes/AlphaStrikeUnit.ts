@@ -348,29 +348,30 @@ export class AlphaStrikeUnit {
                     this.currentSkill = 4;
 
                 this.currentPoints = this.basePoints;
-
-                if( incomingMechData.currentArmor )
-                this.currentArmor = incomingMechData.currentArmor;
-
-                if( incomingMechData.currentStructure )
-                this.currentStructure = incomingMechData.currentStructure;
-
-                if( incomingMechData.engineHits )
-                this.engineHits = incomingMechData.engineHits;
-
-                if( incomingMechData.fireControlHits )
-                this.fireControlHits = incomingMechData.fireControlHits;
-
-                if( incomingMechData.mpControlHits )
-                this.mpControlHits = incomingMechData.mpControlHits;
-
-                if( incomingMechData.weaponHits )
-                this.weaponHits = incomingMechData.weaponHits;
-
-                if( incomingMechData.customName )
-                this.customName = incomingMechData.customName;
             }
 
+            if( incomingMechData.currentArmor ) {
+                this.currentArmor = incomingMechData.currentArmor;
+            }
+
+            if( incomingMechData.currentStructure ) {
+                this.currentStructure = incomingMechData.currentStructure;
+            }
+
+            if( incomingMechData.engineHits )
+            this.engineHits = incomingMechData.engineHits;
+
+            if( incomingMechData.fireControlHits )
+            this.fireControlHits = incomingMechData.fireControlHits;
+
+            if( incomingMechData.mpControlHits )
+            this.mpControlHits = incomingMechData.mpControlHits;
+
+            if( incomingMechData.weaponHits )
+            this.weaponHits = incomingMechData.weaponHits;
+
+            if( incomingMechData.customName )
+            this.customName = incomingMechData.customName;
         }
         this.calcCurrentVals();
     }
@@ -599,7 +600,7 @@ export class AlphaStrikeUnit {
                 if( this.mpControlHits[ mpHitsCount ] ) {
 
                     for( let moveC = 0; moveC < this.move.length; moveC++ ) {
-                        let movePenalty = Math.round(this.move[moveC].currentMove / 2);
+                        let movePenalty = Math.round( +this.move[moveC].currentMove / 2);
                         if( movePenalty < 2 )
                             movePenalty = 2;
 

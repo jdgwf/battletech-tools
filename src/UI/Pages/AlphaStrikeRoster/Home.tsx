@@ -319,6 +319,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                   <AlphaStrikeUnitSVG
                     height="auto"
                     width="100%"
+                    appGlobals={this.props.appGlobals}
                     asUnit={this.state.showASUnit}
                     // inPlay={true}
                   />
