@@ -6,7 +6,7 @@ export function addCommas( numericalValue: number ): string {
     });
 }
 
-export async function getASSearchResults(
+export async function getMULASSearchResults(
     searchTerm: string,
     mechRules: string,
     techFilter: string,

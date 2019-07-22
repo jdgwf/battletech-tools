@@ -121,6 +121,10 @@ code {
 
 // Bootstrap overrrides
 body {
+
+  .no-wrap {
+    white-space: nowrap;
+  }
   svg {
     max-height: 80vh;
     max-width: 90vw;

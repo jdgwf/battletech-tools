@@ -10,6 +10,7 @@ import SanitizedHTML from './Components/SanitizedHTML';
 import Alerts from './Classes/Alerts';
 import AlphaStrikeRosterRouter from './Pages/AlphaStrikeRoster/_Router'
 import MechCreatorRouter from './Pages/MechCreator/_Router'
+import AlphaStrikeForce, { IASForceExport } from "../Classes/AlphaStrikeForce";
 
 export default class AppRouter extends React.Component<IAppRouterProps, IAppRouterState> {
 
@@ -23,6 +24,14 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         this.refreshGlobalState = this.refreshGlobalState.bind(this);
         this.toggleMobile = this.toggleMobile.bind(this);
         this.closeMobile = this.closeMobile.bind(this);
+        this.saveCurrentASForce = this.saveCurrentASForce.bind(this);
+
+        let asImport: IASForceExport | null = null;
+        let lsASFImport = localStorage.getItem("currentASForce");
+        if( lsASFImport ) {
+            asImport = JSON.parse( lsASFImport );
+        }
+        let alphaStrikeForce = new AlphaStrikeForce( asImport );
 
         this.state = {
             updated: false,
@@ -41,12 +50,25 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                 refreshGlobalState: this.refreshGlobalState,
                 toggleMobile: this.toggleMobile,
                 closeMobile: this.closeMobile,
+                currentASForce: alphaStrikeForce,
+                saveCurrentASForce: this.saveCurrentASForce,
             }
         }
 
     }
 
-    toggleMobile() {
+    saveCurrentASForce( asForce: AlphaStrikeForce ): void {
+        let exportASForce = asForce.export();
+        let appGlobals = this.state.appGlobals;
+        appGlobals.currentASForce = asForce;
+        this.setState({
+            appGlobals: appGlobals,
+        });
+
+        localStorage.setItem("currentASForce", JSON.stringify( exportASForce ));
+    }
+
+    toggleMobile(): void {
         let appGlobals = this.state.appGlobals;
         appGlobals.showMobile = !appGlobals.showMobile;
         this.setState({
@@ -55,7 +77,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         })
     }
 
-    closeMobile() {
+    closeMobile(): void {
         let appGlobals = this.state.appGlobals;
         appGlobals.showMobile = false;
         this.setState({
@@ -64,7 +86,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         })
     }
 
-    makeDocumentTitle( subTitle: string = "" ) {
+    makeDocumentTitle( subTitle: string = "" ): void {
         let appGlobals = this.state.appGlobals;
         if( subTitle ) {
             document.title = subTitle + " | " + CONFIGSiteTitle;
@@ -81,7 +103,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         }
     }
 
-    refreshGlobalState(appGlobals: IAppGlobals | null = null) {
+    refreshGlobalState(appGlobals: IAppGlobals | null = null): void {
         if( !appGlobals ) {
             this.setState({
                 updated: true,
@@ -94,7 +116,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         }
     }
 
-    closeConfirmDialog() {
+    closeConfirmDialog(): void {
         let appGlobals = this.state.appGlobals;
         appGlobals.showConfirmDialog = false;
         this.setState({
@@ -102,7 +124,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         })
     }
 
-    confirmConfirmDialog() {
+    confirmConfirmDialog(): void {
         if( this.state.appGlobals ) {
             if( this.state.appGlobals.confirmDialogConfirm ) {
                 this.state.appGlobals.confirmDialogConfirm();
@@ -121,7 +143,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         confirmYesLabel: string,
         confirmNoLabel: string,
         confirmCallback: Function,
-    ) {
+    ): void {
         let appGlobals = this.state.appGlobals;
         appGlobals.confirmDialogMessage = confirmMessage;
         appGlobals.confirmDialogTitle = confirmTitle;
@@ -234,4 +256,7 @@ export interface IAppGlobals {
         confirmNoLabel: string,
         confirmCallback: Function,
     ): void;
+
+    currentASForce: AlphaStrikeForce;
+    saveCurrentASForce( asForce: AlphaStrikeForce ): void;
 }

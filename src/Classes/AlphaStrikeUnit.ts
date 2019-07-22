@@ -1,3 +1,4 @@
+
 export interface IAlphaStrikeDamage {
     short: string;
     medium: string;
@@ -71,6 +72,13 @@ export interface IASMULUnit {
 
     customName?: string;
     currentSkill?: number;
+
+    currentArmor?: boolean[];
+    currentStructure?: boolean[];
+    engineHits?: boolean[];
+    fireControlHits?: boolean[];
+    mpControlHits?: boolean[];
+    weaponHits?: boolean[];
 }
 
 export class AlphaStrikeUnit {
@@ -175,6 +183,7 @@ export class AlphaStrikeUnit {
 
     constructor( incomingMechData: any ) {
         if( typeof(incomingMechData) !== "undefined" && incomingMechData !== null ) {
+            this.originalStats = incomingMechData;
 
             if( typeof(incomingMechData.BFPointValue) !== "undefined") {
                 // RAW Data From MUL
@@ -284,54 +293,54 @@ export class AlphaStrikeUnit {
                 // Interally Processed Data
 
                 this.classification = incomingMechData.classification;
-            this.costCR = incomingMechData.costCR / 1;
+                this.costCR = incomingMechData.costCR / 1;
 
-            this.mulID = incomingMechData.mulID / 1;
+                this.mulID = incomingMechData.mulID / 1;
 
-            this.ImageUrl = incomingMechData.ImageUrl;
+                this.ImageUrl = incomingMechData.ImageUrl;
 
-            this.currentHeat = incomingMechData.currentHeat;
+                this.currentHeat = incomingMechData.currentHeat;
 
-            this.variant = incomingMechData.variant;
-            this.name = incomingMechData.name;
-            this.dateIntroduced = incomingMechData.dateIntroduced;
+                this.variant = incomingMechData.variant;
+                this.name = incomingMechData.name;
+                this.dateIntroduced = incomingMechData.dateIntroduced;
 
-            this.tro = incomingMechData.tro;
+                this.tro = incomingMechData.tro;
 
-            this.role =  incomingMechData.role;
+                this.role =  incomingMechData.role;
 
-            this.tonnage = incomingMechData.tonnage / 1;
+                this.tonnage = incomingMechData.tonnage / 1;
 
-            this.threshold = incomingMechData.threshold / 1;
+                this.threshold = incomingMechData.threshold / 1;
 
-            this.type = incomingMechData.type;
-            this.size = incomingMechData.size / 1;
+                this.type = incomingMechData.type;
+                this.size = incomingMechData.size / 1;
 
-            this.armor = incomingMechData.armor / 1;
-            this.structure = incomingMechData.structure / 1;
+                this.armor = incomingMechData.armor / 1;
+                this.structure = incomingMechData.structure / 1;
 
-            this.move = incomingMechData.move;
-            this.jumpMove = +incomingMechData.jumpMove;
+                this.move = incomingMechData.move;
+                this.jumpMove = +incomingMechData.jumpMove;
 
-            this.damage = {
-                    short: incomingMechData.damage.short,
-                    medium: incomingMechData.damage.medium,
-                    long: incomingMechData.damage.long,
-                    extreme: incomingMechData.damage.extreme,
-                };
+                this.damage = {
+                        short: incomingMechData.damage.short,
+                        medium: incomingMechData.damage.medium,
+                        long: incomingMechData.damage.long,
+                        extreme: incomingMechData.damage.extreme,
+                    };
 
-            if( !this.damage.extreme )
-                this.damage.extreme = "0";
+                if( !this.damage.extreme )
+                    this.damage.extreme = "0";
 
-            this.move = incomingMechData.move;
+                this.move = incomingMechData.move;
 
-            this.abilities = incomingMechData.abilities;
+                this.abilities = incomingMechData.abilities;
 
-            this.showDetails = incomingMechData.showDetails;
+                this.showDetails = incomingMechData.showDetails;
 
-            this.overheat = incomingMechData.overheat / 1;
+                this.overheat = incomingMechData.overheat / 1;
 
-            this.basePoints = incomingMechData.basePoints / 1;
+                this.basePoints = incomingMechData.basePoints / 1;
 
                 if( incomingMechData.currentSkill > 0  )
                     this.currentSkill = incomingMechData.currentSkill;
@@ -784,5 +793,27 @@ export class AlphaStrikeUnit {
     // makeSVGAlphaStrikeCard( inPlay: boolean, itemIDField: number ) {
     //     return createSVGAlphaStrike( this, inPlay, itemIDField );
     // }
+
+    export(): IASMULUnit | null {
+        if( this.originalStats ) {
+            let returnValue: IASMULUnit = this.originalStats;
+            returnValue.customName = this.customName;
+            returnValue.currentSkill = this.currentSkill;
+
+            returnValue.currentArmor = this.currentArmor;
+            returnValue.currentStructure = this.currentStructure;
+            returnValue.engineHits = this.engineHits;
+            returnValue.fireControlHits = this.fireControlHits;
+            returnValue.mpControlHits = this.mpControlHits;
+            returnValue.weaponHits = this.weaponHits;
+
+            console.log("ASG returnValue", returnValue)
+
+            return returnValue;
+        } else {
+            return null;
+        }
+    }
+
 
 }
