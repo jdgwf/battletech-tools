@@ -81,7 +81,29 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
         this.toggleContextMenuSearch = this.toggleContextMenuSearch.bind(this);
         this.moveUnitToGroup = this.moveUnitToGroup.bind(this);
 
+        this.removeGroup = this.removeGroup.bind(this);
+
         this.updateSearchResults();
+    }
+
+    removeGroup( groupIndex: number ) {
+      if( this.props.appGlobals.currentASForce.groups.length > groupIndex ) {
+        if(this.props.appGlobals.currentASForce.groups[groupIndex].getTotalUnits() === 0 ) {
+          this.props.appGlobals.currentASForce.removeGroup(groupIndex);
+          this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+        } else {
+          this.props.appGlobals.openConfirmDialog(
+            "Confirmation",
+            "This group still contains units. Are you sure you want to still remove it?",
+            "Yes",
+            "No",
+            () => {
+              this.props.appGlobals.currentASForce.removeGroup(groupIndex);
+              this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+            }
+          );
+        }
+      }
     }
 
     moveUnitToGroup(
@@ -166,8 +188,8 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       // console.log("data", data)
     }
 
-    componentDidMount ()  {
-      this.props.appGlobals.makeDocumentTitle("Home");
+    componentDidMount () {
+      this.props.appGlobals.makeDocumentTitle("Alpha Strike Roster");
     }
 
     openViewUnit( theUnit: IASMULUnit ) {
@@ -261,7 +283,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
               <Modal.Body className="text-center">
                     {this.state.editASUnit && this.state.showASUnit ? (
                       <div className="row">
-                        <div className="col-md-6 col-lg-8 text-left" >
+                        <div className="col-xs-6 col-lg-8 text-left" >
                           <label>
                             Custom Unit Name:<br />
                             <input
@@ -272,7 +294,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                             />
                           </label>
                         </div>
-                        <div className="col-md-6 col-lg-4 text-left">
+                        <div className="col-xs-6 col-lg-4 text-left">
                           <label>
                             Skill Level:<br />
                             <select
@@ -323,7 +345,16 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                 {this.props.appGlobals.currentASForce.groups.map( (asGroup, asGroupIndex) => {
                   return (<fieldset key={asGroupIndex} className="fieldset">
                     <legend>{asGroup.getName(asGroupIndex + 1)}</legend>
-                    <label>
+
+                    <Button
+                      className="pull-right"
+                      onClick={() => this.removeGroup(asGroupIndex)}
+                    >
+                      <FontAwesomeIcon icon={faTrash} />
+                    </Button>
+                    <label
+                      className="width-80"
+                    >
                       <input
                         type="text"
                         onChange={(event: React.FormEvent<HTMLInputElement>) => this.renameGroup(event.currentTarget.value, asGroupIndex)}
@@ -377,7 +408,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                                       {this.props.appGlobals.currentASForce.groups.map( (asGroup, asGroupListIndex) => {
                                         return (
                                           <>
-                                            {asGroupListIndex != asGroupIndex ? (
+                                            {asGroupListIndex !== asGroupIndex ? (
                                               <li
                                                 onClick={() => this.moveUnitToGroup(asUnitIndex, asGroupIndex, asGroupListIndex)}
                                               >

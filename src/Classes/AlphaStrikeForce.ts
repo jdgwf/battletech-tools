@@ -93,6 +93,12 @@ export default class AlphaStrikeForce {
         }
     }
 
+    public removeGroup(asGroupIndex: number) {
+        if( this.groups.length > asGroupIndex && this.groups[asGroupIndex]) {
+            this.groups.splice( asGroupIndex, 1);
+        }
+    }
+
     public getTotalGroups(): number {
         return this.groups.length;
     }

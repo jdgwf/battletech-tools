@@ -54,6 +54,14 @@ select, input, label {
     }
   }
 
+  .width-90 {
+    width: 90%;
+  }
+
+  .width-80 {
+    width: 80%;
+  }
+
   .mobile-menu {
     width: 300px;
     left: -302px;
@@ -175,7 +183,7 @@ body {
       }
 
       li {
-
+        text-align: left;
         background: $textSectionBG;
         color: $primaryTextColor;
         border-bottom: solid 1px $primaryBGHover;
