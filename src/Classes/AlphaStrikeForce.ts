@@ -54,6 +54,30 @@ export default class AlphaStrikeForce {
             this.groups[groupIndex].members.push(
                 new AlphaStrikeUnit( mulUnit )
             );
+            this.groups[groupIndex].sortUnits();
+        }
+
+    }
+
+    public moveUnitToGroup(
+        fromUnitIndex: number,
+        fromGroupIndex: number,
+        toGroupIndex: number ) {
+        if(
+            this.groups.length > fromGroupIndex
+                &&
+            this.groups.length > toGroupIndex
+
+        )  {
+            if( this.groups[fromGroupIndex].members.length > fromUnitIndex ) {
+                let asUnit = this.groups[fromGroupIndex].members[fromUnitIndex];
+                this.groups[fromGroupIndex].members.splice(fromUnitIndex, 1 );
+
+                this.groups[toGroupIndex].members.push( asUnit);
+
+                this.groups[toGroupIndex].sortUnits();
+                this.groups[fromGroupIndex].sortUnits();
+            }
         }
     }
 
@@ -78,22 +102,23 @@ export default class AlphaStrikeForce {
         let returnValue: number = 0;
 
         for( let group of this.groups ) {
-            returnValue += group.members.length;
+            returnValue += group.getTotalUnits();
         }
 
         return returnValue;
     }
 
+
+
     public getTotalPoints(): number {
         let returnValue: number = 0;
 
         for( let group of this.groups ) {
-            for( let unit of group.members ) {
-                returnValue += unit.currentPoints;
-            }
+            returnValue += group.getTotalPoints();
         }
 
-        return returnValue;    }
+        return returnValue;
+    }
 
     public export(): IASForceExport {
         let returnValue: IASForceExport = {

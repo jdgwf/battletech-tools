@@ -160,6 +160,36 @@ body {
   .no-bottom-margin {
     margin-bottom: 0 !important;
   }
+  .drop-down-menu-container {
+    position: relative;
+    display: inline-block;
+    .dd-menu {
+      display: none;
+      position: absolute;
+      top: 2rem;
+      right: 0;
+      border: solid 1px $primaryBGHover;
+      z-index: 1000;
+      &.active {
+        display: inline-block;
+      }
+
+      li {
+
+        background: $textSectionBG;
+        color: $primaryTextColor;
+        border-bottom: solid 1px $primaryBGHover;
+        cursor: pointer;
+        padding: .125rem .5rem;
+        &:hover {
+          background-color: $primaryBG;
+          color: $primaryTextColor;
+          outline: none !important;
+
+        }
+      }
+    }
+  }
   .btn {
     outline: none !important;
     box-shadow: none !important;

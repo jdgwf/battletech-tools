@@ -6,7 +6,7 @@ import {IAppGlobals} from '../../AppRouter';
 import { getMULASSearchResults } from '../../../utils';
 import { IASMULUnit, AlphaStrikeUnit } from '../../../Classes/AlphaStrikeUnit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faPlus, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTrash, faEdit, faBars, faEye } from '@fortawesome/free-solid-svg-icons';
 import { Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import AlphaStrikeUnitSVG from '../../Components/AlphaStrikeUnitSVG';
@@ -53,6 +53,11 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
             showASUnit: null,
             searchText: lsSearchTerm,
             editASUnit: false,
+
+            contextMenuGroup: -1,
+            contextMenuUnit: -1,
+
+            contextMenuSearch: -1,
         }
 
         this.updateSearch = this.updateSearch.bind(this);
@@ -72,10 +77,53 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
         this.removeUnitFromGroup = this.removeUnitFromGroup.bind(this);
         this.newGroup = this.newGroup.bind(this);
 
+        this.toggleContextMenuForce = this.toggleContextMenuForce.bind(this);
+        this.toggleContextMenuSearch = this.toggleContextMenuSearch.bind(this);
+        this.moveUnitToGroup = this.moveUnitToGroup.bind(this);
+
         this.updateSearchResults();
     }
 
+    moveUnitToGroup(
+      fromUnitIndex: number,
+      fromGroupIndex: number,
+      toGroupIndex: number) {
+        this.props.appGlobals.currentASForce.moveUnitToGroup( fromUnitIndex, fromGroupIndex, toGroupIndex );
+        this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+        this.setState({
+          contextMenuSearch: -1,
+          contextMenuUnit: -1,
+          contextMenuGroup: -1,
+        })
+    }
 
+    toggleContextMenuSearch( searchIndex: number ) {
+      let newIndex: number = -1;
+      if( this.state.contextMenuSearch !== searchIndex) {
+        newIndex = searchIndex;
+      }
+
+      this.setState({
+        contextMenuSearch: newIndex,
+        contextMenuUnit: -1,
+        contextMenuGroup: -1,
+      })
+    }
+
+    toggleContextMenuForce( asGroupIndex: number, asUnitIndex: number ) {
+      let newGroup: number = -1;
+      let newUnit: number = -1;
+      if( this.state.contextMenuGroup !== asGroupIndex && this.state.contextMenuUnit !== asUnitIndex ) {
+        newGroup = asGroupIndex;
+        newUnit = asUnitIndex;
+      }
+
+      this.setState({
+        contextMenuGroup: newGroup,
+        contextMenuUnit: newUnit,
+        contextMenuSearch: -1,
+      })
+    }
 
     updateSearch( event: React.FormEvent<HTMLInputElement> ) {
         localStorage.setItem( "asSearchTerm", event.currentTarget.value);
@@ -109,6 +157,9 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
       this.setState({
         searchResults: data,
+        contextMenuSearch: -1,
+        contextMenuUnit: -1,
+        contextMenuGroup: -1,
       })
 
       localStorage.setItem( "asSearchResults", JSON.stringify(data));
@@ -133,6 +184,8 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       this.setState({
         showASUnit: showASUnit,
         editASUnit: true,
+        contextMenuGroup: -1,
+        contextMenuUnit: -1,
       })
     }
 
@@ -156,6 +209,9 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
     addToGroup( mulUnit: IASMULUnit,  groupIndex: number = 0  ) {
       this.props.appGlobals.currentASForce.addToGroup( mulUnit, groupIndex );
       this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+      this.setState({
+        contextMenuSearch: -1,
+      })
     }
 
     newGroup() {
@@ -266,7 +322,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                 <div className="section-content">
                 {this.props.appGlobals.currentASForce.groups.map( (asGroup, asGroupIndex) => {
                   return (<fieldset key={asGroupIndex} className="fieldset">
-                    <legend>Group #{asGroupIndex + 1}</legend>
+                    <legend>{asGroup.getName(asGroupIndex + 1)}</legend>
                     <label>
                       <input
                         type="text"
@@ -299,18 +355,61 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                               </td>
                               <td>{asUnit.currentPoints}</td>
                               <td className="text-right no-wrap">
-                                <Button
-                                  variant="primary"
-                                  className="btn-sm"
-                                  onClick={() => this.openEditUnit(asUnit)}
-                                >
-                                  <FontAwesomeIcon icon={faEdit} />
-                                </Button>
+                                {this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
+                                (
+                                  <div className="drop-down-menu-container">
+                                    <Button
+                                      variant="primary"
+                                      className="btn-sm"
+                                      title="Open the context menu for this unit"
+                                      onClick={() => this.toggleContextMenuForce( asGroupIndex, asUnitIndex )}
+                                    >
+                                      <FontAwesomeIcon icon={faBars} />
+                                    </Button>
+                                    <ul
+                                      className={this.state.contextMenuGroup === asGroupIndex && this.state.contextMenuUnit === asUnitIndex ? "styleless dd-menu active" : "styleless dd-menu"}
+                                    >
+                                      <li
+                                        onClick={() => this.openEditUnit(asUnit)}
+                                      ><
+                                        FontAwesomeIcon icon={faEdit} /> Edit
+                                      </li>
+                                      {this.props.appGlobals.currentASForce.groups.map( (asGroup, asGroupListIndex) => {
+                                        return (
+                                          <>
+                                            {asGroupListIndex != asGroupIndex ? (
+                                              <li
+                                                onClick={() => this.moveUnitToGroup(asUnitIndex, asGroupIndex, asGroupListIndex)}
+                                              >
+                                                <FontAwesomeIcon icon={faPlus} />&nbsp;
+                                                Move to {asGroup.getName(asGroupListIndex + 1)}
+                                              </li>
+                                            ) :
+                                            ( <></> )}
+                                          </>
+                                        )
+                                      })}
+                                    </ul>
+                                  </div>
+                                ) : (
+                                  <>
+                                  <Button
+                                    variant="primary"
+                                    className="btn-sm"
+                                    onClick={() => this.openEditUnit(asUnit)}
+                                    title="Edit this unit's skill and name"
+                                  >
+                                    <FontAwesomeIcon icon={faEdit} />
+                                  </Button>
+                                  </>
+                                )}
+
 
                                 <Button
                                   variant="primary"
                                   className="btn-sm no-right-margin"
                                   onClick={() => this.removeUnitFromGroup(asGroupIndex, asUnitIndex)}
+                                  title="Remove this unit"
                                 >
                                   <FontAwesomeIcon icon={faTrash} />
                                 </Button>
@@ -394,12 +493,13 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                   <table className="table">
                     <thead>
                       <tr>
-                        <th>&nbsp;</th>
+
                         <th>Name</th>
                         <th>Rules</th>
                         <th>Tech</th>
                         <th>Type</th>
                         <th>Points</th>
+                        <th>&nbsp;</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -408,28 +508,59 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                         {this.state.searchResults.map( (asUnit: IASMULUnit, unitIndex: number) => {
                           return (
                             <tr key={unitIndex}>
-                              <td className="no-wrap">
-                                <Button
-                                  variant="primary"
-                                  className="btn-sm"
-                                  onClick={() => this.openViewUnit(asUnit)}
-                                >
-                                  <FontAwesomeIcon icon={faSearch} />
-                                </Button>
 
-                                <Button
-                                  variant="primary"
-                                  className="btn-sm no-right-margin"
-                                  onClick={() => this.addToGroup(asUnit, 0)}
-                                >
-                                  <FontAwesomeIcon icon={faPlus} />
-                                </Button>
-                              </td>
                               <td>{asUnit.Name}</td>
                               <td>{asUnit.Rules}</td>
                               <td>{asUnit.Technology.Name}</td>
                               <td>{asUnit.BFType}</td>
                               <td>{asUnit.BFPointValue}</td>
+                              <td className="no-wrap">
+
+
+                              {this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
+                                (
+                                  <div className="drop-down-menu-container">
+                                    <Button
+                                      variant="primary"
+                                      className="btn-sm"
+                                      onClick={() => this.toggleContextMenuSearch(unitIndex)}
+                                    >
+                                      <FontAwesomeIcon icon={faBars} />
+                                    </Button>
+                                    <ul
+                                      className={this.state.contextMenuSearch === unitIndex ? "styleless dd-menu active" : "styleless dd-menu"}
+                                    >
+                                      {this.props.appGlobals.currentASForce.groups.map( (asGroup, asGroupIndex) => {
+                                        return (
+                                          <li
+                                            onClick={() => this.addToGroup(asUnit, asGroupIndex)}
+                                          >
+                                            <FontAwesomeIcon icon={faPlus} />&nbsp;
+                                            Add to {asGroup.getName(asGroupIndex + 1)}
+                                          </li>
+                                        )
+                                      })}
+
+                                    </ul>
+                                  </div>
+                                ) : (
+                                  <Button
+                                    variant="primary"
+                                    className="btn-sm no-right-margin"
+                                    onClick={() => this.addToGroup(asUnit, 0)}
+                                  >
+                                    <FontAwesomeIcon icon={faPlus} />
+                                  </Button>
+                              )}
+
+                                <Button
+                                  variant="primary"
+                                  className="btn-sm"
+                                  onClick={() => this.openViewUnit(asUnit)}
+                                >
+                                  <FontAwesomeIcon icon={faEye} />
+                                </Button>
+                              </td>
                             </tr>
                           )
                         })}
@@ -479,4 +610,9 @@ interface IHomeState {
   searchText: string;
   showASUnit: AlphaStrikeUnit | null;
   editASUnit: boolean;
+
+  contextMenuGroup: number;
+  contextMenuUnit: number;
+
+  contextMenuSearch: number;
 }

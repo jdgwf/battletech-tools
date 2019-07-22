@@ -21,6 +21,7 @@ export default class AlphaStrikeGroup {
             this.import(importObj);
         }
 
+		this.sortUnits();
 	}
 
 	public getActiveMembers() {
@@ -34,6 +35,40 @@ export default class AlphaStrikeGroup {
 		}
 
 		this.membersLabel = " (" + this.activeMembers + "/" + this.members.length + ")";
+	}
+
+    public getTotalUnits(): number {
+        return this.members.length;
+    }
+
+    public getTotalPoints(): number {
+        let returnValue: number = 0;
+
+		for( let unit of this.members ) {
+			returnValue += unit.currentPoints;
+		}
+
+        return returnValue;
+	}
+
+	public getName( groupNumber: number): string {
+		if( this.customName ) {
+			return "Group #" + groupNumber.toString() + ": " + this.customName;
+		} else {
+			return "Group #" + groupNumber.toString();
+		}
+	}
+
+	public sortUnits() {
+		this.members.sort( (a, b) => {
+			if( a.currentPoints > b.currentPoints ) {
+				return -1
+			} else if( a.currentPoints < b.currentPoints ) {
+				return 1;
+			} else {
+				return 0;
+			}
+		})
 	}
 
     export(): IASGroupExport {
