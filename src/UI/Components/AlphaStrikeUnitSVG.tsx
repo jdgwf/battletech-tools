@@ -15,6 +15,9 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
     constructor(props: IAlphaStrikeUnitSVGProps) {
         super(props);
+        this.state = {
+            showTakeDamage: false,
+        }
         if( this.props.height ) {
             this.height = this.props.height;
         }
@@ -27,6 +30,26 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         if( this.props.inPlay ) {
             this.damageLeftBase = 40;
         }
+
+        this.toggleTakeDamage = this.toggleTakeDamage.bind(this);
+        this.takeDamage = this.takeDamage.bind(this);
+    }
+
+    toggleTakeDamage() {
+        this.setState({
+            showTakeDamage: !this.state.showTakeDamage,
+        })
+    }
+
+    takeDamage( damageTaken: number ) {
+        if( this.props.inPlay && this.props.asUnit ) {
+            this.props.asUnit.takeDamage( damageTaken );
+            this.props.asUnit.calcCurrentVals();
+            this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+        }
+        this.setState({
+            showTakeDamage: false,
+        })
     }
 
     toggleArmorOrStructure( target: string, indexNumber: number ) {
@@ -56,6 +79,14 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 this.props.asUnit.calcCurrentVals();
                 this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
             }
+        }
+    }
+
+    setHeat( newValue: number ) {
+        if( this.props.inPlay && this.props.asUnit ) {
+            this.props.asUnit.currentHeat = newValue;
+            this.props.asUnit.calcCurrentVals();
+            this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
         }
     }
     toggleWeaponHit(indexNumber: number ) {
@@ -202,24 +233,89 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 <text x="440" y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">L (+4 | {this.props.asUnit.currentToHitLong}+)</text>
                 <text x="440" y="280" fontFamily="sans-serif" textAnchor="middle" fontSize={35}>{this.props.asUnit.currentDamage.long}</text>
                 <rect x="20" y="310" width="550" height="80" fill="rgb(0,0,0)" rx="18" ry="18"></rect>
+
+                {/* Heat Scale Box */}
                 <rect x="25" y="315" width="540" height="70" fill="rgba( 255,255,255,.8)" rx="15" ry="15"></rect>
                 <text x="40" y="360" fontFamily="sans-serif" fontSize={35}>OV: 0</text>
                 <text x="240" y="357" textAnchor="end" fontFamily="sans-serif" fontSize="15">HEAT SCALE</text>
                 <rect x="295" y="320" width="265" height="60" fill="rgb(0,0,0)" rx="30" ry="30"></rect>
-                <rect className=""x="325" y="325" width="25" height="50" fill="rgb(102,102,102)"></rect>
-                <circle className="" cx="325" cy="350" r="25" fill="rgb(102,102,102)"></circle>
-                <text className=""x="315" y="363" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>0</text>
-                <rect className=""x="355" y="325" width="45" height="50" fill="rgb(102,102,102)"></rect>
-                <text className=""x="365" y="363" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>1</text>
-                <rect className=""x="405" y="325" width="45" height="50" fill="rgb(102,102,102)"></rect>
-                <text className=""x="415" y="363" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>2</text>
-                <rect className=""x="455" y="325" width="45" height="50" fill="rgb(102,102,102)"></rect>
-                <text className=""x="465" y="363" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>3</text>
-                <rect className=""x="505" y="325" width="25" height="50" fill="rgb(102,102,102)"></rect>
-                <circle className="" cx="530" cy="350" r="25" fill="rgb(102,102,102)"></circle>
-                <text className=""x="515" y="363" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>S</text>
 
+                {/* 0 Heat */}
+                <rect
+                    onClick={() => this.setHeat(0)}
+                    className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""}
+                    x="325"
+                    y="325"
+                    width="25"
+                    height="50"
+                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 0 ? "rgb(0,200,0)" : "rgb(102,102,102)"}
+                ></rect>
+                <circle
+                    onClick={() => this.setHeat(0)}
+                    className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""}
+                    cx="325"
+                    cy="350"
+                    r="25"
+                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 0 ? "rgb(0,200,0)" : "rgb(102,102,102)"}
+                ></circle>
+                <text onClick={() => this.setHeat(0)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="315" y="363" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>0</text>
 
+                {/* 1 Heat */}
+                <rect
+                    onClick={() => this.setHeat(1)}
+                    className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""}
+                    x="355"
+                    y="325"
+                    width="45"
+                    height="50"
+                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 1 ? "rgb(204, 187, 0)" : "rgb(102,102,102)"}
+                ></rect>
+                <text onClick={() => this.setHeat(1)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="365" y="363" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>1</text>
+
+                {/* 2 Heat */}
+                <rect
+                onClick={() => this.setHeat(2)}
+                className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""}
+                    x="405"
+                    y="325"
+                    width="45"
+                    height="50"
+                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 2 ? "rgb(200,0,0)" : "rgb(102,102,102)"}
+                ></rect>
+                <text onClick={() => this.setHeat(2)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="415" y="363" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>2</text>
+
+                {/* 3 Heat */}
+                <rect
+                    onClick={() => this.setHeat(3)}
+                    className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""}
+                    x="455" y="325"
+                    width="45"
+                    height="50"
+                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 3 ? "rgb(236,87,16)" : "rgb(102,102,102)"}
+                ></rect>
+                <text onClick={() => this.setHeat(3)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="465" y="363" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>3</text>
+
+                {/* Shutdown Heat */}
+                <rect
+                    onClick={() => this.setHeat(4)}
+                    className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""}
+                    x="505"
+                    y="325"
+                    width="25"
+                    height="50"
+                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat > 3 ? "rgb(51,51,51)" : "rgb(102,102,102)"}
+                ></rect>
+                <circle
+                    onClick={() => this.setHeat(4)}
+                    className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""}
+                    cx="530"
+                    cy="350"
+                    r="25"
+                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat > 3 ? "rgb(51,51,51)" : "rgb(102,102,102)"}
+                ></circle>
+                <text onClick={() => this.setHeat(4)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="515" y="363" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>S</text>
+
+                {/* End Heat Scale Box */}
 
                 {/* Armor and Structure Box */}
                 <rect x="20" y="400" width="550" height="105" fill="rgb(0,0,0)" rx="18" ry="18"></rect>
@@ -227,39 +323,83 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
                 {this.props.inPlay ? (
                     <>
-		            <rect className="mouse-hand" x="30" y="410" width="40" height="85" fill="rgb(255,0, 0)" rx="15" ry="15" />
-		            <text className="mouse-hand" x="60" y="430" fill="rgba(255,255,255)" fontFamily="sans-serif" textAnchor="middle" fontSize={13} transform="rotate(270, 65, 447)">TAKE</text>
-		            <text className="mouse-hand" x="70" y="430" fill="rgba(255,255,255)" fontFamily="sans-serif" textAnchor="middle" fontSize={13} transform="rotate(270, 75, 445)">DAMAGE</text>
+		            <rect onClick={this.toggleTakeDamage} className="cursor-pointer" x="30" y="410" width="40" height="85" fill="rgb(255,0, 0)" rx="15" ry="15" />
+		            <text onClick={this.toggleTakeDamage} className="cursor-pointer" x="60" y="430" fill="rgba(255,255,255)" fontFamily="sans-serif" textAnchor="middle" fontSize={13} transform="rotate(270, 65, 447)">TAKE</text>
+		            <text onClick={this.toggleTakeDamage} className="cursor-pointer" x="70" y="430" fill="rgba(255,255,255)" fontFamily="sans-serif" textAnchor="middle" fontSize={13} transform="rotate(270, 75, 445)">DAMAGE</text>
                     </>
                 ): (
                     <></>
                 )}
-                {/* Armor */}
-                <text x={this.damageLeftBase + 40} y="440" fontFamily="sans-serif" fontSize="25">A: </text>
 
-                {this.makeArmorDots(
-                    this.props.asUnit.armor,
-                    90,
-                    432,
-                    "rgb(255,255,255)",
-                    "rgb(0,0,0)",
-                    0,
-                    "armor",
-                )}
-                {/* End Armor */}
+                {this.state.showTakeDamage ? (
+                    <>
 
-                {/* Structure */}
-                <text x={this.damageLeftBase + 40} y="485" fontFamily="sans-serif" fontSize="25">S: </text>
-                {this.makeArmorDots(
-                    this.props.asUnit.structure,
-                    90,
-                    477,
-                    "rgb(153,153,153)",
-                    "rgb(0,0,0)",
-                    0,
-                    "structure",
+                    <text x="185" y="425" textAnchor="center" fontFamily="sans-serif" fontSize="15">Click below to add damage taken</text>
+                <rect x="80" y="435" width="465" height="60" fill="rgb(0,0,0)" rx="30" ry="30"></rect>
+                <rect className="cursor-pointer" onClick={() => this.takeDamage(1)} x="110" y="440" width="25" height="50" fill="rgb(102,102,102)"></rect>
+                <circle className="cursor-pointer" onClick={() => this.takeDamage(1)} cx="110" cy="465" r="25" fill="rgb(102,102,102)"></circle>
+                <text className="cursor-pointer" onClick={() => this.takeDamage(1)} x="100" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>1</text>
+
+                <rect className="cursor-pointer" onClick={() => this.takeDamage(2)} x="140" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
+                <text className="cursor-pointer" onClick={() => this.takeDamage(2)} x="153" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>2</text>
+
+
+                <rect className="cursor-pointer" onClick={() => this.takeDamage(3)} x="190" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
+                <text className="cursor-pointer" onClick={() => this.takeDamage(3)} x="203" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>3</text>
+
+
+                <rect className="cursor-pointer" onClick={() => this.takeDamage(4)} x="240" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
+                <text className="cursor-pointer" onClick={() => this.takeDamage(4)} x="253" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>4</text>
+
+                <rect className="cursor-pointer" onClick={() => this.takeDamage(5)} x="290" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
+                <text className="cursor-pointer" onClick={() => this.takeDamage(5)} x="303" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>5</text>
+
+                <rect className="cursor-pointer" onClick={() => this.takeDamage(6)} x="340" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
+                <text className="cursor-pointer" onClick={() => this.takeDamage(6)} x="353" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>6</text>
+
+                <rect className="cursor-pointer" onClick={() => this.takeDamage(7)} x="390" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
+                <text className="cursor-pointer" onClick={() => this.takeDamage(7)} x="403" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>7</text>
+
+                <rect className="cursor-pointer" onClick={() => this.takeDamage(8)} x="440" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
+                <text className="cursor-pointer" onClick={() => this.takeDamage(8)} x="453" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>8</text>
+
+                <rect className="cursor-pointer" onClick={() => this.takeDamage(9)} x="490" y="440" width="25" height="50" fill="rgb(102,102,102)"></rect>
+                <circle className="cursor-pointer" onClick={() => this.takeDamage(9)} cx="515" cy="465" r="25" fill="rgb(102,102,102)"></circle>
+                <text className="cursor-pointer" onClick={() => this.takeDamage(9)} x="503" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>9</text>
+
+                    </>
+                ) : (
+
+                    <>
+                    {/* Armor */}
+                    <text x={this.damageLeftBase + 40} y="440" fontFamily="sans-serif" fontSize="25">A: </text>
+
+                    {this.makeArmorDots(
+                        this.props.asUnit.armor,
+                        90,
+                        432,
+                        "rgb(255,255,255)",
+                        "rgb(0,0,0)",
+                        0,
+                        "armor",
+                    )}
+                    {/* End Armor */}
+
+                    {/* Structure */}
+                    <text x={this.damageLeftBase + 40} y="485" fontFamily="sans-serif" fontSize="25">S: </text>
+                    {this.makeArmorDots(
+                        this.props.asUnit.structure,
+                        90,
+                        477,
+                        "rgb(153,153,153)",
+                        "rgb(0,0,0)",
+                        0,
+                        "structure",
+                    )}
+                    {/* End Structure */}
+
+                    </>
                 )}
-                {/* End Structure */}
 
                 {/* End Armor and Structure Box */}
 
@@ -476,7 +616,9 @@ interface IAlphaStrikeUnitSVGProps {
     asUnit: AlphaStrikeUnit | null;
     inPlay?: boolean;
     appGlobals: IAppGlobals;
+
 }
 
 interface IAlphaStrikeUnitSVGState {
+    showTakeDamage: boolean;
 }

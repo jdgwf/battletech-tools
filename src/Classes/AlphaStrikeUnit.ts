@@ -808,7 +808,7 @@ export class AlphaStrikeUnit {
             returnValue.mpControlHits = this.mpControlHits;
             returnValue.weaponHits = this.weaponHits;
 
-            console.log("ASG returnValue", returnValue)
+            // console.log("ASG returnValue", returnValue)
 
             return returnValue;
         } else {

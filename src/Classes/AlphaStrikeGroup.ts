@@ -84,7 +84,7 @@ export default class AlphaStrikeGroup {
 			}
 		}
 
-		console.log("ASG returnValue", returnValue)
+		// console.log("ASG returnValue", returnValue)
         return returnValue;
     }
 
