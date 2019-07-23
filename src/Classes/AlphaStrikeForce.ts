@@ -1,11 +1,17 @@
 import AlphaStrikeGroup, { IASGroupExport } from './AlphaStrikeGroup';
 import { IASMULUnit, AlphaStrikeUnit } from './AlphaStrikeUnit';
+import { generateUUID } from '../utils';
 
 export interface IASForceExport {
     groups: IASGroupExport[];
+	uuid: string;
+	lastUpdated: Date;
 }
 
 export default class AlphaStrikeForce {
+
+    uuid: string = generateUUID();
+    lastUpdated: Date = new Date();
 
     groups: AlphaStrikeGroup[] = [];
 
@@ -128,7 +134,9 @@ export default class AlphaStrikeForce {
 
     public export(): IASForceExport {
         let returnValue: IASForceExport = {
-            groups: []
+            groups: [],
+            uuid: this.uuid,
+            lastUpdated: this.lastUpdated,
         }
 
         for( let group of this.groups) {
@@ -142,6 +150,13 @@ export default class AlphaStrikeForce {
     public import(importObj: IASForceExport) {
         for( let group of importObj.groups ) {
             this.groups.push( new AlphaStrikeGroup( group) );
+        }
+        if( importObj.uuid ) {
+            this.uuid = importObj.uuid;
+        }
+
+        if( importObj.lastUpdated ) {
+            this.lastUpdated = new Date(importObj.lastUpdated);
         }
 
     }

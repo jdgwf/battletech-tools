@@ -1,9 +1,14 @@
 import { IASMULUnit } from "./Classes/AlphaStrikeUnit";
+const uuidv1 = require('uuid/v1');
 
 export function addCommas( numericalValue: number ): string {
     return (numericalValue + "").replace(/\b(\d+)((\.\d+)*)\b/g, function(a, b, c) {
         return (b.charAt(0) > 0 && !(c || ".").lastIndexOf(".") ? b.replace(/(\d)(?=(\d{3})+$)/g, "$1,") : b) + c;
     });
+}
+
+export function generateUUID(): string {
+    return uuidv1();
 }
 
 export async function getMULASSearchResults(

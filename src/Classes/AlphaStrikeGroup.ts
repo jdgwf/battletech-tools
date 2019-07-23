@@ -1,14 +1,20 @@
 import {AlphaStrikeUnit, IASMULUnit} from './AlphaStrikeUnit';
+import { generateUUID } from '../utils';
 
 
 export interface IASGroupExport {
 	name: string;
-    units: IASMULUnit[];
+	units: IASMULUnit[];
+	uuid: string;
+	lastUpdated: Date;
 }
 
 export default class AlphaStrikeGroup {
 
 	members: AlphaStrikeUnit[] = [];
+
+	uuid: string = generateUUID();
+	lastUpdated: Date = new Date();
 
 	customName : string= "";
 
@@ -19,7 +25,8 @@ export default class AlphaStrikeGroup {
     constructor(importObj: IASGroupExport | null = null ) {
         if( importObj ) {
             this.import(importObj);
-        }
+		}
+
 
 		this.sortUnits();
 	}
@@ -74,7 +81,9 @@ export default class AlphaStrikeGroup {
     export(): IASGroupExport {
         let returnValue: IASGroupExport = {
 			name: this.customName,
-			units: []
+			units: [],
+            uuid: this.uuid,
+            lastUpdated: this.lastUpdated,
 		}
 
 		for( let unit of this.members ) {
@@ -86,7 +95,12 @@ export default class AlphaStrikeGroup {
 
 		// console.log("ASG returnValue", returnValue)
         return returnValue;
-    }
+	}
+
+	public setNew() {
+		this.uuid = generateUUID();
+		this.lastUpdated = new Date();
+	}
 
     import(importObj: IASGroupExport) {
 		this.customName = importObj.name;
@@ -94,5 +108,12 @@ export default class AlphaStrikeGroup {
 			let theUnit = new AlphaStrikeUnit( unit );
 			this.members.push( theUnit );
 		}
+        if( importObj.uuid ) {
+            this.uuid = importObj.uuid;
+        }
+
+        if( importObj.lastUpdated ) {
+            this.lastUpdated = new Date(importObj.lastUpdated);
+        }
     }
 }

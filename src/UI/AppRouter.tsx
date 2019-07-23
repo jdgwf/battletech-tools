@@ -11,6 +11,7 @@ import Alerts from './Classes/Alerts';
 import AlphaStrikeRosterRouter from './Pages/AlphaStrikeRoster/_Router'
 import MechCreatorRouter from './Pages/MechCreator/_Router'
 import AlphaStrikeForce, { IASForceExport } from "../Classes/AlphaStrikeForce";
+import AlphaStrikeGroup, { IASGroupExport } from "../Classes/AlphaStrikeGroup";
 
 export default class AppRouter extends React.Component<IAppRouterProps, IAppRouterState> {
 
@@ -25,6 +26,9 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         this.toggleMobile = this.toggleMobile.bind(this);
         this.closeMobile = this.closeMobile.bind(this);
         this.saveCurrentASForce = this.saveCurrentASForce.bind(this);
+        this.saveFavoriteASGroups = this.saveFavoriteASGroups.bind(this);
+        this.saveASGroupFavorite = this.saveASGroupFavorite.bind(this);
+        this.removeASGroupFavorite = this.removeASGroupFavorite.bind(this);
 
         let asImport: IASForceExport | null = null;
         let lsASFImport = localStorage.getItem("currentASForce");
@@ -32,6 +36,19 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             asImport = JSON.parse( lsASFImport );
         }
         let alphaStrikeForce = new AlphaStrikeForce( asImport );
+
+
+        let asImportFavorites: IASGroupExport[] = [];
+        let asImportedFavorites: AlphaStrikeGroup[] = [];
+        let lsASFImportFavorites = localStorage.getItem("favoriteASGroups");
+        if( lsASFImportFavorites ) {
+            asImportFavorites = JSON.parse( lsASFImportFavorites );
+            if( asImportFavorites && asImportFavorites.length > 0 )  {
+                for( let importItem of asImportFavorites ) {
+                    asImportedFavorites.push( new AlphaStrikeGroup(importItem) );
+                }
+            }
+        }
 
         this.state = {
             updated: false,
@@ -52,6 +69,11 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                 closeMobile: this.closeMobile,
                 currentASForce: alphaStrikeForce,
                 saveCurrentASForce: this.saveCurrentASForce,
+
+                favoriteASGroups: asImportedFavorites,
+                saveFavoriteASGroups: this.saveFavoriteASGroups,
+                saveASGroupFavorite: this.saveASGroupFavorite,
+                removeASGroupFavorite: this.removeASGroupFavorite,
             }
         }
 
@@ -66,6 +88,36 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         });
 
         localStorage.setItem("currentASForce", JSON.stringify( exportASForce ));
+    }
+
+    saveASGroupFavorite( asGroup: AlphaStrikeGroup ): void {
+        let appGlobals = this.state.appGlobals;
+        appGlobals.favoriteASGroups.push( asGroup );
+        this.saveFavoriteASGroups( appGlobals.favoriteASGroups );
+    }
+
+    removeASGroupFavorite( asGroupIndex: number ): void {
+        let appGlobals = this.state.appGlobals;
+
+        if( appGlobals.favoriteASGroups.length > asGroupIndex ) {
+            appGlobals.favoriteASGroups.splice( asGroupIndex, 1 );
+            this.saveFavoriteASGroups( appGlobals.favoriteASGroups );
+        }
+
+    }
+
+    saveFavoriteASGroups( asGroups: AlphaStrikeGroup[] ): void {
+        let exportASGroups: IASGroupExport[] = [];
+        for( let group of asGroups) {
+            exportASGroups.push( group.export() );
+        }
+        let appGlobals = this.state.appGlobals;
+        appGlobals.favoriteASGroups = asGroups;
+        this.setState({
+            appGlobals: appGlobals,
+        });
+
+        localStorage.setItem("favoriteASGroups", JSON.stringify( exportASGroups ));
     }
 
     toggleMobile(): void {
@@ -259,4 +311,9 @@ export interface IAppGlobals {
 
     currentASForce: AlphaStrikeForce;
     saveCurrentASForce( asForce: AlphaStrikeForce ): void;
+
+    favoriteASGroups: AlphaStrikeGroup[];
+    saveFavoriteASGroups( asGroups: AlphaStrikeGroup[] ): void
+    saveASGroupFavorite( asGroup: AlphaStrikeGroup ): void;
+    removeASGroupFavorite( asGroupIndex: number ): void;
 }

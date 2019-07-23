@@ -6,11 +6,12 @@ import {IAppGlobals} from '../../AppRouter';
 import { getMULASSearchResults } from '../../../utils';
 import { IASMULUnit, AlphaStrikeUnit } from '../../../Classes/AlphaStrikeUnit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTrash, faEdit, faBars, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTrash, faEdit, faBars, faEye, faHeart, faFileImport, faArrowsAlt } from '@fortawesome/free-solid-svg-icons';
 import { Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import AlphaStrikeUnitSVG from '../../Components/AlphaStrikeUnitSVG';
 import { Link } from 'react-router-dom';
+import AlphaStrikeGroup from '../../../Classes/AlphaStrikeGroup';
 
 export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, IHomeState> {
     searchTech: string = "";
@@ -83,8 +84,28 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
         this.moveUnitToGroup = this.moveUnitToGroup.bind(this);
 
         this.removeGroup = this.removeGroup.bind(this);
+        this.removeFavoriteConfirm = this.removeFavoriteConfirm.bind(this);
 
         this.updateSearchResults();
+    }
+
+    removeFavoriteConfirm( asFavGroupIndex: number ) {
+
+      this.props.appGlobals.openConfirmDialog(
+        "Confirmation",
+        "Are you sure you want to delete this favorite group?",
+        "Yes",
+        "No",
+        () => {
+          this.props.appGlobals.removeASGroupFavorite(asFavGroupIndex);
+        }
+      );
+    }
+
+    loadASFavorite(asFavGroup: AlphaStrikeGroup ) {
+      asFavGroup.setNew();
+      this.props.appGlobals.currentASForce.groups.push( asFavGroup );
+      this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
     }
 
     removeGroup( groupIndex: number ) {
@@ -357,12 +378,20 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                   return (<fieldset key={asGroupIndex} className="fieldset">
                     <legend>{asGroup.getName(asGroupIndex + 1)}</legend>
 
-                    <Button
-                      className="pull-right"
-                      onClick={() => this.removeGroup(asGroupIndex)}
-                    >
-                      <FontAwesomeIcon icon={faTrash} />
-                    </Button>
+                    <div className="pull-right">
+                      <Button
+                        onClick={() => this.props.appGlobals.saveASGroupFavorite( asGroup )}
+                        title="Click here to add this group to your favorites."
+                      >
+                        <FontAwesomeIcon icon={faHeart} />
+                      </Button>
+                      <Button
+                        onClick={() => this.removeGroup(asGroupIndex)}
+                        title="Click here to remove this group."
+                      >
+                        <FontAwesomeIcon icon={faTrash} />
+                      </Button>
+                    </div>
                     <label
                       className="width-80"
                     >
@@ -405,6 +434,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                                     >
                                       <li
                                         onClick={() => this.openEditUnit(asUnit)}
+                                        title="Edit this unit"
                                       ><
                                         FontAwesomeIcon icon={faEdit} /> Edit
                                       </li>
@@ -414,8 +444,9 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                                             {asGroupListIndex !== asGroupIndex ? (
                                               <li
                                                 onClick={() => this.moveUnitToGroup(asUnitIndex, asGroupIndex, asGroupListIndex)}
+                                                title="Move this unit to another group"
                                               >
-                                                <FontAwesomeIcon icon={faPlus} />&nbsp;
+                                                <FontAwesomeIcon icon={faArrowsAlt} />&nbsp;
                                                 Move to {asGroup.getName(asGroupListIndex + 1)}
                                               </li>
                                             ) :
@@ -486,6 +517,81 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                 </p>
                 </div>
               </div>
+
+              {this.props.appGlobals.favoriteASGroups.length > 0 ? (
+                <>
+                <div className="text-section">
+                <h2>Favorite Groups</h2>
+                <div className="section-content">
+                {this.props.appGlobals.favoriteASGroups.map( (asFavGroup, asFavGroupIndex) => {
+                  return (<fieldset key={asFavGroupIndex} className="fieldset">
+                    <legend>{asFavGroup.getName(asFavGroupIndex + 1)}</legend>
+
+                    <div className="pull-right">
+                      <Button
+                        onClick={() => this.loadASFavorite(asFavGroup)}
+                        title="Load this favorite group to your current force"
+                        className="btn-sm"
+                      >
+                        <FontAwesomeIcon icon={faFileImport} />
+                      </Button>
+
+                      <Button
+                        onClick={() => this.removeFavoriteConfirm( asFavGroupIndex)}
+                        title="Remove this favorite"
+                        className="btn-sm"
+                      >
+                        <FontAwesomeIcon icon={faTrash} />
+                      </Button>
+                    </div>
+                    <div className="text-center">
+                      <strong># Units/Points</strong>: {asFavGroup.getTotalUnits()}/{asFavGroup.getTotalPoints()}
+                    </div>
+
+                    <table className="table tighter-padding">
+                      <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Points</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {asFavGroup.members.length > 0 ? (
+                        <>
+                        {asFavGroup.members.map( (asFavGroupUnit, asFavGroupUnitIndex) => {
+                          return (
+                            <tr key={asFavGroupUnitIndex}>
+                              <td>
+                                {asFavGroupUnit.customName ? (
+                                  <><strong>{asFavGroupUnit.customName}</strong><br /></>
+                                ) : (
+                                  <></>
+                                )}
+                                {asFavGroupUnit.name}
+                              </td>
+                              <td>{asFavGroupUnit.currentPoints}</td>
+
+                            </tr>
+                          )
+                        })}
+                        </>
+                      ) : (
+                        <tr><td colSpan={3} className="text-center">No Units</td></tr>
+                      )}
+                      </tbody>
+                    </table>
+                  </fieldset>
+                  )
+                })}
+
+                </div>
+              </div>
+                </>
+              ): (
+                <></>
+              )}
+
+
             </div>
             <div className="col-md-6 col-lg-7">
               <div className="text-section">
@@ -562,6 +668,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
         variant="primary"
         className="btn-sm"
         onClick={() => this.toggleContextMenuSearch(unitIndex)}
+        title="Open the context menu for this unit"
       >
         <FontAwesomeIcon icon={faBars} />
       </Button>
@@ -572,6 +679,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
           return (
             <li
               onClick={() => this.addToGroup(asUnit, asGroupIndex)}
+              title={"Adds this unit to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
             >
               <FontAwesomeIcon icon={faPlus} />&nbsp;
               Add to {asGroup.getName(asGroupIndex + 1)}
@@ -586,6 +694,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       variant="primary"
       className="btn-sm no-right-margin"
       onClick={() => this.addToGroup(asUnit, 0)}
+      title="Add this unit to your current group"
     >
       <FontAwesomeIcon icon={faPlus} />
     </Button>
@@ -595,6 +704,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
     variant="primary"
     className="btn-sm"
     onClick={() => this.openViewUnit(asUnit)}
+    title="View this unit's Alpha Strike Card"
   >
     <FontAwesomeIcon icon={faEye} />
   </Button>

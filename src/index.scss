@@ -141,6 +141,21 @@ input[type=number] {
   opacity: 0.8;
 }
 
+.table {
+  thead {
+    background: $headerFooterBackground;
+  }
+  &.tighter-padding {
+    tbody, thead, tfooter {
+      tr {
+        td, th {
+          padding: .125rem .25rem;
+        }
+      }
+    }
+  }
+}
+
 .text-section {
   // border-top-left-radius: .5rem;
   // border-top-right-radius: .5rem;
@@ -153,7 +168,8 @@ input[type=number] {
   h2 {
       background: $headerFooterBackground;
       color: $headerFontColor;
-      border-radius: .5rem;
+      border-top-right-radius: .5rem;
+      border-top-left-radius: .5rem;
       border-bottom: solid 2px $primaryBG;
       margin: 0 0 1rem 0;
       padding: 0 1rem .125rem 1rem;
