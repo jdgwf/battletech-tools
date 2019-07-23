@@ -59,6 +59,10 @@ select, input, label, textarea {
   width: 100%;
   display: block;
 }
+input[type=checkbox] {
+  width: auto;
+  display: inline;
+}
 select,
 textarea,
 input[type=text],

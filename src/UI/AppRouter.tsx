@@ -40,7 +40,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         }
         let alphaStrikeForce = new AlphaStrikeForce( asImport );
 
-        let lsBMImport = localStorage.getItem("currentASForce");
+        let lsBMImport = localStorage.getItem("currentBattleMech");
         let currentBattleMech = new BattleMech();
         if( lsBMImport ) {
             currentBattleMech.importJSON( lsBMImport);

@@ -84,7 +84,8 @@ interface IBMEquipmentExport {
 interface IBattleMechExport {
 	name: string;
 	tonnage: number;
-	walkSpeed: number;
+    walkSpeed: number;
+    hideNonAvailableEquipment: boolean;
 	jumpSpeed: number;
 	engineType: string;
 	mechType: string;
@@ -115,7 +116,8 @@ export class BattleMech {
     make: string = "";
     model: string = "";
     uuid: string = "";
-	tonnage = 20;
+    tonnage = 20;
+    hideNonAvailableEquipment: boolean = true;
 	currentTonnage = 0;
     // useLang: string = "en-US";
 
@@ -427,7 +429,7 @@ export class BattleMech {
         }
 
         // Adjust IS for Engine Type
-        console.log( "this.engineType", this.engineType );
+        // console.log( "this.engineType", this.engineType );
         switch (this.engineType.tag ) {
             case "light":
                 this.calcLogBV += "Total Internal Structure = 0.75 x I.S. BV for Light Engine: " + totalInternalStructurePoints + " x 0.5 = " + (totalInternalStructurePoints * .5) + "<br />";
@@ -3169,7 +3171,7 @@ export class BattleMech {
             return "";
     }
 
-    setName(newValue: string): string {
+    setMake(newValue: string): string {
         this.make = newValue;
         return this.make;
     }
@@ -3180,6 +3182,7 @@ export class BattleMech {
 
     setTonnage(tonnage: number) {
 
+        this.tonnage = tonnage;
         this.internalStructure.head = this.selectedInternalStructure.perTon[this.getTonnage()].head;
 
         this.internalStructure.centerTorso = this.selectedInternalStructure.perTon[this.getTonnage()].centerTorso;
@@ -3253,7 +3256,8 @@ export class BattleMech {
 		this.calc();
 
         let exportObject: IBattleMechExport = {
-			name: this.getName(),
+            name: this.getName(),
+            hideNonAvailableEquipment: this.hideNonAvailableEquipment,
 			tonnage: this.getTonnage(),
 			walkSpeed: this.walkSpeed,
 			jumpSpeed: this.jumpSpeed,
@@ -3329,13 +3333,14 @@ export class BattleMech {
         }
 
         if( importObject ) {
-            this.setName(importObject.name);
+            this.setMake(importObject.name);
             //~ console.log( "importObject.mechType", importObject.mechType );
             if (importObject.mechType)
                 this.setMechType(importObject.mechType);
 
             this.setTonnage(importObject.tonnage);
 
+            this.hideNonAvailableEquipment = importObject.hideNonAvailableEquipment;
             if (importObject.era)
                 this.setEra(importObject.era);
 
