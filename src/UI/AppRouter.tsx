@@ -12,6 +12,7 @@ import MechCreatorRouter from './Pages/MechCreator/_Router'
 import AlphaStrikeForce, { IASForceExport } from "../Classes/AlphaStrikeForce";
 import AlphaStrikeGroup, { IASGroupExport } from "../Classes/AlphaStrikeGroup";
 import DevelopmentStatus from "./Pages/DevelopmentStatus";
+import { BattleMech } from "../Classes/Battlemech";
 
 
 export default class AppRouter extends React.Component<IAppRouterProps, IAppRouterState> {
@@ -30,6 +31,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         this.saveFavoriteASGroups = this.saveFavoriteASGroups.bind(this);
         this.saveASGroupFavorite = this.saveASGroupFavorite.bind(this);
         this.removeASGroupFavorite = this.removeASGroupFavorite.bind(this);
+        this.saveCurrentBattleMech = this.saveCurrentBattleMech.bind(this);
 
         let asImport: IASForceExport | null = null;
         let lsASFImport = localStorage.getItem("currentASForce");
@@ -38,6 +40,11 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         }
         let alphaStrikeForce = new AlphaStrikeForce( asImport );
 
+        let lsBMImport = localStorage.getItem("currentASForce");
+        let currentBattleMech = new BattleMech();
+        if( lsBMImport ) {
+            currentBattleMech.importJSON( lsBMImport);
+        }
 
         let asImportFavorites: IASGroupExport[] = [];
         let asImportedFavorites: AlphaStrikeGroup[] = [];
@@ -75,9 +82,24 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                 saveFavoriteASGroups: this.saveFavoriteASGroups,
                 saveASGroupFavorite: this.saveASGroupFavorite,
                 removeASGroupFavorite: this.removeASGroupFavorite,
+
+                currentBattleMech: currentBattleMech,
+                saveCurrentBattleMech: this.saveCurrentBattleMech,
             }
         }
 
+    }
+
+
+    saveCurrentBattleMech( mech: BattleMech ): void {
+        let exportBM: string = mech.exportJSON();
+        let appGlobals = this.state.appGlobals;
+        appGlobals.currentBattleMech = mech;
+        this.setState({
+            appGlobals: appGlobals,
+        });
+
+        localStorage.setItem("currentBattleMech", exportBM);
     }
 
     saveCurrentASForce( asForce: AlphaStrikeForce ): void {
@@ -322,4 +344,7 @@ export interface IAppGlobals {
     saveFavoriteASGroups( asGroups: AlphaStrikeGroup[] ): void
     saveASGroupFavorite( asGroup: AlphaStrikeGroup ): void;
     removeASGroupFavorite( asGroupIndex: number ): void;
+
+    currentBattleMech: BattleMech;
+    saveCurrentBattleMech( mech: BattleMech ): void;
 }

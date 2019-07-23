@@ -114,8 +114,10 @@ export interface IEquipmentItem {
     ammoPerTon?: number;
     minAmmoTons?: number;
     explosive?: boolean;
+    gauss?: boolean;
     weaponType?: string[];
     techRating?: string;
+    unique?: boolean;
     book: string;
     page: number;
     alphaStrike: {

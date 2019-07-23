@@ -3,7 +3,7 @@ import { IMechType } from "./dataInterfaces";
 /*
  * The data here is/may be copyrighted and NOT included in the MIT license.
  */
-export const mechTypeOptions: IMechType[] = Array(
+export const mechTypeOptions: IMechType[] = [
 	{
 		id: 1,
 		tag: "biped",
@@ -14,4 +14,4 @@ export const mechTypeOptions: IMechType[] = Array(
 		tag: "quad",
 		name:  "Quad",
 	}
-);
+];

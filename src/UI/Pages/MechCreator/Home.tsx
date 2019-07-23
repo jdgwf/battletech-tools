@@ -22,7 +22,11 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
           <TopMenu current="mech-creator" sub="home" appGlobals={this.props.appGlobals}  />
           <div className="content">
             <ShowAlerts appGlobals={this.props.appGlobals} />
-            This will be the 'Mech Creator home page.
+            <p>
+              Look, ma, a wild Battlemech has appeared (Battlemech object)!
+              <br />Make: {this.props.appGlobals.currentBattleMech.make}
+              <br />Tonnage: {this.props.appGlobals.currentBattleMech.tonnage}
+            </p>
           </div>
         </div>
       );

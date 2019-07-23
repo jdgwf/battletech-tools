@@ -3,7 +3,7 @@ import { IEquipmentItem } from "./dataInterfaces";
 /*
  * The data here is/may be copyrighted and NOT included in the MIT license.
  */
-export const mechISEquipment: IEquipmentItem[] = Array(
+export const mechISEquipment: IEquipmentItem[] = [
 	/*
 		ENERGY WEAPONS
 	*/
@@ -42,9 +42,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE"
-		),
+		],
 		techRating: "c",
 		book: "TM",
 		page: 227,
@@ -92,9 +92,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE"
-		),
+		],
 		techRating: "c",
 		book: "TM",
 		page: 227,
@@ -142,9 +142,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE"
-		),
+		],
 		techRating: "c",
 		book: "TM",
 		page: 227,
@@ -192,9 +192,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE"
-		),
+		],
 		techRating: "d",
 		book: "TO",
 		page: 319,
@@ -243,9 +243,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 226,
@@ -293,9 +293,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 226,
@@ -343,9 +343,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE"
-		),
+		],
 		techRating: "c",
 		book: "TM",
 		page: 226,
@@ -394,10 +394,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"P",
 			"AI"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 226,
@@ -408,9 +408,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 			rangeLong: 0,
 			rangeExtreme: 0,
 			tc: 1,
-			notes: Array(
+			notes: [
 				"Point Defense"
-			)
+			],
 		}
 	},
 	{
@@ -447,9 +447,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"P"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 226,
@@ -497,9 +497,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"P"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 226,
@@ -548,10 +548,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"P",
-			"AI"
-		),
+			"AI",
+		],
 		techRating: "e",
 		book: "TO",
 		page: 321,
@@ -562,9 +562,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 			rangeLong: 0,
 			rangeExtreme: 0,
 			tc: 1,
-			notes: Array(
-				"Point Defense"
-			)
+			notes: [
+				"Point Defense",
+			],
 		}
 	},
 	{
@@ -601,9 +601,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"P"
-		),
+		],
 		techRating: "e",
 		book: "TO",
 		page: 321,
@@ -651,9 +651,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"P"
-		),
+		],
 		techRating: "e",
 		book: "TO",
 		page: 321,
@@ -712,9 +712,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"P"
-		),
+		],
 		techRating: "e",
 		book: "TO",
 		page: 321,
@@ -772,9 +772,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"P"
-		),
+		],
 		techRating: "e",
 		book: "TO",
 		page: 321,
@@ -832,9 +832,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"P"
-		),
+		],
 		techRating: "e",
 		book: "TO",
 		page: 321,
@@ -882,9 +882,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE"
-		),
+		],
 		techRating: "e",
 		book: "TO",
 		page: 320,
@@ -933,9 +933,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 234,
@@ -983,9 +983,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE"
-		),
+		],
 		techRating: "d",
 		book: "TM",
 		page: 234,
@@ -1033,9 +1033,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 234,
@@ -1089,9 +1089,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 234,
@@ -1139,9 +1139,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 233,
@@ -1190,10 +1190,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 10,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE",
 			"H"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 235,
@@ -1204,9 +1204,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 			rangeLong: 0,
 			rangeExtreme: 0,
 			tc: 1,
-			notes: Array(
+			notes: [
 				"Heat"
-			)
+			]
 		}
 	},
 	{
@@ -1242,10 +1242,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 10,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"AI"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 235,
@@ -1256,9 +1256,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 			rangeLong: 0,
 			rangeExtreme: 0,
 			tc: 0,
-			notes: Array(
+			notes: [
 				"Heat"
-			)
+			]
 		}
 	},
 	// Flamers
@@ -1296,10 +1296,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE",
 			"H"
-		),
+		],
 		techRating: "b",
 		book: "TM",
 		page: 218,
@@ -1310,10 +1310,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 			rangeLong: 0,
 			rangeExtreme: 0,
 			tc: 0,
-			notes: Array(
+			notes: [
 				"Heat",
 				"Point Defense"
-			)
+			]
 		}
 	},
 	{
@@ -1350,10 +1350,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE",
 			"H"
-		),
+		],
 		techRating: "d",
 		book: "TO",
 		page: 312,
@@ -1364,9 +1364,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 			rangeLong: 0,
 			rangeExtreme: 0,
 			tc: 0,
-			notes: Array(
+			notes: [
 				"Heat"
-			)
+			]
 		}
 	},
 	{
@@ -1403,10 +1403,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 20,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE",
 			"H"
-		),
+		],
 		techRating: "b",
 		book: "TM",
 		page: 218,
@@ -1417,10 +1417,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 			rangeLong: 0,
 			rangeExtreme: 0,
 			tc: 0,
-			notes: Array(
+			notes: [
 				"Heat",
 				"Point Defense"
-			)
+			]
 		}
 	},
 	{
@@ -1457,9 +1457,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 20,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"X"
-		),
+		],
 		techRating: "b",
 		book: "TM",
 		page: 218,
@@ -1507,9 +1507,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 20,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"X"
-		),
+		],
 		techRating: "c",
 		book: "TO",
 		page: 316,
@@ -1557,9 +1557,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 20,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"X"
-		),
+		],
 		techRating: "d",
 		book: "TO",
 		page: 316,
@@ -1607,9 +1607,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 20,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"X"
-		),
+		],
 		techRating: "a",
 		book: "TO",
 		page: 316,
@@ -1657,10 +1657,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 10,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE",
 			"H"
-		),
+		],
 		techRating: "c",
 		book: "TO",
 		page: 312,
@@ -1671,9 +1671,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 			rangeLong: 0,
 			rangeExtreme: 0,
 			tc: 0,
-			notes: Array(
+			notes: [
 				"Heat"
-			)
+			]
 		}
 	},
 	{
@@ -1710,9 +1710,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 10,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"X"
-		),
+		],
 		techRating: "c",
 		book: "TO",
 		page: 312,
@@ -1760,9 +1760,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 10,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"X"
-		),
+		],
 		techRating: "c",
 		book: "TO",
 		page: 361,
@@ -1810,9 +1810,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 10,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"X"
-		),
+		],
 		techRating: "d",
 		book: "TO",
 		page: 361,
@@ -1860,9 +1860,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 10,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"X"
-		),
+		],
 		techRating: "a",
 		book: "TO",
 		page: 362,
@@ -1916,10 +1916,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 45,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "c",
 		book: "TM",
 		page: 208,
@@ -1930,9 +1930,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 			rangeLong: 0.2,
 			rangeExtreme: 0.2,
 			tc: 1,
-			notes: Array(
+			notes: [
 				"ac"
-			)
+			]
 		}
 	},
 	{
@@ -1968,10 +1968,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 0,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "c",
 		book: "TM",
 		page: 208,
@@ -2018,10 +2018,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 22,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -2068,10 +2068,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 90,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "d",
 		book: "TO",
 		page: 352,
@@ -2118,10 +2118,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 45,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "b",
 		book: "TO",
 		page: 352,
@@ -2168,10 +2168,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 45,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -2218,10 +2218,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 22,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -2268,10 +2268,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 45,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "b",
 		book: "TO",
 		page: 353,
@@ -2319,10 +2319,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 0,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "c",
 		book: "TM",
 		page: 208,
@@ -2333,9 +2333,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 			rangeLong: 0.5,
 			rangeExtreme: 0,
 			tc: 1,
-			notes: Array(
+			notes: [
 				"ac"
-			)
+			]
 		}
 	},
 	{
@@ -2371,10 +2371,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 20,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "c",
 		book: "TM",
 		page: 208,
@@ -2421,10 +2421,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 10,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -2471,10 +2471,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 90,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "d",
 		book: "TO",
 		page: 352,
@@ -2521,10 +2521,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 20,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "b",
 		book: "TO",
 		page: 352,
@@ -2571,10 +2571,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 20,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -2621,10 +2621,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 10,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -2671,10 +2671,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 20,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "b",
 		book: "TO",
 		page: 353,
@@ -2722,10 +2722,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 0,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "c",
 		book: "TM",
 		page: 208,
@@ -2736,9 +2736,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 			rangeLong: 0,
 			rangeExtreme: 0,
 			tc: 1,
-			notes: Array(
+			notes: [
 				"ac"
-			)
+			]
 		}
 	},
 	{
@@ -2774,10 +2774,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 10,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "c",
 		book: "TM",
 		page: 208,
@@ -2824,10 +2824,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 5,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -2874,10 +2874,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 90,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "d",
 		book: "TO",
 		page: 352,
@@ -2924,10 +2924,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 10,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "b",
 		book: "TO",
 		page: 352,
@@ -2974,10 +2974,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 10,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -3024,10 +3024,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 5,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -3074,10 +3074,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 10,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "b",
 		book: "TO",
 		page: 353,
@@ -3124,10 +3124,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 0,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "c",
 		book: "TM",
 		page: 208,
@@ -3138,9 +3138,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 			rangeLong: 0,
 			rangeExtreme: 0,
 			tc: 1,
-			notes: Array(
+			notes: [
 				"ac"
-			)
+			]
 		}
 	},
 	{
@@ -3176,10 +3176,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 5,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "c",
 		book: "TM",
 		page: 208,
@@ -3226,10 +3226,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 2,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -3276,10 +3276,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 90,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "d",
 		book: "TO",
 		page: 352,
@@ -3326,10 +3326,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 5,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "b",
 		book: "TO",
 		page: 352,
@@ -3376,10 +3376,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 5,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -3426,10 +3426,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 2,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -3476,10 +3476,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 5,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "b",
 		book: "TO",
 		page: 353,
@@ -3526,10 +3526,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 45,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -3540,9 +3540,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 			rangeLong: 0.2,
 			rangeExtreme: 0,
 			tc: 1,
-			notes: Array(
+			notes: [
 				"ac"
-			)
+			]
 		}
 	},
 	{
@@ -3578,10 +3578,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 45,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "c",
 		book: "TM",
 		page: 208,
@@ -3628,10 +3628,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 22,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -3678,10 +3678,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 90,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "d",
 		book: "TO",
 		page: 352,
@@ -3728,10 +3728,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 45,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "b",
 		book: "TO",
 		page: 352,
@@ -3778,10 +3778,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 45,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -3828,10 +3828,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 22,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -3878,10 +3878,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 45,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "b",
 		book: "TO",
 		page: 353,
@@ -3928,10 +3928,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 20,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -3978,10 +3978,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 20,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "c",
 		book: "TM",
 		page: 208,
@@ -4028,10 +4028,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 10,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -4078,10 +4078,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 90,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "d",
 		book: "TO",
 		page: 352,
@@ -4128,10 +4128,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 20,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "b",
 		book: "TO",
 		page: 352,
@@ -4178,10 +4178,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 20,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -4228,10 +4228,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 10,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -4278,10 +4278,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 20,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "b",
 		book: "TO",
 		page: 353,
@@ -4331,11 +4331,11 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 45,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"R",
 			"C",
 			"R2"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -4382,11 +4382,11 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 45,
 		minAmmoTons: 0,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"R",
 			"C",
 			"R2"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -4435,11 +4435,11 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 20,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"R",
 			"C",
 			"R2"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -4486,11 +4486,11 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 20,
 		minAmmoTons: 0,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"R",
 			"C",
 			"R2"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -4539,11 +4539,11 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 10,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"R",
 			"C",
 			"R2"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -4590,11 +4590,11 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 10,
 		minAmmoTons: 0,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"R",
 			"C",
 			"R2"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -4643,11 +4643,11 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 5,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"R",
 			"C",
 			"R2"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -4694,11 +4694,11 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 5,
 		minAmmoTons: 0,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"R",
 			"C",
 			"R2"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 208,
@@ -4748,12 +4748,12 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 45,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"C",
 			"S",
 			"F"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 207,
@@ -4764,9 +4764,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 			rangeLong: 0.105,
 			rangeExtreme: 0.105,
 			tc: 1,
-			notes: Array(
+			notes: [
 				"flak"
-			)
+			]
 		}
 	},
 	{
@@ -4802,10 +4802,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 45,
 		minAmmoTons: 0,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 207,
@@ -4852,12 +4852,12 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 45,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"C",
 			"S",
 			"F"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 207,
@@ -4906,12 +4906,12 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 20,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"C",
 			"S",
 			"F"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 207,
@@ -4922,9 +4922,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 			rangeLong: 0.315,
 			rangeExtreme: 0,
 			tc: 1,
-			notes: Array(
+			notes: [
 				"flak"
-			)
+			]
 		}
 	},
 	{
@@ -4960,10 +4960,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 20,
 		minAmmoTons: 0,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 207,
@@ -5010,12 +5010,12 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 20,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"C",
 			"S",
 			"F"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 207,
@@ -5064,12 +5064,12 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 10,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"C",
 			"S",
 			"F"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 207,
@@ -5080,9 +5080,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 			rangeLong: 0.63,
 			rangeExtreme: 0,
 			tc: 1,
-			notes: Array(
+			notes: [
 				"flak"
-			)
+			]
 		}
 	},
 	{
@@ -5118,10 +5118,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 10,
 		minAmmoTons: 0,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 207,
@@ -5168,12 +5168,12 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 10,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"C",
 			"S",
 			"F"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 207,
@@ -5222,12 +5222,12 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 5,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"C",
 			"S",
 			"F"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 207,
@@ -5238,9 +5238,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 			rangeLong: 0.0,
 			rangeExtreme: 0,
 			tc: 1,
-			notes: Array(
+			notes: [
 				"flak"
-			)
+			]
 		}
 	},
 	{
@@ -5276,10 +5276,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 20,
 		minAmmoTons: 0,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"S"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 207,
@@ -5326,12 +5326,12 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 20,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"C",
 			"S",
 			"F"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 207,
@@ -5379,9 +5379,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		gauss: true,
-		weaponType: Array(
+		weaponType: [
 			"DB"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 219,
@@ -5428,9 +5428,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 16,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DB"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 219,
@@ -5477,9 +5477,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		gauss: true,
-		weaponType: Array(
+		weaponType: [
 			"DB"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 219,
@@ -5526,9 +5526,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 8,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DB"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 219,
@@ -5581,9 +5581,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		gauss: true,
-		weaponType: Array(
+		weaponType: [
 			"DB"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 218,
@@ -5630,9 +5630,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 4,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DB"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 218,
@@ -5680,9 +5680,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		gauss: true,
-		weaponType: Array(
+		weaponType: [
 			"DB"
-		),
+		],
 		techRating: "e",
 		book: "TO",
 		page: 313,
@@ -5729,9 +5729,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 4,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DB"
-		),
+		],
 		techRating: "e",
 		book: "TO",
 		page: 313,
@@ -5779,11 +5779,11 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		gauss: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"C",
 			"F"
-		),
+		],
 		techRating: "e",
 		book: "TO",
 		page: 314,
@@ -5830,11 +5830,11 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 8,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"C",
 			"F"
-		),
+		],
 		techRating: "e",
 		book: "TO",
 		page: 314,
@@ -5881,9 +5881,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		gauss: true,
-		weaponType: Array(
+		weaponType: [
 			"DB"
-		),
+		],
 		techRating: "e",
 		book: "TO",
 		page: 314,
@@ -5930,9 +5930,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 50,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DB"
-		),
+		],
 		techRating: "e",
 		book: "TO",
 		page: 314,
@@ -5980,10 +5980,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 0,
 		minAmmoTons: 0.5,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"AI"
-		),
+		],
 		techRating: "b",
 		book: "TM",
 		page: 227,
@@ -6030,10 +6030,10 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 		ammoPerTon: 200,
 		minAmmoTons: 0.5,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"DB",
 			"AI"
-		),
+		],
 		techRating: "b",
 		book: "TM",
 		page: 227,
@@ -6090,9 +6090,9 @@ export const mechISEquipment: IEquipmentItem[] = Array(
 			rangeLong: 0,
 			rangeExtreme: 0,
 			tc: 0,
-			notes: Array(
+			notes: [
 				"MEL"
-			)
+			]
 		}
 	}
-);
+];

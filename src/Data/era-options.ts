@@ -4,7 +4,7 @@ import { IEras } from "./dataInterfaces";
  * The data here is/may be copyrighted and NOT included in the MIT license.
  * Based on BattleTech Master Unit List eras: http://masterunitlist.info/Era/Index
  */
-export const btEraOptions: IEras[] = Array(
+export const btEraOptions: IEras[] = [
 	{
 		id: 1,
 		name: "Age of War (2005-2570)",
@@ -82,4 +82,4 @@ export const btEraOptions: IEras[] = Array(
 		yearStart: 3131,
 		yearEnd: 3999,
 	}
-);
+];

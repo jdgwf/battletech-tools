@@ -38,9 +38,9 @@ export const mechClanEquipment: IEquipmentItem[] = [
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE"
-		),
+		],
 		techRating: "f",
 		book: "TM",
 		page: 233,
@@ -89,9 +89,9 @@ export const mechClanEquipment: IEquipmentItem[] = [
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 226,
@@ -138,9 +138,9 @@ export const mechClanEquipment: IEquipmentItem[] = [
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 226,
@@ -188,9 +188,9 @@ export const mechClanEquipment: IEquipmentItem[] = [
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 226,
@@ -238,9 +238,9 @@ export const mechClanEquipment: IEquipmentItem[] = [
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE"
-		),
+		],
 		techRating: "c",
 		book: "TM",
 		page: 226,
@@ -289,10 +289,10 @@ export const mechClanEquipment: IEquipmentItem[] = [
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"P",
 			"AI"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 226,
@@ -303,9 +303,9 @@ export const mechClanEquipment: IEquipmentItem[] = [
 			rangeLong: 0,
 			rangeExtreme: 0,
 			tc: 1,
-			notes: Array(
+			notes: [
 				"Point Defense"
-			)
+			],
 		}
 	},
 	{
@@ -342,10 +342,10 @@ export const mechClanEquipment: IEquipmentItem[] = [
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"P",
 			"AI"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 226,
@@ -356,9 +356,9 @@ export const mechClanEquipment: IEquipmentItem[] = [
 			rangeLong: 0,
 			rangeExtreme: 0,
 			tc: 1,
-			notes: Array(
+			notes: [
 				""
-			)
+			],
 		}
 	},
 	{
@@ -395,9 +395,9 @@ export const mechClanEquipment: IEquipmentItem[] = [
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"P"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 226,
@@ -445,9 +445,9 @@ export const mechClanEquipment: IEquipmentItem[] = [
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"P"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 226,
@@ -496,10 +496,10 @@ export const mechClanEquipment: IEquipmentItem[] = [
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE",
 			"H"
-		),
+		],
 		techRating: "b",
 		book: "TM",
 		page: 218,
@@ -510,10 +510,10 @@ export const mechClanEquipment: IEquipmentItem[] = [
 			rangeLong: 0,
 			rangeExtreme: 0,
 			tc: 0,
-			notes: Array(
+			notes: [
 				"Heat",
 				"Point Defense"
-			)
+			],
 		}
 	},
 	{
@@ -550,10 +550,10 @@ export const mechClanEquipment: IEquipmentItem[] = [
 		ammoPerTon: 20,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE",
 			"H"
-		),
+		],
 		techRating: "b",
 		book: "TM",
 		page: 218,
@@ -564,10 +564,10 @@ export const mechClanEquipment: IEquipmentItem[] = [
 			rangeLong: 0,
 			rangeExtreme: 0,
 			tc: 0,
-			notes: Array(
+			notes: [
 				"Heat",
 				"Point Defense"
-			)
+			],
 		}
 	},
 	{
@@ -604,9 +604,9 @@ export const mechClanEquipment: IEquipmentItem[] = [
 		ammoPerTon: 20,
 		minAmmoTons: 1,
 		explosive: true,
-		weaponType: Array(
+		weaponType: [
 			"X"
-		),
+		],
 		techRating: "b",
 		book: "TM",
 		page: 218,
@@ -653,9 +653,9 @@ export const mechClanEquipment: IEquipmentItem[] = [
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 226,
@@ -666,9 +666,9 @@ export const mechClanEquipment: IEquipmentItem[] = [
 			rangeLong: 0,
 			rangeExtreme: 0,
 			tc: 1,
-			notes: Array(
+			notes: [
 				"Point Defense"
-			)
+			],
 		}
 	},
 	{
@@ -705,9 +705,9 @@ export const mechClanEquipment: IEquipmentItem[] = [
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"DE"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 226,
@@ -755,9 +755,9 @@ export const mechClanEquipment: IEquipmentItem[] = [
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"P"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 226,
@@ -805,9 +805,9 @@ export const mechClanEquipment: IEquipmentItem[] = [
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"P"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 234,
@@ -855,9 +855,9 @@ export const mechClanEquipment: IEquipmentItem[] = [
 		ammoPerTon: 0,
 		minAmmoTons: 1,
 		explosive: false,
-		weaponType: Array(
+		weaponType: [
 			"P"
-		),
+		],
 		techRating: "e",
 		book: "TM",
 		page: 234,
