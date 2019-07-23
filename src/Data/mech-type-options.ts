@@ -6,12 +6,12 @@ import { IMechType } from "./dataInterfaces";
 export const mechTypeOptions: IMechType[] = Array(
 	{
 		id: 1,
-		class: "biped",
+		tag: "biped",
 		name: "Biped",
 	},
 	{
 		id: 2,
-		class: "quad",
+		tag: "quad",
 		name:  "Quad",
 	}
 );

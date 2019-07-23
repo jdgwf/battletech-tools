@@ -88,3 +88,21 @@ export async function getMULASSearchResults(
         return [];
     }
 }
+export function getMovementModifier( moveScore: number ): number {
+	if( moveScore >= 25 ) {
+		return 6;
+	} else if ( moveScore >= 18 ) {
+		return 5;
+	} else if ( moveScore >= 10 ) {
+		return 4;
+	} else if ( moveScore >= 7 ) {
+		return 3;
+	} else if ( moveScore >= 5 ) {
+		return 2;
+	} else if ( moveScore >= 3 ) {
+		return 1;
+	}
+
+	return 0;
+
+}

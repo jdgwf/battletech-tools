@@ -1,221 +1,226 @@
+import { string } from "prop-types";
+
 export interface IArmorType {
-	tag: String;
-	name: String;
-	crits: {
-		clan: Number;
-		is: Number;
-	},
+	tag: string;
+	name: string;
+    crits: {
+        [key: string]: number;
+    },
 	armorMultiplier: {
-		clan: Number;
-		is: Number;
+		clan: number;
+		is: number;
 	},
-	costMultiplier: Number;
-	introduced: Number;
-	extinct: Number;
-	reintroduced: Number;
+	costMultiplier: number;
+	introduced: number;
+	extinct: number;
+	reintroduced: number;
 	critLocs?: {
-		ra?: Number;
-		rl?: Number;
-		rt?: Number;
-		la?: Number;
-		ll?: Number;
-		lt?: Number;
+		[key: string]: number;
 	}
 }
 
 
 export interface IEngineOption {
-	name: String;
-	rating: Number;
+	name: string;
+	rating: number;
 	weight: {
-		ice: Number;
-		cell: Number;
-		fission: Number;
-		comp: Number;
-		standard: Number;
-		light: Number;
-		xl: Number;
+		ice: number;
+		cell: number;
+		fission: number;
+		comp: number;
+		standard: number;
+		light: number;
+		xl: number;
 	}
 }
 
 export interface ICritialLocations {
-	hd?: Number,
-	ct?: Number,
-	ra?: Number,
-	rt?: Number,
-	rl?: Number,
-	la?: Number,
-	lt?: Number,
-	ll?: Number,
+	hd?: number,
+	ct?: number,
+	ra?: number,
+	rt?: number,
+	rl?: number,
+	la?: number,
+	lt?: number,
+	ll?: number,
 }
 
 export interface IEngineType {
-	tag: String;
-	name: String;
-	costMultiplier: Number;
-	introduced: Number;
-	extinct: Number;
-	reintroduced: Number;
-	criticals?: {
-		is?: ICritialLocations;
-		clan?: ICritialLocations;
-	}
+	tag: string;
+	name: string;
+	costMultiplier: number;
+	introduced: number;
+	extinct: number;
+	reintroduced: number;
+    criticals?: {
+        [key: string]: ICritialLocations;
+    },
+    rating: number;
 }
 
 export interface IDamagePerRange {
-    short: Number;
-    medium: Number;
-    long: Number;
-    aeroShort: Number;
-    aeroMedium: Number;
-    aeroLong: Number;
+    short: number;
+    medium: number;
+    long: number;
+    aeroShort: number;
+    aeroMedium: number;
+    aeroLong: number;
 }
 
 export interface IAccuracyModifier {
-    short: Number;
-    medium: Number;
-    long: Number;
+    short: number;
+    medium: number;
+    long: number;
 }
 
 export interface IRangeNumbers {
-    min?: Number;
-    short: Number;
-    medium: Number;
-    long: Number;
-    exterme?: Number;
+    min?: number;
+    short: number;
+    medium: number;
+    long: number;
+    exterme?: number;
 }
 
 
 export interface IEquipmentItem {
-    name: String;
-    tag: String;
-    sort: String;
-    category: String;
-    damage?: Number | IDamagePerRange;
-    damageAero?: Number;
-    damagePerCluster?: Number;
-    damageClusters?: Number;
-    accuracyModifier?: Number | IAccuracyModifier;
+    name: string;
+    tag: string;
+    sort: string;
+    category: string;
+    damage?: number | IDamagePerRange;
+    damageAero?: number;
+    damagePerCluster?: number;
+    damageClusters?: number;
+    accuracyModifier?: number | IAccuracyModifier;
     ammoBattleValue?: number;
-    accuracyModifiier?: Number;
-    cbills: Number;
-    introduced: Number;
-    extinct?: Number;
-    reintroduced?: Number;
-    battlevalue?: Number;
-    heat: Number;
-    weight: Number;
+    accuracyModifiier?: number;
+    cbills: number;
+    introduced: number;
+    extinct?: number;
+    reintroduced?: number;
+    battleValue?: number;
+    heat: number;
+    weight: number;
     range: IRangeNumbers,
     space: {
-        battlemech: Number;
-        protomech: Number;
-        combatVehicle: Number;
-        supportVehicle: Number;
-        aerospaceFighter: Number;
-        smallCraft: Number;
-        dropShip: Number;
+        battlemech: number;
+        protomech: number;
+        combatVehicle: number;
+        supportVehicle: number;
+        aerospaceFighter: number;
+        smallCraft: number;
+        dropShip: number;
     },
-    ammoPerTon?: Number;
-    minAmmoTons?: Number;
-    explosive?: Boolean;
-    weaponType?: String[];
-    techRating?: String;
-    book: String;
-    page: Number;
+    ammoPerTon?: number;
+    minAmmoTons?: number;
+    explosive?: boolean;
+    weaponType?: string[];
+    techRating?: string;
+    book: string;
+    page: number;
     alphaStrike: {
-        heat: Number;
-        rangeShort: Number;
-        rangeMedium: Number;
-        rangeLong: Number;
-        rangeExtreme: Number;
-        tc: Number;
-        notes: String[];
+        heat: number;
+        rangeShort: number;
+        rangeMedium: number;
+        rangeLong: number;
+        rangeExtreme: number;
+        tc: number;
+        notes: string[];
     };
-    battleValuePerItemDamage?: Number;
-    requiresHandActuator?: Boolean;
+    battleValuePerItemDamage?: number;
+    requiresHandActuator?: boolean;
 
-    weightDivisior?: Number;
-    damageDivisior?: Number;
-    criticalsDivisior?: Number;
+    weightDivisor?: number;
+    damageDivisior?: number;
+    criticalsDivisor?: number;
 
-    variableSize?: Boolean;
-    isMelee?: Boolean;
-    costPerItemTon?: Number;
+    variableSize?: boolean;
+    isMelee?: boolean;
+    costPerItemTon?: number;
+    location?: string;
+    rear?: boolean;
+    criticals?: number;
 }
 
 export interface IGyro {
-    name: String;
-    tag: String;
-    weight_multiplier: Number;
-    criticals: Number;
-    costMultiplier: Number;
-    introduced: Number;
-    extinct: Number;
-    reintroduced: Number;
+    name: string;
+    tag: string;
+    weight_multiplier: number;
+    criticals: number;
+    costMultiplier: number;
+    introduced: number;
+    extinct: number;
+    reintroduced: number;
 }
 
 export interface IHeatSync {
-    name: String;
-    tag: String;
-    dissipation: Number;
+    name: string;
+    tag: string;
+    dissipation: number;
     crits: {
-        clan: Number;
-        is: Number;
+        [key: string]: number;
     },
 
-    cost: Number;
-    introduced: Number;
-    extinct: Number;
-    reintroduced: Number;
+    cost: number;
+    introduced: number;
+    extinct: number;
+    reintroduced: number;
 }
 
 export interface IInternalStructurePerTon {
-    tonnage: Number;
-    head: Number;
-    centerTorso: Number;
-    rlTorso: Number;
-    rlArm: Number;
-    rlLeg: Number;
+    tonnage: number;
+    head: number;
+    centerTorso: number;
+    rlTorso: number;
+    rlArm: number;
+    rlLeg: number;
 }
 
 export interface IInternalStructure {
-    name: String;
-    tag: String;
+    name: string;
+    tag: string;
     crits: {
-        clan: Number;
-        is: Number;
+        [key: string]: number;
     },
     perTon: {[key: number]: IInternalStructurePerTon};
 
-    cost: Number;
-    introduced: Number;
-    extinct: Number;
-    reintroduced: Number;
+    cost: number;
+    introduced: number;
+    extinct: number;
+    reintroduced: number;
 }
 
 export interface IJumpJet {
-    name: String;
-    tag: String;
+    name: string;
+    tag: string;
     weight_multiplier: {
-        light: Number;
-        medium: Number;
-        heavy: Number;
+        light: number;
+        medium: number;
+        heavy: number;
     },
-    criticals: Number;
-    costMultiplier: Number;
-    introduced: Number;
-    extinct: Number;
-    reintroduced: Number;
+    criticals: number;
+    costMultiplier: number;
+    introduced: number;
+    extinct: number;
+    reintroduced: number;
 }
 
 export interface IMechType {
-    id: Number;
-    class: String;
-    name: String;
+    id: number;
+    tag: string;
+    name: string;
 }
 
 export interface ITechOptions {
-	id: Number;
-	tag: String;
-	name: String;
+	id: number;
+	tag: string;
+	name: string;
+}
+
+export interface IEras {
+    id: number;
+    tag: string;
+    name: string;
+    yearStart: number;
+    yearEnd: number;
 }

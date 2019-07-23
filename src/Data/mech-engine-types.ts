@@ -19,7 +19,8 @@ export const mechEngineTypes: IEngineType[] = [
 		costMultiplier: 5000,
 		introduced: 2300,
 		extinct: 0,
-		reintroduced: 0
+		reintroduced: 0,
+		rating: 0,
 	},
 	{
 		name: "XL Fusion",
@@ -34,7 +35,8 @@ export const mechEngineTypes: IEngineType[] = [
 		costMultiplier: 20000,
 		introduced: 2579,
 		extinct: 2865,
-		reintroduced: 3035
+		reintroduced: 3035,
+		rating: 0,
 	},
 	{
 		name: "Clan XL Fusion",
@@ -49,7 +51,8 @@ export const mechEngineTypes: IEngineType[] = [
 		costMultiplier: 20000,
 		introduced: 2827,
 		extinct: 0,
-		reintroduced: 0
+		reintroduced: 0,
+		rating: 0,
 	},
 	{
 		name: "Light Fusion",
@@ -64,7 +67,8 @@ export const mechEngineTypes: IEngineType[] = [
 		costMultiplier: 15000,
 		introduced: 3062,
 		extinct: 0,
-		reintroduced: 0
+		reintroduced: 0,
+		rating: 0,
 	},
 	{
 		name: "Compact Fusion",
@@ -77,6 +81,7 @@ export const mechEngineTypes: IEngineType[] = [
 		costMultiplier: 10000,
 		introduced: 3068,
 		extinct: 0,
-		reintroduced: 0
+		reintroduced: 0,
+		rating: 0,
 	}
 ];

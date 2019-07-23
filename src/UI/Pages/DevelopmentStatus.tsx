@@ -81,6 +81,9 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                     </ul>
                     <h4>TO DO</h4>
                     <p>This section should be pretty feature complete, although there are some UI annoyances.</p>
+                    <ul>
+                      <li>Printable AS Roster</li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -88,8 +91,30 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                 <div className="text-section ">
                   <h2>'Mech Creator</h2>
                   <div className="section-content">
-                    <h4>TO DO</h4>
-                    <p>Nearly everything.</p>
+                    <h4>Completed</h4>
+                    <ul>
+                      <li><del>Typescript interfaces for data</del></li>
+                    </ul>
+                    <h4>TO DO (short list)</h4>
+                    <ul>
+
+                      <li>BattleMech Class</li>
+                      <li>
+                        BattleMech SVG
+                        <ul>
+                          <li>Read only/printable</li>
+                          <li>Interactive Hooks</li>
+                        </ul>
+                      </li>
+                      <li>UI Sidebar/Steps as per TechManual</li>
+                      <li>Load/Save/Export</li>
+                      <li>Add remaining Clan Equipment, IS SRM/LRMs to Data</li>
+                      <li>In-Play Sheet</li>
+                      <li>Companies</li>
+                      <li>Lances</li>
+
+                    </ul>
+
                   </div>
                 </div>
               </div>
