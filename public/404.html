@@ -7,19 +7,16 @@
       var segmentCount = 0;
 
       var l = window.location;
-      var pathName = pathName;
-      while(pathName.indexOf('%2F') > -1 ) {
-        pathName.replace('%2F', '/')
-      }
+      var pathName = l.pathname
       l.replace(
         l.protocol
         + '//'
         + l.hostname
         + (l.port ? ':' + l.port : '')
         + "/battletech-tools"
-        + pathName.replace("/battletech-tools", "").split('/').slice(1, 1 + segmentCount).join('/')
+        + l.pathname.replace("/battletech-tools", "").split('/').slice(1, 1 + segmentCount).join('/')
         + '?rd=/'
-        + pathName.slice(1).split('/').slice(segmentCount).join('/').replace(/&/g, '~and~')
+        + l.pathname.slice(1).split('/').slice(segmentCount).join('/').replace(/&/g, '~and~')
         + (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '')
         + l.hash
       );

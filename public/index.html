@@ -39,7 +39,10 @@
         if (l.search) {
 
           if( l.search.indexOf("?rd=") === 0 ) {
-            let newPath = "/battletech-tools" + l.search.replace("?rd=%2Fbattletech-tools", "").replace("%2F", "/");
+            let newPath = "/battletech-tools" + l.search.replace("?rd=%2Fbattletech-tools", "");
+            while( newPath.indexOf("%2F") > -1 ) {
+              newPath = newPath.replace("%2F", "/");
+            }
             window.history.replaceState(
               null,
               null,
