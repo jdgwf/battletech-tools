@@ -360,17 +360,25 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
           <div className="content">
             <ShowAlerts appGlobals={this.props.appGlobals} />
 
+
           {this.props.appGlobals.currentASForce.getTotalUnits() > 0 ? (
-            <>
-              <Link to={`${process.env.PUBLIC_URL}/alpha-strike-roster/play`} className="btn btn-primary full-width">
-                  Play Mode
-              </Link>
-            </>
+            <div className="row">
+              <div className="col-12">
+                <Link
+                  to={`${process.env.PUBLIC_URL}/alpha-strike-roster/play`}
+                  className="btn btn-primary no-margin full-width"
+                  title="Click here to go into 'Play Mode'"
+                >
+                    Play Mode
+                </Link><br />
+                <br />
+              </div>
+            </div>
           ) : (
             <></>
           )}
           <div className="row">
-            <div className="col-md-6 col-lg-5">
+            <div className="col-lg-5">
               <div className="text-section">
                 <h2>Current Force</h2>
                 <div className="section-content">
@@ -593,7 +601,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
 
             </div>
-            <div className="col-md-6 col-lg-7">
+            <div className="col-lg-7">
               <div className="text-section">
                 <h2>Search for Units</h2>
                 <div className="section-content">

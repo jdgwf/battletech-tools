@@ -50,12 +50,12 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
         <>
           <header className="topmenu">
             <ul>
-                <li className="d-none d-md-inline"><Link className="current" to={`${process.env.PUBLIC_URL}/alpha-strike-roster`}><FontAwesomeIcon icon={faArrowAltCircleLeft} /></Link></li>
+                <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/alpha-strike-roster`}><FontAwesomeIcon icon={faArrowAltCircleLeft} /></Link></li>
 
                 {this.state.cardMode ? (
-                  <li title="Switch a large list mode" className="d-none d-md-inline"><span className="current" onClick={this.toggleCardMode}><FontAwesomeIcon icon={faList} /></span></li>
+                  <li title="Switch a large list mode"><span className="current" onClick={this.toggleCardMode}><FontAwesomeIcon icon={faList} /></span></li>
                 ) : (
-                  <li title="Switch to showing 2+ cards per row" className="d-none d-md-inline"><span className="current" onClick={this.toggleCardMode}><FontAwesomeIcon icon={faTh} /></span></li>
+                  <li title="Switch to showing 2+ cards per row"><span className="current" onClick={this.toggleCardMode}><FontAwesomeIcon icon={faTh} /></span></li>
 
                 )}
 
@@ -79,7 +79,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
             }
             return (
               <React.Fragment key={groupIndex}>
-              <div className="text-section">
+              <div className="text-section lr-margin">
                 <h2>{group.getName(groupIndex + 1)}</h2>
                 <div className="section-content">
                   <div className="row">
