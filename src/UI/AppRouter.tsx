@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./Pages/Home";
 import Error404 from "./Pages/Error404";
-import Page1 from "./Pages/Page1";
 import About from "./Pages/About";
 import { Modal, Button } from 'react-bootstrap';
 import {CONFIGSiteTitle} from '../configVars';
@@ -12,6 +11,8 @@ import AlphaStrikeRosterRouter from './Pages/AlphaStrikeRoster/_Router'
 import MechCreatorRouter from './Pages/MechCreator/_Router'
 import AlphaStrikeForce, { IASForceExport } from "../Classes/AlphaStrikeForce";
 import AlphaStrikeGroup, { IASGroupExport } from "../Classes/AlphaStrikeGroup";
+import DevelopmentStatus from "./Pages/DevelopmentStatus";
+
 
 export default class AppRouter extends React.Component<IAppRouterProps, IAppRouterState> {
 
@@ -242,8 +243,13 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                         appGlobals={this.state.appGlobals}
                     />
                 </Route>
-                <Route path={`${process.env.PUBLIC_URL}/page1`} exact>
+                {/* <Route path={`${process.env.PUBLIC_URL}/page1`} exact>
                     <Page1
+                        appGlobals={this.state.appGlobals}
+                    />
+                </Route> */}
+                <Route path={`${process.env.PUBLIC_URL}/dev-status`} exact>
+                    <DevelopmentStatus
                         appGlobals={this.state.appGlobals}
                     />
                 </Route>
