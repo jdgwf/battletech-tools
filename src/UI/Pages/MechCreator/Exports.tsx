@@ -15,7 +15,7 @@ export default class MechCreatorExports extends React.Component<IHomeProps, IHom
     }
 
     componentDidMount ()  {
-      this.props.appGlobals.makeDocumentTitle("'Mech Creator");
+      this.props.appGlobals.makeDocumentTitle("Exports | 'Mech Creator");
     }
 
     render() {

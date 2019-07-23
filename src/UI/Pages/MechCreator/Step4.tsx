@@ -15,7 +15,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
     }
 
     componentDidMount ()  {
-      this.props.appGlobals.makeDocumentTitle("'Mech Creator");
+      this.props.appGlobals.makeDocumentTitle("Step 4 | 'Mech Creator");
     }
 
     render() {

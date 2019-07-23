@@ -7,22 +7,26 @@
       var segmentCount = 0;
 
       var l = window.location;
+      var pathName = pathName;
+      while(pathName.indexOf('%2F') > -1 ) {
+        pathName.replace('%2F', '/')
+      }
       l.replace(
         l.protocol
         + '//'
         + l.hostname
         + (l.port ? ':' + l.port : '')
         + "/battletech-tools"
-        + l.pathname.replace("/battletech-tools", "").split('/').slice(1, 1 + segmentCount).join('/')
+        + pathName.replace("/battletech-tools", "").split('/').slice(1, 1 + segmentCount).join('/')
         + '?rd=/'
-        + l.pathname.slice(1).split('/').slice(segmentCount).join('/').replace(/&/g, '~and~')
+        + pathName.slice(1).split('/').slice(segmentCount).join('/').replace(/&/g, '~and~')
         + (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '')
         + l.hash
       );
 
     </script>
   </head>
-  <body>
+  <body style="background: #333">
       Whoops! Redirecting so that this app works
   </body>
 </html>
