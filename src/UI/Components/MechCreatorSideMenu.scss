@@ -1,0 +1,16 @@
+.sidebar-menu {
+    list-style: none;
+    margin: 0 0 40px 0;
+    padding: 0;
+    li {
+        a {
+            display: block;
+            .title {
+                font-size: 1.2rem;
+            }
+            .subtitle {
+                font-size: .8rem;
+            }
+        }
+    }
+}

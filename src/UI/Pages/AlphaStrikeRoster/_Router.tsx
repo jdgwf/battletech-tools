@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Route, Switch } from 'react-router';
 import Home from './Home';
 import InPlay from './InPlay';
+import Error404 from "../Error404";
 
 export default class AlphaStrikeRosterRouter extends React.Component<IAlphaStrikeRosterRouterProps, IAlphaStrikeRosterRouterState> {
 
@@ -25,6 +26,12 @@ export default class AlphaStrikeRosterRouter extends React.Component<IAlphaStrik
 
                 <Route exact path={`${process.env.PUBLIC_URL}/alpha-strike-roster/play`}>
                     <InPlay
+                        appGlobals={this.props.appGlobals}
+                    />
+                </Route>
+
+                <Route>
+                    <Error404
                         appGlobals={this.props.appGlobals}
                     />
                 </Route>

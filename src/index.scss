@@ -10,6 +10,38 @@ body {
   background-color: $bodyBackground;
 }
 
+.mech-tro {
+  background: $bodyBackground;
+  color: $fontColor;
+  width: 100%;
+
+  border: none;
+  font-size: 12px;
+  tbody {
+      border: none;
+  }
+  thead {
+      background: transparent !important;
+      border: 0 !important;
+  }
+  tr {
+      td, th {
+          margin: auto;
+          padding: 0 5px 0 0;
+          background: $bodyBackground;
+          color: $fontColor;
+
+      }
+      th {
+          vertical-align: bottom;
+          font-weight: 700;
+      }
+      td {
+          vertical-align: top;
+      }
+  }
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

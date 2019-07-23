@@ -12,7 +12,7 @@ import MechCreatorRouter from './Pages/MechCreator/_Router'
 import AlphaStrikeForce, { IASForceExport } from "../Classes/AlphaStrikeForce";
 import AlphaStrikeGroup, { IASGroupExport } from "../Classes/AlphaStrikeGroup";
 import DevelopmentStatus from "./Pages/DevelopmentStatus";
-import { BattleMech } from "../Classes/Battlemech";
+import { BattleMech } from "../Classes/BattleMech";
 
 
 export default class AppRouter extends React.Component<IAppRouterProps, IAppRouterState> {

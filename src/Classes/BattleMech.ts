@@ -291,7 +291,10 @@ export class BattleMech {
             }
         }
 
-        return null;
+        this.mechType = mechTypeOptions[0];
+        this.setTonnage( this.tonnage );
+        this.calc();
+        return this.mechType;
     }
 
     // getHighestDamage(incomingDamageObjects: IAlphaStrikeDamage[]) {
@@ -3160,7 +3163,10 @@ export class BattleMech {
     }
 
     getName() {
-        return this.make;
+        if( this.make )
+            return this.make;
+        else
+            return "";
     }
 
     setName(newValue: string): string {
