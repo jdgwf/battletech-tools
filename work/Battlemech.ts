@@ -1339,23 +1339,23 @@ export class BattleMech {
 		// Engine
 		var engineName = this.getLocalTranslation( this.getEngineType().name );
 		var engineRating  = this.getEngineRating();
-		var engineCostMultiplier = this.getEngineType().costmultiplier;
-		this.calcLogCBill += "<tr><td><strong>Engine: " + engineName  + "</strong><br /><span class=\"smaller-text\">" +  addCommas( engineCostMultiplier ) + " x Engine Rating  [" + engineRating + "] x Unit Tonnage [" + this.getTonnage() + "] / 75</span></td><td>" +  addCommas( engineCostMultiplier * engineRating * this.getTonnage() / 75 ) + "</td></tr>\n";
-		cbillTotal += engineCostMultiplier * engineRating * this.getTonnage() / 75;
+		var enginecostMultiplier = this.getEngineType().costMultiplier;
+		this.calcLogCBill += "<tr><td><strong>Engine: " + engineName  + "</strong><br /><span class=\"smaller-text\">" +  addCommas( enginecostMultiplier ) + " x Engine Rating  [" + engineRating + "] x Unit Tonnage [" + this.getTonnage() + "] / 75</span></td><td>" +  addCommas( enginecostMultiplier * engineRating * this.getTonnage() / 75 ) + "</td></tr>\n";
+		cbillTotal += enginecostMultiplier * engineRating * this.getTonnage() / 75;
 
 		// Gyro
 		var gyroName = this.getGyroName();
-		var gyroCostMultiplier = this.getGyro().costmultiplier;
+		var gyrocostMultiplier = this.getGyro().costMultiplier;
 		var gyroTonnage = this.getGyroWeight();
 
-		this.calcLogCBill += "<tr><td><strong>Gyro: " + gyroName  + "</strong><br /><span class=\"smaller-text\">" +  addCommas( gyroCostMultiplier ) + " x Gyro Tonnage [" + gyroTonnage + "]</span></td><td>" +  addCommas( gyroCostMultiplier * gyroTonnage  ) + "</td></tr>\n";
-		cbillTotal += gyroCostMultiplier * gyroTonnage ;
+		this.calcLogCBill += "<tr><td><strong>Gyro: " + gyroName  + "</strong><br /><span class=\"smaller-text\">" +  addCommas( gyrocostMultiplier ) + " x Gyro Tonnage [" + gyroTonnage + "]</span></td><td>" +  addCommas( gyrocostMultiplier * gyroTonnage  ) + "</td></tr>\n";
+		cbillTotal += gyrocostMultiplier * gyroTonnage ;
 
 		// Jump Jets
 		var numberOfJumpJets = this._getNumberOfJumpJets();
 		if( numberOfJumpJets ) {
 			var jumpJetName = this.getLocalTranslation( this.jumpJetType.name );
-			var jumpJetCost = this.jumpJetType.costmultiplier;
+			var jumpJetCost = this.jumpJetType.costMultiplier;
 			this.calcLogCBill += "<tr><td><strong>Jump Jets: " + jumpJetName  + "</strong><br /><span class=\"smaller-text\">" +  addCommas( jumpJetCost ) + " x (# Jump Jets [" +  numberOfJumpJets + "])<sup>2</sup> x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( jumpJetCost * Math.pow( numberOfJumpJets, 2) *  this.getTonnage()  ) + "</td></tr>\n";
 			cbillTotal += jumpJetCost * Math.pow( numberOfJumpJets, 2) *  this.getTonnage()  ;
 		}
@@ -1386,11 +1386,11 @@ export class BattleMech {
 
 		// Armor
 		var armorName = this.getLocalTranslation( this.getArmorObj().name );
-		var armorCostMultiplier = this.getArmorObj().costmultiplier;
+		var armorcostMultiplier = this.getArmorObj().costMultiplier;
 		var armorTonnage = this.getArmorWeight();
 
-		this.calcLogCBill += "<tr><td><strong>Armor: " + armorName  + "</strong><br /><span class=\"smaller-text\">" +  addCommas( armorCostMultiplier ) + " x Armor Tonnage [" + armorTonnage + "]</span></td><td>" +  addCommas( armorCostMultiplier * armorTonnage  ) + "</td></tr>\n";
-		cbillTotal += armorCostMultiplier * armorTonnage ;
+		this.calcLogCBill += "<tr><td><strong>Armor: " + armorName  + "</strong><br /><span class=\"smaller-text\">" +  addCommas( armorcostMultiplier ) + " x Armor Tonnage [" + armorTonnage + "]</span></td><td>" +  addCommas( armorcostMultiplier * armorTonnage  ) + "</td></tr>\n";
+		cbillTotal += armorcostMultiplier * armorTonnage ;
 
 		// Equipment
 		for( var eqC = 0; eqC < this.equipmentList.length; eqC++) {
@@ -1718,8 +1718,8 @@ export class BattleMech {
 			if( this.equipmentList[eq_count].rear)
 				item_location += " (R)"
 
-			if (this.equipmentList[eq_count].ammo_per_ton && this.equipmentList[eq_count].ammo_per_ton > 0) {
-				html += "" + (this.equipmentList[eq_count].name[this.useLang] + " " + this.equipmentList[eq_count].ammo_per_ton).rpad(" ", col1Padding) + "" + item_location.toUpperCase().toString().rpad(" ", col2Padding) + "" + this.equipmentList[eq_count].space.battlemech.toString().rpad(" ", col3Padding) + "" + this.equipmentList[eq_count].weight.toString().rpad(" ", col4Padding) + "\n";
+			if (this.equipmentList[eq_count].ammoPerTon && this.equipmentList[eq_count].ammoPerTon > 0) {
+				html += "" + (this.equipmentList[eq_count].name[this.useLang] + " " + this.equipmentList[eq_count].ammoPerTon).rpad(" ", col1Padding) + "" + item_location.toUpperCase().toString().rpad(" ", col2Padding) + "" + this.equipmentList[eq_count].space.battlemech.toString().rpad(" ", col3Padding) + "" + this.equipmentList[eq_count].weight.toString().rpad(" ", col4Padding) + "\n";
 			} else {
 				html += "" + this.equipmentList[eq_count].name[this.useLang].rpad(" ", col1Padding) + "" + item_location.toUpperCase().toString().rpad(" ", col2Padding) + "" + this.equipmentList[eq_count].space.battlemech.toString().rpad(" ", col3Padding) + "" + this.equipmentList[eq_count].weight.toString().rpad(" ", col4Padding) + "\n";
 			}
@@ -1923,8 +1923,8 @@ export class BattleMech {
 			if( this.equipmentList[eq_count].rear)
 				item_location += " (R)"
 
-			if (this.equipmentList[eq_count].ammo_per_ton && this.equipmentList[eq_count].ammo_per_ton > 0)
-				html += "<tr><td class=\"text-left\">" + this.equipmentList[eq_count].name[this.useLang] + " " + this.equipmentList[eq_count].ammo_per_ton + "</td><td class=\"text-center\">" + item_location.toUpperCase() + "</strong></td><td class=\"text-center\">" + this.equipmentList[eq_count].space.battlemech + "</td><td class=\"text-center\">" + this.equipmentList[eq_count].weight + "</td></tr>";
+			if (this.equipmentList[eq_count].ammoPerTon && this.equipmentList[eq_count].ammoPerTon > 0)
+				html += "<tr><td class=\"text-left\">" + this.equipmentList[eq_count].name[this.useLang] + " " + this.equipmentList[eq_count].ammoPerTon + "</td><td class=\"text-center\">" + item_location.toUpperCase() + "</strong></td><td class=\"text-center\">" + this.equipmentList[eq_count].space.battlemech + "</td><td class=\"text-center\">" + this.equipmentList[eq_count].weight + "</td></tr>";
 			else
 				html += "<tr><td class=\"text-left\">" + this.equipmentList[eq_count].name[this.useLang] + "</td><td class=\"text-center\">" + item_location.toUpperCase() + "</strong></td><td class=\"text-center\">" + this.equipmentList[eq_count].space.battlemech + "</td><td class=\"text-center\">" + this.equipmentList[eq_count].weight + "</td></tr>";
 		}

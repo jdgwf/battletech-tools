@@ -404,9 +404,9 @@
 		var indirectFireRating = 0;
 
 		for (let weapon_counter = 0; weapon_counter < this.equipmentList.length; weapon_counter++) {
-			if (this.equipmentList[weapon_counter].alpha_strike) {
-				if (this.equipmentList[weapon_counter].alpha_strike.range_long > 0) {
-					total_weapon_heat_long += this.equipmentList[weapon_counter].alpha_strike.heat;
+			if (this.equipmentList[weapon_counter].alphaStrike) {
+				if (this.equipmentList[weapon_counter].alphaStrike.rangeLong > 0) {
+					total_weapon_heat_long += this.equipmentList[weapon_counter].alphaStrike.heat;
 				}
 
 				if (this.equipmentList[weapon_counter].explosive)
@@ -414,86 +414,86 @@
 
 				if (this.equipmentList[weapon_counter].rear) {
 					calcLogAS += "Adding <strong>rear</strong> Weapon " + this.equipmentList[weapon_counter].tag + " - ";
-					calcLogAS += " (" + this.equipmentList[weapon_counter].alpha_strike.range_short + ", ";
-					calcLogAS += this.equipmentList[weapon_counter].alpha_strike.range_medium + ", ";
-					calcLogAS += this.equipmentList[weapon_counter].alpha_strike.range_long + ", ";
-					calcLogAS += this.equipmentList[weapon_counter].alpha_strike.range_extreme + ")<br />\n";
-					rearDamage.short += this.equipmentList[weapon_counter].alpha_strike.range_short;
-					rearDamage.medium += this.equipmentList[weapon_counter].alpha_strike.range_medium;
-					rearDamage.long += this.equipmentList[weapon_counter].alpha_strike.range_long;
-					rearDamage.extreme += this.equipmentList[weapon_counter].alpha_strike.range_extreme;
+					calcLogAS += " (" + this.equipmentList[weapon_counter].alphaStrike.rangeShort + ", ";
+					calcLogAS += this.equipmentList[weapon_counter].alphaStrike.rangeMedium + ", ";
+					calcLogAS += this.equipmentList[weapon_counter].alphaStrike.rangeLong + ", ";
+					calcLogAS += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme + ")<br />\n";
+					rearDamage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
+					rearDamage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
+					rearDamage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
+					rearDamage.extreme += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
 				} else {
 
-					this.alphaStrikeForceStats.damage.short += this.equipmentList[weapon_counter].alpha_strike.range_short;
-					this.alphaStrikeForceStats.damage.medium += this.equipmentList[weapon_counter].alpha_strike.range_medium;
-					this.alphaStrikeForceStats.damage.long += this.equipmentList[weapon_counter].alpha_strike.range_long;
-					this.alphaStrikeForceStats.damage.extreme += this.equipmentList[weapon_counter].alpha_strike.range_extreme;
+					this.alphaStrikeForceStats.damage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
+					this.alphaStrikeForceStats.damage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
+					this.alphaStrikeForceStats.damage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
+					this.alphaStrikeForceStats.damage.extreme += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
 
 					calcLogAS += "Adding Weapon " + this.equipmentList[weapon_counter].tag + " - ";
-					calcLogAS += " (" + this.equipmentList[weapon_counter].alpha_strike.range_short + ", ";
-					calcLogAS += this.equipmentList[weapon_counter].alpha_strike.range_medium + ", ";
-					calcLogAS += this.equipmentList[weapon_counter].alpha_strike.range_long + ", ";
-					calcLogAS += this.equipmentList[weapon_counter].alpha_strike.range_extreme + ")<br />\n";
-					total_weapon_heat += this.equipmentList[weapon_counter].alpha_strike.heat;
+					calcLogAS += " (" + this.equipmentList[weapon_counter].alphaStrike.rangeShort + ", ";
+					calcLogAS += this.equipmentList[weapon_counter].alphaStrike.rangeMedium + ", ";
+					calcLogAS += this.equipmentList[weapon_counter].alphaStrike.rangeLong + ", ";
+					calcLogAS += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme + ")<br />\n";
+					total_weapon_heat += this.equipmentList[weapon_counter].alphaStrike.heat;
 
 				}
 
-				if ( this.equipmentList[weapon_counter].alpha_strike.notes && this.equipmentList[weapon_counter].alpha_strike.notes.length && this.equipmentList[weapon_counter].alpha_strike.notes.length > 0) {
-					for (var nC = 0; nC < this.equipmentList[weapon_counter].alpha_strike.notes.length; nC++) {
-						if (alphaStrikeForceStats.abilityCodes.indexOf(this.equipmentList[weapon_counter].alpha_strike.notes[nC]) === -1) {
-							this.alphaStrikeForceStats.abilityCodes.push(this.equipmentList[weapon_counter].alpha_strike.notes[nC]);
+				if ( this.equipmentList[weapon_counter].alphaStrike.notes && this.equipmentList[weapon_counter].alphaStrike.notes.length && this.equipmentList[weapon_counter].alphaStrike.notes.length > 0) {
+					for (var nC = 0; nC < this.equipmentList[weapon_counter].alphaStrike.notes.length; nC++) {
+						if (alphaStrikeForceStats.abilityCodes.indexOf(this.equipmentList[weapon_counter].alphaStrike.notes[nC]) === -1) {
+							this.alphaStrikeForceStats.abilityCodes.push(this.equipmentList[weapon_counter].alphaStrike.notes[nC]);
 						}
 
-						if (this.equipmentList[weapon_counter].alpha_strike.notes[nC].toLowerCase() == "mel") {
+						if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "mel") {
 							this.alphaStrikeForceStats.special_unit_abilities.push( "MEL" );
 						}
 
-						if (this.equipmentList[weapon_counter].alpha_strike.notes[nC].toLowerCase() == "heat") {
-							heatDamage.short += this.equipmentList[weapon_counter].alpha_strike.range_short;
-							heatDamage.medium += this.equipmentList[weapon_counter].alpha_strike.range_medium;
-							heatDamage.long += this.equipmentList[weapon_counter].alpha_strike.range_long;
-							heatDamage.extreme += this.equipmentList[weapon_counter].alpha_strike.range_extreme;
+						if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "heat") {
+							heatDamage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
+							heatDamage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
+							heatDamage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
+							heatDamage.extreme += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
 						}
 
-						if (this.equipmentList[weapon_counter].alpha_strike.notes[nC].toLowerCase() == "lrm") {
-							lrmDamage.short += this.equipmentList[weapon_counter].alpha_strike.range_short;
-							lrmDamage.medium += this.equipmentList[weapon_counter].alpha_strike.range_medium;
-							lrmDamage.long += this.equipmentList[weapon_counter].alpha_strike.range_long;
-							lrmDamage.extreme += this.equipmentList[weapon_counter].alpha_strike.range_extreme;
+						if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "lrm") {
+							lrmDamage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
+							lrmDamage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
+							lrmDamage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
+							lrmDamage.extreme += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
 						}
 
-						if (this.equipmentList[weapon_counter].alpha_strike.notes[nC].toLowerCase() == "ac") {
-							acDamage.short += this.equipmentList[weapon_counter].alpha_strike.range_short;
-							acDamage.medium += this.equipmentList[weapon_counter].alpha_strike.range_medium;
-							acDamage.long += this.equipmentList[weapon_counter].alpha_strike.range_long;
-							acDamage.extreme += this.equipmentList[weapon_counter].alpha_strike.range_extreme;
+						if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "ac") {
+							acDamage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
+							acDamage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
+							acDamage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
+							acDamage.extreme += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
 						}
 
-						if (this.equipmentList[weapon_counter].alpha_strike.notes[nC].toLowerCase() == "flak") {
-							flakDamage.short += this.equipmentList[weapon_counter].alpha_strike.range_short;
-							flakDamage.medium += this.equipmentList[weapon_counter].alpha_strike.range_medium;
-							flakDamage.long += this.equipmentList[weapon_counter].alpha_strike.range_long;
-							flakDamage.extreme += this.equipmentList[weapon_counter].alpha_strike.range_extreme;
+						if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "flak") {
+							flakDamage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
+							flakDamage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
+							flakDamage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
+							flakDamage.extreme += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
 						}
 
-						if (this.equipmentList[weapon_counter].alpha_strike.notes[nC].toLowerCase() == "srm") {
+						if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "srm") {
 
-							indirectFireRating += this.equipmentList[weapon_counter].alpha_strike.range_long;
+							indirectFireRating += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
 
 						}
 
-						if (this.equipmentList[weapon_counter].alpha_strike.notes[nC].toLowerCase() == "indirect fire" || this.equipmentList[weapon_counter].alpha_strike.notes[nC].toLowerCase() == "if") {
-							srmDamage.short += this.equipmentList[weapon_counter].alpha_strike.range_short;
-							srmDamage.medium += this.equipmentList[weapon_counter].alpha_strike.range_medium;
-							srmDamage.long += this.equipmentList[weapon_counter].alpha_strike.range_long;
-							srmDamage.extreme += this.equipmentList[weapon_counter].alpha_strike.range_extreme;
+						if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "indirect fire" || this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "if") {
+							srmDamage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
+							srmDamage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
+							srmDamage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
+							srmDamage.extreme += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
 						}
 
-						if (this.equipmentList[weapon_counter].alpha_strike.notes[nC].toLowerCase() == "missile" || this.equipmentList[weapon_counter].alpha_strike.notes[nC].toLowerCase() == "msl") {
-							mslDamage.short += this.equipmentList[weapon_counter].alpha_strike.range_short;
-							mslDamage.medium += this.equipmentList[weapon_counter].alpha_strike.range_medium;
-							mslDamage.long += this.equipmentList[weapon_counter].alpha_strike.range_long;
-							mslDamage.extreme += this.equipmentList[weapon_counter].alpha_strike.range_extreme;
+						if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "missile" || this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "msl") {
+							mslDamage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
+							mslDamage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
+							mslDamage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
+							mslDamage.extreme += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
 						}
 
 
@@ -531,10 +531,10 @@
 		var overheat_value = move_heat + total_weapon_heat - heatDissipation;
 		var long_overheat_value = move_heat + total_weapon_heat_long - heatDissipation;
 
-		//~ var before_heat_range_short = alphaStrikeForceStats.damage.short.toFixed(0) /1;
-		//~ var before_heat_range_medium = alphaStrikeForceStats.damage.medium.toFixed(0) /1;
-		//~ var before_heat_range_long = alphaStrikeForceStats.damage.long.toFixed(0) /1;
-		//~ var before_heat_range_extreme = alphaStrikeForceStats.damage.extreme.toFixed(0) /1;
+		//~ var before_heat_rangeShort = alphaStrikeForceStats.damage.short.toFixed(0) /1;
+		//~ var before_heat_rangeMedium = alphaStrikeForceStats.damage.medium.toFixed(0) /1;
+		//~ var before_heat_rangeLong = alphaStrikeForceStats.damage.long.toFixed(0) /1;
+		//~ var before_heat_rangeExtreme = alphaStrikeForceStats.damage.extreme.toFixed(0) /1;
 
 		//~ alphaStrikeForceStats.heat_damage = alphaStrikeForceStats.damage;
 
@@ -649,20 +649,20 @@
 		//~ var final_overheat_value = 0;
 
 
-		//~ if( alphaStrikeForceStats.damage.medium != "0*" && before_heat_range_medium - alphaStrikeForceStats.damage.medium > 0) {
-		//~ final_overheat_value = before_heat_range_medium - alphaStrikeForceStats.damage.medium;
+		//~ if( alphaStrikeForceStats.damage.medium != "0*" && before_heat_rangeMedium - alphaStrikeForceStats.damage.medium > 0) {
+		//~ final_overheat_value = before_heat_rangeMedium - alphaStrikeForceStats.damage.medium;
 		//~ } else {
 		//~ // try short range bracket since the med range is low.
 		//~ if( alphaStrikeForceStats.damage.short != "0*" )
-		//~ final_overheat_value = before_heat_range_short - alphaStrikeForceStats.damage.short;
+		//~ final_overheat_value = before_heat_rangeShort - alphaStrikeForceStats.damage.short;
 		//~ }
 		//~ if( final_overheat_value > 4 )
 		//~ final_overheat_value = 4;
 
 		// Determine Overheat Values - ASC - p116
 		//~ var final_long_overheat_value = 0;
-		//~ if( alphaStrikeForceStats.damage.long != "0*" && before_heat_range_long - alphaStrikeForceStats.damage.long > 0) {
-		//~ final_long_overheat_value = before_heat_range_long - alphaStrikeForceStats.damage.long;
+		//~ if( alphaStrikeForceStats.damage.long != "0*" && before_heat_rangeLong - alphaStrikeForceStats.damage.long > 0) {
+		//~ final_long_overheat_value = before_heat_rangeLong - alphaStrikeForceStats.damage.long;
 		//~ }
 
 		if (final_long_overheat_value > 4)
