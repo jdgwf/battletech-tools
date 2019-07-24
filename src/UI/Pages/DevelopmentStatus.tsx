@@ -93,11 +93,16 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                     <h4>Completed</h4>
                     <ul>
                       <li><del>Typescript interfaces for data</del></li>
+                      <li><del>BattleMech Class</del></li>
+                      <li><del>UI Sidebar/Steps as per TechManual</del></li>
+                      <li><del>Step 1 - Design the Chassis</del></li>
+                      <li><del>Step 2 - Install engine and control systems</del></li>
+                      <li><del>Step 3 - Add additional heat sinks</del></li>
+                      <li><del>Step 4 - Add armor</del></li>
                     </ul>
                     <h4>TO DO (short list)</h4>
                     <ul>
 
-                      <li>BattleMech Class</li>
                       <li>
                         BattleMech SVG
                         <ul>
@@ -105,7 +110,9 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                           <li>Interactive Hooks</li>
                         </ul>
                       </li>
-                      <li>UI Sidebar/Steps as per TechManual</li>
+
+                      <li>Step 5 - Add weapons, ammunition and other equipment</li>
+                      <li>Step 6 - Complete the record sheet (critical allocations)</li>
                       <li>Load/Save/Export</li>
                       <li>Add remaining Clan Equipment, IS SRM/LRMs to Data</li>
                       <li>In-Play Sheet</li>
