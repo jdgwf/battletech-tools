@@ -13,6 +13,7 @@ import { btMechTonnages } from '../../../Data/mech-tonnages';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleRight, faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
+import MechCreatorStatusbar from '../../Components/MechCreatorStatusBar';
 
 export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -83,6 +84,7 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
       return (
         <div className={this.props.appGlobals.showMobile ? "ui-page show-mobile" : "ui-page"}>
           <TopMenu current="mech-creator" sub="home" appGlobals={this.props.appGlobals}  />
+          <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  />
           <div className="content">
             <ShowAlerts appGlobals={this.props.appGlobals} />
             <div className="row">

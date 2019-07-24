@@ -2943,6 +2943,11 @@ export class BattleMech {
         return this.heatDissipation;
     }
 
+    getHeatSummary(): number {
+        // return  (10 + this.additionalHeatSinks) * this.heatSinkType.dissipation;
+        return this.getMoveHeat() + this.getWeaponHeat() - this.getHeatDissipation()
+    }
+
     getWalkSpeed() {
         return this.walkSpeed;
     }
@@ -3937,6 +3942,7 @@ export class BattleMech {
 
         return returnValue;
     }
+
 
     getAvailableGyros(): IGyro[] {
         let returnValue: IGyro[] = [];

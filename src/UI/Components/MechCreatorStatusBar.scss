@@ -1,0 +1,13 @@
+@import "../../common.scss";
+
+.mech-creator-status-bar {
+
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    border-top: solid 2px $primaryBG;
+    color: $fontColor;
+    background: $headerFooterBackground;
+    text-align: center;
+}

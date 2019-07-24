@@ -192,6 +192,17 @@ input[type=number] {
   }
 }
 
+.color-green {
+  color: $colorGreen;
+}
+
+.color-blue {
+  color: $colorBlue;
+}
+.color-red {
+  color: $colorRed;
+}
+
 .lr-padding {
   padding-right: .5rem !important;
   padding-left: .5rem !important;
