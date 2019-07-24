@@ -8,7 +8,7 @@ import { mechHeatSinkTypes } from "../Data/mech-heat-sink-types";
 import { mechEngineTypes } from "../Data/mech-engine-types";
 import { mechJumpJetTypes } from "../Data/mech-jump-jet-types";
 import { mechGyroTypes } from "../Data/mech-gyro-types";
-import { IEquipmentItem, IHeatSync, IEngineOption } from "../Data/dataInterfaces";
+import { IEquipmentItem, IHeatSync, IEngineOption, IEngineType, IGyro } from "../Data/dataInterfaces";
 import { mechEngineOptions } from "../Data/mech-engine-options";
 import { battlemechLocations } from "../Data/battlemechLocations";
 import { mechISEquipment } from "../Data/mech-is-equipment";
@@ -3918,6 +3918,73 @@ export class BattleMech {
                 //~ console.log( " currentItem",  currentItem);
             }
         }
+    }
+
+    getAvailableEngines(): IEngineType[] {
+        let returnValue: IEngineType[] = [];
+
+        let clanOrIS = "is";
+        if( this.tech.tag == "clan") {
+            clanOrIS = "clan";
+        }
+
+        for(let engine of mechEngineTypes ) {
+            if( engine.criticals && clanOrIS in engine.criticals ) {
+                engine.available = false;
+                if( engine.introduced <= this.era.yearStart ) {
+                    if( engine.extinct > 0 && engine.extinct <= this.era.yearEnd ) {
+                        // item extinct, check to see if it was reintroduced
+                        if( engine.reintroduced > 0 && engine.reintroduced <= this.era.yearEnd ) {
+                            engine.available = true;
+                        }
+                    } else {
+                        if( engine.extinct === 0 ) {
+                            engine.available = true;
+
+                        }
+                        // } else {
+                        //     if( engine.reintroduced > 0 && engine.reintroduced <= this.era.yearStart ) {
+                        //         engine.available = true;
+
+                        //     }
+                        // }
+                    }
+                }
+                returnValue.push( engine );
+            }
+        }
+
+        return returnValue;
+    }
+
+    getAvailableGyros(): IGyro[] {
+        let returnValue: IGyro[] = [];
+
+        for(let gyro of mechGyroTypes ) {
+            gyro.available = false;
+            if( gyro.introduced <= this.era.yearStart ) {
+                if( gyro.extinct > 0 && gyro.extinct <= this.era.yearEnd ) {
+                    // item extinct, check to see if it was reintroduced
+                    if( gyro.reintroduced > 0 && gyro.reintroduced <= this.era.yearEnd ) {
+                        gyro.available = true;
+                    }
+                } else {
+                    if( gyro.extinct === 0 ) {
+                        gyro.available = true;
+
+                    }
+                    // } else {
+                    //     if( engine.reintroduced > 0 && engine.reintroduced <= this.era.yearStart ) {
+                    //         engine.available = true;
+
+                    //     }
+                    // }
+                }
+            }
+            returnValue.push( gyro );
+        }
+
+        return returnValue;
     }
 }
 

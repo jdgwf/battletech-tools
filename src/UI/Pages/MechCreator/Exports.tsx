@@ -5,6 +5,9 @@ import ShowAlerts from '../../Components/ShowAlerts';
 import {IAppGlobals} from '../../AppRouter';
 import SanitizedHTML from '../../Components/SanitizedHTML';
 import MechCreatorSideMenu from '../../Components/MechCreatorSideMenu';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
 
 export default class MechCreatorExports extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -38,6 +41,15 @@ export default class MechCreatorExports extends React.Component<IHomeProps, IHom
                         <h2>Exports</h2>
                         <div className="section-content">
                           TODO
+
+
+                          <div className="clear-both overflow-hidden">
+                            <hr />
+
+                              <div className="text-left">
+                              <Link to={`${process.env.PUBLIC_URL}/mech-creator/summary`} className="btn btn-primary"><FontAwesomeIcon icon={faArrowCircleLeft} /> Summary</Link>
+                            </div>
+                          </div>
                         </div>
                       </div>
 

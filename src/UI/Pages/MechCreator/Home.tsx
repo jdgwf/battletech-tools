@@ -5,6 +5,9 @@ import ShowAlerts from '../../Components/ShowAlerts';
 import {IAppGlobals} from '../../AppRouter';
 import SanitizedHTML from '../../Components/SanitizedHTML';
 import MechCreatorSideMenu from '../../Components/MechCreatorSideMenu';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
 
 export default class MechCreatorHome extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -39,6 +42,11 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                           <p>Welcome to a BattleTech 'mech builder.</p>
 
                           <p>This tool attempts to closely follow the steps in the BattleTech TechManual and the steps in that book should be referenced during 'mech creation</p>
+
+                          <div className="clear-both overflow-hidden">
+                            <hr />
+                              <Link to={`${process.env.PUBLIC_URL}/mech-creator/step1`} className="btn btn-primary pull-right">Next Step <FontAwesomeIcon icon={faArrowCircleRight} /></Link>
+                          </div>
                         </div>
                       </div>
 

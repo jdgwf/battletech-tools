@@ -10,6 +10,9 @@ import { mechTypeOptions } from '../../../Data/mech-type-options';
 import { btEraOptions } from '../../../Data/era-options';
 import { mechInternalStructureTypes } from '../../../Data/mech-internal-structure-types';
 import { btMechTonnages } from '../../../Data/mech-tonnages';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowCircleRight, faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
 
 export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -182,6 +185,14 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             })}
                             </select>
                           </label>
+
+                          <div className="clear-both overflow-hidden">
+                          <hr />
+                            <Link to={`${process.env.PUBLIC_URL}/mech-creator/step2`} className="btn btn-primary pull-right">Next Step <FontAwesomeIcon icon={faArrowCircleRight} /></Link>
+                            <div className="text-left">
+                              <Link to={`${process.env.PUBLIC_URL}/mech-creator/`} className="btn btn-primary"><FontAwesomeIcon icon={faArrowCircleLeft} /> Previous Step</Link>
+                            </div>
+                          </div>
                         </div>
                       </div>
 

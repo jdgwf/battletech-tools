@@ -5,6 +5,9 @@ import ShowAlerts from '../../Components/ShowAlerts';
 import {IAppGlobals} from '../../AppRouter';
 import SanitizedHTML from '../../Components/SanitizedHTML';
 import MechCreatorSideMenu from '../../Components/MechCreatorSideMenu';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowCircleRight, faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
 
 export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -38,6 +41,14 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                         <h2>Step 4: Add armor</h2>
                         <div className="section-content">
                           TODO
+
+                          <div className="clear-both overflow-hidden">
+                            <hr />
+                            <Link to={`${process.env.PUBLIC_URL}/mech-creator/step5`} className="btn btn-primary pull-right">Next Step <FontAwesomeIcon icon={faArrowCircleRight} /></Link>
+                            <div className="text-left">
+                              <Link to={`${process.env.PUBLIC_URL}/mech-creator/step3`} className="btn btn-primary"><FontAwesomeIcon icon={faArrowCircleLeft} /> Previous Step</Link>
+                            </div>
+                          </div>
                         </div>
                       </div>
 

@@ -56,6 +56,7 @@ export interface IEngineType {
         [key: string]: ICritialLocations;
     },
     rating: number;
+    available?: boolean;
 }
 
 export interface IDamagePerRange {
@@ -153,6 +154,7 @@ export interface IGyro {
     introduced: number;
     extinct: number;
     reintroduced: number;
+    available?: boolean;
 }
 
 export interface IHeatSync {
