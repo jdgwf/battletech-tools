@@ -14,25 +14,29 @@
         width: 4rem;
         select {
             display: inline-block;
-            width: 4rem;
+            width: 3rem;
             font-size: 1rem;
-            padding: .125rem;
+            padding: 0;
+            text-align: center;
+        }
+        .title {
+            font-size: .8rem;
         }
         &.hd {
-            left: 92px;
+            left: 85px;
             top: -4px;
         }
 
         &.ct {
-            left: 92px;
-            top: 51px;
+            left: 85px;
+            top: 65px;
         }
         &.rt {
-            left: 143px;
+            left: 145px;
             top: 22px;
         }
         &.lt {
-            left: 40px;
+            left: 35px;
             top: 22px;
         }
         &.ra {
@@ -54,16 +58,16 @@
 
 
         &.ctr {
-            left: 92px;
-            top: 127px;
+            left: 85px;
+            top: 160px;
         }
         &.rtr {
             left: 143px;
-            top: 103px;
+            top: 110px;
         }
         &.ltr {
             left: 40px;
-            top: 103px;
+            top: 110px;
         }
     }
 
@@ -86,15 +90,22 @@
             height: 565px;
             width: 422px;
         }
+        select {
+            width: 4rem;
+        }
         .armor-select-dropdown {
             position: absolute;
             text-align: center;
             // border: solid 1px #900;
             display: inline-block;
             width: 4rem;
+            .title {
+                font-size: 1rem;
+            }
             select {
                 display: inline-block;
-                width: 4rem;
+                width: 3rem;
+                font-size: 1rem;
             }
             &.hd {
                 left: 177px;

@@ -42,7 +42,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                       <div className="text-section">
                         <h2>Step 5: Add weapons, ammunition and other equipment</h2>
                         <div className="section-content">
-                          TODO
+                          TODO (up next!)
 
                           <div className="clear-both overflow-hidden">
                             <hr />

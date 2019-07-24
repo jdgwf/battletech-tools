@@ -4096,17 +4096,17 @@ export class BattleMech {
 
     allocateArmorMax() {
         this.armorAllocation = {
-            head: this.getInteralStructure().head,
+            head: 9,
             centerTorso: Math.ceil(this.getInteralStructure().centerTorso * 5/3),
             rightTorso: Math.ceil(this.getInteralStructure().rightTorso * 5/3),
             leftTorso: Math.ceil(this.getInteralStructure().leftTorso * 5/3),
             centerTorsoRear: Math.floor(this.getInteralStructure().centerTorso * 1/3),
             rightTorsoRear: Math.floor(this.getInteralStructure().rightTorso * 1/3),
             leftTorsoRear: Math.floor(this.getInteralStructure().leftTorso * 1/3),
-            leftArm: this.getInteralStructure().leftArm,
-            rightArm: this.getInteralStructure().rightArm,
-            leftLeg: this.getInteralStructure().leftLeg,
-            rightLeg: this.getInteralStructure().rightLeg,
+            leftArm: this.getInteralStructure().leftArm * 2,
+            rightArm: this.getInteralStructure().rightArm * 2,
+            leftLeg: this.getInteralStructure().leftLeg * 2,
+            rightLeg: this.getInteralStructure().rightLeg * 2,
         }
     }
 

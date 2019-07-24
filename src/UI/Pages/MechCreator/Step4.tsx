@@ -5,7 +5,7 @@ import TopMenu from '../../Components/TopMenu';
 import ShowAlerts from '../../Components/ShowAlerts';
 import {IAppGlobals} from '../../AppRouter';
 import SanitizedHTML from '../../Components/SanitizedHTML';
-import BattlmechDiagramSVG from '../../Components/BattlmechDiagramSVG';
+import BattlmechDiagramSVG from '../../Components/BattlmechArmorDiagramSVG';
 import MechCreatorSideMenu from '../../Components/MechCreatorSideMenu';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -222,12 +222,12 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
 
                             <div className="armor-location-select">
 
-                            <div className="armor-select-dropdown hd">
+                            <label className="armor-select-dropdown hd">
                                 <div className="title">HD</div>
                                 <select
                                   value={this.props.appGlobals.currentBattleMech.getArmorAllocation().head}
                                   onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "hd", +event.currentTarget.value)}
-                                  title="Change this 'mech's head armor value"
+                                  title="Change this BattleMech's head armor value"
                                 >
                                   {makeRange(0, 9).map( (armorValue) => {
                                     return (
@@ -235,15 +235,15 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                                     )
                                   })}
                                 </select>
-                              </div>
+                              </label>
 
-                              <div className="armor-select-dropdown ct">
+                              <label className="armor-select-dropdown ct">
                                   <div className="title">CT</div>
                                 <select
                                   value={this.props.appGlobals.currentBattleMech.getArmorAllocation().centerTorso}
                                   onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "ct", +event.currentTarget.value)}
 
-                                  title="Change this 'mech's center torso armor value"
+                                  title="Change this BattleMech's center torso armor value"
                                 >
                                   {makeRange(0, this.props.appGlobals.currentBattleMech.getMaxCenterTorsoArmor()).map( (armorValue) => {
                                     return (
@@ -251,15 +251,15 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                                     )
                                   })}
                                 </select>
-                              </div>
+                              </label>
 
 
-                              <div className="armor-select-dropdown lt">
+                              <label className="armor-select-dropdown lt">
                                 <div className="title">LT</div>
                                 <select
                                   value={this.props.appGlobals.currentBattleMech.getArmorAllocation().leftTorso}
                                   onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "lt", +event.currentTarget.value)}
-                                  title="Change this 'mech's left torso armor value"
+                                  title="Change this BattleMech's left torso armor value"
                                 >
                                   {makeRange(0, this.props.appGlobals.currentBattleMech.getMaxLeftTorsoArmor()).map( (armorValue) => {
                                     return (
@@ -267,14 +267,14 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                                     )
                                   })}
                                 </select>
-                              </div>
+                              </label>
 
-                              <div className="armor-select-dropdown rt">
+                              <label className="armor-select-dropdown rt">
                                 <div className="title">RT</div>
                                 <select
                                   value={this.props.appGlobals.currentBattleMech.getArmorAllocation().rightTorso}
                                   onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "rt", +event.currentTarget.value)}
-                                  title="Change this 'mech's left torso armor value"
+                                  title="Change this BattleMech's right torso armor value"
                                 >
                                   {makeRange(0, this.props.appGlobals.currentBattleMech.getMaxRightTorsoArmor()).map( (armorValue) => {
                                     return (
@@ -282,16 +282,16 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                                     )
                                   })}
                                 </select>
-                              </div>
+                              </label>
 
 
-                              <div className="armor-select-dropdown ctr">
+                              <label className="armor-select-dropdown ctr">
                                   <div className="title">CT (R)</div>
                                 <select
                                   value={this.props.appGlobals.currentBattleMech.getArmorAllocation().centerTorsoRear}
                                   onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "ctr", +event.currentTarget.value)}
 
-                                  title="Change this 'mech's center torso armor value"
+                                  title="Change this BattleMech's rear center torso armor value"
                                 >
                                   {makeRange(0, this.props.appGlobals.currentBattleMech.getMaxCenterTorsoRearArmor()).map( (armorValue) => {
                                     return (
@@ -299,15 +299,15 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                                     )
                                   })}
                                 </select>
-                              </div>
+                              </label>
 
 
-                              <div className="armor-select-dropdown ltr">
+                              <label className="armor-select-dropdown ltr">
                                 <div className="title">LT (R)</div>
                                 <select
                                   value={this.props.appGlobals.currentBattleMech.getArmorAllocation().leftTorsoRear}
                                   onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "ltr", +event.currentTarget.value)}
-                                  title="Change this 'mech's left torso armor value"
+                                  title="Change this BattleMech's rear left torso armor value"
                                 >
                                   {makeRange(0, this.props.appGlobals.currentBattleMech.getMaxLeftTorsoRearArmor()).map( (armorValue) => {
                                     return (
@@ -315,14 +315,14 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                                     )
                                   })}
                                 </select>
-                              </div>
+                              </label>
 
-                              <div className="armor-select-dropdown rtr">
+                              <label className="armor-select-dropdown rtr">
                                 <div className="title">RT (R)</div>
                                 <select
                                   value={this.props.appGlobals.currentBattleMech.getArmorAllocation().rightTorsoRear}
                                   onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "rtr", +event.currentTarget.value)}
-                                  title="Change this 'mech's left torso armor value"
+                                  title="Change this BattleMech's rear right torso armor value"
                                 >
                                   {makeRange(0, this.props.appGlobals.currentBattleMech.getMaxRightTorsoRearArmor()).map( (armorValue) => {
                                     return (
@@ -330,15 +330,15 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                                     )
                                   })}
                                 </select>
-                              </div>
+                              </label>
 
 
-                              <div className="armor-select-dropdown la">
+                              <label className="armor-select-dropdown la">
                                 <div className="title">LA</div>
                                 <select
                                   value={this.props.appGlobals.currentBattleMech.getArmorAllocation().leftArm}
                                   onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "la", +event.currentTarget.value)}
-                                  title="Change this 'mech's left Arm armor value"
+                                  title="Change this BattleMech's left arm armor value"
                                 >
                                   {makeRange(0, this.props.appGlobals.currentBattleMech.getInteralStructure().leftArm * 2).map( (armorValue) => {
                                     return (
@@ -346,14 +346,14 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                                     )
                                   })}
                                 </select>
-                              </div>
+                              </label>
 
-                              <div className="armor-select-dropdown ra">
+                              <label className="armor-select-dropdown ra">
                                 <div className="title">RA</div>
                                 <select
                                   value={this.props.appGlobals.currentBattleMech.getArmorAllocation().rightArm}
                                   onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "ra", +event.currentTarget.value)}
-                                  title="Change this 'mech's left Arm armor value"
+                                  title="Change this BattleMech's right arm armor value"
                                 >
                                   {makeRange(0, this.props.appGlobals.currentBattleMech.getInteralStructure().rightArm * 2).map( (armorValue) => {
                                     return (
@@ -361,14 +361,14 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                                     )
                                   })}
                                 </select>
-                              </div>
+                              </label>
 
-                              <div className="armor-select-dropdown ll">
+                              <label className="armor-select-dropdown ll">
                                 <div className="title">LL</div>
                                 <select
                                   value={this.props.appGlobals.currentBattleMech.getArmorAllocation().leftArm}
                                   onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "ll", +event.currentTarget.value)}
-                                  title="Change this 'mech's left Leg armor value"
+                                  title="Change this BattleMech's left leg armor value"
                                 >
                                   {makeRange(0, this.props.appGlobals.currentBattleMech.getInteralStructure().leftArm * 2).map( (armorValue) => {
                                     return (
@@ -376,14 +376,14 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                                     )
                                   })}
                                 </select>
-                              </div>
+                              </label>
 
-                              <div className="armor-select-dropdown rl">
+                              <label className="armor-select-dropdown rl">
                                 <div className="title">RL</div>
                                 <select
                                   value={this.props.appGlobals.currentBattleMech.getArmorAllocation().rightArm}
                                   onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "rl", +event.currentTarget.value)}
-                                  title="Change this 'mech's left Leg armor value"
+                                  title="Change this BattleMech's right leg armor value"
                                 >
                                   {makeRange(0, this.props.appGlobals.currentBattleMech.getInteralStructure().rightArm * 2).map( (armorValue) => {
                                     return (
@@ -391,7 +391,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                                     )
                                   })}
                                 </select>
-                              </div>
+                              </label>
 
                               <BattlmechDiagramSVG
                                 strokeColor="rgb(100,100,100)"
