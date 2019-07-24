@@ -3930,26 +3930,7 @@ export class BattleMech {
 
         for(let engine of mechEngineTypes ) {
             if( engine.criticals && clanOrIS in engine.criticals ) {
-                engine.available = false;
-                if( engine.introduced <= this.era.yearStart ) {
-                    if( engine.extinct > 0 && engine.extinct <= this.era.yearEnd ) {
-                        // item extinct, check to see if it was reintroduced
-                        if( engine.reintroduced > 0 && engine.reintroduced <= this.era.yearEnd ) {
-                            engine.available = true;
-                        }
-                    } else {
-                        if( engine.extinct === 0 ) {
-                            engine.available = true;
-
-                        }
-                        // } else {
-                        //     if( engine.reintroduced > 0 && engine.reintroduced <= this.era.yearStart ) {
-                        //         engine.available = true;
-
-                        //     }
-                        // }
-                    }
-                }
+                engine.available = this._itemIsAvailable( engine.introduced, engine.extinct, engine.reintroduced);
                 returnValue.push( engine );
             }
         }
@@ -3961,30 +3942,30 @@ export class BattleMech {
         let returnValue: IGyro[] = [];
 
         for(let gyro of mechGyroTypes ) {
-            gyro.available = false;
-            if( gyro.introduced <= this.era.yearStart ) {
-                if( gyro.extinct > 0 && gyro.extinct <= this.era.yearEnd ) {
-                    // item extinct, check to see if it was reintroduced
-                    if( gyro.reintroduced > 0 && gyro.reintroduced <= this.era.yearEnd ) {
-                        gyro.available = true;
-                    }
-                } else {
-                    if( gyro.extinct === 0 ) {
-                        gyro.available = true;
+            gyro.available = this._itemIsAvailable( gyro.introduced, gyro.extinct, gyro.reintroduced);
 
-                    }
-                    // } else {
-                    //     if( engine.reintroduced > 0 && engine.reintroduced <= this.era.yearStart ) {
-                    //         engine.available = true;
-
-                    //     }
-                    // }
-                }
-            }
             returnValue.push( gyro );
         }
 
         return returnValue;
+    }
+
+    private _itemIsAvailable( introduced: number, extinct: number, reintroduced: number): boolean {
+        if( introduced <= this.era.yearStart ) {
+            if( extinct > 0 && extinct <= this.era.yearEnd ) {
+                // item extinct, check to see if it was reintroduced
+                if( reintroduced > 0 && reintroduced <= this.era.yearEnd ) {
+                    return true;
+                }
+            } else {
+                if( extinct === 0 ) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+
     }
 }
 

@@ -28,7 +28,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
           <div className="content">
             <ShowAlerts appGlobals={this.props.appGlobals} />
             <div className="row">
-              <div className="col-md-3 col-lg-2">
+              <div className="d-none d-md-block col-md-3 col-lg-2">
                 <MechCreatorSideMenu
                   appGlobals={this.props.appGlobals}
                   current="home"
@@ -45,7 +45,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
 
                           <div className="clear-both overflow-hidden">
                             <hr />
-                              <Link to={`${process.env.PUBLIC_URL}/mech-creator/step1`} className="btn btn-primary pull-right">Next Step <FontAwesomeIcon icon={faArrowCircleRight} /></Link>
+                              <Link to={`${process.env.PUBLIC_URL}/mech-creator/step1`} className="btn btn-primary pull-right btn-sm">Next Step <FontAwesomeIcon icon={faArrowCircleRight} /></Link>
                           </div>
                         </div>
                       </div>

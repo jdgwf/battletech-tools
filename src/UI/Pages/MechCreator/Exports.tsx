@@ -28,7 +28,7 @@ export default class MechCreatorExports extends React.Component<IHomeProps, IHom
           <div className="content">
             <ShowAlerts appGlobals={this.props.appGlobals} />
             <div className="row">
-              <div className="col-md-3 col-lg-2">
+              <div className="d-none d-md-block col-md-3 col-lg-2">
                 <MechCreatorSideMenu
                   appGlobals={this.props.appGlobals}
                   current="exports"
@@ -47,7 +47,7 @@ export default class MechCreatorExports extends React.Component<IHomeProps, IHom
                             <hr />
 
                               <div className="text-left">
-                              <Link to={`${process.env.PUBLIC_URL}/mech-creator/summary`} className="btn btn-primary"><FontAwesomeIcon icon={faArrowCircleLeft} /> Summary</Link>
+                              <Link to={`${process.env.PUBLIC_URL}/mech-creator/summary`} className="btn btn-primary btn-sm"><FontAwesomeIcon icon={faArrowCircleLeft} /> Summary</Link>
                             </div>
                           </div>
                         </div>
