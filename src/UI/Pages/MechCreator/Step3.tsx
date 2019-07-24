@@ -39,6 +39,10 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
     }
 
     render() {
+      let weightDropDownMax = this.props.appGlobals.currentBattleMech.getRemainingTonnage() + this.props.appGlobals.currentBattleMech.getAdditionalHeatSinks();
+      if( weightDropDownMax < this.props.appGlobals.currentBattleMech.getAdditionalHeatSinks()) {
+        weightDropDownMax = this.props.appGlobals.currentBattleMech.getArmorWeight()
+      }
       return (
         <div className={this.props.appGlobals.showMobile ? "ui-page show-mobile" : "ui-page"}>
           <TopMenu current="mech-creator" sub="home" appGlobals={this.props.appGlobals}  />
@@ -79,7 +83,7 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
                                 onChange={this.setAdditionalHeatSinks}
                               >
                                 <option value={0}>None</option>
-                                {makeRange(1, this.props.appGlobals.currentBattleMech.getRemainingTonnage()).map( (option) => {
+                                {makeRange(1, weightDropDownMax).map( (option) => {
                                 return (
                                   <option key={option} value={option}>{option}</option>
                                 )

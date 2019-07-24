@@ -1,0 +1,157 @@
+.armor-location-select {
+    position: relative;
+    text-align: left;
+    padding-bottom: 5rem;
+    svg {
+        width: 250px;
+        height: 335px;
+    }
+    .armor-select-dropdown {
+        position: absolute;
+        text-align: center;
+        // border: solid 1px #900;
+        display: inline-block;
+        width: 4rem;
+        select {
+            display: inline-block;
+            width: 3rem;
+            font-size: 1rem;
+            padding: .125rem;
+        }
+        &.hd {
+            left: 92px;
+            top: -4px;
+        }
+
+        &.ct {
+            left: 92px;
+            top: 51px;
+        }
+        &.rt {
+            left: 143px;
+            top: 22px;
+        }
+        &.lt {
+            left: 40px;
+            top: 22px;
+        }
+        &.ra {
+            left: 195px;
+            top: 65px;
+        }
+        &.la {
+            left: -10px;
+            top: 65px;
+        }
+        &.rl {
+            left: 154px;
+            top: 242px;
+        }
+        &.ll {
+            left: 27px;
+            top: 242px;
+        }
+
+
+        &.ctr {
+            left: 92px;
+            top: 127px;
+        }
+        &.rtr {
+            left: 143px;
+            top: 103px;
+        }
+        &.ltr {
+            left: 40px;
+            top: 103px;
+        }
+    }
+
+    .armor-breakdown {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        font-size: .8rem;
+        z-index: 100;
+    }
+
+}
+
+@media (min-width: 768px) {
+
+    .armor-location-select {
+        position: relative;
+        text-align: left;
+        svg {
+            height: 565px;
+            width: 422px;
+        }
+        .armor-select-dropdown {
+            position: absolute;
+            text-align: center;
+            // border: solid 1px #900;
+            display: inline-block;
+            width: 4rem;
+            select {
+                display: inline-block;
+                width: 3rem;
+            }
+            &.hd {
+                left: 177px;
+                top: 15px;
+            }
+
+            &.ct {
+                left: 177px;
+                top: 125px;
+            }
+            &.rt {
+                left: 255px;
+                top: 75px;
+            }
+            &.lt {
+                left: 100px;
+                top: 75px;
+            }
+            &.ra {
+                left: 345px;
+                top: 195px;
+            }
+            &.la {
+                left: 12px;
+                top: 195px;
+            }
+            &.rl {
+                left: 276px;
+                top: 425px;
+            }
+            &.ll {
+                left: 75px;
+                top: 425px;
+            }
+
+
+            &.ctr {
+                left: 177px;
+                top: 225px;
+            }
+            &.rtr {
+                left: 243px;
+                top: 210px;
+            }
+            &.ltr {
+                left: 109px;
+                top: 210px;
+            }
+        }
+
+        .armor-breakdown {
+            position: absolute;
+            bottom: 0;
+            left: 20px;
+            font-size: .8rem;
+        }
+
+    }
+
+}

@@ -8,7 +8,7 @@ import { mechHeatSinkTypes } from "../Data/mech-heat-sink-types";
 import { mechEngineTypes } from "../Data/mech-engine-types";
 import { mechJumpJetTypes } from "../Data/mech-jump-jet-types";
 import { mechGyroTypes } from "../Data/mech-gyro-types";
-import { IEquipmentItem, IHeatSync, IEngineOption, IEngineType, IGyro } from "../Data/dataInterfaces";
+import { IEquipmentItem, IHeatSync, IEngineOption, IEngineType, IGyro, IArmorType } from "../Data/dataInterfaces";
 import { mechEngineOptions } from "../Data/mech-engine-options";
 import { battlemechLocations } from "../Data/battlemechLocations";
 import { mechISEquipment } from "../Data/mech-is-equipment";
@@ -2188,7 +2188,7 @@ export class BattleMech {
 			});
         }
 
-        let totalArmor = this.armorWeight * 16;
+        this.totalArmor = this.armorWeight * 16;
 
         //~ switch( this.getArmorType() ) {
 
@@ -2197,19 +2197,19 @@ export class BattleMech {
         //~ break;
         //~ }
         if (this.getTech().tag === "clan") {
-            totalArmor = Math.floor(this.armorWeight * this.getArmorObj().armorMultiplier.clan);
+            this.totalArmor = Math.floor(this.armorWeight * this.getArmorObj().armorMultiplier.clan);
         } else {
-            totalArmor = Math.floor(this.armorWeight * this.getArmorObj().armorMultiplier.is);
+            this.totalArmor = Math.floor(this.armorWeight * this.getArmorObj().armorMultiplier.is);
         }
 
         if (this.totalArmor > this.maxArmor)
-            totalArmor = this.maxArmor;
+            this.totalArmor = this.maxArmor;
 
         this.weights.push({
             name: "Armor",
             weight: this.armorWeight
         });
-        this.unallocatedArmor = totalArmor;
+        this.unallocatedArmor = this.totalArmor;
         this.unallocatedArmor -= this.armorAllocation.head;
 
         this.unallocatedArmor -= this.armorAllocation.centerTorso;
@@ -2252,7 +2252,6 @@ export class BattleMech {
         }
 
         this.currentTonnage = 0;
-        console.log("this.weights", this.weights)
         for( let weight_counter = 0; weight_counter < this.weights.length; weight_counter++) {
             this.currentTonnage += this.weights[weight_counter].weight;
         }
@@ -2993,6 +2992,7 @@ export class BattleMech {
         for( let aCount = 0; aCount < mechArmorTypes.length; aCount++) {
             if (mechArmorTypes[aCount].tag === armorTag) {
                 this.armorType = mechArmorTypes[aCount];
+                this.calc();
             }
         }
         return this.armorType;
@@ -3930,7 +3930,7 @@ export class BattleMech {
         let returnValue: IEngineType[] = [];
 
         let clanOrIS = "is";
-        if( this.tech.tag == "clan") {
+        if( this.tech.tag === "clan") {
             clanOrIS = "clan";
         }
 
@@ -3957,6 +3957,18 @@ export class BattleMech {
         return returnValue;
     }
 
+    getAvailableArmorTypes(): IArmorType[] {
+        let returnValue: IArmorType[] = [];
+
+        for(let armor of mechArmorTypes ) {
+            armor.available = this._itemIsAvailable( armor.introduced, armor.extinct, armor.reintroduced);
+
+            returnValue.push( armor );
+        }
+
+        return returnValue;
+    }
+
     private _itemIsAvailable( introduced: number, extinct: number, reintroduced: number): boolean {
         if( introduced <= this.era.yearStart ) {
             if( extinct > 0 && extinct <= this.era.yearEnd ) {
@@ -3973,6 +3985,151 @@ export class BattleMech {
 
         return false;
 
+    }
+
+    allocateArmorClear() {
+        this.armorAllocation = {
+            head: 0,
+            centerTorso: 0,
+            rightTorso: 0,
+            leftTorso: 0,
+            centerTorsoRear: 0,
+            rightTorsoRear: 0,
+            leftTorsoRear: 0,
+            leftArm: 0,
+            rightArm: 0,
+            leftLeg: 0,
+            rightLeg: 0,
+        }
+    }
+
+    allocateArmorSane() {
+
+
+        let totalArmor = this.getTotalArmor();
+        let internal_structure = this.getInteralStructure();
+        let maximum_armor = this.getMaxArmor();
+        let percentage = totalArmor / maximum_armor;
+
+
+        let arm_armor = Math.floor(internal_structure.rightArm * 2 * percentage);
+        let torso_armor = Math.floor(internal_structure.rightTorso * 1.75 * percentage);
+        let leg_armor = Math.floor(internal_structure.rightLeg * 2 * percentage);
+        let rear_armor = Math.floor(internal_structure.rightTorso * .25 * percentage);;
+
+        let centerTorsoArmor = Math.floor(internal_structure.centerTorso * 1.75 * percentage);
+        let centerTorsoArmorRear = Math.floor(internal_structure.centerTorso * .25 * percentage);
+
+        if( totalArmor > arm_armor) {
+            let head_armor = arm_armor;
+            if( head_armor > 9)
+                head_armor = 9;
+            if( totalArmor >= head_armor) {
+               this.setHeadArmor(head_armor);
+               totalArmor -= head_armor;
+            } else {
+                this.setHeadArmor(0);
+            }
+        }
+
+
+        if( totalArmor > torso_armor) {
+           this.setRightTorsoArmor( torso_armor );
+           totalArmor -= torso_armor;
+        }
+
+        if( totalArmor > rear_armor) {
+           this.setRightTorsoRearArmor( rear_armor );
+            totalArmor -= rear_armor;
+        }
+
+        if( totalArmor > torso_armor) {
+            this.setLeftTorsoArmor( torso_armor );
+            totalArmor -= torso_armor;
+        }
+        if( totalArmor > rear_armor) {
+            this.setLeftTorsoRearArmor( rear_armor );
+           totalArmor -= rear_armor;
+        }
+
+        if( totalArmor > leg_armor) {
+            this.setRightLegArmor( leg_armor );
+            totalArmor -= leg_armor;
+        }
+
+        if( totalArmor > leg_armor) {
+           this.setLeftLegArmor( leg_armor );
+           totalArmor -= leg_armor;
+        }
+
+        if( totalArmor > arm_armor) {
+            this.setRightArmArmor( arm_armor );
+           totalArmor -= arm_armor;
+        }
+        if( totalArmor > arm_armor) {
+           this.setLeftArmArmor( arm_armor );
+           totalArmor -= arm_armor;
+        }
+
+        if( totalArmor > rear_armor) {
+           this.setCenterTorsoRearArmor( centerTorsoArmorRear );
+           totalArmor -= rear_armor;
+        }
+
+        this.setCenterTorsoArmor( centerTorsoArmor ); // everything else goes to center torso! :)
+
+
+        // this.armorAllocation = {
+        //     head: 0,
+        //     centerTorso: 0,
+        //     rightTorso: 0,
+        //     leftTorso: 0,
+        //     centerTorsoRear: 0,
+        //     rightTorsoRear: 0,
+        //     leftTorsoRear: 0,
+        //     leftArm: 0,
+        //     rightArm: 0,
+        //     leftLeg: 0,
+        //     rightLeg: 0,
+        // }
+    }
+
+    allocateArmorMax() {
+        this.armorAllocation = {
+            head: this.getInteralStructure().head,
+            centerTorso: Math.ceil(this.getInteralStructure().centerTorso * 5/3),
+            rightTorso: Math.ceil(this.getInteralStructure().rightTorso * 5/3),
+            leftTorso: Math.ceil(this.getInteralStructure().leftTorso * 5/3),
+            centerTorsoRear: Math.floor(this.getInteralStructure().centerTorso * 1/3),
+            rightTorsoRear: Math.floor(this.getInteralStructure().rightTorso * 1/3),
+            leftTorsoRear: Math.floor(this.getInteralStructure().leftTorso * 1/3),
+            leftArm: this.getInteralStructure().leftArm,
+            rightArm: this.getInteralStructure().rightArm,
+            leftLeg: this.getInteralStructure().leftLeg,
+            rightLeg: this.getInteralStructure().rightLeg,
+        }
+    }
+
+
+    getMaxCenterTorsoRearArmor(): number {
+        return this.getInteralStructure().centerTorso * 2 - this.getArmorAllocation().centerTorso;
+    }
+    getMaxCenterTorsoArmor(): number {
+        return this.getInteralStructure().centerTorso * 2 - this.getArmorAllocation().centerTorsoRear;
+    }
+
+    getMaxRightTorsoRearArmor(): number {
+        return this.getInteralStructure().rightTorso * 2 - this.getArmorAllocation().rightTorso;
+    }
+    getMaxRightTorsoArmor(): number {
+        return this.getInteralStructure().rightTorso * 2 - this.getArmorAllocation().rightTorsoRear;
+    }
+
+    getMaxLeftTorsoRearArmor(): number {
+        return this.getInteralStructure().leftTorso * 2 - this.getArmorAllocation().leftTorso;
+    }
+    getMaxLeftTorsoArmor(): number {
+        return this.getInteralStructure().leftTorso * 2 - this.getArmorAllocation().leftTorsoRear;
     }
 }
 

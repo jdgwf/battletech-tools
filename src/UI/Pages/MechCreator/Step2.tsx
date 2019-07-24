@@ -119,6 +119,8 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                                       return (
                                         <option disabled={true} key={engineIndex} value={engineData.tag}>{engineData.name}</option>
                                       )
+                                    } else {
+                                      return <></>
                                     }
                                   }
                               })}
@@ -142,6 +144,8 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                                       return (
                                         <option disabled={true} key={gyroIndex} value={gyroData.tag}>{gyroData.name}</option>
                                       )
+                                    } else {
+                                      return <></>
                                     }
                                   }
                               })}

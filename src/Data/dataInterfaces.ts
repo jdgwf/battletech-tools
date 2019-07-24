@@ -16,7 +16,8 @@ export interface IArmorType {
 	reintroduced: number;
 	critLocs?: {
 		[key: string]: number;
-	}
+    };
+    available?: boolean;
 }
 
 
