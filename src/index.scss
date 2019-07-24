@@ -519,6 +519,9 @@ body {
     p {
         color: #333;
     }
+    a {
+      text-decoration: underline;
+    }
     &.alert-fade {
         -webkit-transition: height .2s ease;
         -moz-transition: height .2s ease;
