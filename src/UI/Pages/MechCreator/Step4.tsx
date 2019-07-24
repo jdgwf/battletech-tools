@@ -187,7 +187,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                               </select>
                             </label>
 
-                          STILL WIP: Armor Allocation Diagram
+                          <br />
                           <fieldset className="fieldset">
                             <legend>Armor Allocation</legend>
                             <div className="row">
