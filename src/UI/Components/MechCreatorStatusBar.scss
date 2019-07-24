@@ -1,7 +1,7 @@
 @import "../../common.scss";
 
 .mech-creator-status-bar {
-
+    z-index: 1024;
     position: fixed;
     left: 0;
     bottom: 0;
@@ -10,4 +10,6 @@
     color: $fontColor;
     background: $headerFooterBackground;
     text-align: center;
+    padding: 0 .125rem;
+    font-size: .9rem;
 }

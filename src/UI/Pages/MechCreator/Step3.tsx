@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleRight, faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import MechCreatorStatusbar from '../../Components/MechCreatorStatusBar';
+import { makeRange } from '../../../utils';
 
 export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -16,6 +17,21 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
         this.state = {
             updated: false,
         }
+
+        this.setAdditionalHeatSinks = this.setAdditionalHeatSinks.bind(this);
+        this.setHeatSinkType = this.setHeatSinkType.bind(this);
+    }
+
+    setAdditionalHeatSinks( event: React.FormEvent<HTMLSelectElement>) {
+      let currentMech = this.props.appGlobals.currentBattleMech;
+      currentMech.setAdditionalHeatSinks( +event.currentTarget.value);
+      this.props.appGlobals.saveCurrentBattleMech( currentMech );
+    }
+
+    setHeatSinkType( event: React.FormEvent<HTMLSelectElement>) {
+      let currentMech = this.props.appGlobals.currentBattleMech;
+      currentMech.setHeatSinksType( event.currentTarget.value);
+      this.props.appGlobals.saveCurrentBattleMech( currentMech );
     }
 
     componentDidMount ()  {
@@ -42,7 +58,46 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
                       <div className="text-section">
                         <h2>Step 3: Add additional heat sinks</h2>
                         <div className="section-content">
-                          TODO
+                          <p className="text-center">Your BattleMech includes 10 heat sinks.</p>
+
+                          <label>
+                              Heat Sink Technology :
+                              <select
+                                value={this.props.appGlobals.currentBattleMech.getHeatSinksType()}
+                                onChange={this.setHeatSinkType}
+                              >
+                                <option value="single">Single</option>
+                                <option value="double">Double</option>
+
+                              </select>
+                            </label>
+
+                            <label>
+                              Add additional heat sinks:
+                              <select
+                                value={this.props.appGlobals.currentBattleMech.getAdditionalHeatSinks()}
+                                onChange={this.setAdditionalHeatSinks}
+                              >
+                                <option value={0}>None</option>
+                                {makeRange(1, this.props.appGlobals.currentBattleMech.getRemainingTonnage()).map( (option) => {
+                                return (
+                                  <option key={option} value={option}>{option}</option>
+                                )
+                              })}
+                              </select>
+                            </label>
+                              <br />
+                              {this.props.appGlobals.currentBattleMech.getHeatSinkCriticalRequirements().number > 0 ? (
+                                  <>{this.props.appGlobals.currentBattleMech.getHeatSinkCriticalRequirements().number === 1 ? (
+                                      <p className="text-center">One critical slot is required for your engine class and selected heat sinks</p>
+                                    ) : (
+                                      <p className="text-center">{this.props.appGlobals.currentBattleMech.getHeatSinkCriticalRequirements().number} critical slots are required for your engine class and selected heat sinks</p>
+                                    )}
+                                  </>
+                              ) : (
+                                <p className="text-center">No additional critical slots are required for your engine class and selected heat sinks</p>
+                              )}
+
 
                           <div className="clear-both overflow-hidden">
                             <hr />

@@ -390,12 +390,14 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                       <Button
                         onClick={() => this.props.appGlobals.saveASGroupFavorite( asGroup )}
                         title="Click here to add this group to your favorites."
+                        className="btn-sm"
                       >
                         <FontAwesomeIcon icon={faHeart} />
                       </Button>
                       <Button
                         onClick={() => this.removeGroup(asGroupIndex)}
                         title="Click here to remove this group."
+                        className="btn-sm"
                       >
                         <FontAwesomeIcon icon={faTrash} />
                       </Button>

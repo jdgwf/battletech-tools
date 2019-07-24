@@ -106,3 +106,13 @@ export function getMovementModifier( moveScore: number ): number {
 	return 0;
 
 }
+
+export function makeRange( start: number, end: number): number[] {
+    let returnValue: number[] = [];
+
+    for( let count = start; count <= end; count++ ) {
+        returnValue.push( count );
+    }
+
+    return returnValue;
+}

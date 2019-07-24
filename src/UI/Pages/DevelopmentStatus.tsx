@@ -52,7 +52,7 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                       <li>Google Drive Sign in/Sync</li>
                       <li>Office 365/ OneDrive Sign in/Sync<sup>*</sup></li>
                       <li>Dropbox Sign in/Sync<sup>*</sup></li>
-                      <li>Apple iDrive Sign in/Sync<sup>*</sup></li>
+                      <li>Apple iCloud Drive Sign in/Sync<sup>*</sup></li>
                       <li>Nextcloud Sign in/Sync<sup>*</sup></li>
                     </ul>
                     <div className="small-pt-text">

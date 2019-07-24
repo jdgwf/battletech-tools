@@ -61,7 +61,7 @@ select, input, label, textarea {
 }
 input[type=checkbox] {
   width: auto;
-  display: inline;
+  display: inline-block;
 }
 select,
 textarea,
@@ -99,6 +99,7 @@ input[type=number] {
   width: 100%;
   color: $fontColor;
   position: relative;
+
   a {
     color: $primaryBG;
     outline: none !important;
@@ -130,8 +131,8 @@ input[type=number] {
   .content {
     position: absolute;
     left: 0;
-    top: 4rem;
-    padding: 0 2rem;
+    top: 5rem;
+    padding: 0 2rem 5rem 2rem;
     transition: left .5s;
     width: 100%;
   }
@@ -258,7 +259,9 @@ h4 {
 
 // Bootstrap overrrides
 body {
-
+  .inline-block {
+    display: inline-block
+  }
 
   .no-wrap {
     white-space: nowrap;

@@ -177,8 +177,6 @@ export class BattleMech {
         rightLeg: 0,
     };
 
-    heatSinkType = mechHeatSinkTypes[0];
-
     equipmentList: IEquipmentItem[] = [];
     sortedEquipmentList: string[] = [];
 
@@ -216,7 +214,7 @@ export class BattleMech {
         number: 0,
     };
 
-    _heatSinkType: IHeatSync = mechHeatSinkTypes[0];
+    heatSinkType: IHeatSync = mechHeatSinkTypes[0];
 
     maxArmorTonnage = 0;
 
@@ -2120,6 +2118,8 @@ export class BattleMech {
         this.maxMoveHeat = 2;
         this.heatDissipation = 0;
 
+        this.weights = [];
+
         this.weights.push({
             name: "Internal Structure",
             weight: this.getInteralStructureWeight()
@@ -2252,6 +2252,7 @@ export class BattleMech {
         }
 
         this.currentTonnage = 0;
+        console.log("this.weights", this.weights)
         for( let weight_counter = 0; weight_counter < this.weights.length; weight_counter++) {
             this.currentTonnage += this.weights[weight_counter].weight;
         }
@@ -2266,7 +2267,7 @@ export class BattleMech {
         //~ this.heatSinkCriticals.slots_type = "single slot";
         // this.heatSinkCriticals.slotsEach = 1;
 
-        //~ if( this._heatSinkType === "double") {
+        //~ if( this.heatSinkType === "double") {
         //~ if( this.tech.tag === "clan") {
         //~ this.heatSinkCriticals.slots_type = "double slot";
         //~ this.heatSinkCriticals.slotsEach = 2;
@@ -2281,11 +2282,11 @@ export class BattleMech {
         //~ _heatDissipation = this.additionalHeatSinks + 10;
         //~ }
 
-        this.heatDissipation = (this.additionalHeatSinks + 10) * this._heatSinkType.dissipation;
+        this.heatDissipation = (this.additionalHeatSinks + 10) * this.heatSinkType.dissipation;
         if( this.getTech().tag === "clan") {
-            this.heatSinkCriticals.slotsEach = this._heatSinkType.crits.clan;
+            this.heatSinkCriticals.slotsEach = this.heatSinkType.crits.clan;
         } else {
-            this.heatSinkCriticals.slotsEach = this._heatSinkType.crits.is;
+            this.heatSinkCriticals.slotsEach = this.heatSinkType.crits.is;
         }
 
 		let findEngine = this.getEngine();
@@ -2896,20 +2897,20 @@ export class BattleMech {
     }
 
     getHeatSinksType() {
-        return this._heatSinkType.tag;
+        return this.heatSinkType.tag;
     }
 
     getHeatSinksObj() {
-        return this._heatSinkType;
+        return this.heatSinkType;
     }
 
     setHeatSinksType(newValue: string) {
-        for( let lCounter = 0; lCounter < mechHeatSinkTypes.length; lCounter++) {
-            if (mechHeatSinkTypes[lCounter].tag === newValue)
-                this.heatSinkType = mechHeatSinkTypes[lCounter];
+        for( let heatSink of mechHeatSinkTypes ) {
+            if (heatSink.tag === newValue)
+                this.heatSinkType = heatSink;
         }
 
-        return this._heatSinkType;
+        return this.heatSinkType;
     }
 
     getCurrentTonnage() {
