@@ -70,7 +70,57 @@
             top: 110px;
         }
     }
+    &.quad {
+        .armor-select-dropdown {
+            &.hd {
+                left: 92px;
+                top: 21px;
+            }
 
+            &.ct {
+                left: 92px;
+                top: 83px;
+            }
+            &.rt {
+                left: 162px;
+                top: 22px;
+            }
+            &.lt {
+                left: 22px;
+                top: 26px;
+            }
+            &.rfl {
+                left: 165px;
+                top: 165px;
+            }
+            &.lfl {
+                left: 20px;
+                top: 165px;
+            }
+            &.rrl {
+                left: 125px;
+                top: 254px;
+            }
+            &.lrl {
+                left: 63px;
+                top: 254px;
+            }
+
+
+            &.ctr {
+                left: 92px;
+                top: 137px;
+            }
+            &.rtr {
+                left: 162px;
+                top: 90px;
+            }
+            &.ltr {
+                left: 22px;
+                top: 90px;
+            }
+        }
+    }
     .armor-breakdown {
         position: absolute;
         bottom: 0;
@@ -153,6 +203,60 @@
             &.ltr {
                 left: 109px;
                 top: 210px;
+            }
+
+
+        }
+
+        &.quad {
+            .armor-select-dropdown {
+                &.hd {
+                    left: 177px;
+                    top: 80px;
+                }
+
+                &.ct {
+                    left: 177px;
+                    top: 163px;
+                }
+                &.rt {
+                    left: 270px;
+                    top: 75px;
+                }
+                &.lt {
+                    left: 87px;
+                    top: 75px;
+                }
+                &.rfl {
+                    left: 300px;
+                    top: 305px;
+                }
+                &.lfl {
+                    left: 58px;
+                    top: 305px;
+                }
+                &.rrl {
+                    left: 239px;
+                    top: 425px;
+                }
+                &.lrl {
+                    left: 118px;
+                    top: 425px;
+                }
+
+
+                &.ctr {
+                    left: 177px;
+                    top: 250px;
+                }
+                &.rtr {
+                    left: 270px;
+                    top: 175px;
+                }
+                &.ltr {
+                    left: 87px;
+                    top: 175px;
+                }
             }
         }
 

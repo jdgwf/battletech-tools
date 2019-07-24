@@ -1,14 +1,14 @@
 
 import React from 'react';
 
-export default class BattlmechArmorDiagramSVG extends React.Component<IBattlmechArmorDiagramSVGProps, IBattlmechArmorDiagramSVGState> {
+export default class BipedArmorDiagramSVG extends React.Component<IBipedArmorDiagramSVGProps, IBipedArmorDiagramSVGState> {
     bgColor = "rgb(255,255,255)";
     strokeColor = "rgb(0,0,0)";
     theWidth = 744;
     theHeight = 627;
     xLoc = 0;
     yLoc = 0;
-    constructor(props: IBattlmechArmorDiagramSVGProps) {
+    constructor(props: IBipedArmorDiagramSVGProps) {
         super(props);
         this.state = {
         }
@@ -88,7 +88,7 @@ export default class BattlmechArmorDiagramSVG extends React.Component<IBattlmech
     }
 }
 
-interface IBattlmechArmorDiagramSVGProps {
+interface IBipedArmorDiagramSVGProps {
     bgColor?: string;
     strokeColor?: string;
 
@@ -98,5 +98,5 @@ interface IBattlmechArmorDiagramSVGProps {
     width?: number;
 }
 
-interface IBattlmechArmorDiagramSVGState {
+interface IBipedArmorDiagramSVGState {
 }
