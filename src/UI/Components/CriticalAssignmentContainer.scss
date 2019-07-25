@@ -1,0 +1,106 @@
+@import "../../common.scss";
+
+.critical-assignment-container {
+    margin: 0 0 10px 0;
+    padding: 0;
+    li {
+        background: $darkenedBG;
+        display: block;
+        margin: 0;
+        padding: 0 5px;
+        border: 1px solid $primaryBG;
+        border-radius: 5px;
+        margin: 2px;
+        font-size: 11px;
+        text-align: center;
+        &:nth-child(7) {
+            margin-top: 17px;
+        }
+        &.critical-placeholder {
+            display: none !important;
+        }
+        &.critical-height- {
+            border: 1px solid $lightBG;
+            .card-title {
+                display: block;
+                height: 15px;
+            }
+        }
+        &.critical-height-1 .card-title {
+            display: block;
+            height: 15px;
+            margin: 2px 2px 2px 2px;
+        }
+        &.critical-height-2 .card-title {
+            display: block;
+            height: 30px;
+            margin: 2px 2px 4px 2px;
+        }
+        &.critical-height-3 .card-title {
+            display: block;
+            height: 45px;
+            margin: 2px 2px 6px 2px;
+        }
+        &.critical-height-4 .card-title {
+            display: block;
+            height: 60px;
+            margin: 2px 2px 8px 2px;
+        }
+        &.critical-height-5 .card-title {
+            display: block;
+            height: 75px;
+            margin: 2px 2px 10px 2px;
+        }
+        &.critical-height-6 .card-title {
+            display: block;
+            height: 90px;
+            margin: 2px 2px 12px 2px;
+        }
+        &.critical-height-7 .card-title {
+            display: block;
+            height: 105px;
+            margin: 2px 2px 14px 2px;
+        }
+        &.critical-height-8 .card-title {
+            display: block;
+            height: 120px;
+            margin: 2px 2px 16px 2px;
+        }
+        &.critical-height-9 .card-title {
+            display: block;
+            height: 135px;
+            margin: 2px 2px 18px 2px;
+        }
+        &.critical-height-10 .card-title {
+            display: block;
+            height: 150px;
+            margin: 2px 2px 20px 2px;
+        }
+        &.selected-item {
+            background: $lightBG !important;
+            color: $secondaryTextColor !important;
+        }
+        &.unmovable {
+            color: #fff !important;
+            background: #333;
+            border-color: #333;
+        }
+        &.clickable-item {
+            cursor: move;
+            &:hover {
+                background: $primaryBG;
+            }
+        }
+
+        .grayed {
+            color: #999 !important;
+
+        }
+    }
+// 	.as-sortable-dragging + li {
+// 	//	&.critical-height-1 {
+// 			display: none;
+// 	//	}
+
+// 	}
+}

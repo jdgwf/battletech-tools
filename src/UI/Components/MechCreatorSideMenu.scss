@@ -1,3 +1,5 @@
+@import "../../common.scss";
+
 .sidebar-menu {
     list-style: none;
     margin: 0 0 40px 0;
@@ -13,4 +15,20 @@
             }
         }
     }
+
+    .btn-lightbg {
+        background-color: $lightBG;
+        border-color: $lightBG;
+        color: $bodyBackground;
+        &:hover {
+          background-color: $lightBGHover;
+          border-color: $lightBGHover;
+          color: $bodyBackground;
+        }
+        &:disabled {
+          background-color: #222;
+          border-color: #000;
+          color: 0;
+        }
+      }
 }

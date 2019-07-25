@@ -24,7 +24,7 @@ interface IWeights {
     weight: number;
 }
 
-interface ICriticalSlot {
+export interface ICriticalSlot {
 	uuid: string;
 	name: string;
 	tag: string;
@@ -39,16 +39,6 @@ interface ICriticalSlot {
     slot?: number;
 }
 
-// interface IMechCriticals {
-// 	head: ICriticalSlot[];
-// 	centerTorso: ICriticalSlot[];
-// 	rightTorso: ICriticalSlot[];
-// 	leftTorso: ICriticalSlot[];
-// 	leftArm: ICriticalSlot[];
-// 	rightArm: ICriticalSlot[];
-// 	leftLeg: ICriticalSlot[];
-// 	rightLeg: ICriticalSlot[];
-// }
 
 interface IMechCriticals {
 	[location: string]: ICriticalSlot[];
@@ -501,37 +491,43 @@ export class BattleMech {
         // }
 
         for( let lCrit = 0; lCrit < this.criticals.rightLeg.length; lCrit++) {
-            if (this.criticals.rightLeg[lCrit] && this.criticals.rightLeg[lCrit].tag === "case") {
+            let item = this.criticals.rightLeg[lCrit];
+            if (item && item.tag === "case") {
                 caseEnabled_RL = true;
             }
         }
 
         for( let lCrit = 0; lCrit < this.criticals.leftLeg.length; lCrit++) {
-            if (this.criticals.leftLeg[lCrit] && this.criticals.leftLeg[lCrit].tag === "case") {
+            let item = this.criticals.leftLeg[lCrit];
+            if (item && item.tag === "case") {
                 caseEnabled_LL = true;
             }
         }
 
         for( let lCrit = 0; lCrit < this.criticals.rightArm.length; lCrit++) {
-            if (this.criticals.rightArm[lCrit] && this.criticals.rightArm[lCrit].tag === "case") {
+            let item = this.criticals.rightArm[lCrit];
+            if (item && item.tag === "case") {
                 caseEnabled_RA = true;
             }
         }
 
         for( let lCrit = 0; lCrit < this.criticals.leftArm.length; lCrit++) {
-            if (this.criticals.leftArm[lCrit] && this.criticals.leftArm[lCrit].tag === "case") {
+            let item = this.criticals.leftArm[lCrit];
+            if (item && item.tag === "case") {
                 caseEnabled_LA = true;
             }
         }
 
         for( let lCrit = 0; lCrit < this.criticals.rightTorso.length; lCrit++) {
-            if (this.criticals.rightTorso[lCrit] && this.criticals.rightTorso[lCrit].tag === "case") {
+            let item = this.criticals.rightTorso[lCrit];
+            if (item && item.tag === "case") {
                 caseEnabled_RT = true;
             }
         }
 
         for( let lCrit = 0; lCrit < this.criticals.leftTorso.length; lCrit++) {
-            if (this.criticals.leftTorso[lCrit] && this.criticals.leftTorso[lCrit].tag === "case") {
+            let item = this.criticals.leftTorso[lCrit];
+            if (item && item.tag === "case") {
                 caseEnabled_LT = true;
             }
         }
@@ -542,67 +538,66 @@ export class BattleMech {
 
             // check head
             for( let lCrit = 0; lCrit < this.criticals.head.length; lCrit++) {
-                if (this.criticals.head[lCrit]) {
-                    if (this.criticals.head[lCrit] && this.criticals.head[lCrit].obj && this.criticals.head[lCrit].obj.explosive) {
-                        this.calcLogBV += "Explosive Ammo Crit in Head (Clan, -15)<br />";
-                        explosiveAmmoModifiers += 15;
-                    }
-                    if (this.criticals.head[lCrit] && this.criticals.head[lCrit].obj && this.criticals.head[lCrit].obj.gauss) {
-                        this.calcLogBV += "Gauss Crit in Head (Clan, -1)<br />";
-                        explosiveAmmoModifiers += 1;
-                    }
+                let item = this.criticals.head[lCrit];
+                if (item && item.obj && item.obj.explosive) {
+                    this.calcLogBV += "Explosive Ammo Crit in Head (Clan, -15)<br />";
+                    explosiveAmmoModifiers += 15;
                 }
+                if (item && item.obj && item.obj.gauss) {
+                    this.calcLogBV += "Gauss Crit in Head (Clan, -1)<br />";
+                    explosiveAmmoModifiers += 1;
+                }
+
             }
 
             // check ct
             for( let lCrit = 0; lCrit < this.criticals.centerTorso.length; lCrit++) {
-                if (this.criticals.centerTorso[lCrit]) {
-                    if (this.criticals.centerTorso[lCrit] && this.criticals.centerTorso[lCrit].obj && this.criticals.centerTorso[lCrit].obj.explosive) {
-                        this.calcLogBV += "Explosive Ammo Crit in Center Torso (Clan, -15)<br />";
-                        explosiveAmmoModifiers += 15;
-                    }
-                    if (this.criticals.centerTorso[lCrit] && this.criticals.centerTorso[lCrit].obj && this.criticals.centerTorso[lCrit].obj.gauss) {
-                        this.calcLogBV += "Gauss Crit in Center Torso (Clan, -1)<br />";
-                        explosiveAmmoModifiers += 1;
-                    }
+                let item = this.criticals.centerTorso[lCrit];
+                if (item && item.obj && item.obj.explosive) {
+                    this.calcLogBV += "Explosive Ammo Crit in Center Torso (Clan, -15)<br />";
+                    explosiveAmmoModifiers += 15;
                 }
+                if (item && item.obj && item.obj.gauss) {
+                    this.calcLogBV += "Gauss Crit in Center Torso (Clan, -1)<br />";
+                    explosiveAmmoModifiers += 1;
+                }
+
             }
 
             // check lt
             for( let lCrit = 0; lCrit < this.criticals.leftTorso.length; lCrit++) {
-                if (this.criticals.leftTorso[lCrit]) {
-                    if (this.criticals.leftTorso[lCrit] && this.criticals.leftTorso[lCrit].obj && this.criticals.leftTorso[lCrit].obj.explosive) {
-                        this.calcLogBV += "Explosive Ammo Crit in Left Torso (Clan,-15)<br />";
-                        explosiveAmmoModifiers += 15;
-                    }
-                    if (this.criticals.leftTorso[lCrit] && this.criticals.leftTorso[lCrit].obj && this.criticals.leftTorso[lCrit].obj.gauss) {
-                        this.calcLogBV += "Gauss Crit in Left Torso (Clan, -1)<br />";
-                        explosiveAmmoModifiers += 1;
-                    }
+                let item = this.criticals.leftTorso[lCrit];
+                if (item && item.obj && item.obj.explosive) {
+                    this.calcLogBV += "Explosive Ammo Crit in Left Torso (Clan,-15)<br />";
+                    explosiveAmmoModifiers += 15;
+                }
+                if (item && item.obj && item.obj.gauss) {
+                    this.calcLogBV += "Gauss Crit in Left Torso (Clan, -1)<br />";
+                    explosiveAmmoModifiers += 1;
                 }
             }
 
             // check rt
             for( let lCrit = 0; lCrit < this.criticals.rightTorso.length; lCrit++) {
-                if (this.criticals.rightTorso[lCrit]) {
-                    if (this.criticals.rightTorso[lCrit] && this.criticals.rightTorso[lCrit].obj && this.criticals.rightTorso[lCrit].obj.explosive) {
-                        this.calcLogBV += "Explosive Ammo Crit in Right Torso (Clan,-15)<br />";
-                        explosiveAmmoModifiers += 15;
-                    }
-                    if (this.criticals.rightTorso[lCrit] && this.criticals.rightTorso[lCrit].obj && this.criticals.rightTorso[lCrit].obj.gauss) {
-                        this.calcLogBV += "Gauss Crit in Center Right (Clan, -1)<br />";
-                        explosiveAmmoModifiers += 1;
-                    }
+                let item = this.criticals.rightTorso[lCrit];
+                if (item && item.obj && item.obj.explosive) {
+                    this.calcLogBV += "Explosive Ammo Crit in Right Torso (Clan,-15)<br />";
+                    explosiveAmmoModifiers += 15;
+                }
+                if (item && item.obj && item.obj.gauss) {
+                    this.calcLogBV += "Gauss Crit in Center Right (Clan, -1)<br />";
+                    explosiveAmmoModifiers += 1;
                 }
             }
 
             // check rl
             for( let lCrit = 0; lCrit < this.criticals.rightLeg.length; lCrit++) {
-                if (this.criticals.rightLeg[lCrit] && this.criticals.rightLeg[lCrit].obj && this.criticals.rightLeg[lCrit].obj.explosive) {
+                let item = this.criticals.leftLeg[lCrit];
+                if (item && item.obj && item.obj.explosive) {
                     this.calcLogBV += "Explosive Ammo Crit in Right Leg (Clan, -15)<br />";
                     explosiveAmmoModifiers += 15;
                 }
-                if (this.criticals.rightLeg[lCrit] && this.criticals.rightLeg[lCrit].obj && this.criticals.rightLeg[lCrit].obj.gauss) {
+                if (item && item.obj && item.obj.gauss) {
                     this.calcLogBV += "Gauss Crit in Right Leg (Clan, -1)<br />";
                     explosiveAmmoModifiers += 1;
                 }
@@ -610,11 +605,12 @@ export class BattleMech {
 
             // check ll
             for( let lCrit = 0; lCrit < this.criticals.leftLeg.length; lCrit++) {
-                if (this.criticals.leftLeg[lCrit] && this.criticals.leftLeg[lCrit].obj && this.criticals.leftLeg[lCrit].obj.explosive) {
+                let item = this.criticals.leftLeg[lCrit];
+                if ( item && item.obj && item.obj.explosive) {
                     this.calcLogBV += "Explosive Ammo Crit in Left Leg (Clan, -15)<br />";
                     explosiveAmmoModifiers += 15;
                 }
-                if (this.criticals.leftLeg[lCrit] && this.criticals.leftLeg[lCrit].obj && this.criticals.leftLeg[lCrit].obj.gauss) {
+                if (item && item.obj && item.obj.gauss) {
                     this.calcLogBV += "Gauss Crit in Left Leg (Clan, -1)<br />";
                     explosiveAmmoModifiers += 1;
                 }
@@ -623,74 +619,75 @@ export class BattleMech {
         } else if (this.tech.tag === "is") {
             // check head
             for( let lCrit = 0; lCrit < this.criticals.head.length; lCrit++) {
-                if (this.criticals.head[lCrit]) {
-                    if (this.criticals.head[lCrit] && this.criticals.head[lCrit].obj && this.criticals.head[lCrit].obj.explosive) {
-                        this.calcLogBV += "Explosive Ammo Crit in Head (Inner Sphere,-15)<br />";
-                        explosiveAmmoModifiers += 15;
-                    }
-
+                let item = this.criticals.head[lCrit];
+                if (item && item.obj && item.obj.explosive) {
+                    this.calcLogBV += "Explosive Ammo Crit in Head (Inner Sphere,-15)<br />";
+                    explosiveAmmoModifiers += 15;
                 }
+
             }
 
             // check ct
             for( let lCrit = 0; lCrit < this.criticals.centerTorso.length; lCrit++) {
-                if (this.criticals.centerTorso[lCrit]) {
-                    if (this.criticals.centerTorso[lCrit] && this.criticals.centerTorso[lCrit].obj && this.criticals.centerTorso[lCrit].obj.explosive) {
-                        this.calcLogBV += "Explosive Ammo Crit in Center Torso (Inner Sphere,-15)<br />";
-                        explosiveAmmoModifiers += 15;
-                    }
-                    if (this.criticals.centerTorso[lCrit] && this.criticals.centerTorso[lCrit].obj && this.criticals.centerTorso[lCrit].obj.gauss) {
-                        this.calcLogBV += "Gauss Crit in Center Torso (Inner Sphere, -1)<br />";
-                        explosiveAmmoModifiers += 1;
-                    }
+                let item = this.criticals.centerTorso[lCrit];
+                if (item && item.obj && item.obj.explosive) {
+                    this.calcLogBV += "Explosive Ammo Crit in Center Torso (Inner Sphere,-15)<br />";
+                    explosiveAmmoModifiers += 15;
                 }
+                if (item && item.obj && item.obj.gauss) {
+                    this.calcLogBV += "Gauss Crit in Center Torso (Inner Sphere, -1)<br />";
+                    explosiveAmmoModifiers += 1;
+                }
+
             }
 
             // check lt
             for( let lCrit = 0; lCrit < this.criticals.leftTorso.length; lCrit++) {
-                if (this.criticals.leftTorso[lCrit]) {
-                    if (this.criticals.leftTorso[lCrit] && this.criticals.leftTorso[lCrit].obj && this.criticals.leftTorso[lCrit].obj.explosive) {
-                        this.calcLogBV += "Explosive Ammo Crit in Left Torso (Inner Sphere,-15)<br />";
-                        explosiveAmmoModifiers += 15;
-                    }
-                    if (this.criticals.leftTorso[lCrit] && this.criticals.leftTorso[lCrit].obj && this.criticals.leftTorso[lCrit].obj.gauss) {
-                        this.calcLogBV += "Gauss Crit in Left Torso (Inner Sphere, -1)<br />";
-                        explosiveAmmoModifiers += 1;
-                    }
+                let item = this.criticals.leftTorso[lCrit];
+
+                if (item && item.obj && item.obj.explosive) {
+                    this.calcLogBV += "Explosive Ammo Crit in Left Torso (Inner Sphere,-15)<br />";
+                    explosiveAmmoModifiers += 15;
                 }
+                if (item && item.obj && item.obj.gauss) {
+                    this.calcLogBV += "Gauss Crit in Left Torso (Inner Sphere, -1)<br />";
+                    explosiveAmmoModifiers += 1;
+                }
+
             }
 
             // check rt
             for( let lCrit = 0; lCrit < this.criticals.rightTorso.length; lCrit++) {
-                if (this.criticals.rightTorso[lCrit]) {
-                    if (this.criticals.rightTorso[lCrit] && this.criticals.rightTorso[lCrit].obj && this.criticals.rightTorso[lCrit].obj.explosive) {
-                        this.calcLogBV += "Explosive Ammo Crit in Right Torso (Inner Sphere,-15)<br />";
-                        explosiveAmmoModifiers += 15;
-                    }
-                    if (this.criticals.rightTorso[lCrit] && this.criticals.rightTorso[lCrit].obj && this.criticals.rightTorso[lCrit].obj.gauss) {
-                        this.calcLogBV += "Gauss Crit in Center Right (Inner Sphere, -1)<br />";
-                        explosiveAmmoModifiers += 1;
-                    }
+                let item = this.criticals.rightTorso[lCrit];
+                if (item && item.obj && item.obj.explosive) {
+                    this.calcLogBV += "Explosive Ammo Crit in Right Torso (Inner Sphere,-15)<br />";
+                    explosiveAmmoModifiers += 15;
                 }
+                if (item && item.obj && item.obj.gauss) {
+                    this.calcLogBV += "Gauss Crit in Center Right (Inner Sphere, -1)<br />";
+                    explosiveAmmoModifiers += 1;
+                }
+
             }
 
             // check rl
             for( let lCrit = 0; lCrit < this.criticals.rightLeg.length; lCrit++) {
-                if (this.criticals.rightLeg[lCrit] && this.criticals.rightLeg[lCrit].obj && this.criticals.rightLeg[lCrit].obj.explosive) {
+                let item = this.criticals.rightLeg[lCrit];
+                if (item && item.obj && item.obj.explosive) {
                     this.calcLogBV += "Explosive Ammo Crit in Right Leg (Inner Sphere, -15)<br />";
                     explosiveAmmoModifiers += 15;
                 }
-                if (this.criticals.rightLeg[lCrit] && this.criticals.rightLeg[lCrit].obj && this.criticals.rightLeg[lCrit].obj.gauss) {
+                if (item && item.obj && item.obj.gauss) {
                     this.calcLogBV += "Gauss Crit in Right Leg (Inner Sphere, -1)<br />";
                     explosiveAmmoModifiers += 1;
                 }
 
                 if (caseEnabled_RT === false && caseEnabled_RL === false) {
-                    if (this.criticals.rightLeg[lCrit] && this.criticals.rightLeg[lCrit].obj && this.criticals.rightLeg[lCrit].obj.explosive) {
+                    if (item && item.obj && item.obj.explosive) {
                         this.calcLogBV += "Explosive Ammo Crit in Right Leg, Right Torso and Right Leg to not have CASE (Inner Sphere, -15)<br />";
                         explosiveAmmoModifiers += 15;
                     }
-                    if (this.criticals.rightLeg[lCrit] && this.criticals.rightLeg[lCrit].obj && this.criticals.rightLeg[lCrit].obj.gauss) {
+                    if (item && item.obj && item.obj.gauss) {
                         this.calcLogBV += "Gauss Crit in Right Leg, Right Torso and Right Leg to not have CASE (Inner Sphere, -1)<br />";
                         explosiveAmmoModifiers += 1;
                     }
@@ -699,21 +696,24 @@ export class BattleMech {
 
             // check ll
             for( let lCrit = 0; lCrit < this.criticals.leftLeg.length; lCrit++) {
-                if (this.criticals.leftLeg[lCrit] && this.criticals.leftLeg[lCrit].obj && this.criticals.leftLeg[lCrit].obj.explosive) {
+                let item = this.criticals.leftLeg[lCrit];
+                if (item && item.obj && item.obj.explosive) {
                     this.calcLogBV += "Explosive Ammo Crit in Left Leg (Inner Sphere, -15)<br />";
                     explosiveAmmoModifiers += 15;
                 }
-                if (this.criticals.leftLeg[lCrit] && this.criticals.leftLeg[lCrit].obj && this.criticals.leftLeg[lCrit].obj.gauss) {
+                if (item && item.obj && item.obj.gauss) {
                     this.calcLogBV += "Gauss Crit in Left Leg (Inner Sphere, -1)<br />";
                     explosiveAmmoModifiers += 1;
                 }
 
                 if (caseEnabled_LT === false && caseEnabled_LL === false) {
-                    if (this.criticals.rightLeg[lCrit] && this.criticals.rightLeg[lCrit].obj && this.criticals.rightLeg[lCrit].obj.explosive) {
+                    let item = this.criticals.rightLeg[lCrit];
+
+                    if (item && item.obj && item.obj.explosive) {
                         this.calcLogBV += "Explosive Ammo Crit in Left Leg, Left Torso and Left Leg to not have CASE (Inner Sphere, -15)<br />";
                         explosiveAmmoModifiers += 15;
                     }
-                    if (this.criticals.leftLeg[lCrit] && this.criticals.leftLeg[lCrit].obj && this.criticals.leftLeg[lCrit].obj.gauss) {
+                    if (item && item.obj && item.obj.gauss) {
                         this.calcLogBV += "Gauss Crit in Left Leg, Left Torso and Left Leg to not have CASE (Inner Sphere, -1)<br />";
                         explosiveAmmoModifiers += 1;
                     }
@@ -725,11 +725,13 @@ export class BattleMech {
             for( let lCrit = 0; lCrit < this.criticals.rightArm.length; lCrit++) {
 
                 if (caseEnabled_RT === false && caseEnabled_RA === false) {
-                    if (this.criticals.rightArm[lCrit] && this.criticals.rightArm[lCrit].obj && this.criticals.rightArm[lCrit].obj.explosive) {
+                    let item = this.criticals.rightArm[lCrit];
+
+                    if (item && item.obj && item.obj.explosive) {
                         this.calcLogBV += "Explosive Ammo Crit in Right Arm, Right Torso and Right Arm to not have CASE (Inner Sphere, -15)<br />";
                         explosiveAmmoModifiers += 15;
                     }
-                    if (this.criticals.rightArm[lCrit] && this.criticals.rightArm[lCrit].obj && this.criticals.rightArm[lCrit].obj.gauss) {
+                    if (item && item.obj && item.obj.gauss) {
                         this.calcLogBV += "Gauss Crit in Right Arm, Right Torso and Right Arm to not have CASE (Inner Sphere, -1)<br />";
                         explosiveAmmoModifiers += 1;
                     }
@@ -741,11 +743,12 @@ export class BattleMech {
             for( let lCrit = 0; lCrit < this.criticals.leftArm.length; lCrit++) {
 
                 if (caseEnabled_LT === false && caseEnabled_LA === false) {
-                    if (this.criticals.leftArm[lCrit] && this.criticals.leftArm[lCrit].obj && this.criticals.leftArm[lCrit].obj.explosive) {
+                    let item = this.criticals.leftArm[lCrit];
+                    if (item && item.obj && item.obj.explosive) {
                         this.calcLogBV += "Explosive Ammo Crit in Left Arm, Left Torso and Left Arm to not have CASE (Inner Sphere, -15)<br />";
                         explosiveAmmoModifiers += 15;
                     }
-                    if (this.criticals.leftArm[lCrit] && this.criticals.leftArm[lCrit].obj && this.criticals.leftArm[lCrit].obj.gauss) {
+                    if (item && item.obj && item.obj.gauss) {
                         this.calcLogBV += "Gauss Crit in Left Arm, Left Torso and Left Arm to not have CASE (Inner Sphere, -1)<br />";
                         explosiveAmmoModifiers += 1;
                     }
@@ -1797,13 +1800,14 @@ export class BattleMech {
         for( let locC = 0; locC < this.validJJLocations.length; locC++) {
 
             for( let critC = 0; critC < this.criticals[this.validJJLocations[locC].long].length; critC++) {
+                let item = this.criticals[this.validJJLocations[locC].long][critC];
                 if (
-                    this.criticals[this.validJJLocations[locC].long][critC] &&
-                    this.criticals[this.validJJLocations[locC].long][critC].tag &&
-                    this.criticals[this.validJJLocations[locC].long][critC].tag.indexOf("jj-") === 0
+                    item &&
+                    item.tag &&
+                    item.tag.indexOf("jj-") === 0
                 ) {
-                    if (this.criticals[this.validJJLocations[locC].long][critC].name.length + 3 > col1Padding)
-                        col1Padding = this.criticals[this.validJJLocations[locC].long][critC].name.length + 3;
+                    if (item.name.length + 3 > col1Padding)
+                        col1Padding = item.name.length + 3;
                 }
             }
         }
@@ -2034,10 +2038,11 @@ export class BattleMech {
 
             let jjObjs = [];
             for( let critC = 0; critC < this.criticals[this.validJJLocations[locC].long].length; critC++) {
+                let item = this.criticals[this.validJJLocations[locC].long][critC];
                 if (
-                    this.criticals[this.validJJLocations[locC].long][critC] &&
-                    this.criticals[this.validJJLocations[locC].long][critC].tag &&
-                    this.criticals[this.validJJLocations[locC].long][critC].tag.indexOf("jj-") === 0
+                   item &&
+                   item.tag &&
+                   item.tag.indexOf("jj-") === 0
                 ) {
                     jjObjs.push(this.criticals[this.validJJLocations[locC].long][critC]);
                 }
@@ -2055,7 +2060,10 @@ export class BattleMech {
                     // 90+ tons
                     areaWeight = jjObjs.length * this.jumpJetType.weight_multiplier.heavy;
                 }
-                html += "<tr><td class=\"text-left\">" + jjObjs[0].name + "</td><td class=\"text-center\">" + this.validJJLocations[locC].short.toUpperCase() + "</strong></td><td class=\"text-center\">" + jjObjs.length + "</td><td class=\"text-center\">" + areaWeight + "</td></tr>";
+                let jjObj = jjObjs[0];
+                if( jjObj ) {
+                    html += "<tr><td class=\"text-left\">" + jjObj.name + "</td><td class=\"text-center\">" + this.validJJLocations[locC].short.toUpperCase() + "</strong></td><td class=\"text-center\">" + jjObjs.length + "</td><td class=\"text-center\">" + areaWeight + "</td></tr>";
+                }
 
             }
         }
@@ -2333,11 +2341,20 @@ export class BattleMech {
 		this.criticals.leftTorso = Array(12);
 		this.criticals.rightTorso = Array(12);
 
-		this.criticals.rightArm = Array(12);
-		this.criticals.leftArm = Array(12);
+        if( this.getType().tag === "quad") {
+		    this.criticals.rightArm = Array(6);
+            this.criticals.leftArm = Array(6);
+        } else {
+		    this.criticals.rightArm = Array(12);
+            this.criticals.leftArm = Array(12);
+        }
 
 		this.criticals.rightLeg = Array(6);
-		this.criticals.leftLeg = Array(6);
+        this.criticals.leftLeg = Array(6);
+
+        // while( this.criticals.leftArm.length < 12 ) {
+        //     this.criticals.leftArm.push( null );
+        // }
 
 		this.unallocatedCriticals = [];
 
@@ -2407,7 +2424,7 @@ export class BattleMech {
 					this._addCriticalItem(
 						"engine", // item_tag
 						this.engineType.name, // item_name
-						3, // critical_count
+						3, // criticalCount
 						"ct" // location
 						// slot
 					);
@@ -2419,7 +2436,7 @@ export class BattleMech {
 						this._addCriticalItem(
 							"engine", // item_tag
 							this.engineType.name, // item_name
-							engineCrits.ct, // critical_count
+							engineCrits.ct, // criticalCount
 							"ct" // location
 							// slot
 						);
@@ -2445,7 +2462,7 @@ export class BattleMech {
 					this._addCriticalItem(
 						"engine", // item_tag
 						this.engineType.name, // item_name
-						engineCrits.ct - 3, // critical_count
+						engineCrits.ct - 3, // criticalCount
 						"ct" // location
 					);
 				}
@@ -2455,7 +2472,7 @@ export class BattleMech {
 		this._addCriticalItem(
 			"gyro", // item_tag
 			this.gyro.name, // item_name
-			this.gyro.criticals, // critical_count
+			this.gyro.criticals, // criticalCount
 			"ct" // location
 		);
 
@@ -2497,7 +2514,7 @@ export class BattleMech {
 						this._addCriticalItem(
 							armorObj.tag, // item_tag
 							armorObj.name, // item_name
-							armorObj.critLocs[nameLoc], // critical_count
+							armorObj.critLocs[nameLoc], // criticalCount
 							nameLoc, // location
 							// slot
 						);
@@ -2524,7 +2541,7 @@ export class BattleMech {
 						this._addCriticalItem(
 							armorObj.tag, // item_tag
 							armorObj.name, // item_name
-							armorObj.critLocs[nameLoc], // critical_count
+							armorObj.critLocs[nameLoc], // criticalCount
 							nameLoc // location
 							// slot
 						);
@@ -2591,7 +2608,8 @@ export class BattleMech {
 			this.unallocatedCriticals.push({
                 uuid: generateUUID(),
 				name: this.equipmentList[elc].name + rearTag,
-				tag: this.equipmentList[elc].tag,
+                tag: this.equipmentList[elc].tag,
+                // loc: this.equipmentList[elc].location,
 				rear: isRear,
 				crits: this.equipmentList[elc].space.battlemech,
 				obj: this.equipmentList[elc],
@@ -2620,23 +2638,25 @@ export class BattleMech {
 			});
 		}
 
-		// Allocate items per allocation table.
-		for( let alt_c = 0; alt_c < this.criticalAllocationTable.length; alt_c++) {
+        // Allocate items per allocation table.
+		for( let item of this.criticalAllocationTable) {
+            // console.log("criticalAllocationTable item", item);
 			this.allocateCritical(
-				this.criticalAllocationTable[alt_c].tag,
-				this.criticalAllocationTable[alt_c].rear,
-				this.criticalAllocationTable[alt_c].loc,
-				this.criticalAllocationTable[alt_c].slot,
+				item.tag,
+				item.rear,
+				item.loc,
+				item.slot,
 				true
 			)
 		}
 
 		// remove location tag for remaining unallocated
-		for( let lCount = 0; lCount < this.unallocatedCriticals.length; lCount++) {
-			if (this.unallocatedCriticals[lCount].obj)
-				this.unallocatedCriticals[lCount].obj.location = "";
+		for( let item of this.unallocatedCriticals) {
+			if (item.obj)
+                item.obj.location = "";
 		}
 
+        // console.log( "this.criticals", this.criticals )
 	}
 
 
@@ -2729,10 +2749,10 @@ export class BattleMech {
     private _addCriticalItem(
 		item_tag: string,
 		item_name: string,
-		critical_count: number,
+		criticalCount: number,
 		location: string,
 		slot: number | null = 0,
-		movable: boolean = true,
+		movable: boolean = false,
 	) {
 		let uuid = generateUUID();
 		let item: ICriticalSlot = {
@@ -2740,8 +2760,8 @@ export class BattleMech {
             rear: false,
 			tag: item_tag,
 			name: item_name,
-			crits: critical_count,
-			movable: true,
+			crits: criticalCount,
+			movable: movable,
 			uuid: uuid
 		};
 
@@ -2750,28 +2770,28 @@ export class BattleMech {
 
         if (typeof(location) !== "undefined" && location !== null) {
             if (location === "hd") {
-                this._assignItemToArea(this.criticals.head, item, critical_count, slot);
+                this._assignItemToArea(this.criticals.head, item, criticalCount, slot);
 
             } else if (location === "ct") {
-                this._assignItemToArea(this.criticals.centerTorso, item, critical_count, slot);
+                this._assignItemToArea(this.criticals.centerTorso, item, criticalCount, slot);
 
             } else if (location === "lt") {
-                this._assignItemToArea(this.criticals.leftTorso, item, critical_count, slot);
+                this._assignItemToArea(this.criticals.leftTorso, item, criticalCount, slot);
 
             } else if (location === "rt") {
-                this._assignItemToArea(this.criticals.rightTorso, item, critical_count, slot);
+                this._assignItemToArea(this.criticals.rightTorso, item, criticalCount, slot);
 
             } else if (location === "ra") {
-                this._assignItemToArea(this.criticals.rightArm, item, critical_count, slot);
+                this._assignItemToArea(this.criticals.rightArm, item, criticalCount, slot);
 
             } else if (location === "la") {
-                this._assignItemToArea(this.criticals.leftArm, item, critical_count, slot);
+                this._assignItemToArea(this.criticals.leftArm, item, criticalCount, slot);
 
             } else if (location === "rl") {
-                this._assignItemToArea(this.criticals.rightLeg, item, critical_count, slot);
+                this._assignItemToArea(this.criticals.rightLeg, item, criticalCount, slot);
 
             } else if (location === "ll") {
-                this._assignItemToArea(this.criticals.leftLeg, item, critical_count, slot);
+                this._assignItemToArea(this.criticals.leftLeg, item, criticalCount, slot);
 
             } else {
                 return item;
@@ -2783,13 +2803,18 @@ export class BattleMech {
     }
 
     _isNextXCritsAvailable(
-		area_array: ICriticalSlot[],
-		critical_count: number,
-		begin_slot: number,
+		areaArray: ICriticalSlot[],
+		criticalCount: number,
+        beginSlot: number,
+        selfUUID: string,
 	): boolean {
 
-        for( let countItem = 0; countItem < critical_count; countItem++) {
-            if (area_array[begin_slot + countItem] !== null) {
+        for( let countItem = 0; countItem < criticalCount; countItem++) {
+            if (
+                areaArray[beginSlot + countItem]
+                    &&
+                areaArray[beginSlot + countItem].uuid !== selfUUID
+            ) {
                 return false;
             }
         }
@@ -2797,14 +2822,14 @@ export class BattleMech {
     }
 
     private _assignItemToArea(
-		area_array: ICriticalSlot[],
-		new_item: ICriticalSlot,
-		critical_count: number,
-		slot_number: number | null
+		areaArray: ICriticalSlot[],
+		newItem: ICriticalSlot,
+		criticalCount: number,
+		slotNumber: number | null
 	) {
 
         let placeholder: ICriticalSlot = {
-            uuid: new_item.uuid,
+            uuid: newItem.uuid,
             name: "placeholder",
 			placeholder: true,
 			tag: "",
@@ -2813,16 +2838,18 @@ export class BattleMech {
 			obj: null,
         };
 
-        if (typeof(slot_number) === "undefined" || slot_number === null) {
+        // console.log("newItem", newItem );
+        if (typeof(slotNumber) === "undefined" || slotNumber === null || slotNumber === 0) {
             // place anywhere available
-            for( let countArray = 0; countArray < area_array.length; countArray++) {
-                if (area_array[countArray] === null) {
-                    if (this._isNextXCritsAvailable(area_array, critical_count - 1, countArray + 1)) {
-                        for( let aita_c = 0; aita_c < critical_count; aita_c++) {
+            for( let countArray = 0; countArray < areaArray.length; countArray++) {
+                if (!areaArray[countArray]) {
+
+                    if (this._isNextXCritsAvailable(areaArray, criticalCount - 1, countArray + 1, newItem.uuid)) {
+                        for( let aita_c = 0; aita_c < criticalCount; aita_c++) {
                             if (aita_c === 0) {
-                                area_array[aita_c + countArray] = new_item;
+                                areaArray[aita_c + countArray] = newItem;
                             } else {
-                                area_array[aita_c + countArray] = placeholder;
+                                areaArray[aita_c + countArray] = placeholder;
                             }
                         }
                         return true;
@@ -2831,14 +2858,14 @@ export class BattleMech {
             }
         } else {
             // at specified slot
-            if (area_array[slot_number] === null) {
-                if (this._isNextXCritsAvailable(area_array, critical_count - 1, slot_number + 1)) {
+            if (!areaArray[slotNumber]) {
+                if (this._isNextXCritsAvailable(areaArray, criticalCount - 1, slotNumber + 1, newItem.uuid)) {
 
-                    for( let aita_c = 0; aita_c < critical_count; aita_c++) {
+                    for( let aita_c = 0; aita_c < criticalCount; aita_c++) {
                         if (aita_c === 0) {
-                            area_array[aita_c + slot_number] = new_item;
+                            areaArray[aita_c + slotNumber] = newItem;
                         } else {
-                            area_array[aita_c + slot_number] = placeholder;
+                            areaArray[aita_c + slotNumber] = placeholder;
                         }
                     }
                     return true;
@@ -2850,24 +2877,25 @@ export class BattleMech {
     }
 
     canBeAssignedToArea(
-		area_array: ICriticalSlot[],
-		critical_count: number,
-		slot_number: number | null = null
+		areaArray: ICriticalSlot[],
+        criticalCount: number,
+        selfUUID: string,
+        slotNumber: number | null = null,
 	) {
 
-        if( slot_number === null ) {
+        if( slotNumber === null ) {
             // place anywhere available
-            for( let countArray = 0; countArray < area_array.length; countArray++) {
-                if (area_array[countArray] === null) {
-                    if (this._isNextXCritsAvailable(area_array, critical_count - 1, countArray + 1)) {
+            for( let countArray = 0; countArray < areaArray.length; countArray++) {
+                if (areaArray[countArray] === null) {
+                    if (this._isNextXCritsAvailable(areaArray, criticalCount - 1, countArray + 1, selfUUID)) {
                         return true;
                     }
                 }
             }
         } else {
             // at specified slot
-            if (area_array[slot_number] === null) {
-                if (this._isNextXCritsAvailable(area_array, critical_count - 1, slot_number + 1)) {
+            if (areaArray[slotNumber] === null) {
+                if (this._isNextXCritsAvailable(areaArray, criticalCount - 1, slotNumber + 1, selfUUID)) {
                     return true;
                 }
             }
@@ -3262,32 +3290,31 @@ export class BattleMech {
 		this.calc();
 
         let exportObject: IBattleMechExport = {
-            name: this.getName(),
-            hideNonAvailableEquipment: this.hideNonAvailableEquipment,
-			tonnage: this.getTonnage(),
-			walkSpeed: this.walkSpeed,
-			jumpSpeed: this.jumpSpeed,
-			engineType: this.getEngineType().tag,
-			mechType: this.mechType.tag,
-			era: this.era.tag,
-			tech: this.tech.tag,
-			gyro: this.gyro.tag,
-			is_type: this.getInternalStructureType(),
 			additionalHeatSinks: this.additionalHeatSinks,
-			heat_sink_type: this.getHeatSinksType(),
-			armor_weight: this.armorWeight,
-			uuid: this.uuid,
-			strictEra: this.strictEra,
-			armor_allocation: this.armorAllocation,
- 			armor_type: this.getArmorType(),
-			equipment: [],
 			allocation: this.criticalAllocationTable,
-			features: [],
-			pilot: this.pilot,
-			as_role: this.alphaStrikeForceStats.role,
+			armor_allocation: this.armorAllocation,
+			armor_weight: this.armorWeight,
 			as_custom_name: this.alphaStrikeForceStats.customName,
-		};
-
+			as_role: this.alphaStrikeForceStats.role,
+			engineType: this.getEngineType().tag,
+			equipment: [],
+			era: this.era.tag,
+			features: [],
+			gyro: this.gyro.tag,
+			heat_sink_type: this.getHeatSinksType(),
+			is_type: this.getInternalStructureType(),
+			jumpSpeed: this.jumpSpeed,
+			mechType: this.mechType.tag,
+			pilot: this.pilot,
+			strictEra: this.strictEra,
+			tech: this.tech.tag,
+			tonnage: this.getTonnage(),
+			uuid: this.uuid,
+			walkSpeed: this.walkSpeed,
+ 			armor_type: this.getArmorType(),
+            hideNonAvailableEquipment: this.hideNonAvailableEquipment,
+            name: this.getName(),
+        };
 
         for( let countEQ = 0; countEQ < this.equipmentList.length; countEQ++) {
             exportObject.equipment.push({
@@ -3440,6 +3467,8 @@ export class BattleMech {
             }
 
             if (importObject.allocation) {
+
+                // console.log("importObject.allocation", importObject.allocation);
                 this.criticalAllocationTable = importObject.allocation;
 
                 for( let countEQ = 0; countEQ < this.criticalAllocationTable.length; countEQ++) {
@@ -3616,51 +3645,65 @@ export class BattleMech {
 
     updateCriticalAllocationTable() {
         this.criticalAllocationTable = [];
-        for( let mech_location in Object.keys(this.criticals)) {
 
-            for( let crit_item_counter = 0; crit_item_counter < this.criticals[mech_location].length; crit_item_counter++) {
-                let currentItem = this.criticals[mech_location][crit_item_counter];
-                if (
-                    currentItem &&
-                    currentItem.movable
-                ) {
-                    // let short_loc = "";
-                    // if (mech_location === "head") {
-                    //     short_loc = "hd";
-                    // } else if (mech_location === "centerTorso") {
-                    //     short_loc = "ct";
-                    // } else if (mech_location === "rightTorso") {
-                    //     short_loc = "rt";
-                    // } else if (mech_location === "rightLeg") {
-                    //     short_loc = "rl";
-                    // } else if (mech_location === "rightArm") {
-                    //     short_loc = "ra";
-                    // } else if (mech_location === "leftTorso") {
-                    //     short_loc = "lt";
-                    // } else if (mech_location === "leftLeg") {
-                    //     short_loc = "ll";
-                    // } else if (mech_location === "leftArm") {
-                    //     short_loc = "la";
-                    // }
+        for( let mech_location of Object.keys(this.criticals)) {
 
-                    this.criticalAllocationTable.push(
-                        currentItem
-                    );
+            // console.log( "xx", this.criticals, mech_location, this.criticals[mech_location]);
+            if( this.criticals[mech_location] ) {
+                for( let crit_item_counter = 0; crit_item_counter < this.criticals[mech_location].length; crit_item_counter++) {
+                    let currentItem = this.criticals[mech_location][crit_item_counter];
+                    if (
+                        currentItem &&
+                        currentItem.movable
+                    ) {
+                        let short_loc = "";
+                        if (mech_location === "head") {
+                            short_loc = "hd";
+                        } else if (mech_location === "centerTorso") {
+                            short_loc = "ct";
+                        } else if (mech_location === "rightTorso") {
+                            short_loc = "rt";
+                        } else if (mech_location === "rightLeg") {
+                            short_loc = "rl";
+                        } else if (mech_location === "rightArm") {
+                            short_loc = "ra";
+                        } else if (mech_location === "leftTorso") {
+                            short_loc = "lt";
+                        } else if (mech_location === "leftLeg") {
+                            short_loc = "ll";
+                        } else if (mech_location === "leftArm") {
+                            short_loc = "la";
+                        } else {
+                            short_loc = "un";
+                        }
+                        currentItem.loc = short_loc;
+                        currentItem.slot = crit_item_counter;
+
+                        this.criticalAllocationTable.push(
+                            currentItem
+                        );
+                    }
                 }
             }
         }
+        // console.log("updateCriticalAllocationTable this.criticalAllocationTable", this.criticalAllocationTable);
         // this.calc();
 
     };
 
     moveCritical(
-		itemTag: string,
-		itemRear: boolean,
 		fromLocation: string,
 		fromIndex: number,
 		toLocation: string,
-		toIndex: number,
+        toIndex: number,
 	) {
+
+        // console.log(" moveCritical",
+        //     fromLocation,
+        //     fromIndex,
+        //     toLocation,
+        //     toIndex,
+        // )
 
         let fromItem: ICriticalSlot | null = null
         let fromLocationObj: ICriticalSlot[] | null = null;
@@ -3712,26 +3755,24 @@ export class BattleMech {
             }
         }
 
-        ;
-
         if (fromItem && fromLocationObj) {
 
             if (toLocation === "hd") {
-                return this.moveItemToArea(fromLocationObj, itemRear, fromItem, fromIndex, this.criticals.head, toIndex);
+                return this.moveItemToArea(fromLocationObj, fromItem, fromIndex, this.criticals.head, toIndex, toLocation);
             } else if (toLocation === "ct") {
-                return this.moveItemToArea(fromLocationObj, itemRear, fromItem, fromIndex, this.criticals.centerTorso, toIndex);
+                return this.moveItemToArea(fromLocationObj, fromItem, fromIndex, this.criticals.centerTorso, toIndex, toLocation);
             } else if (toLocation === "rt") {
-                return this.moveItemToArea(fromLocationObj, itemRear, fromItem, fromIndex, this.criticals.rightTorso, toIndex);
+                return this.moveItemToArea(fromLocationObj, fromItem, fromIndex, this.criticals.rightTorso, toIndex, toLocation);
             } else if (toLocation === "rl") {
-                return this.moveItemToArea(fromLocationObj, itemRear, fromItem, fromIndex, this.criticals.rightLeg, toIndex);
+                return this.moveItemToArea(fromLocationObj, fromItem, fromIndex, this.criticals.rightLeg, toIndex, toLocation);
             } else if (toLocation === "ra") {
-                return this.moveItemToArea(fromLocationObj, itemRear, fromItem, fromIndex, this.criticals.rightArm, toIndex);
+                return this.moveItemToArea(fromLocationObj, fromItem, fromIndex, this.criticals.rightArm, toIndex, toLocation);
             } else if (toLocation === "lt") {
-                return this.moveItemToArea(fromLocationObj, itemRear, fromItem, fromIndex, this.criticals.leftTorso, toIndex);
+                return this.moveItemToArea(fromLocationObj, fromItem, fromIndex, this.criticals.leftTorso, toIndex, toLocation);
             } else if (toLocation === "ll") {
-                return this.moveItemToArea(fromLocationObj, itemRear, fromItem, fromIndex, this.criticals.leftLeg, toIndex);
+                return this.moveItemToArea(fromLocationObj, fromItem, fromIndex, this.criticals.leftLeg, toIndex, toLocation);
             } else if (toLocation === "la") {
-                return this.moveItemToArea(fromLocationObj, itemRear, fromItem, fromIndex, this.criticals.leftArm, toIndex);
+                return this.moveItemToArea(fromLocationObj, fromItem, fromIndex, this.criticals.leftArm, toIndex, toLocation);
             }
         }
 
@@ -3740,11 +3781,11 @@ export class BattleMech {
 
     moveItemToArea(
 		fromLocation: ICriticalSlot[] | null[],
-		itemRear: boolean,
 		fromItem: ICriticalSlot,
 		fromIndex: number,
 		toLocation: ICriticalSlot[],
-		toIndex: number,
+        toIndex: number,
+        toLocTag: string,
 	) {
 
         // Step One check to see if TO has enough slots for item....
@@ -3758,6 +3799,8 @@ export class BattleMech {
 			obj: null,
         };
 
+
+
         let hasSpace = true;
         if (toLocation.length < toIndex + fromItem.crits)
             return false;
@@ -3768,6 +3811,8 @@ export class BattleMech {
         }
 
         if (hasSpace) {
+            fromItem.loc = toLocTag;
+            fromItem.slot = toIndex;
             toLocation[toIndex] = fromItem;
             for( let phC = 1; phC < toLocation[toIndex].crits; phC++) {
                 toLocation[toIndex + phC] = placeholder;
@@ -3784,6 +3829,13 @@ export class BattleMech {
                 theItem = null;
                 nextCounter++;
             }
+
+            // for( let item of this.equipmentList ) {
+            //     if( item.uuid == fromItem.uuid ) {
+            //         item.location = toLocTag;
+            //     }
+            // }
+            this.updateCriticalAllocationTable();
             return true;
 
         }
@@ -3796,11 +3848,11 @@ export class BattleMech {
 		equipment_tag: string,
 		equipment_rear: boolean,
 		mech_location: string | null | undefined,
-		slot_number: number| undefined,
+		slotNumber: number| undefined,
 		remove_from_unallocated: boolean,
 	) {
 
-        if( mech_location && typeof(slot_number) != "undefined" ) {
+        if( mech_location && typeof(slotNumber) !== "undefined" ) {
             for( let uaet_c = 0; uaet_c < this.unallocatedCriticals.length; uaet_c++) {
 
                 if (
@@ -3811,21 +3863,21 @@ export class BattleMech {
                         this.unallocatedCriticals[uaet_c].obj.location = mech_location;
 
                     if (mech_location === "hd") {
-                        this._assignItemToArea(this.criticals.head, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slot_number);
+                        this._assignItemToArea(this.criticals.head, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slotNumber);
                     } else if (mech_location === "ct") {
-                        this._assignItemToArea(this.criticals.centerTorso, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slot_number);
+                        this._assignItemToArea(this.criticals.centerTorso, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slotNumber);
                     } else if (mech_location === "rt") {
-                        this._assignItemToArea(this.criticals.rightTorso, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slot_number);
+                        this._assignItemToArea(this.criticals.rightTorso, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slotNumber);
                     } else if (mech_location === "rl") {
-                        this._assignItemToArea(this.criticals.rightLeg, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slot_number);
+                        this._assignItemToArea(this.criticals.rightLeg, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slotNumber);
                     } else if (mech_location === "ra") {
-                        this._assignItemToArea(this.criticals.rightArm, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slot_number);
+                        this._assignItemToArea(this.criticals.rightArm, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slotNumber);
                     } else if (mech_location === "lt") {
-                        this._assignItemToArea(this.criticals.leftTorso, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slot_number);
+                        this._assignItemToArea(this.criticals.leftTorso, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slotNumber);
                     } else if (mech_location === "ll") {
-                        this._assignItemToArea(this.criticals.leftLeg, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slot_number);
+                        this._assignItemToArea(this.criticals.leftLeg, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slotNumber);
                     } else if (mech_location === "la") {
-                        this._assignItemToArea(this.criticals.leftArm, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slot_number);
+                        this._assignItemToArea(this.criticals.leftArm, this.unallocatedCriticals[uaet_c], this.unallocatedCriticals[uaet_c].crits, slotNumber);
                     }
 
                     if (remove_from_unallocated) {
@@ -3833,8 +3885,12 @@ export class BattleMech {
                     }
 
                     return true;
+                } else {
+                    // console.log("allocaeCrtitical slotNumber undefined", equipment_tag, mech_location, slotNumber)
                 }
             }
+        } else {
+            // console.log("allocaeCrtitical mech_location undefined", equipment_tag, mech_location, slotNumber)
         }
         return null;
     };

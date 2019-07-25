@@ -1,6 +1,11 @@
 $fontSize: 14px;
 
-$colorTan: rgb(233, 226, 190);
+
+$lightBG: #fdfde3;
+$lightBGHover: #cacab4;
+
+// $colorTan: rgb(233, 226, 190);
+$colorTan: $lightBG;
 
 $fontColor: #fdfde3;
 $headerFooterBackground: #111;
@@ -24,5 +29,5 @@ $textSectionBG: #222;
 $textSectionFG: #fff;
 
 $colorRed: #900;
-$colorBlue: #009;
+$colorBlue: #00e;
 $colorGreen: #090;

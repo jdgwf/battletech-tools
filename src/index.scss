@@ -100,6 +100,7 @@ input[type=number] {
     display: inline-block;
     width: auto;
     margin: 0 0 0 1rem;
+    font-size: 1rem;
   }
 }
 .cursor-pointer {
@@ -423,6 +424,7 @@ body {
       color: 0;
     }
   }
+
   .modal-dialog {
     .modal-footer {
       background: $headerFooterBackground;
