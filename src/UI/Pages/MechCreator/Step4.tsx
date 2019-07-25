@@ -157,6 +157,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                                   >
                                     {/* <option value={0}>-Select Jumping Speed-</option> */}
                                     {this.props.appGlobals.currentBattleMech.getAvailableArmorTypes().map( (armorData, armorIndex) => {
+
                                       if( armorData.available ) {
                                         return (
                                           <option key={armorIndex} value={armorData.tag}>{armorData.name}</option>
@@ -167,9 +168,10 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                                             <option disabled={true} key={armorIndex} value={armorData.tag}>{armorData.name}</option>
                                           )
                                         } else {
-                                          return <></>
+                                          return <React.Fragment key={armorIndex}></React.Fragment>
                                         }
                                       }
+
                                   })}
                                   </select>
                                 </label>

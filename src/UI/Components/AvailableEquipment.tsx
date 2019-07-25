@@ -60,7 +60,7 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
         <tbody>
             {Object.keys(groupedItems).map((catName, catIndex) => {
                 return (
-                    <>
+                    <React.Fragment key={catIndex}>
                 <tr>
                     <th colSpan={5}>
                         <Button
@@ -105,7 +105,7 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
                         <></>
                     )}
 
-                    </>
+                    </React.Fragment>
                 )
             })}
         </tbody>

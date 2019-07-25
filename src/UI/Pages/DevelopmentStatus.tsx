@@ -115,10 +115,13 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                         <del>Step 5 - Add weapons, ammunition and other equipment</del>
                         <br /><span className="color-green">Working and Functional, UI needs lots of love.</span>
                       </li>
+                      <li>
+                        <del>Step 6 - Complete the record sheet (critical allocations)</del>
+                        <br /><span className="color-green">Working and Functional, Would be nice to have better messaging when an item won't "fit"..</span>
+                      </li>
                       <li className="current-focus">
                         <h4 className="text-center color-blue">Current Focus</h4>
-                        Step 6 - Complete the record sheet (critical allocations)
-
+                        Exports &amp; Mech record sheet
                       </li>
                       <li>Load/Save/Export</li>
                       <li>Add remaining Clan Equipment, IS SRM/LRMs to Data</li>

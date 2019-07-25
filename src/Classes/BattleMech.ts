@@ -3804,8 +3804,16 @@ export class BattleMech {
         let hasSpace = true;
         if (toLocation.length < toIndex + fromItem.crits)
             return false;
+
+
         for( let testC = 0; testC < fromItem.crits; testC++) {
-            if (toLocation[toIndex + testC]) {
+            if (
+                toLocation[toIndex + testC]
+                    &&
+                fromItem
+                    &&
+                toLocation[toIndex + testC].uuid != fromItem.uuid
+            ) {
                 hasSpace = false;
             }
         }
