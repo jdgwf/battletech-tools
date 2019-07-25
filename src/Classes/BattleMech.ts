@@ -2731,6 +2731,50 @@ export class BattleMech {
         this.calc();
     }
 
+    toggleHandActuator(location: string) {
+        if (location === "ra") {
+            if( this.no_right_arm_hand_actuator ) {
+                this.no_right_arm_hand_actuator = false;
+                this.no_right_arm_lower_actuator = false;
+            } else {
+                this.no_right_arm_hand_actuator = true;
+            }
+
+        }
+        if (location === "la") {
+            if( this.no_left_arm_hand_actuator ) {
+                this.no_left_arm_hand_actuator = false;
+                this.no_left_arm_lower_actuator = false;
+            } else {
+                this.no_left_arm_hand_actuator = true;
+            }
+
+        }
+        this.calc();
+    }
+
+    toggleLowerArmActuator(location: string) {
+        if (location === "ra") {
+            if( this.no_right_arm_lower_actuator ) {
+                this.no_right_arm_lower_actuator = false;
+            } else {
+                this.no_right_arm_lower_actuator = true;
+                this.no_right_arm_hand_actuator = true;
+            }
+        }
+        if (location === "la") {
+            if( this.no_left_arm_lower_actuator ) {
+                this.no_left_arm_lower_actuator = false;
+
+            } else {
+                this.no_left_arm_lower_actuator = true;
+                this.no_left_arm_hand_actuator = true;
+            }
+
+        }
+        this.calc();
+    }
+
     getMaxMovementHeat() {
         let maxMoveHeat = 2; // standard run heat.
 
@@ -3812,7 +3856,7 @@ export class BattleMech {
                     &&
                 fromItem
                     &&
-                toLocation[toIndex + testC].uuid != fromItem.uuid
+                toLocation[toIndex + testC].uuid !== fromItem.uuid
             ) {
                 hasSpace = false;
             }
