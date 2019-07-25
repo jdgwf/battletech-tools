@@ -10,6 +10,17 @@ body {
   background-color: $bodyBackground;
 }
 
+.overflow-scroll-y {
+  overflow-y: scroll;
+}
+.overflow-scroll-x {
+  overflow-x: scroll;
+}
+
+.overflow-scroll {
+  overflow: scroll;
+}
+
 .mech-tro {
   background: $bodyBackground;
   color: $fontColor;
@@ -182,11 +193,27 @@ input[type=number] {
   thead {
     background: $headerFooterBackground;
   }
+  thead, tbody {
+    tr {
+      td, th {
+        color: $textSectionFG;
+
+      }
+
+      &.disabled {
+        td, th {
+          color: $disabledTextColor;
+
+        }
+      }
+    }
+  }
   &.tighter-padding {
     tbody, thead, tfooter {
       tr {
         td, th {
           padding: .125rem .25rem;
+
         }
       }
     }
@@ -263,6 +290,15 @@ body {
     display: inline-block
   }
 
+  hr {
+    height: 0;
+    outline: 0;
+    border: 0;
+    padding: 0;
+    margin: .5rem 0;
+    border-bottom: solid 2px $primaryBG;
+  }
+
   .no-wrap {
     white-space: nowrap;
   }
@@ -332,6 +368,11 @@ body {
     }
     &.no-margin {
       margin: 0;
+    }
+    &.btn-xs {
+      font-size: 0.7rem;
+      line-height: 1;
+      padding: .25rem;
     }
   }
 

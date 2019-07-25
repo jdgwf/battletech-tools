@@ -3557,8 +3557,10 @@ export class BattleMech {
             else
                 equipment_item.rear = false;
             this.equipmentList.push(equipment_item);
+            this.sortInstalledEquipment();
             return equipment_item;
         }
+
 
         return null;
     };
@@ -3586,12 +3588,16 @@ export class BattleMech {
                     equipment_item.location = location;
                 equipment_item.rear = rear;
                 this.equipmentList.push(equipment_item);
+
+                this.sortInstalledEquipment();
                 return equipment_item;
             }
         }
 
+
         return null;
     };
+
 
     removeEquipment(equipmentIndex: number) {
         if (this.equipmentList[equipmentIndex]) {
@@ -4130,6 +4136,47 @@ export class BattleMech {
     }
     getMaxLeftTorsoArmor(): number {
         return this.getInteralStructure().leftTorso * 2 - this.getArmorAllocation().leftTorsoRear;
+    }
+
+    getAvailableEquipment(): IEquipmentItem[] {
+        let returnItems: IEquipmentItem[] = [];
+        if( this.getTech().tag === "clan" ) {
+            for( let item of mechClanEquipment ) {
+                item.criticals = item.space.battlemech;
+                item.available = this._itemIsAvailable( item.introduced, item.extinct, item.reintroduced);
+                returnItems.push( item );
+            }
+        } else {
+            for( let item of mechISEquipment ) {
+                item.criticals = item.space.battlemech;
+                item.available = this._itemIsAvailable( item.introduced, item.extinct, item.reintroduced);
+                returnItems.push( item );
+            }
+        }
+
+        returnItems.sort( ( a, b ) => {
+            if( a.sort > b.sort ) {
+                return 1;
+            } if( a.sort < b.sort ) {
+                return -1;
+            } else {
+                return 0;
+            }
+        })
+
+        return returnItems;
+    }
+
+    sortInstalledEquipment() {
+        this.equipmentList.sort( ( a, b ) => {
+            if( a.sort > b.sort ) {
+                return 1;
+            } if( a.sort < b.sort ) {
+                return -1;
+            } else {
+                return 0;
+            }
+        })
     }
 }
 

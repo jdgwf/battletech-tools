@@ -226,11 +226,26 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 <rect x="20" y="210" width="550" height="85" fill="rgb(0,0,0)" rx="18" ry="18"></rect>
                 <rect x="25" y="215" width="540" height="75" fill="rgba( 255,255,255,.8)" rx="15" ry="15"></rect>
                 <text x="55" y="250" fontFamily="sans-serif" textAnchor="middle" fontSize="15" transform="rotate(270, 58, 250)">DAMAGE</text>
-                <text x="140" y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">S (0 | {this.props.asUnit.currentToHitShort}+)</text>
+                {this.props.forPrint ? (
+                    <text x="140" y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">S (0)</text>
+                ) : (
+                    <text x="140" y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">S (0 | {this.props.asUnit.currentToHitShort}+)</text>
+                )}
+
                 <text x="140" y="280" fontFamily="sans-serif" textAnchor="middle" fontSize={35}>{this.props.asUnit.currentDamage.short}</text>
-                <text x="290" y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">M (+2 | {this.props.asUnit.currentToHitMedium}+)</text>
+                {this.props.forPrint ? (
+                    <text x="290" y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">M (+2)</text>
+                ) : (
+                    <text x="290" y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">M (+2 | {this.props.asUnit.currentToHitMedium}+)</text>
+                )}
+
                 <text x="290" y="280" fontFamily="sans-serif" textAnchor="middle" fontSize={35}>{this.props.asUnit.currentDamage.medium}</text>
-                <text x="440" y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">L (+4 | {this.props.asUnit.currentToHitLong}+)</text>
+                {this.props.forPrint ? (
+                    <text x="440" y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">L (+4)</text>
+                ) : (
+                    <text x="440" y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">L (+4 | {this.props.asUnit.currentToHitLong}+)</text>
+                )}
+
                 <text x="440" y="280" fontFamily="sans-serif" textAnchor="middle" fontSize={35}>{this.props.asUnit.currentDamage.long}</text>
                 <rect x="20" y="310" width="550" height="80" fill="rgb(0,0,0)" rx="18" ry="18"></rect>
 
@@ -617,6 +632,7 @@ interface IAlphaStrikeUnitSVGProps {
     inPlay?: boolean;
     appGlobals: IAppGlobals;
     className?: string;
+    forPrint?: boolean;
 }
 
 interface IAlphaStrikeUnitSVGState {

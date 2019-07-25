@@ -147,48 +147,51 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                       <div className="text-section">
                         <h2>Step 4: Add armor</h2>
                         <div className="section-content">
-
-                        <label>
-                              Armor Type:
-                              <select
-                                value={this.props.appGlobals.currentBattleMech.getArmorType()}
-                                onChange={this.setArmorType}
-                              >
-                                {/* <option value={0}>-Select Jumping Speed-</option> */}
-                                {this.props.appGlobals.currentBattleMech.getAvailableArmorTypes().map( (armorData, armorIndex) => {
-                                  if( armorData.available ) {
-                                    return (
-                                      <option key={armorIndex} value={armorData.tag}>{armorData.name}</option>
-                                    )
-                                  } else {
-                                    if( !this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment) {
-                                      return (
-                                        <option disabled={true} key={armorIndex} value={armorData.tag}>{armorData.name}</option>
-                                      )
-                                    } else {
-                                      return <></>
-                                    }
-                                  }
-                              })}
-                              </select>
-                            </label>
-
+                          <div className="row">
+                            <div className="col-xs-12 col-md-6">
                             <label>
-                              Armor Weight:
-                              <select
-                                value={this.props.appGlobals.currentBattleMech.getArmorWeight()}
-                                onChange={this.setArmorWeight}
-                              >
-                                <option value={0}>None</option>
-                                {makeRange(1, weightDropDownMax, .5).map( (option) => {
-                                return (
-                                  <option key={option} value={option}>{option}</option>
-                                )
-                              })}
-                              </select>
-                            </label>
+                                  Armor Type:
+                                  <select
+                                    value={this.props.appGlobals.currentBattleMech.getArmorType()}
+                                    onChange={this.setArmorType}
+                                  >
+                                    {/* <option value={0}>-Select Jumping Speed-</option> */}
+                                    {this.props.appGlobals.currentBattleMech.getAvailableArmorTypes().map( (armorData, armorIndex) => {
+                                      if( armorData.available ) {
+                                        return (
+                                          <option key={armorIndex} value={armorData.tag}>{armorData.name}</option>
+                                        )
+                                      } else {
+                                        if( !this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment) {
+                                          return (
+                                            <option disabled={true} key={armorIndex} value={armorData.tag}>{armorData.name}</option>
+                                          )
+                                        } else {
+                                          return <></>
+                                        }
+                                      }
+                                  })}
+                                  </select>
+                                </label>
+                            </div>
+                            <div className="col-xs-12 col-md-6">
+                            <label>
+                                  Armor Weight:
+                                  <select
+                                    value={this.props.appGlobals.currentBattleMech.getArmorWeight()}
+                                    onChange={this.setArmorWeight}
+                                  >
+                                    <option value={0}>None</option>
+                                    {makeRange(1, weightDropDownMax, .5).map( (option) => {
+                                    return (
+                                      <option key={option} value={option}>{option}</option>
+                                    )
+                                  })}
+                                  </select>
+                                </label>
+                            </div>
+                          </div>
 
-                          <br />
                           <fieldset className="fieldset">
                             <legend>Armor Allocation</legend>
                             <div className="row">
@@ -221,7 +224,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                               </div>
                             </div>
 
-{this.props.appGlobals.currentBattleMech.getType().tag == "biped" ?
+{this.props.appGlobals.currentBattleMech.getType().tag === "biped" ?
 (
   <>
   <div className="armor-location-select">

@@ -6062,6 +6062,7 @@ export const mechISEquipment: IEquipmentItem[] = [
 		requiresHandActuator: true,
 		introduced: 3022,
 		extinct: 0,
+		reintroduced: 0,
 		heat: 0,
 		unique: true,
 		costPerItemTon: 5000,

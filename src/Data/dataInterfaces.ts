@@ -98,8 +98,8 @@ export interface IEquipmentItem {
     accuracyModifiier?: number;
     cbills: number;
     introduced: number;
-    extinct?: number;
-    reintroduced?: number;
+    extinct: number;
+    reintroduced: number;
     battleValue?: number;
     heat: number;
     weight: number;
@@ -144,6 +144,7 @@ export interface IEquipmentItem {
     location?: string;
     rear?: boolean;
     criticals?: number;
+    available?: boolean;
 }
 
 export interface IGyro {

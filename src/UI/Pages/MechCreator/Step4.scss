@@ -17,7 +17,7 @@
         width: 4rem;
         select {
             display: inline-block;
-            width: 3rem;
+            width: 4rem;
             font-size: 1rem;
             padding: 0;
             text-align: center;
@@ -127,7 +127,7 @@
     .armor-breakdown {
         position: absolute;
         bottom: 0;
-        right: 0;
+        left: 0;
         font-size: .8rem;
         z-index: 100;
     }
@@ -144,9 +144,7 @@
             height: 565px;
             width: 422px;
         }
-        select {
-            width: 4rem;
-        }
+
         .armor-select-dropdown {
             position: absolute;
             text-align: center;
@@ -156,11 +154,7 @@
             .title {
                 font-size: 1rem;
             }
-            select {
-                display: inline-block;
-                width: 3rem;
-                font-size: 1rem;
-            }
+
             &.hd {
                 left: 177px;
                 top: 15px;
