@@ -3811,6 +3811,27 @@ export class BattleMech {
         }
 
         if (hasSpace) {
+
+            // Check to see if it's jump jet and make sure that it's going to be assigned to a leg or torso
+            let item = fromLocation[fromIndex];
+
+            if( item && item.tag.startsWith("jj-") ) {
+                if(
+                    (
+                        this.mechType.tag === "biped"
+                            &&
+                        (
+                            toLocTag === "ra"
+                                ||
+                            toLocTag === "la"
+                        )
+                    )
+                        ||
+                    toLocTag === "hd"
+                ) {
+                    return false;
+                }
+            }
             fromItem.loc = toLocTag;
             fromItem.slot = toIndex;
             toLocation[toIndex] = fromItem;
@@ -3831,7 +3852,7 @@ export class BattleMech {
             }
 
             // for( let item of this.equipmentList ) {
-            //     if( item.uuid == fromItem.uuid ) {
+            //     if( item.uuid === fromItem.uuid ) {
             //         item.location = toLocTag;
             //     }
             // }

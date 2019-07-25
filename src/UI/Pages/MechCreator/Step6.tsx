@@ -68,9 +68,9 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
             this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
           } else {
             if( this.state.selectedItem ) {
-              selectedMessage = "Cannot place "  + this.state.selectedItem.name + ", not enough space.";
+              selectedMessage = "Cannot place that "  + this.state.selectedItem.name + " there.";
             } else {
-              selectedMessage = "Cannot place item, not enough space.";
+              selectedMessage = "Cannot place that item there";
             }
           }
         }
