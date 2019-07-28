@@ -1,8 +1,7 @@
 import React from 'react';
-import ShowAlerts from '../Components/ShowAlerts';
-import TopMenu from '../Components/TopMenu';
 import { IAppGlobals } from '../AppRouter';
 import './About.scss';
+import UIPage from '../Components/UIPage';
 
 export default class About extends React.Component<IAboutProps, IAboutState> {
     constructor(props: IAboutProps) {
@@ -18,10 +17,7 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
 
     render() {
       return (
-        <div className={this.props.appGlobals.showMobile ? "ui-page show-mobile" : "ui-page"}>
-          <TopMenu current="about" appGlobals={this.props.appGlobals} />
-          <div className="content">
-            <ShowAlerts appGlobals={this.props.appGlobals} />
+    <UIPage current="about" appGlobals={this.props.appGlobals}>
 
 		<div className="text-right">
 			{/* <strong className="ng-scope">Version</strong> <span ng-bind="appVersion" className="ng-binding">0.0.4 alpha</span> */}
@@ -107,8 +103,7 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
         </div>
       </div>
 	</div>
-          </div>
-        </div>
+          </UIPage>
       );
     }
 }

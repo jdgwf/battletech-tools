@@ -1,8 +1,7 @@
 import React from 'react';
 import './DevelopmentStatus.scss';
-import TopMenu from '../Components/TopMenu';
-import ShowAlerts from '../Components/ShowAlerts';
 import {IAppGlobals} from '../AppRouter';
+import UIPage from '../Components/UIPage';
 
 export default class DevelopmentStatus extends React.Component<IDevelopmentStatusProps, IDevelopmentStatusState> {
     constructor(props: IDevelopmentStatusProps) {
@@ -18,11 +17,7 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
 
     render() {
       return (
-        <>
-        <div className={this.props.appGlobals.showMobile ? "ui-page show-mobile" : "ui-page"}>
-          <TopMenu current="status" appGlobals={this.props.appGlobals} />
-          <div className="content">
-            <ShowAlerts appGlobals={this.props.appGlobals} />
+        <UIPage current="dev-status" appGlobals={this.props.appGlobals}>
             <div className="alert alert-info">
               <p>
                 I only started this rewrite on Friday 7/18/19. Since I'm mostly done with the Alpha Strike Roster, I suppose development is coming along nicely.
@@ -135,9 +130,7 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        </>
+          </UIPage>
       );
     }
 }

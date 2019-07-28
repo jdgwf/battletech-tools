@@ -1,7 +1,7 @@
 import React from 'react';
-import { AlphaStrikeUnit } from '../../Classes/AlphaStrikeUnit';
-import BattleTechLogo from './BattleTechLogo';
-import { IAppGlobals } from '../AppRouter';
+import { AlphaStrikeUnit } from '../../../Classes/AlphaStrikeUnit';
+import BattleTechLogo from '../BattleTechLogo';
+import { IAppGlobals } from '../../AppRouter';
 
 export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnitSVGProps, IAlphaStrikeUnitSVGState> {
     height: string = "100%";

@@ -3,7 +3,7 @@ import './InPlay.scss';
 import {IAppGlobals} from '../../AppRouter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {  faArrowAltCircleLeft, faTh, faList } from '@fortawesome/free-solid-svg-icons';
-import AlphaStrikeUnitSVG from '../../Components/AlphaStrikeUnitSVG';
+import AlphaStrikeUnitSVG from '../../Components/SVG/AlphaStrikeUnitSVG';
 import { Link } from 'react-router-dom';
 import BattleTechLogo from '../../Components/BattleTechLogo';
 

@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash, faEdit, faBars, faEye, faHeart, faFileImport, faArrowsAlt } from '@fortawesome/free-solid-svg-icons';
 import { Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
-import AlphaStrikeUnitSVG from '../../Components/AlphaStrikeUnitSVG';
+import AlphaStrikeUnitSVG from '../../Components/SVG/AlphaStrikeUnitSVG';
 import { Link } from 'react-router-dom';
 import AlphaStrikeGroup from '../../../Classes/AlphaStrikeGroup';
 

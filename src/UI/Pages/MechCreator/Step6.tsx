@@ -132,7 +132,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                             {this.state.selectionMessage}
                           </strong></p>
                           <div className="row">
-                            <div className="col-md-3">
+                            <div className="col-lg-3">
                               <fieldset className="fieldset">
                                 <legend>Unallocated</legend>
                                 {this.props.appGlobals.currentBattleMech.unallocatedCriticals.length > 0 ? (
@@ -160,7 +160,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                 </Button>
                               </fieldset>
                             </div>
-                            <div className="col-md-9">
+                            <div className="col-lg-9">
                               <fieldset className="fieldset">
                                 <legend>Critical Table</legend>
                                 <div className="row">

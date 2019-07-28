@@ -5,7 +5,7 @@ import TopMenu from '../../Components/TopMenu';
 import ShowAlerts from '../../Components/ShowAlerts';
 import {IAppGlobals} from '../../AppRouter';
 import SanitizedHTML from '../../Components/SanitizedHTML';
-import BipedArmorDiagramSVG from '../../Components/BipedArmorDiagramSVG';
+import BipedArmorDiagramSVG from '../../Components/SVG/BipedArmorDiagramSVG';
 import MechCreatorSideMenu from '../../Components/MechCreatorSideMenu';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,7 +13,7 @@ import { faArrowCircleRight, faArrowCircleLeft } from '@fortawesome/free-solid-s
 import MechCreatorStatusbar from '../../Components/MechCreatorStatusBar';
 import { makeRange } from '../../../utils';
 import { Button } from 'react-bootstrap';
-import QuadArmorDiagramSVG from '../../Components/QuadArmorDiagramSVG';
+import QuadArmorDiagramSVG from '../../Components/SVG/QuadArmorDiagramSVG';
 
 export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {

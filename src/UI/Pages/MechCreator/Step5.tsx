@@ -37,6 +37,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
         this.props.appGlobals.currentBattleMech.getTech().tag,
         "",
         false,
+        null,
       );
       this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
 
@@ -145,6 +146,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                 <thead>
                                   <tr>
                                     <th>Name</th>
+                                    <th>Sort</th>
                                     <th>Weight</th>
                                     <th>Rear</th>
                                     <th>&nbsp;</th>
@@ -155,6 +157,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                   return (
                                     <tr key={itemIndex}>
                                       <td>{item.name}</td>
+                                      <td>{item.sort}</td>
                                       <td>{item.weight}</td>
                                       <td>
                                         <input
@@ -163,7 +166,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                           onChange={( event: React.FormEvent<HTMLInputElement>) => this.setRear( itemIndex, event.currentTarget.checked)}
                                         />
                                       </td>
-                                      <td>
+                                      <td className="text-right">
                                         <Button
                                           variant="primary"
                                           className="btn-sm"
