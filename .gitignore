@@ -12,3 +12,7 @@ old*
 build/*
 build*
 build
+
+work/*
+work*
+work
