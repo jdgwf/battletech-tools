@@ -33,10 +33,10 @@ export interface ASMULTech {
 export interface IASMULUnit {
     BFAbilities: string;
     BFArmor: number;
-    BFDamageExtreme: number;
-    BFDamageLong: number;
-    BFDamageMedium: number;
-    BFDamageShort: number;
+    BFDamageExtreme: string;
+    BFDamageLong: string;
+    BFDamageMedium: string;
+    BFDamageShort: string;
     BFMove: string;
     BFOverheat: number;
     BFPointValue: number;

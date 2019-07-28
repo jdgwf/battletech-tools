@@ -13,10 +13,10 @@ import { mechEngineOptions } from "../Data/mech-engine-options";
 import { battlemechLocations } from "../Data/battlemechLocations";
 import { mechISEquipment } from "../Data/mech-is-equipment";
 import { mechClanEquipment } from "../Data/mech-clan-equipment";
-import { IAlphaStrikeDamage } from "./AlphaStrikeUnit";
+import { IAlphaStrikeDamage, IASMULUnit, AlphaStrikeUnit } from "./AlphaStrikeUnit";
 
 interface INumericalHash {
-	[index: string]: number;
+    [index: string]: number;
 }
 
 interface IWeights {
@@ -25,14 +25,14 @@ interface IWeights {
 }
 
 export interface ICriticalSlot {
-	uuid: string;
-	name: string;
-	tag: string;
-	rear: boolean;
-	rollAgain?: boolean;
-	crits: number;
-	obj: any;
-	movable?: boolean;
+    uuid: string;
+    name: string;
+    tag: string;
+    rear: boolean;
+    rollAgain?: boolean;
+    crits: number;
+    obj: any;
+    movable?: boolean;
     placeholder?: boolean;
 
     loc?: string;
@@ -40,61 +40,86 @@ export interface ICriticalSlot {
 }
 
 interface IMechCriticals {
-	[location: string]: ICriticalSlot[];
+    [location: string]: ICriticalSlot[];
 }
 
 interface IArmorAllocation {
-	head: number;
-	centerTorso: number;
-	rightTorso: number;
-	leftTorso: number;
-	centerTorsoRear: number;
-	rightTorsoRear: number;
-	leftTorsoRear: number;
-	leftArm: number;
-	rightArm: number;
-	leftLeg: number;
-	rightLeg: number;
+    head: number;
+    centerTorso: number;
+    rightTorso: number;
+    leftTorso: number;
+    centerTorsoRear: number;
+    rightTorsoRear: number;
+    leftTorsoRear: number;
+    leftArm: number;
+    rightArm: number;
+    leftLeg: number;
+    rightLeg: number;
 }
 
 interface IPilot {
-	name: string;
-	piloting: number;
-	gunnery: number;
-	wounds: number;
+    name: string;
+    piloting: number;
+    gunnery: number;
+    wounds: number;
 }
 
 interface IBMEquipmentExport {
-	tag: string;
-	loc: string | undefined;
+    tag: string;
+    loc: string | undefined;
     rear: boolean | undefined;
     uuid: string | undefined;
 }
 interface IBattleMechExport {
-	name: string;
-	tonnage: number;
+    name: string;
+    tonnage: number;
     walkSpeed: number;
     hideNonAvailableEquipment: boolean;
-	jumpSpeed: number;
-	engineType: string;
-	mechType: string;
-	era: string;
-	tech: string;
-	gyro: string;
-	is_type: string;
-	additionalHeatSinks: number;
-	heat_sink_type: string;
-	armor_weight: number;
-	uuid: string;
-	strictEra: boolean;
-	armor_allocation: IArmorAllocation,
-	armor_type: string;
-	equipment: IBMEquipmentExport[],
-	allocation: ICriticalSlot[],
-	features: string[],
-	pilot: IPilot,
-	as_role: string;
-	as_custom_name: string;
+    jumpSpeed: number;
+    engineType: string;
+    mechType: string;
+    era: string;
+    tech: string;
+    gyro: string;
+    is_type: string;
+    additionalHeatSinks: number;
+    heat_sink_type: string;
+    armor_weight: number;
+    uuid: string;
+    strictEra: boolean;
+    armor_allocation: IArmorAllocation,
+    armor_type: string;
+    equipment: IBMEquipmentExport[],
+    allocation: ICriticalSlot[],
+    features: string[],
+    pilot: IPilot,
+    as_role: string;
+    as_custom_name: string;
+}
+
+interface IAlphaStrikeExport {
+    name: string;
+    move: number;
+    type: string;
+    customName: string;
+    role: string;
+    jumpMove: number;
+    pv: number;
+    damage: IAlphaStrikeDamage;
+    armor: number;
+    structure: number;
+    size: number;
+    skill: number;
+    overheat: number;
+    notes: string;
+    tmm: number;
+    sizeClass: number;
+    sizeClassName: string;
+    ov: number;
+    specialUnitAbilities: string[],
+    longHeat: number;
+    longOverheat: number;
+    abilityCodes: string[],
 }
 
 export class BattleMech {
@@ -107,7 +132,7 @@ export class BattleMech {
     uuid: string = "";
     tonnage = 20;
     hideNonAvailableEquipment: boolean = true;
-	currentTonnage = 0;
+    currentTonnage = 0;
     // useLang: string = "en-US";
 
     armorType = mechArmorTypes[0];
@@ -245,18 +270,19 @@ export class BattleMech {
         wounds: 0
     };
 
-    alphaStrikeForceStats = {
+    alphaStrikeForceStats: IAlphaStrikeExport = {
         name: "",
-        move: "",
+        move: 0,
+        type: "BM",
         customName: "",
         role: "Brawler",
         jumpMove: 0,
-        pv: "",
+        pv: 0,
         damage: {
-            short: 0,
-            medium: 0,
-            long: 0,
-            extreme: 0
+            short: "0",
+            medium: "0",
+            long: "0",
+            extreme: "0",
         },
         armor: 0,
         structure: 0,
@@ -265,15 +291,20 @@ export class BattleMech {
         overheat: 0,
         notes: "",
         tmm: 0,
-        size_class: 0,
-        size_class_name: "",
-
+        sizeClass: 0,
+        sizeClassName: "",
+        ov: 0,
+        specialUnitAbilities: [],
+        longHeat: 0,
+        longOverheat: 0,
+        abilityCodes: [],
     }
 
     constructor(importJSON: string = "") {
         if( importJSON ) {
             this.importJSON( importJSON );
         } else {
+            this.setTonnage( 20 );
             this.calc();
         }
 
@@ -295,9 +326,9 @@ export class BattleMech {
         return this.mechType;
     }
 
-    getHighestDamage(incomingDamageObjects: IAlphaStrikeDamage[]) {
+    getHighestDamage(incomingDamageObjects: IAlphaStrikeDamage): number {
         let returnValue = 0;
-        for( let dC = 0; dC < incomingDamageObjects.length; dC++) {
+       /*  for( let dC = 0; dC < incomingDamageObjects.length; dC++) {
             if(
                 incomingDamageObjects[dC] &&
                 incomingDamageObjects[dC].short !== "-" &&
@@ -336,11 +367,53 @@ export class BattleMech {
                 }
             }
         }
+        */
+
+       if(
+            incomingDamageObjects &&
+            incomingDamageObjects.short !== "-" &&
+            incomingDamageObjects.short !== "0*"
+        ) {
+            if( +incomingDamageObjects.short > returnValue) {
+                returnValue = +incomingDamageObjects.short;
+            }
+        }
+        if(
+            incomingDamageObjects &&
+            incomingDamageObjects.medium !== "-" &&
+            incomingDamageObjects.medium !== "0*"
+        ) {
+            if( +incomingDamageObjects.medium > returnValue) {
+                returnValue = +incomingDamageObjects.medium;
+            }
+        }
+        if(
+            incomingDamageObjects &&
+            incomingDamageObjects.long !== "-" &&
+            incomingDamageObjects.long !== "0*"
+        ) {
+            if( +incomingDamageObjects.long > returnValue) {
+                returnValue = +incomingDamageObjects.long;
+            }
+        }
+
+        if(
+            incomingDamageObjects &&
+            incomingDamageObjects.extreme !== "-" &&
+            incomingDamageObjects.extreme !== "0*"
+        ) {
+            if( +incomingDamageObjects.extreme > returnValue) {
+                returnValue = +incomingDamageObjects.extreme;
+            }
+        }
 
         return returnValue;
     }
 
-    adjustASDamage(incomingDamageObjects: IAlphaStrikeDamage, useZeros: boolean = false) {
+    adjustASDamage(
+        incomingDamageObjects: IAlphaStrikeDamage,
+        useZeros: boolean = false,
+    ) {
 
         if( incomingDamageObjects.short === "0") {
             if( useZeros)
@@ -866,7 +939,7 @@ export class BattleMech {
 
         // Add up all the BV Sums, put each in an array for comparison
         for( let eqC = 0; eqC < this.equipmentList.length; eqC++) {
-			let currentItem = this.equipmentList[eqC];
+            let currentItem = this.equipmentList[eqC];
             if( currentItem.tag.indexOf("ammo-") > -1) {
                 if( !ammoBV[currentItem.tag])
                     ammoBV[currentItem.tag] = 0;
@@ -934,7 +1007,7 @@ export class BattleMech {
         this.equipmentList.sort(sortByBVThenRearThenHeat);
 
         for( let eqC = 0; eqC < this.equipmentList.length; eqC++) {
-			let currentItem = this.equipmentList[eqC];
+            let currentItem = this.equipmentList[eqC];
             if( currentItem.tag.indexOf("ammo-") === -1) {
                 if( !weaponBV[currentItem.tag])
                     weaponBV[currentItem.tag] = 0;
@@ -973,34 +1046,34 @@ export class BattleMech {
                 if( this.equipmentList[weaponC].tag.indexOf("ammo-") === -1) {
 
                     if( inHalfCost === true && this.equipmentList[weaponC].heat > 0) {
-						// half efficiency
-						let currentItem = this.equipmentList[weaponC];
+                        // half efficiency
+                        let currentItem = this.equipmentList[weaponC];
                         if( currentItem && currentItem.rear ) {
-							if( currentItem.battleValue) {
-								this.calcLogBV += "+ Adding Heat Inefficient Rear Weapon " + currentItem.name + " - " + currentItem.battleValue + " / 4 = " + (currentItem.battleValue / 4);
-								runningTotal += currentItem.battleValue / 4;
-							}
+                            if( currentItem.battleValue) {
+                                this.calcLogBV += "+ Adding Heat Inefficient Rear Weapon " + currentItem.name + " - " + currentItem.battleValue + " / 4 = " + (currentItem.battleValue / 4);
+                                runningTotal += currentItem.battleValue / 4;
+                            }
                         } else {
-							if( currentItem.battleValue ) {
-								this.calcLogBV += "+ Adding Heat Inefficient Weapon " + currentItem.name + " - " + currentItem.battleValue + " / 2 = " + (currentItem.battleValue / 2);
-								runningTotal += currentItem.battleValue / 2;
-							}
+                            if( currentItem.battleValue ) {
+                                this.calcLogBV += "+ Adding Heat Inefficient Weapon " + currentItem.name + " - " + currentItem.battleValue + " / 2 = " + (currentItem.battleValue / 2);
+                                runningTotal += currentItem.battleValue / 2;
+                            }
                         }
                     } else {
                         // normal efficiency
 
-						//~ console.log(  this.equipmentList[weaponC] );
-						let currentItem = this.equipmentList[weaponC];
+                        //~ console.log(  this.equipmentList[weaponC] );
+                        let currentItem = this.equipmentList[weaponC];
                         if( currentItem.rear ) {
-							if( currentItem.battleValue) {
-                            	this.calcLogBV += "+ Adding Rear Weapon " + currentItem.name + " - " + (currentItem.battleValue / 2 ) + "<br />";
-								runningTotal += (currentItem.battleValue / 2);
-							}
+                            if( currentItem.battleValue) {
+                                this.calcLogBV += "+ Adding Rear Weapon " + currentItem.name + " - " + (currentItem.battleValue / 2 ) + "<br />";
+                                runningTotal += (currentItem.battleValue / 2);
+                            }
                         } else {
-							if( currentItem.battleValue) {
-                            	this.calcLogBV += "+ Adding Weapon " + currentItem.name + " - " + currentItem.battleValue;
-								runningTotal += currentItem.battleValue;
-							}
+                            if( currentItem.battleValue) {
+                                this.calcLogBV += "+ Adding Weapon " + currentItem.name + " - " + currentItem.battleValue;
+                                runningTotal += currentItem.battleValue;
+                            }
                         }
                     }
 
@@ -1021,19 +1094,19 @@ export class BattleMech {
             // Mech is heat efficient, no need to go through steps 4-7 on TM pp 303-304, just print and add up the weapons
 
             for( let weaponC = 0; weaponC < this.equipmentList.length; weaponC++) {
-				let currentItem = this.equipmentList[weaponC];
+                let currentItem = this.equipmentList[weaponC];
                 if( currentItem.tag.indexOf("ammo-") === -1) {
                     if( currentItem.rear ) {
-						if( currentItem.battleValue ) {
-                        	this.calcLogBV += "+ Adding Rear Weapon " + currentItem.name + " - " + (currentItem.battleValue / 2 ) + "<br />";
+                        if( currentItem.battleValue ) {
+                            this.calcLogBV += "+ Adding Rear Weapon " + currentItem.name + " - " + (currentItem.battleValue / 2 ) + "<br />";
 
-							runningTotal += (currentItem.battleValue / 2);
-						}
+                            runningTotal += (currentItem.battleValue / 2);
+                        }
                     } else {
-						if( currentItem.battleValue ) {
-                        	this.calcLogBV += "+ Adding Weapon " + currentItem.name + " - " + currentItem.battleValue + "<br />";
-							runningTotal += currentItem.battleValue;
-						}
+                        if( currentItem.battleValue ) {
+                            this.calcLogBV += "+ Adding Weapon " + currentItem.name + " - " + currentItem.battleValue + "<br />";
+                            runningTotal += currentItem.battleValue;
+                        }
                     }
                 }
             }
@@ -1572,35 +1645,35 @@ export class BattleMech {
         if( this.engine && this.engine.weight) {
             // if( this.engineType.tag === "clan-xl") {
             //     return this.engine.weight.xl;
-			// } else {
-			// 	return this.engine.weight[this.engineType.tag];
-			// }
-			switch( this.engineType.tag ) {
-				case "standard": {
-					return this.engine.weight.standard;
-				}
-				case "clan-xl":
-				case "xl": {
-					return this.engine.weight.xl;
-				}
-				case "cell": {
-					return this.engine.weight.cell;
-				}
-				case "comp": {
-					return this.engine.weight.comp;
-				}
-				case "fission": {
-					return this.engine.weight.fission;
-				}
-				case "ice": {
-					return this.engine.weight.ice;
-				}
-				case "light": {
-					return this.engine.weight.light;
-				}
+            // } else {
+            //     return this.engine.weight[this.engineType.tag];
+            // }
+            switch( this.engineType.tag ) {
+                case "standard": {
+                    return this.engine.weight.standard;
+                }
+                case "clan-xl":
+                case "xl": {
+                    return this.engine.weight.xl;
+                }
+                case "cell": {
+                    return this.engine.weight.cell;
+                }
+                case "comp": {
+                    return this.engine.weight.comp;
+                }
+                case "fission": {
+                    return this.engine.weight.fission;
+                }
+                case "ice": {
+                    return this.engine.weight.ice;
+                }
+                case "light": {
+                    return this.engine.weight.light;
+                }
 
-			}
-			return 0;
+            }
+            return 0;
         } else {
             return 0;
         }
@@ -1623,11 +1696,11 @@ export class BattleMech {
     }
 
     getGyroWeight() {
-		if( this.engine ) {
-			return Math.ceil(Math.ceil(this.engine.rating / 100) * this.gyro.weight_multiplier);
-		} else {
-			return 0;
-		}
+        if( this.engine ) {
+            return Math.ceil(Math.ceil(this.engine.rating / 100) * this.gyro.weight_multiplier);
+        } else {
+            return 0;
+        }
     }
     getCockpitWeight() {
         return this.cockpitWeight;
@@ -1696,10 +1769,1088 @@ export class BattleMech {
     //             inPlay = false;
     //     }
 
-    //     //~ console.log( alphaStrikeForceStats );
+    //     //~ console.log( this.alphaStrikeForceStats );
 
     //     return createSVGAlphaStrike(alphaStrikeForceStats, inPlay);
     // }
+
+
+    calcAlphaStrike(): AlphaStrikeUnit {
+
+        this.alphaStrikeForceStats.name = this.make;
+        //~ this.alphaStrikeForceStats.model  = _model;
+        this.alphaStrikeForceStats.move = this.getWalkSpeed() * 2;
+        this.alphaStrikeForceStats.jumpMove = this.getJumpSpeed() * 2;
+        this.alphaStrikeForceStats.pv = 0;
+        this.alphaStrikeForceStats.damage.short = "0";
+        this.alphaStrikeForceStats.damage.medium = "0";
+        this.alphaStrikeForceStats.damage.long = "0";
+        this.alphaStrikeForceStats.damage.extreme = "0";
+        this.alphaStrikeForceStats.armor = 0;
+        this.alphaStrikeForceStats.structure = 0;
+        this.alphaStrikeForceStats.skill = 4;
+        this.alphaStrikeForceStats.ov = 0;
+        this.alphaStrikeForceStats.notes = "";
+        this.alphaStrikeForceStats.sizeClass = 0;
+        this.alphaStrikeForceStats.sizeClassName = "";
+        this.alphaStrikeForceStats.specialUnitAbilities = [];
+        this.alphaStrikeForceStats.overheat = 0;
+        this.alphaStrikeForceStats.longHeat = 0;
+        this.alphaStrikeForceStats.abilityCodes = [];
+        this.alphaStrikeForceStats.specialUnitAbilities = [];
+
+        // this.alphaStrikeForceStats.getAbilityCode(abilityCode) {
+        //     for (let abiC = 0; abiC < this.alphaStrikeForceStats.abilityCodes.length; abiC++) {
+        //         if (abilityCode.toLowerCase().trim() == this.alphaStrikeForceStats.abilityCodes[abiC].toLowerCase().trim()) {
+        //             return this.alphaStrikeForceStats.abilityCodes[abiC];
+        //         }
+        //     }
+
+        //     return null;
+        // }
+
+        // this.alphaStrikeForceStats.addAbilityCode(abilityCode, abilityValue) {
+
+        //     this.alphaStrikeForceStats.abilityCodes.push({
+        //         code: abilityCode,
+        //         value: abilityValue
+        //     });
+
+
+        // }
+
+
+        this.calcLogAS = "";
+
+        // TODO - calculations
+        this.calcLogAS += "Tonnage is " + this.tonnage + "<br />\n";
+        if (this.tonnage > 100) {
+            this.alphaStrikeForceStats.sizeClass = 4;
+            this.alphaStrikeForceStats.sizeClassName = "Superheavy";
+            this.alphaStrikeForceStats.specialUnitAbilities.push("LG");
+            this.calcLogAS += "<strong>Setting Size to 4 (Superheavy)</strong><br />\n";
+        } else if (this.tonnage >= 80) {
+            this.alphaStrikeForceStats.sizeClass = 4;
+            this.alphaStrikeForceStats.sizeClassName = "Assault";
+            this.calcLogAS += "<strong>Setting Size to 4 (Assault)</strong><br />\n";
+        } else if (this.tonnage >= 60) {
+            this.alphaStrikeForceStats.sizeClass = 3;
+            this.alphaStrikeForceStats.sizeClassName = "Heavy";
+            this.calcLogAS += "<strong>Setting Size to 3 (Heavy)</strong><br />\n";
+        } else if (this.tonnage >= 40) {
+            this.alphaStrikeForceStats.sizeClass = 2;
+            this.alphaStrikeForceStats.sizeClassName = "Medium";
+            this.calcLogAS += "<strong>Setting Size to 2 (Medium)</strong><br />\n";
+        } else {
+            this.alphaStrikeForceStats.sizeClass = 1;
+            this.alphaStrikeForceStats.sizeClassName = "Light";
+            this.calcLogAS += "<strong>Setting Size to 1 (Light)</strong><br />\n";
+        }
+
+        this.alphaStrikeForceStats.armor = +((this.getTotalArmor() / 30).toFixed(0));
+        this.calcLogAS += "Converting total armor of " + this.getTotalArmor() + "<br />\n";
+        this.calcLogAS += "<strong>Setting Armor to " + this.alphaStrikeForceStats.armor + "</strong><br />\n";
+
+        if (this.getTech().tag == "is") {
+
+
+            switch (this.engineType.tag) {
+                case "compact":
+                    // Compact
+
+                    if (this.tonnage == 100) {
+                        this.alphaStrikeForceStats.structure = 10;
+                    } else if (this.tonnage >= 95) {
+                        this.alphaStrikeForceStats.structure = 10;
+                    } else if (this.tonnage >= 90) {
+                        this.alphaStrikeForceStats.structure = 10;
+                    } else if (this.tonnage >= 85) {
+                        this.alphaStrikeForceStats.structure = 9;
+                    } else if (this.tonnage >= 80) {
+                        this.alphaStrikeForceStats.structure = 8;
+                    } else if (this.tonnage >= 75) {
+                        this.alphaStrikeForceStats.structure = 8;
+                    } else if (this.tonnage >= 70) {
+                        this.alphaStrikeForceStats.structure = 7;
+                    } else if (this.tonnage >= 65) {
+                        this.alphaStrikeForceStats.structure = 7;
+                    } else if (this.tonnage >= 60) {
+                        this.alphaStrikeForceStats.structure = 7;
+                    } else if (this.tonnage >= 55) {
+                        this.alphaStrikeForceStats.structure = 6;
+                    } else if (this.tonnage >= 50) {
+                        this.alphaStrikeForceStats.structure = 5;
+                    } else if (this.tonnage >= 45) {
+                        this.alphaStrikeForceStats.structure = 5;
+                    } else if (this.tonnage >= 40) {
+                        this.alphaStrikeForceStats.structure = 4;
+                    } else if (this.tonnage >= 35) {
+                        this.alphaStrikeForceStats.structure = 4;
+                    } else if (this.tonnage >= 30) {
+                        this.alphaStrikeForceStats.structure = 3;
+                    } else if (this.tonnage >= 25) {
+                        this.alphaStrikeForceStats.structure = 3;
+                    } else if (this.tonnage >= 20) {
+                        this.alphaStrikeForceStats.structure = 2;
+                    } else if (this.tonnage >= 15) {
+                        this.alphaStrikeForceStats.structure = 2;
+                    } else if (this.tonnage >= 10) {
+                        this.alphaStrikeForceStats.structure = 1;
+                    }
+                    this.calcLogAS += "Engine is an IS Compact Engine <strong>setting structure to " + this.alphaStrikeForceStats.structure + "</strong><br />\n";
+                    break;
+                case "xl":
+                    // XL
+                    if (this.tonnage == 100) {
+                        this.alphaStrikeForceStats.structure = 5;
+                    } else if (this.tonnage >= 95) {
+                        this.alphaStrikeForceStats.structure = 5;
+                    } else if (this.tonnage >= 90) {
+                        this.alphaStrikeForceStats.structure = 5;
+                    } else if (this.tonnage >= 85) {
+                        this.alphaStrikeForceStats.structure = 5;
+                    } else if (this.tonnage >= 80) {
+                        this.alphaStrikeForceStats.structure = 4;
+                    } else if (this.tonnage >= 75) {
+                        this.alphaStrikeForceStats.structure = 4;
+                    } else if (this.tonnage >= 70) {
+                        this.alphaStrikeForceStats.structure = 4;
+                    } else if (this.tonnage >= 65) {
+                        this.alphaStrikeForceStats.structure = 4;
+                    } else if (this.tonnage >= 60) {
+                        this.alphaStrikeForceStats.structure = 3;
+                    } else if (this.tonnage >= 55) {
+                        this.alphaStrikeForceStats.structure = 3;
+                    } else if (this.tonnage >= 50) {
+                        this.alphaStrikeForceStats.structure = 3;
+                    } else if (this.tonnage >= 45) {
+                        this.alphaStrikeForceStats.structure = 2;
+                    } else if (this.tonnage >= 40) {
+                        this.alphaStrikeForceStats.structure = 2;
+                    } else if (this.tonnage >= 35) {
+                        this.alphaStrikeForceStats.structure = 2;
+                    } else if (this.tonnage >= 30) {
+                        this.alphaStrikeForceStats.structure = 2;
+                    } else if (this.tonnage >= 25) {
+                        this.alphaStrikeForceStats.structure = 1;
+                    } else if (this.tonnage >= 20) {
+                        this.alphaStrikeForceStats.structure = 1;
+                    } else if (this.tonnage >= 15) {
+                        this.alphaStrikeForceStats.structure = 1;
+                    } else if (this.tonnage >= 10) {
+                        this.alphaStrikeForceStats.structure = 1;
+                    }
+                    this.calcLogAS += "Engine is a Clan XL Engine <strong>setting structure to " + this.alphaStrikeForceStats.structure + "</strong><br />\n";
+                    break;
+                case "light":
+                    // Compact
+                    if (this.tonnage == 100) {
+                        this.alphaStrikeForceStats.structure = 5;
+                    } else if (this.tonnage >= 95) {
+                        this.alphaStrikeForceStats.structure = 5;
+                    } else if (this.tonnage >= 90) {
+                        this.alphaStrikeForceStats.structure = 5;
+                    } else if (this.tonnage >= 85) {
+                        this.alphaStrikeForceStats.structure = 5;
+                    } else if (this.tonnage >= 80) {
+                        this.alphaStrikeForceStats.structure = 4;
+                    } else if (this.tonnage >= 75) {
+                        this.alphaStrikeForceStats.structure = 4;
+                    } else if (this.tonnage >= 70) {
+                        this.alphaStrikeForceStats.structure = 4;
+                    } else if (this.tonnage >= 65) {
+                        this.alphaStrikeForceStats.structure = 4;
+                    } else if (this.tonnage >= 60) {
+                        this.alphaStrikeForceStats.structure = 3;
+                    } else if (this.tonnage >= 55) {
+                        this.alphaStrikeForceStats.structure = 3;
+                    } else if (this.tonnage >= 50) {
+                        this.alphaStrikeForceStats.structure = 3;
+                    } else if (this.tonnage >= 45) {
+                        this.alphaStrikeForceStats.structure = 2;
+                    } else if (this.tonnage >= 40) {
+                        this.alphaStrikeForceStats.structure = 2;
+                    } else if (this.tonnage >= 35) {
+                        this.alphaStrikeForceStats.structure = 2;
+                    } else if (this.tonnage >= 30) {
+                        this.alphaStrikeForceStats.structure = 2;
+                    } else if (this.tonnage >= 25) {
+                        this.alphaStrikeForceStats.structure = 1;
+                    } else if (this.tonnage >= 20) {
+                        this.alphaStrikeForceStats.structure = 1;
+                    } else if (this.tonnage >= 15) {
+                        this.alphaStrikeForceStats.structure = 1;
+                    } else if (this.tonnage >= 10) {
+                        this.alphaStrikeForceStats.structure = 1;
+                    }
+                    this.calcLogAS += "Engine is an IS Light Engine <strong>setting structure to " + this.alphaStrikeForceStats.structure + "</strong><br />\n";
+                    break;
+                default:
+                    // Standard
+                    if (this.tonnage == 100) {
+                        this.alphaStrikeForceStats.structure = 8;
+                    } else if (this.tonnage >= 95) {
+                        this.alphaStrikeForceStats.structure = 8;
+                    } else if (this.tonnage >= 90) {
+                        this.alphaStrikeForceStats.structure = 7;
+                    } else if (this.tonnage >= 85) {
+                        this.alphaStrikeForceStats.structure = 7;
+                    } else if (this.tonnage >= 80) {
+                        this.alphaStrikeForceStats.structure = 6;
+                    } else if (this.tonnage >= 75) {
+                        this.alphaStrikeForceStats.structure = 6;
+                    } else if (this.tonnage >= 70) {
+                        this.alphaStrikeForceStats.structure = 6;
+                    } else if (this.tonnage >= 65) {
+                        this.alphaStrikeForceStats.structure = 5;
+                    } else if (this.tonnage >= 60) {
+                        this.alphaStrikeForceStats.structure = 5;
+                    } else if (this.tonnage >= 55) {
+                        this.alphaStrikeForceStats.structure = 5;
+                    } else if (this.tonnage >= 50) {
+                        this.alphaStrikeForceStats.structure = 4;
+                    } else if (this.tonnage >= 45) {
+                        this.alphaStrikeForceStats.structure = 4;
+                    } else if (this.tonnage >= 40) {
+                        this.alphaStrikeForceStats.structure = 3;
+                    } else if (this.tonnage >= 35) {
+                        this.alphaStrikeForceStats.structure = 3;
+                    } else if (this.tonnage >= 30) {
+                        this.alphaStrikeForceStats.structure = 3;
+                    } else if (this.tonnage >= 25) {
+                        this.alphaStrikeForceStats.structure = 2;
+                    } else if (this.tonnage >= 20) {
+                        this.alphaStrikeForceStats.structure = 2;
+                    } else if (this.tonnage >= 15) {
+                        this.alphaStrikeForceStats.structure = 1;
+                    } else if (this.tonnage >= 10) {
+                        this.alphaStrikeForceStats.structure = 1;
+                    }
+                    this.calcLogAS += "Engine is an IS Standard Engine <strong>setting structure to " + this.alphaStrikeForceStats.structure + "</strong><br />\n";
+                    break;
+            }
+        } else {
+            // Clan Engines...
+            switch (this.engineType.tag) {
+                case "xl":
+                case "clan-xl":
+                    // Compact
+                    if (this.tonnage == 100) {
+                        this.alphaStrikeForceStats.structure = 5;
+                    } else if (this.tonnage >= 95) {
+                        this.alphaStrikeForceStats.structure = 5;
+                    } else if (this.tonnage >= 90) {
+                        this.alphaStrikeForceStats.structure = 5;
+                    } else if (this.tonnage >= 85) {
+                        this.alphaStrikeForceStats.structure = 5;
+                    } else if (this.tonnage >= 80) {
+                        this.alphaStrikeForceStats.structure = 4;
+                    } else if (this.tonnage >= 75) {
+                        this.alphaStrikeForceStats.structure = 4;
+                    } else if (this.tonnage >= 70) {
+                        this.alphaStrikeForceStats.structure = 4;
+                    } else if (this.tonnage >= 65) {
+                        this.alphaStrikeForceStats.structure = 4;
+                    } else if (this.tonnage >= 60) {
+                        this.alphaStrikeForceStats.structure = 3;
+                    } else if (this.tonnage >= 55) {
+                        this.alphaStrikeForceStats.structure = 3;
+                    } else if (this.tonnage >= 50) {
+                        this.alphaStrikeForceStats.structure = 3;
+                    } else if (this.tonnage >= 45) {
+                        this.alphaStrikeForceStats.structure = 2;
+                    } else if (this.tonnage >= 40) {
+                        this.alphaStrikeForceStats.structure = 2;
+                    } else if (this.tonnage >= 35) {
+                        this.alphaStrikeForceStats.structure = 2;
+                    } else if (this.tonnage >= 30) {
+                        this.alphaStrikeForceStats.structure = 2;
+                    } else if (this.tonnage >= 25) {
+                        this.alphaStrikeForceStats.structure = 1;
+                    } else if (this.tonnage >= 20) {
+                        this.alphaStrikeForceStats.structure = 1;
+                    } else if (this.tonnage >= 15) {
+                        this.alphaStrikeForceStats.structure = 1;
+                    } else if (this.tonnage >= 10) {
+                        this.alphaStrikeForceStats.structure = 1;
+                    }
+                    this.calcLogAS += "Engine is a Clan XL Engine <strong>setting structure to " + this.alphaStrikeForceStats.structure + "</strong><br />\n";
+                    break;
+                default:
+                    // Standard / Standard Fusion
+                    if (this.tonnage == 100) {
+                        this.alphaStrikeForceStats.structure = 8;
+                    } else if (this.tonnage >= 95) {
+                        this.alphaStrikeForceStats.structure = 8;
+                    } else if (this.tonnage >= 90) {
+                        this.alphaStrikeForceStats.structure = 7;
+                    } else if (this.tonnage >= 85) {
+                        this.alphaStrikeForceStats.structure = 7;
+                    } else if (this.tonnage >= 80) {
+                        this.alphaStrikeForceStats.structure = 6;
+                    } else if (this.tonnage >= 75) {
+                        this.alphaStrikeForceStats.structure = 6;
+                    } else if (this.tonnage >= 70) {
+                        this.alphaStrikeForceStats.structure = 6;
+                    } else if (this.tonnage >= 65) {
+                        this.alphaStrikeForceStats.structure = 5;
+                    } else if (this.tonnage >= 60) {
+                        this.alphaStrikeForceStats.structure = 5;
+                    } else if (this.tonnage >= 55) {
+                        this.alphaStrikeForceStats.structure = 5;
+                    } else if (this.tonnage >= 50) {
+                        this.alphaStrikeForceStats.structure = 4;
+                    } else if (this.tonnage >= 45) {
+                        this.alphaStrikeForceStats.structure = 4;
+                    } else if (this.tonnage >= 40) {
+                        this.alphaStrikeForceStats.structure = 3;
+                    } else if (this.tonnage >= 35) {
+                        this.alphaStrikeForceStats.structure = 3;
+                    } else if (this.tonnage >= 30) {
+                        this.alphaStrikeForceStats.structure = 3;
+                    } else if (this.tonnage >= 25) {
+                        this.alphaStrikeForceStats.structure = 2;
+                    } else if (this.tonnage >= 20) {
+                        this.alphaStrikeForceStats.structure = 2;
+                    } else if (this.tonnage >= 15) {
+                        this.alphaStrikeForceStats.structure = 1;
+                    } else if (this.tonnage >= 10) {
+                        this.alphaStrikeForceStats.structure = 1;
+                    }
+                    this.calcLogAS += "Engine is a Clan Standard Engine <strong>setting structure to " + this.alphaStrikeForceStats.structure + "</strong><br />\n";
+
+                    break;
+            }
+        }
+
+        // Heat Modified Damage, p115 AS companion
+        let total_weapon_heat = 0;
+        let total_weapon_heat_long = 0;
+        let has_explosive = false;
+
+        let lrmDamage: IAlphaStrikeDamage = {
+            short: "0",
+            medium: "0",
+            long: "0",
+            extreme: "0"
+
+        }
+
+        let heatDamage: IAlphaStrikeDamage = {
+            short: "0",
+            medium: "0",
+            long: "0",
+            extreme: "0"
+        }
+
+        let flakDamage: IAlphaStrikeDamage = {
+            short: "0",
+            medium: "0",
+            long: "0",
+            extreme: "0"
+        }
+
+        let acDamage: IAlphaStrikeDamage = {
+            short: "0",
+            medium: "0",
+            long: "0",
+            extreme: "0"
+        }
+
+        let srmDamage: IAlphaStrikeDamage = {
+            short: "0",
+            medium: "0",
+            long: "0",
+            extreme: "0"
+        }
+
+        let mslDamage: IAlphaStrikeDamage = {
+            short: "0",
+            medium: "0",
+            long: "0",
+            extreme: "0"
+        }
+
+        let rearDamage: IAlphaStrikeDamage = {
+            short: "0",
+            medium: "0",
+            long: "0",
+            extreme: "0"
+        }
+
+        let indirectFireRating = 0;
+
+        for (let weapon_counter = 0; weapon_counter < this.equipmentList.length; weapon_counter++) {
+            if (this.equipmentList[weapon_counter].alphaStrike) {
+                if (this.equipmentList[weapon_counter].alphaStrike.rangeLong > 0) {
+                    total_weapon_heat_long += this.equipmentList[weapon_counter].alphaStrike.heat;
+                }
+
+                if (this.equipmentList[weapon_counter].explosive)
+                    has_explosive = true;
+
+                let shortTotalDamage = 0;
+                let mediumTotalDamage = 0;
+                let longTotalDamage = 0;
+                let extremeTotalDamage = 0;
+
+                let shortTotalDamageRear = 0;
+                let mediumTotalDamageRear = 0;
+                let longTotalDamageRear = 0;
+                let extremeTotalDamageRear = 0;
+
+                if (this.equipmentList[weapon_counter].rear) {
+                    this.calcLogAS += "Adding <strong>rear</strong> Weapon " + this.equipmentList[weapon_counter].tag + " - ";
+                    this.calcLogAS += " (" + this.equipmentList[weapon_counter].alphaStrike.rangeShort + ", ";
+                    this.calcLogAS += this.equipmentList[weapon_counter].alphaStrike.rangeMedium + ", ";
+                    this.calcLogAS += this.equipmentList[weapon_counter].alphaStrike.rangeLong + ", ";
+                    this.calcLogAS += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme + ")<br />\n";
+                    shortTotalDamageRear += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
+                    mediumTotalDamageRear += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
+                    longTotalDamageRear += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
+                    extremeTotalDamageRear += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
+                } else {
+
+                    shortTotalDamage += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
+                    mediumTotalDamage += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
+                    longTotalDamage += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
+                    extremeTotalDamage += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
+
+                    this.calcLogAS += "Adding Weapon " + this.equipmentList[weapon_counter].tag + " - ";
+                    this.calcLogAS += " (" + this.equipmentList[weapon_counter].alphaStrike.rangeShort + ", ";
+                    this.calcLogAS += this.equipmentList[weapon_counter].alphaStrike.rangeMedium + ", ";
+                    this.calcLogAS += this.equipmentList[weapon_counter].alphaStrike.rangeLong + ", ";
+                    this.calcLogAS += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme + ")<br />\n";
+                    total_weapon_heat += this.equipmentList[weapon_counter].alphaStrike.heat;
+
+                }
+
+                this.alphaStrikeForceStats.damage.short = shortTotalDamage.toString();
+                this.alphaStrikeForceStats.damage.medium = mediumTotalDamage.toString()
+                this.alphaStrikeForceStats.damage.long = longTotalDamage.toString()
+                this.alphaStrikeForceStats.damage.extreme = extremeTotalDamage.toString()
+
+
+                rearDamage.short = shortTotalDamageRear.toString();
+                rearDamage.medium = mediumTotalDamageRear.toString()
+                rearDamage.long = longTotalDamageRear.toString()
+                rearDamage.extreme = extremeTotalDamageRear.toString()
+
+                if ( this.equipmentList[weapon_counter].alphaStrike.notes && this.equipmentList[weapon_counter].alphaStrike.notes.length && this.equipmentList[weapon_counter].alphaStrike.notes.length > 0) {
+                    for (let nC = 0; nC < this.equipmentList[weapon_counter].alphaStrike.notes.length; nC++) {
+                        if (this.alphaStrikeForceStats.abilityCodes.indexOf(this.equipmentList[weapon_counter].alphaStrike.notes[nC]) === -1) {
+                            this.alphaStrikeForceStats.abilityCodes.push(this.equipmentList[weapon_counter].alphaStrike.notes[nC]);
+                        }
+
+                        if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "mel") {
+                            this.alphaStrikeForceStats.specialUnitAbilities.push( "MEL" );
+                        }
+
+                        if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "heat") {
+                            heatDamage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
+                            heatDamage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
+                            heatDamage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
+                            heatDamage.extreme += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
+                        }
+
+                        if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "lrm") {
+                            lrmDamage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
+                            lrmDamage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
+                            lrmDamage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
+                            lrmDamage.extreme += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
+                        }
+
+                        if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "ac") {
+                            acDamage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
+                            acDamage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
+                            acDamage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
+                            acDamage.extreme += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
+                        }
+
+                        if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "flak") {
+                            flakDamage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
+                            flakDamage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
+                            flakDamage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
+                            flakDamage.extreme += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
+                        }
+
+                        if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "srm") {
+
+                            indirectFireRating += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
+
+                        }
+
+                        if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "indirect fire" || this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "if") {
+                            srmDamage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
+                            srmDamage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
+                            srmDamage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
+                            srmDamage.extreme += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
+                        }
+
+                        if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "missile" || this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "msl") {
+                            mslDamage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
+                            mslDamage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
+                            mslDamage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
+                            mslDamage.extreme += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
+                        }
+
+
+                    }
+
+                }
+            }
+        }
+
+        let move_heat = 0;
+        if (this.getJumpSpeed() > 0) {
+            if (this.getJumpSpeed() < 3)
+                move_heat += 3;
+            else
+                move_heat += this.getJumpSpeed();
+
+            this.calcLogAS += "<strong>Move Is " + this.getWalkSpeed() * 2 + "\"/" + this.getJumpSpeed() * 2 + "\"J</strong><br />\n";
+        } else {
+            move_heat += 2;
+            this.calcLogAS += "<strong>Move Is " + this.getWalkSpeed() * 2 + "\"</strong><br />\n";
+        }
+
+        // if there are no explosive components, then the mech gets the ENE ability :)
+        if (!has_explosive) {
+            this.alphaStrikeForceStats.abilityCodes.push("ENE");
+            this.calcLogAS += "Mech has no explosive components, gets ENE ability<br />\n";
+        }
+
+        let heatDissipation = 0;
+
+        heatDissipation += (10 + this.additionalHeatSinks) * this.heatSinkType.dissipation;
+
+
+        let max_heat_output = move_heat + total_weapon_heat;
+        let overheat_value = move_heat + total_weapon_heat - heatDissipation;
+        let long_overheat_value = move_heat + total_weapon_heat_long - heatDissipation;
+
+        //~ let before_heat_rangeShort = this.alphaStrikeForceStats.damage.short.toFixed(0) /1;
+        //~ let before_heat_rangeMedium = this.alphaStrikeForceStats.damage.medium.toFixed(0) /1;
+        //~ let before_heat_rangeLong = this.alphaStrikeForceStats.damage.long.toFixed(0) /1;
+        //~ let before_heat_rangeExtreme = this.alphaStrikeForceStats.damage.extreme.toFixed(0) /1;
+
+        //~ this.alphaStrikeForceStats.heat_damage = this.alphaStrikeForceStats.damage;
+
+        let final_overheat_value = 0;
+        if (overheat_value > 3) {
+            // Heat Modified Damage, p115 AS companion
+            let heat_damage_short = 0;
+            let heat_damage_medium = 0;
+            if( this.alphaStrikeForceStats.damage.short.toString() !== "0*")
+                heat_damage_short = Math.ceil((+this.alphaStrikeForceStats.damage.short * heatDissipation) / (max_heat_output - 4));
+            if( this.alphaStrikeForceStats.damage.medium.toString() !== "0*")
+                heat_damage_medium = Math.ceil((+this.alphaStrikeForceStats.damage.medium * heatDissipation) / (max_heat_output - 4));
+
+
+            if( this.alphaStrikeForceStats.damage.short.toString() !== "0*")
+                this.alphaStrikeForceStats.damage.short = Math.ceil(+this.alphaStrikeForceStats.damage.short).toString();
+            if( this.alphaStrikeForceStats.damage.medium.toString() !== "0*")
+                this.alphaStrikeForceStats.damage.medium = Math.ceil(+this.alphaStrikeForceStats.damage.medium).toString();
+            //~ if( this.alphaStrikeForceStats.damage.short != "0*")
+            //~ this.alphaStrikeForceStats.damage.long = Math.ceil( this.alphaStrikeForceStats.damage.long );
+            //~ if( this.alphaStrikeForceStats.damage.medium != "0*")
+            //~ this.alphaStrikeForceStats.damage.extreme =  Math.ceil( this.alphaStrikeForceStats.damage.extreme );
+
+
+            //~ console.log( "damage.short", this.alphaStrikeForceStats.damage.short );
+            //~ console.log( "heat_damage_short", heat_damage_short );
+            //~ console.log( "damage.medium", this.alphaStrikeForceStats.damage.medium );
+            //~ console.log( "heat_damage_medium", heat_damage_medium );
+
+
+            if( this.alphaStrikeForceStats.damage.medium.toString() !== "0*" && heat_damage_medium < +this.alphaStrikeForceStats.damage.medium) {
+                final_overheat_value = (+this.alphaStrikeForceStats.damage.medium - heat_damage_medium);
+                this.alphaStrikeForceStats.damage.medium = (+this.alphaStrikeForceStats.damage.medium - final_overheat_value).toString();
+                this.alphaStrikeForceStats.damage.short = (+this.alphaStrikeForceStats.damage.short - final_overheat_value).toString();
+            }
+            //~ console.log( "final_overheat_value", final_overheat_value );
+
+
+
+        } else {
+            if( this.alphaStrikeForceStats.damage.short.toString() !== "0*")
+                this.alphaStrikeForceStats.damage.short = Math.ceil(+this.alphaStrikeForceStats.damage.short).toString();
+            if( this.alphaStrikeForceStats.damage.medium.toString() !== "0*")
+                this.alphaStrikeForceStats.damage.medium = Math.ceil(+this.alphaStrikeForceStats.damage.medium).toString();
+            //~ if( this.alphaStrikeForceStats.damage.short != "0*")
+            //~ this.alphaStrikeForceStats.damage.long = Math.ceil( this.alphaStrikeForceStats.damage.long );
+            //~ if( this.alphaStrikeForceStats.damage.medium != "0*")
+            //~ this.alphaStrikeForceStats.damage.extreme =  Math.ceil( this.alphaStrikeForceStats.damage.extreme );
+
+        }
+
+        let final_long_overheat_value = 0;
+
+        //~ console.log( "alphaStrikeForceStats.damage", this.alphaStrikeForceStats.damage );
+
+        if (long_overheat_value > 4) {
+
+            //~ console.log( "long_overheat_value", long_overheat_value );
+
+            if( this.alphaStrikeForceStats.damage.long.toString() !== "0*") {
+                //~ this.alphaStrikeForceStats.heat_damage.long = this.alphaStrikeForceStats.damage.long;
+                let heat_damage_long = +this.alphaStrikeForceStats.damage.long;
+                let heat_damage_extreme = +this.alphaStrikeForceStats.damage.extreme;
+
+                this.alphaStrikeForceStats.damage.long = Math.ceil((+this.alphaStrikeForceStats.damage.long * heatDissipation) / (total_weapon_heat_long - 4)).toString();
+                this.alphaStrikeForceStats.damage.extreme = Math.ceil((+this.alphaStrikeForceStats.damage.long * heatDissipation) / (total_weapon_heat_long - 4)).toString();
+
+                //~ console.log( "damage.long", this.alphaStrikeForceStats.damage.long );
+                //~ console.log( "heatDissipation", heatDissipation );
+                //~ console.log( "heat_damage_long", heat_damage_long );
+                //~ console.log( "total_weapon_heat_long", total_weapon_heat_long );
+
+
+
+                if (heat_damage_long > +this.alphaStrikeForceStats.damage.long) {
+                    let final_long_overheat_value = heat_damage_long - +this.alphaStrikeForceStats.damage.long;
+                    this.alphaStrikeForceStats.damage.long = (heat_damage_long - final_long_overheat_value).toString();
+                    this.alphaStrikeForceStats.damage.extreme = (heat_damage_extreme - final_long_overheat_value).toString();
+                }
+
+                //~ console.log( "final_long_overheat_value", final_long_overheat_value );
+                //~ console.log( "damage.long", this.alphaStrikeForceStats.damage.long );
+
+            }
+        } else {
+            //~ if( this.alphaStrikeForceStats.damage.short != "0*")
+            //~ this.alphaStrikeForceStats.damage.short = Math.ceil( this.alphaStrikeForceStats.damage.short );
+            //~ if( this.alphaStrikeForceStats.damage.medium != "0*")
+            //~ this.alphaStrikeForceStats.damage.medium =  Math.ceil( this.alphaStrikeForceStats.damage.medium );
+            if( this.alphaStrikeForceStats.damage.short.toString() !== "0*")
+                this.alphaStrikeForceStats.damage.long = Math.ceil(+this.alphaStrikeForceStats.damage.long).toString();
+            if( this.alphaStrikeForceStats.damage.medium.toString() !== "0*")
+                this.alphaStrikeForceStats.damage.extreme = Math.ceil(+this.alphaStrikeForceStats.damage.extreme).toString();
+
+        }
+
+        if (final_long_overheat_value > 0) {
+            this.alphaStrikeForceStats.abilityCodes.push("OVL " + final_long_overheat_value);
+
+        }
+
+        //~ this.alphaStrikeForceStats.damage.short = this.alphaStrikeForceStats.damage.short.toFixed(0) /1;
+        //~ this.alphaStrikeForceStats.damage.medium = this.alphaStrikeForceStats.damage.medium.toFixed(0) /1;
+        //~ this.alphaStrikeForceStats.damage.long = this.alphaStrikeForceStats.damage.long.toFixed(0) /1;
+        //~ this.alphaStrikeForceStats.damage.extreme = this.alphaStrikeForceStats.damage.extreme.toFixed(0) /1;
+
+        //~ console.log( "alphaStrikeForceStats.damage", this.alphaStrikeForceStats.damage);
+        this.alphaStrikeForceStats.damage = this.adjustASDamage(this.alphaStrikeForceStats.damage, true);
+        //~ console.log( "alphaStrikeForceStats.damage", this.alphaStrikeForceStats.damage);
+
+        // Determine Overheat Values - p116 AS Companion
+        //~ let final_overheat_value = 0;
+
+
+        //~ if( this.alphaStrikeForceStats.damage.medium != "0*" && before_heat_rangeMedium - this.alphaStrikeForceStats.damage.medium > 0) {
+        //~ final_overheat_value = before_heat_rangeMedium - this.alphaStrikeForceStats.damage.medium;
+        //~ } else {
+        //~ // try short range bracket since the med range is low.
+        //~ if( this.alphaStrikeForceStats.damage.short != "0*" )
+        //~ final_overheat_value = before_heat_rangeShort - this.alphaStrikeForceStats.damage.short;
+        //~ }
+        //~ if( final_overheat_value > 4 )
+        //~ final_overheat_value = 4;
+
+        // Determine Overheat Values - ASC - p116
+        //~ let final_long_overheat_value = 0;
+        //~ if( this.alphaStrikeForceStats.damage.long != "0*" && before_heat_rangeLong - this.alphaStrikeForceStats.damage.long > 0) {
+        //~ final_long_overheat_value = before_heat_rangeLong - this.alphaStrikeForceStats.damage.long;
+        //~ }
+
+        if (final_long_overheat_value > 4)
+            final_long_overheat_value = 4;
+
+        this.alphaStrikeForceStats.ov = final_overheat_value;
+
+        this.calcLogAS += "Move Heat: " + move_heat + "<br />\n";
+        this.calcLogAS += "Weapon Heat: " + total_weapon_heat + "<br />\n";
+        this.calcLogAS += "Long Weapon Heat: " + total_weapon_heat_long + "<br />\n";
+        this.calcLogAS += "Heat Dissipation: " + heatDissipation + "<br />\n";
+
+        this.calcLogAS += "Overheat Value: " + overheat_value + "<br />\n";
+        this.calcLogAS += "Long Overheat Value: " + long_overheat_value + "<br />\n";
+
+        this.calcLogAS += "<strong>Short Damage: " + this.alphaStrikeForceStats.damage.short + "</strong><br />\n";
+        this.calcLogAS += "<strong>Medium Damage: " + this.alphaStrikeForceStats.damage.medium + "</strong><br />\n";
+        this.calcLogAS += "<strong>Long Damage: " + this.alphaStrikeForceStats.damage.long + "</strong><br />\n";
+        this.calcLogAS += "<strong>Extreme Damage: " + this.alphaStrikeForceStats.damage.extreme + "</strong><br />\n";
+
+        // Overheat Value is
+        this.calcLogAS += "<strong>Final Overheat Value: " + final_overheat_value + "</strong><br />\n";
+        this.calcLogAS += "<strong>Final Long Overheat Value: " + final_long_overheat_value + "</strong><br />\n";
+
+        this.alphaStrikeForceStats.overheat = final_overheat_value;
+        this.alphaStrikeForceStats.longOverheat = final_long_overheat_value;
+
+        /* *********************************
+         *
+         * Alpha Strike Point Value ASC - p138
+         *
+         * ******************************** */
+
+        this.alphaStrikeForceStats.pv = 0;
+        this.calcLogAS += "<div class=\"text-center\"><strong> - Calculating Point Value - </strong></div>\n";
+        /* *********************************
+         * Step 1: Determine Unit’s Offensive Value ASC - p138
+         * ******************************** */
+
+        this.calcLogAS += "<strong>Step 1: Determine Unit’s Offensive Value ASC - p138</strong><br />\n";
+        let offensive_value = 0;
+        // Attack Damage Factor
+        if( this.alphaStrikeForceStats.damage.short != "0*" && this.alphaStrikeForceStats.damage.short != "-")
+            offensive_value += +this.alphaStrikeForceStats.damage.short;
+        if( this.alphaStrikeForceStats.damage.medium != "0*" && this.alphaStrikeForceStats.damage.medium != "-")
+            offensive_value += +this.alphaStrikeForceStats.damage.medium;
+        if( this.alphaStrikeForceStats.damage.long != "0*" && this.alphaStrikeForceStats.damage.long != "-")
+            offensive_value += +this.alphaStrikeForceStats.damage.long;
+        if( this.alphaStrikeForceStats.damage.extreme != "0*" && this.alphaStrikeForceStats.damage.extreme != "-")
+            offensive_value += +this.alphaStrikeForceStats.damage.extreme;
+
+        this.calcLogAS += "Attack Damage Factor: " + offensive_value + " ( " + this.alphaStrikeForceStats.damage.short + " + " + this.alphaStrikeForceStats.damage.medium + " + " + this.alphaStrikeForceStats.damage.long + " + " + this.alphaStrikeForceStats.damage.extreme + " )<br />\n";
+
+        // Unit Size Factor
+        offensive_value += this.alphaStrikeForceStats.sizeClass / 2;
+        this.calcLogAS += "Unit Size Factor: " + (this.alphaStrikeForceStats.sizeClass / 2) + " (" + this.alphaStrikeForceStats.sizeClass + " / 2))<br />\n";
+
+        // Overheat Factor
+        let overHeatFactor = 0;
+        if( this.alphaStrikeForceStats.ov > 1) {
+            offensive_value += 1;
+            offensive_value += (this.alphaStrikeForceStats.ov - 1) / 2;
+            overHeatFactor += 1;
+            overHeatFactor += (this.alphaStrikeForceStats.ov - 1) / 2;
+        } else {
+            offensive_value += this.alphaStrikeForceStats.ov;
+            overHeatFactor += this.alphaStrikeForceStats.ov;
+
+        }
+
+        this.calcLogAS += "Overheat Factor: " + overHeatFactor + "<br />\n";
+
+
+        // Offensive Special Ability Factor
+        // TODO
+
+        /* *********************************
+         * Step 1a: Apply Blanket Offensive Modifiers ASC - p139
+         * ******************************** */
+        this.calcLogAS += "<strong>Step 1a: Apply Blanket Offensive Modifiers ASC - p139</strong><br />\n";
+        // TODO
+
+        /* *********************************
+         * Step 2: Determine Unit’s Defensive Value ASC - p139
+         * ******************************** */
+        this.calcLogAS += "<strong>Step 2: Determine Unit’s Defensive Value ASC - p139</strong><br />\n";
+        let defensive_value = 0;
+
+        // Movement Factor:
+        let movementDefenseValue = 0;
+        let bestMovement = 0;
+        if( this.alphaStrikeForceStats.move > this.alphaStrikeForceStats.jumpMove) {
+            movementDefenseValue += this.alphaStrikeForceStats.move * .25;
+            bestMovement = this.alphaStrikeForceStats.move;
+        } else {
+            movementDefenseValue += this.alphaStrikeForceStats.jumpMove * .25;
+            bestMovement = this.alphaStrikeForceStats.move;
+        }
+        defensive_value += movementDefenseValue;
+
+        if( this.alphaStrikeForceStats.jumpMove > 0) {
+            movementDefenseValue += .5;
+            this.calcLogAS += "Movement Factor: " + movementDefenseValue + " (" + bestMovement + " * .25 + .5)<br />\n";
+        } else {
+            this.calcLogAS += "Movement Factor: " + movementDefenseValue + " (" + bestMovement + " * .25)<br />\n";
+        }
+
+
+
+        if (
+            +rearDamage.short > 0 ||
+            +rearDamage.medium > 0 ||
+            +rearDamage.long > 0
+        ) {
+            this.alphaStrikeForceStats.abilityCodes.push("Rear");
+        }
+
+        let highestDamage = 0;
+
+        for (let aC = 0; aC < this.alphaStrikeForceStats.abilityCodes.length; aC++) {
+
+            // Replace Heat with Heat X/X/X
+            if( this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "heat") {
+                heatDamage = this.adjustASDamage(heatDamage);
+                this.alphaStrikeForceStats.abilityCodes[aC] = "Heat " + heatDamage.short + "/" + heatDamage.medium + "/" + heatDamage.long;
+                highestDamage = this.getHighestDamage(heatDamage);
+                offensive_value += highestDamage;
+                if (heatDamage.medium != "-" && +heatDamage.medium > 0)
+                    offensive_value += .5;
+
+                this.calcLogAS += "<strong>Adding</strong> Heat Ability: " + heatDamage.short + "/" + heatDamage.medium + "/" + heatDamage.long + "<br />\n";
+                this.calcLogAS += "Adding Heat Damage Factor to PV: " + highestDamage + "<br />\n";
+                if (heatDamage.medium != "-" && +heatDamage.medium > 0)
+                    this.calcLogAS += "Adding Heat Medium Damage Bonus to PV: 0,5<br />\n";
+            }
+
+            // Replace LRM with LRM X/X/X
+            if( this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "lrm") {
+                lrmDamage = this.adjustASDamage(lrmDamage);
+                this.alphaStrikeForceStats.abilityCodes[aC] = "LRM " + lrmDamage.short + "/" + lrmDamage.medium + "/" + lrmDamage.long;
+                this.calcLogAS += "<strong>Adding</strong> LRM Ability: " + lrmDamage.short + "/" + lrmDamage.medium + "/" + lrmDamage.long + "<br />\n";
+
+            }
+
+
+            // Replace Flak with Flak X/X/X
+            if( this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "flak") {
+                flakDamage = this.adjustASDamage(flakDamage);
+                this.alphaStrikeForceStats.abilityCodes[aC] = "Flak " + flakDamage.short + "/" + flakDamage.medium + "/" + flakDamage.long;
+                this.calcLogAS += "<strong>Adding</strong> Flak Ability: " + flakDamage.short + "/" + flakDamage.medium + "/" + flakDamage.long + "<br />\n";
+            }
+
+
+            // Replace AC with AC X/X/X
+            if( this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "ac") {
+                acDamage = this.adjustASDamage(acDamage);
+                this.alphaStrikeForceStats.abilityCodes[aC] = "AC " + acDamage.short + "/" + acDamage.medium + "/" + acDamage.long;
+                this.calcLogAS += "<strong>Adding</strong> AC Ability: " + acDamage.short + "/" + acDamage.medium + "/" + acDamage.long + "<br />\n";
+            }
+
+
+            // Replace SRM with SRM X/X/X
+            if( this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "srm") {
+                srmDamage = this.adjustASDamage(srmDamage);
+                this.alphaStrikeForceStats.abilityCodes[aC] = "SRM " + srmDamage.short + "/" + srmDamage.medium + "/" + srmDamage.long;
+                this.calcLogAS += "<strong>Adding</strong> SRM Ability: " + srmDamage.short + "/" + srmDamage.medium + "/" + srmDamage.long + "<br />\n";
+            }
+
+            // Replace Missile with Missile X/X/X
+            if( this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "missile" || this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "msl") {
+                mslDamage = this.adjustASDamage(mslDamage);
+                this.alphaStrikeForceStats.abilityCodes[aC] = "MSL " + mslDamage.short + "/" + mslDamage.medium + "/" + mslDamage.long;
+                this.calcLogAS += "<strong>Adding</strong> Missile Ability: " + mslDamage.short + "/" + mslDamage.medium + "/" + mslDamage.long + "<br />\n";
+            }
+
+            // Replace Rear with Rear X/X/X
+            if( this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "rear") {
+                rearDamage = this.adjustASDamage(rearDamage);
+                this.alphaStrikeForceStats.abilityCodes[aC] = "Rear " + rearDamage.short + "/" + rearDamage.medium + "/" + rearDamage.long;
+                this.calcLogAS += "<strong>Adding</strong> Rear Ability: " + rearDamage.short + "/" + rearDamage.medium + "/" + rearDamage.long + "<br />\n";
+            }
+
+            // Replace IndirectFire with IF X
+            if( this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "indirect fire" || this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "if") {
+                rearDamage = this.adjustASDamage(rearDamage);
+                this.alphaStrikeForceStats.abilityCodes[aC] = "IF " + indirectFireRating;
+                this.calcLogAS += "<strong>Adding</strong> IF Ability: " + indirectFireRating + "<br />\n";
+                offensive_value += highestDamage;
+                this.calcLogAS += "Adding IF Rating to PV: " + indirectFireRating + "<br />\n";
+
+            }
+
+        }
+
+        // Defensive Special Abilities Factor
+        // TODO
+
+        // Defensive Interaction Rating
+        // TODO
+
+        /* *********************************
+         * Step 2a: Calculating Defensive Interaction Rating (DIR) ASC - p141
+         * ******************************* */
+        this.calcLogAS += "<strong>Step 2a: Calculating Defensive Interaction Rating (DIR) ASC - p141</strong><br />\n";
+        let bmDIR = 0;
+        // Armor Factor
+        this.calcLogAS += "Armor Factor: " + (this.alphaStrikeForceStats.armor * 2) + " (" + this.alphaStrikeForceStats.armor + " * 2)<br />\n";
+        bmDIR += this.alphaStrikeForceStats.armor * 2; // No need to do other types of armor, since this is BM only.
+
+        // Structure Factor
+        this.calcLogAS += "Structure Factor: " + (this.alphaStrikeForceStats.structure * 1) + " (" + this.alphaStrikeForceStats.structure + " * 1)<br />\n";
+        bmDIR += this.alphaStrikeForceStats.structure * 1; // TODO IndustrialMechs
+
+        // Defense Factor
+
+        if (bestMovement > 34) {
+            this.calcLogAS += "Defense Factor: +5 (movement 35\"+)<br />\n";
+            bmDIR += 5;
+        } else if (bestMovement > 18) {
+            this.calcLogAS += "Defense Factor: +4 (movement 19\"-34\"+)<br />\n";
+            bmDIR += 4;
+        } else if (bestMovement > 12) {
+            this.calcLogAS += "Defense Factor: +3 (movement 13\"-18\"+)<br />\n";
+            bmDIR += 3;
+        } else if (bestMovement > 8) {
+            this.calcLogAS += "Defense Factor: +2 (movement 9\"-12\"+)<br />\n";
+            bmDIR += 2;
+        } else if (bestMovement > 4) {
+            this.calcLogAS += "Defense Factor: +1 (movement 4\"-8\"+)<br />\n";
+            bmDIR += 1;
+        } else {
+            this.calcLogAS += "Defense Factor: +0 (movement 0\"-4\"+)<br />\n";
+            bmDIR += 0;
+        }
+
+        bmDIR += defensive_value;
+        this.calcLogAS += "Adding Defense Value from Step 2 above: " + defensive_value + "<br />\n";
+        // Calculate the DIR
+        this.calcLogAS += "Total DIR: " + bmDIR + "<br />\n";
+
+        /* *********************************
+         * Step 3: Determine Unit’s Final Point Value ASC - p141
+         *
+         * ******************************* */
+        this.calcLogAS += "<strong>Step 3: Determine Unit’s Final Point Value ASC - p141</strong><br />\n";
+        let baseFinalValue = offensive_value + bmDIR;
+        this.calcLogAS += "Base Point Value: " + baseFinalValue + " (" + offensive_value + " + " + bmDIR + ")<br />\n";
+
+        let finalValue = baseFinalValue;
+        if (
+            bestMovement >= 6 &&
+            bestMovement <= 10 &&
+            +this.alphaStrikeForceStats.damage.medium == 0 &&
+            +this.alphaStrikeForceStats.damage.long == 0 &&
+            +this.alphaStrikeForceStats.damage.extreme == 0
+        ) {
+            this.calcLogAS += "Unit has 6 to 10\" of Move, but only delivers damage at Short range. Point Value * .75<br />\n";
+            this.calcLogAS += "Modified Point Value: " + baseFinalValue * .75 + " (" + offensive_value + " + " + bmDIR + ")<br />\n";
+            finalValue = baseFinalValue * .75;
+        }
+
+        if (
+            bestMovement >= 2 &&
+            bestMovement <= 5 &&
+            +this.alphaStrikeForceStats.damage.medium == 0 &&
+            +this.alphaStrikeForceStats.damage.long == 0 &&
+            +this.alphaStrikeForceStats.damage.extreme == 0
+        ) {
+            this.calcLogAS += "Unit has 2 to 5\" of Move, but only delivers damage at Short range. Point Value * .5<br />\n";
+            this.calcLogAS += "Modified Point Value: " + baseFinalValue * .5 + " (" + offensive_value + " + " + bmDIR + ")<br />\n";
+            finalValue = baseFinalValue * .5;
+        }
+
+        if (
+            bestMovement >= 2 &&
+            bestMovement <= 5 &&
+            +this.alphaStrikeForceStats.damage.long == 0 &&
+            +this.alphaStrikeForceStats.damage.extreme == 0
+        ) {
+            this.calcLogAS += "Unit has 2 to 5\" of Move, but only delivers damage at Short and Medium ranges. Point Value * .75<br />\n";
+            this.calcLogAS += "Modified Point Value: " + baseFinalValue * .75 + " (" + offensive_value + " + " + bmDIR + ")<br />\n";
+            finalValue = baseFinalValue * .75;
+        }
+
+        this.calcLogAS += "Final Point Value: " + finalValue + "<br />\n";
+
+        /* *********************************
+         * Step 3a: Add Force Bonuses ASC - p141
+         * ******************************* */
+        this.calcLogAS += "<strong>Step 3a: Add Force Bonuses ASC - p141</strong><br />\n";
+        // TODO
+        this.calcLogAS += "<strong class=\"color-red\">TODO<br />\n";
+
+        this.alphaStrikeForceStats.name = this.make;
+        this.alphaStrikeForceStats.type = "BM";
+
+
+        this.alphaStrikeValue = Math.round(finalValue); // + " (WIP)";
+        let asMechData: IASMULUnit = {
+            BFAbilities: "",             // "";
+            BFArmor: 0,             // number;
+            BFDamageExtreme: "0",             // number;
+            BFDamageLong: "0",            // number;
+            BFDamageMedium: "0",          // number;
+            BFDamageShort: "0",           // number;
+            BFMove: "",          // string;
+            BFOverheat: 0,          // number;
+            BFPointValue: 0,            // number;
+            BFSize: 0,          // number;
+            BFStructure: 0,             // number;
+            BFTMM: 0,           // number;
+            BFThreshold: 0,             // number;
+            BFType: "",          // string;
+            BattleValue: 0,             // number;
+            Class: "",           // string;
+            Cost: 0,            // number;
+            DateIntroduced: "",          // string;
+            EraIcon: "",           //
+            EraId: 0,           // number;
+            EraStart: 0,            // number;
+            Id: 0,          // number;
+            ImageUrl: "",            // string;
+            IsFeatured: true,          // true
+            IsPublished: true,             // true
+            Name: "",            // string;
+            RS: "",          // string;
+            RSId: 0,            // number;
+            Release: 0,             // number;
+            Role: {
+                Name: "",
+                Id: 0,
+                Image: "",
+                SortOrder: 0,
+            },            // ASMULRole;
+            Rules: "",           // string;
+            Skill: 0,           // number;
+            TRO: "",             // string;
+            TROId: 0,           // number;
+            Technology: {
+                Name: "",
+                Id: 0,
+                SortOrder: 0,
+                Image: "",
+            },          // ASMULTech;
+            Tonnage: 0,             // number;
+            Type: {
+                Name: "",
+                Id: 0,
+                SortOrder: 0,
+                Image: "",
+            },            // ASMULType;
+            Variant: "",             // string;
+
+        };
+        asMechData["BFPointValue"] = Math.round(finalValue);
+
+        asMechData["Name"] = this.getName();
+        asMechData["BFThreshold"] = 0;
+        asMechData["Role"].Name = this.alphaStrikeForceStats.role;
+        asMechData["BFType"] = "BM";
+        asMechData["BFSize"] = this.alphaStrikeForceStats.sizeClass;
+
+        asMechData["BFArmor"] = this.alphaStrikeForceStats.armor;
+        asMechData["BFStructure"] = this.alphaStrikeForceStats.structure;
+
+        asMechData["BFOverheat"] = final_overheat_value;
+
+
+        asMechData["BFDamageShort"] = this.alphaStrikeForceStats.damage.short;
+        asMechData["BFDamageMedium"] = this.alphaStrikeForceStats.damage.medium;
+        asMechData["BFDamageLong"] = this.alphaStrikeForceStats.damage.long;
+        asMechData["BFDamageExtreme"] = this.alphaStrikeForceStats.damage.extreme;
+
+        asMechData["BFOverheat"] = this.alphaStrikeForceStats.overheat;
+
+        asMechData["customName"] = this.alphaStrikeForceStats.customName;
+        asMechData["currentSkill"] = this.pilot.gunnery;
+
+        if( this.alphaStrikeForceStats.jumpMove) {
+            asMechData["BFMove"] = this.alphaStrikeForceStats.move.toString() + "\"/" + this.alphaStrikeForceStats.jumpMove + "\"J";
+        } else {
+            asMechData["BFMove"] = this.alphaStrikeForceStats.move.toString() + "\"";
+        }
+
+        this.alphaStrikeForceStats.abilityCodes.sort();
+        asMechData["BFAbilities"] = this.alphaStrikeForceStats.abilityCodes.join(", ").toUpperCase();
+
+        return new AlphaStrikeUnit(asMechData);
+
+    }
 
     makeTROBBCode() {
 
@@ -1823,7 +2974,7 @@ export class BattleMech {
         col1Padding = 20;
         col2Padding = 10;
         col3Padding = 10;
-		col4Padding = 10;
+        col4Padding = 10;
 
         this.equipmentList.sort(sortByLocationThenName);
 
@@ -1853,7 +3004,7 @@ export class BattleMech {
         html += "and Ammo".padEnd(col1Padding, " ") + "Location".padEnd(col2Padding, " ") + "Critical".padEnd(col3Padding, " ") + "Tonnage".padEnd(col4Padding, " ") + "\n";
 
         for( let countEQ = 0; countEQ < this.equipmentList.length; countEQ++) {
-			let currentItem = this.equipmentList[countEQ];
+            let currentItem = this.equipmentList[countEQ];
             if( typeof(currentItem.location) === "undefined")
                 currentItem.location = "n/a";
 
@@ -1876,7 +3027,7 @@ export class BattleMech {
 
             let jjObjs = [];
             for( let critC = 0; critC < this.criticals[this.validJJLocations[locC].long].length; critC++) {
-				let currentItem = this.criticals[this.validJJLocations[locC].long][critC];
+                let currentItem = this.criticals[this.validJJLocations[locC].long][critC];
                 if(
                     currentItem &&
                     currentItem.tag &&
@@ -2053,7 +3204,7 @@ export class BattleMech {
         this.equipmentList.sort(sortByLocationThenName);
 
         for( let countEQ = 0; countEQ < this.equipmentList.length; countEQ++) {
-			let currentItem = this.equipmentList[countEQ];
+            let currentItem = this.equipmentList[countEQ];
             if( typeof(currentItem.location) === "undefined")
                 currentItem.location = "n/a";
 
@@ -2136,7 +3287,7 @@ export class BattleMech {
         html += "</table>";
 
         return html;
-	}
+    }
 
     getLocationAbbr(locationTag: string) {
 
@@ -2161,6 +3312,10 @@ export class BattleMech {
     }
 
     calc() {
+
+        if(!this.tonnage) {
+            this.tonnage = 20;
+        }
 
         this.maxMoveHeat = 2;
         this.heatDissipation = 0;
@@ -2228,11 +3383,11 @@ export class BattleMech {
             //         name: this.jumpJetType.name,
             //         weight: this.getJumpJetWeight()
             //     });
-			// }
-			this.weights.push({
-				name: this.jumpJetType.name,
-				weight: this.getJumpJetWeight()
-			});
+            // }
+            this.weights.push({
+                name: this.jumpJetType.name,
+                weight: this.getJumpJetWeight()
+            });
         }
 
         this.totalArmor = this.armorWeight * 16;
@@ -2335,7 +3490,7 @@ export class BattleMech {
             this.heatSinkCriticals.slotsEach = this.heatSinkType.crits.is;
         }
 
-		let findEngine = this.getEngine();
+        let findEngine = this.getEngine();
         if( findEngine && findEngine.rating) {
             this.heatSinkCriticals.number = this.additionalHeatSinks + 10 - Math.floor(findEngine.rating / 25);
         } else {
@@ -2375,327 +3530,327 @@ export class BattleMech {
         // }
     }
 
-	calcCriticals() {
-		// WORK IN PROGRESS
-		this.criticals.head = Array(6);
+    calcCriticals() {
+        // WORK IN PROGRESS
+        this.criticals.head = Array(6);
 
-		this.criticals.centerTorso = Array(12);
-		this.criticals.leftTorso = Array(12);
-		this.criticals.rightTorso = Array(12);
+        this.criticals.centerTorso = Array(12);
+        this.criticals.leftTorso = Array(12);
+        this.criticals.rightTorso = Array(12);
 
         if( this.getType().tag === "quad") {
-		    this.criticals.rightArm = Array(6);
+            this.criticals.rightArm = Array(6);
             this.criticals.leftArm = Array(6);
         } else {
-		    this.criticals.rightArm = Array(12);
+            this.criticals.rightArm = Array(12);
             this.criticals.leftArm = Array(12);
         }
 
-		this.criticals.rightLeg = Array(6);
+        this.criticals.rightLeg = Array(6);
         this.criticals.leftLeg = Array(6);
 
         // while( this.criticals.leftArm.length < 12 ) {
         //     this.criticals.leftArm.push( null );
         // }
 
-		this.unallocatedCriticals = [];
+        this.unallocatedCriticals = [];
 
-		// Add required components....
-		if( this.smallCockpit) {
-			this._addCriticalItem("life-support", "Life Support", 1, "hd", 0);
-			this._addCriticalItem("sensors", "Sensors", 1, "hd", 1);
-			this._addCriticalItem("cockpit", "Cockpit", 1, "hd", 2);
-			this._addCriticalItem("sensors", "Sensors", 1, "hd", 3);
-		} else {
-			this._addCriticalItem("life-support", "Life Support", 1, "hd", 0);
-			this._addCriticalItem("sensors", "Sensors", 1, "hd", 1);
-			this._addCriticalItem("cockpit", "Cockpit", 1, "hd", 2);
-			this._addCriticalItem("sensors", "Sensors", 1, "hd", 4);
-			this._addCriticalItem("life-support", "Life Support", 1, "hd", 5);
-		}
+        // Add required components....
+        if( this.smallCockpit) {
+            this._addCriticalItem("life-support", "Life Support", 1, "hd", 0);
+            this._addCriticalItem("sensors", "Sensors", 1, "hd", 1);
+            this._addCriticalItem("cockpit", "Cockpit", 1, "hd", 2);
+            this._addCriticalItem("sensors", "Sensors", 1, "hd", 3);
+        } else {
+            this._addCriticalItem("life-support", "Life Support", 1, "hd", 0);
+            this._addCriticalItem("sensors", "Sensors", 1, "hd", 1);
+            this._addCriticalItem("cockpit", "Cockpit", 1, "hd", 2);
+            this._addCriticalItem("sensors", "Sensors", 1, "hd", 4);
+            this._addCriticalItem("life-support", "Life Support", 1, "hd", 5);
+        }
 
-		if( this.mechType.tag.toLowerCase() === "quad") {
-			// quad
-			// Left Leg Components
-			this._addCriticalItem("hip", "Hip", 1, "ra", 0);
-			this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "ra", 1);
-			this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "ra", 2);
-			this._addCriticalItem("foot-actuator", "Foot", 1, "ra", 3);
+        if( this.mechType.tag.toLowerCase() === "quad") {
+            // quad
+            // Left Leg Components
+            this._addCriticalItem("hip", "Hip", 1, "ra", 0);
+            this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "ra", 1);
+            this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "ra", 2);
+            this._addCriticalItem("foot-actuator", "Foot", 1, "ra", 3);
 
-			// Right Leg Components
-			this._addCriticalItem("hip", "Hip", 1, "la", 0);
-			this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "la", 1);
-			this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "la", 2);
-			this._addCriticalItem("foot-actuator", "Foot", 1, "la", 3);
+            // Right Leg Components
+            this._addCriticalItem("hip", "Hip", 1, "la", 0);
+            this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "la", 1);
+            this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "la", 2);
+            this._addCriticalItem("foot-actuator", "Foot", 1, "la", 3);
 
-		} else {
-			// biped
-			// Left Arm Components
-			this._addCriticalItem("shoulder", "Shoulder", 1, "la", 0);
-			this._addCriticalItem("upper-arm-actuator", "Upper Arm Actuator", 1, "la", 1);
-			if( this.hasLowerArmActuator("la")) {
-				this._addCriticalItem("lower-arm-actuator", "Lower Arm Actuator", 1, "la", 2);
-				if( this.hasHandActuator("la")) {
+        } else {
+            // biped
+            // Left Arm Components
+            this._addCriticalItem("shoulder", "Shoulder", 1, "la", 0);
+            this._addCriticalItem("upper-arm-actuator", "Upper Arm Actuator", 1, "la", 1);
+            if( this.hasLowerArmActuator("la")) {
+                this._addCriticalItem("lower-arm-actuator", "Lower Arm Actuator", 1, "la", 2);
+                if( this.hasHandActuator("la")) {
 
-					this._addCriticalItem("hand-actuator", "Hand Actuator", 1, "la", 3);
-				}
-			}
+                    this._addCriticalItem("hand-actuator", "Hand Actuator", 1, "la", 3);
+                }
+            }
 
-			// Right Arm Components
-			this._addCriticalItem("shoulder", "Shoulder", 1, "ra", 0);
-			this._addCriticalItem("upper-arm-actuator", "Upper Arm Actuator", 1, "ra", 1);
-			if( this.hasLowerArmActuator("ra")) {
-				this._addCriticalItem("lower-arm-actuator", "Lower Arm Actuator", 1, "ra", 2);
-				if( this.hasHandActuator("ra")) {
+            // Right Arm Components
+            this._addCriticalItem("shoulder", "Shoulder", 1, "ra", 0);
+            this._addCriticalItem("upper-arm-actuator", "Upper Arm Actuator", 1, "ra", 1);
+            if( this.hasLowerArmActuator("ra")) {
+                this._addCriticalItem("lower-arm-actuator", "Lower Arm Actuator", 1, "ra", 2);
+                if( this.hasHandActuator("ra")) {
 
-					this._addCriticalItem("hand-actuator", "Hand Actuator", 1, "ra", 3);
-				}
-			}
-		}
+                    this._addCriticalItem("hand-actuator", "Hand Actuator", 1, "ra", 3);
+                }
+            }
+        }
 
-		// Engine
+        // Engine
 
-		if( this.engineType.criticals && this.engineType.criticals[this.getTech().tag] ) {
-			let engineCrits = this.engineType.criticals[this.getTech().tag];
-			if( engineCrits && engineCrits.ct )  {
-				if(
-					this.engineType &&
-					engineCrits &&
-					engineCrits.ct > 3
-				) {
-					this._addCriticalItem(
-						"engine", // item_tag
-						this.engineType.name, // item_name
-						3, // criticalCount
-						"ct" // location
-						// slot
-					);
-				} else {
-					// reset back to standard, engine not available for tech
-					if( engineCrits && engineCrits.ct ) {
-						console.log("warning", "resetting engine to standard ", this.engineType.criticals, this.getTech().tag, this.tech);
-						this.setEngineType("standard");
-						this._addCriticalItem(
-							"engine", // item_tag
-							this.engineType.name, // item_name
-							engineCrits.ct, // criticalCount
-							"ct" // location
-							// slot
-						);
-					}
-				}
+        if( this.engineType.criticals && this.engineType.criticals[this.getTech().tag] ) {
+            let engineCrits = this.engineType.criticals[this.getTech().tag];
+            if( engineCrits && engineCrits.ct )  {
+                if(
+                    this.engineType &&
+                    engineCrits &&
+                    engineCrits.ct > 3
+                ) {
+                    this._addCriticalItem(
+                        "engine", // item_tag
+                        this.engineType.name, // item_name
+                        3, // criticalCount
+                        "ct" // location
+                        // slot
+                    );
+                } else {
+                    // reset back to standard, engine not available for tech
+                    if( engineCrits && engineCrits.ct ) {
+                        console.log("warning", "resetting engine to standard ", this.engineType.criticals, this.getTech().tag, this.tech);
+                        this.setEngineType("standard");
+                        this._addCriticalItem(
+                            "engine", // item_tag
+                            this.engineType.name, // item_name
+                            engineCrits.ct, // criticalCount
+                            "ct" // location
+                            // slot
+                        );
+                    }
+                }
 
-				if(
-					engineCrits &&
-					engineCrits.rt
-				) {
-					this._addCriticalItem("engine", this.engineType.name, engineCrits.rt, "rt");
-				}
+                if(
+                    engineCrits &&
+                    engineCrits.rt
+                ) {
+                    this._addCriticalItem("engine", this.engineType.name, engineCrits.rt, "rt");
+                }
 
-				if(
-					engineCrits &&
-					engineCrits.lt
-				) {
-					this._addCriticalItem("engine", this.engineType.name, engineCrits.lt, "lt");
-				}
+                if(
+                    engineCrits &&
+                    engineCrits.lt
+                ) {
+                    this._addCriticalItem("engine", this.engineType.name, engineCrits.lt, "lt");
+                }
 
-				// Extra engine bits....
-				if( engineCrits.ct > 3) {
-					this._addCriticalItem(
-						"engine", // item_tag
-						this.engineType.name, // item_name
-						engineCrits.ct - 3, // criticalCount
-						"ct" // location
-					);
-				}
-			}
-		}
-		// Gyro
-		this._addCriticalItem(
-			"gyro", // item_tag
-			this.gyro.name, // item_name
-			this.gyro.criticals, // criticalCount
-			"ct" // location
-		);
+                // Extra engine bits....
+                if( engineCrits.ct > 3) {
+                    this._addCriticalItem(
+                        "engine", // item_tag
+                        this.engineType.name, // item_name
+                        engineCrits.ct - 3, // criticalCount
+                        "ct" // location
+                    );
+                }
+            }
+        }
+        // Gyro
+        this._addCriticalItem(
+            "gyro", // item_tag
+            this.gyro.name, // item_name
+            this.gyro.criticals, // criticalCount
+            "ct" // location
+        );
 
-		// Left Leg Components
-		this._addCriticalItem("hip", "Hip", 1, "ll", 0);
-		this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "ll", 1);
-		this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "ll", 2);
-		this._addCriticalItem("foot-actuator", "Foot", 1, "ll", 3);
+        // Left Leg Components
+        this._addCriticalItem("hip", "Hip", 1, "ll", 0);
+        this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "ll", 1);
+        this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "ll", 2);
+        this._addCriticalItem("foot-actuator", "Foot", 1, "ll", 3);
 
-		// Right Leg Components
-		this._addCriticalItem("hip", "Hip", 1, "rl", 0);
-		this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "rl", 1);
-		this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "rl", 2);
-		this._addCriticalItem("foot-actuator", "Foot", 1, "rl", 3);
+        // Right Leg Components
+        this._addCriticalItem("hip", "Hip", 1, "rl", 0);
+        this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "rl", 1);
+        this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "rl", 2);
+        this._addCriticalItem("foot-actuator", "Foot", 1, "rl", 3);
 
-		// Jump Jets
-		let jump_move = this.getJumpSpeed();
-		for( let jmc = 0; jmc < jump_move; jmc++) {
-			this.unallocatedCriticals.push({
+        // Jump Jets
+        let jump_move = this.getJumpSpeed();
+        for( let jmc = 0; jmc < jump_move; jmc++) {
+            this.unallocatedCriticals.push({
                 uuid: generateUUID(),
                 obj: null,
-				name: this.jumpJetType.name,
-				tag: "jj-" + this.jumpJetType.tag,
-				rear: false,
-				movable: true,
-				crits: this.jumpJetType.criticals,
-			});
-		}
+                name: this.jumpJetType.name,
+                tag: "jj-" + this.jumpJetType.tag,
+                rear: false,
+                movable: true,
+                crits: this.jumpJetType.criticals,
+            });
+        }
 
-		// Armor
+        // Armor
 
-		let armorObj = this.getArmorObj();
-		if( this.getTech().tag === "clan") {
-			if( armorObj.crits.clan > 0) {
-				if( armorObj.critLocs) {
-					for( let nameLoc in armorObj.critLocs) {
-						this._addCriticalItem(
-							armorObj.tag, // item_tag
-							armorObj.name, // item_name
-							armorObj.critLocs[nameLoc], // criticalCount
-							nameLoc, // location
-							// slot
-						);
-					}
-				} else {
-					for( let aCounter = 0; aCounter < armorObj.crits.clan; aCounter++) {
-						this.unallocatedCriticals.push({
-							uuid: generateUUID(),
-							name: armorObj.name,
-							tag: armorObj.tag,
-							rollAgain: true,
-							rear: false,
-							crits: 1,
-							obj: armorObj,
-							movable: true
-						});
-					}
-				}
-			}
-		} else {
-			if( armorObj.crits.is > 0) {
-				if( armorObj.critLocs) {
-					for( let nameLoc in armorObj.critLocs) {
-						this._addCriticalItem(
-							armorObj.tag, // item_tag
-							armorObj.name, // item_name
-							armorObj.critLocs[nameLoc], // criticalCount
-							nameLoc // location
-							// slot
-						);
-					}
-				} else {
-					for( let aCounter = 0; aCounter < armorObj.crits.is; aCounter++) {
-						this.unallocatedCriticals.push({
-							uuid: generateUUID(),
-							name: armorObj.name,
-							tag: armorObj.tag,
-							rear: false,
-							rollAgain: true,
-							crits: 1,
-							obj: armorObj,
-							movable: true,
-						});
-					}
-				}
-			}
-		}
+        let armorObj = this.getArmorObj();
+        if( this.getTech().tag === "clan") {
+            if( armorObj.crits.clan > 0) {
+                if( armorObj.critLocs) {
+                    for( let nameLoc in armorObj.critLocs) {
+                        this._addCriticalItem(
+                            armorObj.tag, // item_tag
+                            armorObj.name, // item_name
+                            armorObj.critLocs[nameLoc], // criticalCount
+                            nameLoc, // location
+                            // slot
+                        );
+                    }
+                } else {
+                    for( let aCounter = 0; aCounter < armorObj.crits.clan; aCounter++) {
+                        this.unallocatedCriticals.push({
+                            uuid: generateUUID(),
+                            name: armorObj.name,
+                            tag: armorObj.tag,
+                            rollAgain: true,
+                            rear: false,
+                            crits: 1,
+                            obj: armorObj,
+                            movable: true
+                        });
+                    }
+                }
+            }
+        } else {
+            if( armorObj.crits.is > 0) {
+                if( armorObj.critLocs) {
+                    for( let nameLoc in armorObj.critLocs) {
+                        this._addCriticalItem(
+                            armorObj.tag, // item_tag
+                            armorObj.name, // item_name
+                            armorObj.critLocs[nameLoc], // criticalCount
+                            nameLoc // location
+                            // slot
+                        );
+                    }
+                } else {
+                    for( let aCounter = 0; aCounter < armorObj.crits.is; aCounter++) {
+                        this.unallocatedCriticals.push({
+                            uuid: generateUUID(),
+                            name: armorObj.name,
+                            tag: armorObj.tag,
+                            rear: false,
+                            rollAgain: true,
+                            crits: 1,
+                            obj: armorObj,
+                            movable: true,
+                        });
+                    }
+                }
+            }
+        }
 
-		// Internal Structure critical Items
-		if( this.getTech().tag === "clan") {
-			for( let aCounter = 0; aCounter < this.selectedInternalStructure.crits.clan; aCounter++) {
-				this.unallocatedCriticals.push({
-					uuid: generateUUID(),
-					name: this.selectedInternalStructure.name,
-					tag: this.selectedInternalStructure.tag,
-					rollAgain: true,
-					rear: false,
-					crits: 1,
-					obj: this.selectedInternalStructure,
-					movable: true
-				});
-			}
-
-		} else {
-			for( let aCounter = 0; aCounter < this.selectedInternalStructure.crits.is; aCounter++) {
-				this.unallocatedCriticals.push({
+        // Internal Structure critical Items
+        if( this.getTech().tag === "clan") {
+            for( let aCounter = 0; aCounter < this.selectedInternalStructure.crits.clan; aCounter++) {
+                this.unallocatedCriticals.push({
                     uuid: generateUUID(),
-					name: this.selectedInternalStructure.name,
-					tag: this.selectedInternalStructure.tag,
-					rollAgain: true,
-					rear: false,
-					crits: 1,
-					obj: this.selectedInternalStructure,
-					movable: true
-				});
-			}
-		}
+                    name: this.selectedInternalStructure.name,
+                    tag: this.selectedInternalStructure.tag,
+                    rollAgain: true,
+                    rear: false,
+                    crits: 1,
+                    obj: this.selectedInternalStructure,
+                    movable: true
+                });
+            }
 
-		// Get optional equipment...
-		//~ this._calcVariableEquipment();
-		for( let elc = 0; elc < this.equipmentList.length; elc++) {
-			//~ this.equipmentList[elc].location = "";
+        } else {
+            for( let aCounter = 0; aCounter < this.selectedInternalStructure.crits.is; aCounter++) {
+                this.unallocatedCriticals.push({
+                    uuid: generateUUID(),
+                    name: this.selectedInternalStructure.name,
+                    tag: this.selectedInternalStructure.tag,
+                    rollAgain: true,
+                    rear: false,
+                    crits: 1,
+                    obj: this.selectedInternalStructure,
+                    movable: true
+                });
+            }
+        }
+
+        // Get optional equipment...
+        //~ this._calcVariableEquipment();
+        for( let elc = 0; elc < this.equipmentList.length; elc++) {
+            //~ this.equipmentList[elc].location = "";
             let rearTag = "";
             let isRear = false;
-			if( this.equipmentList[elc].rear) {
-				rearTag = " (rear)";
+            if( this.equipmentList[elc].rear) {
+                rearTag = " (rear)";
                 isRear = true;
             }
-			this.unallocatedCriticals.push({
+            this.unallocatedCriticals.push({
                 uuid: generateUUID(),
-				name: this.equipmentList[elc].name + rearTag,
+                name: this.equipmentList[elc].name + rearTag,
                 tag: this.equipmentList[elc].tag,
                 // loc: this.equipmentList[elc].location,
-				rear: isRear,
-				crits: this.equipmentList[elc].space.battlemech,
-				obj: this.equipmentList[elc],
-				movable: true
-			});
+                rear: isRear,
+                crits: this.equipmentList[elc].space.battlemech,
+                obj: this.equipmentList[elc],
+                movable: true
+            });
 
-		}
+        }
 
-		// Heat Sink Requirements
-		let hs_requirements = this.getHeatSinkCriticalRequirements();
-		let hs_name = "";
-		if( hs_requirements.slotsEach > 1)
-			hs_name = "Double Heat Sink";
-		else
-			hs_name ="Heat Sink";
-		for( let hsc = 0; hsc < hs_requirements.number; hsc++) {
+        // Heat Sink Requirements
+        let hs_requirements = this.getHeatSinkCriticalRequirements();
+        let hs_name = "";
+        if( hs_requirements.slotsEach > 1)
+            hs_name = "Double Heat Sink";
+        else
+            hs_name ="Heat Sink";
+        for( let hsc = 0; hsc < hs_requirements.number; hsc++) {
 
-			this.unallocatedCriticals.push({
+            this.unallocatedCriticals.push({
                 obj: null,
                 uuid: generateUUID(),
-				name: hs_name,
-				rear: false,
-				tag: "heat-sink",
-				crits: hs_requirements.slotsEach,
-				movable: true
-			});
-		}
+                name: hs_name,
+                rear: false,
+                tag: "heat-sink",
+                crits: hs_requirements.slotsEach,
+                movable: true
+            });
+        }
 
         // Allocate items per allocation table.
-		for( let item of this.criticalAllocationTable) {
+        for( let item of this.criticalAllocationTable) {
             // console.log("criticalAllocationTable item", item);
-			this.allocateCritical(
-				item.tag,
-				item.rear,
-				item.loc,
-				item.slot,
-				true,
-			)
-		}
+            this.allocateCritical(
+                item.tag,
+                item.rear,
+                item.loc,
+                item.slot,
+                true,
+            )
+        }
 
-		// remove location tag for remaining unallocated
-		for( let item of this.unallocatedCriticals) {
-			if( item.obj)
+        // remove location tag for remaining unallocated
+        for( let item of this.unallocatedCriticals) {
+            if( item.obj)
                 item.obj.location = "";
-		}
+        }
 
         // console.log( "this.criticals", this.criticals )
-	}
+    }
 
     hasHandActuator(location: string) {
         if( location === "ra")
@@ -2827,23 +3982,23 @@ export class BattleMech {
     }
 
     private _addCriticalItem(
-		item_tag: string,
-		item_name: string,
-		criticalCount: number,
-		location: string,
-		slot: number | null = 0,
-		movable: boolean = false,
-	) {
-		let uuid = generateUUID();
-		let item: ICriticalSlot = {
+        item_tag: string,
+        item_name: string,
+        criticalCount: number,
+        location: string,
+        slot: number | null = 0,
+        movable: boolean = false,
+    ) {
+        let uuid = generateUUID();
+        let item: ICriticalSlot = {
             obj: null,
             rear: false,
-			tag: item_tag,
-			name: item_name,
-			crits: criticalCount,
-			movable: movable,
-			uuid: uuid
-		};
+            tag: item_tag,
+            name: item_name,
+            crits: criticalCount,
+            movable: movable,
+            uuid: uuid
+        };
 
         if( typeof(slot) === "undefined" || slot === null)
             slot = null;
@@ -2883,11 +4038,11 @@ export class BattleMech {
     }
 
     _isNextXCritsAvailable(
-		areaArray: ICriticalSlot[],
-		criticalCount: number,
+        areaArray: ICriticalSlot[],
+        criticalCount: number,
         beginSlot: number,
         selfUUID: string,
-	): boolean {
+    ): boolean {
 
         for( let countItem = 0; countItem < criticalCount; countItem++) {
             if(
@@ -2902,20 +4057,20 @@ export class BattleMech {
     }
 
     private _assignItemToArea(
-		areaArray: ICriticalSlot[],
-		newItem: ICriticalSlot,
-		criticalCount: number,
-		slotNumber: number | null
-	) {
+        areaArray: ICriticalSlot[],
+        newItem: ICriticalSlot,
+        criticalCount: number,
+        slotNumber: number | null
+    ) {
 
         let placeholder: ICriticalSlot = {
             uuid: newItem.uuid,
             name: "placeholder",
-			placeholder: true,
-			tag: "",
-			crits: 1,
-			rear: false,
-			obj: null,
+            placeholder: true,
+            tag: "",
+            crits: 1,
+            rear: false,
+            obj: null,
         };
 
         // console.log("newItem", newItem );
@@ -2957,11 +4112,11 @@ export class BattleMech {
     }
 
     canBeAssignedToArea(
-		areaArray: ICriticalSlot[],
+        areaArray: ICriticalSlot[],
         criticalCount: number,
         selfUUID: string,
         slotNumber: number | null = null,
-	) {
+    ) {
 
         if( slotNumber === null ) {
             // place anywhere available
@@ -3218,7 +4373,7 @@ export class BattleMech {
     }
 
     getAlphaStrikeForceStats() {
-        return this.alphaStrikeForceStats;
+        return this.calcAlphaStrike();
     }
 
     getPilot() {
@@ -3318,9 +4473,9 @@ export class BattleMech {
 
         this.maxArmor = 9 + this.internalStructure.centerTorso * 2 + this.internalStructure.leftTorso * 2 + this.internalStructure.rightTorso * 2 + this.internalStructure.rightLeg * 2 + this.internalStructure.leftLeg * 2;
         if( this.mechType.tag.toLowerCase() === "biped")
-			this.maxArmor += this.internalStructure.leftArm * 2 + this.internalStructure.rightArm * 2;
+            this.maxArmor += this.internalStructure.leftArm * 2 + this.internalStructure.rightArm * 2;
         else
-			this.maxArmor += this.internalStructure.rightLeg * 2 + this.internalStructure.leftLeg * 2;
+            this.maxArmor += this.internalStructure.rightLeg * 2 + this.internalStructure.leftLeg * 2;
 
         if( this.mechType.tag.toLowerCase() === "quad") {
             this.internalStructure.rightArm = this.internalStructure.rightLeg;
@@ -3362,45 +4517,45 @@ export class BattleMech {
     }
 
     setType(typeTag: string) {
-		for( let mechType of mechTypeOptions) {
-			if( mechType.tag === typeTag ) {
-				this.mechType = mechType;
+        for( let mechType of mechTypeOptions) {
+            if( mechType.tag === typeTag ) {
+                this.mechType = mechType;
                 this.setTonnage(this.tonnage);
                 if( typeTag === "quad")
                     this.clearArmCriticalAllocationTable();
-				this.calc();
-				return this.mechType;
-			}
-		}
+                this.calc();
+                return this.mechType;
+            }
+        }
     }
 
     exportJSON() {
         // TODO
-		this.calc();
+        this.calc();
 
         let exportObject: IBattleMechExport = {
-			additionalHeatSinks: this.additionalHeatSinks,
-			allocation: this.criticalAllocationTable,
-			armor_allocation: this.armorAllocation,
-			armor_weight: this.armorWeight,
-			as_custom_name: this.alphaStrikeForceStats.customName,
-			as_role: this.alphaStrikeForceStats.role,
-			engineType: this.getEngineType().tag,
-			equipment: [],
-			era: this.era.tag,
-			features: [],
-			gyro: this.gyro.tag,
-			heat_sink_type: this.getHeatSinksType(),
-			is_type: this.getInternalStructureType(),
-			jumpSpeed: this.jumpSpeed,
-			mechType: this.mechType.tag,
-			pilot: this.pilot,
-			strictEra: this.strictEra,
-			tech: this.tech.tag,
-			tonnage: this.getTonnage(),
-			uuid: this.uuid,
-			walkSpeed: this.walkSpeed,
- 			armor_type: this.getArmorType(),
+            additionalHeatSinks: this.additionalHeatSinks,
+            allocation: this.criticalAllocationTable,
+            armor_allocation: this.armorAllocation,
+            armor_weight: this.armorWeight,
+            as_custom_name: this.alphaStrikeForceStats.customName,
+            as_role: this.alphaStrikeForceStats.role,
+            engineType: this.getEngineType().tag,
+            equipment: [],
+            era: this.era.tag,
+            features: [],
+            gyro: this.gyro.tag,
+            heat_sink_type: this.getHeatSinksType(),
+            is_type: this.getInternalStructureType(),
+            jumpSpeed: this.jumpSpeed,
+            mechType: this.mechType.tag,
+            pilot: this.pilot,
+            strictEra: this.strictEra,
+            tech: this.tech.tag,
+            tonnage: this.getTonnage(),
+            uuid: this.uuid,
+            walkSpeed: this.walkSpeed,
+             armor_type: this.getArmorType(),
             hideNonAvailableEquipment: this.hideNonAvailableEquipment,
             name: this.getName(),
         };
@@ -3436,6 +4591,10 @@ export class BattleMech {
         return this.alphaStrikeForceStats.role = newValue;
     }
 
+    getASRole(): string {
+        return this.alphaStrikeForceStats.role;
+    }
+
     setASCustomName(newValue: string) {
         return this.alphaStrikeForceStats.customName = newValue;
     }
@@ -3446,7 +4605,7 @@ export class BattleMech {
 
     importJSON(jsonString: string) {
         // TODO
-		let importObject: IBattleMechExport | null = null;
+        let importObject: IBattleMechExport | null = null;
 
         try {
             importObject = JSON.parse(jsonString);
@@ -3681,7 +4840,7 @@ export class BattleMech {
             let equipmentItem: IEquipmentItem = JSON.parse(JSON.stringify(equipmentList[equipmentIndex]));
 
             if( typeof(location) !== "undefined")
-				equipmentItem.location = location;
+                equipmentItem.location = location;
 
             equipmentItem.rear = rear;
             equipmentItem.uuid = uuid;
@@ -3722,7 +4881,7 @@ export class BattleMech {
 
         for( let item of equipmentList ) {
             if( equipmentTag === item.tag) {
-				let equipmentItem: IEquipmentItem = JSON.parse(JSON.stringify(item));
+                let equipmentItem: IEquipmentItem = JSON.parse(JSON.stringify(item));
                 if( typeof(location) !== "undefined")
                     equipmentItem.location = location;
                 equipmentItem.rear = rear;
@@ -3811,11 +4970,11 @@ export class BattleMech {
     };
 
     moveCritical(
-		fromLocation: string,
-		fromIndex: number,
-		toLocation: string,
+        fromLocation: string,
+        fromIndex: number,
+        toLocation: string,
         toIndex: number,
-	) {
+    ) {
 
         // console.log(" moveCritical",
         //     fromLocation,
@@ -3899,23 +5058,23 @@ export class BattleMech {
     };
 
     moveItemToArea(
-		fromLocation: ICriticalSlot[] | null[],
-		fromItem: ICriticalSlot,
-		fromIndex: number,
-		toLocation: ICriticalSlot[],
+        fromLocation: ICriticalSlot[] | null[],
+        fromItem: ICriticalSlot,
+        fromIndex: number,
+        toLocation: ICriticalSlot[],
         toIndex: number,
         toLocTag: string,
-	) {
+    ) {
 
         // Step One check to see if TO has enough slots for item....
         let placeholder: ICriticalSlot = {
             uuid: fromItem.uuid,
             name: "placeholder",
-			placeholder: true,
-			tag: "",
-			crits: 1,
-			rear: false,
-			obj: null,
+            placeholder: true,
+            tag: "",
+            crits: 1,
+            rear: false,
+            obj: null,
         };
 
         let hasSpace = true;
@@ -3964,8 +5123,8 @@ export class BattleMech {
             }
 
             fromLocation[fromIndex] = null;
-			let nextCounter = 1;
-			let theItem = fromLocation[fromIndex + nextCounter];
+            let nextCounter = 1;
+            let theItem = fromLocation[fromIndex + nextCounter];
             while (
                 theItem &&
                 theItem.name === "placeholder" &&
@@ -3990,12 +5149,12 @@ export class BattleMech {
     }
 
     allocateCritical(
-		equipmentTag: string,
-		equipmentRear: boolean,
-		mechLocation: string | null | undefined,
-		slotNumber: number| undefined,
-		removeFromUnallocated: boolean,
-	) {
+        equipmentTag: string,
+        equipmentRear: boolean,
+        mechLocation: string | null | undefined,
+        slotNumber: number| undefined,
+        removeFromUnallocated: boolean,
+    ) {
 
         if( mechLocation && typeof(slotNumber) !== "undefined" ) {
             for( let uaet_c = 0; uaet_c < this.unallocatedCriticals.length; uaet_c++) {
@@ -4066,9 +5225,9 @@ export class BattleMech {
     }
 
     setEquipmentLocation(
-		equipmentIndex: number,
-		location: string,
-	) {
+        equipmentIndex: number,
+        location: string,
+    ) {
         if( this.equipmentList[equipmentIndex]) {
             this.equipmentList[equipmentIndex].location = location;
             return this.equipmentList[equipmentIndex];
@@ -4098,28 +5257,28 @@ export class BattleMech {
                 let currentItem = this.equipmentList[ eqC ];
                 //~ console.log( " currentItem",  currentItem);
                 if(currentItem.criticalsDivisor) {
-					currentItem.criticals = Math.ceil( this.getTonnage() / currentItem.criticalsDivisor );
-				}
+                    currentItem.criticals = Math.ceil( this.getTonnage() / currentItem.criticalsDivisor );
+                }
 
                 if( currentItem.weightDivisor ) {
-					currentItem.weight = Math.ceil( this.getTonnage() / currentItem.weightDivisor );
-				}
+                    currentItem.weight = Math.ceil( this.getTonnage() / currentItem.weightDivisor );
+                }
 
                 if( currentItem.damageDivisior ) {
-					currentItem.damage = Math.ceil( this.getTonnage() / currentItem.damageDivisior );
-				}
+                    currentItem.damage = Math.ceil( this.getTonnage() / currentItem.damageDivisior );
+                }
 
                 if( currentItem.criticalsDivisor ) {
-					currentItem.space.battlemech = Math.ceil( this.getTonnage() / currentItem.criticalsDivisor );
-				}
+                    currentItem.space.battlemech = Math.ceil( this.getTonnage() / currentItem.criticalsDivisor );
+                }
 
                 if( currentItem.battleValuePerItemDamage && currentItem.damage) {
-					currentItem.battleValue = currentItem.battleValuePerItemDamage * +currentItem.damage;
-				}
+                    currentItem.battleValue = currentItem.battleValuePerItemDamage * +currentItem.damage;
+                }
 
                 if( currentItem.costPerItemTon ) {
-					currentItem.cbills = currentItem.costPerItemTon * currentItem.weight;
-				}
+                    currentItem.cbills = currentItem.costPerItemTon * currentItem.weight;
+                }
                 //~ console.log( " currentItem",  currentItem);
             }
         }

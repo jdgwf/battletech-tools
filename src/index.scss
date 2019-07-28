@@ -26,6 +26,10 @@ body {
   color: $fontColor;
   width: 100%;
 
+  &.some-padding {
+    padding: 1rem;
+  }
+
   border: none;
   font-size: 12px;
   tbody {
