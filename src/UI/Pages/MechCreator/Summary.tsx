@@ -153,6 +153,28 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
                               />
                             </div>
                           </div>
+                          <br />
+                          <h3 className="text-center">Calculations</h3>
+                          <div className="row">
+                            <div className="col-lg-4">
+                              <h4 className="text-center">Battle Value</h4>
+                              <div className="mech-tro some-padding">
+                                <SanitizedHTML html={this.props.appGlobals.currentBattleMech.calcLogBV} raw={true} />
+                              </div>
+                            </div>
+                            <div className="col-lg-4">
+                              <h4 className="text-center">Alpha Strike</h4>
+                              <div className="mech-tro some-padding">
+                                <SanitizedHTML html={this.props.appGlobals.currentBattleMech.calcLogAS} raw={true} />
+                                </div>
+                            </div>
+                            <div className="col-lg-4">
+                              <h4 className="text-center">CBill Cost</h4>
+                              <div className="mech-tro some-padding">
+                                <SanitizedHTML html={this.props.appGlobals.currentBattleMech.calcLogCBill} raw={true} />
+                              </div>
+                            </div>
+                          </div>
 
                           <div className="clear-both overflow-hidden">
                             <hr />
