@@ -1,7 +1,7 @@
 import { IEras } from "./dataInterfaces";
 
 /*
- * The data here is/may be copyrighted and NOT included in the MIT license.
+ * The data here is/may be copyrighted and NOT included in the GPLv3 license.
  * Based on BattleTech Master Unit List eras: http://masterunitlist.info/Era/Index
  */
 export const btEraOptions: IEras[] = [
