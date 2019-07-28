@@ -1,7 +1,5 @@
 import React from 'react';
 import './Home.scss';
-import TopMenu from '../../Components/TopMenu';
-import ShowAlerts from '../../Components/ShowAlerts';
 import {IAppGlobals} from '../../AppRouter';
 import MechCreatorSideMenu from '../../Components/MechCreatorSideMenu';
 import { Link } from 'react-router-dom';
@@ -12,6 +10,7 @@ import UnallocatedEquipmentList from '../../Components/UnallocatedEquipmentList'
 import CriticalAllocationSection from '../../Components/CriticalAllocationSection';
 import { ICriticalSlot } from '../../../Classes/BattleMech';
 import { Button } from 'react-bootstrap';
+import UIPage from '../../Components/UIPage';
 
 export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -105,11 +104,9 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
 
     render() {
       return (
-        <div className={this.props.appGlobals.showMobile ? "ui-page show-mobile" : "ui-page"}>
-          <TopMenu current="mech-creator" sub="home" appGlobals={this.props.appGlobals}  />
-          <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  />
-          <div className="content">
-            <ShowAlerts appGlobals={this.props.appGlobals} />
+        <>
+          <UIPage current="mech-creator" appGlobals={this.props.appGlobals}>  
+          <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  /> 
             <div className="row">
               <div className="d-none d-md-block col-md-3 col-lg-2">
                 <MechCreatorSideMenu
@@ -316,8 +313,8 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
 
             </div>
 
-          </div>
-        </div>
+          </UIPage>
+        </>
       );
     }
 }

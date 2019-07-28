@@ -1,7 +1,5 @@
 import React from 'react';
 import './Home.scss';
-import TopMenu from '../../Components/TopMenu';
-import ShowAlerts from '../../Components/ShowAlerts';
 import {IAppGlobals} from '../../AppRouter';
 import { getMULASSearchResults } from '../../../utils';
 import { IASMULUnit, AlphaStrikeUnit } from '../../../Classes/AlphaStrikeUnit';
@@ -12,6 +10,7 @@ import { Modal } from 'react-bootstrap';
 import AlphaStrikeUnitSVG from '../../Components/SVG/AlphaStrikeUnitSVG';
 import { Link } from 'react-router-dom';
 import AlphaStrikeGroup from '../../../Classes/AlphaStrikeGroup';
+import UIPage from '../../Components/UIPage';
 
 export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, IHomeState> {
     searchTech: string = "";
@@ -355,11 +354,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
               </Modal.Footer> */}
           </Modal>
 
-        <div className={this.props.appGlobals.showMobile ? "ui-page show-mobile" : "ui-page"}>
-          <TopMenu current="alpha-strike-roster" sub="home" appGlobals={this.props.appGlobals} />
-          <div className="content">
-            <ShowAlerts appGlobals={this.props.appGlobals} />
-
+        <UIPage current="alpha-strike-roster" appGlobals={this.props.appGlobals}>
 
           {this.props.appGlobals.currentASForce.getTotalUnits() > 0 ? (
             <div className="row">
@@ -754,8 +749,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
             </div>
           </div>
 
-          </div>
-        </div>
+          </UIPage>
         </>
       );
     }

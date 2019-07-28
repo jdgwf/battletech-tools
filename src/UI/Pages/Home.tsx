@@ -1,7 +1,6 @@
 import React from 'react';
 import './Home.scss';
 import {IAppGlobals} from '../AppRouter';
-import BattleMechSVG from '../Components/SVG/BattleMechSVG';
 import UIPage from '../Components/UIPage';
 
 export default class Home extends React.Component<IHomeProps, IHomeState> {

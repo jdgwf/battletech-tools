@@ -1,7 +1,5 @@
 import React from 'react';
 import './Home.scss';
-import TopMenu from '../../Components/TopMenu';
-import ShowAlerts from '../../Components/ShowAlerts';
 import {IAppGlobals} from '../../AppRouter';
 import SanitizedHTML from '../../Components/SanitizedHTML';
 import MechCreatorSideMenu from '../../Components/MechCreatorSideMenu';
@@ -13,6 +11,7 @@ import { Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import AvailableEquipment from '../../Components/AvailableEquipment';
 import { IEquipmentItem } from '../../../Data/dataInterfaces';
+import UIPage from '../../Components/UIPage';
 
 export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -110,11 +109,8 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                     </Button>
                 </Modal.Footer>
             </Modal>
-        <div className={this.props.appGlobals.showMobile ? "ui-page show-mobile" : "ui-page"}>
-          <TopMenu current="mech-creator" sub="home" appGlobals={this.props.appGlobals}  />
+          <UIPage current="mech-creator" appGlobals={this.props.appGlobals}>  
           <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  />
-          <div className="content">
-            <ShowAlerts appGlobals={this.props.appGlobals} />
             <div className="row">
               <div className="d-none d-md-block col-md-3 col-lg-2">
                 <MechCreatorSideMenu
@@ -215,12 +211,12 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                       </div>
                     </div>
                   </div>
+                  
               </div>
 
-            </div>
+              </div>    
 
-          </div>
-        </div>
+        </UIPage>
         </>
       );
     }

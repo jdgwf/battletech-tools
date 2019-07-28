@@ -1,7 +1,5 @@
 import React from 'react';
 import './Home.scss';
-import TopMenu from '../../Components/TopMenu';
-import ShowAlerts from '../../Components/ShowAlerts';
 import {IAppGlobals} from '../../AppRouter';
 import SanitizedHTML from '../../Components/SanitizedHTML';
 import MechCreatorSideMenu from '../../Components/MechCreatorSideMenu';
@@ -10,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleRight, faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import MechCreatorStatusbar from '../../Components/MechCreatorStatusBar';
 import { makeRange } from '../../../utils';
+import UIPage from '../../Components/UIPage';
 
 export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -44,11 +43,9 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
         weightDropDownMax = this.props.appGlobals.currentBattleMech.getArmorWeight()
       }
       return (
-        <div className={this.props.appGlobals.showMobile ? "ui-page show-mobile" : "ui-page"}>
-          <TopMenu current="mech-creator" sub="home" appGlobals={this.props.appGlobals}  />
+        <>
+          <UIPage current="mech-creator" appGlobals={this.props.appGlobals}>  
           <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  />
-          <div className="content">
-            <ShowAlerts appGlobals={this.props.appGlobals} />
             <div className="row">
               <div className="d-none d-md-block col-md-3 col-lg-2">
                 <MechCreatorSideMenu
@@ -124,8 +121,8 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
 
             </div>
 
-          </div>
-        </div>
+          </UIPage>
+        </>
       );
     }
 }

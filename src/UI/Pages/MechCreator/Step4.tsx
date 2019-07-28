@@ -1,8 +1,6 @@
 import React from 'react';
 import './Home.scss';
 import './Step4.scss';
-import TopMenu from '../../Components/TopMenu';
-import ShowAlerts from '../../Components/ShowAlerts';
 import {IAppGlobals} from '../../AppRouter';
 import SanitizedHTML from '../../Components/SanitizedHTML';
 import BipedArmorDiagramSVG from '../../Components/SVG/BipedArmorDiagramSVG';
@@ -14,6 +12,7 @@ import MechCreatorStatusbar from '../../Components/MechCreatorStatusBar';
 import { makeRange } from '../../../utils';
 import { Button } from 'react-bootstrap';
 import QuadArmorDiagramSVG from '../../Components/SVG/QuadArmorDiagramSVG';
+import UIPage from '../../Components/UIPage';
 
 export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -129,11 +128,9 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
         weightDropDownMax = this.props.appGlobals.currentBattleMech.getArmorWeight()
       }
       return (
-        <div className={this.props.appGlobals.showMobile ? "ui-page show-mobile" : "ui-page"}>
-          <TopMenu current="mech-creator" sub="home" appGlobals={this.props.appGlobals}  />
+        <>
+          <UIPage current="mech-creator" appGlobals={this.props.appGlobals}>  
           <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  />
-          <div className="content">
-            <ShowAlerts appGlobals={this.props.appGlobals} />
             <div className="row">
               <div className="d-none d-md-block col-md-3 col-lg-2">
                 <MechCreatorSideMenu
@@ -625,8 +622,9 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
 
             </div>
 
-          </div>
-        </div>
+
+          </UIPage>
+        </>
       );
     }
 }

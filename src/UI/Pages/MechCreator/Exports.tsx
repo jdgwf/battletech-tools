@@ -1,13 +1,12 @@
 import React from 'react';
 import './Home.scss';
-import TopMenu from '../../Components/TopMenu';
-import ShowAlerts from '../../Components/ShowAlerts';
 import {IAppGlobals} from '../../AppRouter';
 import SanitizedHTML from '../../Components/SanitizedHTML';
 import MechCreatorSideMenu from '../../Components/MechCreatorSideMenu';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
+import UIPage from '../../Components/UIPage';
 
 export default class MechCreatorExports extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -23,10 +22,7 @@ export default class MechCreatorExports extends React.Component<IHomeProps, IHom
 
     render() {
       return (
-        <div className={this.props.appGlobals.showMobile ? "ui-page show-mobile" : "ui-page"}>
-          <TopMenu current="mech-creator" sub="home" appGlobals={this.props.appGlobals}  />
-          <div className="content">
-            <ShowAlerts appGlobals={this.props.appGlobals} />
+        <UIPage current="mech-creator" appGlobals={this.props.appGlobals}>  
             <div className="row">
               <div className="d-none d-md-block col-md-3 col-lg-2">
                 <MechCreatorSideMenu
@@ -64,8 +60,8 @@ export default class MechCreatorExports extends React.Component<IHomeProps, IHom
 
             </div>
 
-          </div>
-        </div>
+          </UIPage>
+
       );
     }
 }

@@ -19,9 +19,6 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
       return (
     <UIPage current="about" appGlobals={this.props.appGlobals}>
 
-		<div className="text-right">
-			{/* <strong className="ng-scope">Version</strong> <span ng-bind="appVersion" className="ng-binding">0.0.4 alpha</span> */}
-		</div>
     <div className="row">
         <div className="col-md-6">
           <div className="text-section">
