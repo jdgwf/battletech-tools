@@ -63,29 +63,9 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
         <div className="text-section">
             <h2>Software License</h2>
             <div className="section-content">
-            <p>This project is open source (MIT, see below) and hosted by <a href="https://github.com">GitHub</a>. The GitHub project can be found here: <a href="https://github.com/jdgwf/battletech-tools">https://github.com/jdgwf/battletech-tools</a></p>
+            <p>This project is open source (GPLv3) with exceptions to the Data directory, see below.</p>
 
-            <h4>MIT License</h4>
-
-
-
-            <p>Permission is hereby granted, free of charge, to any person obtaining a
-            copy of this software and associated documentation files (the "Software"),
-            to deal in the Software without restriction, including without limitation
-            the rights to use, copy, modify, merge, publish, distribute, sublicense,
-            and/or sell copies of the Software, and to permit persons to whom the
-            Software is furnished to do so, subject to the following conditions:</p>
-
-            <p>The above copyright notice and this permission notice shall be included
-            in all copies or substantial portions of the Software.</p>
-
-            <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-            OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-            FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-            AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-            LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-            FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-            IN THE SOFTWARE.</p>
+            <p>View the full license here: <a href="https://github.com/jdgwf/battletech-tools/blob/master/LICENSE">at the GitHub repository</a></p>
 
 
             <h4>Exceptions</h4>
