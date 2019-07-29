@@ -10,6 +10,8 @@ import MechCreatorStatusbar from '../../Components/MechCreatorStatusBar';
 import UIPage from '../../Components/UIPage';
 import AlphaStrikeUnitSVG from '../../Components/SVG/AlphaStrikeUnitSVG';
 import { AlphaStrikeUnit } from '../../../Classes/AlphaStrikeUnit';
+import { BattleMech } from '../../../Classes/BattleMech';
+import BattleMechSVG from '../../Components/SVG/BattleMechSVG';
 
 export default class MechCreatorSummary extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -145,8 +147,10 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
                             </div>
                             <div className="col-lg-6">
                               <h3 className="text-center">Record Sheets</h3>
-
-
+                              <BattleMechSVG
+                                mechData={this.props.appGlobals.currentBattleMech}
+                              />
+                              <br />
                               <AlphaStrikeUnitSVG
                                 appGlobals={this.props.appGlobals}
                                 asUnit={this.props.appGlobals.currentBattleMech.getAlphaStrikeForceStats()}
