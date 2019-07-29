@@ -3,6 +3,7 @@ import React from 'react';
 import { BattleMech } from '../../../Classes/BattleMech';
 import DieSVG from './DieSVG';
 import RecordSheetGroupBoxSVG from './RecordSheetGroupBoxSVG';
+import PilotHitTrackSVG from './PilotHitTrackSVG';
 
 export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, IBattleMechSVGState> {
     bgColor = "rgb(255,255,255)";
@@ -34,8 +35,11 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
     render() {
         // TODO
-        let mechDataX = 10;
-        let mechDataY = 10;
+        let generalDataBoxX = 10;
+        let generalDataBoxY = 10;
+
+        let pilotBoxX = 725;
+        let pilotBoxY = 160;
 
         let eraString = this.props.mechData.getEra().name;
         let eraArray = eraString.split("(");
@@ -51,10 +55,11 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
 
         let battleValue = this.props.mechData.getBattleValue().toString();
-        if( battleValue != this.props.mechData.getPilotAdjustedBattleValue().toString() )
+        if( battleValue !== this.props.mechData.getPilotAdjustedBattleValue().toString() )
             battleValue = battleValue + " (" + this.props.mechData.getPilotAdjustedBattleValue() + ")";
 
         return (
+        <>
         <svg
             version="1.1"
             x={0}
@@ -75,15 +80,15 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 <RecordSheetGroupBoxSVG
                     width={700}
                     height={400}
-                    xLoc={mechDataX}
-                    yLoc={mechDataY}
+                    xLoc={generalDataBoxX}
+                    yLoc={generalDataBoxY}
                     title="'Mech Data"
                     bgColor={this.bgColor}
                     strokeColor={this.strokeColor}
                 >
                     <text
-                        x={10 + mechDataX}
-                        y={80 + mechDataY}
+                        x={10 + generalDataBoxX}
+                        y={80 + generalDataBoxY}
                         textAnchor="start"
                         fontFamily="sans-serif"
                         fill={this.strokeColor}
@@ -95,8 +100,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
 
                     <text
-                        x={10 + mechDataX}
-                        y={120 + mechDataY}
+                        x={10 + generalDataBoxX}
+                        y={120 + generalDataBoxY}
                         textAnchor="start"
                         fontFamily="sans-serif"
                         fill={this.strokeColor}
@@ -110,8 +115,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
                     {/* // Movement */}
                     <text
-                        x={mechDataX + 15}
-                        y={mechDataY + 160}
+                        x={generalDataBoxX + 15}
+                        y={generalDataBoxY + 160}
                         textAnchor="start"
                         fontFamily="sans-serif"
                         fill={this.strokeColor}
@@ -123,8 +128,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
                     {/* // Walk */}
                     <text
-                        x={mechDataX + 220}
-                        y={mechDataY + 210}
+                        x={generalDataBoxX + 220}
+                        y={generalDataBoxY + 210}
                         textAnchor="end"
                         fontFamily="sans-serif"
                         fill={this.strokeColor}
@@ -134,8 +139,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                         Walking:
                     </text>
                     <text
-                        x={mechDataX + 240}
-                        y={mechDataY + 210}
+                        x={generalDataBoxX + 240}
+                        y={generalDataBoxY + 210}
                         textAnchor="start" fontFamily="sans-serif"
                         fill={this.strokeColor}
                         style={{fontWeight: 500}}
@@ -144,8 +149,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                         {this.props.mechData.getWalkSpeed()}
                     </text>
                     <DieSVG
-                        posY={ mechDataY + 210 - 25}
-                        posX={mechDataX + 20}
+                        posY={ generalDataBoxY + 210 - 25}
+                        posX={generalDataBoxX + 20}
                         strokeColor="#000000"
                         bgColor="#ffffff"
                         pipColor="#000000"
@@ -155,8 +160,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
                     {/* // Run */}
                     <text
-                        x={mechDataX + 220}
-                        y={mechDataY + 245}
+                        x={generalDataBoxX + 220}
+                        y={generalDataBoxY + 245}
                         textAnchor="end" fontFamily="sans-serif"
                         fill={this.strokeColor}
                         style={{fontWeight: 700}}
@@ -165,8 +170,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                         Running
                     </text>
                     <text
-                    x={mechDataX + 240}
-                    y={mechDataY + 245}
+                    x={generalDataBoxX + 240}
+                    y={generalDataBoxY + 245}
                     textAnchor="start"
                     fontFamily="sans-serif"
                     fill={this.strokeColor}
@@ -177,8 +182,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     </text>
 
                     <DieSVG
-                        posY={ mechDataY + 245 - 25}
-                        posX={mechDataX + 20}
+                        posY={ generalDataBoxY + 245 - 25}
+                        posX={generalDataBoxX + 20}
                         strokeColor="#000000"
                         bgColor="#000000"
                         pipColor="#ffffff"
@@ -187,8 +192,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     />
                     {/* // Jump */}
                     <text
-                        x={mechDataX + 220}
-                        y={mechDataY + 280}
+                        x={generalDataBoxX + 220}
+                        y={generalDataBoxY + 280}
                         textAnchor="end"
                         fontFamily="sans-serif"
                         fill={this.strokeColor}
@@ -198,8 +203,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                         Jumping
                     </text>
                     <text
-                        x={mechDataX + 240}
-                        y={mechDataY + 280}
+                        x={generalDataBoxX + 240}
+                        y={generalDataBoxY + 280}
                         textAnchor="start"
                         fontFamily="sans-serif"
                         fill={this.strokeColor}
@@ -210,8 +215,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     </text>
 
                     <DieSVG
-                        posY={ mechDataY + 280 - 25}
-                        posX={mechDataX + 20}
+                        posY={ generalDataBoxY + 280 - 25}
+                        posX={generalDataBoxX + 20}
                         strokeColor="#cc0000"
                         bgColor="#cc0000"
                         pipColor="#ffffff"
@@ -220,14 +225,10 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     />
 
 
-                </RecordSheetGroupBoxSVG>
-
-
-
                 {/* // Tonnage */}
                 <text
-                    x={mechDataX + 340}
-                    y={mechDataY + 160}
+                    x={generalDataBoxX + 340}
+                    y={generalDataBoxY + 160}
                     textAnchor="start"
                     fontFamily="sans-serif"
                     fill={this.strokeColor}
@@ -236,8 +237,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     Tonnage:
                 </text>
                 <text
-                    x={mechDataX + 665}
-                    y={mechDataY + 160}
+                    x={generalDataBoxX + 665}
+                    y={generalDataBoxY + 160}
                     textAnchor="end"
                     fontFamily="sans-serif"
                     fill={this.strokeColor}
@@ -249,8 +250,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
                 // Tech Base
                 <text
-                    x={mechDataX + 340}
-                    y={mechDataY + 205}
+                    x={generalDataBoxX + 340}
+                    y={generalDataBoxY + 205}
                     textAnchor="start" fontFamily="sans-serif"
                     fill={this.strokeColor} style={{fontWeight: 700}}
                     fontSize={25}
@@ -258,8 +259,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     Tech Base:
                 </text>
                 <text
-                    x={mechDataX + 665}
-                    y={mechDataY + 225}
+                    x={generalDataBoxX + 665}
+                    y={generalDataBoxY + 225}
                     textAnchor="end" fontFamily="sans-serif"
                     fill={this.strokeColor} style={{fontWeight: 500}}
                     fontSize={25}
@@ -269,8 +270,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
                 <text
 
-                    x={mechDataX + 340}
-                    y={mechDataY + 255}
+                    x={generalDataBoxX + 340}
+                    y={generalDataBoxY + 255}
                     textAnchor="start"
                     fontFamily="sans-serif"
                     fill={this.strokeColor}
@@ -281,8 +282,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 </text>
 
                 <text
-                    x={mechDataX + 665}
-                    y={mechDataY + 280}
+                    x={generalDataBoxX + 665}
+                    y={generalDataBoxY + 280}
                     textAnchor="end"
                     fontFamily="sans-serif"
                     fill={this.strokeColor}
@@ -290,8 +291,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     fontSize={20}
                 >{eraLine1}</text>
                 <text
-                    x={mechDataX + 665}
-                    y={mechDataY + 300}
+                    x={generalDataBoxX + 665}
+                    y={generalDataBoxY + 300}
                     textAnchor="end"
                     fontFamily="sans-serif"
                     fill={this.strokeColor}
@@ -302,8 +303,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
                 {/* // Cost */}
                 <text
-                    x={mechDataX + 15}
-                    y={mechDataY + 350}
+                    x={generalDataBoxX + 15}
+                    y={generalDataBoxY + 350}
                     textAnchor="start"
                     fontFamily="sans-serif"
                     fill={this.strokeColor}
@@ -313,8 +314,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                         Cost (CBills)
                     </text>
                 <text
-                    x={mechDataX + 15}
-                    y={mechDataY + 380}
+                    x={generalDataBoxX + 15}
+                    y={generalDataBoxY + 380}
                     textAnchor="start"
                     fontFamily="sans-serif"
                     fill={this.strokeColor}
@@ -325,8 +326,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 </text>
 	            {/* // BV */}
                 <text
-                    x={mechDataX + 340}
-                    y={mechDataY + 350}
+                    x={generalDataBoxX + 340}
+                    y={generalDataBoxY + 350}
                     textAnchor="start"
                     fontFamily="sans-serif"
                     fill={this.strokeColor}
@@ -338,8 +339,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
 
             <text
-                x={mechDataX + 340}
-                y={mechDataY + 380}
+                x={generalDataBoxX + 340}
+                y={generalDataBoxY + 380}
                 textAnchor="start"
                 fontFamily="sans-serif"
                 fill={this.strokeColor}
@@ -349,9 +350,99 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 {battleValue}
             </text>
 
+                </RecordSheetGroupBoxSVG>
+
+
+
+
+
+    <text
+        x={this.docWidth / 2 - 25}
+        y={80}
+        textAnchor="middle"
+        fontFamily="sans-serif"
+        fill={this.strokeColor}
+        style={{fontWeight: 700}}
+        fontSize={65}
+    >
+        BATTLEMECH
+    </text>
+    <text
+        x={this.docWidth / 2 - 25}
+        y={120}
+        textAnchor="middle"
+        fontFamily="sans-serif"
+        fill={this.strokeColor}
+        style={{fontWeight: 700}}
+        fontSize={35}
+    >
+        Record Sheet
+    </text>
+
+
+    <RecordSheetGroupBoxSVG
+        width={500}
+        height={250}
+        xLoc={pilotBoxX}
+        yLoc={pilotBoxY}
+        title="Warrior Data"
+        bgColor={this.bgColor}
+        strokeColor={this.strokeColor}
+    >
+        	{/* // Name/Type */}
+            <text
+                x={pilotBoxX + 10}
+                y={pilotBoxY + 80}
+                textAnchor="start"
+                fontFamily="sans-serif"
+                fill={this.strokeColor}
+                style={{fontWeight: 500}}
+                fontSize={25}
+            >
+                {this.props.mechData.getPilot().name}
+            </text>
+
+	// Piloting
+            <text
+                x={pilotBoxX + 450}
+                y={pilotBoxY + 120}
+                textAnchor="end"
+                fontFamily="sans-serif"
+                fill={this.strokeColor}
+                style={{fontWeight: 500}}
+                fontSize={35}
+            >
+                Piloting: {this.props.mechData.getPilot().piloting}
+            </text>
+
+	        // Gunnery
+            <text
+                x={pilotBoxX + 450}
+                y={pilotBoxY + 160}
+                textAnchor="end"
+                fontFamily="sans-serif"
+                fill={this.strokeColor}
+                style={{fontWeight: 500}}
+                fontSize={35}
+            >
+                Gunnery: {this.props.mechData.getPilot().gunnery}
+            </text>
+
+            <PilotHitTrackSVG
+                width={500}
+                height={250}
+                xLoc={pilotBoxX + 100}
+                yLoc={pilotBoxY + 200}
+                bgColor={this.bgColor}
+                strokeColor={this.strokeColor}
+                pilot={this.props.mechData.getPilot()}
+            />
+
+    </RecordSheetGroupBoxSVG>
 
             </g>
         </svg>
+        </>
         )
 
     }

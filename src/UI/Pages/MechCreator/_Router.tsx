@@ -13,6 +13,7 @@ import MechCreatorSummary from './Summary';
 import MechCreatorExports from './Exports';
 
 import Error404 from "../Error404";
+import BattleMechSVG from '../../Components/SVG/BattleMechSVG';
 
 export default class MechCreatorRouter extends React.Component<IMechCreatorRouterProps, IMechCreatorRouterState> {
 
@@ -74,6 +75,12 @@ export default class MechCreatorRouter extends React.Component<IMechCreatorRoute
                 <Route exact path={`${process.env.PUBLIC_URL}/mech-creator/exports`}>
                     <MechCreatorExports
                         appGlobals={this.props.appGlobals}
+                    />
+                </Route>
+
+                <Route exact path={`${process.env.PUBLIC_URL}/mech-creator/svg`}>
+                    <BattleMechSVG
+                        mechData={this.props.appGlobals.currentBattleMech}
                     />
                 </Route>
 

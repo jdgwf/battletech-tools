@@ -57,7 +57,7 @@ interface IArmorAllocation {
     rightLeg: number;
 }
 
-interface IPilot {
+export interface IPilot {
     name: string;
     piloting: number;
     gunnery: number;
@@ -1801,7 +1801,7 @@ export class BattleMech {
 
         // this.alphaStrikeForceStats.getAbilityCode(abilityCode) {
         //     for (let abiC = 0; abiC < this.alphaStrikeForceStats.abilityCodes.length; abiC++) {
-        //         if (abilityCode.toLowerCase().trim() == this.alphaStrikeForceStats.abilityCodes[abiC].toLowerCase().trim()) {
+        //         if (abilityCode.toLowerCase().trim() === this.alphaStrikeForceStats.abilityCodes[abiC].toLowerCase().trim()) {
         //             return this.alphaStrikeForceStats.abilityCodes[abiC];
         //         }
         //     }
@@ -1851,14 +1851,14 @@ export class BattleMech {
         this.calcLogAS += "Converting total armor of " + this.getTotalArmor() + "<br />\n";
         this.calcLogAS += "<strong>Setting Armor to " + this.alphaStrikeForceStats.armor + "</strong><br />\n";
 
-        if (this.getTech().tag == "is") {
+        if (this.getTech().tag === "is") {
 
 
             switch (this.engineType.tag) {
                 case "compact":
                     // Compact
 
-                    if (this.tonnage == 100) {
+                    if (this.tonnage === 100) {
                         this.alphaStrikeForceStats.structure = 10;
                     } else if (this.tonnage >= 95) {
                         this.alphaStrikeForceStats.structure = 10;
@@ -1901,7 +1901,7 @@ export class BattleMech {
                     break;
                 case "xl":
                     // XL
-                    if (this.tonnage == 100) {
+                    if (this.tonnage === 100) {
                         this.alphaStrikeForceStats.structure = 5;
                     } else if (this.tonnage >= 95) {
                         this.alphaStrikeForceStats.structure = 5;
@@ -1944,7 +1944,7 @@ export class BattleMech {
                     break;
                 case "light":
                     // Compact
-                    if (this.tonnage == 100) {
+                    if (this.tonnage === 100) {
                         this.alphaStrikeForceStats.structure = 5;
                     } else if (this.tonnage >= 95) {
                         this.alphaStrikeForceStats.structure = 5;
@@ -1987,7 +1987,7 @@ export class BattleMech {
                     break;
                 default:
                     // Standard
-                    if (this.tonnage == 100) {
+                    if (this.tonnage === 100) {
                         this.alphaStrikeForceStats.structure = 8;
                     } else if (this.tonnage >= 95) {
                         this.alphaStrikeForceStats.structure = 8;
@@ -2035,7 +2035,7 @@ export class BattleMech {
                 case "xl":
                 case "clan-xl":
                     // Compact
-                    if (this.tonnage == 100) {
+                    if (this.tonnage === 100) {
                         this.alphaStrikeForceStats.structure = 5;
                     } else if (this.tonnage >= 95) {
                         this.alphaStrikeForceStats.structure = 5;
@@ -2078,7 +2078,7 @@ export class BattleMech {
                     break;
                 default:
                     // Standard / Standard Fusion
-                    if (this.tonnage == 100) {
+                    if (this.tonnage === 100) {
                         this.alphaStrikeForceStats.structure = 8;
                     } else if (this.tonnage >= 95) {
                         this.alphaStrikeForceStats.structure = 8;
@@ -2242,52 +2242,52 @@ export class BattleMech {
                             this.alphaStrikeForceStats.abilityCodes.push(this.equipmentList[weapon_counter].alphaStrike.notes[nC]);
                         }
 
-                        if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "mel") {
+                        if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "mel") {
                             this.alphaStrikeForceStats.specialUnitAbilities.push( "MEL" );
                         }
 
-                        if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "heat") {
+                        if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "heat") {
                             heatDamage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
                             heatDamage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
                             heatDamage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
                             heatDamage.extreme += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
                         }
 
-                        if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "lrm") {
+                        if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "lrm") {
                             lrmDamage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
                             lrmDamage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
                             lrmDamage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
                             lrmDamage.extreme += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
                         }
 
-                        if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "ac") {
+                        if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "ac") {
                             acDamage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
                             acDamage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
                             acDamage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
                             acDamage.extreme += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
                         }
 
-                        if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "flak") {
+                        if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "flak") {
                             flakDamage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
                             flakDamage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
                             flakDamage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
                             flakDamage.extreme += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
                         }
 
-                        if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "srm") {
+                        if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "srm") {
 
                             indirectFireRating += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
 
                         }
 
-                        if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "indirect fire" || this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "if") {
+                        if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "indirect fire" || this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "if") {
                             srmDamage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
                             srmDamage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
                             srmDamage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
                             srmDamage.extreme += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
                         }
 
-                        if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "missile" || this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() == "msl") {
+                        if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "missile" || this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "msl") {
                             mslDamage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
                             mslDamage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
                             mslDamage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
@@ -2351,9 +2351,9 @@ export class BattleMech {
                 this.alphaStrikeForceStats.damage.short = Math.ceil(+this.alphaStrikeForceStats.damage.short).toString();
             if( this.alphaStrikeForceStats.damage.medium.toString() !== "0*")
                 this.alphaStrikeForceStats.damage.medium = Math.ceil(+this.alphaStrikeForceStats.damage.medium).toString();
-            //~ if( this.alphaStrikeForceStats.damage.short != "0*")
+            //~ if( this.alphaStrikeForceStats.damage.short !== "0*")
             //~ this.alphaStrikeForceStats.damage.long = Math.ceil( this.alphaStrikeForceStats.damage.long );
-            //~ if( this.alphaStrikeForceStats.damage.medium != "0*")
+            //~ if( this.alphaStrikeForceStats.damage.medium !== "0*")
             //~ this.alphaStrikeForceStats.damage.extreme =  Math.ceil( this.alphaStrikeForceStats.damage.extreme );
 
 
@@ -2377,9 +2377,9 @@ export class BattleMech {
                 this.alphaStrikeForceStats.damage.short = Math.ceil(+this.alphaStrikeForceStats.damage.short).toString();
             if( this.alphaStrikeForceStats.damage.medium.toString() !== "0*")
                 this.alphaStrikeForceStats.damage.medium = Math.ceil(+this.alphaStrikeForceStats.damage.medium).toString();
-            //~ if( this.alphaStrikeForceStats.damage.short != "0*")
+            //~ if( this.alphaStrikeForceStats.damage.short !== "0*")
             //~ this.alphaStrikeForceStats.damage.long = Math.ceil( this.alphaStrikeForceStats.damage.long );
-            //~ if( this.alphaStrikeForceStats.damage.medium != "0*")
+            //~ if( this.alphaStrikeForceStats.damage.medium !== "0*")
             //~ this.alphaStrikeForceStats.damage.extreme =  Math.ceil( this.alphaStrikeForceStats.damage.extreme );
 
         }
@@ -2418,9 +2418,9 @@ export class BattleMech {
 
             }
         } else {
-            //~ if( this.alphaStrikeForceStats.damage.short != "0*")
+            //~ if( this.alphaStrikeForceStats.damage.short !== "0*")
             //~ this.alphaStrikeForceStats.damage.short = Math.ceil( this.alphaStrikeForceStats.damage.short );
-            //~ if( this.alphaStrikeForceStats.damage.medium != "0*")
+            //~ if( this.alphaStrikeForceStats.damage.medium !== "0*")
             //~ this.alphaStrikeForceStats.damage.medium =  Math.ceil( this.alphaStrikeForceStats.damage.medium );
             if( this.alphaStrikeForceStats.damage.short.toString() !== "0*")
                 this.alphaStrikeForceStats.damage.long = Math.ceil(+this.alphaStrikeForceStats.damage.long).toString();
@@ -2447,11 +2447,11 @@ export class BattleMech {
         //~ let final_overheat_value = 0;
 
 
-        //~ if( this.alphaStrikeForceStats.damage.medium != "0*" && before_heat_rangeMedium - this.alphaStrikeForceStats.damage.medium > 0) {
+        //~ if( this.alphaStrikeForceStats.damage.medium !== "0*" && before_heat_rangeMedium - this.alphaStrikeForceStats.damage.medium > 0) {
         //~ final_overheat_value = before_heat_rangeMedium - this.alphaStrikeForceStats.damage.medium;
         //~ } else {
         //~ // try short range bracket since the med range is low.
-        //~ if( this.alphaStrikeForceStats.damage.short != "0*" )
+        //~ if( this.alphaStrikeForceStats.damage.short !== "0*" )
         //~ final_overheat_value = before_heat_rangeShort - this.alphaStrikeForceStats.damage.short;
         //~ }
         //~ if( final_overheat_value > 4 )
@@ -2459,7 +2459,7 @@ export class BattleMech {
 
         // Determine Overheat Values - ASC - p116
         //~ let final_long_overheat_value = 0;
-        //~ if( this.alphaStrikeForceStats.damage.long != "0*" && before_heat_rangeLong - this.alphaStrikeForceStats.damage.long > 0) {
+        //~ if( this.alphaStrikeForceStats.damage.long !== "0*" && before_heat_rangeLong - this.alphaStrikeForceStats.damage.long > 0) {
         //~ final_long_overheat_value = before_heat_rangeLong - this.alphaStrikeForceStats.damage.long;
         //~ }
 
@@ -2503,13 +2503,13 @@ export class BattleMech {
         this.calcLogAS += "<strong>Step 1: Determine Unit’s Offensive Value ASC - p138</strong><br />\n";
         let offensive_value = 0;
         // Attack Damage Factor
-        if( this.alphaStrikeForceStats.damage.short != "0*" && this.alphaStrikeForceStats.damage.short != "-")
+        if( this.alphaStrikeForceStats.damage.short !== "0*" && this.alphaStrikeForceStats.damage.short !== "-")
             offensive_value += +this.alphaStrikeForceStats.damage.short;
-        if( this.alphaStrikeForceStats.damage.medium != "0*" && this.alphaStrikeForceStats.damage.medium != "-")
+        if( this.alphaStrikeForceStats.damage.medium !== "0*" && this.alphaStrikeForceStats.damage.medium !== "-")
             offensive_value += +this.alphaStrikeForceStats.damage.medium;
-        if( this.alphaStrikeForceStats.damage.long != "0*" && this.alphaStrikeForceStats.damage.long != "-")
+        if( this.alphaStrikeForceStats.damage.long !== "0*" && this.alphaStrikeForceStats.damage.long !== "-")
             offensive_value += +this.alphaStrikeForceStats.damage.long;
-        if( this.alphaStrikeForceStats.damage.extreme != "0*" && this.alphaStrikeForceStats.damage.extreme != "-")
+        if( this.alphaStrikeForceStats.damage.extreme !== "0*" && this.alphaStrikeForceStats.damage.extreme !== "-")
             offensive_value += +this.alphaStrikeForceStats.damage.extreme;
 
         this.calcLogAS += "Attack Damage Factor: " + offensive_value + " ( " + this.alphaStrikeForceStats.damage.short + " + " + this.alphaStrikeForceStats.damage.medium + " + " + this.alphaStrikeForceStats.damage.long + " + " + this.alphaStrikeForceStats.damage.extreme + " )<br />\n";
@@ -2583,22 +2583,22 @@ export class BattleMech {
         for (let aC = 0; aC < this.alphaStrikeForceStats.abilityCodes.length; aC++) {
 
             // Replace Heat with Heat X/X/X
-            if( this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "heat") {
+            if( this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "heat") {
                 heatDamage = this.adjustASDamage(heatDamage);
                 this.alphaStrikeForceStats.abilityCodes[aC] = "Heat " + heatDamage.short + "/" + heatDamage.medium + "/" + heatDamage.long;
                 highestDamage = this.getHighestDamage(heatDamage);
                 offensive_value += highestDamage;
-                if (heatDamage.medium != "-" && +heatDamage.medium > 0)
+                if (heatDamage.medium !== "-" && +heatDamage.medium > 0)
                     offensive_value += .5;
 
                 this.calcLogAS += "<strong>Adding</strong> Heat Ability: " + heatDamage.short + "/" + heatDamage.medium + "/" + heatDamage.long + "<br />\n";
                 this.calcLogAS += "Adding Heat Damage Factor to PV: " + highestDamage + "<br />\n";
-                if (heatDamage.medium != "-" && +heatDamage.medium > 0)
+                if (heatDamage.medium !== "-" && +heatDamage.medium > 0)
                     this.calcLogAS += "Adding Heat Medium Damage Bonus to PV: 0,5<br />\n";
             }
 
             // Replace LRM with LRM X/X/X
-            if( this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "lrm") {
+            if( this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "lrm") {
                 lrmDamage = this.adjustASDamage(lrmDamage);
                 this.alphaStrikeForceStats.abilityCodes[aC] = "LRM " + lrmDamage.short + "/" + lrmDamage.medium + "/" + lrmDamage.long;
                 this.calcLogAS += "<strong>Adding</strong> LRM Ability: " + lrmDamage.short + "/" + lrmDamage.medium + "/" + lrmDamage.long + "<br />\n";
@@ -2607,7 +2607,7 @@ export class BattleMech {
 
 
             // Replace Flak with Flak X/X/X
-            if( this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "flak") {
+            if( this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "flak") {
                 flakDamage = this.adjustASDamage(flakDamage);
                 this.alphaStrikeForceStats.abilityCodes[aC] = "Flak " + flakDamage.short + "/" + flakDamage.medium + "/" + flakDamage.long;
                 this.calcLogAS += "<strong>Adding</strong> Flak Ability: " + flakDamage.short + "/" + flakDamage.medium + "/" + flakDamage.long + "<br />\n";
@@ -2615,7 +2615,7 @@ export class BattleMech {
 
 
             // Replace AC with AC X/X/X
-            if( this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "ac") {
+            if( this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "ac") {
                 acDamage = this.adjustASDamage(acDamage);
                 this.alphaStrikeForceStats.abilityCodes[aC] = "AC " + acDamage.short + "/" + acDamage.medium + "/" + acDamage.long;
                 this.calcLogAS += "<strong>Adding</strong> AC Ability: " + acDamage.short + "/" + acDamage.medium + "/" + acDamage.long + "<br />\n";
@@ -2623,28 +2623,28 @@ export class BattleMech {
 
 
             // Replace SRM with SRM X/X/X
-            if( this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "srm") {
+            if( this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "srm") {
                 srmDamage = this.adjustASDamage(srmDamage);
                 this.alphaStrikeForceStats.abilityCodes[aC] = "SRM " + srmDamage.short + "/" + srmDamage.medium + "/" + srmDamage.long;
                 this.calcLogAS += "<strong>Adding</strong> SRM Ability: " + srmDamage.short + "/" + srmDamage.medium + "/" + srmDamage.long + "<br />\n";
             }
 
             // Replace Missile with Missile X/X/X
-            if( this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "missile" || this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "msl") {
+            if( this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "missile" || this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "msl") {
                 mslDamage = this.adjustASDamage(mslDamage);
                 this.alphaStrikeForceStats.abilityCodes[aC] = "MSL " + mslDamage.short + "/" + mslDamage.medium + "/" + mslDamage.long;
                 this.calcLogAS += "<strong>Adding</strong> Missile Ability: " + mslDamage.short + "/" + mslDamage.medium + "/" + mslDamage.long + "<br />\n";
             }
 
             // Replace Rear with Rear X/X/X
-            if( this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "rear") {
+            if( this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "rear") {
                 rearDamage = this.adjustASDamage(rearDamage);
                 this.alphaStrikeForceStats.abilityCodes[aC] = "Rear " + rearDamage.short + "/" + rearDamage.medium + "/" + rearDamage.long;
                 this.calcLogAS += "<strong>Adding</strong> Rear Ability: " + rearDamage.short + "/" + rearDamage.medium + "/" + rearDamage.long + "<br />\n";
             }
 
             // Replace IndirectFire with IF X
-            if( this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "indirect fire" || this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() == "if") {
+            if( this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "indirect fire" || this.alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "if") {
                 rearDamage = this.adjustASDamage(rearDamage);
                 this.alphaStrikeForceStats.abilityCodes[aC] = "IF " + indirectFireRating;
                 this.calcLogAS += "<strong>Adding</strong> IF Ability: " + indirectFireRating + "<br />\n";
@@ -2713,9 +2713,9 @@ export class BattleMech {
         if (
             bestMovement >= 6 &&
             bestMovement <= 10 &&
-            +this.alphaStrikeForceStats.damage.medium == 0 &&
-            +this.alphaStrikeForceStats.damage.long == 0 &&
-            +this.alphaStrikeForceStats.damage.extreme == 0
+            +this.alphaStrikeForceStats.damage.medium === 0 &&
+            +this.alphaStrikeForceStats.damage.long === 0 &&
+            +this.alphaStrikeForceStats.damage.extreme === 0
         ) {
             this.calcLogAS += "Unit has 6 to 10\" of Move, but only delivers damage at Short range. Point Value * .75<br />\n";
             this.calcLogAS += "Modified Point Value: " + baseFinalValue * .75 + " (" + offensive_value + " + " + bmDIR + ")<br />\n";
@@ -2725,9 +2725,9 @@ export class BattleMech {
         if (
             bestMovement >= 2 &&
             bestMovement <= 5 &&
-            +this.alphaStrikeForceStats.damage.medium == 0 &&
-            +this.alphaStrikeForceStats.damage.long == 0 &&
-            +this.alphaStrikeForceStats.damage.extreme == 0
+            +this.alphaStrikeForceStats.damage.medium === 0 &&
+            +this.alphaStrikeForceStats.damage.long === 0 &&
+            +this.alphaStrikeForceStats.damage.extreme === 0
         ) {
             this.calcLogAS += "Unit has 2 to 5\" of Move, but only delivers damage at Short range. Point Value * .5<br />\n";
             this.calcLogAS += "Modified Point Value: " + baseFinalValue * .5 + " (" + offensive_value + " + " + bmDIR + ")<br />\n";
@@ -2737,8 +2737,8 @@ export class BattleMech {
         if (
             bestMovement >= 2 &&
             bestMovement <= 5 &&
-            +this.alphaStrikeForceStats.damage.long == 0 &&
-            +this.alphaStrikeForceStats.damage.extreme == 0
+            +this.alphaStrikeForceStats.damage.long === 0 &&
+            +this.alphaStrikeForceStats.damage.extreme === 0
         ) {
             this.calcLogAS += "Unit has 2 to 5\" of Move, but only delivers damage at Short and Medium ranges. Point Value * .75<br />\n";
             this.calcLogAS += "Modified Point Value: " + baseFinalValue * .75 + " (" + offensive_value + " + " + bmDIR + ")<br />\n";
