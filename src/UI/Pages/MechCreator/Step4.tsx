@@ -129,7 +129,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
       }
       return (
         <>
-          <UIPage current="mech-creator" appGlobals={this.props.appGlobals}>  
+          <UIPage current="mech-creator" appGlobals={this.props.appGlobals}>
           <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  />
             <div className="row">
               <div className="d-none d-md-block col-md-3 col-lg-2">
@@ -372,11 +372,11 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
   <label className="armor-select-dropdown ll">
     <div className="title">LL</div>
     <select
-      value={this.props.appGlobals.currentBattleMech.getArmorAllocation().leftArm}
+      value={this.props.appGlobals.currentBattleMech.getArmorAllocation().leftLeg}
       onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "ll", +event.currentTarget.value)}
       title="Change this BattleMech's left leg armor value"
     >
-      {makeRange(0, this.props.appGlobals.currentBattleMech.getInteralStructure().leftArm * 2).map( (armorValue) => {
+      {makeRange(0, this.props.appGlobals.currentBattleMech.getInteralStructure().leftLeg * 2).map( (armorValue) => {
         return (
           <option key={armorValue} value={armorValue}>{armorValue}</option>
         )
@@ -387,11 +387,11 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
   <label className="armor-select-dropdown rl">
     <div className="title">RL</div>
     <select
-      value={this.props.appGlobals.currentBattleMech.getArmorAllocation().rightArm}
+      value={this.props.appGlobals.currentBattleMech.getArmorAllocation().rightLeg}
       onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "rl", +event.currentTarget.value)}
       title="Change this BattleMech's right leg armor value"
     >
-      {makeRange(0, this.props.appGlobals.currentBattleMech.getInteralStructure().rightArm * 2).map( (armorValue) => {
+      {makeRange(0, this.props.appGlobals.currentBattleMech.getInteralStructure().rightLeg * 2).map( (armorValue) => {
         return (
           <option key={armorValue} value={armorValue}>{armorValue}</option>
         )
@@ -563,11 +563,11 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
     <label className="armor-select-dropdown lrl">
     <div className="title">LRL</div>
     <select
-      value={this.props.appGlobals.currentBattleMech.getArmorAllocation().leftArm}
+      value={this.props.appGlobals.currentBattleMech.getArmorAllocation().leftLeg}
       onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "ll", +event.currentTarget.value)}
       title="Change this BattleMech's left rear leg armor value"
     >
-      {makeRange(0, this.props.appGlobals.currentBattleMech.getInteralStructure().leftArm * 2).map( (armorValue) => {
+      {makeRange(0, this.props.appGlobals.currentBattleMech.getInteralStructure().leftLeg * 2).map( (armorValue) => {
         return (
           <option key={armorValue} value={armorValue}>{armorValue}</option>
         )
@@ -578,11 +578,11 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
   <label className="armor-select-dropdown rrl">
     <div className="title">RRL</div>
     <select
-      value={this.props.appGlobals.currentBattleMech.getArmorAllocation().rightArm}
+      value={this.props.appGlobals.currentBattleMech.getArmorAllocation().rightLeg}
       onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "rl", +event.currentTarget.value)}
       title="Change this BattleMech's right rear leg armor value"
     >
-      {makeRange(0, this.props.appGlobals.currentBattleMech.getInteralStructure().rightArm * 2).map( (armorValue) => {
+      {makeRange(0, this.props.appGlobals.currentBattleMech.getInteralStructure().rightLeg * 2).map( (armorValue) => {
         return (
           <option key={armorValue} value={armorValue}>{armorValue}</option>
         )

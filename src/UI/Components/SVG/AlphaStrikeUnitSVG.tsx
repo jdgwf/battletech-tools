@@ -251,7 +251,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
                 {/* Heat Scale Box */}
                 <rect x="25" y="315" width="540" height="70" fill="rgba( 255,255,255,.8)" rx="15" ry="15"></rect>
-                <text x="40" y="360" fontFamily="sans-serif" fontSize={35}>OV: 0</text>
+                <text x="40" y="360" fontFamily="sans-serif" fontSize={35}>OV: {this.props.asUnit.overheat}</text>
                 <text x="240" y="357" textAnchor="end" fontFamily="sans-serif" fontSize="15">HEAT SCALE</text>
                 <rect x="295" y="320" width="265" height="60" fill="rgb(0,0,0)" rx="30" ry="30"></rect>
 

@@ -145,7 +145,7 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
                             </div>
                             <div className="col-lg-6">
                               <h3 className="text-center">Record Sheets</h3>
-                              <Link to={`${process.env.PUBLIC_URL}/mech-creator/svg`}>
+                              <Link to={`${process.env.PUBLIC_URL}/mech-creator/print-rs`}>
                                 <BattleMechSVG
                                   mechData={this.props.appGlobals.currentBattleMech}
                                 />

@@ -4,6 +4,10 @@ import { BattleMech } from '../../../Classes/BattleMech';
 import DieSVG from './DieSVG';
 import RecordSheetGroupBoxSVG from './RecordSheetGroupBoxSVG';
 import PilotHitTrackSVG from './PilotHitTrackSVG';
+import BattleTechLogo from '../BattleTechLogo';
+import RecordSheetEquipmentTable from './RecordSheetEquipmentTable';
+import BipedDamageTransferDiagramSVG from './BipedDamageTransferDiagramSVG';
+import QuadDamageTransferDiagramSVG from './QuadDamageTransferDiagramSVG';
 
 export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, IBattleMechSVGState> {
     bgColor = "rgb(255,255,255)";
@@ -12,6 +16,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
     inPlay: boolean = false;
     docWidth = 2000;
     docHeight = 2600;
+
+    colorTan = "#fdfde3";
 
     constructor(props: IBattleMechSVGProps) {
         super(props);
@@ -57,6 +63,16 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         let battleValue = this.props.mechData.getBattleValue().toString();
         if( battleValue !== this.props.mechData.getPilotAdjustedBattleValue().toString() )
             battleValue = battleValue + " (" + this.props.mechData.getPilotAdjustedBattleValue() + ")";
+
+
+        let critBoxTop = 1250;
+        let critBoxLeft = 10;
+        let critBoxWidth = 1200;
+        let damageTransferWidth = 250;
+
+        let critCol1Start = 125;
+        let critCol2Start = 513;
+        let critCol3Start = 925;
 
         return (
         <>
@@ -439,6 +455,264 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             />
 
     </RecordSheetGroupBoxSVG>
+
+
+    <RecordSheetEquipmentTable
+        width={1225}
+        height={770}
+        xLoc={0}
+        yLoc={440}
+        mechData={this.props.mechData}
+    />
+
+    <RecordSheetGroupBoxSVG
+        width={745}
+        height={1200}
+        xLoc={1240}
+        yLoc={10}
+        title="Armor Diagram"
+    >
+    {this.props.mechData.getMechType().tag === "biped" ? (
+        <>
+            TODO: Biped Armor Diagram
+        </>
+    ) : (
+        <>
+            TODO: Quad Armor Diagram
+        </>
+    )}
+    </RecordSheetGroupBoxSVG>
+
+    <RecordSheetGroupBoxSVG
+        width={655}
+        height={700}
+        xLoc={1250}
+        yLoc={1250}
+        title="Internal Structure"
+    >
+    {this.props.mechData.getMechType().tag === "biped" ? (
+        <>
+            TODO: Biped Internal Structure
+        </>
+    ) : (
+        <>
+            TODO: Quad Internal Structure
+        </>
+    )}
+    </RecordSheetGroupBoxSVG>
+
+
+    <RecordSheetGroupBoxSVG
+        width={critBoxWidth}
+        height={1210}
+        xLoc={critBoxLeft}
+        yLoc={critBoxTop}
+        title="Critical Hit Table"
+    >
+
+// Left Arm
+        <text
+            x={critBoxLeft + critCol1Start}
+            y={critBoxTop + 100}
+            textAnchor="start"
+            fontFamily="sans-serif"
+            fill={this.strokeColor}
+            style={{fontWeight: 700}}
+            fontSize={30}
+        >
+            LEFT ARM
+        </text>
+	    // svgCode += createCritAllocationTable( mechData.getCriticals().leftArm, critBoxLeft + critCol1Start, critBoxTop + 140, transRollAgain);
+
+	// Head
+        <text
+            x={critBoxLeft + critCol2Start}
+            y={(critBoxTop + 100)}
+            textAnchor="start"
+            fontFamily="sans-serif"
+            fill={this.strokeColor}
+            style={{fontWeight: 700}}
+            fontSize={30}
+        >
+                HEAD
+        </text>
+	    // svgCode += createCritAllocationTable( mechData.getCriticals().head, critBoxLeft + critCol2Start, critBoxTop + 140, transRollAgain);
+
+	// Right Arm
+        <text
+            x={critBoxLeft + critCol3Start}
+            y={critBoxTop + 100}
+            textAnchor="start"
+            fontFamily="sans-serif"
+            fill={this.strokeColor}
+            style={{fontWeight: 700}}
+            fontSize={30}
+        >
+            RIGHT ARM
+        </text>
+	    // svgCode += createCritAllocationTable( mechData.getCriticals().rightArm, critBoxLeft + critCol3Start, critBoxTop + 140, transRollAgain);
+
+	// Left Torso
+        <text
+            x={critBoxLeft + critCol1Start}
+            y={critBoxTop + 550}
+            textAnchor="start"
+            fontFamily="sans-serif"
+            fill={this.strokeColor}
+            style={{fontWeight: 700}}
+            fontSize={30
+        }>
+            LEFT TORSO
+        </text>
+	    // svgCode += createCritAllocationTable( mechData.getCriticals().leftTorso, critBoxLeft + critCol1Start, critBoxTop + 575, transRollAgain);
+
+	// Center Torso
+        <text
+            x={critBoxLeft + critCol2Start}
+            y={critBoxTop + 350}
+            textAnchor="start"
+            fontFamily="sans-serif"
+            fill={this.strokeColor}
+            style={{fontWeight: 700}}
+            fontSize={30}
+        >
+            CENTER TORSO
+        </text>
+	    // svgCode += createCritAllocationTable( mechData.getCriticals().centerTorso, critBoxLeft + critCol2Start, critBoxTop + 375, transRollAgain);
+
+	// Right Torso
+        <text
+            x={critBoxLeft + critCol3Start}
+            y={critBoxTop + 550}
+            textAnchor="start"
+            fontFamily="sans-serif"
+            fill={this.strokeColor}
+            style={{fontWeight: 700}}
+            fontSize={30}
+        >
+            RIGHT TORSO
+        </text>
+    	// svgCode += createCritAllocationTable( mechData.getCriticals().rightTorso, critBoxLeft + critCol3Start, critBoxTop + 575, transRollAgain);
+
+
+	// Left Leg
+        <text
+            x={critBoxLeft + critCol1Start}
+            y={critBoxTop + 1010}
+            textAnchor="start"
+            fontFamily="sans-serif"
+            fill={this.strokeColor}
+            style={{fontWeight: 700}}
+            fontSize={30}
+        >
+            LEFT LEG
+        </text>
+	    // svgCode += createCritAllocationTable( mechData.getCriticals().leftLeg, critBoxLeft + critCol1Start, critBoxTop + 1050, transRollAgain);
+
+        // Right Leg
+        <text
+            x={critBoxLeft + critCol3Start}
+            y={critBoxTop + 1010}
+            textAnchor="start"
+            fontFamily="sans-serif"
+            fill={this.strokeColor}
+            style={{fontWeight: 700}}
+            fontSize={30}
+        >
+            RIGHT LEG
+        </text>
+	// svgCode += createCritAllocationTable( mechData.getCriticals().rightLeg, critBoxLeft + col3Start, critBoxTop + 1050, transRollAgain);
+
+
+    {this.props.mechData.getMechType().tag === "biped" ? (
+        <>
+            <BipedDamageTransferDiagramSVG
+                xLoc={critBoxLeft + critBoxWidth / 2 - damageTransferWidth / 2}
+                yLoc={critBoxTop + 820}
+                width={damageTransferWidth}
+                strokeColor={this.strokeColor}
+            />
+            <text
+                x={critBoxLeft + critBoxWidth / 2}
+                y={critBoxTop + 1200}
+                textAnchor="middle"
+                fontFamily="sans-serif"
+                fill={this.strokeColor}
+                style={{fontWeight: 700}}
+                fontSize={25}
+            >
+                DAMAGE TRANSFER
+            </text>
+            <text
+                x={critBoxLeft + critBoxWidth / 2}
+                y={critBoxTop + 1220}
+                textAnchor="middle"
+                fontFamily="sans-serif"
+                fill={this.strokeColor}
+                style={{fontWeight: 700}}
+                fontSize={25}
+            >
+                DIAGRAM
+            </text>
+        </>
+    ) : (
+        <>
+            <QuadDamageTransferDiagramSVG
+                xLoc={critBoxLeft + critBoxWidth / 2 - damageTransferWidth / 2}
+                yLoc={critBoxTop + 820}
+                width={damageTransferWidth}
+                strokeColor={this.strokeColor}
+            />
+            <text
+                x={critBoxLeft + critBoxWidth / 2}
+                y={critBoxTop + 1200}
+                textAnchor="middle"
+                fontFamily="sans-serif"
+                fill={this.strokeColor}
+                style={{fontWeight: 700}}
+                fontSize={25}
+            >
+                DAMAGE TRANSFER
+            </text>
+            <text
+                x={critBoxLeft + critBoxWidth / 2}
+                y={critBoxTop + 1220}
+                textAnchor="middle"
+                fontFamily="sans-serif"
+                fill={this.strokeColor}
+                style={{fontWeight: 700}}
+                fontSize={25}
+            >
+                DIAGRAM
+            </text>
+        </>
+    )}
+    </RecordSheetGroupBoxSVG>
+
+	{/* // Classic Battletech Logo on bottom. */}
+    <rect
+        x={0}
+        y={this.docHeight - 100}
+        width={2000}
+        height={100}
+        fill={this.strokeColor}
+    />
+    <BattleTechLogo
+        yLoc={this.docHeight - 85}
+        xLoc={1500}
+        width={500}
+    />
+    <text
+        x={20}
+        y={this.docHeight - 25}
+        textAnchor="start"
+        fontFamily="sans-serif"
+        fill={this.colorTan}
+        style={{fontWeight: 700}}
+        font-size={60}
+    >
+    CLASSIC BATTLETECH
+    </text>\n";
 
             </g>
         </svg>

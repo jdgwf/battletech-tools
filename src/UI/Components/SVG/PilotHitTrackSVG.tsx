@@ -46,7 +46,34 @@ export default class PilotHitTrackSVG extends React.Component<IPilotHitTrackSVGP
 
         let boxWidth = 60;
         let lWidthBuffer = 0;
-        for( let hits = 0; hits < 6; hits++ ) {
+        for( let hits = 1; hits < 7; hits++ ) {
+            let concRoll: string = "";
+            switch(hits) {
+                case 1: {
+                    concRoll = "3+"
+                    break;
+                }
+                case 2: {
+                    concRoll = "5+"
+                    break;
+                }
+                case 3: {
+                    concRoll = "7+"
+                    break;
+                }
+                case 4: {
+                    concRoll = "10+"
+                    break;
+                }
+                case 5: {
+                    concRoll = "11+"
+                    break;
+                }
+                case 6: {
+                    concRoll = "Dead"
+                    break;
+                }
+            }
 
             damageTrack.push(
                 <>
@@ -97,7 +124,7 @@ export default class PilotHitTrackSVG extends React.Component<IPilotHitTrackSVGP
                         style={{fontWeight: 500}}
                         font-size={20}
                     >
-                        3+
+                        {concRoll}
                     </text>
                 </>
             );

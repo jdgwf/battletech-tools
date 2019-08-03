@@ -7,6 +7,7 @@ export interface IASGroupExport {
 	units: IASMULUnit[];
 	uuid: string;
 	lastUpdated: Date;
+	location?: string;
 }
 
 export default class AlphaStrikeGroup {

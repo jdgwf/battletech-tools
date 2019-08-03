@@ -609,3 +609,56 @@ body {
     }
   }
 }
+
+.print-bar {
+  border-bottom: solid 2px $primaryBG;
+  margin: 0 0 0 0;
+  background: $headerFooterBackground;
+  color: $headerFontColor;
+  text-align: center;
+}
+
+.print-bg {
+  background: #ccc;
+  text-align: center;
+  padding: 1rem;
+  min-height: 96vh;
+  .print-page {
+    background: #fff;
+    text-align: left;
+    height: 9.74in;
+    width: 7.5in;
+    border: solid 2px #333;
+    display: block;
+    margin: 0 auto 1rem auto;
+    svg {
+      max-width: 100% !important;
+      max-height: 100% !important;
+    }
+  }
+}
+
+@media print {
+  @page { margin: 0; }
+  .print-bar {
+    display: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .print-bg {
+    background: transparent !important;
+    padding: 0 !important;
+    .print-page {
+      background: transparent !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100%;
+      height: 100%;
+      border: none !important;
+      svg {
+        max-width: 100% !important;
+        max-height: 100% !important;
+      }
+    }
+  }
+}
