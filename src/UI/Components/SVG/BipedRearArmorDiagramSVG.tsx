@@ -8,6 +8,8 @@ export default class BipedRearArmorDiagramSVG extends React.Component<IBipedRear
     theHeight = 627;
     xLoc = 0;
     yLoc = 0;
+    baseWidth = 744.09448819;
+    baseHeight = 1052.3622047;
     constructor(props: IBipedRearArmorDiagramSVGProps) {
         super(props);
         this.state = {
@@ -24,7 +26,7 @@ export default class BipedRearArmorDiagramSVG extends React.Component<IBipedRear
         let baseHeight = 1052.3622047;
         if( this.props.width ) {
             this.theWidth = this.props.width;
-            this.theHeight = Math.round( this.props.width / baseWidth * baseHeight );
+            this.theHeight = Math.round( this.props.width / this.baseWidth * this.baseHeight );
 
         }
 
@@ -57,13 +59,13 @@ export default class BipedRearArmorDiagramSVG extends React.Component<IBipedRear
 
         return (
             <svg
-            viewBox="0 0 744.09449 627.16514"
-            height="320px"
-             width="380px"
-              x="1425px"
-              y="885px"
-              id="rearArmorDiagram"
-              version="1.1"
+                viewBox={"0 0 " + this.baseWidth + " " + this.baseHeight}
+                y={this.yLoc}
+                x={this.xLoc}
+                width={this.theWidth}
+                height={this.theHeight}
+                id="rearArmorDiagram"
+                version="1.1"
             >
                   <g>
                       <g

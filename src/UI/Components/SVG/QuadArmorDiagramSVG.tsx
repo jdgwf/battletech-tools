@@ -8,6 +8,8 @@ export default class QuadArmorDiagramSVG extends React.Component<IQuadArmorDiagr
     theHeight = 627;
     xLoc = 0;
     yLoc = 0;
+    baseWidth = 744.09448819;
+    baseHeight = 1052.3622047;
     constructor(props: IQuadArmorDiagramSVGProps) {
         super(props);
         this.state = {
@@ -20,11 +22,10 @@ export default class QuadArmorDiagramSVG extends React.Component<IQuadArmorDiagr
         }
 
 
-        let baseWidth = 744.09448819;
-        let baseHeight = 1052.3622047;
+
         if( this.props.width ) {
             this.theWidth = this.props.width;
-            this.theHeight = Math.round( this.props.width / baseWidth * baseHeight );
+            this.theHeight = Math.round( this.props.width / this.baseWidth * this.baseHeight );
 
         }
 
@@ -57,13 +58,13 @@ export default class QuadArmorDiagramSVG extends React.Component<IQuadArmorDiagr
 
         return (
 <svg
-viewBox="0 0 744.09448819 1052.3622047"
-height="801px"
-width="950px"
-x="1151.25px"
-y="70px"
-id="quadArmorDiagram"
-version="1.1"
+    y={this.yLoc}
+    x={this.xLoc}
+    width={this.theWidth}
+    height={this.theHeight}
+    viewBox={"0 0 " + this.baseWidth + " " + this.baseHeight}
+    id="quadArmorDiagram"
+    version="1.1"
 >
     <g>
         <g id="ArmorLayer1">

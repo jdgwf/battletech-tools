@@ -8,6 +8,10 @@ export default class QuadRearArmorDiagramSVG extends React.Component<IQuadRearAr
     theHeight = 627;
     xLoc = 0;
     yLoc = 0;
+    // baseWidth = 744.09448819;
+    // baseHeight = 1052.3622047;
+    baseWidth = 744.09449;
+	baseHeight = 627.16514;
     constructor(props: IQuadRearArmorDiagramSVGProps) {
         super(props);
         this.state = {
@@ -19,12 +23,9 @@ export default class QuadRearArmorDiagramSVG extends React.Component<IQuadRearAr
             this.strokeColor = this.props.strokeColor;
         }
 
-
-        let baseWidth = 744.09448819;
-        let baseHeight = 1052.3622047;
         if( this.props.width ) {
             this.theWidth = this.props.width;
-            this.theHeight = Math.round( this.props.width / baseWidth * baseHeight );
+            this.theHeight = Math.round( this.props.width / this.baseWidth * this.baseHeight );
 
         }
 
@@ -57,13 +58,14 @@ export default class QuadRearArmorDiagramSVG extends React.Component<IQuadRearAr
 
         return (
             <svg
-            viewBox="0 0 744.09449 407.48007"
-            height="320px"
-            width="380px"
-            x="1425px"
-            y="930px"
-            id="rearArmor"
-            version="1.1">
+                viewBox={"0 0 " + this.baseWidth + " " + this.baseHeight}
+                y={this.yLoc}
+                x={this.xLoc}
+                width={this.theWidth}
+                height={this.theHeight}
+                id="rearArmor"
+                version="1.1"
+            >
                 <g>
                     <g
                         id="layer1"

@@ -8,6 +8,8 @@ export default class BipedInternalStructureDiagramSVG extends React.Component<IB
     theHeight = 627;
     xLoc = 0;
     yLoc = 0;
+    baseWidth = 744.09448819;
+    baseHeight = 1052.3622047;
     constructor(props: IBipedInternalStructureDiagramSVGProps) {
         super(props);
         this.state = {
@@ -20,11 +22,10 @@ export default class BipedInternalStructureDiagramSVG extends React.Component<IB
         }
 
 
-        let baseWidth = 744.09448819;
-        let baseHeight = 1052.3622047;
+
         if( this.props.width ) {
             this.theWidth = this.props.width;
-            this.theHeight = Math.round( this.props.width / baseWidth * baseHeight );
+            this.theHeight = Math.round( this.props.width / this.baseWidth * this.baseHeight );
 
         }
 
@@ -57,12 +58,13 @@ export default class BipedInternalStructureDiagramSVG extends React.Component<IB
 
         return (
                 <svg
-                viewBox="0 0 744.09448819 1052.3622047"
-                height="601px"
-                width="425px"
-                x="1340px"
-                y="1267px"
-                id="internalStructureDiagram" version="1.1">
+                    viewBox={"0 0 " + this.baseWidth + " " + this.baseHeight}
+                    y={this.yLoc}
+                    x={this.xLoc}
+                    width={this.theWidth}
+                    height={this.theHeight}
+                    id="internalStructureDiagram" version="1.1"
+                >
                     <g>
                         <path
                         id="path5320"

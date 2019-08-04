@@ -11,6 +11,12 @@ import QuadDamageTransferDiagramSVG from './QuadDamageTransferDiagramSVG';
 import HeatTrackSVG from './HeatTrackSVG';
 import BattleMechHeatEffectsBoxSVG from './BattleMechHeatEffectsBoxSVG';
 import CritAllocationTableSVG from './CritAllocationTableSVG';
+import BipedInternalStructureDiagramSVG from './BipedInternalStructureDiagramSVG';
+import QuadInternalStructureDiagramSVG from './QuadInternalStructureDiagramSVG';
+import BipedArmorDiagramSVG from './BipedArmorDiagramSVG';
+import QuadArmorDiagramSVG from './QuadArmorDiagramSVG';
+import BipedRearArmorDiagramSVG from './BipedRearArmorDiagramSVG';
+import QuadRearArmorDiagramSVG from './QuadRearArmorDiagramSVG';
 
 export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, IBattleMechSVGState> {
     bgColor = "rgb(255,255,255)";
@@ -478,10 +484,32 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
     {this.props.mechData.getMechType().tag === "biped" ? (
         <>
             TODO: Biped Armor Diagram
+            <BipedArmorDiagramSVG
+                xLoc={1268}
+                yLoc={-10}
+                width={700}
+            />
+
+            <BipedRearArmorDiagramSVG
+                xLoc={1413}
+                yLoc={875}
+                width={400}
+            />
         </>
     ) : (
         <>
             TODO: Quad Armor Diagram
+            <QuadArmorDiagramSVG
+                xLoc={1268}
+                yLoc={-10}
+                width={700}
+            />
+
+            <QuadRearArmorDiagramSVG
+                xLoc={1413}
+                yLoc={975}
+                width={400}
+            />
         </>
     )}
     </RecordSheetGroupBoxSVG>
@@ -496,10 +524,20 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
     {this.props.mechData.getMechType().tag === "biped" ? (
         <>
             TODO: Biped Internal Structure
+            <BipedInternalStructureDiagramSVG
+                xLoc={1350}
+                yLoc={1300}
+                width={400}
+            />
         </>
     ) : (
         <>
             TODO: Quad Internal Structure
+            <QuadInternalStructureDiagramSVG
+                xLoc={1375}
+                yLoc={1300}
+                width={400}
+            />
         </>
     )}
     </RecordSheetGroupBoxSVG>

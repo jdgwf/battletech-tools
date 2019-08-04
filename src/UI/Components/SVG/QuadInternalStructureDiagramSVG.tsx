@@ -8,6 +8,8 @@ export default class QuadInternalStructureDiagramSVG extends React.Component<IQu
     theHeight = 627;
     xLoc = 0;
     yLoc = 0;
+    baseWidth = 744.09448819;
+    baseHeight = 1052.3622047;
     constructor(props: IQuadInternalStructureDiagramSVGProps) {
         super(props);
         this.state = {
@@ -19,12 +21,9 @@ export default class QuadInternalStructureDiagramSVG extends React.Component<IQu
             this.strokeColor = this.props.strokeColor;
         }
 
-
-        let baseWidth = 744.09448819;
-        let baseHeight = 1052.3622047;
         if( this.props.width ) {
             this.theWidth = this.props.width;
-            this.theHeight = Math.round( this.props.width / baseWidth * baseHeight );
+            this.theHeight = Math.round( this.props.width / this.baseWidth * this.baseHeight );
 
         }
 
@@ -57,13 +56,13 @@ export default class QuadInternalStructureDiagramSVG extends React.Component<IQu
 
         return (
 <svg
-viewBox="0 0 210 297"
-height="530px"
-width="375px"
-x="1383px"
-y="1297px"
-id="quadInternalStructur"
-version="1.1"
+    viewBox="0 0 210 297"
+    y={this.yLoc}
+    x={this.xLoc}
+    width={this.theWidth}
+    height={this.theHeight}
+    id="quadInternalStructure"
+    version="1.1"
 >
     <g>
     <path
