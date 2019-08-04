@@ -55,6 +55,7 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
                 // Center Dot.
                 pips.push (
                     <circle
+                        key={1}
                         cx={this.posX + this.width / 5 * 2.5}
                         cy={this.posY + this.width / 5 * 2.5}
                         r={pipRadius}
@@ -66,6 +67,7 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
                     // Top Left
                     pips.push (
                         <circle
+                            key={1}
                             cx={this.posX + this.width / 5 * 1.5}
                             cy={this.posY + this.width / 5 * 1.5}
                             r={pipRadius}
@@ -76,6 +78,7 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
                     // Bottom Right
                     pips.push (
                         <circle
+                            key={2}
                             cx={this.posX + this.width / 5 * 3.5}
                             cy={this.posY + this.width / 5 * 3.5}
                             r={pipRadius}
@@ -88,6 +91,7 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
                 // Center Dot.
                 pips.push (
                     <circle
+                        key={1}
                         cx={this.posX + this.width / 5 * 2.5}
                         cy={this.posY + this.width / 5 * 2.5}
                         r={pipRadius}
@@ -98,6 +102,7 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
                 // Bottom Left
                 pips.push (
                     <circle
+                        key={2}
                         cx={this.posX + this.width / 5 * 1.5}
                         cy={this.posY + this.width / 5 * 4}
                         r={pipRadius}
@@ -108,6 +113,7 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
                 // Top Right
                 pips.push (
                     <circle
+                        key={3}
                         cx={this.posX + this.width / 5 * 3.5}
                         cy={this.posY + this.width / 5 * 1}
                         r={pipRadius}
@@ -122,7 +128,9 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
             case 4: {
                 // Top Right
                 pips.push (
+
                     <circle
+                        key={1}
                         cx={this.posX + this.width / 5 * 3.5}
                         cy={this.posY + this.width / 5 * 1.5}
                         r={pipRadius}
@@ -132,6 +140,7 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
                 // Top Left
                 pips.push (
                     <circle
+                        key={2}
                         cx={this.posX + this.width / 5 * 1.5}
                         cy={this.posY + this.width / 5 * 1.5}
                         r={pipRadius}
@@ -142,6 +151,7 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
                 // Bottom Right
                 pips.push (
                     <circle
+                        key={3}
                         cx={this.posX + this.width / 5 * 3.5}
                         cy={this.posY + this.width / 5 * 3.5}
                         r={pipRadius}
@@ -151,6 +161,7 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
                 // Bottom Left
                 pips.push (
                     <circle
+                        key={4}
                         cx={this.posX + this.width / 5 * 1.5}
                         cy={this.posY + this.width / 5 * 3.5}
                         r={pipRadius}
@@ -164,6 +175,7 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
                 // Center Dot.
                 pips.push (
                     <circle
+                        key={1}
                         cx={this.posX + this.width / 5 * 2.5}
                         cy={this.posY + this.width / 5 * 2.5}
                         r={pipRadius}
@@ -174,6 +186,7 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
                 // Top Left
                 pips.push (
                     <circle
+                        key={2}
                         cx={this.posX + this.width / 5 * 1.5}
                         cy={this.posY + this.width / 5 * 1}
                         r={pipRadius}
@@ -184,6 +197,7 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
                 // Bottom Left
                 pips.push (
                     <circle
+                        key={3}
                         cx={this.posX + this.width / 5 * 1.5}
                         cy={this.posY + this.width / 5 * 4}
                         r={pipRadius}
@@ -194,6 +208,7 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
                 // Bottom Left
                 pips.push (
                     <circle
+                        key={4}
                         cx={this.posX + this.width / 5 * 3.5}
                         cy={this.posY + this.width / 5 * 1}
                         r={pipRadius}
@@ -204,6 +219,7 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
                 // Bottom Right
                 pips.push (
                     <circle
+                        key={5}
                         cx={this.posX + this.width / 5 * 3.5}
                         cy={this.posY + this.width / 5 * 4}
                         r={pipRadius}
@@ -217,6 +233,7 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
                 // Left Top
                 pips.push (
                     <circle
+                    key={1}
                         cx={this.posX + this.width / 5 * 1.5}
                         cy={this.posY + this.width / 5 }
                         r={pipRadius}
@@ -226,6 +243,7 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
                 // Left Middle
                 pips.push (
                     <circle
+                        key={2}
                         cx={this.posX + this.width / 5 * 1.5}
                         cy={this.posY + this.width / 5 * 2.5}
                         r={pipRadius}
@@ -235,6 +253,7 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
                 // Left Bottom
                 pips.push (
                     <circle
+                        key={3}
                         cx={this.posX + this.width / 5 * 1.5}
                         cy={this.posY + this.width / 5 * 4}
                         r={pipRadius}
@@ -245,6 +264,7 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
                 // Right Top
                 pips.push (
                     <circle
+                        key={4}
                         cx={this.posX + this.width / 5 * 3.5}
                         cy={this.posY + this.width / 5 }
                         r={pipRadius}
@@ -254,6 +274,7 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
                 // Right Middle
                 pips.push (
                     <circle
+                        key={5}
                         cx={this.posX + this.width / 5 * 3.5}
                         cy={this.posY + this.width / 5 * 2.5}
                         r={pipRadius}
@@ -263,6 +284,7 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
                 // Right Bottom
                 pips.push (
                     <circle
+                        key={6}
                         cx={this.posX + this.width / 5 * 3.5}
                         cy={this.posY + this.width / 5 * 4}
                         r={pipRadius}

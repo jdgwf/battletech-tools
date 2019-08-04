@@ -76,7 +76,7 @@ export default class PilotHitTrackSVG extends React.Component<IPilotHitTrackSVGP
             }
 
             damageTrack.push(
-                <>
+                <g key={hits}>
                     <rect
                         x={this.xLoc + 5 + lWidthBuffer}
                         y={this.yLoc - 28 }
@@ -111,7 +111,7 @@ export default class PilotHitTrackSVG extends React.Component<IPilotHitTrackSVGP
                         textAnchor="middle" fontFamily="sans-serif"
                         fill={this.strokeColor}
                         style={{fontWeight: 500}}
-                        font-size={25}
+                        fontSize={25}
                     >
                         {hits}
                     </text>
@@ -122,11 +122,11 @@ export default class PilotHitTrackSVG extends React.Component<IPilotHitTrackSVGP
                         fontFamily="sans-serif"
                         fill={this.strokeColor}
                         style={{fontWeight: 500}}
-                        font-size={20}
+                        fontSize={20}
                     >
                         {concRoll}
                     </text>
-                </>
+                </g>
             );
             lWidthBuffer += boxWidth;
         }
