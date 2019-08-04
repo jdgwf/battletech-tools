@@ -8,7 +8,7 @@ import { mechHeatSinkTypes } from "../Data/mech-heat-sink-types";
 import { mechEngineTypes } from "../Data/mech-engine-types";
 import { mechJumpJetTypes } from "../Data/mech-jump-jet-types";
 import { mechGyroTypes } from "../Data/mech-gyro-types";
-import { IEquipmentItem, IHeatSync, IEngineOption, IEngineType, IGyro, IArmorType } from "../Data/dataInterfaces";
+import { IEquipmentItem, IHeatSync, IEngineOption, IEngineType, IGyro, IArmorType, ICritialLocations } from "../Data/dataInterfaces";
 import { mechEngineOptions } from "../Data/mech-engine-options";
 import { battlemechLocations } from "../Data/battlemechLocations";
 import { mechISEquipment } from "../Data/mech-is-equipment";
@@ -3608,8 +3608,13 @@ export class BattleMech {
 
         // Engine
 
+        let engineCrits: ICritialLocations = {
+            ct: 0,
+            rt: 0,
+            lt: 0,
+        };
         if( this.engineType.criticals && this.engineType.criticals[this.getTech().tag] ) {
-            let engineCrits = this.engineType.criticals[this.getTech().tag];
+            engineCrits = this.engineType.criticals[this.getTech().tag];
             if( engineCrits && engineCrits.ct )  {
                 if(
                     this.engineType &&
@@ -3652,6 +3657,14 @@ export class BattleMech {
                     this._addCriticalItem("engine", this.engineType.name, engineCrits.lt, "lt");
                 }
 
+                // Gyro
+                this._addCriticalItem(
+                    "gyro", // item_tag
+                    this.gyro.name, // item_name
+                    this.gyro.criticals, // criticalCount
+                    "ct" // location
+                );
+
                 // Extra engine bits....
                 if( engineCrits.ct > 3) {
                     this._addCriticalItem(
@@ -3662,14 +3675,16 @@ export class BattleMech {
                     );
                 }
             }
+        } else {
+            // Gyro, but no engine
+            this._addCriticalItem(
+                "gyro", // item_tag
+                this.gyro.name, // item_name
+                this.gyro.criticals, // criticalCount
+                "ct" // location
+            );
         }
-        // Gyro
-        this._addCriticalItem(
-            "gyro", // item_tag
-            this.gyro.name, // item_name
-            this.gyro.criticals, // criticalCount
-            "ct" // location
-        );
+
 
         // Left Leg Components
         this._addCriticalItem("hip", "Hip", 1, "ll", 0);

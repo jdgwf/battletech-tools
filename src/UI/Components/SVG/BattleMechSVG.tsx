@@ -793,7 +793,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         xLoc={1500}
         width={500}
     />
-    <text
+    {/* <text
         x={20}
         y={this.docHeight - 25}
         textAnchor="start"
@@ -803,8 +803,29 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         fontSize={60}
     >
     CLASSIC BATTLETECH
-    </text>\n";
-
+    </text> */}
+    <text
+        x={20}
+        y={this.docHeight - 55}
+        textAnchor="start"
+        fontFamily="sans-serif"
+        fill={this.colorTan}
+        style={{fontWeight: 700}}
+        fontSize={20}
+    >
+    Created with Gauthic's Battletech Tools
+    </text>
+    <text
+        x={20}
+        y={this.docHeight - 25}
+        textAnchor="start"
+        fontFamily="sans-serif"
+        fill={this.colorTan}
+        style={{fontWeight: 700}}
+        fontSize={20}
+    >
+    https://jdgwf.github.io/battletech-tools/
+    </text>
             </g>
         </svg>
         </>
