@@ -1,14 +1,12 @@
 import React from 'react';
-import { BattleMech } from "../../../Classes/BattleMech";
-import RecordSheetGroupBoxSVG from './RecordSheetGroupBoxSVG';
 
 export default class CritAllocationTableSVG extends React.Component<ICritAllocationTableSVGProps, ICritAllocationTableSVGState> {
     bgColor = "rgb(255,255,255)";
     strokeColor = "rgb(0,0,0)";
     // landscape: boolean = false;
     inPlay: boolean = false;
-    colorMediumGray = "rgb(200, 200, 200)";
-    colorVeryLightGray = "rgb(225, 225, 225)";
+    colorMediumGray = "rgb(150, 150, 150)";
+    colorVeryLightGray = "rgb(200, 200, 200)";
     colorTan = "#fdfde3";
     fontSize = 25;
     boxWidth = 275;
@@ -16,18 +14,16 @@ export default class CritAllocationTableSVG extends React.Component<ICritAllocat
 
     constructor(props: ICritAllocationTableSVGProps) {
         super( props );
+
+        this.state = {
+
+        };
     }
 
     render() {
 
         let critTable: React.ReactFragment[] = [];
         let critBackgrounds: React.ReactFragment[] = [];
-        // let textSVG = "";
-        // let backgroundSVG = "";
-        // let graphicsSVG = "";
-
-
-
 
         let lineCount = 0;
         let dieNumber = 1;
@@ -35,27 +31,25 @@ export default class CritAllocationTableSVG extends React.Component<ICritAllocat
         let yStartBox = -1;
         let lastWasPlaceHolder = false;
         let lastRollAgain = false;
-        // let rearDesignation = "";
+        let boxHeight = 0
 
         for( let critC = 0; critC < this.props.critData.length; critC++ ) {
 
             if( this.props.critData[ critC ] ) {
-                // rearDesignation = "";
-
                 this.props.critData[ critC ].name = this.props.critData[ critC ].name.replace("(rear)", "[R]");
 
                 if( this.props.critData[ critC ].name === "placeholder" ) {
-                    critTable.push( <text x={this.props.xLoc } y={this.props.yLoc + lineCount * (this.fontSize + this.lineBuffer)} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 500}} fontSize={this.fontSize}>{lastName}</text> );
+                    critTable.push( <text key={critC.toString() + "a"}  x={this.props.xLoc } y={this.props.yLoc + lineCount * (this.fontSize + this.lineBuffer)} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 500}} fontSize={this.fontSize}>{lastName}</text> );
                     lastWasPlaceHolder = true;
                 } else {
                     if( this.props.critData[ critC ].rollAgain ) {
-                        critTable.push( <text x={this.props.xLoc } y={this.props.yLoc + lineCount * (this.fontSize + this.lineBuffer)} textAnchor="start" fontFamily="sans-serif" fill={this.colorMediumGray} style={{fontWeight: 100}} fontSize={this.fontSize}>({this.props.critData[ critC ].name})</text> );
+                        critTable.push( <text key={critC.toString() + "b"} x={this.props.xLoc } y={this.props.yLoc + lineCount * (this.fontSize + this.lineBuffer)} textAnchor="start" fontFamily="sans-serif" fill={this.colorMediumGray} style={{fontWeight: 100}} fontSize={this.fontSize}>({this.props.critData[ critC ].name})</text> );
                     } else {
 
                         if( this.props.critData[ critC ].obj && this.props.critData[ critC ].obj.ammo_per_ton )
-                            critTable.push( <text x={this.props.xLoc } y={this.props.yLoc + lineCount * (this.fontSize + this.lineBuffer)} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 500}} fontSize={this.fontSize}>{this.props.critData[ critC ].name} {this.props.critData[ critC ].obj.ammo_per_ton}</text> );
+                            critTable.push( <text key={critC.toString() + "c"} x={this.props.xLoc } y={this.props.yLoc + lineCount * (this.fontSize + this.lineBuffer)} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 500}} fontSize={this.fontSize}>{this.props.critData[ critC ].name} {this.props.critData[ critC ].obj.ammo_per_ton}</text> );
                         else
-                            critTable.push( <text x={this.props.xLoc } y={this.props.yLoc + lineCount * (this.fontSize + this.lineBuffer)} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 500}} fontSize={this.fontSize}>{this.props.critData[ critC ].name}</text> );
+                            critTable.push( <text key={critC.toString() + "d"} x={this.props.xLoc } y={this.props.yLoc + lineCount * (this.fontSize + this.lineBuffer)} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 500}} fontSize={this.fontSize}>{this.props.critData[ critC ].name}</text> );
 
                     }
 
@@ -68,12 +62,12 @@ export default class CritAllocationTableSVG extends React.Component<ICritAllocat
                          ( yStartBox > -1 && lastRollAgain === false && lastWasPlaceHolder === false )
                     ) {
 
-                        let boxHeight = (this.props.yLoc + lineCount * (this.fontSize + this.lineBuffer) - yStartBox - this.lineBuffer );
+                        boxHeight = (this.props.yLoc + lineCount * (this.fontSize + this.lineBuffer) - yStartBox - this.lineBuffer );
 
                         if( critC === 6 ) {
-                            let boxHeight = (this.props.yLoc + (lineCount - 1 ) * (this.fontSize + this.lineBuffer) - yStartBox - this.lineBuffer );
+                            boxHeight = (this.props.yLoc + (lineCount - 1 ) * (this.fontSize + this.lineBuffer) - yStartBox - this.lineBuffer );
                         }
-                        critBackgrounds.push( <rect x={this.props.xLoc - 10} rx={15} ry={15} y={yStartBox - this.fontSize + 2} width={this.boxWidth} height={ boxHeight } stroke={this.strokeColor} stroke-width={2} fill={this.colorVeryLightGray} /> );
+                        critBackgrounds.push( <rect key={critC.toString() + "e"} x={this.props.xLoc - 10} rx={15} ry={15} y={yStartBox - this.fontSize + 2} width={this.boxWidth} height={ boxHeight } stroke={this.strokeColor} strokeWidth={2} fill={this.colorVeryLightGray} /> );
 
                     }
 
@@ -87,7 +81,7 @@ export default class CritAllocationTableSVG extends React.Component<ICritAllocat
                 }
 
             } else {
-                critTable.push( <text x={this.props.xLoc } y={this.props.yLoc + lineCount * (this.fontSize + this.lineBuffer)} textAnchor="start" fontFamily="sans-serif" fill={this.colorMediumGray} style={{fontWeight: 100}} fontSize={this.fontSize}>(roll again)</text> );
+                critTable.push( <text key={critC.toString() + "f"}  x={this.props.xLoc } y={this.props.yLoc + lineCount * (this.fontSize + this.lineBuffer)} textAnchor="start" fontFamily="sans-serif" fill={this.colorMediumGray} style={{fontWeight: 100}} fontSize={this.fontSize}>(roll again)</text> );
                     if(
                          ( yStartBox > -1  && lastWasPlaceHolder )
                             ||
@@ -95,12 +89,12 @@ export default class CritAllocationTableSVG extends React.Component<ICritAllocat
                         //     ||
                          ( yStartBox > -1 && lastRollAgain === false && lastWasPlaceHolder === false )
                     ) {
-                        let boxHeight = (this.props.yLoc + lineCount * (this.fontSize + this.lineBuffer) - yStartBox - this.lineBuffer );
+                        boxHeight = (this.props.yLoc + lineCount * (this.fontSize + this.lineBuffer) - yStartBox - this.lineBuffer );
 
                         if( critC === 6 ) {
-                            let boxHeight = (this.props.yLoc + (lineCount - 1 ) * (this.fontSize + this.lineBuffer) - yStartBox - this.lineBuffer );
+                            boxHeight = (this.props.yLoc + (lineCount - 1 ) * (this.fontSize + this.lineBuffer) - yStartBox - this.lineBuffer );
                     }
-                    critBackgrounds.push( <rect x={ this.props.xLoc - 10} rx={15} ry={15} y={yStartBox - this.fontSize + 2} width={this.boxWidth} height={boxHeight} stroke={this.strokeColor} stroke-width={2} fill={this.colorVeryLightGray} /> );
+                    critBackgrounds.push( <rect  key={critC.toString() + "g"} x={ this.props.xLoc - 10} rx={15} ry={15} y={yStartBox - this.fontSize + 2} width={this.boxWidth} height={boxHeight} stroke={this.strokeColor} strokeWidth={2} fill={this.colorVeryLightGray} /> );
 
                 }
 
@@ -109,7 +103,7 @@ export default class CritAllocationTableSVG extends React.Component<ICritAllocat
 
             }
 
-            critTable.push( <text x={this.props.xLoc - 40} y={this.props.yLoc + lineCount * (this.fontSize + this.lineBuffer)} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 500}} fontSize={this.fontSize}>{dieNumber}.</text> );
+            critTable.push( <text key={critC.toString() + "h"}  x={this.props.xLoc - 40} y={this.props.yLoc + lineCount * (this.fontSize + this.lineBuffer)} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 500}} fontSize={this.fontSize}>{dieNumber}.</text> );
 
             lineCount++;
             dieNumber++;
@@ -127,17 +121,18 @@ export default class CritAllocationTableSVG extends React.Component<ICritAllocat
 
 
                     if( critC === 5 ) {
-                        boxHeight = (this.props.yLoc + (lineCount - 1 ) * (this.fontSize + this.lineBuffer) - yStartBox - this.lineBuffer );
+                        boxHeight = (this.props.yLoc + (lineCount - 1 ) * (this.fontSize + this.lineBuffer) - yStartBox - this.lineBuffer);
                     }
-                    critBackgrounds.push( <rect x={this.props.xLoc - 10} rx={15} ry={15} y={yStartBox - this.fontSize + 2} width={this.boxWidth} height={boxHeight} stroke={this.strokeColor} stroke-width={2} fill={this.colorVeryLightGray} /> );
+
+                    critBackgrounds.push( <rect  key={critC.toString() + "i"} x={this.props.xLoc - 10} rx={15} ry={15} y={yStartBox - this.fontSize + 2} width={this.boxWidth} height={boxHeight} stroke={this.strokeColor} strokeWidth={2} fill={this.colorVeryLightGray} /> );
 
                 }
             }
         }
 
         if( this.props.critData.length > 6 ) {
-            critTable.push(<text x={this.props.xLoc - 80} y={this.props.yLoc + 2.75 * (this.fontSize + this.lineBuffer)} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={this.fontSize * 1.25}>1-3</text> );
-            critTable.push(<text x={this.props.xLoc - 80} y={this.props.yLoc + 9.75 * (this.fontSize + this.lineBuffer)} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={this.fontSize * 1.25}>4-6</text> );
+            critTable.push(<text key={"enda"}  x={this.props.xLoc - 80} y={this.props.yLoc + 2.75 * (this.fontSize + this.lineBuffer)} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={this.fontSize * 1.25}>1-3</text> );
+            critTable.push(<text key={"endb"}  x={this.props.xLoc - 80} y={this.props.yLoc + 9.75 * (this.fontSize + this.lineBuffer)} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={this.fontSize * 1.25}>4-6</text> );
 
         }
 

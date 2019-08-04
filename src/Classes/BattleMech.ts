@@ -195,7 +195,7 @@ export class BattleMech {
     };
 
     equipmentList: IEquipmentItem[] = [];
-    sortedEquipmentList: string[] = [];
+    sortedEquipmentList: IEquipmentItem[] = [];
 
     criticalAllocationTable: ICriticalSlot[] = [];
 
@@ -3502,30 +3502,30 @@ export class BattleMech {
 
         // this.equipmentList = this.equipmentList.sort(sortByLocationThenName);
         // this.equipmentList.sort(sortByLocationThenName);
-        // this.sortInstalledEquipment()
+        this.sortInstalledEquipment();
         this.sortedEquipmentList = [];
 
-        // for( let countEQ = 0; countEQ < this.equipmentList.length; countEQ++) {
+        for( let countEQ = 0; countEQ < this.equipmentList.length; countEQ++) {
 
-        //     let foundIt = false;
+            let foundIt = false;
 
-        //     for( let se_count = 0; se_count < this.sortedEquipmentList.length; se_count++) {
-        //         if(
-        //             this.equipmentList[countEQ].location === this.sortedEquipmentList[se_count].location &&
-        //             this.equipmentList[countEQ].tag === this.sortedEquipmentList[se_count].tag
-        //         ) {
-        //             this.sortedEquipmentList[se_count].count++;
-        //             foundIt = true;
-        //         }
-        //     }
+            for( let se_count = 0; se_count < this.sortedEquipmentList.length; se_count++) {
+                if(
+                    this.equipmentList[countEQ].location === this.sortedEquipmentList[se_count].location &&
+                    this.equipmentList[countEQ].tag === this.sortedEquipmentList[se_count].tag
+                ) {
+                    // @ts-ignore
+                    this.sortedEquipmentList[se_count].count++;
+                    foundIt = true;
+                }
+            }
 
-        //     if( !foundIt) {
-        //         let eqItem = angular.copy(this.equipmentList[countEQ]);
-        //         eqItem.local_name = eqItem.name;
-        //         eqItem.count = 1;
-        //         this.sortedEquipmentList.push(eqItem);
-        //     }
-        // }
+            if( !foundIt) {
+                let eqItem = JSON.parse( JSON.stringify(this.equipmentList[countEQ]));
+                eqItem.count = 1;
+                this.sortedEquipmentList.push(eqItem);
+            }
+        }
     }
 
     calcCriticals() {

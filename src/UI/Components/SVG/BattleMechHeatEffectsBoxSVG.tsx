@@ -13,6 +13,9 @@ export default class BattleMechHeatEffectsBoxSVG extends React.Component<IBattle
 
     constructor(props: IBattleMechHeatEffectsBoxSVGProps) {
         super( props );
+        this.state = {
+
+        };
     }
 
     render() {

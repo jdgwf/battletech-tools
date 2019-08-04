@@ -86,6 +86,7 @@ export interface IRangeNumbers {
 
 export interface IEquipmentItem {
     uuid?: string;
+    count?: number;
     name: string;
     tag: string;
     sort: string;
