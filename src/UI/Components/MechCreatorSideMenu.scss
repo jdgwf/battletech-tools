@@ -45,9 +45,9 @@ body.monochrome {
         color: $bodyBackground !important;
       }
       &:disabled {
-        background-color: #222;
-        border-color: #000;
-        color: 0;
+        // background-color: #222;
+        // border-color: #000;
+        // color: 0;
       }
     }
   }

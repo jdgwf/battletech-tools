@@ -74,12 +74,39 @@
                 margin: 0 0 .5rem 0;
                 border-radius: .5rem;
                 &.current {
-                    background: $primaryBG;
-                    color: $headerFooterBackground;
 
+                    color: $headerFooterBackground;
+                    background: $primaryBG;
                     color: $primaryTextColor;
                 }
+
             }
+        }
+    }
+}
+
+body.monochrome {
+    .mobile-menu,
+    .topmenu {
+        ul {
+            li {
+                a {
+                    color: $monochromePrimaryBG;
+                    &.current {
+                        background: $monochromePrimaryBG;
+                        color: $monochromePrimaryTextColor;
+                    }
+                    &:hover {
+                        background: $monochromePrimaryBGHover;
+                        color: $monochromePrimaryTextColor;
+                    }
+                }
+            }
+        }
+    }
+    .topmenu {
+        ul {
+            border-bottom: solid 2px $monochromePrimaryBG;
         }
     }
 }

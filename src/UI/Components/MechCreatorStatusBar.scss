@@ -13,3 +13,10 @@
     padding: 0 .125rem;
     font-size: .9rem;
 }
+
+body.monochrome {
+    .mech-creator-status-bar {
+        border-top: solid 2px $monochromePrimaryBG;
+        color: $monochromeFontColor;
+    }
+}

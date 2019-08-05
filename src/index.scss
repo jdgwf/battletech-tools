@@ -1,6 +1,9 @@
 @import "./common.scss";
 
 body {
+  #root {
+    min-height: 100%;
+  }
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -640,9 +643,22 @@ body {
 }
 
 body.monochrome {
-  * {
-    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
-    filter: grayscale(100%);
+  // * {
+  //   -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  //   filter: grayscale(100%);
+  // }
+  .mech-tro {
+    color: $monochromeFontColor;
+    tbody, thead, tfoot {
+      tr {
+        th, td {
+          color: $monochromeFontColor;
+        }
+      }
+    }
+  }
+  hr {
+    border-color: $monochromePrimaryBG;
   }
   select,
   textarea,
@@ -655,6 +671,41 @@ body.monochrome {
       border: solid 2px $monochromePrimaryBG;
     }
   }
+  p {
+
+    strong {
+      color: $monochromePrimaryBG;
+    }
+
+    a {
+      color: $monochromePrimaryBG;
+      text-decoration: underline;
+      &:hover {
+        color: $monochromePrimaryBGHover;
+      }
+    }
+  }
+
+  .fieldset {
+    border-color: $monochromePrimaryBG;
+    legend {
+      background-color: $monochromePrimaryBG;
+    }
+  }
+
+  .text-section {
+    border-color: $monochromePrimaryBG;
+    h2 {
+      border-color: $monochromePrimaryBG;
+    }
+    a {
+      color: $monochromePrimaryBG;
+      text-decoration: underline;
+      &:hover {
+        color: $monochromePrimaryBGHover;
+      }
+    }
+  }
 
   .btn {
     // outline: none !important;
@@ -662,6 +713,7 @@ body.monochrome {
     // margin-right: .25rem;
     // margin-left: .25rem;
     // margin-bottom: .25rem;
+    text-decoration: none !important;
     color: $monochromePrimaryTextColor;
     &:hover {
       color: $monochromePrimaryTextColor;
@@ -686,13 +738,13 @@ body.monochrome {
   // }
 
   .btn-primary {
-    background-color: $monochromePrimaryBG;
-    border-color: $monochromePrimaryBG;
-    color: $monochromePrimaryTextColor;
+    background-color: $monochromePrimaryBG !important;
+    border-color: $monochromePrimaryBG !important;
+    color: $monochromePrimaryTextColor !important;
     &:hover {
-      background-color: $monochromePrimaryBGHover;
-      border-color: $monochromePrimaryBGHover;
-      color: $monochromePrimaryTextColor;
+      background-color: $monochromePrimaryBGHover !important;
+      border-color: $monochromePrimaryBGHover !important;
+      color: $monochromePrimaryTextColor !important;
     }
     // &:disabled {
     //   background-color: #222;
@@ -714,13 +766,13 @@ body.monochrome {
   //   }
   // }
   .btn-secondary {
-    background-color: $monochromeSecondaryBG;
-    border-color: $monochromeSecondaryBG;
-    color: $monochromePrimaryTextColor;
+    background-color: $monochromeSecondaryBG !important;
+    border-color: $monochromeSecondaryBG !important;
+    color: $monochromePrimaryTextColor !important;
     &:hover {
-      background-color: $monochromeSecondaryBGHover;
-      border-color: $monochromeSecondaryBGHover;
-      color: $monochromePrimaryTextColor;
+      background-color: $monochromeSecondaryBGHover !important;
+      border-color: $monochromeSecondaryBGHover !important;
+      color: $monochromePrimaryTextColor !important;
     }
     // &:disabled {
     //   background-color: #222;
