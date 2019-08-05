@@ -22,7 +22,7 @@ export default class MechCreatorExports extends React.Component<IHomeProps, IHom
 
     render() {
       return (
-        <UIPage current="mech-creator" appGlobals={this.props.appGlobals}>  
+        <UIPage current="mech-creator" appGlobals={this.props.appGlobals}>
             <div className="row">
               <div className="d-none d-md-block col-md-3 col-lg-2">
                 <MechCreatorSideMenu
@@ -42,7 +42,7 @@ export default class MechCreatorExports extends React.Component<IHomeProps, IHom
                           <div className="clear-both overflow-hidden">
                             <hr />
 
-                              <div className="text-left">
+                              <div className="text-left inline-block">
                               <Link to={`${process.env.PUBLIC_URL}/mech-creator/summary`} className="btn btn-primary btn-sm"><FontAwesomeIcon icon={faArrowCircleLeft} /> Summary</Link>
                             </div>
                           </div>

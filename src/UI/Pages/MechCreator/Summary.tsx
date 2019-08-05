@@ -58,8 +58,9 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
     render() {
       return (
         <>
-          <UIPage current="mech-creator" appGlobals={this.props.appGlobals}>
           <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  />
+          <UIPage current="mech-creator" appGlobals={this.props.appGlobals}>
+
             <div className="row">
               <div className="d-none d-md-block col-md-3 col-lg-2">
                 <MechCreatorSideMenu
@@ -206,7 +207,7 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
                           <div className="clear-both overflow-hidden">
                             <hr />
                           <Link to={`${process.env.PUBLIC_URL}/mech-creator/exports`} className="btn btn-sm btn-primary pull-right">Summary <FontAwesomeIcon icon={faArrowAltCircleRight} /></Link>
-                            <div className="text-left">
+                            <div className="inline-block text-left">
                               <Link to={`${process.env.PUBLIC_URL}/mech-creator/step6`} className="btn btn-sm btn-primary"><FontAwesomeIcon icon={faArrowCircleLeft} /> Previous Step</Link>
                             </div>
                           </div>

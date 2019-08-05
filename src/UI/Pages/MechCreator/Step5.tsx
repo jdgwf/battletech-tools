@@ -109,8 +109,9 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                     </Button>
                 </Modal.Footer>
             </Modal>
-          <UIPage current="mech-creator" appGlobals={this.props.appGlobals}>  
-          <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  />
+            <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  />
+          <UIPage current="mech-creator" appGlobals={this.props.appGlobals}>
+
             <div className="row">
               <div className="d-none d-md-block col-md-3 col-lg-2">
                 <MechCreatorSideMenu
@@ -142,7 +143,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                 <thead>
                                   <tr>
                                     <th>Name</th>
-                                    <th>Sort</th>
+                                    {/* <th>Sort</th> */}
                                     <th>Weight</th>
                                     <th>Rear</th>
                                     <th>&nbsp;</th>
@@ -153,7 +154,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                   return (
                                     <tr key={itemIndex}>
                                       <td>{item.name}</td>
-                                      <td>{item.sort}</td>
+                                      {/* <td>{item.sort}</td> */}
                                       <td>{item.weight}</td>
                                       <td>
                                         <input
@@ -197,7 +198,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                           <div className="clear-both overflow-hidden">
                             <hr />
                             <Link to={`${process.env.PUBLIC_URL}/mech-creator/step6`} className="btn btn-primary pull-right btn-sm">Next Step <FontAwesomeIcon icon={faArrowCircleRight} /></Link>
-                            <div className="text-left">
+                            <div className="inline-block text-left">
                               <Link to={`${process.env.PUBLIC_URL}/mech-creator/step4`} className="btn btn-primary btn-sm"><FontAwesomeIcon icon={faArrowCircleLeft} /> Previous Step</Link>
                             </div>
                           </div>
@@ -211,10 +212,10 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                       </div>
                     </div>
                   </div>
-                  
+
               </div>
 
-              </div>    
+              </div>
 
         </UIPage>
         </>
