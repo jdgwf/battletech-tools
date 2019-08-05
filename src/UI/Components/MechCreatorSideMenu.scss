@@ -52,3 +52,23 @@ body.desaturated {
     }
   }
 }
+
+body.retro {
+  .sidebar-menu {
+    .btn-lightbg {
+      background-color: $headerFooterBackground;
+      border-color: $retroPrimaryBGHover;
+      color: $retroPrimaryBGHover !important;
+      &:hover {
+        background-color: $retroPrimaryBGHover;
+        border-color: $retroLightBGHover;
+        color: $headerFooterBackground !important;
+      }
+      &:disabled {
+        // background-color: #222;
+        // border-color: #000;
+        // color: 0;
+      }
+    }
+  }
+}

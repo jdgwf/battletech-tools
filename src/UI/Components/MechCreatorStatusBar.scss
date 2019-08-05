@@ -20,3 +20,10 @@ body.desaturated {
         color: $desaturatedFontColor;
     }
 }
+
+body.retro {
+    .mech-creator-status-bar {
+        border-top: solid 2px $retroPrimaryBG;
+        color: $retroFontColor;
+    }
+}

@@ -1,5 +1,14 @@
 @import "./common.scss";
 
+@font-face {
+  font-family: 'DotMatrix';
+  src: url('./fonts/DotMatrixRegular.woff2') format('woff2'),
+      url('./fonts/DotMatrixRegular.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+}
+
+
 body {
   #root {
     min-height: 100%;
@@ -686,6 +695,11 @@ body.desaturated {
     }
   }
 
+  .alert {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+  }
+
   .fieldset {
     border-color: $desaturatedPrimaryBG;
     color: $desaturatedFontColor;
@@ -797,6 +811,194 @@ body.desaturated {
     }
     .modal-content {
       border: solid 2px $desaturatedPrimaryBG;
+    }
+  }
+
+}
+
+body.retro {
+  // * {
+  //   -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  //   filter: grayscale(100%);
+  // }
+
+  background: $headerFooterBackground;
+
+
+  font-family: "DotMatrix" !important;
+  .mech-tro {
+    color: $retroFontColor;
+    background: $headerFooterBackground;
+    tbody, thead, tfoot {
+      tr {
+        th, td {
+          background: $headerFooterBackground;
+          color: $retroFontColor;
+        }
+      }
+    }
+  }
+  hr {
+    border-color: $retroPrimaryBG;
+  }
+  select,
+  textarea,
+  input[type=text],
+  input[type=search],
+  input[type=number] {
+
+    background: $headerFooterBackground;
+    color: $retroFontColor;
+    border: solid 1px $retroPrimaryBG;
+    &:focus {
+      border: solid 1px $retroPrimaryBGHover;
+    }
+  }
+  p {
+
+    strong {
+      color: $retroPrimaryBG;
+    }
+
+    a {
+      color: $retroPrimaryBG;
+      text-decoration: underline;
+      &:hover {
+        color: $retroPrimaryBGHover;
+      }
+    }
+  }
+
+  .alert {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+  }
+
+  .fieldset {
+    border-color: $retroPrimaryBG;
+    color: $retroFontColor;
+    legend {
+      background-color: $retroPrimaryBG;
+    }
+  }
+
+  .text-section {
+    border-color: $retroPrimaryBG;
+    color: $retroFontColor;
+    background-color: $headerFooterBackground;
+    h2 {
+      border-color: $retroPrimaryBG;
+      color: $retroFontColor;
+    }
+    a {
+      color: $retroPrimaryBG;
+      text-decoration: underline;
+      &:hover {
+        color: $retroPrimaryBGHover;
+      }
+    }
+  }
+
+  .btn {
+    // outline: none !important;
+    // box-shadow: none !important;
+    // margin-right: .25rem;
+    // margin-left: .25rem;
+    // margin-bottom: .25rem;
+    text-decoration: none !important;
+    color: $retroPrimaryTextColor;
+    &:hover {
+      color: $retroPrimaryTextColor;
+    }
+    // &.more-margin {
+    //   margin-right: .5rem;
+    //   margin-left: .5rem;
+    //   margin-bottom: .5rem;
+    // }
+    // &.no-margin {
+    //   margin: 0;
+    // }
+    // &.btn-xs {
+    //   font-size: 0.7rem;
+    //   line-height: 1;
+    //   padding: .25rem;
+    // }
+  }
+
+  // .small-margins {
+  //   margin: 0 .5rem .5rem .5rem;
+  // }
+
+  .btn-primary {
+    background-color: $retroPrimaryBG !important;
+    border-color: $retroPrimaryBG !important;
+    color: $retroPrimaryTextColor !important;
+    &:hover {
+      background-color: $retroPrimaryBGHover !important;
+      border-color: $retroPrimaryBGHover !important;
+      color: $retroPrimaryTextColor !important;
+    }
+    // &:disabled {
+    //   background-color: #222;
+    //   border-color: #000;
+    //   color: 0;
+    // }
+    // .no-margins {
+    //   margin: 0 !important;
+    // }
+  }
+
+  // ul.styleless {
+  //   margin: 0;
+  //   padding: 0;
+  //   list-style-type: none;
+  //   li {
+  //     margin: 0;
+  //     padding: 0;
+  //   }
+  // }
+  .btn-secondary {
+    background-color: $retroSecondaryBG !important;
+    border-color: $retroSecondaryBG !important;
+    color: $retroPrimaryTextColor !important;
+    &:hover {
+      background-color: $retroSecondaryBGHover !important;
+      border-color: $retroSecondaryBGHover !important;
+      color: $retroPrimaryTextColor !important;
+    }
+    // &:disabled {
+    //   background-color: #222;
+    //   border-color: #000;
+    //   color: 0;
+    // }
+  }
+
+  table {
+    thead, tbody {
+      tr {
+        td, th {
+          color: $retroFontColor;
+        }
+      }
+    }
+
+  }
+
+  .modal-dialog {
+    // .modal-footer {
+    //   background: $headerFooterBackground;
+    // }
+    .modal-header {
+      // background: $headerFooterBackground;
+      .close {
+        color: $retroPrimaryBG;
+        &:hover {
+          color: $retroPrimaryBGHover;
+        }
+      }
+    }
+    .modal-content {
+      border: solid 2px $retroPrimaryBG;
     }
   }
 

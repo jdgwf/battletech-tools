@@ -111,6 +111,32 @@ body.desaturated {
     }
 }
 
+body.retro {
+    .mobile-menu,
+    .topmenu {
+        ul {
+            li {
+                a {
+                    color: $retroPrimaryBG;
+                    &.current {
+                        background: $retroPrimaryBG;
+                        color: $retroPrimaryTextColor;
+                    }
+                    &:hover {
+                        background: $retroPrimaryBGHover;
+                        color: $retroPrimaryTextColor;
+                    }
+                }
+            }
+        }
+    }
+    .topmenu {
+        ul {
+            border-bottom: solid 2px $retroPrimaryBG;
+        }
+    }
+}
+
 // Medium devices (tablets, 768px and up)
 // @media (min-width: 768px) {
 //     .topmenu {

@@ -9,12 +9,12 @@ export default class Settings extends React.Component<ISettingsProps, ISettingsS
             updated: false,
         }
 
-        this.toggleDesaturated = this.toggleDesaturated.bind(this);
+        this.setUITheme = this.setUITheme.bind(this);
     }
 
-    toggleDesaturated() {
+    setUITheme( event: React.FormEvent<HTMLSelectElement>) {
       let settings = this.props.appGlobals.settings;
-      settings.uiDesaturated = !this.props.appGlobals.settings.uiDesaturated;
+      settings.uiTheme = event.currentTarget.value;
       this.props.appGlobals.saveSettings( settings );
     }
 
@@ -29,13 +29,21 @@ export default class Settings extends React.Component<ISettingsProps, ISettingsS
               <div className="col-md-6">
                 <fieldset className="fieldset">
                   <legend>User Interface</legend>
-                  <label>
+                  {/* <label>
                     <input
                       type="checkbox"
                       checked={this.props.appGlobals.settings.uiDesaturated}
                       onChange={this.toggleDesaturated}
                     />&nbsp;Desaturated UI
-                  </label>
+                  </label> */}
+                  <select
+                      value={this.props.appGlobals.settings.uiTheme}
+                      onChange={this.setUITheme}
+                  >
+                    <option value="">Default</option>
+                    <option value="desaturated">Desaturated</option>
+                    <option value="retro">Retro</option>
+                  </select>
                 </fieldset>
               </div>
               <div className="col-md-6">

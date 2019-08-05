@@ -14,7 +14,6 @@ import AlphaStrikeGroup, { IASGroupExport } from "../Classes/AlphaStrikeGroup";
 import DevelopmentStatus from "./Pages/DevelopmentStatus";
 import { BattleMech } from "../Classes/BattleMech";
 import Settings from "./Pages/Settings";
-import { booleanLiteral } from "@babel/types";
 
 
 export default class AppRouter extends React.Component<IAppRouterProps, IAppRouterState> {
@@ -61,13 +60,13 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             }
         }
 
-        let uiDesaturated: boolean = false;
-        let lsDesaturated = localStorage.getItem("uiDesaturated");
-        if( lsDesaturated && +lsDesaturated ) {
-            uiDesaturated = true;
-            document.body.classList.add('desaturated');
+        let uiTheme: string = "";
+        let lsTheme = localStorage.getItem("uiTheme");
+        if( lsTheme ) {
+            uiTheme = lsTheme;
+            document.body.className = uiTheme;
         } else {
-            document.body.classList.remove('desaturated');
+            document.body.className = '';
         }
 
 
@@ -75,7 +74,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             updated: false,
             appGlobals: {
                 settings: {
-                    uiDesaturated: uiDesaturated,
+                    uiTheme: uiTheme,
                 },
                 currentPageTitle: "",
                 siteAlerts: new Alerts( this ),
@@ -115,17 +114,13 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             appGlobals: appGlobals,
         });
 
-        let uiDesaturated = "";
-        document.body.classList.remove('desaturated');
-        if( appGlobals.settings.uiDesaturated ) {
-            uiDesaturated = "1";
-            document.body.classList.add('desaturated');
+        if( settings.uiTheme.trim() ) {
+            document.body.className = settings.uiTheme;
         } else {
-            uiDesaturated = "0";
-            document.body.classList.remove('desaturated');
+            document.body.className = '';
         }
 
-        localStorage.setItem("uiDesaturated", uiDesaturated);
+        localStorage.setItem("uiTheme", settings.uiTheme);
     }
 
     saveCurrentBattleMech( mech: BattleMech ): void {
@@ -350,7 +345,7 @@ interface IAppRouterProps {
 }
 
 interface ISettings {
-    uiDesaturated: boolean;
+    uiTheme: string;
 }
 
 interface IAppRouterState {
