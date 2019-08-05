@@ -1,0 +1,83 @@
+
+
+import React from 'react';
+
+export default class DamageCircleSVG extends React.Component<IDamageCircleSVGProps, IDamageCircleSVGState> {
+    bgColor = "rgb(255,255,255)";
+    bgColorFilled = "rgb(200,0,0)";
+    strokeColor = "rgb(0,0,0)";
+    xLoc = 0;
+    yLoc = 0;
+    radius = 15;
+
+    constructor(props: IDamageCircleSVGProps) {
+        super(props);
+
+        this.state = {
+        }
+        if( this.props.bgColor ) {
+            this.bgColor = this.props.bgColor;
+        }
+        if( this.props.strokeColor ) {
+            this.strokeColor = this.props.strokeColor;
+        }
+
+        if( this.props.xLoc ) {
+            this.xLoc = this.props.xLoc;
+        }
+
+        if( this.props.yLoc ) {
+            this.yLoc = this.props.yLoc;
+        }
+
+        if( this.props.radius ) {
+            this.radius = this.props.radius;
+        }
+
+        if( this.props.bgColorFilled ) {
+            this.bgColorFilled = this.props.bgColorFilled;
+        }
+    }
+
+    clickFunction() {
+        if( this.props.clickFunction ) {
+            if( typeof( this.props.clickIndex) !== "undefined" ) {
+                this.props.clickFunction( this.props.clickIndex );
+            }
+        }
+    }
+
+    render() {
+        return (
+            <circle
+                // className={this.armorClass}
+                onClick={this.clickFunction}
+                cx={this.props.xLoc}
+                cy={this.props.yLoc}
+                r={this.radius - 3}
+                stroke={this.strokeColor}
+                fill={this.props.isFilled ? this.bgColorFilled : this.bgColor }
+            />
+        );
+    }
+}
+
+
+interface IDamageCircleSVGProps {
+    bgColor?: string;
+    isFilled?: boolean;
+    clickIndex?: number;
+    bgColorFilled?: string;
+    strokeColor?: string;
+    xLoc: number;
+    yLoc: number;
+    radius: number;
+    clickFunction( clickIndex: number ): void;
+}
+
+interface IDamageCircleSVGState {
+}
+
+
+
+

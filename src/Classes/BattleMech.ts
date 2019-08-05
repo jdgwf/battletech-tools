@@ -5538,6 +5538,15 @@ export class BattleMech {
             }
         })
     }
+
+    toggleHeatBubble( clickIndex: number ): void {
+        // TODO
+    }
+
+    heatSinkIsFilled( hsIndex: number): boolean {
+        // TODO
+        return false;
+    }
 }
 
 function sortByBVThenRearThenHeat(  a: IEquipmentItem, b: IEquipmentItem  ) {

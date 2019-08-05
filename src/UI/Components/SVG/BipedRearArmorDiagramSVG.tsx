@@ -21,9 +21,6 @@ export default class BipedRearArmorDiagramSVG extends React.Component<IBipedRear
             this.strokeColor = this.props.strokeColor;
         }
 
-
-        let baseWidth = 744.09448819;
-        let baseHeight = 1052.3622047;
         if( this.props.width ) {
             this.theWidth = this.props.width;
             this.theHeight = Math.round( this.props.width / this.baseWidth * this.baseHeight );
@@ -38,7 +35,7 @@ export default class BipedRearArmorDiagramSVG extends React.Component<IBipedRear
             this.yLoc = this.props.yLoc;
         }
 
-        // if( typeof(standAlone) == "undefined" )
+        // if( typeof(standAlone) === "undefined" )
         //     standAlone = true;
 
         // if( !baseFillColor )

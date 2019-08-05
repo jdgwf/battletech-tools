@@ -124,6 +124,7 @@
             }
         }
     }
+
     .armor-breakdown {
         position: absolute;
         bottom: 0;
@@ -157,50 +158,50 @@
 
             &.hd {
                 left: 177px;
-                top: 15px;
+                top: 65px;
             }
 
             &.ct {
                 left: 177px;
-                top: 125px;
+                top: 150px;
             }
             &.rt {
-                left: 255px;
-                top: 75px;
+                left: 250px;
+                top: 110px;
             }
             &.lt {
-                left: 100px;
-                top: 75px;
+                left: 105px;
+                top: 110px;
             }
             &.ra {
-                left: 345px;
+                left: 325px;
                 top: 140px;
             }
             &.la {
-                left: 12px;
+                left: 32px;
                 top: 140px;
             }
             &.rl {
-                left: 276px;
-                top: 425px;
+                left: 281px;
+                top: 465px;
             }
             &.ll {
                 left: 75px;
-                top: 425px;
+                top: 465px;
             }
 
 
             &.ctr {
                 left: 177px;
-                top: 225px;
+                top: 265px;
             }
             &.rtr {
                 left: 243px;
-                top: 210px;
+                top: 245px;
             }
             &.ltr {
                 left: 109px;
-                top: 210px;
+                top: 245px;
             }
 
 

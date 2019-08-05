@@ -81,7 +81,7 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
             }
         }
 
-        if( this.props.mechData.sortedEquipmentList.length == 0 ) {
+        if( this.props.mechData.sortedEquipmentList.length === 0 ) {
             equipmentList.push( <text key={ "no-equopment"} x={this.props.width / 2 } y={weapAndEqpTop + 140} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 100}} fontSize={30}>No Equipment Installed</text> );
         }
 
