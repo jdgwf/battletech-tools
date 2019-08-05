@@ -28,6 +28,8 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
         this.allocateSanely = this.allocateSanely.bind(this);
         this.allocateMax = this.allocateMax.bind(this);
         this.allocateClear = this.allocateClear.bind(this);
+
+        this.toggleMirrorArmorAllocations = this.toggleMirrorArmorAllocations.bind(this);
     }
 
     allocateSanely() {
@@ -46,6 +48,12 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
     allocateClear() {
       let currentMech = this.props.appGlobals.currentBattleMech;
       currentMech.allocateArmorClear();
+      this.props.appGlobals.saveCurrentBattleMech( currentMech );
+    }
+
+    toggleMirrorArmorAllocations() {
+      let currentMech = this.props.appGlobals.currentBattleMech;
+      currentMech.toggleMirrorArmorAllocations();
       this.props.appGlobals.saveCurrentBattleMech( currentMech );
     }
 
@@ -193,6 +201,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
 
                           <fieldset className="fieldset">
                             <legend>Armor Allocation</legend>
+
                             <div className="row">
                               <div className="col-4">
                                 <Button
@@ -222,7 +231,17 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                               </Button>
                               </div>
                             </div>
-
+                            <div className="row">
+                              <div className="col-12 text-center">
+                                <label>
+                                  <input
+                                    type="checkbox"
+                                    onClick={this.toggleMirrorArmorAllocations}
+                                    checked={this.props.appGlobals.currentBattleMech.mirrorArmorAllocations}
+                                  />&nbsp;Mirror Left/Right Allocations
+                                </label>
+                              </div>
+                            </div>
 {this.props.appGlobals.currentBattleMech.getType().tag === "biped" ?
 (
   <>

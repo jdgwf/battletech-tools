@@ -19,11 +19,11 @@
     .btn-lightbg {
         background-color: $lightBG;
         border-color: $lightBG;
-        color: $bodyBackground;
+        color: $bodyBackground !important;
         &:hover {
           background-color: $lightBGHover;
           border-color: $lightBGHover;
-          color: $bodyBackground;
+          color: $bodyBackground !important;
         }
         &:disabled {
           background-color: #222;
@@ -31,4 +31,24 @@
           color: 0;
         }
       }
+}
+
+body.monochrome {
+  .sidebar-menu {
+    .btn-lightbg {
+      background-color: $monochromeLightBG;
+      border-color: $monochromeLightBG;
+      color: $bodyBackground !important;
+      &:hover {
+        background-color: $monochromeLightBGHover;
+        border-color: $monochromeLightBGHover;
+        color: $bodyBackground !important;
+      }
+      &:disabled {
+        background-color: #222;
+        border-color: #000;
+        color: 0;
+      }
+    }
+  }
 }

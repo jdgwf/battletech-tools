@@ -41,12 +41,12 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
       this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
     }
 
-    setPilotPiloting( event: React.FormEvent<HTMLInputElement>) {
+    setPilotPiloting( event: React.FormEvent<HTMLSelectElement>) {
       this.props.appGlobals.currentBattleMech.setPilotPiloting( +event.currentTarget.value );
       this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
     }
 
-    setPilotGunnery( event: React.FormEvent<HTMLInputElement>) {
+    setPilotGunnery( event: React.FormEvent<HTMLSelectElement>) {
       this.props.appGlobals.currentBattleMech.setPilotGunnery( +event.currentTarget.value );
       this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
     }
@@ -93,21 +93,44 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
                                   <div className="col-sm-6">
                                     <label>
                                       Piloting Skill:<br />
-                                      <input
-                                        type="number"
+
+                                      <select
                                         value={this.props.appGlobals.currentBattleMech.getPilot().piloting}
                                         onChange={this.setPilotPiloting}
-                                      />
+                                      >
+                                        <option value={0}>0</option>
+                                        <option value={1}>1</option>
+                                        <option value={2}>2</option>
+                                        <option value={3}>3</option>
+                                        <option value={4}>4</option>
+                                        <option value={5}>5</option>
+                                        <option value={6}>6</option>
+                                        <option value={7}>7</option>
+                                        <option value={8}>8</option>
+                                        <option value={9}>9</option>
+                                        <option value={10}>10</option>
+                                      </select>
                                     </label>
                                   </div>
                                   <div className="col-sm-6">
                                     <label>
                                       Gunnery Skill:<br />
-                                      <input
-                                        type="number"
+                                      <select
                                         value={this.props.appGlobals.currentBattleMech.getPilot().gunnery}
                                         onChange={this.setPilotGunnery}
-                                      />
+                                      >
+                                        <option value={0}>0</option>
+                                        <option value={1}>1</option>
+                                        <option value={2}>2</option>
+                                        <option value={3}>3</option>
+                                        <option value={4}>4</option>
+                                        <option value={5}>5</option>
+                                        <option value={6}>6</option>
+                                        <option value={7}>7</option>
+                                        <option value={8}>8</option>
+                                        <option value={9}>9</option>
+                                        <option value={10}>10</option>
+                                      </select>
                                     </label>
                                   </div>
                                 </div>

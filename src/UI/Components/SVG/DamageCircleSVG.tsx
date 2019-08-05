@@ -9,6 +9,7 @@ export default class DamageCircleSVG extends React.Component<IDamageCircleSVGPro
     xLoc = 0;
     yLoc = 0;
     radius = 15;
+    strokeWidth = 2;
 
     constructor(props: IDamageCircleSVGProps) {
         super(props);
@@ -20,6 +21,10 @@ export default class DamageCircleSVG extends React.Component<IDamageCircleSVGPro
         }
         if( this.props.strokeColor ) {
             this.strokeColor = this.props.strokeColor;
+        }
+
+        if( this.props.strokeWidth ) {
+            this.strokeWidth = this.props.strokeWidth;
         }
 
         if( this.props.xLoc ) {
@@ -56,6 +61,7 @@ export default class DamageCircleSVG extends React.Component<IDamageCircleSVGPro
                 cy={this.props.yLoc}
                 r={this.radius - 3}
                 stroke={this.strokeColor}
+                stroke-width={this.strokeWidth}
                 fill={this.props.isFilled ? this.bgColorFilled : this.bgColor }
             />
         );
@@ -68,6 +74,7 @@ interface IDamageCircleSVGProps {
     isFilled?: boolean;
     clickIndex?: number;
     bgColorFilled?: string;
+    strokeWidth?: number;
     strokeColor?: string;
     xLoc: number;
     yLoc: number;

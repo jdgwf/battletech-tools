@@ -73,6 +73,7 @@ interface IBMEquipmentExport {
 }
 export interface IBattleMechExport {
     name: string;
+    mirrorArmorAllocations: boolean;
     tonnage: number;
     walkSpeed: number;
     hideNonAvailableEquipment: boolean;
@@ -137,6 +138,8 @@ export class BattleMech {
     hideNonAvailableEquipment: boolean = true;
     currentTonnage = 0;
     // useLang: string = "en-US";
+
+    mirrorArmorAllocations: boolean = true;
 
     armorType = mechArmorTypes[0];
 
@@ -4548,6 +4551,7 @@ export class BattleMech {
 
         let exportObject: IBattleMechExport = {
             additionalHeatSinks: this.additionalHeatSinks,
+            mirrorArmorAllocations: this.mirrorArmorAllocations,
             allocation: this.criticalAllocationTable,
             armor_allocation: this.armorAllocation,
             armor_weight: this.armorWeight,
@@ -4634,6 +4638,12 @@ export class BattleMech {
                 this.setMechType(importObject.mechType);
 
             this.setTonnage(importObject.tonnage);
+
+            this.mirrorArmorAllocations = false;
+
+            if( importObject.mirrorArmorAllocations ) {
+                this.mirrorArmorAllocations = true;
+            }
 
             this.hideNonAvailableEquipment = importObject.hideNonAvailableEquipment;
             if( importObject.era)
@@ -4777,48 +4787,72 @@ export class BattleMech {
 
     setLeftArmArmor(armorValue: number) {
         this.armorAllocation.leftArm = armorValue;
+        if( this.mirrorArmorAllocations ) {
+            this.armorAllocation.rightArm = armorValue;
+        }
         this.calc();
         return this.armorAllocation.leftArm;
     }
 
     setLeftLegArmor(armorValue: number) {
         this.armorAllocation.leftLeg = armorValue;
+        if( this.mirrorArmorAllocations ) {
+            this.armorAllocation.rightLeg = armorValue;
+        }
         this.calc();
         return this.armorAllocation.leftLeg;
     }
 
     setLeftTorsoArmor(armorValue: number) {
         this.armorAllocation.leftTorso = armorValue;
+        if( this.mirrorArmorAllocations ) {
+            this.armorAllocation.rightTorso = armorValue;
+        }
         this.calc();
         return this.armorAllocation.leftTorso;
     }
 
     setLeftTorsoRearArmor(armorValue: number) {
         this.armorAllocation.leftTorsoRear = armorValue;
+        if( this.mirrorArmorAllocations ) {
+            this.armorAllocation.rightTorsoRear = armorValue;
+        }
         this.calc();
         return this.armorAllocation.leftTorsoRear;
     }
 
     setRightArmArmor(armorValue: number) {
         this.armorAllocation.rightArm = armorValue;
+        if( this.mirrorArmorAllocations ) {
+            this.armorAllocation.leftArm = armorValue;
+        }
         this.calc();
         return this.armorAllocation.rightArm;
     }
 
     setRightLegArmor(armorValue: number) {
         this.armorAllocation.rightLeg = armorValue;
+        if( this.mirrorArmorAllocations ) {
+            this.armorAllocation.leftLeg = armorValue;
+        }
         this.calc();
         return this.armorAllocation.rightLeg;
     }
 
     setRightTorsoArmor(armorValue: number) {
         this.armorAllocation.rightTorso = armorValue;
+        if( this.mirrorArmorAllocations ) {
+            this.armorAllocation.leftTorso = armorValue;
+        }
         this.calc();
         return this.armorAllocation.rightTorso;
     }
 
     setRightTorsoRearArmor(armorValue: number) {
         this.armorAllocation.rightTorsoRear = armorValue;
+        if( this.mirrorArmorAllocations ) {
+            this.armorAllocation.leftTorsoRear = armorValue;
+        }
         this.calc();
         return this.armorAllocation.rightTorsoRear;
     }
@@ -5537,6 +5571,10 @@ export class BattleMech {
                 return 0;
             }
         })
+    }
+
+    toggleMirrorArmorAllocations() {
+        this.mirrorArmorAllocations = !this.mirrorArmorAllocations;
     }
 
     toggleHeatBubble( clickIndex: number ): void {

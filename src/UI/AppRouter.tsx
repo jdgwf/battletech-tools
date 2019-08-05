@@ -13,6 +13,8 @@ import AlphaStrikeForce, { IASForceExport } from "../Classes/AlphaStrikeForce";
 import AlphaStrikeGroup, { IASGroupExport } from "../Classes/AlphaStrikeGroup";
 import DevelopmentStatus from "./Pages/DevelopmentStatus";
 import { BattleMech } from "../Classes/BattleMech";
+import Settings from "./Pages/Settings";
+import { booleanLiteral } from "@babel/types";
 
 
 export default class AppRouter extends React.Component<IAppRouterProps, IAppRouterState> {
@@ -32,6 +34,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         this.saveASGroupFavorite = this.saveASGroupFavorite.bind(this);
         this.removeASGroupFavorite = this.removeASGroupFavorite.bind(this);
         this.saveCurrentBattleMech = this.saveCurrentBattleMech.bind(this);
+        this.saveSettings = this.saveSettings.bind(this);
 
         let asImport: IASForceExport | null = null;
         let lsASFImport = localStorage.getItem("currentASForce");
@@ -58,9 +61,22 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             }
         }
 
+        let uiMonochrome: boolean = false;
+        let lsMonochrome = localStorage.getItem("uiMonochrome");
+        if( lsMonochrome && +lsMonochrome ) {
+            uiMonochrome = true;
+            document.body.classList.add('monochrome');
+        } else {
+            document.body.classList.remove('monochrome');
+        }
+
+
         this.state = {
             updated: false,
             appGlobals: {
+                settings: {
+                    uiMonochrome: uiMonochrome,
+                },
                 currentPageTitle: "",
                 siteAlerts: new Alerts( this ),
                 showMobile: false,
@@ -85,11 +101,32 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
                 currentBattleMech: currentBattleMech,
                 saveCurrentBattleMech: this.saveCurrentBattleMech,
+
+                saveSettings: this.saveSettings,
             }
         }
 
     }
 
+    saveSettings( settings: ISettings ): void {
+        let appGlobals = this.state.appGlobals;
+        appGlobals.settings = settings;
+        this.setState({
+            appGlobals: appGlobals,
+        });
+
+        let uiMonochrome = "";
+        document.body.classList.remove('monochrome');
+        if( appGlobals.settings.uiMonochrome ) {
+            uiMonochrome = "1";
+            document.body.classList.add('monochrome');
+        } else {
+            uiMonochrome = "0";
+            document.body.classList.remove('monochrome');
+        }
+
+        localStorage.setItem("uiMonochrome", uiMonochrome);
+    }
 
     saveCurrentBattleMech( mech: BattleMech ): void {
         let exportBM: string = mech.exportJSON();
@@ -280,6 +317,11 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                         appGlobals={this.state.appGlobals}
                     />
                 </Route>
+                <Route path={`${process.env.PUBLIC_URL}/settings`} exact>
+                    <Settings
+                        appGlobals={this.state.appGlobals}
+                    />
+                </Route>
                 <Route path={`${process.env.PUBLIC_URL}/alpha-strike-roster`}>
                     <AlphaStrikeRosterRouter
                         appGlobals={this.state.appGlobals}
@@ -307,6 +349,10 @@ interface IAppRouterProps {
 
 }
 
+interface ISettings {
+    uiMonochrome: boolean;
+}
+
 interface IAppRouterState {
     appGlobals: IAppGlobals;
     updated: boolean;
@@ -315,6 +361,7 @@ interface IAppRouterState {
 export interface IAppGlobals {
     currentPageTitle: string;
     siteAlerts: Alerts;
+    settings: ISettings;
     showMobile: boolean;
     confirmDialogMessage: string;
     confirmDialogTitle: string;
@@ -347,4 +394,5 @@ export interface IAppGlobals {
 
     currentBattleMech: BattleMech;
     saveCurrentBattleMech( mech: BattleMech ): void;
+    saveSettings( settings: ISettings ): void;
 }

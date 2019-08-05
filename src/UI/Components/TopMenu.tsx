@@ -35,6 +35,7 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                 <li className="d-none d-md-inline"><Link className={this.props.current === "alpha-strike-roster" ? "current" : "" } to={`${process.env.PUBLIC_URL}/alpha-strike-roster`}>Alpha Strike Roster</Link></li>
                 <li className="d-none d-md-inline"><Link className={this.props.current === "about" ? "current" : "" } to={`${process.env.PUBLIC_URL}/about`}>About</Link></li>
                 <li className="d-none d-md-inline"><Link className={this.props.current === "dev-status" ? "current" : "" } to={`${process.env.PUBLIC_URL}/dev-status`}>Status</Link></li>
+                <li className="d-none d-md-inline"><Link className={this.props.current === "settings" ? "current" : "" } to={`${process.env.PUBLIC_URL}/settings`}>Settings</Link></li>
 
                 <li className="logo">
                     <a
@@ -57,6 +58,7 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                     <li><Link onClick={this.closeMobile} className={this.props.current === "alpha-strike-roster" ? "current" : "" } to={`${process.env.PUBLIC_URL}/alpha-strike-roster`}>Alpha Strike Roster</Link></li>
                     <li><Link onClick={this.closeMobile} className={this.props.current === "about" ? "current" : "" } to={`${process.env.PUBLIC_URL}/about`}>About</Link></li>
                     <li><Link onClick={this.closeMobile} className={this.props.current === "dev-status" ? "current" : "" } to={`${process.env.PUBLIC_URL}/dev-status`}>Status</Link></li>
+                    <li><Link onClick={this.closeMobile} className={this.props.current === "settings" ? "current" : "" } to={`${process.env.PUBLIC_URL}/settings`}>Settings</Link></li>
                 </ul>
 
             </div>

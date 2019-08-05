@@ -631,11 +631,122 @@ body {
     border: solid 2px #333;
     display: block;
     margin: 0 auto 1rem auto;
+    max-width: 100%;
     svg {
       max-width: 100% !important;
       max-height: 100% !important;
     }
   }
+}
+
+body.monochrome {
+  * {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+  }
+  select,
+  textarea,
+  input[type=text],
+  input[type=search],
+  input[type=number] {
+
+    background: $colorLightGray;
+    &:focus {
+      border: solid 2px $monochromePrimaryBG;
+    }
+  }
+
+  .btn {
+    // outline: none !important;
+    // box-shadow: none !important;
+    // margin-right: .25rem;
+    // margin-left: .25rem;
+    // margin-bottom: .25rem;
+    color: $monochromePrimaryTextColor;
+    &:hover {
+      color: $monochromePrimaryTextColor;
+    }
+    // &.more-margin {
+    //   margin-right: .5rem;
+    //   margin-left: .5rem;
+    //   margin-bottom: .5rem;
+    // }
+    // &.no-margin {
+    //   margin: 0;
+    // }
+    // &.btn-xs {
+    //   font-size: 0.7rem;
+    //   line-height: 1;
+    //   padding: .25rem;
+    // }
+  }
+
+  // .small-margins {
+  //   margin: 0 .5rem .5rem .5rem;
+  // }
+
+  .btn-primary {
+    background-color: $monochromePrimaryBG;
+    border-color: $monochromePrimaryBG;
+    color: $monochromePrimaryTextColor;
+    &:hover {
+      background-color: $monochromePrimaryBGHover;
+      border-color: $monochromePrimaryBGHover;
+      color: $monochromePrimaryTextColor;
+    }
+    // &:disabled {
+    //   background-color: #222;
+    //   border-color: #000;
+    //   color: 0;
+    // }
+    // .no-margins {
+    //   margin: 0 !important;
+    // }
+  }
+
+  // ul.styleless {
+  //   margin: 0;
+  //   padding: 0;
+  //   list-style-type: none;
+  //   li {
+  //     margin: 0;
+  //     padding: 0;
+  //   }
+  // }
+  .btn-secondary {
+    background-color: $monochromeSecondaryBG;
+    border-color: $monochromeSecondaryBG;
+    color: $monochromePrimaryTextColor;
+    &:hover {
+      background-color: $monochromeSecondaryBGHover;
+      border-color: $monochromeSecondaryBGHover;
+      color: $monochromePrimaryTextColor;
+    }
+    // &:disabled {
+    //   background-color: #222;
+    //   border-color: #000;
+    //   color: 0;
+    // }
+  }
+
+  .modal-dialog {
+    // .modal-footer {
+    //   background: $headerFooterBackground;
+    // }
+    .modal-header {
+      // background: $headerFooterBackground;
+      .close {
+        color: $monochromePrimaryBG;
+        &:hover {
+          color: $monochromePrimaryBGHover;
+        }
+      }
+    }
+    .modal-content {
+      border: solid 2px $monochromePrimaryBG;
+    }
+  }
+
 }
 
 @media print {
