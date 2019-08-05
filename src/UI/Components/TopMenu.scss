@@ -85,20 +85,20 @@
     }
 }
 
-body.monochrome {
+body.desaturated {
     .mobile-menu,
     .topmenu {
         ul {
             li {
                 a {
-                    color: $monochromePrimaryBG;
+                    color: $desaturatedPrimaryBG;
                     &.current {
-                        background: $monochromePrimaryBG;
-                        color: $monochromePrimaryTextColor;
+                        background: $desaturatedPrimaryBG;
+                        color: $desaturatedPrimaryTextColor;
                     }
                     &:hover {
-                        background: $monochromePrimaryBGHover;
-                        color: $monochromePrimaryTextColor;
+                        background: $desaturatedPrimaryBGHover;
+                        color: $desaturatedPrimaryTextColor;
                     }
                 }
             }
@@ -106,7 +106,7 @@ body.monochrome {
     }
     .topmenu {
         ul {
-            border-bottom: solid 2px $monochromePrimaryBG;
+            border-bottom: solid 2px $desaturatedPrimaryBG;
         }
     }
 }

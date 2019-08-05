@@ -14,9 +14,9 @@
     font-size: .9rem;
 }
 
-body.monochrome {
+body.desaturated {
     .mech-creator-status-bar {
-        border-top: solid 2px $monochromePrimaryBG;
-        color: $monochromeFontColor;
+        border-top: solid 2px $desaturatedPrimaryBG;
+        color: $desaturatedFontColor;
     }
 }

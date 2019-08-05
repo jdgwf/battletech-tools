@@ -33,15 +33,15 @@
       }
 }
 
-body.monochrome {
+body.desaturated {
   .sidebar-menu {
     .btn-lightbg {
-      background-color: $monochromeLightBG;
-      border-color: $monochromeLightBG;
+      background-color: $desaturatedLightBG;
+      border-color: $desaturatedLightBG;
       color: $bodyBackground !important;
       &:hover {
-        background-color: $monochromeLightBGHover;
-        border-color: $monochromeLightBGHover;
+        background-color: $desaturatedLightBGHover;
+        border-color: $desaturatedLightBGHover;
         color: $bodyBackground !important;
       }
       &:disabled {

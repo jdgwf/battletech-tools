@@ -642,23 +642,23 @@ body {
   }
 }
 
-body.monochrome {
+body.desaturated {
   // * {
   //   -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
   //   filter: grayscale(100%);
   // }
   .mech-tro {
-    color: $monochromeFontColor;
+    color: $desaturatedFontColor;
     tbody, thead, tfoot {
       tr {
         th, td {
-          color: $monochromeFontColor;
+          color: $desaturatedFontColor;
         }
       }
     }
   }
   hr {
-    border-color: $monochromePrimaryBG;
+    border-color: $desaturatedPrimaryBG;
   }
   select,
   textarea,
@@ -668,41 +668,42 @@ body.monochrome {
 
     background: $colorLightGray;
     &:focus {
-      border: solid 2px $monochromePrimaryBG;
+      border: solid 2px $desaturatedPrimaryBG;
     }
   }
   p {
 
     strong {
-      color: $monochromePrimaryBG;
+      color: $desaturatedPrimaryBG;
     }
 
     a {
-      color: $monochromePrimaryBG;
+      color: $desaturatedPrimaryBG;
       text-decoration: underline;
       &:hover {
-        color: $monochromePrimaryBGHover;
+        color: $desaturatedPrimaryBGHover;
       }
     }
   }
 
   .fieldset {
-    border-color: $monochromePrimaryBG;
+    border-color: $desaturatedPrimaryBG;
+    color: $desaturatedFontColor;
     legend {
-      background-color: $monochromePrimaryBG;
+      background-color: $desaturatedPrimaryBG;
     }
   }
 
   .text-section {
-    border-color: $monochromePrimaryBG;
+    border-color: $desaturatedPrimaryBG;
     h2 {
-      border-color: $monochromePrimaryBG;
+      border-color: $desaturatedPrimaryBG;
     }
     a {
-      color: $monochromePrimaryBG;
+      color: $desaturatedPrimaryBG;
       text-decoration: underline;
       &:hover {
-        color: $monochromePrimaryBGHover;
+        color: $desaturatedPrimaryBGHover;
       }
     }
   }
@@ -714,9 +715,9 @@ body.monochrome {
     // margin-left: .25rem;
     // margin-bottom: .25rem;
     text-decoration: none !important;
-    color: $monochromePrimaryTextColor;
+    color: $desaturatedPrimaryTextColor;
     &:hover {
-      color: $monochromePrimaryTextColor;
+      color: $desaturatedPrimaryTextColor;
     }
     // &.more-margin {
     //   margin-right: .5rem;
@@ -738,13 +739,13 @@ body.monochrome {
   // }
 
   .btn-primary {
-    background-color: $monochromePrimaryBG !important;
-    border-color: $monochromePrimaryBG !important;
-    color: $monochromePrimaryTextColor !important;
+    background-color: $desaturatedPrimaryBG !important;
+    border-color: $desaturatedPrimaryBG !important;
+    color: $desaturatedPrimaryTextColor !important;
     &:hover {
-      background-color: $monochromePrimaryBGHover !important;
-      border-color: $monochromePrimaryBGHover !important;
-      color: $monochromePrimaryTextColor !important;
+      background-color: $desaturatedPrimaryBGHover !important;
+      border-color: $desaturatedPrimaryBGHover !important;
+      color: $desaturatedPrimaryTextColor !important;
     }
     // &:disabled {
     //   background-color: #222;
@@ -766,13 +767,13 @@ body.monochrome {
   //   }
   // }
   .btn-secondary {
-    background-color: $monochromeSecondaryBG !important;
-    border-color: $monochromeSecondaryBG !important;
-    color: $monochromePrimaryTextColor !important;
+    background-color: $desaturatedSecondaryBG !important;
+    border-color: $desaturatedSecondaryBG !important;
+    color: $desaturatedPrimaryTextColor !important;
     &:hover {
-      background-color: $monochromeSecondaryBGHover !important;
-      border-color: $monochromeSecondaryBGHover !important;
-      color: $monochromePrimaryTextColor !important;
+      background-color: $desaturatedSecondaryBGHover !important;
+      border-color: $desaturatedSecondaryBGHover !important;
+      color: $desaturatedPrimaryTextColor !important;
     }
     // &:disabled {
     //   background-color: #222;
@@ -788,14 +789,14 @@ body.monochrome {
     .modal-header {
       // background: $headerFooterBackground;
       .close {
-        color: $monochromePrimaryBG;
+        color: $desaturatedPrimaryBG;
         &:hover {
-          color: $monochromePrimaryBGHover;
+          color: $desaturatedPrimaryBGHover;
         }
       }
     }
     .modal-content {
-      border: solid 2px $monochromePrimaryBG;
+      border: solid 2px $desaturatedPrimaryBG;
     }
   }
 

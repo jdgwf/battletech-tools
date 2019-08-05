@@ -9,12 +9,12 @@ export default class Settings extends React.Component<ISettingsProps, ISettingsS
             updated: false,
         }
 
-        this.toggleMonochrome = this.toggleMonochrome.bind(this);
+        this.toggleDesaturated = this.toggleDesaturated.bind(this);
     }
 
-    toggleMonochrome() {
+    toggleDesaturated() {
       let settings = this.props.appGlobals.settings;
-      settings.uiMonochrome = !this.props.appGlobals.settings.uiMonochrome;
+      settings.uiDesaturated = !this.props.appGlobals.settings.uiDesaturated;
       this.props.appGlobals.saveSettings( settings );
     }
 
@@ -32,9 +32,9 @@ export default class Settings extends React.Component<ISettingsProps, ISettingsS
                   <label>
                     <input
                       type="checkbox"
-                      checked={this.props.appGlobals.settings.uiMonochrome}
-                      onChange={this.toggleMonochrome}
-                    />&nbsp;Monochrome UI
+                      checked={this.props.appGlobals.settings.uiDesaturated}
+                      onChange={this.toggleDesaturated}
+                    />&nbsp;Desaturated UI
                   </label>
                 </fieldset>
               </div>

@@ -61,13 +61,13 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             }
         }
 
-        let uiMonochrome: boolean = false;
-        let lsMonochrome = localStorage.getItem("uiMonochrome");
-        if( lsMonochrome && +lsMonochrome ) {
-            uiMonochrome = true;
-            document.body.classList.add('monochrome');
+        let uiDesaturated: boolean = false;
+        let lsDesaturated = localStorage.getItem("uiDesaturated");
+        if( lsDesaturated && +lsDesaturated ) {
+            uiDesaturated = true;
+            document.body.classList.add('desaturated');
         } else {
-            document.body.classList.remove('monochrome');
+            document.body.classList.remove('desaturated');
         }
 
 
@@ -75,7 +75,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             updated: false,
             appGlobals: {
                 settings: {
-                    uiMonochrome: uiMonochrome,
+                    uiDesaturated: uiDesaturated,
                 },
                 currentPageTitle: "",
                 siteAlerts: new Alerts( this ),
@@ -115,17 +115,17 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             appGlobals: appGlobals,
         });
 
-        let uiMonochrome = "";
-        document.body.classList.remove('monochrome');
-        if( appGlobals.settings.uiMonochrome ) {
-            uiMonochrome = "1";
-            document.body.classList.add('monochrome');
+        let uiDesaturated = "";
+        document.body.classList.remove('desaturated');
+        if( appGlobals.settings.uiDesaturated ) {
+            uiDesaturated = "1";
+            document.body.classList.add('desaturated');
         } else {
-            uiMonochrome = "0";
-            document.body.classList.remove('monochrome');
+            uiDesaturated = "0";
+            document.body.classList.remove('desaturated');
         }
 
-        localStorage.setItem("uiMonochrome", uiMonochrome);
+        localStorage.setItem("uiDesaturated", uiDesaturated);
     }
 
     saveCurrentBattleMech( mech: BattleMech ): void {
@@ -350,7 +350,7 @@ interface IAppRouterProps {
 }
 
 interface ISettings {
-    uiMonochrome: boolean;
+    uiDesaturated: boolean;
 }
 
 interface IAppRouterState {

@@ -45,8 +45,8 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                         title="Click here to go to the official BattleTech website!"
                     >
                         <BattleTechLogo
-                            baseColor={this.props.appGlobals.settings.uiMonochrome ? "#ddd" : ""}
-                            altColor={this.props.appGlobals.settings.uiMonochrome ? "#aaa" : ""}
+                            baseColor={this.props.appGlobals.settings.uiDesaturated ? "#ddd" : ""}
+                            altColor={this.props.appGlobals.settings.uiDesaturated ? "#aaa" : ""}
                         />
                     </a>
                 </li>
