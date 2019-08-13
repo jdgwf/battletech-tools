@@ -16,8 +16,16 @@ export default class HeatSinksSVG extends React.Component<IHeatSinksSVGProps, IH
         super( props );
         this.state = {
 
-        };
-    }
+		};
+
+		this.toggleHeatBubble = this.toggleHeatBubble.bind(this);
+	}
+
+	toggleHeatBubble(shortLoc: string, indexNumnber: number) {
+		if( this.props.inPlay ) {
+			this.props.mechData.toggleHeatBubble(shortLoc, indexNumnber);
+		}
+	}
 
     render() {
 
@@ -39,44 +47,44 @@ export default class HeatSinksSVG extends React.Component<IHeatSinksSVGProps, IH
 	if( numHeatSinks >= 1 + hsCounter + 20 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 4 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 1 + hsCounter + 0 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 1.25 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 1 + hsCounter + 10 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 1.25 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 1 + hsCounter + 30 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 4 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
@@ -86,44 +94,44 @@ export default class HeatSinksSVG extends React.Component<IHeatSinksSVGProps, IH
 	if( numHeatSinks >= 1 + hsCounter + 20 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 4 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 1 + hsCounter + 0 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 1.25 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 1 + hsCounter + 10 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 1.25 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 1 + hsCounter + 30 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 4 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
@@ -133,44 +141,44 @@ export default class HeatSinksSVG extends React.Component<IHeatSinksSVGProps, IH
 	if( numHeatSinks >= 1 + hsCounter + 20 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 4 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 1 + hsCounter + 0 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 1.25 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 1 + hsCounter + 10 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 1.25 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 1 + hsCounter + 30 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 4 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
@@ -180,140 +188,44 @@ export default class HeatSinksSVG extends React.Component<IHeatSinksSVGProps, IH
 	if( numHeatSinks >= 1 + hsCounter + 20 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 4 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 1 + hsCounter + 0 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 1.25 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 1 + hsCounter + 10 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 1.25 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 1 + hsCounter + 30 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 4 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
-			clickIndex={hsCounter}
- 			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
-		/>);
-
-
-	hsCounter++;
-	lCounter++;
-	if( numHeatSinks >= 1 + hsCounter + 20 )
-
-		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
-			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 4 - distanceFromCenter}
-			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
-			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
-			clickIndex={hsCounter}
- 			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
-		/>);
-	if( numHeatSinks >= 1 + hsCounter + 0 )
-
-		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
-			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 1.25 - distanceFromCenter}
-			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
-			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
-			clickIndex={hsCounter}
- 			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
-		/>);
-	if( numHeatSinks >= 1 + hsCounter + 10 )
-
-		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
-			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 1.25 - distanceFromCenter}
-			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
-			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
-			clickIndex={hsCounter}
- 			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
-		/>);
-	if( numHeatSinks >= 1 + hsCounter + 30 )
-
-		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
-			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 4 - distanceFromCenter}
-			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
-			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
-			clickIndex={hsCounter}
- 			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
-		/>);
-
-	hsCounter++;
-	lCounter++;
-	lCounter++;
-	if( numHeatSinks >= 1 + hsCounter + 20 )
-
-		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
-			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 4 - distanceFromCenter}
-			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
-			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
-			clickIndex={hsCounter}
- 			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
-		/>);
-	if( numHeatSinks >= 1 + hsCounter + 0 )
-
-		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
-			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 1.25 - distanceFromCenter}
-			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
-			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
-			clickIndex={hsCounter}
- 			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
-		/>);
-	if( numHeatSinks >= 1 + hsCounter + 10 )
-
-		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
-			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 1.25 - distanceFromCenter}
-			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
-			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
-			clickIndex={hsCounter}
- 			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
-		/>);
-	if( numHeatSinks >= 1 + hsCounter + 30 )
-
-		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
-			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 4 - distanceFromCenter}
-			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
-			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
@@ -324,44 +236,92 @@ export default class HeatSinksSVG extends React.Component<IHeatSinksSVGProps, IH
 	if( numHeatSinks >= 1 + hsCounter + 20 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 4 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 1 + hsCounter + 0 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 1.25 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 1 + hsCounter + 10 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 1.25 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 1 + hsCounter + 30 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 4 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
+			clickIndex={hsCounter}
+ 			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
+		/>);
+
+	hsCounter++;
+	lCounter++;
+	lCounter++;
+	if( numHeatSinks >= 1 + hsCounter + 20 )
+
+		heatSinkDots.push(<DamageCircleSVG
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
+			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 4 - distanceFromCenter}
+			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
+			radius={armorBubbleRadius}
+			clickFunction={this.toggleHeatBubble}
+			clickIndex={hsCounter}
+ 			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
+		/>);
+	if( numHeatSinks >= 1 + hsCounter + 0 )
+
+		heatSinkDots.push(<DamageCircleSVG
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
+			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 1.25 - distanceFromCenter}
+			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
+			radius={armorBubbleRadius}
+			clickFunction={this.toggleHeatBubble}
+			clickIndex={hsCounter}
+ 			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
+		/>);
+	if( numHeatSinks >= 1 + hsCounter + 10 )
+
+		heatSinkDots.push(<DamageCircleSVG
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
+			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 1.25 - distanceFromCenter}
+			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
+			radius={armorBubbleRadius}
+			clickFunction={this.toggleHeatBubble}
+			clickIndex={hsCounter}
+ 			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
+		/>);
+	if( numHeatSinks >= 1 + hsCounter + 30 )
+
+		heatSinkDots.push(<DamageCircleSVG
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
+			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 4 - distanceFromCenter}
+			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
+			radius={armorBubbleRadius}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
@@ -372,44 +332,44 @@ export default class HeatSinksSVG extends React.Component<IHeatSinksSVGProps, IH
 	if( numHeatSinks >= 1 + hsCounter + 20 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 4 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 1 + hsCounter + 0 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 1.25 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 1 + hsCounter + 10 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 1.25 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 1 + hsCounter + 30 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 4 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
@@ -420,44 +380,44 @@ export default class HeatSinksSVG extends React.Component<IHeatSinksSVGProps, IH
 	if( numHeatSinks >= 1 + hsCounter + 20 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 4 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 1 + hsCounter + 0 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 1.25 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 1 + hsCounter + 10 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 1.25 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 1 + hsCounter + 30 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 4 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
@@ -468,44 +428,92 @@ export default class HeatSinksSVG extends React.Component<IHeatSinksSVGProps, IH
 	if( numHeatSinks >= 1 + hsCounter + 20 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 4 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 1 + hsCounter + 0 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 1.25 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 1 + hsCounter + 10 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 1.25 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 1 + hsCounter + 30 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 4 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
+			clickIndex={hsCounter}
+ 			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
+		/>);
+
+
+	hsCounter++;
+	lCounter++;
+	if( numHeatSinks >= 1 + hsCounter + 20 )
+
+		heatSinkDots.push(<DamageCircleSVG
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
+			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 4 - distanceFromCenter}
+			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
+			radius={armorBubbleRadius}
+			clickFunction={this.toggleHeatBubble}
+			clickIndex={hsCounter}
+ 			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
+		/>);
+	if( numHeatSinks >= 1 + hsCounter + 0 )
+
+		heatSinkDots.push(<DamageCircleSVG
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
+			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 1.25 - distanceFromCenter}
+			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
+			radius={armorBubbleRadius}
+			clickFunction={this.toggleHeatBubble}
+			clickIndex={hsCounter}
+ 			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
+		/>);
+	if( numHeatSinks >= 1 + hsCounter + 10 )
+
+		heatSinkDots.push(<DamageCircleSVG
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
+			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 1.25 - distanceFromCenter}
+			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
+			radius={armorBubbleRadius}
+			clickFunction={this.toggleHeatBubble}
+			clickIndex={hsCounter}
+ 			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
+		/>);
+	if( numHeatSinks >= 1 + hsCounter + 30 )
+
+		heatSinkDots.push(<DamageCircleSVG
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
+			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 4 - distanceFromCenter}
+			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
+			radius={armorBubbleRadius}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
@@ -517,44 +525,44 @@ export default class HeatSinksSVG extends React.Component<IHeatSinksSVGProps, IH
 	if( numHeatSinks >= 41 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 4 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 42 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 1.25 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 43 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 1.25 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 44 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 4 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
@@ -563,44 +571,44 @@ export default class HeatSinksSVG extends React.Component<IHeatSinksSVGProps, IH
 	if( numHeatSinks >= 45 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 4 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 46 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 1.25 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 47 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 1.25 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 	if( numHeatSinks >= 48 )
 
 		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length}
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
 			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 4 - distanceFromCenter}
 			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
 			radius={armorBubbleRadius}
-			clickFunction={this.props.mechData.toggleHeatBubble}
+			clickFunction={this.toggleHeatBubble}
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);

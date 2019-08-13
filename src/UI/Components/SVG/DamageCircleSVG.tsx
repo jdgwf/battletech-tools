@@ -10,7 +10,7 @@ export default class DamageCircleSVG extends React.Component<IDamageCircleSVGPro
     yLoc = 0;
     radius = 15;
     strokeWidth = 2;
-
+    clickLocation = '';
     constructor(props: IDamageCircleSVGProps) {
         super(props);
 
@@ -25,6 +25,10 @@ export default class DamageCircleSVG extends React.Component<IDamageCircleSVGPro
 
         if( this.props.strokeWidth ) {
             this.strokeWidth = this.props.strokeWidth;
+        }
+
+        if( this.props.clickLocation ) {
+            this.clickLocation = this.props.clickLocation;
         }
 
         if( this.props.xLoc ) {
@@ -47,9 +51,9 @@ export default class DamageCircleSVG extends React.Component<IDamageCircleSVGPro
     }
 
     clickFunction() {
-        if( this.props.clickFunction ) {
+        if( this.props.clickFunction && this.props.inPlay ) {
             if( typeof( this.props.clickIndex) !== "undefined" ) {
-                this.props.clickFunction( this.props.clickIndex );
+                this.props.clickFunction( this.clickLocation, +this.props.clickIndex );
             }
         }
     }
@@ -62,6 +66,7 @@ export default class DamageCircleSVG extends React.Component<IDamageCircleSVGPro
                 cx={this.props.xLoc}
                 cy={this.props.yLoc}
                 r={this.radius - 3}
+                className={this.props.inPlay ? "cursor-pointer" : ""}
                 stroke={this.strokeColor}
                 strokeWidth={this.strokeWidth}
                 fill={this.props.isFilled ? this.bgColorFilled : this.bgColor }
@@ -81,7 +86,9 @@ interface IDamageCircleSVGProps {
     xLoc: number;
     yLoc: number;
     radius: number;
-    clickFunction( clickIndex: number ): void;
+    clickLocation?: string;
+    inPlay?: boolean;
+    clickFunction( clickLocation: string, clickIndex: number ): void;
 }
 
 interface IDamageCircleSVGState {

@@ -5577,8 +5577,19 @@ export class BattleMech {
         this.mirrorArmorAllocations = !this.mirrorArmorAllocations;
     }
 
-    toggleHeatBubble( clickIndex: number ): void {
+    toggleHeatBubble( clickLocation: string, clickIndex: number ): void {
         // TODO
+        console.log("TODO mechOject toggleHeatBubble", clickLocation, clickIndex);
+    }
+
+    toggleISBubble( clickLocation: string, clickIndex: number ): void {
+        // TODO
+        console.log("TODO mechOject togglISBubble", clickLocation, clickIndex);
+    }
+
+    toggleArmorBubble( clickLocation: string, clickIndex: number ): void {
+        // TODO
+        console.log("TODO mechOject togglArmorBubble", clickLocation, clickIndex);
     }
 
     heatSinkIsFilled( hsIndex: number): boolean {
