@@ -42,6 +42,8 @@ export default class DamageCircleSVG extends React.Component<IDamageCircleSVGPro
         if( this.props.bgColorFilled ) {
             this.bgColorFilled = this.props.bgColorFilled;
         }
+
+        this.clickFunction = this.clickFunction.bind(this);
     }
 
     clickFunction() {
@@ -61,7 +63,7 @@ export default class DamageCircleSVG extends React.Component<IDamageCircleSVGPro
                 cy={this.props.yLoc}
                 r={this.radius - 3}
                 stroke={this.strokeColor}
-                stroke-width={this.strokeWidth}
+                strokeWidth={this.strokeWidth}
                 fill={this.props.isFilled ? this.bgColorFilled : this.bgColor }
             />
         );

@@ -12,6 +12,7 @@
         border-radius: 5px;
         margin: 2px;
         font-size: 11px;
+        line-height: 1rem;
         text-align: center;
         &:nth-child(7) {
             margin-top: 17px;
@@ -103,4 +104,55 @@
 // 	//	}
 
 // 	}
+}
+
+body.retro {
+    .critical-assignment-container {
+
+        li {
+            font-size: 6px;
+            line-height: 1rem;
+            border: 1px dotted $primaryBG;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .critical-assignment-container {
+
+        li {
+            font-size: 10px;
+            line-height: 1rem;
+        }
+    }
+
+    body.retro {
+        .critical-assignment-container {
+
+            li {
+                font-size: 8px;
+                line-height: 1rem;
+            }
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .critical-assignment-container {
+
+        li {
+            font-size: 11px;
+            line-height: 1rem;
+        }
+    }
+
+    body.retro {
+        .critical-assignment-container {
+
+            li {
+                font-size: 10px;
+                line-height: 1rem;
+            }
+        }
+    }
 }

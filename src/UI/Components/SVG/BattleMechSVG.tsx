@@ -18,6 +18,7 @@ import QuadArmorDiagramSVG from './QuadArmorDiagramSVG';
 import BipedRearArmorDiagramSVG from './BipedRearArmorDiagramSVG';
 import QuadRearArmorDiagramSVG from './QuadRearArmorDiagramSVG';
 import HeatSinksSVG from './HeatSinksSVG';
+import DamageCircleSVG from './DamageCircleSVG';
 
 export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, IBattleMechSVGState> {
     bgColor = "rgb(255,255,255)";
@@ -59,6 +60,11 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             this.inPlay = this.props.inPlay;
         }
 
+        this.toggleISBubble = this.toggleISBubble.bind(this);
+    }
+
+    toggleISBubble( shortLoc: string, indexNumnber: number) {
+        console.log("TODO toggleISBubble", shortLoc, indexNumnber);
     }
 
     render() {
@@ -648,12 +654,263 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 		<text x={this.isBoxLeft + this.isBoxWidth / 2 } y={this.isBoxTop + 420} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>TORSO</text>
 		<text x={this.isBoxLeft + this.isBoxWidth / 2 } y={this.isBoxTop + 440} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>[{this.props.mechData.getInternalStructure().centerTorso })</text>
 
+
+        {/* Head IS */}
+        {this.props.mechData.getInternalStructure().head > 0 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 15 } yLoc={this.isBoxTop + 120} radius={10} clickFunction={() => this.toggleISBubble("hd", 0)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().head > 1 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 15 } yLoc={this.isBoxTop + 120} radius={10} clickFunction={() => this.toggleISBubble("hd", 1)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().head > 2 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2} yLoc={this.isBoxTop + 140} radius={10} clickFunction={() => this.toggleISBubble("hd", 2)} /></>) : (<></>)}
+
+
+        {/* Left Arm IS */}
+        {this.props.mechData.getInternalStructure().leftArm > 0 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 135} yLoc={this.isBoxTop + 150} radius={10} clickFunction={() => this.toggleISBubble("la", 0)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftArm > 1 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 137} yLoc={this.isBoxTop + 165} radius={10} clickFunction={() => this.toggleISBubble("la", 1)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftArm > 2 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 140} yLoc={this.isBoxTop + 180} radius={10} clickFunction={() => this.toggleISBubble("la", 2)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftArm > 3 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 142} yLoc={this.isBoxTop + 195} radius={10} clickFunction={() => this.toggleISBubble("la", 3)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftArm > 4 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 145} yLoc={this.isBoxTop + 210} radius={10} clickFunction={() => this.toggleISBubble("la", 4)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().leftArm > 5 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 147} yLoc={this.isBoxTop + 235} radius={10} clickFunction={() => this.toggleISBubble("la", 5)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftArm > 6 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 148} yLoc={this.isBoxTop + 250} radius={10} clickFunction={() => this.toggleISBubble("la", 6)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftArm > 7 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 149} yLoc={this.isBoxTop + 265} radius={10} clickFunction={() => this.toggleISBubble("la", 7)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftArm > 8 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 150} yLoc={this.isBoxTop + 280} radius={10} clickFunction={() => this.toggleISBubble("la", 8)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftArm > 9 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 151} yLoc={this.isBoxTop + 295} radius={10} clickFunction={() => this.toggleISBubble("la", 9)} /></>) : (<></>)}
+
+
+        {this.props.mechData.getInternalStructure().leftArm > 10 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 152} yLoc={this.isBoxTop + 150} radius={10} clickFunction={() => this.toggleISBubble("la", 10)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftArm > 11 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 155} yLoc={this.isBoxTop + 165} radius={10} clickFunction={() => this.toggleISBubble("la", 11)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftArm > 12 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 158} yLoc={this.isBoxTop + 180} radius={10} clickFunction={() => this.toggleISBubble("la", 12)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftArm > 13 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 160} yLoc={this.isBoxTop + 195} radius={10} clickFunction={() => this.toggleISBubble("la", 13)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftArm > 14 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 163} yLoc={this.isBoxTop + 210} radius={10} clickFunction={() => this.toggleISBubble("la", 14)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().leftArm > 15 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 154} yLoc={this.isBoxTop + 315} radius={10} clickFunction={() => this.toggleISBubble("la", 15)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftArm > 16 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 157} yLoc={this.isBoxTop + 330} radius={10} clickFunction={() => this.toggleISBubble("la", 16)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftArm > 17 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 160} yLoc={this.isBoxTop + 345} radius={10} clickFunction={() => this.toggleISBubble("la", 17)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftArm > 18 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 162} yLoc={this.isBoxTop + 360} radius={10} clickFunction={() => this.toggleISBubble("la", 18)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftArm > 19 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 165} yLoc={this.isBoxTop + 375} radius={10} clickFunction={() => this.toggleISBubble("la", 19)} /></>) : (<></>)}
+
+
+
+        {/* Right Arm IS */}
+        {this.props.mechData.getInternalStructure().rightArm > 0 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 135} yLoc={this.isBoxTop + 150} radius={10} clickFunction={() => this.toggleISBubble("ra", 0)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightArm > 1 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 137} yLoc={this.isBoxTop + 165} radius={10} clickFunction={() => this.toggleISBubble("ra", 1)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightArm > 2 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 140} yLoc={this.isBoxTop + 180} radius={10} clickFunction={() => this.toggleISBubble("ra", 2)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightArm > 3 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 142} yLoc={this.isBoxTop + 195} radius={10} clickFunction={() => this.toggleISBubble("ra", 3)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightArm > 4 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 145} yLoc={this.isBoxTop + 210} radius={10} clickFunction={() => this.toggleISBubble("ra", 4)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().rightArm > 5 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 147} yLoc={this.isBoxTop + 235} radius={10} clickFunction={() => this.toggleISBubble("ra", 5)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightArm > 6 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 148} yLoc={this.isBoxTop + 250} radius={10} clickFunction={() => this.toggleISBubble("ra", 6)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightArm > 7 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 149} yLoc={this.isBoxTop + 265} radius={10} clickFunction={() => this.toggleISBubble("ra", 7)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightArm > 8 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 150} yLoc={this.isBoxTop + 280} radius={10} clickFunction={() => this.toggleISBubble("ra", 8)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightArm > 9 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 151} yLoc={this.isBoxTop + 295} radius={10} clickFunction={() => this.toggleISBubble("ra", 9)} /></>) : (<></>)}
+
+
+        {this.props.mechData.getInternalStructure().rightArm > 10 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 152} yLoc={this.isBoxTop + 150} radius={10} clickFunction={() => this.toggleISBubble("ra", 10)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightArm > 11 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 155} yLoc={this.isBoxTop + 165} radius={10} clickFunction={() => this.toggleISBubble("ra", 11)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightArm > 12 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 158} yLoc={this.isBoxTop + 180} radius={10} clickFunction={() => this.toggleISBubble("ra", 12)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightArm > 13 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 160} yLoc={this.isBoxTop + 195} radius={10} clickFunction={() => this.toggleISBubble("ra", 13)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightArm > 14 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 163} yLoc={this.isBoxTop + 210} radius={10} clickFunction={() => this.toggleISBubble("ra", 14)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().rightArm > 15 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 154} yLoc={this.isBoxTop + 315} radius={10} clickFunction={() => this.toggleISBubble("ra", 15)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightArm > 16 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 157} yLoc={this.isBoxTop + 330} radius={10} clickFunction={() => this.toggleISBubble("ra", 16)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightArm > 17 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 160} yLoc={this.isBoxTop + 345} radius={10} clickFunction={() => this.toggleISBubble("ra", 17)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightArm > 18 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 162} yLoc={this.isBoxTop + 360} radius={10} clickFunction={() => this.toggleISBubble("ra", 18)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightArm > 19 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 165} yLoc={this.isBoxTop + 375} radius={10} clickFunction={() => this.toggleISBubble("ra", 19)} /></>) : (<></>)}
+
+
+        {/* Center Torso IS */}
+        {this.props.mechData.getInternalStructure().centerTorso > 0 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 175} radius={10} clickFunction={() => this.toggleISBubble("ct", 0)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 1 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 190} radius={10} clickFunction={() => this.toggleISBubble("ct", 1)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 2 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 205} radius={10} clickFunction={() => this.toggleISBubble("ct", 2)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 3 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 220} radius={10} clickFunction={() => this.toggleISBubble("ct", 3)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 4 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 235} radius={10} clickFunction={() => this.toggleISBubble("ct", 4)} /></>) : (<></>)}
+
+
+        {this.props.mechData.getInternalStructure().centerTorso > 5 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 255} radius={10} clickFunction={() => this.toggleISBubble("ct", 5)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 6 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 270} radius={10} clickFunction={() => this.toggleISBubble("ct", 6)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 7 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 285} radius={10} clickFunction={() => this.toggleISBubble("ct", 7)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 8 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 300} radius={10} clickFunction={() => this.toggleISBubble("ct", 8)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 9 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 315} radius={10} clickFunction={() => this.toggleISBubble("ct", 9)} /></>) : (<></>)}
+
+
+        {this.props.mechData.getInternalStructure().centerTorso > 10 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 175} radius={10} clickFunction={() => this.toggleISBubble("ct", 10)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 11 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 190} radius={10} clickFunction={() => this.toggleISBubble("ct", 11)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 12 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 205} radius={10} clickFunction={() => this.toggleISBubble("ct", 12)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 13 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 220} radius={10} clickFunction={() => this.toggleISBubble("ct", 13)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 14 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 235} radius={10} clickFunction={() => this.toggleISBubble("ct", 14)} /></>) : (<></>)}
+
+
+        {this.props.mechData.getInternalStructure().centerTorso > 15 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 175} radius={10} clickFunction={() => this.toggleISBubble("ct", 15)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 16 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 190} radius={10} clickFunction={() => this.toggleISBubble("ct", 16)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 17 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 205} radius={10} clickFunction={() => this.toggleISBubble("ct", 17)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 18 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 220} radius={10} clickFunction={() => this.toggleISBubble("ct", 18)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 19 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 235} radius={10} clickFunction={() => this.toggleISBubble("ct", 19)} /></>) : (<></>)}
+
+
+        {this.props.mechData.getInternalStructure().centerTorso > 20 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 255} radius={10} clickFunction={() => this.toggleISBubble("ct", 20)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 21 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 270} radius={10} clickFunction={() => this.toggleISBubble("ct", 21)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 22 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 285} radius={10} clickFunction={() => this.toggleISBubble("ct", 22)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 23 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 300} radius={10} clickFunction={() => this.toggleISBubble("ct", 23)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 24 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 315} radius={10} clickFunction={() => this.toggleISBubble("ct", 24)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().centerTorso > 25 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 255} radius={10} clickFunction={() => this.toggleISBubble("ct", 25)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 26 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 270} radius={10} clickFunction={() => this.toggleISBubble("ct", 26)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 27 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 285} radius={10} clickFunction={() => this.toggleISBubble("ct", 27)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 28 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 300} radius={10} clickFunction={() => this.toggleISBubble("ct", 28)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 29 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 315} radius={10} clickFunction={() => this.toggleISBubble("ct", 29)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().centerTorso > 31 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 335} radius={10} clickFunction={() => this.toggleISBubble("ct", 31)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 30 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 0} yLoc={this.isBoxTop + 335} radius={10} clickFunction={() => this.toggleISBubble("ct", 30)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 32 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 335} radius={10} clickFunction={() => this.toggleISBubble("ct", 32)} /></>) : (<></>)}
+
+
+        {/* Left Torso IS */}
+        {this.props.mechData.getInternalStructure().leftTorso > 0 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 50} yLoc={this.isBoxTop + 145} radius={10} clickFunction={() => this.toggleISBubble("lt", 0)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 1 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 50} yLoc={this.isBoxTop + 160} radius={10} clickFunction={() => this.toggleISBubble("lt", 1)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 2 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 50} yLoc={this.isBoxTop + 175} radius={10} clickFunction={() => this.toggleISBubble("lt", 2)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 3 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 50} yLoc={this.isBoxTop + 190} radius={10} clickFunction={() => this.toggleISBubble("lt", 3)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 4 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 50} yLoc={this.isBoxTop + 205} radius={10} clickFunction={() => this.toggleISBubble("lt", 4)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().leftTorso > 5 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 145} radius={10} clickFunction={() => this.toggleISBubble("lt", 5)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 6 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 160} radius={10} clickFunction={() => this.toggleISBubble("lt", 6)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 7 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 175} radius={10} clickFunction={() => this.toggleISBubble("lt", 7)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 8 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 190} radius={10} clickFunction={() => this.toggleISBubble("lt", 8)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 9 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 205} radius={10} clickFunction={() => this.toggleISBubble("lt", 9)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().leftTorso > 10 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 145} radius={10} clickFunction={() => this.toggleISBubble("lt", 10)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 11 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 160} radius={10} clickFunction={() => this.toggleISBubble("lt", 11)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 12 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 175} radius={10} clickFunction={() => this.toggleISBubble("lt", 12)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 13 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 190} radius={10} clickFunction={() => this.toggleISBubble("lt", 13)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 14 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 205} radius={10} clickFunction={() => this.toggleISBubble("lt", 14)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().leftTorso > 15 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 53} yLoc={this.isBoxTop + 230} radius={10} clickFunction={() => this.toggleISBubble("lt", 15)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 16 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 52} yLoc={this.isBoxTop + 245} radius={10} clickFunction={() => this.toggleISBubble("lt", 16)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 17 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 50} yLoc={this.isBoxTop + 260} radius={10} clickFunction={() => this.toggleISBubble("lt", 17)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 18 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 49} yLoc={this.isBoxTop + 275} radius={10} clickFunction={() => this.toggleISBubble("lt", 18)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 19 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 48} yLoc={this.isBoxTop + 290} radius={10} clickFunction={() => this.toggleISBubble("lt", 19)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().leftTorso > 20 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 50} yLoc={this.isBoxTop + 310} radius={10} clickFunction={() => this.toggleISBubble("lt", 20)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 21 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 310} radius={10} clickFunction={() => this.toggleISBubble("lt", 21)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 22 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 50} yLoc={this.isBoxTop + 325} radius={10} clickFunction={() => this.toggleISBubble("lt", 22)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 23 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 325} radius={10} clickFunction={() => this.toggleISBubble("lt", 23)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 24 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 325} radius={10} clickFunction={() => this.toggleISBubble("lt", 24)} /></>) : (<></>)}
+
+
+        {/* Right Torso IS */}
+        {this.props.mechData.getInternalStructure().rightTorso > 0 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 50} yLoc={this.isBoxTop + 145} radius={10} clickFunction={() => this.toggleISBubble("rt", 0)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 1 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 50} yLoc={this.isBoxTop + 160} radius={10} clickFunction={() => this.toggleISBubble("rt", 1)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 2 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 50} yLoc={this.isBoxTop + 175} radius={10} clickFunction={() => this.toggleISBubble("rt", 2)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 3 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 50} yLoc={this.isBoxTop + 190} radius={10} clickFunction={() => this.toggleISBubble("rt", 3)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 4 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 50} yLoc={this.isBoxTop + 205} radius={10} clickFunction={() => this.toggleISBubble("rt", 4)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().rightTorso > 5 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 145} radius={10} clickFunction={() => this.toggleISBubble("rt", 5)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 6 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 160} radius={10} clickFunction={() => this.toggleISBubble("rt", 6)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 7 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 175} radius={10} clickFunction={() => this.toggleISBubble("rt", 7)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 8 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 190} radius={10} clickFunction={() => this.toggleISBubble("rt", 8)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 9 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 205} radius={10} clickFunction={() => this.toggleISBubble("rt", 9)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().rightTorso > 10 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 145} radius={10} clickFunction={() => this.toggleISBubble("rt", 10)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 11 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 160} radius={10} clickFunction={() => this.toggleISBubble("rt", 11)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 12 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 175} radius={10} clickFunction={() => this.toggleISBubble("rt", 12)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 13 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 190} radius={10} clickFunction={() => this.toggleISBubble("rt", 13)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 14 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 205} radius={10} clickFunction={() => this.toggleISBubble("rt", 14)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().rightTorso > 15 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 53} yLoc={this.isBoxTop + 230} radius={10} clickFunction={() => this.toggleISBubble("rt", 15)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 16 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 52} yLoc={this.isBoxTop + 245} radius={10} clickFunction={() => this.toggleISBubble("rt", 16)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 17 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 50} yLoc={this.isBoxTop + 260} radius={10} clickFunction={() => this.toggleISBubble("rt", 17)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 18 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 49} yLoc={this.isBoxTop + 275} radius={10} clickFunction={() => this.toggleISBubble("rt", 18)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 19 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 48} yLoc={this.isBoxTop + 290} radius={10} clickFunction={() => this.toggleISBubble("rt", 19)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().rightTorso > 20 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 50} yLoc={this.isBoxTop + 310} radius={10} clickFunction={() => this.toggleISBubble("rt", 20)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 21 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 310} radius={10} clickFunction={() => this.toggleISBubble("rt", 21)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 22 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 50} yLoc={this.isBoxTop + 325} radius={10} clickFunction={() => this.toggleISBubble("rt", 22)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 23 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 325} radius={10} clickFunction={() => this.toggleISBubble("rt", 23)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 24 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 325} radius={10} clickFunction={() => this.toggleISBubble("rt", 24)} /></>) : (<></>)}
+
+
+
+
+        {/* Left Leg IS */}
+        {this.props.mechData.getInternalStructure().leftLeg > 0 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 53} yLoc={this.isBoxTop + 340} radius={10} clickFunction={() => this.toggleISBubble("ll", 0)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftLeg > 1 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 355} radius={10} clickFunction={() => this.toggleISBubble("ll", 1)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftLeg > 2 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 57} yLoc={this.isBoxTop + 370} radius={10} clickFunction={() => this.toggleISBubble("ll", 2)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftLeg > 3 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 59} yLoc={this.isBoxTop + 385} radius={10} clickFunction={() => this.toggleISBubble("ll", 3)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftLeg > 4 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 60} yLoc={this.isBoxTop + 400} radius={10} clickFunction={() => this.toggleISBubble("ll", 4)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().leftLeg > 5 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 68} yLoc={this.isBoxTop + 420} radius={10} clickFunction={() => this.toggleISBubble("ll", 5)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftLeg > 6 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 435} radius={10} clickFunction={() => this.toggleISBubble("ll", 6)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftLeg > 7 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 72} yLoc={this.isBoxTop + 450} radius={10} clickFunction={() => this.toggleISBubble("ll", 7)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftLeg > 8 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 74} yLoc={this.isBoxTop + 465} radius={10} clickFunction={() => this.toggleISBubble("ll", 8)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftLeg > 9 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 76} yLoc={this.isBoxTop + 480} radius={10} clickFunction={() => this.toggleISBubble("ll", 9)} /></>) : (<></>)}
+
+
+        {this.props.mechData.getInternalStructure().leftLeg > 10 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 73} yLoc={this.isBoxTop + 340} radius={10} clickFunction={() => this.toggleISBubble("ll", 10)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftLeg > 11 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 355} radius={10} clickFunction={() => this.toggleISBubble("ll", 11)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftLeg > 12 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 77} yLoc={this.isBoxTop + 370} radius={10} clickFunction={() => this.toggleISBubble("ll", 12)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftLeg > 13 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 79} yLoc={this.isBoxTop + 385} radius={10} clickFunction={() => this.toggleISBubble("ll", 13)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftLeg > 14 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 80} yLoc={this.isBoxTop + 400} radius={10} clickFunction={() => this.toggleISBubble("ll", 14)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().leftLeg > 15 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 88} yLoc={this.isBoxTop + 420} radius={10} clickFunction={() => this.toggleISBubble("ll", 15)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftLeg > 16 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 435} radius={10} clickFunction={() => this.toggleISBubble("ll", 16)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftLeg > 17 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 92} yLoc={this.isBoxTop + 450} radius={10} clickFunction={() => this.toggleISBubble("ll", 17)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftLeg > 18 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 94} yLoc={this.isBoxTop + 465} radius={10} clickFunction={() => this.toggleISBubble("ll", 18)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftLeg > 19 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 96} yLoc={this.isBoxTop + 480} radius={10} clickFunction={() => this.toggleISBubble("ll", 19)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().leftLeg > 20 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 80} yLoc={this.isBoxTop + 500} radius={10} clickFunction={() => this.toggleISBubble("ll", 20)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftLeg > 21 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 82} yLoc={this.isBoxTop + 515} radius={10} clickFunction={() => this.toggleISBubble("ll", 21)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftLeg > 22 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 84} yLoc={this.isBoxTop + 530} radius={10} clickFunction={() => this.toggleISBubble("ll", 22)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftLeg > 23 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 86} yLoc={this.isBoxTop + 545} radius={10} clickFunction={() => this.toggleISBubble("ll", 23)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftLeg > 24 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 88} yLoc={this.isBoxTop + 560} radius={10} clickFunction={() => this.toggleISBubble("ll", 24)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().leftLeg > 25 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 100} yLoc={this.isBoxTop + 500} radius={10} clickFunction={() => this.toggleISBubble("ll", 25)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftLeg > 26 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 102} yLoc={this.isBoxTop + 515} radius={10} clickFunction={() => this.toggleISBubble("ll", 26)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftLeg > 27 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 104} yLoc={this.isBoxTop + 530} radius={10} clickFunction={() => this.toggleISBubble("ll", 27)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftLeg > 28 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 106} yLoc={this.isBoxTop + 545} radius={10} clickFunction={() => this.toggleISBubble("ll", 28)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftLeg > 29 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 108} yLoc={this.isBoxTop + 560} radius={10} clickFunction={() => this.toggleISBubble("ll", 29)} /></>) : (<></>)}
+
+
+
+        {/* Right Leg IS */}
+        {this.props.mechData.getInternalStructure().rightLeg > 0 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 53} yLoc={this.isBoxTop + 340} radius={10} clickFunction={() => this.toggleISBubble("rl", 0)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightLeg > 1 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 355} radius={10} clickFunction={() => this.toggleISBubble("rl", 1)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightLeg > 2 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 57} yLoc={this.isBoxTop + 370} radius={10} clickFunction={() => this.toggleISBubble("rl", 2)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightLeg > 3 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 59} yLoc={this.isBoxTop + 385} radius={10} clickFunction={() => this.toggleISBubble("rl", 3)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightLeg > 4 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 60} yLoc={this.isBoxTop + 400} radius={10} clickFunction={() => this.toggleISBubble("rl", 4)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().rightLeg > 5 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 68} yLoc={this.isBoxTop + 420} radius={10} clickFunction={() => this.toggleISBubble("rl", 5)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightLeg > 6 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 435} radius={10} clickFunction={() => this.toggleISBubble("rl", 6)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightLeg > 7 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 72} yLoc={this.isBoxTop + 450} radius={10} clickFunction={() => this.toggleISBubble("rl", 7)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightLeg > 8 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 74} yLoc={this.isBoxTop + 465} radius={10} clickFunction={() => this.toggleISBubble("rl", 8)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightLeg > 9 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 76} yLoc={this.isBoxTop + 480} radius={10} clickFunction={() => this.toggleISBubble("rl", 9)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().rightLeg > 10 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 73} yLoc={this.isBoxTop + 340} radius={10} clickFunction={() => this.toggleISBubble("rl", 10)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightLeg > 11 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 355} radius={10} clickFunction={() => this.toggleISBubble("rl", 11)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightLeg > 12 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 77} yLoc={this.isBoxTop + 370} radius={10} clickFunction={() => this.toggleISBubble("rl", 12)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightLeg > 13 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 79} yLoc={this.isBoxTop + 385} radius={10} clickFunction={() => this.toggleISBubble("rl", 13)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightLeg > 14 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 80} yLoc={this.isBoxTop + 400} radius={10} clickFunction={() => this.toggleISBubble("rl", 14)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().rightLeg > 15 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 88} yLoc={this.isBoxTop + 420} radius={10} clickFunction={() => this.toggleISBubble("rl", 15)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightLeg > 16 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 435} radius={10} clickFunction={() => this.toggleISBubble("rl", 16)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightLeg > 17 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 92} yLoc={this.isBoxTop + 450} radius={10} clickFunction={() => this.toggleISBubble("rl", 17)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightLeg > 18 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 94} yLoc={this.isBoxTop + 465} radius={10} clickFunction={() => this.toggleISBubble("rl", 18)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightLeg > 19 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 96} yLoc={this.isBoxTop + 480} radius={10} clickFunction={() => this.toggleISBubble("rl", 19)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().rightLeg > 20 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 80} yLoc={this.isBoxTop + 500} radius={10} clickFunction={() => this.toggleISBubble("rl", 20)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightLeg > 21 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 82} yLoc={this.isBoxTop + 515} radius={10} clickFunction={() => this.toggleISBubble("rl", 21)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightLeg > 22 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 84} yLoc={this.isBoxTop + 530} radius={10} clickFunction={() => this.toggleISBubble("rl", 22)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightLeg > 23 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 86} yLoc={this.isBoxTop + 545} radius={10} clickFunction={() => this.toggleISBubble("rl", 23)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightLeg > 24 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 88} yLoc={this.isBoxTop + 560} radius={10} clickFunction={() => this.toggleISBubble("rl", 24)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().rightLeg > 25 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 100} yLoc={this.isBoxTop + 500} radius={10} clickFunction={() => this.toggleISBubble("rl", 25)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightLeg > 26 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 102} yLoc={this.isBoxTop + 515} radius={10} clickFunction={() => this.toggleISBubble("rl", 26)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightLeg > 27 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 104} yLoc={this.isBoxTop + 530} radius={10} clickFunction={() => this.toggleISBubble("rl", 27)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightLeg > 28 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 106} yLoc={this.isBoxTop + 545} radius={10} clickFunction={() => this.toggleISBubble("rl", 28)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightLeg > 29 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 108} yLoc={this.isBoxTop + 560} radius={10} clickFunction={() => this.toggleISBubble("rl", 29)} /></>) : (<></>)}
+
+
         </>
     ) : (
         <>
-            TODO: Quad Internal Structure
             <QuadInternalStructureDiagramSVG
-                xLoc={1385}
+                xLoc={1386}
                 yLoc={1295}
                 width={380}
             />
@@ -685,6 +942,272 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2  } y={this.isBoxTop + 360} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={13}>CENTER</text>
             <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2  } y={this.isBoxTop + 380} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={13}>TORSO</text>
             <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2  } y={this.isBoxTop + 400} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={13}>[{ this.props.mechData.getInternalStructure().centerTorso })</text>
+
+
+            {/* Head IS */}
+            {this.props.mechData.getInternalStructure().head > 0 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 15 } yLoc={this.isBoxTop + 105} radius={10} clickFunction={() => this.toggleISBubble("hd", 0)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().head > 1 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 15 } yLoc={this.isBoxTop + 105} radius={10} clickFunction={() => this.toggleISBubble("hd", 1)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().head > 2 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2} yLoc={this.isBoxTop + 125} radius={10} clickFunction={() => this.toggleISBubble("hd", 2)} /></>) : (<></>)}
+
+
+
+
+        {/* Center Torso IS */}
+
+
+        {this.props.mechData.getInternalStructure().centerTorso > 0 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 40} yLoc={this.isBoxTop + 170} radius={10} clickFunction={() => this.toggleISBubble("ct", 0)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 1 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 170} radius={10} clickFunction={() => this.toggleISBubble("ct", 1)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 2 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 170} radius={10} clickFunction={() => this.toggleISBubble("ct", 2)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 3 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 170} radius={10} clickFunction={() => this.toggleISBubble("ct", 3)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 4 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 40} yLoc={this.isBoxTop + 170} radius={10} clickFunction={() => this.toggleISBubble("ct", 4)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().centerTorso > 5 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 40} yLoc={this.isBoxTop + 185} radius={10} clickFunction={() => this.toggleISBubble("ct", 5)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 6 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 185} radius={10} clickFunction={() => this.toggleISBubble("ct", 6)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 7 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 185} radius={10} clickFunction={() => this.toggleISBubble("ct", 7)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 8 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 185} radius={10} clickFunction={() => this.toggleISBubble("ct", 8)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 9 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 40} yLoc={this.isBoxTop + 185} radius={10} clickFunction={() => this.toggleISBubble("ct", 9)} /></>) : (<></>)}
+
+
+        {this.props.mechData.getInternalStructure().centerTorso > 10 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 40} yLoc={this.isBoxTop + 200} radius={10} clickFunction={() => this.toggleISBubble("ct", 10)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 11 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 200} radius={10} clickFunction={() => this.toggleISBubble("ct", 11)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 12 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 200} radius={10} clickFunction={() => this.toggleISBubble("ct", 12)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 13 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 200} radius={10} clickFunction={() => this.toggleISBubble("ct", 13)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 14 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 40} yLoc={this.isBoxTop + 200} radius={10} clickFunction={() => this.toggleISBubble("ct", 14)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().centerTorso > 15 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 40} yLoc={this.isBoxTop + 215} radius={10} clickFunction={() => this.toggleISBubble("ct", 15)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 16 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 215} radius={10} clickFunction={() => this.toggleISBubble("ct", 16)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 17 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 215} radius={10} clickFunction={() => this.toggleISBubble("ct", 17)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 18 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 215} radius={10} clickFunction={() => this.toggleISBubble("ct", 18)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 19 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 40} yLoc={this.isBoxTop + 215} radius={10} clickFunction={() => this.toggleISBubble("ct", 19)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().centerTorso > 20 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 40} yLoc={this.isBoxTop + 230} radius={10} clickFunction={() => this.toggleISBubble("ct", 20)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 21 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 230} radius={10} clickFunction={() => this.toggleISBubble("ct", 21)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 22 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 230} radius={10} clickFunction={() => this.toggleISBubble("ct", 22)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 23 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 230} radius={10} clickFunction={() => this.toggleISBubble("ct", 23)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 24 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 40} yLoc={this.isBoxTop + 230} radius={10} clickFunction={() => this.toggleISBubble("ct", 24)} /></>) : (<></>)}
+
+
+        {this.props.mechData.getInternalStructure().centerTorso > 25 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 27} yLoc={this.isBoxTop + 250} radius={10} clickFunction={() => this.toggleISBubble("ct", 25)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 26 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 9} yLoc={this.isBoxTop + 250} radius={10} clickFunction={() => this.toggleISBubble("ct", 26)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 27 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 9} yLoc={this.isBoxTop + 250} radius={10} clickFunction={() => this.toggleISBubble("ct", 27)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 28 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 27} yLoc={this.isBoxTop + 250} radius={10} clickFunction={() => this.toggleISBubble("ct", 28)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().centerTorso > 29 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 27} yLoc={this.isBoxTop + 265} radius={10} clickFunction={() => this.toggleISBubble("ct", 29)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 30 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 9} yLoc={this.isBoxTop + 265} radius={10} clickFunction={() => this.toggleISBubble("ct", 30)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 31 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 9} yLoc={this.isBoxTop + 265} radius={10} clickFunction={() => this.toggleISBubble("ct", 31)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 32 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 27} yLoc={this.isBoxTop + 265} radius={10} clickFunction={() => this.toggleISBubble("ct", 32)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().centerTorso > 33 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 27} yLoc={this.isBoxTop + 280} radius={10} clickFunction={() => this.toggleISBubble("ct", 33)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 34 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 9} yLoc={this.isBoxTop + 280} radius={10} clickFunction={() => this.toggleISBubble("ct", 34)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 35 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 9} yLoc={this.isBoxTop + 280} radius={10} clickFunction={() => this.toggleISBubble("ct", 35)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().centerTorso > 36 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 27} yLoc={this.isBoxTop + 280} radius={10} clickFunction={() => this.toggleISBubble("ct", 36)} /></>) : (<></>)}
+
+
+            {/* Right Rear Leg IS */}
+            {this.props.mechData.getInternalStructure().rightLeg > 0 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 340} radius={10} clickFunction={() => this.toggleISBubble("rl", 0)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightLeg > 1 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 355} radius={10} clickFunction={() => this.toggleISBubble("rl", 1)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightLeg > 2 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 370} radius={10} clickFunction={() => this.toggleISBubble("rl", 2)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightLeg > 3 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 385} radius={10} clickFunction={() => this.toggleISBubble("rl", 3)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightLeg > 4 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 400} radius={10} clickFunction={() => this.toggleISBubble("rl", 4)} /></>) : (<></>)}
+
+            {this.props.mechData.getInternalStructure().rightLeg > 5 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 420} radius={10} clickFunction={() => this.toggleISBubble("rl", 5)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightLeg > 6 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 435} radius={10} clickFunction={() => this.toggleISBubble("rl", 6)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightLeg > 7 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 450} radius={10} clickFunction={() => this.toggleISBubble("rl", 7)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightLeg > 8 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 465} radius={10} clickFunction={() => this.toggleISBubble("rl", 8)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightLeg > 9 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 480} radius={10} clickFunction={() => this.toggleISBubble("rl", 9)} /></>) : (<></>)}
+
+            {this.props.mechData.getInternalStructure().rightLeg > 10 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 340} radius={10} clickFunction={() => this.toggleISBubble("rl", 10)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightLeg > 11 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 355} radius={10} clickFunction={() => this.toggleISBubble("rl", 11)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightLeg > 12 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 370} radius={10} clickFunction={() => this.toggleISBubble("rl", 12)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightLeg > 13 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 385} radius={10} clickFunction={() => this.toggleISBubble("rl", 13)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightLeg > 14 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 400} radius={10} clickFunction={() => this.toggleISBubble("rl", 14)} /></>) : (<></>)}
+
+            {this.props.mechData.getInternalStructure().rightLeg > 15 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 420} radius={10} clickFunction={() => this.toggleISBubble("rl", 15)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightLeg > 16 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 435} radius={10} clickFunction={() => this.toggleISBubble("rl", 16)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightLeg > 17 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 450} radius={10} clickFunction={() => this.toggleISBubble("rl", 17)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightLeg > 18 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 465} radius={10} clickFunction={() => this.toggleISBubble("rl", 18)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightLeg > 19 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 480} radius={10} clickFunction={() => this.toggleISBubble("rl", 19)} /></>) : (<></>)}
+
+            {this.props.mechData.getInternalStructure().rightLeg > 20 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 500} radius={10} clickFunction={() => this.toggleISBubble("rl", 20)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightLeg > 21 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 515} radius={10} clickFunction={() => this.toggleISBubble("rl", 21)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightLeg > 22 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 530} radius={10} clickFunction={() => this.toggleISBubble("rl", 22)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightLeg > 23 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 545} radius={10} clickFunction={() => this.toggleISBubble("rl", 23)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightLeg > 24 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 560} radius={10} clickFunction={() => this.toggleISBubble("rl", 24)} /></>) : (<></>)}
+
+            {this.props.mechData.getInternalStructure().rightLeg > 25 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 500} radius={10} clickFunction={() => this.toggleISBubble("rl", 25)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightLeg > 26 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 515} radius={10} clickFunction={() => this.toggleISBubble("rl", 26)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightLeg > 27 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 530} radius={10} clickFunction={() => this.toggleISBubble("rl", 27)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightLeg > 28 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 545} radius={10} clickFunction={() => this.toggleISBubble("rl", 28)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightLeg > 29 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 560} radius={10} clickFunction={() => this.toggleISBubble("rl", 29)} /></>) : (<></>)}
+
+            {/* Right Rear Leg IS */}
+            {this.props.mechData.getInternalStructure().leftLeg > 0 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 340} radius={10} clickFunction={() => this.toggleISBubble("ll", 0)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftLeg > 1 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 355} radius={10} clickFunction={() => this.toggleISBubble("ll", 1)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftLeg > 2 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 370} radius={10} clickFunction={() => this.toggleISBubble("ll", 2)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftLeg > 3 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 385} radius={10} clickFunction={() => this.toggleISBubble("ll", 3)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftLeg > 4 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 400} radius={10} clickFunction={() => this.toggleISBubble("ll", 4)} /></>) : (<></>)}
+
+            {this.props.mechData.getInternalStructure().leftLeg > 5 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 420} radius={10} clickFunction={() => this.toggleISBubble("ll", 5)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftLeg > 6 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 435} radius={10} clickFunction={() => this.toggleISBubble("ll", 6)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftLeg > 7 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 450} radius={10} clickFunction={() => this.toggleISBubble("ll", 7)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftLeg > 8 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 465} radius={10} clickFunction={() => this.toggleISBubble("ll", 8)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftLeg > 9 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 480} radius={10} clickFunction={() => this.toggleISBubble("ll", 9)} /></>) : (<></>)}
+
+            {this.props.mechData.getInternalStructure().leftLeg > 10 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 340} radius={10} clickFunction={() => this.toggleISBubble("ll", 10)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftLeg > 11 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 355} radius={10} clickFunction={() => this.toggleISBubble("ll", 11)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftLeg > 12 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 370} radius={10} clickFunction={() => this.toggleISBubble("ll", 12)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftLeg > 13 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 385} radius={10} clickFunction={() => this.toggleISBubble("ll", 13)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftLeg > 14 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 400} radius={10} clickFunction={() => this.toggleISBubble("ll", 14)} /></>) : (<></>)}
+
+            {this.props.mechData.getInternalStructure().leftLeg > 15 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 420} radius={10} clickFunction={() => this.toggleISBubble("ll", 15)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftLeg > 16 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 435} radius={10} clickFunction={() => this.toggleISBubble("ll", 16)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftLeg > 17 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 450} radius={10} clickFunction={() => this.toggleISBubble("ll", 17)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftLeg > 18 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 465} radius={10} clickFunction={() => this.toggleISBubble("ll", 18)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftLeg > 19 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 480} radius={10} clickFunction={() => this.toggleISBubble("ll", 19)} /></>) : (<></>)}
+
+            {this.props.mechData.getInternalStructure().leftLeg > 20 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 500} radius={10} clickFunction={() => this.toggleISBubble("ll", 20)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftLeg > 21 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 515} radius={10} clickFunction={() => this.toggleISBubble("ll", 21)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftLeg > 22 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 530} radius={10} clickFunction={() => this.toggleISBubble("ll", 22)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftLeg > 23 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 545} radius={10} clickFunction={() => this.toggleISBubble("ll", 23)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftLeg > 24 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 560} radius={10} clickFunction={() => this.toggleISBubble("ll", 24)} /></>) : (<></>)}
+
+            {this.props.mechData.getInternalStructure().leftLeg > 25 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 500} radius={10} clickFunction={() => this.toggleISBubble("ll", 25)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftLeg > 26 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 515} radius={10} clickFunction={() => this.toggleISBubble("ll", 26)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftLeg > 27 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 530} radius={10} clickFunction={() => this.toggleISBubble("ll", 27)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftLeg > 28 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 545} radius={10} clickFunction={() => this.toggleISBubble("ll", 28)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftLeg > 29 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 560} radius={10} clickFunction={() => this.toggleISBubble("ll", 29)} /></>) : (<></>)}
+
+
+
+            {/* Right Front Leg IS */}
+            {this.props.mechData.getInternalStructure().rightArm > 0 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 115} yLoc={this.isBoxTop + 260} radius={10} clickFunction={() => this.toggleISBubble("ra", 0)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightArm > 1 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 115} yLoc={this.isBoxTop + 275} radius={10} clickFunction={() => this.toggleISBubble("ra", 1)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightArm > 2 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 115} yLoc={this.isBoxTop + 290} radius={10} clickFunction={() => this.toggleISBubble("ra", 2)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightArm > 3 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 115} yLoc={this.isBoxTop + 305} radius={10} clickFunction={() => this.toggleISBubble("ra", 3)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightArm > 4 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 115} yLoc={this.isBoxTop + 320} radius={10} clickFunction={() => this.toggleISBubble("ra", 4)} /></>) : (<></>)}
+
+            {this.props.mechData.getInternalStructure().rightArm > 5 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 120} yLoc={this.isBoxTop + 340} radius={10} clickFunction={() => this.toggleISBubble("ra", 5)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightArm > 6 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 120} yLoc={this.isBoxTop + 355} radius={10} clickFunction={() => this.toggleISBubble("ra", 6)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightArm > 7 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 120} yLoc={this.isBoxTop + 370} radius={10} clickFunction={() => this.toggleISBubble("ra", 7)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightArm > 8 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 120} yLoc={this.isBoxTop + 385} radius={10} clickFunction={() => this.toggleISBubble("ra", 8)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightArm > 9 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 120} yLoc={this.isBoxTop + 400} radius={10} clickFunction={() => this.toggleISBubble("ra", 9)} /></>) : (<></>)}
+
+            {this.props.mechData.getInternalStructure().rightArm > 10 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 130} yLoc={this.isBoxTop + 420} radius={10} clickFunction={() => this.toggleISBubble("ra", 10)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightArm > 11 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 130} yLoc={this.isBoxTop + 435} radius={10} clickFunction={() => this.toggleISBubble("ra", 11)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightArm > 12 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 130} yLoc={this.isBoxTop + 450} radius={10} clickFunction={() => this.toggleISBubble("ra", 12)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightArm > 13 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 130} yLoc={this.isBoxTop + 465} radius={10} clickFunction={() => this.toggleISBubble("ra", 13)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightArm > 14 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 130} yLoc={this.isBoxTop + 480} radius={10} clickFunction={() => this.toggleISBubble("ra", 14)} /></>) : (<></>)}
+
+            {this.props.mechData.getInternalStructure().rightArm > 15 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 130} yLoc={this.isBoxTop + 500} radius={10} clickFunction={() => this.toggleISBubble("ra", 15)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightArm > 16 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 130} yLoc={this.isBoxTop + 515} radius={10} clickFunction={() => this.toggleISBubble("ra", 16)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightArm > 17 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 130} yLoc={this.isBoxTop + 530} radius={10} clickFunction={() => this.toggleISBubble("ra", 17)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightArm > 18 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 130} yLoc={this.isBoxTop + 545} radius={10} clickFunction={() => this.toggleISBubble("ra", 18)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightArm > 19 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 130} yLoc={this.isBoxTop + 560} radius={10} clickFunction={() => this.toggleISBubble("ra", 19)} /></>) : (<></>)}
+
+            {this.props.mechData.getInternalStructure().rightArm > 20 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 150} yLoc={this.isBoxTop + 560} radius={10} clickFunction={() => this.toggleISBubble("ra", 20)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightArm > 21 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 150} yLoc={this.isBoxTop + 545} radius={10} clickFunction={() => this.toggleISBubble("ra", 21)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightArm > 22 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 150} yLoc={this.isBoxTop + 530} radius={10} clickFunction={() => this.toggleISBubble("ra", 22)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightArm > 23 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 150} yLoc={this.isBoxTop + 515} radius={10} clickFunction={() => this.toggleISBubble("ra", 23)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().rightArm > 24 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 150} yLoc={this.isBoxTop + 500} radius={10} clickFunction={() => this.toggleISBubble("ra", 24)} /></>) : (<></>)}
+
+
+
+            {/* Left Front Leg IS */}
+            {this.props.mechData.getInternalStructure().leftArm > 0 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 115} yLoc={this.isBoxTop + 260} radius={10} clickFunction={() => this.toggleISBubble("la", 0)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftArm > 1 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 115} yLoc={this.isBoxTop + 275} radius={10} clickFunction={() => this.toggleISBubble("la", 1)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftArm > 2 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 115} yLoc={this.isBoxTop + 290} radius={10} clickFunction={() => this.toggleISBubble("la", 2)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftArm > 3 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 115} yLoc={this.isBoxTop + 305} radius={10} clickFunction={() => this.toggleISBubble("la", 3)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftArm > 4 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 115} yLoc={this.isBoxTop + 320} radius={10} clickFunction={() => this.toggleISBubble("la", 4)} /></>) : (<></>)}
+
+            {this.props.mechData.getInternalStructure().leftArm > 5 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 120} yLoc={this.isBoxTop + 340} radius={10} clickFunction={() => this.toggleISBubble("la", 5)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftArm > 6 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 120} yLoc={this.isBoxTop + 355} radius={10} clickFunction={() => this.toggleISBubble("la", 6)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftArm > 7 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 120} yLoc={this.isBoxTop + 370} radius={10} clickFunction={() => this.toggleISBubble("la", 7)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftArm > 8 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 120} yLoc={this.isBoxTop + 385} radius={10} clickFunction={() => this.toggleISBubble("la", 8)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftArm > 9 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 120} yLoc={this.isBoxTop + 400} radius={10} clickFunction={() => this.toggleISBubble("la", 9)} /></>) : (<></>)}
+
+            {this.props.mechData.getInternalStructure().leftArm > 10 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 130} yLoc={this.isBoxTop + 420} radius={10} clickFunction={() => this.toggleISBubble("la", 10)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftArm > 11 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 130} yLoc={this.isBoxTop + 435} radius={10} clickFunction={() => this.toggleISBubble("la", 11)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftArm > 12 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 130} yLoc={this.isBoxTop + 450} radius={10} clickFunction={() => this.toggleISBubble("la", 12)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftArm > 13 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 130} yLoc={this.isBoxTop + 465} radius={10} clickFunction={() => this.toggleISBubble("la", 13)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftArm > 14 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 130} yLoc={this.isBoxTop + 480} radius={10} clickFunction={() => this.toggleISBubble("la", 14)} /></>) : (<></>)}
+
+            {this.props.mechData.getInternalStructure().leftArm > 15 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 130} yLoc={this.isBoxTop + 500} radius={10} clickFunction={() => this.toggleISBubble("la", 15)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftArm > 16 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 130} yLoc={this.isBoxTop + 515} radius={10} clickFunction={() => this.toggleISBubble("la", 16)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftArm > 17 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 130} yLoc={this.isBoxTop + 530} radius={10} clickFunction={() => this.toggleISBubble("la", 17)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftArm > 18 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 130} yLoc={this.isBoxTop + 545} radius={10} clickFunction={() => this.toggleISBubble("la", 18)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftArm > 19 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 130} yLoc={this.isBoxTop + 560} radius={10} clickFunction={() => this.toggleISBubble("la", 19)} /></>) : (<></>)}
+
+            {this.props.mechData.getInternalStructure().leftArm > 20 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 150} yLoc={this.isBoxTop + 560} radius={10} clickFunction={() => this.toggleISBubble("la", 20)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftArm > 21 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 150} yLoc={this.isBoxTop + 545} radius={10} clickFunction={() => this.toggleISBubble("la", 21)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftArm > 22 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 150} yLoc={this.isBoxTop + 530} radius={10} clickFunction={() => this.toggleISBubble("la", 22)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftArm > 23 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 150} yLoc={this.isBoxTop + 515} radius={10} clickFunction={() => this.toggleISBubble("la", 23)} /></>) : (<></>)}
+            {this.props.mechData.getInternalStructure().leftArm > 24 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 150} yLoc={this.isBoxTop + 500} radius={10} clickFunction={() => this.toggleISBubble("la", 24)} /></>) : (<></>)}
+
+
+        {/* Right Torso IS */}
+        {this.props.mechData.getInternalStructure().rightTorso > 0 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 105} radius={10} clickFunction={() => this.toggleISBubble("rt", 0)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 1 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 120} radius={10} clickFunction={() => this.toggleISBubble("rt", 1)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 2 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 135} radius={10} clickFunction={() => this.toggleISBubble("rt", 2)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 3 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 150} radius={10} clickFunction={() => this.toggleISBubble("rt", 3)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 4 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 165} radius={10} clickFunction={() => this.toggleISBubble("rt", 4)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().rightTorso > 5 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 105} radius={10} clickFunction={() => this.toggleISBubble("rt", 5)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 6 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 120} radius={10} clickFunction={() => this.toggleISBubble("rt", 6)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 7 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 135} radius={10} clickFunction={() => this.toggleISBubble("rt", 7)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 8 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 150} radius={10} clickFunction={() => this.toggleISBubble("rt", 8)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 9 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 165} radius={10} clickFunction={() => this.toggleISBubble("rt", 9)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().rightTorso > 10 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 110} yLoc={this.isBoxTop + 105} radius={10} clickFunction={() => this.toggleISBubble("rt", 10)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 11 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 110} yLoc={this.isBoxTop + 120} radius={10} clickFunction={() => this.toggleISBubble("rt", 11)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 12 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 110} yLoc={this.isBoxTop + 135} radius={10} clickFunction={() => this.toggleISBubble("rt", 12)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 13 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 110} yLoc={this.isBoxTop + 150} radius={10} clickFunction={() => this.toggleISBubble("rt", 13)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 14 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 110} yLoc={this.isBoxTop + 165} radius={10} clickFunction={() => this.toggleISBubble("rt", 14)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().rightTorso > 15 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 185} radius={10} clickFunction={() => this.toggleISBubble("rt", 15)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 16 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 200} radius={10} clickFunction={() => this.toggleISBubble("rt", 16)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 17 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 215} radius={10} clickFunction={() => this.toggleISBubble("rt", 17)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 18 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 230} radius={10} clickFunction={() => this.toggleISBubble("rt", 18)} /></>) : (<></>)}
+        {/* {this.props.mechData.getInternalStructure().rightTorso > 19 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 245} radius={10} clickFunction={() => this.toggleISBubble("rt", 19)} /></>) : (<></>)} */}
+
+        {this.props.mechData.getInternalStructure().rightTorso > 19 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 185} radius={10} clickFunction={() => this.toggleISBubble("rt", 19)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 20 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 200} radius={10} clickFunction={() => this.toggleISBubble("rt", 20)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 21 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 215} radius={10} clickFunction={() => this.toggleISBubble("rt", 21)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().rightTorso > 22 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 230} radius={10} clickFunction={() => this.toggleISBubble("rt", 22)} /></>) : (<></>)}
+        {/* {this.props.mechData.getInternalStructure().rightTorso > 24 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 245} radius={10} clickFunction={() => this.toggleISBubble("rt", 24)} /></>) : (<></>)} */}
+
+
+
+        {/* Left Torso IS */}
+        {this.props.mechData.getInternalStructure().leftTorso > 0 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 105} radius={10} clickFunction={() => this.toggleISBubble("lt", 0)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 1 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 120} radius={10} clickFunction={() => this.toggleISBubble("lt", 1)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 2 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 135} radius={10} clickFunction={() => this.toggleISBubble("lt", 2)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 3 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 150} radius={10} clickFunction={() => this.toggleISBubble("lt", 3)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 4 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 165} radius={10} clickFunction={() => this.toggleISBubble("lt", 4)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().leftTorso > 5 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 105} radius={10} clickFunction={() => this.toggleISBubble("lt", 5)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 6 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 120} radius={10} clickFunction={() => this.toggleISBubble("lt", 6)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 7 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 135} radius={10} clickFunction={() => this.toggleISBubble("lt", 7)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 8 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 150} radius={10} clickFunction={() => this.toggleISBubble("lt", 8)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 9 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 165} radius={10} clickFunction={() => this.toggleISBubble("lt", 9)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().leftTorso > 10 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 110} yLoc={this.isBoxTop + 105} radius={10} clickFunction={() => this.toggleISBubble("lt", 10)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 11 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 110} yLoc={this.isBoxTop + 120} radius={10} clickFunction={() => this.toggleISBubble("lt", 11)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 12 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 110} yLoc={this.isBoxTop + 135} radius={10} clickFunction={() => this.toggleISBubble("lt", 12)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 13 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 110} yLoc={this.isBoxTop + 150} radius={10} clickFunction={() => this.toggleISBubble("lt", 13)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 14 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 110} yLoc={this.isBoxTop + 165} radius={10} clickFunction={() => this.toggleISBubble("lt", 14)} /></>) : (<></>)}
+
+        {this.props.mechData.getInternalStructure().leftTorso > 15 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 185} radius={10} clickFunction={() => this.toggleISBubble("lt", 15)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 16 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 200} radius={10} clickFunction={() => this.toggleISBubble("lt", 16)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 17 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 215} radius={10} clickFunction={() => this.toggleISBubble("lt", 17)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 18 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 230} radius={10} clickFunction={() => this.toggleISBubble("lt", 18)} /></>) : (<></>)}
+        {/* {this.props.mechData.getInternalStructure().leftTorso > 19 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 245} radius={10} clickFunction={() => this.toggleISBubble("lt", 19)} /></>) : (<></>)} */}
+
+        {this.props.mechData.getInternalStructure().leftTorso > 19 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 185} radius={10} clickFunction={() => this.toggleISBubble("lt", 19)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 20 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 200} radius={10} clickFunction={() => this.toggleISBubble("lt", 20)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 21 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 215} radius={10} clickFunction={() => this.toggleISBubble("lt", 21)} /></>) : (<></>)}
+        {this.props.mechData.getInternalStructure().leftTorso > 22 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 230} radius={10} clickFunction={() => this.toggleISBubble("lt", 22)} /></>) : (<></>)}
+        {/* {this.props.mechData.getInternalStructure().leftTorso > 24 ? (<><DamageCircleSVG xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 245} radius={10} clickFunction={() => this.toggleISBubble("lt", 24)} /></>) : (<></>)} */}
+
 
         </>
     )}

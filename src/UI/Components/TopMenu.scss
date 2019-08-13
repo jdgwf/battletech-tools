@@ -3,16 +3,21 @@
 .topmenu {
     position: relative;
     z-index: 1000;
+    background: $headerFooterBackground;
     ul {
         background: $headerFooterBackground;
         color: $headerFontColor;
         list-style: none;
+        // display: inline-block;
+        display: flex;
         margin: 0;
         padding: 0;
+        width: 100%;
+        border-bottom: solid 2px $primaryBG;
         li {
             margin: 0;
             padding: 0;
-            display: inline;
+            // display: inline;
 
             &.mobile-menu-button {
                 display: inline;
@@ -21,7 +26,7 @@
                 cursor: pointer;
             }
             span, a {
-                display: inline-block;
+                display: block;
                 color: $primaryBG;
                 cursor: pointer;
                 text-decoration: none;
@@ -30,7 +35,7 @@
                 border-top-left-radius: .5rem;
                 border-top-right-radius: .5rem;
                 margin: .25rem .125rem 0 0;
-
+                white-space: nowrap;
                 &:hover {
                     background: $primaryBGHover;
                     color: $primaryTextColor;
@@ -49,18 +54,24 @@
                 }
             }
             &.logo {
-                float: right;
+                // float: right;
+                text-align: right;
+                margin-left: auto;
                 a {
-                    border: 0;
+                    border: 0 !important;
                     margin: 0;
                     &:hover {
                         background-color: $bodyBackground;
                     }
+                    svg {
+                        height: 1.45rem;
+                        width: auto;
+                    }
                 }
             }
         }
-        border-bottom: solid 2px $primaryBG;
-        margin: 0 0 1rem 0;
+
+        // margin: 0 0 1rem 0;
     }
 
 }
@@ -116,15 +127,38 @@ body.retro {
     .topmenu {
         ul {
             li {
+                display: inline-block;
                 a {
+                    font-size: .55rem;
                     color: $retroPrimaryBG;
+                    background: $headerFooterBackground;
+                    border-right: dotted 2px $headerFooterBackground;
+                    border-top: dotted 2px $headerFooterBackground;
+                    border-left: dotted 2px $headerFooterBackground;
                     &.current {
-                        background: $retroPrimaryBG;
-                        color: $retroPrimaryTextColor;
+                        // background: $retroPrimaryBG;
+                        // color: $retroPrimaryTextColor;
+                        border-right: dotted 2px $retroPrimaryBG;
+                        border-top: dotted 2px $retroPrimaryBG;
+                        border-left: dotted 2px $retroPrimaryBG;
                     }
                     &:hover {
-                        background: $retroPrimaryBGHover;
-                        color: $retroPrimaryTextColor;
+                        // background: $retroPrimaryBGHover;
+                        // color: $retroPrimaryTextColo r;
+                        color: $retroPrimaryBGHover;
+                        border-right: dotted 2px $retroPrimaryBGHover;
+                        border-top: dotted 2px $retroPrimaryBGHover;
+                        border-left: dotted 2px $retroPrimaryBGHover;
+                    }
+                }
+
+                &.logo {
+                    a {
+                        svg {
+                            height: 1.25rem;
+                            width: auto;
+                            // max-width: 30%;
+                        }
                     }
                 }
             }
@@ -132,7 +166,7 @@ body.retro {
     }
     .topmenu {
         ul {
-            border-bottom: solid 2px $retroPrimaryBG;
+            border-bottom: dotted 2px $retroPrimaryBG;
         }
     }
 }
@@ -157,6 +191,28 @@ body.retro {
             li {
                 a {
                     font-size: 1rem;
+                }
+            }
+        }
+    }
+
+
+    body.retro {
+        .mobile-menu,
+        .topmenu {
+            ul {
+                li {
+                    a {
+                        font-size: 1rem;
+                    }
+                    &.logo {
+                        a {
+                            svg {
+                                height: 1.75rem;
+                                width: auto;
+                            }
+                        }
+                    }
                 }
             }
         }

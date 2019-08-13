@@ -57,11 +57,11 @@ body.retro {
   .sidebar-menu {
     .btn-lightbg {
       background-color: $headerFooterBackground;
-      border-color: $retroPrimaryBGHover;
+      border: dotted 2px $retroPrimaryBGHover;
       color: $retroPrimaryBGHover !important;
       &:hover {
         background-color: $retroPrimaryBGHover;
-        border-color: $retroLightBGHover;
+        border: dotted 2px $retroLightBGHover;
         color: $headerFooterBackground !important;
       }
       &:disabled {

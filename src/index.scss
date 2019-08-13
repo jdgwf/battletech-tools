@@ -823,7 +823,7 @@ body.retro {
   // }
 
   background: $headerFooterBackground;
-
+  font-size: .8rem;
 
   font-family: "DotMatrix" !important;
   .mech-tro {
@@ -839,7 +839,7 @@ body.retro {
     }
   }
   hr {
-    border-color: $retroPrimaryBG;
+    border-bottom: dotted 2px $retroPrimaryBG;
   }
   select,
   textarea,
@@ -875,20 +875,25 @@ body.retro {
   }
 
   .fieldset {
-    border-color: $retroPrimaryBG;
+    border: dotted 2px $retroPrimaryBG;
     color: $retroFontColor;
     legend {
-      background-color: $retroPrimaryBG;
+      background-color: $headerFooterBackground;
+      border: dotted 2px $retroPrimaryBG;
     }
   }
 
   .text-section {
-    border-color: $retroPrimaryBG;
+    border: dotted 2px $retroPrimaryBG;
     color: $retroFontColor;
     background-color: $headerFooterBackground;
+
     h2 {
-      border-color: $retroPrimaryBG;
+      border-bottom: dotted 2px $retroPrimaryBG;
       color: $retroFontColor;
+      font-size: 1.3rem;
+      line-height: 2rem;
+      padding: 0 1rem;
     }
     a {
       color: $retroPrimaryBG;
@@ -978,10 +983,18 @@ body.retro {
       tr {
         td, th {
           color: $retroFontColor;
+          border-bottom: dotted 2px $retroPrimaryBG;
         }
       }
     }
-
+    thead {
+      tr {
+        th {
+          color: $retroFontColor;
+          border-top: dotted 2px $retroPrimaryBG;
+        }
+      }
+    }
   }
 
   .modal-dialog {

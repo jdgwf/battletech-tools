@@ -51,7 +51,7 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                       <li>Nextcloud Sign in/Sync<sup>*</sup></li>
                     </ul>
                     <div className="small-pt-text">
-                      <sup>*</sup> uknown if technically possible with PWA/Pure web apis. I do know that I can sync with GoogleDrive, for I have another web project which does this.
+                      <sup>*</sup> unknown if technically possible with PWA/Pure web apis. I do know that I can sync with GoogleDrive, for I have another web project which does this.
                     </div>
                   </div>
                 </div>
