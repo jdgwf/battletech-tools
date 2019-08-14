@@ -94,18 +94,6 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                       <li><del>Step 2 - Install engine and control systems</del></li>
                       <li><del>Step 3 - Add additional heat sinks</del></li>
                       <li><del>Step 4 - Add armor</del></li>
-                    </ul>
-                    <h4>TO DO (short list)</h4>
-                    <ul>
-
-                      <li>
-                        BattleMech SVG
-                        <ul>
-                          <li>Read only/printable</li>
-                          <li>Interactive Hooks</li>
-                        </ul>
-                      </li>
-
                       <li>
                         <del>Step 5 - Add weapons, ammunition and other equipment</del>
                         <br /><span className="color-green">Working and Functional, UI needs lots of love.</span>
@@ -114,12 +102,27 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                         <del>Step 6 - Complete the record sheet (critical allocations)</del>
                         <br /><span className="color-green">Working and Functional, Would be nice to have better messaging when an item won't "fit"..</span>
                       </li>
-                      <li className="current-focus">
-                        <h4 className="text-center color-blue">Current Focus</h4>
-                        Exports &amp; Mech record sheet
+                      <li>
+                        <del>BattleMech SVG
+                        <ul>
+                          <li>Read only/printable</li>
+                          <li>Interactive Hooks</li>
+                        </ul></del>
                       </li>
-                      <li>Load/Save/Export</li>
-                      <li>Add remaining Clan Equipment, IS SRM/LRMs to Data</li>
+                    </ul>
+                    <h4>TO DO (short list)</h4>
+                    <ul>
+
+                      <li>
+                        <h4 className="text-center color-blue">Current Focus</h4>
+                        Load/Save/Export
+                      </li>
+
+                      <li>
+                        Add remaining Clan Equipment,
+                        <h4 className="text-center color-blue">Current Focus</h4>
+                        IS SRM/LRMs to Data
+                      </li>
                       <li>In-Play Sheet</li>
                       <li>Companies</li>
                       <li>Lances</li>
