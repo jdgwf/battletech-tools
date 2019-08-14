@@ -510,7 +510,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
     {this.props.mechData.getMechType().tag === "biped" ? (
         <>
             <BipedArmorDiagramSVG
-                xLoc={1268}
+                xLoc={1263}
                 yLoc={-10}
                 width={700}
             />
@@ -638,7 +638,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
     >
     {this.props.mechData.getMechType().tag === "biped" ? (
         <>
-            TODO: Biped Internal Structure
             <BipedInternalStructureDiagramSVG
                 xLoc={1350}
                 yLoc={1275}
