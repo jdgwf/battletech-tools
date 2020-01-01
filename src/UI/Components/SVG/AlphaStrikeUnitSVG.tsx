@@ -429,7 +429,16 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                         "structure",
                     )}
                     {/* End Structure */}
-
+                    
+                    {/* Threshold Display */}
+                    {this.props.asUnit.threshold!==0 ? (
+                        <>
+                        <text x="520" y="445" fontFamily="sans-serif" textAnchor="middle" fontSize="35">TH</text>
+                        <text x="520" y="485" fontFamily="sans-serif" textAnchor="middle" fontSize="35" >{this.props.asUnit.threshold}</text>
+                        </>
+                    ) : null
+                    }
+                    {/* End Threshold Display */}
                     </>
                 )}
 
