@@ -136,7 +136,7 @@ export class AlphaStrikeUnit {
 
     mulID: number = 0;
 
-    abilities = "";
+    abilities:string = "";
 
     overheat: number = 0;
     role = "";
@@ -229,6 +229,9 @@ export class AlphaStrikeUnit {
             }
 
             this.abilities = incomingMechData.BFAbilities;
+            if (!this.abilities){
+                this.abilities="";
+            }
 
             this.overheat = +incomingMechData.BFOverheat;
 
