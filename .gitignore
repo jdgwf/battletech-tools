@@ -16,3 +16,6 @@ build
 work/*
 work*
 work
+
+.DS_Store
+package-lock.json
