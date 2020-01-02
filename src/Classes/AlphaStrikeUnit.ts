@@ -664,6 +664,10 @@ export class AlphaStrikeUnit {
             // Subtract Heat from Current Move
             if( this.move[moveC].type !== "j" ) {
                 this.move[moveC].currentMove = this.move[moveC].currentMove - this.currentHeat * 2;
+                //can't have minus move, or heat level "4" == shutdown
+                if (this.move[moveC].currentMove<0||this.currentHeat===4){
+                    this.move[moveC].currentMove=0;
+                }
             }
 
         this.currentMove += "" + this.move[moveC].currentMove + "\"" + this.move[moveC].type;
@@ -692,6 +696,12 @@ export class AlphaStrikeUnit {
 
             if( this.move[moveC].currentMove === 0 )
                 tmpTMM = 0;
+
+            // shut down units have a tmm of -4 (ASC pg. 53)
+            if( this.currentHeat===4 ){
+                tmpTMM = -4;
+                this.immobile=true;
+            }
 
             if( this.move[moveC].currentMove > 0 )
             this.immobile = false;
