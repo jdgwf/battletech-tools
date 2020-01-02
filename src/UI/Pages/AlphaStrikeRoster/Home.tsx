@@ -11,6 +11,7 @@ import AlphaStrikeUnitSVG from '../../Components/SVG/AlphaStrikeUnitSVG';
 import { Link } from 'react-router-dom';
 import AlphaStrikeGroup from '../../../Classes/AlphaStrikeGroup';
 import UIPage from '../../Components/UIPage';
+import { formationBonuses } from '../../../Data/formation-bonuses';
 
 export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, IHomeState> {
     searchTech: string = "";
@@ -77,6 +78,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
         this.renameGroup = this.renameGroup.bind(this);
         this.removeUnitFromGroup = this.removeUnitFromGroup.bind(this);
         this.newGroup = this.newGroup.bind(this);
+        this.updateFormationBonus = this.updateFormationBonus.bind(this);
 
         this.toggleContextMenuForce = this.toggleContextMenuForce.bind(this);
         this.toggleContextMenuSearch = this.toggleContextMenuSearch.bind(this);
@@ -185,6 +187,11 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       this.updateSearchResults();
     }
 
+    updateFormationBonus(event:React.FormEvent<HTMLSelectElement>, groupIndex:number){
+      this.props.appGlobals.currentASForce.groups[groupIndex].formationBonus=formationBonuses.find(x=>x.Name===event.currentTarget.value);
+      this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+    }
+
     updateTech( event: React.FormEvent<HTMLSelectElement> ) {
       localStorage.setItem( "asSearchTech", event.currentTarget.value);
       this.searchTech = event.currentTarget.value;
@@ -248,6 +255,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       this.props.appGlobals.currentASForce.removeUnitFromGroup( asGroupIndex, asUnitIndex );
       this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
     }
+
 
     addToGroup( mulUnit: IASMULUnit,  groupIndex: number = 0  ) {
       this.props.appGlobals.currentASForce.addToGroup( mulUnit, groupIndex );
@@ -502,6 +510,36 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                         <tr><td colSpan={3} className="text-center">No Units</td></tr>
                       )}
                       </tbody>
+
+                      <tfoot key="footer">
+                        <tr key="groupsum">
+                          <td className="text-left min-width no-wrap"></td>
+                          <td>
+                            <strong>Available Bonuses</strong>:({asGroup.availableFormationBonuses.length-1})
+                            <select 
+                              value={asGroup.formationBonus? asGroup.formationBonus.Name:"" }
+                              onChange={(event:React.FormEvent<HTMLSelectElement>)=>this.updateFormationBonus(event, asGroupIndex)}
+                            >
+                              {asGroup.availableFormationBonuses.map((bonus)=>{
+                                return (
+                                <option key={bonus.Name} value={bonus.Name}>{bonus.Name}</option>
+                                )
+                              })}
+                            </select>
+                            <br/>
+                            {(asGroup.formationBonus && asGroup.formationBonus.Name!=="None") ? (
+
+                              <>
+                                <strong>Bonus</strong>: {asGroup.formationBonus.BonusDescription}
+                              </>
+
+                            ) : null
+                            }
+                          </td>
+                          <td>Points: {asGroup.getTotalPoints()}</td>
+                        </tr>
+                      </tfoot>
+
                     </table>
                   </fieldset>
                   )
@@ -519,7 +557,9 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                   <strong>Total Groups</strong>: {this.props.appGlobals.currentASForce.getTotalGroups()}<br />
                   <strong>Total Units</strong>: {this.props.appGlobals.currentASForce.getTotalUnits()}<br />
                   <strong>Total Points</strong>: {this.props.appGlobals.currentASForce.getTotalPoints()}<br />
+
                 </p>
+                
                 </div>
               </div>
 

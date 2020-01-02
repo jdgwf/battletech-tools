@@ -1,6 +1,7 @@
 import AlphaStrikeGroup, { IASGroupExport } from './AlphaStrikeGroup';
 import { IASMULUnit, AlphaStrikeUnit } from './AlphaStrikeUnit';
 import { generateUUID } from '../utils';
+import { formationBonuses } from '../Data/formation-bonuses';
 
 export interface IASForceExport {
     groups: IASGroupExport[];
@@ -61,6 +62,7 @@ export default class AlphaStrikeForce {
                 new AlphaStrikeUnit( mulUnit )
             );
             this.groups[groupIndex].sortUnits();
+            this.groups[groupIndex].setAvailableFormationBonuses( formationBonuses.filter(x=>x.IsValid(this.groups[groupIndex])));
         }
 
     }
@@ -83,6 +85,8 @@ export default class AlphaStrikeForce {
 
                 this.groups[toGroupIndex].sortUnits();
                 this.groups[fromGroupIndex].sortUnits();
+                this.groups[toGroupIndex].setAvailableFormationBonuses( formationBonuses.filter(x=>x.IsValid(this.groups[toGroupIndex])));
+                this.groups[fromGroupIndex].setAvailableFormationBonuses( formationBonuses.filter(x=>x.IsValid(this.groups[fromGroupIndex])));
             }
         }
     }
@@ -95,6 +99,7 @@ export default class AlphaStrikeForce {
         if( this.groups.length > asGroupIndex && this.groups[asGroupIndex]) {
             if( this.groups[asGroupIndex].members.length > asUnitIndex && this.groups[asGroupIndex].members[asUnitIndex]) {
                 this.groups[asGroupIndex].members.splice( asUnitIndex, 1);
+                this.groups[asGroupIndex].setAvailableFormationBonuses(formationBonuses.filter(x=>x.IsValid(this.groups[asGroupIndex])));
             }
         }
     }
