@@ -99,10 +99,12 @@ export interface IEquipmentItem {
     ammoBattleValue?: number;
     accuracyModifiier?: number;
     cbills: number;
+    cbillsOneShot?: number;
     introduced: number;
     extinct: number;
     reintroduced: number;
     battleValue?: number;
+    battleValueOneShot?: number;
     heat: number;
     weight: number;
     range: IRangeNumbers,

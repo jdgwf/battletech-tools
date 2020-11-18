@@ -1152,176 +1152,175 @@ export class BattleMech {
         this.battleValue = Math.round(finalBattleValue);
 
         this._setPilotAdjustedBattleValue();
-
     }
 
     private _setPilotAdjustedBattleValue() {
-        let pilotAdjustedBattleValue = +this.battleValue;
+        this.pilotAdjustedBattleValue = this.battleValue;
 
         if( this.pilot.gunnery === 0 && this.pilot.piloting === 0 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 2.80;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 2.80;
         } else if( this.pilot.gunnery === 1 && this.pilot.piloting === 0 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 2.56;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 2.56;
         } else if( this.pilot.gunnery === 2 && this.pilot.piloting === 0 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 2.24;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 2.24;
         } else if( this.pilot.gunnery === 3 && this.pilot.piloting === 0 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.92;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.92;
         } else if( this.pilot.gunnery === 4 && this.pilot.piloting === 0 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.60;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.60;
         } else if( this.pilot.gunnery === 5 && this.pilot.piloting === 0 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.50;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.50;
         } else if( this.pilot.gunnery === 6 && this.pilot.piloting === 0 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.43;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.43;
         } else if( this.pilot.gunnery === 7 && this.pilot.piloting === 0 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.36;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.36;
         } else if( this.pilot.gunnery === 8 && this.pilot.piloting === 0 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.28;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.28;
         } else if( this.pilot.gunnery === 0 && this.pilot.piloting === 1 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 2.63;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 2.63;
         } else if( this.pilot.gunnery === 1 && this.pilot.piloting === 1 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 2.40;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 2.40;
         } else if( this.pilot.gunnery === 2 && this.pilot.piloting === 1 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 2.10;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 2.10;
         } else if( this.pilot.gunnery === 3 && this.pilot.piloting === 1 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.80;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.80;
         } else if( this.pilot.gunnery === 4 && this.pilot.piloting === 1 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.50;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.50;
         } else if( this.pilot.gunnery === 5 && this.pilot.piloting === 1 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.35;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.35;
         } else if( this.pilot.gunnery === 6 && this.pilot.piloting === 1 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.33;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.33;
         } else if( this.pilot.gunnery === 7 && this.pilot.piloting === 1 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.26;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.26;
         } else if( this.pilot.gunnery === 8 && this.pilot.piloting === 1 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.19;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.19;
         } else if( this.pilot.gunnery === 0 && this.pilot.piloting === 2 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 2.45;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 2.45;
         } else if( this.pilot.gunnery === 1 && this.pilot.piloting === 2 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 2.24;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 2.24;
         } else if( this.pilot.gunnery === 2 && this.pilot.piloting === 2 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.96;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.96;
         } else if( this.pilot.gunnery === 3 && this.pilot.piloting === 2 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.68;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.68;
         } else if( this.pilot.gunnery === 4 && this.pilot.piloting === 2 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.40;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.40;
         } else if( this.pilot.gunnery === 5 && this.pilot.piloting === 2 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.26;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.26;
         } else if( this.pilot.gunnery === 6 && this.pilot.piloting === 2 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.19;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.19;
         } else if( this.pilot.gunnery === 7 && this.pilot.piloting === 2 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.16;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.16;
         } else if( this.pilot.gunnery === 8 && this.pilot.piloting === 2 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.10;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.10;
         } else if( this.pilot.gunnery === 0 && this.pilot.piloting === 3 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 2.28;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 2.28;
         } else if( this.pilot.gunnery === 1 && this.pilot.piloting === 3 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 2.08;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 2.08;
         } else if( this.pilot.gunnery === 2 && this.pilot.piloting === 3 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.82;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.82;
         } else if( this.pilot.gunnery === 3 && this.pilot.piloting === 3 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.56;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.56;
         } else if( this.pilot.gunnery === 4 && this.pilot.piloting === 3 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.30;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.30;
         } else if( this.pilot.gunnery === 5 && this.pilot.piloting === 3 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.17;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.17;
         } else if( this.pilot.gunnery === 6 && this.pilot.piloting === 3 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.11;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.11;
         } else if( this.pilot.gunnery === 7 && this.pilot.piloting === 3 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.04;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.04;
         } else if( this.pilot.gunnery === 8 && this.pilot.piloting === 3 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.01;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.01;
         } else if( this.pilot.gunnery === 0 && this.pilot.piloting === 4 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 2.01;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 2.01;
         } else if( this.pilot.gunnery === 1 && this.pilot.piloting === 4 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.84;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.84;
         } else if( this.pilot.gunnery === 2 && this.pilot.piloting === 4 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.61;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.61;
         } else if( this.pilot.gunnery === 3 && this.pilot.piloting === 4 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.38;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.38;
         } else if( this.pilot.gunnery === 4 && this.pilot.piloting === 4 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.15;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.15;
         } else if( this.pilot.gunnery === 5 && this.pilot.piloting === 1 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.04;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.04;
         } else if( this.pilot.gunnery === 6 && this.pilot.piloting === 1 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 0.98;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 0.98;
         } else if( this.pilot.gunnery === 7 && this.pilot.piloting === 4 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 0.92;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 0.92;
         } else if( this.pilot.gunnery === 8 && this.pilot.piloting === 4 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 0.86;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 0.86;
         } else if( this.pilot.gunnery === 0 && this.pilot.piloting === 5 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.82;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.82;
         } else if( this.pilot.gunnery === 1 && this.pilot.piloting === 5 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.60;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.60;
         } else if( this.pilot.gunnery === 2 && this.pilot.piloting === 5 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.40;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.40;
         } else if( this.pilot.gunnery === 3 && this.pilot.piloting === 5 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.20;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.20;
         } else if( this.pilot.gunnery === 4 && this.pilot.piloting === 5 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.0;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.0;
         } else if( this.pilot.gunnery === 5 && this.pilot.piloting === 5 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 0.90;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 0.90;
         } else if( this.pilot.gunnery === 6 && this.pilot.piloting === 5 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 0.85;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 0.85;
         } else if( this.pilot.gunnery === 7 && this.pilot.piloting === 5 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 0.80;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 0.80;
         } else if( this.pilot.gunnery === 8 && this.pilot.piloting === 5 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 0.75;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 0.75;
         } else if( this.pilot.gunnery === 0 && this.pilot.piloting === 6 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.75;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.75;
         } else if( this.pilot.gunnery === 1 && this.pilot.piloting === 6 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.58;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.58;
         } else if( this.pilot.gunnery === 2 && this.pilot.piloting === 6 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.33;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.33;
         } else if( this.pilot.gunnery === 3 && this.pilot.piloting === 6 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.14;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.14;
         } else if( this.pilot.gunnery === 4 && this.pilot.piloting === 6 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 0.95;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 0.95;
         } else if( this.pilot.gunnery === 5 && this.pilot.piloting === 6 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 0.86;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 0.86;
         } else if( this.pilot.gunnery === 6 && this.pilot.piloting === 6 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 0.81;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 0.81;
         } else if( this.pilot.gunnery === 7 && this.pilot.piloting === 6 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 0.76;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 0.76;
         } else if( this.pilot.gunnery === 8 && this.pilot.piloting === 6 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 0.71;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 0.71;
         } else if( this.pilot.gunnery === 0 && this.pilot.piloting === 7 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.67;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.67;
         } else if( this.pilot.gunnery === 1 && this.pilot.piloting === 7 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.51;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.51;
         } else if( this.pilot.gunnery === 2 && this.pilot.piloting === 7 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.31;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.31;
         } else if( this.pilot.gunnery === 3 && this.pilot.piloting === 7 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.08;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.08;
         } else if( this.pilot.gunnery === 4 && this.pilot.piloting === 7 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 0.90;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 0.90;
         } else if( this.pilot.gunnery === 5 && this.pilot.piloting === 7 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 0.81;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 0.81;
         } else if( this.pilot.gunnery === 6 && this.pilot.piloting === 7 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 0.77;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 0.77;
         } else if( this.pilot.gunnery === 7 && this.pilot.piloting === 7 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 0.72;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 0.72;
         } else if( this.pilot.gunnery === 8 && this.pilot.piloting === 7 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 0.68;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 0.68;
         } else if( this.pilot.gunnery === 0 && this.pilot.piloting === 8 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.59;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.59;
         } else if( this.pilot.gunnery === 1 && this.pilot.piloting === 8 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.44;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.44;
         } else if( this.pilot.gunnery === 2 && this.pilot.piloting === 8 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.25;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.25;
         } else if( this.pilot.gunnery === 3 && this.pilot.piloting === 8 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 1.06;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 1.06;
         } else if( this.pilot.gunnery === 4 && this.pilot.piloting === 8 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 0.85;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 0.85;
         } else if( this.pilot.gunnery === 5 && this.pilot.piloting === 8 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 0.77;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 0.77;
         } else if( this.pilot.gunnery === 6 && this.pilot.piloting === 8 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 0.72;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 0.72;
         } else if( this.pilot.gunnery === 7 && this.pilot.piloting === 8 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 0.68;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 0.68;
         } else if( this.pilot.gunnery === 8 && this.pilot.piloting === 8 ) {
-            this.pilotAdjustedBattleValue = pilotAdjustedBattleValue * 0.64;
+            this.pilotAdjustedBattleValue = this.pilotAdjustedBattleValue * 0.64;
         }
-        this.pilotAdjustedBattleValue = Math.round( pilotAdjustedBattleValue );
+        this.pilotAdjustedBattleValue = Math.round( this.pilotAdjustedBattleValue );
     }
 
     getSpeedFactorModifier(): number {

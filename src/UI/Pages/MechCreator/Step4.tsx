@@ -237,7 +237,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                                 <label>
                                   <input
                                     type="checkbox"
-                                    onClick={this.toggleMirrorArmorAllocations}
+                                    onChange={this.toggleMirrorArmorAllocations}
                                     checked={this.props.appGlobals.currentBattleMech.mirrorArmorAllocations}
                                   />&nbsp;Mirror Left/Right Allocations
                                 </label>

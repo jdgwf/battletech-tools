@@ -93,11 +93,9 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         eraLine1 = eraLine1.trim();
         eraLine2 = eraLine2.trim();
 
-
         let battleValue = this.props.mechData.getBattleValue().toString();
         if( battleValue !== this.props.mechData.getPilotAdjustedBattleValue().toString() )
             battleValue = battleValue + " (" + this.props.mechData.getPilotAdjustedBattleValue() + ")";
-
 
         let critBoxTop = 1250;
         let critBoxLeft = 10;
