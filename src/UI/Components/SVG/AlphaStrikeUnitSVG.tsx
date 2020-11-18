@@ -179,6 +179,12 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
             return <></>
         }
         let critLineStart = 325;
+
+        let damageLabelColWidth=130;
+        let damageColWidth=150;
+        if (this.props.asUnit.damage.extreme!=="0"){
+            damageColWidth=110;
+        }
         return (
 
             <>
@@ -227,26 +233,37 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 <rect x="25" y="215" width="540" height="75" fill="rgba( 255,255,255,.8)" rx="15" ry="15"></rect>
                 <text x="55" y="250" fontFamily="sans-serif" textAnchor="middle" fontSize="15" transform="rotate(270, 58, 250)">DAMAGE</text>
                 {this.props.forPrint ? (
-                    <text x="140" y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">S (0)</text>
+                    <text x={damageLabelColWidth+(damageColWidth*0)} y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">S (0)</text>
                 ) : (
-                    <text x="140" y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">S (0 | {this.props.asUnit.currentToHitShort}+)</text>
+                    <text x={damageLabelColWidth+(damageColWidth*0)} y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">S (0 | {this.props.asUnit.currentToHitShort}+)</text>
                 )}
 
-                <text x="140" y="280" fontFamily="sans-serif" textAnchor="middle" fontSize={35}>{this.props.asUnit.currentDamage.short}</text>
+                <text x={damageLabelColWidth+(damageColWidth*0)} y="280" fontFamily="sans-serif" textAnchor="middle" fontSize={35}>{this.props.asUnit.currentDamage.short}</text>
                 {this.props.forPrint ? (
-                    <text x="290" y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">M (+2)</text>
+                    <text x={damageLabelColWidth+(damageColWidth*1)} y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">M (+2)</text>
                 ) : (
-                    <text x="290" y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">M (+2 | {this.props.asUnit.currentToHitMedium}+)</text>
+                    <text x={damageLabelColWidth+(damageColWidth*1)} y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">M (+2 | {this.props.asUnit.currentToHitMedium}+)</text>
                 )}
 
-                <text x="290" y="280" fontFamily="sans-serif" textAnchor="middle" fontSize={35}>{this.props.asUnit.currentDamage.medium}</text>
+                <text x={damageLabelColWidth+(damageColWidth*1)} y="280" fontFamily="sans-serif" textAnchor="middle" fontSize={35}>{this.props.asUnit.currentDamage.medium}</text>
                 {this.props.forPrint ? (
-                    <text x="440" y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">L (+4)</text>
+                    <text x={damageLabelColWidth+(damageColWidth*2)} y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">L (+4)</text>
                 ) : (
-                    <text x="440" y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">L (+4 | {this.props.asUnit.currentToHitLong}+)</text>
+                    <text x={damageLabelColWidth+(damageColWidth*2)} y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">L (+4 | {this.props.asUnit.currentToHitLong}+)</text>
                 )}
 
-                <text x="440" y="280" fontFamily="sans-serif" textAnchor="middle" fontSize={35}>{this.props.asUnit.currentDamage.long}</text>
+                <text x={damageLabelColWidth+(damageColWidth*2)} y="280" fontFamily="sans-serif" textAnchor="middle" fontSize={35}>{this.props.asUnit.currentDamage.long}</text>
+                {this.props.asUnit.damage.extreme!=="0" ? ( this.props.forPrint ? (
+                    <text x={damageLabelColWidth+(damageColWidth*3)} y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">E (+6)</text>
+                ) : (
+                    <text x={damageLabelColWidth+(damageColWidth*3)} y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">E (+6 | {this.props.asUnit.currentToHitExtreme}+)</text>
+                )) : null       
+                }
+                {this.props.asUnit.damage.extreme!=="0" ? (
+                <text x={damageLabelColWidth+(damageColWidth*3)} y="280" fontFamily="sans-serif" textAnchor="middle" fontSize={35}>{this.props.asUnit.currentDamage.extreme}</text>
+                ) : null
+                }
+
                 <rect x="20" y="310" width="550" height="80" fill="rgb(0,0,0)" rx="18" ry="18"></rect>
 
                 {/* Heat Scale Box */}
@@ -412,7 +429,16 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                         "structure",
                     )}
                     {/* End Structure */}
-
+                    
+                    {/* Threshold Display */}
+                    {this.props.asUnit.threshold!==0 ? (
+                        <>
+                        <text x="520" y="445" fontFamily="sans-serif" textAnchor="middle" fontSize="35">TH</text>
+                        <text x="520" y="485" fontFamily="sans-serif" textAnchor="middle" fontSize="35" >{this.props.asUnit.threshold}</text>
+                        </>
+                    ) : null
+                    }
+                    {/* End Threshold Display */}
                     </>
                 )}
 

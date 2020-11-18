@@ -222,8 +222,8 @@ export class AlphaStrikeUnit {
                     extreme: "0",
                 };
 
-            if( incomingMechData.BFDamamgeExtreme ) {
-                this.damage.extreme = incomingMechData.BFDamamgeExtreme;
+            if( incomingMechData.BFDamageExtreme ) {
+                this.damage.extreme = incomingMechData.BFDamageExtreme;
             } else {
                 this.damage.extreme = "0";
             }
