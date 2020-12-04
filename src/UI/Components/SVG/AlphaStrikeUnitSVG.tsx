@@ -229,14 +229,15 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 <text x="540" y="140" fontFamily="sans-serif" textAnchor="end" fontSize="25">MV: {this.props.asUnit.currentMove.toUpperCase()}</text>
                 <text x="30" y="180" fontFamily="sans-serif" fontSize="25">ROLE: {this.props.asUnit.role.toUpperCase()}</text>
                 <text x="540" y="180" fontFamily="sans-serif" textAnchor="end" fontSize="25">SKILL: {this.props.asUnit.currentSkill}</text>
-                <rect x="20" y="210" width="550" height="85" fill="rgb(0,0,0)" rx="18" ry="18"></rect>
-                <rect x="25" y="215" width="540" height="75" fill="rgba( 255,255,255,.8)" rx="15" ry="15"></rect>
+                <rect x="20" y="210" width="550" height="100" fill="rgb(0,0,0)" rx="18" ry="18"></rect>
+                <rect x="25" y="215" width="540" height="90" fill="rgba( 255,255,255,.8)" rx="15" ry="15"></rect>
                 <text x="55" y="250" fontFamily="sans-serif" textAnchor="middle" fontSize="15" transform="rotate(270, 58, 250)">DAMAGE</text>
                 {this.props.forPrint ? (
                     <text x={damageLabelColWidth+(damageColWidth*0)} y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">S (0)</text>
                 ) : (
                     <text x={damageLabelColWidth+(damageColWidth*0)} y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">S (0 | {this.props.asUnit.currentToHitShort}+)</text>
                 )}
+                <text x={damageLabelColWidth+(damageColWidth*0)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">0-6"</text>
 
                 <text x={damageLabelColWidth+(damageColWidth*0)} y="280" fontFamily="sans-serif" textAnchor="middle" fontSize={35}>{this.props.asUnit.currentDamage.short}</text>
                 {this.props.forPrint ? (
@@ -244,6 +245,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 ) : (
                     <text x={damageLabelColWidth+(damageColWidth*1)} y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">M (+2 | {this.props.asUnit.currentToHitMedium}+)</text>
                 )}
+                <text x={damageLabelColWidth+(damageColWidth*1)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">6"-24"</text>
 
                 <text x={damageLabelColWidth+(damageColWidth*1)} y="280" fontFamily="sans-serif" textAnchor="middle" fontSize={35}>{this.props.asUnit.currentDamage.medium}</text>
                 {this.props.forPrint ? (
@@ -252,32 +254,36 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     <text x={damageLabelColWidth+(damageColWidth*2)} y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">L (+4 | {this.props.asUnit.currentToHitLong}+)</text>
                 )}
 
+                <text x={damageLabelColWidth+(damageColWidth*2)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">24"-42"</text>
                 <text x={damageLabelColWidth+(damageColWidth*2)} y="280" fontFamily="sans-serif" textAnchor="middle" fontSize={35}>{this.props.asUnit.currentDamage.long}</text>
                 {this.props.asUnit.damage.extreme!=="0" ? ( this.props.forPrint ? (
                     <text x={damageLabelColWidth+(damageColWidth*3)} y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">E (+6)</text>
                 ) : (
                     <text x={damageLabelColWidth+(damageColWidth*3)} y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">E (+6 | {this.props.asUnit.currentToHitExtreme}+)</text>
-                )) : null       
+                )) : null
                 }
                 {this.props.asUnit.damage.extreme!=="0" ? (
                 <text x={damageLabelColWidth+(damageColWidth*3)} y="280" fontFamily="sans-serif" textAnchor="middle" fontSize={35}>{this.props.asUnit.currentDamage.extreme}</text>
                 ) : null
                 }
+                {this.props.asUnit.damage.extreme!=="0" ? (
+                <text x={damageLabelColWidth+(damageColWidth*3)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">&gt; 42"</text>
+                ) : null}
 
-                <rect x="20" y="310" width="550" height="80" fill="rgb(0,0,0)" rx="18" ry="18"></rect>
+                <rect x="20" y="315" width="550" height="80" fill="rgb(0,0,0)" rx="18" ry="18"></rect>
 
                 {/* Heat Scale Box */}
-                <rect x="25" y="315" width="540" height="70" fill="rgba( 255,255,255,.8)" rx="15" ry="15"></rect>
-                <text x="40" y="360" fontFamily="sans-serif" fontSize={35}>OV: {this.props.asUnit.overheat}</text>
-                <text x="240" y="357" textAnchor="end" fontFamily="sans-serif" fontSize="15">HEAT SCALE</text>
-                <rect x="295" y="320" width="265" height="60" fill="rgb(0,0,0)" rx="30" ry="30"></rect>
+                <rect x="25" y="320" width="540" height="70" fill="rgba( 255,255,255,.8)" rx="15" ry="15"></rect>
+                <text x="40" y="365" fontFamily="sans-serif" fontSize={35}>OV: {this.props.asUnit.overheat}</text>
+                <text x="240" y="363" textAnchor="end" fontFamily="sans-serif" fontSize="15">HEAT SCALE</text>
+                <rect x="295" y="325" width="265" height="60" fill="rgb(0,0,0)" rx="30" ry="30"></rect>
 
                 {/* 0 Heat */}
                 <rect
                     onClick={() => this.setHeat(0)}
                     className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""}
                     x="325"
-                    y="325"
+                    y="330"
                     width="25"
                     height="50"
                     fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 0 ? "rgb(0,200,0)" : "rgb(102,102,102)"}
@@ -286,53 +292,54 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     onClick={() => this.setHeat(0)}
                     className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""}
                     cx="325"
-                    cy="350"
+                    cy="355"
                     r="25"
                     fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 0 ? "rgb(0,200,0)" : "rgb(102,102,102)"}
                 ></circle>
-                <text onClick={() => this.setHeat(0)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="315" y="363" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>0</text>
+                <text onClick={() => this.setHeat(0)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="315" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>0</text>
 
                 {/* 1 Heat */}
                 <rect
                     onClick={() => this.setHeat(1)}
                     className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""}
                     x="355"
-                    y="325"
+                    y="330"
                     width="45"
                     height="50"
                     fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 1 ? "rgb(204, 187, 0)" : "rgb(102,102,102)"}
                 ></rect>
-                <text onClick={() => this.setHeat(1)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="365" y="363" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>1</text>
+                <text onClick={() => this.setHeat(1)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="365" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>1</text>
 
                 {/* 2 Heat */}
                 <rect
                 onClick={() => this.setHeat(2)}
                 className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""}
                     x="405"
-                    y="325"
+                    y="330"
                     width="45"
                     height="50"
                     fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 2 ? "rgb(200,0,0)" : "rgb(102,102,102)"}
                 ></rect>
-                <text onClick={() => this.setHeat(2)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="415" y="363" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>2</text>
+                <text onClick={() => this.setHeat(2)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="415" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>2</text>
 
                 {/* 3 Heat */}
                 <rect
                     onClick={() => this.setHeat(3)}
                     className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""}
-                    x="455" y="325"
+                    x="455"
+                    y="330"
                     width="45"
                     height="50"
                     fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 3 ? "rgb(236,87,16)" : "rgb(102,102,102)"}
                 ></rect>
-                <text onClick={() => this.setHeat(3)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="465" y="363" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>3</text>
+                <text onClick={() => this.setHeat(3)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="465" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>3</text>
 
                 {/* Shutdown Heat */}
                 <rect
                     onClick={() => this.setHeat(4)}
                     className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""}
                     x="505"
-                    y="325"
+                    y="330"
                     width="25"
                     height="50"
                     fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat > 3 ? "rgb(51,51,51)" : "rgb(102,102,102)"}
@@ -341,11 +348,11 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     onClick={() => this.setHeat(4)}
                     className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""}
                     cx="530"
-                    cy="350"
+                    cy="355"
                     r="25"
                     fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat > 3 ? "rgb(51,51,51)" : "rgb(102,102,102)"}
                 ></circle>
-                <text onClick={() => this.setHeat(4)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="515" y="363" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>S</text>
+                <text onClick={() => this.setHeat(4)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="515" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>S</text>
 
                 {/* End Heat Scale Box */}
 
@@ -429,7 +436,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                         "structure",
                     )}
                     {/* End Structure */}
-                    
+
                     {/* Threshold Display */}
                     {this.props.asUnit.threshold!==0 ? (
                         <>
