@@ -502,6 +502,15 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                         <tr><td colSpan={3} className="text-center">No Units</td></tr>
                       )}
                       </tbody>
+                      <tfoot>
+                        <tr>
+                          <th colSpan={3} className="text-right">
+                            <strong>Group Points</strong>: {asGroup.getTotalPoints()}
+                            &nbsp;|&nbsp;
+                            <strong># Units</strong>:: {asGroup.getTotalUnits()}
+                          </th>
+                        </tr>
+                      </tfoot>
                     </table>
                   </fieldset>
                   )
@@ -584,6 +593,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                         <tr><td colSpan={3} className="text-center">No Units</td></tr>
                       )}
                       </tbody>
+
                     </table>
                   </fieldset>
                   )

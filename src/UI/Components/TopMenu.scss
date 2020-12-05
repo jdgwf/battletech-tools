@@ -101,7 +101,7 @@ body.desaturated {
     .topmenu {
         ul {
             li {
-                a {
+                a, span {
                     color: $desaturatedPrimaryBG;
                     &.current {
                         background: $desaturatedPrimaryBG;
@@ -128,7 +128,7 @@ body.retro {
         ul {
             li {
                 display: inline-block;
-                a {
+                a, span {
                     font-size: .55rem;
                     color: $retroPrimaryBG;
                     background: $headerFooterBackground;
@@ -141,6 +141,7 @@ body.retro {
                         border-right: dotted 2px $retroPrimaryBG;
                         border-top: dotted 2px $retroPrimaryBG;
                         border-left: dotted 2px $retroPrimaryBG;
+                        color: $colorWhite;
                     }
                     &:hover {
                         // background: $retroPrimaryBGHover;
