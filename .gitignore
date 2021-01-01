@@ -18,5 +18,9 @@ work*
 work
 
 .DS_Store
+<<<<<<< HEAD
 package-lock.json
 .gitlab-ci.yml
+=======
+package-lock.json
+>>>>>>> c0842d634eecac92b63976809d1539c90f5c2eff

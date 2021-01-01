@@ -635,7 +635,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
                 {this.props.asUnit.active === false ? (
                     <>
-                    <text x="50" y="100" font-family="sans-serif" transform="rotate( 30, 50, 100)" font-size="150" stroke="rgb(255,255,255)" stroke-width="4" fill="rgb(200,0,0)">WRECKED</text>
+                    <text x="50" y="100" fontFamily="sans-serif" transform="rotate( 30, 50, 100)" fontSize="150" stroke="rgb(255,255,255)" strokeWidth="4" fill="rgb(200,0,0)">WRECKED</text>
                     </>
                 ) : (
                     <></>
