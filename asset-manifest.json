@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/battletech-tools/static/css/main.80b08a59.chunk.css",
-    "main.js": "/battletech-tools/static/js/main.1dc28d2c.chunk.js",
-    "main.js.map": "/battletech-tools/static/js/main.1dc28d2c.chunk.js.map",
+    "main.js": "/battletech-tools/static/js/main.167e31e2.chunk.js",
+    "main.js.map": "/battletech-tools/static/js/main.167e31e2.chunk.js.map",
     "runtime-main.js": "/battletech-tools/static/js/runtime-main.155c5196.js",
     "runtime-main.js.map": "/battletech-tools/static/js/runtime-main.155c5196.js.map",
     "static/css/2.95f25948.chunk.css": "/battletech-tools/static/css/2.95f25948.chunk.css",
@@ -19,6 +19,6 @@
     "static/css/2.95f25948.chunk.css",
     "static/js/2.9257e496.chunk.js",
     "static/css/main.80b08a59.chunk.css",
-    "static/js/main.1dc28d2c.chunk.js"
+    "static/js/main.167e31e2.chunk.js"
   ]
 }
