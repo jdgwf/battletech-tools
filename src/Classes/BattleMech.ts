@@ -102,7 +102,7 @@ export interface IBattleMechExport {
 
     as_value: number;   // for easy listing
     battle_value: number;     // for easy listing
-    c_bills: number;  // for easy listing
+    c_bills: string;  // for easy listing
     tech_label: string;  // for easy listing
 }
 
@@ -4585,7 +4585,7 @@ export class BattleMech {
             hideNonAvailableEquipment: this.hideNonAvailableEquipment,
             name: this.getName(),
 
-            c_bills: +this.getCBillCost(),
+            c_bills: this.getCBillCost(),
             as_value: this.getAlphaStrikeValue(),
             battle_value: this.getBattleValue(),
             tech_label: this.getTech().name,
