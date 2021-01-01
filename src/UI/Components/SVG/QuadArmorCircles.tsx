@@ -11,13 +11,12 @@ export default class QuadArmorCircles extends React.Component<IQuadArmorCirclesP
     constructor(props: IQuadArmorCirclesProps) {
         super(props);
 
-        this.toggleArmorBubble = this.toggleArmorBubble.bind(this);
         this.armorBoxWidth = this.props.armorBoxWidth;
         this.armorBoxLeft = this.props.armorBoxLeft;
         this.armorBoxTop = this.props.armorBoxTop;
     }
 
-    toggleArmorBubble( shortLoc: string, indexNumnber: number) {
+    toggleArmorBubble = ( shortLoc: string, indexNumnber: number): void => {
 		if( this.props.inPlay ) {
 			this.props.mechData.toggleArmorBubble(shortLoc, indexNumnber);
 		}

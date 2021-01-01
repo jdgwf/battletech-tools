@@ -10,10 +10,9 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
             updated: false,
             showXLDialog: false,
         }
+        this.props.appGlobals.makeDocumentTitle("Development Status");
     }
-    componentDidMount () {
-      this.props.appGlobals.makeDocumentTitle("Development Status");
-    }
+
 
     render() {
       return (

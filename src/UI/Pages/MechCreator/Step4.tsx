@@ -20,44 +20,37 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
         this.state = {
             updated: false,
         }
-        this.setArmorWeight = this.setArmorWeight.bind(this);
-        this.setArmorType = this.setArmorType.bind(this);
 
-        this.setArmorLocationValue = this.setArmorLocationValue.bind(this);
 
-        this.allocateSanely = this.allocateSanely.bind(this);
-        this.allocateMax = this.allocateMax.bind(this);
-        this.allocateClear = this.allocateClear.bind(this);
-
-        this.toggleMirrorArmorAllocations = this.toggleMirrorArmorAllocations.bind(this);
+        this.props.appGlobals.makeDocumentTitle("Step 4 | 'Mech Creator");
     }
 
-    allocateSanely() {
+    allocateSanely = (): void => {
       let currentMech = this.props.appGlobals.currentBattleMech;
       currentMech.allocateArmorSane();
       this.props.appGlobals.saveCurrentBattleMech( currentMech );
     }
 
 
-    allocateMax() {
+    allocateMax = (): void => {
       let currentMech = this.props.appGlobals.currentBattleMech;
       currentMech.allocateArmorMax();
       this.props.appGlobals.saveCurrentBattleMech( currentMech );
     }
 
-    allocateClear() {
+    allocateClear = (): void => {
       let currentMech = this.props.appGlobals.currentBattleMech;
       currentMech.allocateArmorClear();
       this.props.appGlobals.saveCurrentBattleMech( currentMech );
     }
 
-    toggleMirrorArmorAllocations() {
+    toggleMirrorArmorAllocations = (): void => {
       let currentMech = this.props.appGlobals.currentBattleMech;
       currentMech.toggleMirrorArmorAllocations();
       this.props.appGlobals.saveCurrentBattleMech( currentMech );
     }
 
-    setArmorLocationValue( locationAbbr: string, newValue: number ) {
+    setArmorLocationValue = ( locationAbbr: string, newValue: number ): void => {
       let currentMech = this.props.appGlobals.currentBattleMech;
       switch( locationAbbr.toLowerCase().trim() ) {
         case "hd": {
@@ -113,22 +106,20 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
       this.props.appGlobals.saveCurrentBattleMech( currentMech );
     }
 
-    setArmorWeight( event: React.FormEvent<HTMLSelectElement>) {
+    setArmorWeight = ( event: React.FormEvent<HTMLSelectElement>): void => {
       let currentMech = this.props.appGlobals.currentBattleMech;
       currentMech.setArmorWeight( +event.currentTarget.value);
       this.props.appGlobals.saveCurrentBattleMech( currentMech );
     }
 
-    setArmorType( event: React.FormEvent<HTMLSelectElement>) {
+    setArmorType = ( event: React.FormEvent<HTMLSelectElement>): void => {
       let currentMech = this.props.appGlobals.currentBattleMech;
       currentMech.setArmorType( event.currentTarget.value);
       this.props.appGlobals.saveCurrentBattleMech( currentMech );
     }
 
 
-    componentDidMount ()  {
-      this.props.appGlobals.makeDocumentTitle("Step 4 | 'Mech Creator");
-    }
+
 
     render() {
       let weightDropDownMax = this.props.appGlobals.currentBattleMech.getRemainingTonnage() + this.props.appGlobals.currentBattleMech.getArmorWeight();

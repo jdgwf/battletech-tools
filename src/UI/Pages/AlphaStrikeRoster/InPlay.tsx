@@ -25,14 +25,11 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
             cardMode: cardMode,
         };
 
-        this.toggleCardMode =  this.toggleCardMode.bind(this);
+        this.props.appGlobals.makeDocumentTitle("Playing Alpha Strike");
     }
 
-    componentDidMount () {
-      this.props.appGlobals.makeDocumentTitle("Playing Alpha Strike");
-    }
 
-    toggleCardMode() {
+    toggleCardMode = (): void => {
       if( !this.state.cardMode ) {
         localStorage.setItem("asPlayCardMode", "y");
       } else {

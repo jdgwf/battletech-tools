@@ -9,11 +9,11 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
         this.state = {
             updated: false,
         }
+
+        this.props.appGlobals.makeDocumentTitle("About");
     }
 
-    componentDidMount ()  {
-      this.props.appGlobals.makeDocumentTitle("About");
-    }
+
 
     render() {
       return (

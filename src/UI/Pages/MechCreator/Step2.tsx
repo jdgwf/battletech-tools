@@ -16,39 +16,34 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
             updated: false,
         }
 
-        this.setWalkingMP = this.setWalkingMP.bind(this);
-        this.setJumpingMP = this.setJumpingMP.bind(this);
-        this.setEngineType = this.setEngineType.bind(this);
-        this.setGyroType = this.setGyroType.bind(this);
+        this.props.appGlobals.makeDocumentTitle("Step 2 | 'Mech Creator");
     }
 
-    setWalkingMP( event: React.FormEvent<HTMLSelectElement>) {
+    setWalkingMP = ( event: React.FormEvent<HTMLSelectElement>): void => {
       let currentMech = this.props.appGlobals.currentBattleMech;
       currentMech.setWalkSpeed( +event.currentTarget.value);
       this.props.appGlobals.saveCurrentBattleMech( currentMech );
     }
 
-    setJumpingMP( event: React.FormEvent<HTMLSelectElement>) {
+    setJumpingMP = ( event: React.FormEvent<HTMLSelectElement>): void => {
       let currentMech = this.props.appGlobals.currentBattleMech;
       currentMech.setJumpSpeed( +event.currentTarget.value);
       this.props.appGlobals.saveCurrentBattleMech( currentMech );
     }
 
-    setEngineType( event: React.FormEvent<HTMLSelectElement>) {
+    setEngineType = ( event: React.FormEvent<HTMLSelectElement>): void => {
       let currentMech = this.props.appGlobals.currentBattleMech;
       currentMech.setEngineType( event.currentTarget.value);
       this.props.appGlobals.saveCurrentBattleMech( currentMech );
     }
 
-    setGyroType( event: React.FormEvent<HTMLSelectElement>) {
+    setGyroType = ( event: React.FormEvent<HTMLSelectElement>): void => {
       let currentMech = this.props.appGlobals.currentBattleMech;
       currentMech.setGyroType( event.currentTarget.value);
       this.props.appGlobals.saveCurrentBattleMech( currentMech );
     }
 
-    componentDidMount ()  {
-      this.props.appGlobals.makeDocumentTitle("Step 2 | 'Mech Creator");
-    }
+
 
     render() {
       return (

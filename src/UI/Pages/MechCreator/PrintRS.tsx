@@ -10,11 +10,9 @@ export default class MechCreatorPrintRS extends React.Component<IPrintRSProps, I
         this.state = {
             updated: false,
         }
+        this.props.appGlobals.makeDocumentTitle("'Mech Creator");
     }
 
-    componentDidMount ()  {
-      this.props.appGlobals.makeDocumentTitle("'Mech Creator");
-    }
 
     render() {
       return (

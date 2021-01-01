@@ -61,34 +61,11 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
             contextMenuSearch: -1,
         }
 
-        this.updateSearch = this.updateSearch.bind(this);
-        this.updateRules = this.updateRules.bind(this);
-        this.updateTech = this.updateTech.bind(this);
-        this.updateSearchResults = this.updateSearchResults.bind(this);
 
-        this.openViewUnit = this.openViewUnit.bind(this);
-        this.openEditUnit = this.openEditUnit.bind(this);
-        this.closeShowUnitDialog = this.closeShowUnitDialog.bind(this);
-
-        this.updateUnitSkill = this.updateUnitSkill.bind(this);
-        this.renameUnit = this.renameUnit.bind(this);
-
-        this.addToGroup = this.addToGroup.bind(this);
-        this.renameGroup = this.renameGroup.bind(this);
-        this.removeUnitFromGroup = this.removeUnitFromGroup.bind(this);
-        this.newGroup = this.newGroup.bind(this);
-
-        this.toggleContextMenuForce = this.toggleContextMenuForce.bind(this);
-        this.toggleContextMenuSearch = this.toggleContextMenuSearch.bind(this);
-        this.moveUnitToGroup = this.moveUnitToGroup.bind(this);
-
-        this.removeGroup = this.removeGroup.bind(this);
-        this.removeFavoriteConfirm = this.removeFavoriteConfirm.bind(this);
-
-        this.updateSearchResults();
+        this.props.appGlobals.makeDocumentTitle("Alpha Strike Roster");
     }
 
-    removeFavoriteConfirm( asFavGroupIndex: number ) {
+    removeFavoriteConfirm = ( asFavGroupIndex: number ): void => {
 
       this.props.appGlobals.openConfirmDialog(
         "Confirmation",
@@ -101,13 +78,13 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       );
     }
 
-    loadASFavorite(asFavGroup: AlphaStrikeGroup ) {
+    loadASFavorite = (asFavGroup: AlphaStrikeGroup ): void => {
       asFavGroup.setNew();
       this.props.appGlobals.currentASForce.groups.push( asFavGroup );
       this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
     }
 
-    removeGroup( groupIndex: number ) {
+    removeGroup = ( groupIndex: number ): void => {
       if( this.props.appGlobals.currentASForce.groups.length > groupIndex ) {
         if(this.props.appGlobals.currentASForce.groups[groupIndex].getTotalUnits() === 0 ) {
           this.props.appGlobals.currentASForce.removeGroup(groupIndex);
@@ -127,10 +104,11 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       }
     }
 
-    moveUnitToGroup(
+    moveUnitToGroup = (
       fromUnitIndex: number,
       fromGroupIndex: number,
-      toGroupIndex: number) {
+      toGroupIndex: number,
+    ): void => {
         this.props.appGlobals.currentASForce.moveUnitToGroup( fromUnitIndex, fromGroupIndex, toGroupIndex );
         this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
         this.setState({
@@ -140,7 +118,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
         })
     }
 
-    toggleContextMenuSearch( searchIndex: number ) {
+    toggleContextMenuSearch = ( searchIndex: number ): void => {
       let newIndex: number = -1;
       if( this.state.contextMenuSearch !== searchIndex) {
         newIndex = searchIndex;
@@ -153,7 +131,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       })
     }
 
-    toggleContextMenuForce( asGroupIndex: number, asUnitIndex: number ) {
+    toggleContextMenuForce = ( asGroupIndex: number, asUnitIndex: number ): void => {
       let newGroup: number = -1;
       let newUnit: number = -1;
       if( this.state.contextMenuGroup !== asGroupIndex && this.state.contextMenuUnit !== asUnitIndex ) {
@@ -168,7 +146,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       })
     }
 
-    updateSearch( event: React.FormEvent<HTMLInputElement> ) {
+    updateSearch = ( event: React.FormEvent<HTMLInputElement> ): void => {
         localStorage.setItem( "asSearchTerm", event.currentTarget.value);
         this.searchTerm = event.currentTarget.value;
         this.setState({
@@ -177,7 +155,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
         this.updateSearchResults();
     }
 
-    updateRules( event: React.FormEvent<HTMLSelectElement> ) {
+    updateRules = ( event: React.FormEvent<HTMLSelectElement> ): void => {
       localStorage.setItem( "asSearchRules", event.currentTarget.value);
 
       this.searchRules = event.currentTarget.value;
@@ -185,13 +163,13 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       this.updateSearchResults();
     }
 
-    updateTech( event: React.FormEvent<HTMLSelectElement> ) {
+    updateTech = ( event: React.FormEvent<HTMLSelectElement> ): void => {
       localStorage.setItem( "asSearchTech", event.currentTarget.value);
       this.searchTech = event.currentTarget.value;
       this.updateSearchResults();
     }
 
-    async updateSearchResults() {
+    updateSearchResults = async (): Promise<void> => {
       let data: IASMULUnit[] = await getMULASSearchResults(
         this.searchTerm,
         this.searchRules,
@@ -209,11 +187,8 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       // console.log("data", data)
     }
 
-    componentDidMount () {
-      this.props.appGlobals.makeDocumentTitle("Alpha Strike Roster");
-    }
 
-    openViewUnit( theUnit: IASMULUnit ) {
+    openViewUnit = ( theUnit: IASMULUnit ): void => {
       let showASUnit = new AlphaStrikeUnit( theUnit );
 
       this.setState({
@@ -222,7 +197,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       })
     }
 
-    openEditUnit( showASUnit: AlphaStrikeUnit ) {
+    openEditUnit = ( showASUnit: AlphaStrikeUnit ): void => {
 
       this.setState({
         showASUnit: showASUnit,
@@ -233,23 +208,23 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
     }
 
 
-    closeShowUnitDialog() {
+    closeShowUnitDialog = (): void => {
       this.setState({
         showASUnit: null,
       })
     }
 
-    renameGroup( newName: string, groupIndex: number ) {
+    renameGroup = ( newName: string, groupIndex: number ): void => {
       this.props.appGlobals.currentASForce.renameGroup( newName, groupIndex );
       this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
     }
 
-    removeUnitFromGroup(asGroupIndex: number, asUnitIndex: number) {
+    removeUnitFromGroup = (asGroupIndex: number, asUnitIndex: number): void => {
       this.props.appGlobals.currentASForce.removeUnitFromGroup( asGroupIndex, asUnitIndex );
       this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
     }
 
-    addToGroup( mulUnit: IASMULUnit,  groupIndex: number = 0  ) {
+    addToGroup = ( mulUnit: IASMULUnit,  groupIndex: number = 0  ): void => {
       this.props.appGlobals.currentASForce.addToGroup( mulUnit, groupIndex );
       this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
       this.setState({
@@ -257,19 +232,19 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       })
     }
 
-    newGroup() {
+    newGroup = (): void => {
       this.props.appGlobals.currentASForce.newGroup();
       this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
     }
 
-    updateUnitSkill(event: React.FormEvent<HTMLSelectElement>) {
+    updateUnitSkill = (event: React.FormEvent<HTMLSelectElement>): void => {
       if(this.state.showASUnit) {
         this.state.showASUnit.setSkill( +event.currentTarget.value );
         this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
       }
     }
 
-    renameUnit(event: React.FormEvent<HTMLInputElement>) {
+    renameUnit = (event: React.FormEvent<HTMLInputElement>): void => {
       if(this.state.showASUnit) {
         let asUnit = this.state.showASUnit;
         asUnit.customName = event.currentTarget.value;

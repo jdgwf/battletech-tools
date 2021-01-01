@@ -12,14 +12,13 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
         this.state = {
             updated: false,
         }
-        this.toggleMobile = this.toggleMobile.bind(this);
-        this.closeMobile = this.closeMobile.bind(this);
+
     }
 
-    toggleMobile() {
+    toggleMobile= (): void => {
         this.props.appGlobals.toggleMobile();
     }
-    closeMobile() {
+    closeMobile= (): void => {
         this.props.appGlobals.closeMobile();
     }
 

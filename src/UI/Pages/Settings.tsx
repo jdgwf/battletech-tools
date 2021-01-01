@@ -9,18 +9,16 @@ export default class Settings extends React.Component<ISettingsProps, ISettingsS
             updated: false,
         }
 
-        this.setUITheme = this.setUITheme.bind(this);
+        this.props.appGlobals.makeDocumentTitle("Settings");
     }
 
-    setUITheme( event: React.FormEvent<HTMLSelectElement>) {
+    setUITheme = ( event: React.FormEvent<HTMLSelectElement>): void => {
       let settings = this.props.appGlobals.settings;
       settings.uiTheme = event.currentTarget.value;
       this.props.appGlobals.saveSettings( settings );
     }
 
-    componentDidMount ()  {
-      this.props.appGlobals.makeDocumentTitle("Settings");
-    }
+
 
     render() {
       return (

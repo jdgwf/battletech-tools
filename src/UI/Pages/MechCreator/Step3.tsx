@@ -17,25 +17,23 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
             updated: false,
         }
 
-        this.setAdditionalHeatSinks = this.setAdditionalHeatSinks.bind(this);
-        this.setHeatSinkType = this.setHeatSinkType.bind(this);
+        this.props.appGlobals.makeDocumentTitle("Step 3 | 'Mech Creator");
+
     }
 
-    setAdditionalHeatSinks( event: React.FormEvent<HTMLSelectElement>) {
+    setAdditionalHeatSinks = ( event: React.FormEvent<HTMLSelectElement>): void => {
       let currentMech = this.props.appGlobals.currentBattleMech;
       currentMech.setAdditionalHeatSinks( +event.currentTarget.value);
       this.props.appGlobals.saveCurrentBattleMech( currentMech );
     }
 
-    setHeatSinkType( event: React.FormEvent<HTMLSelectElement>) {
+    setHeatSinkType = ( event: React.FormEvent<HTMLSelectElement>): void => {
       let currentMech = this.props.appGlobals.currentBattleMech;
       currentMech.setHeatSinksType( event.currentTarget.value);
       this.props.appGlobals.saveCurrentBattleMech( currentMech );
     }
 
-    componentDidMount ()  {
-      this.props.appGlobals.makeDocumentTitle("Step 3 | 'Mech Creator");
-    }
+
 
     render() {
       let weightDropDownMax = this.props.appGlobals.currentBattleMech.getRemainingTonnage() + this.props.appGlobals.currentBattleMech.getAdditionalHeatSinks();

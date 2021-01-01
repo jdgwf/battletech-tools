@@ -99,6 +99,11 @@ export interface IBattleMechExport {
     as_custom_name: string;
     lastUpdated: Date;
     location?: string;
+
+    as_value: number;   // for easy listing
+    battle_value: number;     // for easy listing
+    c_bills: number;  // for easy listing
+    tech_label: string;  // for easy listing
 }
 
 interface IAlphaStrikeExport {
@@ -4544,7 +4549,11 @@ export class BattleMech {
         }
     }
 
-    exportJSON() {
+    exportJSON(): string {
+        return JSON.stringify( this.export() )
+    }
+
+    export():IBattleMechExport {
         // TODO
         this.calc();
 
@@ -4575,6 +4584,12 @@ export class BattleMech {
             lastUpdated: new Date(),
             hideNonAvailableEquipment: this.hideNonAvailableEquipment,
             name: this.getName(),
+
+            c_bills: +this.getCBillCost(),
+            as_value: this.getAlphaStrikeValue(),
+            battle_value: this.getBattleValue(),
+            tech_label: this.getTech().name,
+
         };
 
         for( let countEQ = 0; countEQ < this.equipmentList.length; countEQ++) {
@@ -4597,7 +4612,7 @@ export class BattleMech {
         if( this.smallCockpit)
             exportObject.features.push("sm_cockpit");
 
-        return JSON.stringify(exportObject);
+        return exportObject;
     }
 
     getInteralStructure() {
@@ -4620,15 +4635,24 @@ export class BattleMech {
         return this.alphaStrikeForceStats.customName;
     }
 
-    importJSON(jsonString: string) {
-        // TODO
+    importJSON( jsonString: string ) {
+        // let importObject: IBattleMechExport | null = null;
         let importObject: IBattleMechExport | null = null;
-
         try {
             importObject = JSON.parse(jsonString);
+
+            if( importObject ) {
+                return this.import( importObject );
+            } else {
+                return false
+            }
         } catch (err) {
             return false;
         }
+    }
+
+    import(importObject: IBattleMechExport) {
+
 
         if( importObject && importObject.mechType  ) {
             this.setMake(importObject.name);

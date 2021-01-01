@@ -18,10 +18,9 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
             this.currentCategory = lsCurrentCategory;
         }
 
-        this.clickSelectCategory = this.clickSelectCategory.bind(this);
     }
 
-    clickSelectCategory( newValue: string ) {
+    clickSelectCategory = ( newValue: string ): void => {
         this.currentCategory = newValue;
         localStorage.setItem("installEquipCat", newValue);
         this.setState({

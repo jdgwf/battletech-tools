@@ -21,63 +21,54 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
             updated: false,
         }
 
-        this.updateMake = this.updateMake.bind(this);
-        this.updateTech = this.updateTech.bind(this);
-        this.updateType = this.updateType.bind(this);
-        this.updateEra = this.updateEra.bind(this);
 
-        this.updateStructureType = this.updateStructureType.bind(this);
-        this.updateTonnage = this.updateTonnage.bind(this);
-        this.updateHideNonAvailableEquipment = this.updateHideNonAvailableEquipment.bind(this);
+        this.props.appGlobals.makeDocumentTitle("Step 1 | 'Mech Creator");
     }
 
-    updateHideNonAvailableEquipment( event: React.FormEvent<HTMLInputElement>) {
+    updateHideNonAvailableEquipment = ( event: React.FormEvent<HTMLInputElement>): void => {
       let currentMech = this.props.appGlobals.currentBattleMech;
       currentMech.hideNonAvailableEquipment = event.currentTarget.checked;
       this.props.appGlobals.saveCurrentBattleMech( currentMech );
     }
 
-    updateMake( event: React.FormEvent<HTMLInputElement>) {
+    updateMake = ( event: React.FormEvent<HTMLInputElement>): void => {
       let currentMech = this.props.appGlobals.currentBattleMech;
       currentMech.setMake( event.currentTarget.value);
       this.props.appGlobals.saveCurrentBattleMech( currentMech );
     }
 
-    updateTech( event: React.FormEvent<HTMLSelectElement>) {
+    updateTech = ( event: React.FormEvent<HTMLSelectElement>): void => {
       let currentMech = this.props.appGlobals.currentBattleMech;
       currentMech.setTech( event.currentTarget.value);
       this.props.appGlobals.saveCurrentBattleMech( currentMech );
     }
 
-    updateType( event: React.FormEvent<HTMLSelectElement>) {
+    updateType = ( event: React.FormEvent<HTMLSelectElement>): void => {
       let currentMech = this.props.appGlobals.currentBattleMech;
       currentMech.setType( event.currentTarget.value);
       this.props.appGlobals.saveCurrentBattleMech( currentMech );
     }
 
-    updateTonnage( event: React.FormEvent<HTMLSelectElement>) {
+    updateTonnage = ( event: React.FormEvent<HTMLSelectElement>): void => {
       let currentMech = this.props.appGlobals.currentBattleMech;
       currentMech.setTonnage( +event.currentTarget.value);
       this.props.appGlobals.saveCurrentBattleMech( currentMech );
     }
 
-    updateStructureType( event: React.FormEvent<HTMLSelectElement>) {
+    updateStructureType = ( event: React.FormEvent<HTMLSelectElement>): void => {
       let currentMech = this.props.appGlobals.currentBattleMech;
       currentMech.setInternalStructureType( event.currentTarget.value);
       this.props.appGlobals.saveCurrentBattleMech( currentMech );
     }
 
 
-    updateEra( event: React.FormEvent<HTMLSelectElement>) {
+    updateEra = ( event: React.FormEvent<HTMLSelectElement>): void => {
       let currentMech = this.props.appGlobals.currentBattleMech;
       currentMech.setEra( event.currentTarget.value);
       this.props.appGlobals.saveCurrentBattleMech( currentMech );
     }
 
 
-    componentDidMount ()  {
-      this.props.appGlobals.makeDocumentTitle("Step 1 | 'Mech Creator");
-    }
 
     render() {
       return (

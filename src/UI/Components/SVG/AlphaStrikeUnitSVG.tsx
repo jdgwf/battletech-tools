@@ -31,17 +31,15 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
             this.damageLeftBase = 40;
         }
 
-        this.toggleTakeDamage = this.toggleTakeDamage.bind(this);
-        this.takeDamage = this.takeDamage.bind(this);
     }
 
-    toggleTakeDamage() {
+    toggleTakeDamage = () => {
         this.setState({
             showTakeDamage: !this.state.showTakeDamage,
         })
     }
 
-    takeDamage( damageTaken: number ) {
+    takeDamage = ( damageTaken: number ): void => {
         if( this.props.inPlay && this.props.asUnit ) {
             this.props.asUnit.takeDamage( damageTaken );
             this.props.asUnit.calcCurrentVals();

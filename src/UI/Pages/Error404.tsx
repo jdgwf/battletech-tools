@@ -8,10 +8,7 @@ export default class Error404 extends React.Component<IError404Props, IError404S
         this.state = {
             updated: false,
         }
-    }
-
-    componentDidMount () {
-      this.props.appGlobals.makeDocumentTitle("404 - Page not Found");
+        this.props.appGlobals.makeDocumentTitle("404 - Page not Found");
     }
 
     render() {

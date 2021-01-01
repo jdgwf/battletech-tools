@@ -21,15 +21,11 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
             showAddDialog: false,
         }
 
-        this.openInstallDialog = this.openInstallDialog.bind(this);
-        this.addEquipment = this.addEquipment.bind(this);
-        this.closeInstallDialog = this.closeInstallDialog.bind(this);
 
-        this.removeEquipment = this.removeEquipment.bind(this);
-        this.setRear = this.setRear.bind(this);
+        this.props.appGlobals.makeDocumentTitle("Step 5 | 'Mech Creator");
     }
 
-    addEquipment( item: IEquipmentItem ): boolean {
+    addEquipment = ( item: IEquipmentItem ): boolean => {
 
       this.props.appGlobals.currentBattleMech.addEquipmentFromTag(
         item.tag,
@@ -43,7 +39,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
       return true;
     }
 
-    removeEquipment( itemIndex: number ): boolean {
+    removeEquipment = ( itemIndex: number ): boolean => {
 
       this.props.appGlobals.currentBattleMech.removeEquipment(
         itemIndex
@@ -53,7 +49,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
       return true;
     }
 
-    setRear( itemIndex: number, isRear: boolean ): boolean {
+    setRear = ( itemIndex: number, isRear: boolean ): boolean => {
 
       this.props.appGlobals.currentBattleMech.setRear(
         itemIndex,
@@ -64,17 +60,15 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
       return true;
     }
 
-    componentDidMount ()  {
-      this.props.appGlobals.makeDocumentTitle("Step 5 | 'Mech Creator");
-    }
 
-    openInstallDialog() {
+
+    openInstallDialog = (): void => {
       this.setState({
         showAddDialog: true,
       });
     }
 
-    closeInstallDialog() {
+    closeInstallDialog = (): void => {
       this.setState({
         showAddDialog: false,
       });

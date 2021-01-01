@@ -18,10 +18,9 @@ export default class HeatSinksSVG extends React.Component<IHeatSinksSVGProps, IH
 
 		};
 
-		this.toggleHeatBubble = this.toggleHeatBubble.bind(this);
 	}
 
-	toggleHeatBubble(shortLoc: string, indexNumnber: number) {
+	toggleHeatBubble = (shortLoc: string, indexNumnber: number): void => {
 		if( this.props.inPlay ) {
 			this.props.mechData.toggleHeatBubble(shortLoc, indexNumnber);
 		}

@@ -11,13 +11,12 @@ export default class BipedArmorCircles extends React.Component<IBipedArmorCircle
     constructor(props: IBipedArmorCirclesProps) {
         super(props);
 
-        this.toggleArmorBubble = this.toggleArmorBubble.bind(this);
         this.armorBoxWidth = this.props.armorBoxWidth;
         this.armorBoxLeft = this.props.armorBoxLeft;
         this.armorBoxTop = this.props.armorBoxTop;
     }
 
-    toggleArmorBubble( shortLoc: string, indexNumnber: number) {
+    toggleArmorBubble = ( shortLoc: string, indexNumnber: number) => {
 		if( this.props.inPlay ) {
 			this.props.mechData.toggleArmorBubble(shortLoc, indexNumnber);
 		}

@@ -62,11 +62,9 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             this.inPlay = this.props.inPlay;
         }
 
-        this.toggleISBubble = this.toggleISBubble.bind(this);
-        // this.toggleArmorBubble = this.toggleArmorBubble.bind(this);
     }
 
-    toggleISBubble( shortLoc: string, indexNumnber: number) {
+    toggleISBubble = ( shortLoc: string, indexNumnber: number): void => {
 		if( this.props.inPlay ) {
 			this.props.mechData.toggleISBubble(shortLoc, indexNumnber);
 		}
@@ -296,7 +294,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                         {this.props.mechData.getTonnage()}
                     </text>
 
-                // Tech Base
+                {/* Tech Base */}
                 <text
                     x={generalDataBoxX + 340}
                     y={generalDataBoxY + 205}
@@ -450,7 +448,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 {this.props.mechData.getPilot().name}
             </text>
 
-	// Piloting
+	{/* Piloting */}
             <text
                 x={pilotBoxX + 450}
                 y={pilotBoxY + 120}
@@ -463,7 +461,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 Piloting: {this.props.mechData.getPilot().piloting}
             </text>
 
-	        // Gunnery
+	        {/* Gunnery */}
             <text
                 x={pilotBoxX + 450}
                 y={pilotBoxY + 160}
@@ -578,7 +576,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             />
 
 
-        // Main Armor Labels
+        {/* // Main Armor Labels */}
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 } y={this.armorBoxTop + 125} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>HEAD [{ this.props.mechData.getArmorAllocation().head }]</text>
 
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 - 95} y={this.armorBoxTop + 105} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>LEFT TORSO</text>
@@ -1232,7 +1230,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         title="Critical Hit Table"
     >
 
-// Left Arm
+{/* // Left Arm */}
         <text
             x={critBoxLeft + critCol1Start}
             y={critBoxTop + 100}
@@ -1256,7 +1254,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             xLoc={critBoxLeft + critCol1Start}
             yLoc={critBoxTop + 140}
         />
-	// Head
+	{/* // Head */}
         <text
             x={critBoxLeft + critCol2Start}
             y={(critBoxTop + 100)}
@@ -1319,7 +1317,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
         />
 
-	// Center Torso
+	{/* // Center Torso */}
         <text
             x={critBoxLeft + critCol2Start}
             y={critBoxTop + 350}
@@ -1340,7 +1338,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
         />
 
-	// Right Torso
+	{/* // Right Torso */}
         <text
             x={critBoxLeft + critCol3Start}
             y={critBoxTop + 550}
@@ -1361,7 +1359,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             yLoc={critBoxTop + 575}
         />
 
-	// Left Leg
+	{/* // Left Leg */}
         <text
             x={critBoxLeft + critCol1Start}
             y={critBoxTop + 1010}
@@ -1385,7 +1383,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             xLoc={critBoxLeft + critCol1Start}
             yLoc={critBoxTop + 1050}
         />
-        // Right Leg
+        {/* // Right Leg */}
         <text
             x={critBoxLeft + critCol3Start}
             y={critBoxTop + 1010}

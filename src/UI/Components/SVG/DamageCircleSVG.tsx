@@ -47,10 +47,9 @@ export default class DamageCircleSVG extends React.Component<IDamageCircleSVGPro
             this.bgColorFilled = this.props.bgColorFilled;
         }
 
-        this.clickFunction = this.clickFunction.bind(this);
     }
 
-    clickFunction() {
+    clickFunction = (): void => {
         if( this.props.clickFunction && this.props.inPlay ) {
             if( typeof( this.props.clickIndex) !== "undefined" ) {
                 this.props.clickFunction( this.clickLocation, +this.props.clickIndex );

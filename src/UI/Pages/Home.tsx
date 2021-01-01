@@ -9,10 +9,8 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
         this.state = {
             updated: false,
         }
-    }
 
-    componentDidMount ()  {
-      this.props.appGlobals.makeDocumentTitle("Home");
+        this.props.appGlobals.makeDocumentTitle("Home");
     }
 
     render() {

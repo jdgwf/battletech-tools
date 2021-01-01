@@ -18,42 +18,35 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
             updated: false,
         }
 
-        this.setASRole = this.setASRole.bind(this);
-        this.setASCustomName = this.setASCustomName.bind(this);
-
-        this.setPilotName = this.setPilotName.bind(this);
-        this.setPilotPiloting = this.setPilotPiloting.bind(this);
-        this.setPilotGunnery = this.setPilotGunnery.bind(this);
+        this.props.appGlobals.makeDocumentTitle("Summary | 'Mech Creator");
     }
 
-    setASRole( event: React.FormEvent<HTMLInputElement>) {
+    setASRole = ( event: React.FormEvent<HTMLInputElement>): void => {
       this.props.appGlobals.currentBattleMech.setASRole( event.currentTarget.value );
       this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
     }
 
-    setASCustomName( event: React.FormEvent<HTMLInputElement>) {
+    setASCustomName = ( event: React.FormEvent<HTMLInputElement>): void => {
       this.props.appGlobals.currentBattleMech.setASCustomName( event.currentTarget.value );
       this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
     }
 
-    setPilotName( event: React.FormEvent<HTMLInputElement>) {
+    setPilotName = ( event: React.FormEvent<HTMLInputElement>): void => {
       this.props.appGlobals.currentBattleMech.setPilotName( event.currentTarget.value );
       this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
     }
 
-    setPilotPiloting( event: React.FormEvent<HTMLSelectElement>) {
+    setPilotPiloting = ( event: React.FormEvent<HTMLSelectElement>): void => {
       this.props.appGlobals.currentBattleMech.setPilotPiloting( +event.currentTarget.value );
       this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
     }
 
-    setPilotGunnery( event: React.FormEvent<HTMLSelectElement>) {
+    setPilotGunnery = ( event: React.FormEvent<HTMLSelectElement>): void => {
       this.props.appGlobals.currentBattleMech.setPilotGunnery( +event.currentTarget.value );
       this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
     }
 
-    componentDidMount ()  {
-      this.props.appGlobals.makeDocumentTitle("Summary | 'Mech Creator");
-    }
+
 
     render() {
       return (

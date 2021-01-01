@@ -23,24 +23,20 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
             selectedItem: null,
         }
 
-        this.selectItemClick = this.selectItemClick.bind(this);
-        this.resetAllocations = this.resetAllocations.bind(this);
-
-        this.toggleLowerArmActuator = this.toggleLowerArmActuator.bind(this);
-        this.toggleHandActuator = this.toggleHandActuator.bind(this);
+        this.props.appGlobals.makeDocumentTitle("Step 6 | 'Mech Creator");
     }
 
-    toggleLowerArmActuator( loc: string ) {
+    toggleLowerArmActuator = ( loc: string ): void => {
       this.props.appGlobals.currentBattleMech.toggleLowerArmActuator( loc );
       this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
     }
 
-    toggleHandActuator( loc: string ) {
+    toggleHandActuator = ( loc: string ): void => {
       this.props.appGlobals.currentBattleMech.toggleHandActuator( loc );
       this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
     }
 
-    resetAllocations() {
+    resetAllocations = (): void => {
       this.props.appGlobals.openConfirmDialog(
         "Confirmation",
         "Are you sure you want to clear out all your critical allocations?",
@@ -54,11 +50,11 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
 
     }
 
-    selectItemClick(
+    selectItemClick = (
       selectedIndex: number,
       selectedLocation: string,
       selectedItem: ICriticalSlot | null
-    ): void {
+    ): void => {
       let selectedMessage = "Select an item to allocate";
       if( selectedItem ) {
         selectedMessage = "Select a location to place your " + selectedItem.name;
@@ -98,9 +94,6 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
       })
     }
 
-    componentDidMount ()  {
-      this.props.appGlobals.makeDocumentTitle("Step 6 | 'Mech Creator");
-    }
 
     render() {
       return (
