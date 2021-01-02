@@ -5,12 +5,14 @@ import SanitizedHTML from '../../Components/SanitizedHTML';
 import MechCreatorSideMenu from '../../Components/MechCreatorSideMenu';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowCircleRight, faFile, faFolderOpen, faSave, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faArrowCircleRight, faFile, faFileExport, faFolderOpen, faSave, faTrash } from '@fortawesome/free-solid-svg-icons';
 import MechCreatorStatusbar from '../../Components/MechCreatorStatusBar';
 import UIPage from '../../Components/UIPage';
-import { BattleMech } from '../../../Classes/BattleMech';
+import { BattleMech, IBattleMechExport } from '../../../Classes/BattleMech';
 
 export default class MechCreatorHome extends React.Component<IHomeProps, IHomeState> {
+    fileReader: FileReader | null = null;
+
     constructor(props: IHomeProps) {
         super(props);
         this.state = {
@@ -20,6 +22,42 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
         this.props.appGlobals.makeDocumentTitle("'Mech Creator");
     }
 
+    handleFileRead = (e: any) => {
+      if( this.fileReader ) {
+        let content = this.fileReader.result;
+
+        console.log("content", content)
+        try {
+          if( content ) {
+            let data: IBattleMechExport[] = JSON.parse( content.toString() )
+
+            let btData = this.props.appGlobals.battleMechSaves;
+            for( let item of data ) {
+              btData.push( item );
+            }
+
+            this.props.appGlobals.saveBattleMechSaves( btData );
+          }
+        }
+        catch {
+
+        }
+      }
+    }
+
+    selectFile = async (e: React.FormEvent<HTMLInputElement>): Promise<void> => {
+      e.preventDefault();
+      if( e.currentTarget.files && e.currentTarget.files.length > 0 ) {
+        let foundFile = e.currentTarget.files[0];
+        // console.log( "test", foundFIle );
+        if( foundFile.type == "application/json" ) {
+          this.fileReader = new FileReader();
+          this.fileReader.onloadend = this.handleFileRead;
+          this.fileReader.readAsText( foundFile );
+        }
+
+      }
+    }
 
     saveAsNew = (e: React.FormEvent<HTMLButtonElement>): void => {
       e.preventDefault();
@@ -83,7 +121,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
         let currentBattleMech = this.props.appGlobals.currentBattleMech;
 
         currentBattleMech = new BattleMech();
-        currentBattleMech.import(this.props.appGlobals.battleMechSaves[saveIndex] )
+        currentBattleMech.import( this.props.appGlobals.battleMechSaves[saveIndex] )
         this.props.appGlobals.saveCurrentBattleMech( currentBattleMech )
 
       }
@@ -169,7 +207,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                                   className="btn btn-sm btn-primary"
                                   type="button"
                                   title={"Click here to load " + mech.name + " into the editor"}
-
+                                  onClick={ (e) => this.loadSave( e, mechIndex)}
                                 >
                                   <FontAwesomeIcon icon={faFolderOpen} />
                                 </button>
@@ -202,6 +240,38 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                         </tr>
                       )}
                       </tbody>
+                      <tfoot>
+                        <tr>
+                          <th
+                            colSpan={6}
+                            className="text-left"
+                          >
+                            <label
+                              title="Click here to select a JSON file exported by the button to the right"
+                            >
+                              Import JSON:&nbsp;
+                              <input
+                                type="file"
+                                onChange={this.selectFile}
+                              />
+                            </label>
+                          </th>
+                          <th
+                            className="text-right"
+                          >
+                            <a
+                              className="btn btn-primary btn-sm"
+                              title="Export your current list to a JSON format to transfer between devices"
+                              href={`data:text/json;charset=utf-8,${encodeURIComponent(
+                                JSON.stringify(this.props.appGlobals.battleMechSaves)
+                              )}`}
+                              download="battlmech-exports.json"
+                            >
+                              <FontAwesomeIcon icon={faFileExport} />&nbsp;Export
+                            </a>
+                          </th>
+                        </tr>
+                      </tfoot>
                     </table>
                   </div>
                 </div>
