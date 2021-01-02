@@ -144,9 +144,9 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                       <div className="text-section">
                         <h2>Welcome</h2>
                         <div className="section-content">
-                          <p>Welcome to a BattleTech 'mech builder.</p>
+                          <p>Welcome to the BattleTech 'mech builder.</p>
 
-                          <p>This tool attempts to closely follow the steps in the BattleTech TechManual and the steps in that book should be referenced during 'mech creation</p>
+                          <p>This tool attempts to <em>closely</em> follow the steps in the BattleTech TechManual and the steps in that book should be referenced during 'mech creation</p>
 
                           <div className="clear-both overflow-hidden">
                             <hr />
@@ -235,7 +235,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                       ) : (
                         <tr>
                           <td className="text-center" colSpan={7}>
-                            You have no saves.
+                            You have no saves on this device or browser.
                           </td>
                         </tr>
                       )}

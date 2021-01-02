@@ -80,6 +80,15 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
                 <h2>{group.getName(groupIndex + 1)}</h2>
                 <div className="section-content">
                   <div className="row">
+                  {group.formationBonus!.Name!=="None"?(
+                    <>
+                    <div className={this.state.cardMode ? "col-md-12" : "col-md-12"}>
+                      <p><strong>Bonus</strong>:<br/>
+                      <strong>{group.formationBonus!.Name}</strong> - {group.formationBonus!.BonusDescription}</p>
+                    </div>
+                    </>
+                  ) : null
+                  }
                   {group.members.map( (unit, unitIndex) => {
                     return (
                     <React.Fragment key={unitIndex}>
@@ -94,16 +103,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
                     </React.Fragment>
                     )
                   })}
-                  {console.log(group.formationBonus)}
-                  {group.formationBonus!.Name!=="None"?(
-                    <>
-                    <div className={this.state.cardMode ? "col-md-6 col-lg-6 col-xl-6" : "col-md-12"}>
-                      <p><strong>Bonus</strong>:<br/>
-                      <strong>{group.formationBonus!.Name}</strong> - {group.formationBonus!.BonusDescription}</p>
-                    </div>
-                    </>
-                  ) : null
-                  }
+
                   </div>
               </div>
               </div>
