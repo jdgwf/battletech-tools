@@ -491,8 +491,8 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
                       <tfoot key="footer">
                         <tr key="groupsum">
-                          <td className="text-left min-width no-wrap"></td>
-                          <td>
+
+                          <td colSpan={2}>
                             <strong>Available Bonuses</strong>:({asGroup.availableFormationBonuses.length-1})
                             <select
                               value={asGroup.formationBonus? asGroup.formationBonus.Name:"" }
@@ -507,9 +507,9 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                             <br/>
                             {(asGroup.formationBonus && asGroup.formationBonus.Name!=="None") ? (
 
-                              <>
+                              <div className="small-pt-text">
                                 <strong>Bonus</strong>: {asGroup.formationBonus.BonusDescription}
-                              </>
+                                </div>
 
                             ) : null
                             }

@@ -3,6 +3,7 @@
 .topmenu {
     position: relative;
     z-index: 1000;
+    margin: 0 0 1rem 0;
     background: $headerFooterBackground;
     ul {
         background: $headerFooterBackground;
@@ -17,6 +18,7 @@
         li {
             margin: 0;
             padding: 0;
+
             // display: inline;
 
             &.mobile-menu-button {
@@ -36,6 +38,7 @@
                 border-top-right-radius: .5rem;
                 margin: .25rem .125rem 0 0;
                 white-space: nowrap;
+                min-height: 2.5rem;
                 &:hover {
                     background: $primaryBGHover;
                     color: $primaryTextColor;
@@ -48,6 +51,7 @@
                     color: $primaryTextColor;
                 }
             }
+
             &:first-child {
                 a {
                     border-left: 0;

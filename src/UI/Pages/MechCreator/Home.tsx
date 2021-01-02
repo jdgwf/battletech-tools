@@ -50,7 +50,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
       if( e.currentTarget.files && e.currentTarget.files.length > 0 ) {
         let foundFile = e.currentTarget.files[0];
         // console.log( "test", foundFIle );
-        if( foundFile.type == "application/json" ) {
+        if( foundFile.type === "application/json" ) {
           this.fileReader = new FileReader();
           this.fileReader.onloadend = this.handleFileRead;
           this.fileReader.readAsText( foundFile );
@@ -75,7 +75,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
       if( this.props.appGlobals.battleMechSaves.length > saveIndex) {
         this.props.appGlobals.openConfirmDialog(
           "Deletion Confirmation",
-          "Aer you sure you want to delete the 'mech \"" + this.props.appGlobals.battleMechSaves[saveIndex].name + '\"?',
+          "Aer you sure you want to delete the 'mech \"" + this.props.appGlobals.battleMechSaves[saveIndex].name + "\"?",
           "Yes",
           "No, thank you",
           () => {
@@ -94,7 +94,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
       if( this.props.appGlobals.battleMechSaves.length > saveIndex) {
         this.props.appGlobals.openConfirmDialog(
           "Deletion Confirmation",
-          "Aer you sure you want to save the currently loaded 'mech over the saved 'mech \"" + this.props.appGlobals.battleMechSaves[saveIndex].name + '\"?',
+          "Aer you sure you want to save the currently loaded 'mech over the saved 'mech \"" + this.props.appGlobals.battleMechSaves[saveIndex].name + "\"?",
           "Yes",
           "No, thank you",
           () => {

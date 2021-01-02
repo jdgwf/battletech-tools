@@ -83,8 +83,8 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
                   {group.formationBonus!.Name!=="None"?(
                     <>
                     <div className={this.state.cardMode ? "col-md-12" : "col-md-12"}>
-                      <p><strong>Bonus</strong>:<br/>
-                      <strong>{group.formationBonus!.Name}</strong> - {group.formationBonus!.BonusDescription}</p>
+                      <p><strong>Bonus</strong>:&nbsp;
+                      <em>{group.formationBonus!.Name}</em> - {group.formationBonus!.BonusDescription}</p>
                     </div>
                     </>
                   ) : null
