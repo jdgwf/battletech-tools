@@ -1,4 +1,9 @@
 import { IASMULUnit } from "./Classes/AlphaStrikeUnit";
+import { IEquipmentItem } from "./Data/dataInterfaces";
+import { mechClanEquipment } from "./Data/mech-clan-equipment";
+import { mechISEquipmentBallistic } from "./Data/mech-is-equipment-weapons-ballistic";
+import { mechISEquipmentEnergy } from "./Data/mech-is-equipment-weapons-energy";
+import { mechISEquipmentMissiles } from "./Data/mech-is-equipment-weapons-missiles";
 const uuidv1 = require('uuid/v1');
 
 export function addCommas( numericalValue: number ): string {
@@ -9,6 +14,14 @@ export function addCommas( numericalValue: number ): string {
 
 export function generateUUID(): string {
     return uuidv1();
+}
+
+export function getISEquuipmentList(): IEquipmentItem[] {
+    return mechISEquipmentBallistic.concat( mechISEquipmentEnergy, mechISEquipmentMissiles)
+}
+
+export function getClanEquuipmentList(): IEquipmentItem[] {
+    return mechClanEquipment;
 }
 
 export async function getMULASSearchResults(

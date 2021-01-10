@@ -88,6 +88,7 @@ export interface IEquipmentItem {
     uuid?: string;
     count?: number;
     name: string;
+    alternameName?: string;
     tag: string;
     sort: string;
     category: string;

@@ -1,7 +1,8 @@
 
 import React from 'react';
-import { IEquipmentItem } from '../../Data/dataInterfaces';
 import { Button } from 'react-bootstrap';
+import { IEquipmentItem } from '../../Data/dataInterfaces';
+import './AvailableEquipment.scss';
 
 export default class AvailableEquipment extends React.Component<IAvailableEquipmentProps, IAvailableEquipmentState> {
     currentCategory: string = "";
@@ -9,8 +10,13 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
 
     constructor(props: IAvailableEquipmentProps) {
         super(props);
+
+        let equipmentFilter: string | null = localStorage.getItem("equipment_filter")
+        if(!equipmentFilter)
+            equipmentFilter = "";
         this.state = {
             updated: false,
+            equipmentFilter: equipmentFilter,
         }
 
         let lsCurrentCategory = localStorage.getItem("installEquipCat");
@@ -20,12 +26,41 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
 
     }
 
+    updateEquipmentFilter = (e: React.FormEvent<HTMLInputElement>):void => {
+        localStorage.setItem("equipment_filter", e.currentTarget.value);
+        this.setState({
+            equipmentFilter: e.currentTarget.value,
+        })
+    }
+
     clickSelectCategory = ( newValue: string ): void => {
         this.currentCategory = newValue;
         localStorage.setItem("installEquipCat", newValue);
         this.setState({
             updated: true,
         })
+    }
+
+    equipmentFilter = ( item: IEquipmentItem ): boolean => {
+        if(
+            this.state.equipmentFilter.trim() == ""
+                ||
+            item.name.toLowerCase().trim().indexOf(
+                this.state.equipmentFilter.toLowerCase().trim()
+            ) > -1
+                || (
+                item.alternameName
+                &&
+                item.alternameName.toLowerCase().trim().indexOf(
+                    this.state.equipmentFilter.toLowerCase().trim()
+                ) > -1
+            )
+
+        ) {
+            return true;
+        }
+
+        return false;
     }
 
     render() {
@@ -45,7 +80,17 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
 
         return (
 <div>
-    <h2>Avail Equip</h2>
+    <h2>
+        <input
+            type="search"
+            placeholder="Filter Equipment"
+            value={this.state.equipmentFilter}
+            onChange={this.updateEquipmentFilter}
+            className="filter-equiment-box"
+        />
+        Avail Equip
+
+    </h2>
     <table className="table">
         <thead>
             <tr>
@@ -70,9 +115,10 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
                         </Button>
                     </th>
                 </tr>
-                    {this.currentCategory === catName ? (
+                    {this.state.equipmentFilter.trim() ||
+                    this.currentCategory === catName ? (
                         <>
-                        {groupedItems[catName].map( (item, itemIndex) => {
+                        {groupedItems[catName].filter(this.equipmentFilter).map( (item, itemIndex) => {
                             if( !this.props.hideUnavailable || item.available ) {
                                 return (
                                     <tr
@@ -122,4 +168,5 @@ interface IAvailableEquipmentProps {
 
 interface IAvailableEquipmentState {
     updated: boolean;
+    equipmentFilter: string;
 }

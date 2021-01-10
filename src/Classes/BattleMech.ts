@@ -1,19 +1,18 @@
-import { addCommas, generateUUID, getMovementModifier } from "../utils";
-import { mechTypeOptions } from "../Data/mech-type-options";
-import { btTechOptions } from "../Data/tech-options";
+import { battlemechLocations } from "../Data/battlemechLocations";
+import { IArmorType, ICritialLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync } from "../Data/dataInterfaces";
 import { btEraOptions } from "../Data/era-options";
 import { mechArmorTypes } from "../Data/mech-armor-types";
-import { mechInternalStructureTypes } from "../Data/mech-internal-structure-types";
-import { mechHeatSinkTypes } from "../Data/mech-heat-sink-types";
-import { mechEngineTypes } from "../Data/mech-engine-types";
-import { mechJumpJetTypes } from "../Data/mech-jump-jet-types";
-import { mechGyroTypes } from "../Data/mech-gyro-types";
-import { IEquipmentItem, IHeatSync, IEngineOption, IEngineType, IGyro, IArmorType, ICritialLocations } from "../Data/dataInterfaces";
-import { mechEngineOptions } from "../Data/mech-engine-options";
-import { battlemechLocations } from "../Data/battlemechLocations";
-import { mechISEquipment } from "../Data/mech-is-equipment";
 import { mechClanEquipment } from "../Data/mech-clan-equipment";
-import { IAlphaStrikeDamage, IASMULUnit, AlphaStrikeUnit } from "./AlphaStrikeUnit";
+import { mechEngineOptions } from "../Data/mech-engine-options";
+import { mechEngineTypes } from "../Data/mech-engine-types";
+import { mechGyroTypes } from "../Data/mech-gyro-types";
+import { mechHeatSinkTypes } from "../Data/mech-heat-sink-types";
+import { mechInternalStructureTypes } from "../Data/mech-internal-structure-types";
+import { mechJumpJetTypes } from "../Data/mech-jump-jet-types";
+import { mechTypeOptions } from "../Data/mech-type-options";
+import { btTechOptions } from "../Data/tech-options";
+import { addCommas, generateUUID, getISEquuipmentList, getMovementModifier } from "../utils";
+import { AlphaStrikeUnit, IAlphaStrikeDamage, IASMULUnit } from "./AlphaStrikeUnit";
 
 
 interface INumericalHash {
@@ -4897,7 +4896,7 @@ export class BattleMech {
 
         let equipmentList: IEquipmentItem[] = [];
         if( equipmentListTag === "is") {
-            equipmentList = mechISEquipment;
+            equipmentList = getISEquuipmentList();
 
         }
 
@@ -4942,7 +4941,7 @@ export class BattleMech {
         }
 
         if( equipmentListTag === "is") {
-            equipmentList = mechISEquipment;
+            equipmentList = getISEquuipmentList();
 
         }
 
@@ -5564,7 +5563,7 @@ export class BattleMech {
                 returnItems.push( item );
             }
         } else {
-            for( let item of mechISEquipment ) {
+            for( let item of getISEquuipmentList() ) {
                 item.criticals = item.space.battlemech;
                 item.available = this._itemIsAvailable( item.introduced, item.extinct, item.reintroduced);
                 returnItems.push( item );
