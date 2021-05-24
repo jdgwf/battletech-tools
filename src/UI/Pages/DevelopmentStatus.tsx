@@ -21,8 +21,8 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
               <p>
                 I only started this rewrite on Friday 7/18/19. Since I'm mostly done with the Alpha Strike Roster, I suppose development is coming along nicely.
               </p>
-              <p>If you see anything wrong with the Alpha Strike area - let me know in the <a href="https://github.com/jdgwf/battletech-tools/issues">GitHub issues</a> or a <a href="https://twitter.com/gauthic/">send me a Tweet</a>. :)</p>
-              <p className="text-right">- Jeff/Gauthic</p>
+              <p>If you see anything wrong with the Alpha Strike area - let me know in the <a href="https://github.com/jdgwf/battletech-tools/issues">GitHub issues</a> or a <a href="https://twitter.com/JeffreyDGordon/">send me a Tweet</a>. :)</p>
+              <p className="text-right">- Jeff</p>
             </div>
             <h2>Development Status</h2>
 

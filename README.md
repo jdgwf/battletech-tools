@@ -11,7 +11,7 @@ The tools are powered by HTML, Boosttrap 4 and React. All data and logic are the
 There are no server moving parts for the application itself, and I'm going to do my best to keep it that way.
 
 ### Team
-[Jeffrey D. Gordon](https://github.com/jdgwf) ([@gauthic](https://twitter.com/gauthic)), Lead Developer and designer
+[Jeffrey D. Gordon](https://github.com/jdgwf) ([@JeffreyDGordon](https://twitter.com/JeffreyDGordon)), Lead Developer and designer
 
 [MoonSword22](https://github.com/MoonSword22), Data Entry and consulting
 

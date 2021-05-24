@@ -14,6 +14,7 @@ import AlphaStrikeGroup, { IASGroupExport } from "../Classes/AlphaStrikeGroup";
 import DevelopmentStatus from "./Pages/DevelopmentStatus";
 import { BattleMech, IBattleMechExport } from "../Classes/BattleMech";
 import Settings from "./Pages/Settings";
+import EquipmentEditor from "./Pages/EquipmentEditor";
 
 
 export default class AppRouter extends React.Component<IAppRouterProps, IAppRouterState> {
@@ -309,6 +310,11 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                         appGlobals={this.state.appGlobals}
                     />
                 </Route> */}
+                <Route path={`${process.env.PUBLIC_URL}/equipment-editor`} exact>
+                    <EquipmentEditor
+                        appGlobals={this.state.appGlobals}
+                    />
+                </Route>
                 <Route path={`${process.env.PUBLIC_URL}/dev-status`} exact>
                     <DevelopmentStatus
                         appGlobals={this.state.appGlobals}

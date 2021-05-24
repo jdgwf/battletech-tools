@@ -25,7 +25,7 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
             <h2>Credits</h2>
             <div className="section-content">
               <h4>Jeffrey D. Gordon</h4>
-              <strong>Developer and Designer</strong> - <a href="https://twitter.com/gauthic/">@Gauthic</a><br />
+              <strong>Developer and Designer</strong> - <a href="https://twitter.com/JeffreyDGordon/">@JeffreyDGordon</a><br />
               <p>Jeff has been playing BattleTech since 1985 and has been a professional developer since 1996.
               These tools, and several others, including
               &nbsp;<a target="_blank" rel="noopener noreferrer" href="https://jdgwf.github.io/savage-worlds-web-tools/">the Savage Worlds Web Tools project</a>,
