@@ -37,7 +37,7 @@ export default class BipedInternalStructureDiagramSVG extends React.Component<IB
             this.yLoc = this.props.yLoc;
         }
 
-        // if( typeof(standAlone) == "undefined" )
+        // if( typeof(standAlone) === "undefined" )
         //     standAlone = true;
 
         // if( !baseFillColor )

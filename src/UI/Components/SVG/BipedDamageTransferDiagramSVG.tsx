@@ -36,7 +36,7 @@ export default class BipedDamageTransferDiagramSVG extends React.Component<IBipe
             this.yLoc = this.props.yLoc;
         }
 
-        // if( typeof(standAlone) == "undefined" )
+        // if( typeof(standAlone) === "undefined" )
         //     standAlone = true;
 
         // if( !baseFillColor )

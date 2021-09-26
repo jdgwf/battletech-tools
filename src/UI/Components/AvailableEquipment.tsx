@@ -43,7 +43,7 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
 
     equipmentFilter = ( item: IEquipmentItem ): boolean => {
         if(
-            this.state.equipmentFilter.trim() == ""
+            this.state.equipmentFilter.trim() === ""
                 ||
             item.name.toLowerCase().trim().indexOf(
                 this.state.equipmentFilter.toLowerCase().trim()

@@ -37,7 +37,7 @@ export default class QuadArmorDiagramSVG extends React.Component<IQuadArmorDiagr
             this.yLoc = this.props.yLoc;
         }
 
-        // if( typeof(standAlone) == "undefined" )
+        // if( typeof(standAlone) === "undefined" )
         //     standAlone = true;
 
         // if( !baseFillColor )

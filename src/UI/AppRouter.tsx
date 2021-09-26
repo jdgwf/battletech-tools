@@ -183,7 +183,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         localStorage.setItem("favoriteASGroups", JSON.stringify( exportASGroups ));
     }
 
-    toggleMobile(): void {
+    toggleMobile = (): void => {
         let appGlobals = this.state.appGlobals;
         appGlobals.showMobile = !appGlobals.showMobile;
         this.setState({

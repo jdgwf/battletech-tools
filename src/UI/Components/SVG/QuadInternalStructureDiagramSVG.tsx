@@ -35,7 +35,7 @@ export default class QuadInternalStructureDiagramSVG extends React.Component<IQu
             this.yLoc = this.props.yLoc;
         }
 
-        // if( typeof(standAlone) == "undefined" )
+        // if( typeof(standAlone) === "undefined" )
         //     standAlone = true;
 
         // if( !baseFillColor )

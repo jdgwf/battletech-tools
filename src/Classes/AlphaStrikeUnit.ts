@@ -664,7 +664,7 @@ export class AlphaStrikeUnit {
             // Subtract Heat from Current Move
             if( this.move[moveC].type !== "j" ) {
                 this.move[moveC].currentMove = this.move[moveC].currentMove - this.currentHeat * 2;
-                //can't have minus move, or heat level "4" == shutdown
+                //can't have minus move, or heat level "4" === shutdown
                 if (this.move[moveC].currentMove<0||this.currentHeat===4){
                     this.move[moveC].currentMove=0;
                 }
