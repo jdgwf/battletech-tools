@@ -87,7 +87,7 @@ interface IDamageCircleSVGProps {
     radius: number;
     clickLocation?: string;
     inPlay?: boolean;
-    clickFunction( clickLocation: string, clickIndex: number ): void;
+    clickFunction?( clickLocation: string, clickIndex: number ): void;
 }
 
 interface IDamageCircleSVGState {

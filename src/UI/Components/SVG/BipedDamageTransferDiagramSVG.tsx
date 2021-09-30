@@ -54,14 +54,15 @@ export default class BipedDamageTransferDiagramSVG extends React.Component<IBipe
 
         // if( standAlone ) {
         //     var svg = "<!DOCTYPE HTML><svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xml:space=\"preserve\" height=\"" + theHeight  + " px\" width=\"" + theWidth  + "px\" viewBox=\"0 0 790 100\" ><g>\n";
+        console.log( this.theWidth )
 
         return (
                 <svg
                 viewBox="0 0 744.09448819 1052.3622047"
-                height="354px"
-                width="250px"
-                x="485px"
-                y="2070px"
+                height={this.theHeight + "px"}
+                width={this.theWidth + "px"}
+                x={this.props.xLoc}
+                y={this.props.yLoc}
                 id="armorTransferDiagram"
                 version="1.1">
                 <g>

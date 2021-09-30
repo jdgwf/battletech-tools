@@ -58,10 +58,10 @@ export default class QuadDamageTransferDiagramSVG extends React.Component<IQuadD
         return (
         <svg
         viewBox="0 0 744.09448819 1052.3622047"
-        height="354px"
-        width="250px"
-        x="485px"
-        y="2070px"
+        height={this.theHeight + "px"}
+        width={this.theWidth + "px"}
+        x={this.props.xLoc}
+        y={this.props.yLoc}
         id="QuadDamageTransferDiagram"
         version="1.1"
         >

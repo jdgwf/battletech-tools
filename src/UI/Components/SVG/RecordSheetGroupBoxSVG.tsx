@@ -128,7 +128,7 @@ interface IRecordSheetGroupBoxSVGProps {
     xLoc: number;
     yLoc: number;
 
-    title: string;
+    title?: string;
 }
 
 interface IRecordSheetGroupBoxSVGState {

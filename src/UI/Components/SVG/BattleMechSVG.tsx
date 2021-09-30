@@ -21,6 +21,7 @@ import HeatSinksSVG from './HeatSinksSVG';
 import DamageCircleSVG from './DamageCircleSVG';
 import QuadArmorCircles from './QuadArmorCircles';
 import BipedArmorCircles from './BipedArmorCircles';
+import ComponentDamageSVG from './ComponentDamageSVG';
 
 export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, IBattleMechSVGState> {
     bgColor = "rgb(255,255,255)";
@@ -98,7 +99,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         let critBoxTop = 1250;
         let critBoxLeft = 10;
         let critBoxWidth = 1225;
-        let damageTransferWidth = 250;
+        let damageTransferWidth = 150;
 
         let critCol1Start = 125;
         let critCol2Start = 513;
@@ -1407,12 +1408,20 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             yLoc={critBoxTop + 1050}
         />
 
+        <ComponentDamageSVG
+            xLoc={critBoxWidth / 3 }
+            yLoc={critBoxTop + 750}
+            mechData={this.props.mechData}
+            width={critBoxWidth / 3}
+            height={190}
+            strokeColor={this.strokeColor}
+        />
 
     {this.props.mechData.getMechType().tag === "biped" ? (
         <>
             <BipedDamageTransferDiagramSVG
                 xLoc={critBoxLeft + critBoxWidth / 2 - damageTransferWidth / 2}
-                yLoc={critBoxTop + 820}
+                yLoc={critBoxTop + 950}
                 width={damageTransferWidth}
                 strokeColor={this.strokeColor}
             />
@@ -1443,7 +1452,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         <>
             <QuadDamageTransferDiagramSVG
                 xLoc={critBoxLeft + critBoxWidth / 2 - damageTransferWidth / 2}
-                yLoc={critBoxTop + 820}
+                yLoc={critBoxTop + 950}
                 width={damageTransferWidth}
                 strokeColor={this.strokeColor}
             />
