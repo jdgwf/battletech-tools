@@ -1549,7 +1549,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         style={{fontWeight: 700}}
         fontSize={20}
     >
-    Created with Gauthic's Battletech Tools
+    Created with Jeff's Battletech Tools
     </text>
     <text
         x={20}
