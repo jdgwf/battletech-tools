@@ -2869,6 +2869,10 @@ export class BattleMech {
         html += "C-Bill Cost: $" + this.getCBillCost() + "\n";
         html += "\n";
 
+        if( this.isAnachronistic() ) {
+            html += "This 'mech is Anachronistic\n\n";
+        }
+
         let col1Padding = 25;
         let col2Padding = 15;
         let col3Padding = 10;
@@ -3105,6 +3109,11 @@ export class BattleMech {
         html += "<tr><td colspan=\"4\">Alpha Strike Value: " + this.getAlphaStrikeValue() + "</td></tr>";
         html += "<tr><td colspan=\"4\">C-Bill Cost: $" + this.getCBillCost() + "</td></tr>";
         html += "<tr><td colspan=\"4\">&nbsp;</td></tr>";
+
+        if( this.isAnachronistic() ) {
+            html += "<tr><td colspan=\"4\">This 'mech is Anachronistic</td></tr>";
+            html += "<tr><td colspan=\"4\">&nbsp;</td></tr>";
+        }
 
         // Equipment
         html += "<tr><th class=\"text-left\" colspan=\"3\">Equipment</th><th class=\"text-center\" colspan=\"1\">Mass</th></tr>";
@@ -5616,6 +5625,31 @@ export class BattleMech {
 
     heatSinkIsFilled( hsIndex: number): boolean {
         // TODO
+        return false;
+    }
+
+    isAnachronistic(): boolean {
+
+        if( this.engineType.available == false ) {
+            return true;
+        }
+
+        if( this.armorType.available == false ) {
+            return true;
+        }
+
+        // if( this.heatSinkType.available == false ) {
+        //     return true;
+        // }
+
+        for( let item of this.getInstalledEquipment() ) {
+
+            if( item.available == false ) {
+                return true;
+            }
+
+        }
+
         return false;
     }
 }

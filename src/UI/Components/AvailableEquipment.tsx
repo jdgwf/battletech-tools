@@ -134,7 +134,7 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
                                                 variant="primary"
                                                 className="btn-md"
                                                 onClick={() => this.props.addFunction( item )}
-                                                disabled={!item.available}
+                                                // disabled={!item.available}
                                             >
                                                 Add
                                             </Button>
