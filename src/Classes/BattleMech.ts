@@ -11,7 +11,7 @@ import { mechInternalStructureTypes } from "../Data/mech-internal-structure-type
 import { mechJumpJetTypes } from "../Data/mech-jump-jet-types";
 import { mechTypeOptions } from "../Data/mech-type-options";
 import { btTechOptions } from "../Data/tech-options";
-import { addCommas, generateUUID, getISEquuipmentList, getMovementModifier } from "../utils";
+import { addCommas, generateUUID, getISEquipmentList, getMovementModifier } from "../utils";
 import { AlphaStrikeUnit, IAlphaStrikeDamage, IASMULUnit } from "./AlphaStrikeUnit";
 
 
@@ -4905,7 +4905,7 @@ export class BattleMech {
 
         let equipmentList: IEquipmentItem[] = [];
         if( equipmentListTag === "is") {
-            equipmentList = getISEquuipmentList();
+            equipmentList = getISEquipmentList();
 
         }
 
@@ -4950,7 +4950,7 @@ export class BattleMech {
         }
 
         if( equipmentListTag === "is") {
-            equipmentList = getISEquuipmentList();
+            equipmentList = getISEquipmentList();
 
         }
 
@@ -5572,7 +5572,7 @@ export class BattleMech {
                 returnItems.push( item );
             }
         } else {
-            for( let item of getISEquuipmentList() ) {
+            for( let item of getISEquipmentList() ) {
                 item.criticals = item.space.battlemech;
                 item.available = this._itemIsAvailable( item.introduced, item.extinct, item.reintroduced);
                 returnItems.push( item );
@@ -5630,21 +5630,21 @@ export class BattleMech {
 
     isAnachronistic(): boolean {
 
-        if( this.engineType.available == false ) {
+        if( this.engineType.available === false ) {
             return true;
         }
 
-        if( this.armorType.available == false ) {
+        if( this.armorType.available === false ) {
             return true;
         }
 
-        // if( this.heatSinkType.available == false ) {
+        // if( this.heatSinkType.available === false ) {
         //     return true;
         // }
 
         for( let item of this.getInstalledEquipment() ) {
 
-            if( item.available == false ) {
+            if( item.available === false ) {
                 return true;
             }
 

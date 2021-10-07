@@ -16,11 +16,11 @@ export function generateUUID(): string {
     return uuidv1();
 }
 
-export function getISEquuipmentList(): IEquipmentItem[] {
+export function getISEquipmentList(): IEquipmentItem[] {
     return mechISEquipmentBallistic.concat( mechISEquipmentEnergy, mechISEquipmentMissiles)
 }
 
-export function getClanEquuipmentList(): IEquipmentItem[] {
+export function getClanEquipmentList(): IEquipmentItem[] {
     return mechClanEquipment;
 }
 
@@ -28,6 +28,7 @@ export async function getMULASSearchResults(
     searchTerm: string,
     mechRules: string,
     techFilter: string,
+    eraFilter: string,
 ): Promise<IASMULUnit[]> {
     let url = "https://masterunitlist.azurewebsites.net/Unit/QuickList?MinPV=1&MaxPV=999&Name=" + searchTerm;
     let returnUnits: IASMULUnit[] = [];
@@ -87,6 +88,21 @@ export async function getMULASSearchResults(
                     }
                 }
 
+                if( eraFilter && +eraFilter > 0 && returnUnits[mechCounter]) {
+                    if( returnUnits[mechCounter].EraStart < +eraFilter ) {
+                        returnUnits.splice( mechCounter, 1 );
+                    }
+                    // switch( techFilter.toLowerCase() ) {
+                    //     case "inner sphere":
+                    //         if( returnUnits[mechCounter].Technology.Name.toLowerCase() !== "inner sphere" )
+                    //             returnUnits.splice( mechCounter, 1 );
+                    //         break;
+                    //     case "clan":
+                    //         if( returnUnits[mechCounter].Technology.Name.toLowerCase() !== "clan" )
+                    //             returnUnits.splice( mechCounter, 1 );
+                    //         break;
+                    // }
+                }
 
 
             }

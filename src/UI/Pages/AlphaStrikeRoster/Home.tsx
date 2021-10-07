@@ -1,7 +1,7 @@
 import React from 'react';
 import './Home.scss';
 import {IAppGlobals} from '../../AppRouter';
-import { getMULASSearchResults } from '../../../utils';
+import { getMULASSearchResults, makeRange } from '../../../utils';
 import { IASMULUnit, AlphaStrikeUnit } from '../../../Classes/AlphaStrikeUnit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash, faEdit, faBars, faEye, faHeart, faFileImport, faArrowsAlt } from '@fortawesome/free-solid-svg-icons';
@@ -17,6 +17,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
     searchTech: string = "";
     searchTerm: string = "";
     searchRules: string = "";
+    searchEra: string = "";
     constructor(props: IHomeProps) {
         super(props);
 
@@ -25,6 +26,13 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
         if( rawLSSearchTerm ) {
           lsSearchTerm = rawLSSearchTerm;
         }
+
+        let lsSearchEra = "";
+        let rawSearchEra = localStorage.getItem("asEraSearch");
+        if( rawSearchEra ) {
+          lsSearchEra = rawSearchEra;
+        }
+
 
         let lsSearchRules = "";
         let rawLSsearchRules = localStorage.getItem("asSearchRules");
@@ -47,6 +55,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
         this.searchTech = lsSearchTech;
         this.searchTerm = lsSearchTerm;
         this.searchRules = lsSearchRules;
+        this.searchEra = lsSearchEra;
 
         this.state = {
             updated: false,
@@ -178,11 +187,20 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       this.updateSearchResults();
     }
 
+    updateEra = ( event: React.FormEvent<HTMLSelectElement> ): void => {
+
+
+      localStorage.setItem( "asEraSearch", event.currentTarget.value);
+      this.searchEra = event.currentTarget.value;
+      this.updateSearchResults();
+    }
+
     updateSearchResults = async (): Promise<void> => {
       let data: IASMULUnit[] = await getMULASSearchResults(
         this.searchTerm,
         this.searchRules,
         this.searchTech,
+        this.searchEra,
       );
 
       this.setState({
@@ -623,7 +641,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                 <div className="section-content">
                   <fieldset className="fieldset">
                     <div className="row">
-                      <div className="col-md-4 text-center">
+                      <div className="col-md-6 text-center">
                       <label>
                       Search Name:<br />
                       <input
@@ -633,7 +651,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                       />
                     </label>
                       </div>
-                      <div className="col-md-4 text-center">
+                      <div className="col-md-6 text-center">
                       <label>
                       Search Rules:<br />
                       <select
@@ -646,8 +664,11 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                         <option value="advanced">Advanced</option>
                       </select>
                     </label>
+
                       </div>
-                      <div className="col-md-4 text-center">
+</div>
+<div className="row">
+                      <div className="col-md-6 text-center">
                       <label>
                       Search Tech:<br />
                       <select
@@ -657,6 +678,22 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                         <option value="">All</option>
                         <option value="inner sphere">Inner Sphere</option>
                         <option value="clan">Clan</option>
+                      </select>
+                    </label>
+                      </div>
+                      <div className="col-md-6 text-center">
+                      <label>
+                      Year:<br />
+                      <select
+                        onChange={this.updateEra}
+                        value={this.searchEra}
+                      >
+                        <option value="">All</option>
+                        {makeRange(3025, 3500, 1).map( (year) => {
+                          return (
+                            <option value={year}>{year}</option>
+                          )
+                        })}
                       </select>
                     </label>
                       </div>
@@ -671,6 +708,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                         <th>Name</th>
                         <th>Rules</th>
                         <th>Tech</th>
+                        <th>Era</th>
                         <th>Type</th>
                         <th>Points</th>
 
@@ -680,6 +718,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                     {this.state.searchResults.length > 0 ? (
                       <>
                         {this.state.searchResults.map( (asUnit: IASMULUnit, unitIndex: number) => {
+
                           return (
                             <tr key={unitIndex}>
                               <td className="text-left min-width no-wrap">
@@ -734,8 +773,10 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
   </Button>
 </td>
                               <td>{asUnit.Name}</td>
+
                               <td>{asUnit.Rules}</td>
                               <td>{asUnit.Technology.Name}</td>
+                              <td>{asUnit.EraStart}</td>
                               <td>{asUnit.BFType}</td>
                               <td>{asUnit.BFPointValue}</td>
 
