@@ -1,9 +1,9 @@
-import { IASMULUnit } from "./Classes/AlphaStrikeUnit";
-import { IEquipmentItem } from "./Data/dataInterfaces";
-import { mechClanEquipment } from "./Data/mech-clan-equipment";
-import { mechISEquipmentBallistic } from "./Data/mech-is-equipment-weapons-ballistic";
-import { mechISEquipmentEnergy } from "./Data/mech-is-equipment-weapons-energy";
-import { mechISEquipmentMissiles } from "./Data/mech-is-equipment-weapons-missiles";
+mimport { IASMULUnit } from "./classes/alpha-strike-unit";
+import { IEquipmentItem } from "./data/data-interfaces";
+import { mechClanEquipment } from "./data/mech-clan-equipment";
+import { mechISEquipmentBallistic } from "./data/mech-is-equipment-weapons-ballistic";
+import { mechISEquipmentEnergy } from "./data/mech-is-equipment-weapons-energy";
+import { mechISEquipmentMissiles } from "./data/mech-is-equipment-weapons-missiles";
 
 
 export function addCommas( numericalValue: number ): string {
@@ -14,7 +14,7 @@ export function addCommas( numericalValue: number ): string {
 
 export function generateUUID(): string {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
       });
 }
