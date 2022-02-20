@@ -1,4 +1,4 @@
-mimport { IASMULUnit } from "./classes/alpha-strike-unit";
+import { IASMULUnit } from "./classes/alpha-strike-unit";
 import { IEquipmentItem } from "./data/data-interfaces";
 import { mechClanEquipment } from "./data/mech-clan-equipment";
 import { mechISEquipmentBallistic } from "./data/mech-is-equipment-weapons-ballistic";
