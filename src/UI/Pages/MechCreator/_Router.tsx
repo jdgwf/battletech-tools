@@ -1,6 +1,6 @@
 import {IAppGlobals} from '../../AppRouter';
 import * as React from 'react';
-import { Route, Switch } from 'react-router';
+import { Route, Routes } from 'react-router';
 import Home from './Home';
 import MechCreatorStep1 from './Step1';
 import MechCreatorStep2 from './Step2';
@@ -25,71 +25,71 @@ export default class MechCreatorRouter extends React.Component<IMechCreatorRoute
 
     render() {
         return(<>
-            <Switch>
+            <Routes>
 
 
-                <Route exact path={`${process.env.PUBLIC_URL}/mech-creator/`}>
+                <Route path={`/`} element={
                     <Home
                         appGlobals={this.props.appGlobals}
                     />
-                </Route>
-                <Route exact path={`${process.env.PUBLIC_URL}/mech-creator/step1`}>
+                }></Route>
+                <Route path={`/step1`} element={
                     <MechCreatorStep1
                         appGlobals={this.props.appGlobals}
                     />
-                </Route>
+                }></Route>
 
-                <Route exact path={`${process.env.PUBLIC_URL}/mech-creator/step2`}>
+                <Route path={`/step2`} element={
                     <MechCreatorStep2
                         appGlobals={this.props.appGlobals}
                     />
-                </Route>
+                }></Route>
 
-                <Route exact path={`${process.env.PUBLIC_URL}/mech-creator/step3`}>
+                <Route path={`/step3`} element={
                     <MechCreatorStep3
                         appGlobals={this.props.appGlobals}
                     />
-                </Route>
-                <Route exact path={`${process.env.PUBLIC_URL}/mech-creator/step4`}>
+                }></Route>
+                <Route path={`/step4`} element={
                     <MechCreatorStep4
                         appGlobals={this.props.appGlobals}
                     />
-                </Route>
-                <Route exact path={`${process.env.PUBLIC_URL}/mech-creator/step5`}>
+                }></Route>
+                <Route path={`/step5`} element={
                     <MechCreatorStep5
                         appGlobals={this.props.appGlobals}
                     />
-                </Route>
-                <Route exact path={`${process.env.PUBLIC_URL}/mech-creator/step6`}>
+                }></Route>
+                <Route path={`/step6`} element={
                     <MechCreatorStep6
                         appGlobals={this.props.appGlobals}
                     />
-                </Route>
+                }></Route>
 
-                <Route exact path={`${process.env.PUBLIC_URL}/mech-creator/summary`}>
+                <Route path={`/summary`} element={
                     <MechCreatorSummary
                         appGlobals={this.props.appGlobals}
                     />
-                </Route>
+                }></Route>
 
-                <Route exact path={`${process.env.PUBLIC_URL}/mech-creator/exports`}>
+                <Route path={`/exports`} element={
                     <MechCreatorExports
                         appGlobals={this.props.appGlobals}
                     />
-                </Route>
+                }></Route>
 
-                <Route exact path={`${process.env.PUBLIC_URL}/mech-creator/print-rs`}>
+                <Route path={`/print-rs`} element={
                     <MechCreatorPrintRS
                         appGlobals={this.props.appGlobals}
                     />
-                </Route>
+                }></Route>
 
-                <Route>
+                <Route element={
                     <Error404
                         appGlobals={this.props.appGlobals}
                     />
-                </Route>
-            </Switch>
+                }></Route>
+            </Routes>
         </>
         )
     }

@@ -1,6 +1,6 @@
 import {IAppGlobals} from '../../AppRouter';
 import * as React from 'react';
-import { Route, Switch } from 'react-router';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from './Home';
 import InPlay from './InPlay';
 import Error404 from "../Error404";
@@ -14,29 +14,28 @@ export default class AlphaStrikeRosterRouter extends React.Component<IAlphaStrik
     }
 
     render() {
-        return(<>
-            <Switch>
+        return(
+            <Routes>
 
 
-                <Route exact path={`${process.env.PUBLIC_URL}/alpha-strike-roster`}>
+                <Route path={``} element={
                     <Home
                         appGlobals={this.props.appGlobals}
                     />
-                </Route>
+                }></Route>
 
-                <Route exact path={`${process.env.PUBLIC_URL}/alpha-strike-roster/play`}>
+                <Route path={`/play`} element={
                     <InPlay
                         appGlobals={this.props.appGlobals}
                     />
-                </Route>
+                }></Route>
 
-                <Route>
+                <Route element={
                     <Error404
                         appGlobals={this.props.appGlobals}
                     />
-                </Route>
-            </Switch>
-        </>
+                }></Route>
+            </Routes>
         )
     }
 }

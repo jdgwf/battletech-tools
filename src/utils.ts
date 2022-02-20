@@ -4,7 +4,7 @@ import { mechClanEquipment } from "./Data/mech-clan-equipment";
 import { mechISEquipmentBallistic } from "./Data/mech-is-equipment-weapons-ballistic";
 import { mechISEquipmentEnergy } from "./Data/mech-is-equipment-weapons-energy";
 import { mechISEquipmentMissiles } from "./Data/mech-is-equipment-weapons-missiles";
-const uuidv1 = require('uuid/v1');
+
 
 export function addCommas( numericalValue: number ): string {
     return (numericalValue + "").replace(/\b(\d+)((\.\d+)*)\b/g, function(a, b, c) {
@@ -13,7 +13,10 @@ export function addCommas( numericalValue: number ): string {
 }
 
 export function generateUUID(): string {
-    return uuidv1();
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
 }
 
 export function getISEquipmentList(): IEquipmentItem[] {
@@ -89,7 +92,7 @@ export async function getMULASSearchResults(
                 }
 
                 if( eraFilter && +eraFilter > 0 && returnUnits[mechCounter]) {
-                    if( returnUnits[mechCounter].EraStart < +eraFilter ) {
+                    if( returnUnits[mechCounter].EraStart > +eraFilter ) {
                         returnUnits.splice( mechCounter, 1 );
                     }
                     // switch( techFilter.toLowerCase() ) {

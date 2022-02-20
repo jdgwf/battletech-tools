@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
 import Error404 from "./Pages/Error404";
 import About from "./Pages/About";
@@ -274,8 +274,8 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
     render() {
         return (
-            <Router>
-            <Modal show={this.state.appGlobals.showConfirmDialog} onHide={this.closeConfirmDialog}>
+            <>
+                <Modal show={this.state.appGlobals.showConfirmDialog} onHide={this.closeConfirmDialog}>
                 <Modal.Header closeButton>
                     <Modal.Title>
                             {this.state.appGlobals.confirmDialogTitle}
@@ -299,56 +299,59 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
                 </Modal.Footer>
             </Modal>
-            <Switch>
-                <Route path={`${process.env.PUBLIC_URL}/`} exact>
+            <Router>
+
+            <Routes>
+                <Route path={`${process.env.PUBLIC_URL}/`} element={
                     <Home
                         appGlobals={this.state.appGlobals}
                     />
-                </Route>
-                {/* <Route path={`${process.env.PUBLIC_URL}/page1`} exact>
+                }></Route>
+                {/* <Route path={`${process.env.PUBLIC_URL}/page1`} >
                     <Page1
                         appGlobals={this.state.appGlobals}
                     />
                 </Route> */}
-                <Route path={`${process.env.PUBLIC_URL}/equipment-editor`} exact>
+                <Route path={`${process.env.PUBLIC_URL}/equipment-editor`}   element={
                     <EquipmentEditor
                         appGlobals={this.state.appGlobals}
                     />
-                </Route>
-                <Route path={`${process.env.PUBLIC_URL}/dev-status`} exact>
+                }></Route>
+                <Route path={`${process.env.PUBLIC_URL}/dev-status`}    element={
                     <DevelopmentStatus
                         appGlobals={this.state.appGlobals}
                     />
-                </Route>
-                <Route path={`${process.env.PUBLIC_URL}/about`} exact>
+                }></Route>
+                <Route path={`${process.env.PUBLIC_URL}/about`}  element={
                     <About
                         appGlobals={this.state.appGlobals}
                     />
-                </Route>
-                <Route path={`${process.env.PUBLIC_URL}/settings`} exact>
+                }></Route>
+                <Route path={`${process.env.PUBLIC_URL}/settings`}  element={
                     <Settings
                         appGlobals={this.state.appGlobals}
                     />
-                </Route>
-                <Route path={`${process.env.PUBLIC_URL}/alpha-strike-roster`}>
+                }></Route>
+                <Route path={`${process.env.PUBLIC_URL}/alpha-strike-roster/*`}  element={
                     <AlphaStrikeRosterRouter
                         appGlobals={this.state.appGlobals}
                     />
-                </Route>
-                <Route path={`${process.env.PUBLIC_URL}/mech-creator`}>
+                }></Route>
+                <Route path={`${process.env.PUBLIC_URL}/mech-creator/*`}  element={
                     <MechCreatorRouter
                         appGlobals={this.state.appGlobals}
                     />
-                </Route>
+                }></Route>
 
-                <Route>
+                <Route element={
                     <Error404
                         appGlobals={this.state.appGlobals}
                     />
-                </Route>
+                }></Route>
 
-            </Switch>
+            </Routes>
             </Router>
+            </>
         );
     }
 }
