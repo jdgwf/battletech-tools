@@ -177,6 +177,7 @@ input[type=number] {
     thead, tbody, tfoot {
       tr {
         th, td {
+          vertical-align: top;
           color: $fontColor;
         }
       }

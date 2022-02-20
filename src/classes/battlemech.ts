@@ -4903,15 +4903,7 @@ export class BattleMech {
             uuid = generateUUID()
         }
 
-        let equipmentList: IEquipmentItem[] = [];
-        if( equipmentListTag === "is") {
-            equipmentList = getISEquipmentList();
-
-        }
-
-        if( equipmentListTag === "clan") {
-            equipmentList = mechClanEquipment;
-        }
+        let equipmentList = this.getEquipmentList( equipmentListTag );
 
         if( equipmentList[equipmentIndex]) {
 
@@ -4939,8 +4931,6 @@ export class BattleMech {
         rear: boolean = false,
         uuid: string | undefined | null,
     ) {
-        let equipmentList: IEquipmentItem[] = [];
-
         if( !uuid ) {
             uuid = generateUUID()
         }
@@ -4949,14 +4939,7 @@ export class BattleMech {
             equipmentListTag = this.tech.tag;
         }
 
-        if( equipmentListTag === "is") {
-            equipmentList = getISEquipmentList();
-
-        }
-
-        if( equipmentListTag === "clan") {
-            equipmentList = mechClanEquipment;
-        }
+        let equipmentList = this.getEquipmentList( equipmentListTag );
 
         for( let item of equipmentList ) {
             if( equipmentTag === item.tag) {
@@ -5651,6 +5634,315 @@ export class BattleMech {
         }
 
         return false;
+    }
+
+    importTRO(
+        importString: string
+    ): void {
+        importString = importString.trim();
+        // console.log("importString", importString);
+        let lines = importString.split("\n");
+        // console.log("lines", lines);
+        let inEquipmentList = false;
+        let equipmentList: IEquipmentItem[] = [];
+        for( let line of lines ) {
+            // console.log("line", line);
+            if( line.toLowerCase().startsWith("technology base:")) {
+
+                line = line.replace(/technology base:/ig, '').trim();
+                if( line == "inner sphere") {
+                    this.setTech( "is" )
+                } else if (line == "clan" ) {
+                    this.setTech( "clan" )
+                }
+                equipmentList = this.getEquipmentList( this.getTech().tag )
+            }
+            if( line.toLowerCase().startsWith("tonnage: ")) {
+                line = line.replace(/tonnage: /ig, '').trim();
+                if( +line ) {
+                    this.setTonnage( +line );
+                }
+            }
+            if( line.toLowerCase().startsWith("type: ")) {
+                line = line.replace(/type:/ig, '').trim();
+                if( line ) {
+                    this.setMake( line )
+                }
+            }
+            if( line.toLowerCase().startsWith("walking mp: ")) {
+                line = line.replace(/walking mp:/ig, '').trim();
+                if( +line ) {
+                    this.setWalkSpeed( +line )
+                }
+            }
+            if( line.toLowerCase().startsWith("jumping mp: ")) {
+                line = line.replace(/jumping mp:/ig, '').trim();
+                if( +line ) {
+                    this.setJumpSpeed( +line )
+                }
+            }
+
+            if( line.toLowerCase().startsWith("double heat sinks: ")) {
+                line = line.replace(/double heat sink:/ig, '').trim();
+                if( line && line.indexOf(" ") > - 1 ) {
+                    line = line.replace(/  /ig, ' ').trim();
+                    let splitLine = line.split(" ");
+                    // console.log("armor splitLine", splitLine)
+                    if( splitLine.length > 1 && !isNaN(+splitLine[0]) ) {
+
+                        this.setAdditionalHeatSinks(+splitLine[0] - 10 )
+                        this.setHeatSinksType( "double" )
+                    }
+                }
+            }
+
+            if( line.toLowerCase().startsWith("single heat sinks: ")) {
+                line = line.replace(/single heat sinks:/ig, '').trim();
+                if( line && line.indexOf(" ") > - 1 ) {
+                    line = line.replace(/  /ig, ' ').trim();
+                    let splitLine = line.split(" ");
+                    // console.log("armor splitLine", splitLine)
+                    if( splitLine.length > 1 && !isNaN(+splitLine[0]) ) {
+
+                        this.setAdditionalHeatSinks(+splitLine[0] - 10 )
+                        this.setHeatSinksType( "single" )
+                    }
+
+                }
+            }
+
+            if( line.toLowerCase().startsWith("heat sinks: ")) {
+                line = line.replace(/heat sinks:/ig, '').trim();
+                if( line && line.indexOf(" ") > - 1 ) {
+                    line = line.replace(/  /ig, ' ').trim();
+                    let splitLine = line.split(" ");
+                    console.log("heat sinks splitLine", splitLine)
+                    if( splitLine.length > 1 && !isNaN(+splitLine[0]) ) {
+
+                        this.setAdditionalHeatSinks(+splitLine[0] - 10 )
+                        this.setHeatSinksType( "single" )
+                    }
+
+                }
+            }
+
+            // if( line.toLowerCase().startsWith("engine: ")) {
+            //     line = line.replace(/engine:/ig, '').trim();
+            //     if( line ) {
+            //         this.setMake( line )
+            //     }
+            // }
+            if( line.toLowerCase().startsWith("armor factor: ")) {
+                line = line.replace(/armor factor:/ig, '').trim();
+                if( line && line.indexOf(" ") > - 1 ) {
+                    line = line.replace(/  /ig, ' ').trim();
+                    let splitLine = line.split(" ");
+                    // console.log("armor splitLine", splitLine)
+                    if( splitLine.length > 1 && +splitLine[1] > 0) {
+                        this.setArmorWeight( +splitLine[1] )
+                    }
+
+                }
+            }
+
+            // Armor Locations
+            if( line.toLowerCase().startsWith("head")) {
+                line = line.replace(/head/ig, '').trim();
+                if( line && line.indexOf(" ") > - 1 ) {
+                    line = line.replace(/  /ig, ' ').trim();
+                    let splitLine = line.split(" ");
+                    // console.log("head", splitLine)
+                    if( splitLine.length > 1 && +splitLine[1] > 0) {
+                        this.setHeadArmor( +splitLine[1] )
+                    }
+
+                }
+            }
+
+            if( line.toLowerCase().startsWith("center torso") && line.toLowerCase().indexOf("(rear)") == -1 ) {
+                line = line.replace(/center torso/ig, '').trim();
+                if( line && line.indexOf(" ") > - 1 ) {
+                    line = line.replace(/  /ig, ' ').trim();
+                    let splitLine = line.split(" ");
+                    // console.log("center torso", splitLine)
+                    if( splitLine.length > 1 && +splitLine[1] > 0) {
+                        this.setCenterTorsoArmor( +splitLine[1] )
+                    }
+
+                }
+            }
+
+            if( line.toLowerCase().startsWith("center torso") && line.toLowerCase().indexOf("(rear)") > -1 ) {
+
+                line = line.replace(/center torso \(rear\)/ig, '').trim();
+                // console.log("CTR", line)
+                // line = line.replace(/  /ig, ' ').trim();
+                // console.log("center torso (rear)", +line)
+                if( +line > 0) {
+                    this.setCenterTorsoRearArmor( +line )
+                }
+
+
+            }
+
+
+            if( line.toLowerCase().startsWith("r/l torso") && line.toLowerCase().indexOf("(rear)") == -1 ) {
+                line = line.replace(/r\/l torso/ig, '').trim();
+                if( line && line.indexOf(" ") > - 1 ) {
+                    line = line.replace(/  /ig, ' ').trim();
+                    let splitLine = line.split(" ");
+                    // console.log("r/l torso", splitLine)
+                    if( splitLine.length > 1 && +splitLine[1] > 0) {
+                        this.setRightTorsoArmor( +splitLine[1] )
+                        this.setLeftTorsoArmor( +splitLine[1] )
+                    }
+
+                }
+            }
+
+            if( line.toLowerCase().startsWith("r/l torso") && line.toLowerCase().indexOf("(rear)") > -1 ) {
+                line = line.replace(/r\/l torso \(rear\)/ig, '').trim();
+
+                if( +line > 0) {
+                    this.setRightTorsoRearArmor( +line )
+                    this.setLeftTorsoRearArmor( +line )
+                }
+
+            }
+
+            if( line.toLowerCase().startsWith("r/l leg") ) {
+                line = line.replace(/r\/l leg/ig, '').trim();
+                if( line && line.indexOf(" ") > - 1 ) {
+                    line = line.replace(/  /ig, ' ').trim();
+                    let splitLine = line.split(" ");
+                    // console.log("r/l torso", splitLine)
+                    if( splitLine.length > 1 && +splitLine[1] > 0) {
+                        this.setLeftLegArmor( +splitLine[1] )
+                        this.setRightLegArmor( +splitLine[1] )
+                    }
+
+                }
+            }
+
+            if( line.toLowerCase().startsWith("r/l arm") ) {
+                line = line.replace(/r\/l arm/ig, '').trim();
+                if( line && line.indexOf(" ") > - 1 ) {
+                    line = line.replace(/  /ig, ' ').trim();
+                    let splitLine = line.split(" ");
+                    // console.log("r/l torso", splitLine)
+                    if( splitLine.length > 1 && +splitLine[1] > 0) {
+                        this.setLeftArmArmor( +splitLine[1] )
+                        this.setRightArmArmor( +splitLine[1] )
+                    }
+
+                }
+            }
+
+            if( line.toLowerCase().startsWith("weapons") ) {
+                inEquipmentList = true;
+            }
+
+
+
+
+            if( inEquipmentList && equipmentList.length > 0 ) {
+                // remove double-spaces
+                line = line.replace(/  /ig, ' ').trim();
+                let lineSplit = line.split(' ');
+                // console.log("Equipment Parse?", lineSplit);
+                let equipmentLine = {
+                    name: "",
+                    location: "",
+                    criticals: 0,
+                    weight: 0,
+                    number: 1,
+
+                }
+                if(
+                    lineSplit.length > 3
+                    &&
+                    !isNaN( +lineSplit[ lineSplit.length - 1] )
+                        &&
+                    !isNaN( +lineSplit[ lineSplit.length - 2] )
+                ) {
+                    // console.log("lineSplit", lineSplit);
+                    equipmentLine.weight = +lineSplit[ lineSplit.length - 1];
+                    equipmentLine.criticals = +lineSplit[ lineSplit.length - 2];
+                    equipmentLine.location = lineSplit[ lineSplit.length - 3];
+                    lineSplit.pop();
+                    lineSplit.pop();
+                    lineSplit.pop();
+                    equipmentLine.name = lineSplit.join(" ")
+
+                    if( !isNaN( +equipmentLine.name[0] ) ) {
+                        let nameSplit = equipmentLine.name.split(" ");
+                        let count = +nameSplit[0];
+                        nameSplit.shift();
+                        equipmentLine.name = nameSplit.join(" ")
+                        equipmentLine.number = count;
+                        equipmentLine.criticals = equipmentLine.criticals / count;
+                        equipmentLine.weight = equipmentLine.weight /  count;
+                    }
+
+                    console.log("equipmentLine", equipmentLine);
+                    if(
+                        equipmentLine.name.trim()
+                        &&
+                        equipmentLine.criticals > 0
+                        &&
+                        equipmentLine.weight > 0
+                        &&
+                        equipmentLine.location.trim()
+                    ) {
+                        console.log("eq", equipmentLine.name.trim().toLowerCase())
+
+
+                        for( let eqIndex in equipmentList ) {
+                            let eq = equipmentList[eqIndex];
+
+                            if(
+                                (
+                                    eq.name.toLowerCase().trim() == equipmentLine.name.trim().toLowerCase()
+                                    ||
+                                    eq.name.toLowerCase().trim() + "s" == equipmentLine.name.trim().toLowerCase()
+                                )
+                                //     &&
+                                // eq.available
+                            ) {
+                                // console.log("found!", eq.name.toLowerCase().trim(), equipmentLine.name.trim().toLowerCase())
+                                for( let count = 0; count < equipmentLine.number; count++) {
+                                    this.addEquipment(
+                                        +eqIndex,
+                                        this.getTech().tag,
+                                        equipmentLine.location.trim().toLowerCase(),
+                                        false,
+                                        null,
+                                    )
+                                }
+
+                            }
+                        }
+
+                    }
+                }
+            }
+
+        }
+    }
+
+    getEquipmentList(equipmentListTag: string): IEquipmentItem[] {
+        console.log("getEquipmentList" , equipmentListTag)
+        let equipmentList: IEquipmentItem[] = [];
+        if( equipmentListTag === "is") {
+            equipmentList = getISEquipmentList();
+
+        }
+
+        if( equipmentListTag === "clan") {
+            equipmentList = mechClanEquipment;
+        }
+
+        return equipmentList;
     }
 }
 

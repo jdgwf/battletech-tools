@@ -12,10 +12,6 @@ export default class ModalWindow extends React.Component<IModalWindowProps, IMod
         }
     }
 
-    async componentWillMount() {
-
-    }
-
     closeDialog() {
 
     }

@@ -10,9 +10,6 @@ export default class SanitizedHTML extends React.Component<ISanitizedHTMLProps, 
         }
     }
 
-    async componentWillMount() {
-
-    }
 
     // For the SanitizeHTML function/module docs go here:
     // https://www.npmjs.com/package/sanitize-html
