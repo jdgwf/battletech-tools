@@ -5140,7 +5140,36 @@ export class BattleMech {
         };
 
         let hasSpace = true;
-        if( toLocation.length < toIndex + fromItem.crits)
+
+        if( toIndex == -1 ) {
+
+            for( let itemIndex = 0; itemIndex < toLocation.length; itemIndex++ ) {
+
+                if( toLocation[itemIndex] == null || typeof(toLocation[itemIndex]) === "undefined") {
+
+                    toIndex = +itemIndex;
+                    break;
+                }
+
+            }
+            if( toIndex == -1 ) {
+
+                let numSlots = 12;
+                if(
+                    toLocTag == "ll"
+                    ||  toLocTag == "rl"
+                    ||  toLocTag == "hd"
+                ) {
+                    numSlots = 6;
+                }
+
+                if( toLocation.length < numSlots) {
+                    toIndex = toLocation.length - 1;
+                }
+            }
+        }
+
+        if( toLocation.length < toIndex + fromItem.crits || toIndex < 0)
             return false;
 
         for( let testC = 0; testC < fromItem.crits; testC++) {
@@ -5177,6 +5206,7 @@ export class BattleMech {
                     return false;
                 }
             }
+
             fromItem.loc = toLocTag;
             fromItem.slot = toIndex;
             toLocation[toIndex] = fromItem;
@@ -5645,6 +5675,7 @@ export class BattleMech {
         // console.log("lines", lines);
         let inEquipmentList = false;
         let equipmentList: IEquipmentItem[] = [];
+        let jjCount = 1;
         for( let line of lines ) {
             // console.log("line", line);
             if( line.toLowerCase().startsWith("technology base:")) {
@@ -5845,6 +5876,7 @@ export class BattleMech {
 
 
 
+
             if( inEquipmentList && equipmentList.length > 0 ) {
                 // remove double-spaces
                 line = line.replace(/  /ig, ' ').trim();
@@ -5897,6 +5929,32 @@ export class BattleMech {
                         console.log("eq", equipmentLine.name.trim().toLowerCase())
 
 
+
+                        if( equipmentLine.name.trim().toLowerCase().startsWith("jump jet") ) {
+
+                            for( let count = 0; count < equipmentLine.weight; count++) {
+
+                                    for( let critIndex = this.unallocatedCriticals.length -1; critIndex > -1; critIndex--  ) {
+
+                                        if( this.unallocatedCriticals[critIndex] && this.unallocatedCriticals[critIndex].name.trim().toLowerCase().indexOf("jump jet") > 1) {
+
+                                            this.moveCritical(
+                                                "un",
+                                                +critIndex,
+                                                equipmentLine.location.trim().toLowerCase(),
+                                                -1,
+                                            )
+                                            break;
+                                        }
+
+                                    }
+
+                            }
+                            jjCount++;
+                        }
+
+                    } else {
+
                         for( let eqIndex in equipmentList ) {
                             let eq = equipmentList[eqIndex];
 
@@ -5909,8 +5967,9 @@ export class BattleMech {
                                 //     &&
                                 // eq.available
                             ) {
-                                // console.log("found!", eq.name.toLowerCase().trim(), equipmentLine.name.trim().toLowerCase())
+
                                 for( let count = 0; count < equipmentLine.number; count++) {
+
                                     this.addEquipment(
                                         +eqIndex,
                                         this.getTech().tag,
@@ -5921,6 +5980,7 @@ export class BattleMech {
                                 }
 
                             }
+
                         }
 
                     }

@@ -233,7 +233,14 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
 
                             {this.state.ParsedTRO ? (
                                 <SanitizedHTML html={this.state.ParsedTRO.makeTROHTML()} raw={true} />
-                            ) : null}
+                            ) :
+                            (
+                              <div className="text-center">
+                              <br />
+                                <p>Paste something, and we'll see what we can do!</p>
+                                <p>Remember: It seems that only Adobe Acrobat does a good job at copying all the text in an orderly fashion.</p>
+                              </div>
+                            )}
                           </div>
                         </div>
             </StandardModal>
