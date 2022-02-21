@@ -201,7 +201,6 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
           <UIPage current="mech-creator" appGlobals={this.props.appGlobals}>
             <StandardModal
               title="Experimental TRO importer!"
-              appGlobals={this.props.appGlobals}
               show={this.state.importTROModal}
               onClose={this.closeTROModal}
               onAdd={this.state.ParsedTRO ? this.importTRO : undefined }

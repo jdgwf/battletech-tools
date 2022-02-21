@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { Modal } from 'react-bootstrap';
-import { IAppGlobals } from '../app-router';
-
 import InputCheckbox from './form_elements/input_checkbox';
+
 
 export default class StandardModal extends React.Component<IStandardModalProps, IStandardModalState> {
 
@@ -142,7 +141,6 @@ export default class StandardModal extends React.Component<IStandardModalProps, 
 
 interface IStandardModalProps {
     show: boolean;
-    appGlobals: IAppGlobals;
     title?: string;
     className?: string;
     onClose( e: React.FormEvent<HTMLButtonElement> ): void;

@@ -318,6 +318,9 @@ body {
     display: inline-block
   }
 
+  .width-auto {
+    width: auto;
+  }
   hr {
     height: 0;
     outline: 0;
@@ -422,9 +425,11 @@ body {
       border-color: #000;
       color: 0;
     }
-    .no-margins {
-      margin: 0 !important;
-    }
+
+  }
+
+  .no-margins {
+    margin: 0 !important;
   }
 
   ul.styleless {

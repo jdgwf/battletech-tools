@@ -2,7 +2,7 @@ import { battlemechLocations } from "../data/battlemech-locations";
 import { IArmorType, ICritialLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync } from "../data/data-interfaces";
 import { btEraOptions } from "../data/era-options";
 import { mechArmorTypes } from "../data/mech-armor-types";
-import { mechClanEquipment } from "../data/mech-clan-equipment";
+import { mechClanEquipmentEnergy } from "../data/mech-clan-equipment-weapons-energy";
 import { mechEngineOptions } from "../data/mech-engine-options";
 import { mechEngineTypes } from "../data/mech-engine-types";
 import { mechGyroTypes } from "../data/mech-gyro-types";
@@ -2335,15 +2335,15 @@ export class BattleMech {
 
         heatDissipation += (10 + this.additionalHeatSinks) * this.heatSinkType.dissipation;
 
-        console.log("heatDissipation", heatDissipation);
-        console.log("total_weapon_heat", total_weapon_heat);
+        // console.log("heatDissipation", heatDissipation);
+        // console.log("total_weapon_heat", total_weapon_heat);
 
         let max_heat_output = move_heat + total_weapon_heat;
         let overheat_value = move_heat + total_weapon_heat - heatDissipation;
         let long_overheat_value = move_heat + total_weapon_heat_long - heatDissipation;
 
-        console.log("overheat_value", overheat_value);
-        console.log("long_overheat_value", long_overheat_value);
+        // console.log("overheat_value", overheat_value);
+        // console.log("long_overheat_value", long_overheat_value);
 
         //~ let before_heat_rangeShort = this.alphaStrikeForceStats.damage.short.toFixed(0) /1;
         //~ let before_heat_rangeMedium = this.alphaStrikeForceStats.damage.medium.toFixed(0) /1;
@@ -3646,7 +3646,7 @@ export class BattleMech {
                 } else {
                     // reset back to standard, engine not available for tech
                     if( engineCrits && engineCrits.ct ) {
-                        console.log("warning", "resetting engine to standard ", this.engineType.criticals, this.getTech().tag, this.tech);
+                        console.warn("resetting engine to standard ", this.engineType.criticals, this.getTech().tag, this.tech);
                         this.setEngineType("standard");
                         this._addCriticalItem(
                             "engine", // item_tag
@@ -5141,24 +5141,24 @@ export class BattleMech {
 
         let hasSpace = true;
 
-        if( toIndex == -1 ) {
+        if( toIndex === -1 ) {
 
             for( let itemIndex = 0; itemIndex < toLocation.length; itemIndex++ ) {
 
-                if( toLocation[itemIndex] == null || typeof(toLocation[itemIndex]) === "undefined") {
+                if( toLocation[itemIndex] === null || typeof(toLocation[itemIndex]) === "undefined") {
 
                     toIndex = +itemIndex;
                     break;
                 }
 
             }
-            if( toIndex == -1 ) {
+            if( toIndex === -1 ) {
 
                 let numSlots = 12;
                 if(
-                    toLocTag == "ll"
-                    ||  toLocTag == "rl"
-                    ||  toLocTag == "hd"
+                    toLocTag === "ll"
+                    ||  toLocTag === "rl"
+                    ||  toLocTag === "hd"
                 ) {
                     numSlots = 6;
                 }
@@ -5579,7 +5579,7 @@ export class BattleMech {
     getAvailableEquipment(): IEquipmentItem[] {
         let returnItems: IEquipmentItem[] = [];
         if( this.getTech().tag === "clan" ) {
-            for( let item of mechClanEquipment ) {
+            for( let item of mechClanEquipmentEnergy ) {
                 item.criticals = item.space.battlemech;
                 item.available = this._itemIsAvailable( item.introduced, item.extinct, item.reintroduced);
                 returnItems.push( item );
@@ -5681,12 +5681,13 @@ export class BattleMech {
             if( line.toLowerCase().startsWith("technology base:")) {
 
                 line = line.replace(/technology base:/ig, '').trim();
-                if( line == "inner sphere") {
+                if( line === "inner sphere") {
                     this.setTech( "is" )
-                } else if (line == "clan" ) {
+                } else if (line === "clan" ) {
                     this.setTech( "clan" )
                 }
                 equipmentList = this.getEquipmentList( this.getTech().tag )
+
             }
             if( line.toLowerCase().startsWith("tonnage: ")) {
                 line = line.replace(/tonnage: /ig, '').trim();
@@ -5716,7 +5717,7 @@ export class BattleMech {
             if( line.toLowerCase().startsWith("double heat sinks: ")) {
                 line = line.replace(/double heat sink:/ig, '').trim();
                 if( line && line.indexOf(" ") > - 1 ) {
-                    line = line.replace(/  /ig, ' ').trim();
+                    line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split(" ");
                     // console.log("armor splitLine", splitLine)
                     if( splitLine.length > 1 && !isNaN(+splitLine[0]) ) {
@@ -5730,7 +5731,7 @@ export class BattleMech {
             if( line.toLowerCase().startsWith("single heat sinks: ")) {
                 line = line.replace(/single heat sinks:/ig, '').trim();
                 if( line && line.indexOf(" ") > - 1 ) {
-                    line = line.replace(/  /ig, ' ').trim();
+                    line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split(" ");
                     // console.log("armor splitLine", splitLine)
                     if( splitLine.length > 1 && !isNaN(+splitLine[0]) ) {
@@ -5745,9 +5746,9 @@ export class BattleMech {
             if( line.toLowerCase().startsWith("heat sinks: ")) {
                 line = line.replace(/heat sinks:/ig, '').trim();
                 if( line && line.indexOf(" ") > - 1 ) {
-                    line = line.replace(/  /ig, ' ').trim();
+                    line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split(" ");
-                    console.log("heat sinks splitLine", splitLine)
+                    // console.log("heat sinks splitLine", splitLine)
                     if( splitLine.length > 1 && !isNaN(+splitLine[0]) ) {
 
                         this.setAdditionalHeatSinks(+splitLine[0] - 10 )
@@ -5766,7 +5767,7 @@ export class BattleMech {
             if( line.toLowerCase().startsWith("armor factor: ")) {
                 line = line.replace(/armor factor:/ig, '').trim();
                 if( line && line.indexOf(" ") > - 1 ) {
-                    line = line.replace(/  /ig, ' ').trim();
+                    line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split(" ");
                     // console.log("armor splitLine", splitLine)
                     if( splitLine.length > 1 && +splitLine[1] > 0) {
@@ -5780,7 +5781,7 @@ export class BattleMech {
             if( line.toLowerCase().startsWith("head")) {
                 line = line.replace(/head/ig, '').trim();
                 if( line && line.indexOf(" ") > - 1 ) {
-                    line = line.replace(/  /ig, ' ').trim();
+                    line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split(" ");
                     // console.log("head", splitLine)
                     if( splitLine.length > 1 && +splitLine[1] > 0) {
@@ -5790,10 +5791,10 @@ export class BattleMech {
                 }
             }
 
-            if( line.toLowerCase().startsWith("center torso") && line.toLowerCase().indexOf("(rear)") == -1 ) {
+            if( line.toLowerCase().startsWith("center torso") && line.toLowerCase().indexOf("(rear)") === -1 ) {
                 line = line.replace(/center torso/ig, '').trim();
                 if( line && line.indexOf(" ") > - 1 ) {
-                    line = line.replace(/  /ig, ' ').trim();
+                    line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split(" ");
                     // console.log("center torso", splitLine)
                     if( splitLine.length > 1 && +splitLine[1] > 0) {
@@ -5807,7 +5808,7 @@ export class BattleMech {
 
                 line = line.replace(/center torso \(rear\)/ig, '').trim();
                 // console.log("CTR", line)
-                // line = line.replace(/  /ig, ' ').trim();
+                // line = line.replace(/ {2}/ig, ' ').trim();
                 // console.log("center torso (rear)", +line)
                 if( +line > 0) {
                     this.setCenterTorsoRearArmor( +line )
@@ -5817,10 +5818,10 @@ export class BattleMech {
             }
 
 
-            if( line.toLowerCase().startsWith("r/l torso") && line.toLowerCase().indexOf("(rear)") == -1 ) {
+            if( line.toLowerCase().startsWith("r/l torso") && line.toLowerCase().indexOf("(rear)") === -1 ) {
                 line = line.replace(/r\/l torso/ig, '').trim();
                 if( line && line.indexOf(" ") > - 1 ) {
-                    line = line.replace(/  /ig, ' ').trim();
+                    line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split(" ");
                     // console.log("r/l torso", splitLine)
                     if( splitLine.length > 1 && +splitLine[1] > 0) {
@@ -5844,7 +5845,7 @@ export class BattleMech {
             if( line.toLowerCase().startsWith("r/l leg") ) {
                 line = line.replace(/r\/l leg/ig, '').trim();
                 if( line && line.indexOf(" ") > - 1 ) {
-                    line = line.replace(/  /ig, ' ').trim();
+                    line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split(" ");
                     // console.log("r/l torso", splitLine)
                     if( splitLine.length > 1 && +splitLine[1] > 0) {
@@ -5858,7 +5859,7 @@ export class BattleMech {
             if( line.toLowerCase().startsWith("r/l arm") ) {
                 line = line.replace(/r\/l arm/ig, '').trim();
                 if( line && line.indexOf(" ") > - 1 ) {
-                    line = line.replace(/  /ig, ' ').trim();
+                    line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split(" ");
                     // console.log("r/l torso", splitLine)
                     if( splitLine.length > 1 && +splitLine[1] > 0) {
@@ -5878,8 +5879,9 @@ export class BattleMech {
 
 
             if( inEquipmentList && equipmentList.length > 0 ) {
+
                 // remove double-spaces
-                line = line.replace(/  /ig, ' ').trim();
+                line = line.replace(/ {2}/ig, ' ').trim();
                 let lineSplit = line.split(' ');
                 // console.log("Equipment Parse?", lineSplit);
                 let equipmentLine = {
@@ -5916,7 +5918,7 @@ export class BattleMech {
                         equipmentLine.weight = equipmentLine.weight /  count;
                     }
 
-                    console.log("equipmentLine", equipmentLine);
+                    // console.log("equipmentLine", equipmentLine);
                     if(
                         equipmentLine.name.trim()
                         &&
@@ -5926,18 +5928,19 @@ export class BattleMech {
                         &&
                         equipmentLine.location.trim()
                     ) {
-                        console.log("eq", equipmentLine.name.trim().toLowerCase())
+                        // console.log("eq", equipmentLine.name.trim().toLowerCase())
 
 
 
                         if( equipmentLine.name.trim().toLowerCase().startsWith("jump jet") ) {
 
-                            for( let count = 0; count < equipmentLine.weight; count++) {
+                            for( let count = 0; count < equipmentLine.criticals; count++) {
 
                                     for( let critIndex = this.unallocatedCriticals.length -1; critIndex > -1; critIndex--  ) {
 
                                         if( this.unallocatedCriticals[critIndex] && this.unallocatedCriticals[critIndex].name.trim().toLowerCase().indexOf("jump jet") > 1) {
 
+                                            // console.log( "JJ", equipmentLine.name, equipmentLine.weight, equipmentLine.location.trim().toLowerCase())
                                             this.moveCritical(
                                                 "un",
                                                 +critIndex,
@@ -5951,32 +5954,34 @@ export class BattleMech {
 
                             }
                             jjCount++;
-                        }
+                        } else {
 
-                    } else {
+                            // console.log("finding eq.name", equipmentLine, equipmentList.length)
+                            for( let eqIndex in equipmentList ) {
+                                let eq = equipmentList[eqIndex];
 
-                        for( let eqIndex in equipmentList ) {
-                            let eq = equipmentList[eqIndex];
-
-                            if(
-                                (
-                                    eq.name.toLowerCase().trim() == equipmentLine.name.trim().toLowerCase()
-                                    ||
-                                    eq.name.toLowerCase().trim() + "s" == equipmentLine.name.trim().toLowerCase()
-                                )
-                                //     &&
-                                // eq.available
-                            ) {
-
-                                for( let count = 0; count < equipmentLine.number; count++) {
-
-                                    this.addEquipment(
-                                        +eqIndex,
-                                        this.getTech().tag,
-                                        equipmentLine.location.trim().toLowerCase(),
-                                        false,
-                                        null,
+                                if(
+                                    (
+                                        eq.name.toLowerCase().trim() === equipmentLine.name.trim().toLowerCase()
+                                        ||
+                                        eq.name.toLowerCase().trim() + "s" === equipmentLine.name.trim().toLowerCase()
                                     )
+                                    //     &&
+                                    // eq.available
+                                ) {
+
+                                    // console.log("adding eq.name", eq)
+                                    for( let count = 0; count < equipmentLine.number; count++) {
+
+                                        this.addEquipment(
+                                            +eqIndex,
+                                            this.getTech().tag,
+                                            equipmentLine.location.trim().toLowerCase(),
+                                            false,
+                                            null,
+                                        )
+                                    }
+
                                 }
 
                             }
@@ -5991,7 +5996,7 @@ export class BattleMech {
     }
 
     getEquipmentList(equipmentListTag: string): IEquipmentItem[] {
-        console.log("getEquipmentList" , equipmentListTag)
+        // console.log("getEquipmentList" , equipmentListTag)
         let equipmentList: IEquipmentItem[] = [];
         if( equipmentListTag === "is") {
             equipmentList = getISEquipmentList();
@@ -5999,7 +6004,7 @@ export class BattleMech {
         }
 
         if( equipmentListTag === "clan") {
-            equipmentList = mechClanEquipment;
+            equipmentList = mechClanEquipmentEnergy;
         }
 
         return equipmentList;

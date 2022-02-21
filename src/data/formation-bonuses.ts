@@ -260,7 +260,7 @@ class FireSupportLance extends FormationBonusBase implements IFormationBonus {
         let result =true;
 
         // 3 IF mechs
-        console.log(group);
+        // console.log(group);
         result = result && (group.members.filter(x=>x.abilities.includes('IF')).length>=3);
         return result;
     }

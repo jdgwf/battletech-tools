@@ -1,6 +1,6 @@
 import { IASMULUnit } from "./classes/alpha-strike-unit";
 import { IEquipmentItem } from "./data/data-interfaces";
-import { mechClanEquipment } from "./data/mech-clan-equipment";
+import { mechClanEquipmentEnergy } from "./data/mech-clan-equipment-weapons-energy";
 import { mechISEquipmentBallistic } from "./data/mech-is-equipment-weapons-ballistic";
 import { mechISEquipmentEnergy } from "./data/mech-is-equipment-weapons-energy";
 import { mechISEquipmentMissiles } from "./data/mech-is-equipment-weapons-missiles";
@@ -24,7 +24,7 @@ export function getISEquipmentList(): IEquipmentItem[] {
 }
 
 export function getClanEquipmentList(): IEquipmentItem[] {
-    return mechClanEquipment;
+    return mechClanEquipmentEnergy;
 }
 
 export async function getMULASSearchResults(
@@ -150,4 +150,12 @@ export function makeRange( start: number, end: number, steps: number = 1): numbe
 
 
     return returnValue;
+}
+
+export function exportCleanJSON(obj: any) {
+    var cleaned = JSON.stringify(obj, null, 4);
+
+    return cleaned.replace(/^[\t ]*"[^:\n\r]+(?<!\\)":/gm, function (match) {
+        return match.replace(/"/g, "");
+    });
 }
