@@ -3,6 +3,7 @@ import { IEquipmentItem } from "./data/data-interfaces";
 import { mechClanEquipmentEnergy } from "./data/mech-clan-equipment-weapons-energy";
 import { mechISEquipmentBallistic } from "./data/mech-is-equipment-weapons-ballistic";
 import { mechISEquipmentEnergy } from "./data/mech-is-equipment-weapons-energy";
+import { mechISEquipmentMisc } from "./data/mech-is-equipment-weapons-misc";
 import { mechISEquipmentMissiles } from "./data/mech-is-equipment-weapons-missiles";
 
 
@@ -20,7 +21,7 @@ export function generateUUID(): string {
 }
 
 export function getISEquipmentList(): IEquipmentItem[] {
-    return mechISEquipmentBallistic.concat( mechISEquipmentEnergy, mechISEquipmentMissiles)
+    return mechISEquipmentBallistic.concat( mechISEquipmentEnergy, mechISEquipmentMissiles, mechISEquipmentMisc)
 }
 
 export function getClanEquipmentList(): IEquipmentItem[] {

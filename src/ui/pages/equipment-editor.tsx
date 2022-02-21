@@ -6,17 +6,21 @@ import { mechClanEquipmentEnergy } from '../../data/mech-clan-equipment-weapons-
 import { mechISEquipmentBallistic } from '../../data/mech-is-equipment-weapons-ballistic';
 import { mechISEquipmentEnergy } from "../../data/mech-is-equipment-weapons-energy";
 import { mechISEquipmentMissiles } from '../../data/mech-is-equipment-weapons-missiles';
+import { mechISEquipmentMisc } from '../../data/mech-is-equipment-weapons-misc';
+
 import { exportCleanJSON } from '../../utils';
 import { IAppGlobals } from '../app-router';
 import StandardModal from '../components/standard-modal';
 import UIPage from '../components/ui-page';
 import './equipment-editor.scss';
+import EquipmentEditForm from '../components/equipment-edit-form';
 
 export default class EquipmentEditor extends React.Component<IEquipmentEditorProps, IEquipmentEditorState> {
     fileDataList: Record<string, IEquipmentItem[]> = {
         "mech-is-equipment-weapons-ballistic": mechISEquipmentBallistic,
         "mech-is-equipment-weapons-energy": mechISEquipmentEnergy,
         "mech-is-equipment-weapons-missiles": mechISEquipmentMissiles,
+        "mech-is-equipment-weapons-misc": mechISEquipmentMisc,
         "mech-clan-equipment-weapons-energy": mechClanEquipmentEnergy,
     };
 
@@ -41,11 +45,13 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
         }
 
         this.state = {
+            isDirty: false,
             updated: false,
             currentList: currentList,
             currentListData: currentListData,
             showJSON: false,
             editItem: null,
+            editItemIndex: -1,
         }
 
         this.props.appGlobals.makeDocumentTitle("Equipment Editor");
@@ -81,16 +87,39 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
         }
         if( this.fileDataList[e.currentTarget.value ]) {
 
-            let currentListData: IEquipmentItem[] = [];
+            if( this.state.isDirty ) {
+                this.props.appGlobals.openConfirmDialog(
+                    "Your data has been changed",
+                    "If you change your list, all your work on the older list will be lost - be sure to make sure you've saved your changed into the appropriate JSON file!",
+                    "Proceed",
+                    "Cancel",
+                    () => {
+                        let currentListData: IEquipmentItem[] = [];
 
-            currentListData = JSON.parse(JSON.stringify(this.fileDataList[e.currentTarget.value]))
+                        currentListData = JSON.parse(JSON.stringify(this.fileDataList[e.currentTarget.value]))
 
-            this.setState({
-                currentList: e.currentTarget.value,
-                currentListData: currentListData,
-            });
+                        this.setState({
+                            currentList: e.currentTarget.value,
+                            currentListData: currentListData,
+                        });
 
-            localStorage.setItem( "ee-editing-list", e.currentTarget.value)
+                        localStorage.setItem( "ee-editing-list", e.currentTarget.value)
+                    }
+                )
+            } else {
+                let currentListData: IEquipmentItem[] = [];
+
+                currentListData = JSON.parse(JSON.stringify(this.fileDataList[e.currentTarget.value]))
+
+                this.setState({
+                    currentList: e.currentTarget.value,
+                    currentListData: currentListData,
+                });
+
+                localStorage.setItem( "ee-editing-list", e.currentTarget.value)
+            }
+
+
         }
 
     }
@@ -107,6 +136,9 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
         }
         if( fileN === "mech-clan-equipment-weapons-energy" ) {
             return "mechClanEquipmentEnergy";
+        }
+        if( fileN === "mech-clan-equipment-weapons-misc" ) {
+            return "mechISEquipmentMisc";
         }
 
         return "unknown;"
@@ -129,6 +161,143 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
         )
 
         return rv;
+    }
+
+    closeEditItem = (
+        e: React.FormEvent<HTMLButtonElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        this.setState({
+            editItem: null,
+            editItemIndex: -1,
+        })
+    }
+
+    editItemOnChange = ( nv: IEquipmentItem): void => {
+        this.setState({
+            editItem: nv,
+        })
+    }
+
+    editItem = (
+        e: React.FormEvent<HTMLButtonElement>,
+        item: IEquipmentItem,
+        itemIndex: number,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        this.setState({
+            editItem: JSON.parse(JSON.stringify(item)),
+            editItemIndex: itemIndex,
+        })
+    }
+
+    addItem = (
+        e: React.FormEvent<HTMLButtonElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item: IEquipmentItem = {
+            uuid: "",
+            count: 0,
+            name: "",
+            alternameName: "",
+            tag: "",
+            sort: "",
+            category: "",
+            damage: 0,
+            damageAero: 0,
+            damagePerCluster: 0,
+            damageClusters: 0,
+            accuracyModifier: 0,
+            ammoBattleValue: 0,
+            accuracyModifiier: 0,
+            cbills: 0,
+            cbillsOneShot: 0,
+            introduced: 0,
+            extinct: 0,
+            reintroduced: 0,
+            battleValue: 0,
+            battleValueOneShot: 0,
+            heat: 0,
+            weight: 0,
+            range: {
+                min: 0,
+                short: 0,
+                medium: 0,
+                long: 0,
+                exterme: 0,
+            },
+            space: {
+                battlemech: 0,
+                protomech: 0,
+                combatVehicle: 0,
+                supportVehicle: 0,
+                aerospaceFighter: 0,
+                smallCraft: 0,
+                dropShip: 0,
+            },
+            ammoPerTon: 0,
+            minAmmoTons: 0,
+            explosive: false,
+            gauss: false,
+            weaponType: [],
+            techRating: "",
+            unique: false,
+            book: "",
+            page: 0,
+            alphaStrike: {
+                heat: 0,
+                rangeShort: 0,
+                rangeMedium: 0,
+                rangeLong: 0,
+                rangeExtreme: 0,
+                tc: 0,
+                notes: [],
+            },
+            battleValuePerItemDamage: 0,
+            requiresHandActuator: false,
+
+            weightDivisor: 0,
+            damageDivisior: 0,
+            criticalsDivisor: 0,
+
+            variableSize: false,
+            isMelee: false,
+            costPerItemTon: 0,
+            location: "",
+            rear: false,
+            criticals: 0,
+            available: false,
+        }
+
+        this.setState({
+            editItem: item,
+            editItemIndex: -1,
+        })
+    }
+
+    saveItem = () => {
+        let currentListData = this.state.currentListData;
+        if( this.state.editItem !== null ) {
+            if( this.state.editItemIndex > - 1 ) {
+                if( this.state.editItemIndex < currentListData.length ) {
+                    currentListData[this.state.editItemIndex] = this.state.editItem;
+                }
+            } else {
+                currentListData.push( this.state.editItem );
+            }
+
+            this.setState({
+                currentListData: currentListData,
+                editItem: null,
+                editItemIndex: -1,
+            })
+        }
     }
 
     render() {
@@ -163,6 +332,23 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
         </textarea>
     </StandardModal>
 ) : null}
+
+{this.state.editItem ? (
+    <StandardModal
+        show={true}
+        className="modal-xl"
+        onClose={this.closeEditItem}
+        onSave={this.state.editItemIndex > -1 ? this.saveItem : undefined}
+        onAdd={this.state.editItemIndex == -1 ? this.saveItem : undefined}
+        title={this.state.editItemIndex > -1 ? "Editing Item" : "Adding Item"}
+    >
+        <EquipmentEditForm
+            editingItem={this.state.editItem}
+            onChange={this.editItemOnChange}
+        />
+    </StandardModal>
+) : null}
+
 <button
     className='btn btn-primary btn-sm pull-right'
     onClick={this.showJSON}
@@ -195,12 +381,20 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
             <th className="min-width text-center no-wrap">Range</th>
             <th className="min-width text-center no-wrap">Crits</th>
             <th className="min-width text-center no-wrap">Mass</th>
+
+            <th className="min-width text-center no-wrap">Heat</th>
+            <th className="min-width text-center no-wrap">BV</th>
+
+            <th className="min-width text-center no-wrap">Active</th>
+
+
             <th
                 className="min-width text-right no-wrap"
             >
                 <button
-                        className="btn btn-sm btn-primary"
-                    >
+                    className="btn btn-sm btn-primary"
+                    onClick={this.addItem}
+                >
                     <FontAwesomeIcon icon={faPlus} />&nbsp;Add
                 </button>
             </th>
@@ -228,7 +422,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                             {typeof(item.damage) == "number" ? (
                                 <>{item.damage}</>
                             ) : (
-                                <>{console.log(item.name, item.damage)}{item.damage?.short} / {item.damage?.medium} / {item.damage?.long} </>
+                                <>{item.damage?.short} / {item.damage?.medium} / {item.damage?.long} </>
                             )}
                         </>
                     )}
@@ -243,9 +437,26 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                 <td className="text-center no-wrap ">
                     {item.weight}<br />
                 </td>
+
+                <td className="text-center no-wrap ">
+                    {item.heat}<br />
+                </td>
+                <td className="text-center no-wrap ">
+                    {item.battleValue}<br />
+                </td>
+
+
+                <td className="text-center no-wrap ">
+                    {item.introduced}-{item.extinct > 0 ? item.extinct : "current"}<br />
+                    {item.reintroduced > 0 ? (
+                        <div>{item.reintroduced}</div>
+                    ): null}
+                </td>
+
                 <td className="text-center no-wrap">
                     <button
                         className="btn btn-sm btn-primary"
+                        onClick={(e) => this.editItem( e, item, itemIndex)}
                     >
                         <FontAwesomeIcon icon={faEdit} />
                     </button>
@@ -271,10 +482,12 @@ interface IEquipmentEditorProps {
 }
 
 interface IEquipmentEditorState {
+    isDirty: boolean;
     updated: boolean;
     currentList: string;
     currentListData: IEquipmentItem[]
     showJSON: boolean;
     editItem: IEquipmentItem | null;
+    editItemIndex: number;
 }
 
