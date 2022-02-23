@@ -28,7 +28,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
           >
                   <ul className="news">
                     <li>
-                      <p><strong>2021 Feb 1238</strong> - Added a Print function to your Alpha Strike Rosters (finally!?!?!).</p>
+                      <p><strong>2021 Feb 23</strong> - Added a Print function to your Alpha Strike Rosters (finally!?!?!).</p>
                       <p>I might be working on Google Account data syncing this afternoon, although Google still gives me the heebie-jeebies. First, however, I want to finish the internal <Link to="equipment-editor">Equipment Editor</Link> so I can get the rest of the Clan and Inner Sphere weapons ready for the BattleMech creator.</p>
 
                     </li>
