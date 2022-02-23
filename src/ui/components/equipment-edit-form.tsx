@@ -19,6 +19,18 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         };
     }
 
+    updateCbills = (
+        e: React.FormEvent<HTMLInputElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item = this.props.editingItem;
+        item.cbills = +e.currentTarget.value;
+
+        this.props.onChange( item );
+    }
+
     updateBattleValue = (
         e: React.FormEvent<HTMLInputElement>,
     ) => {
@@ -351,6 +363,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                     {this.props.category}
                     <div className="small-text">This is derived from the list you've chosen to edit or add to.</div>
                 </label>
+
                 <InputNumeric
                     step={1}
                     onChange={this.updateIntroduced}
@@ -482,8 +495,14 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
     <div className="row">
         <div className="col">
             <TextSection
-                label="Battle Values"
+                label="Battle Values and C-Bills"
             >
+                <InputNumeric
+                    step={1}
+                    onChange={this.updateCbills}
+                    value={this.props.editingItem.cbills}
+                    label="C-Bills"
+                />
                 <InputNumeric
                     step={1}
                     onChange={this.updateBattleValue}

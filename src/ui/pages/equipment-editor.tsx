@@ -318,6 +318,21 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
         }
     }
 
+    saveItemAsNew = () => {
+        let currentListData = this.state.currentListData;
+        if( this.state.editItem !== null ) {
+
+            currentListData.push( this.state.editItem );
+
+
+            this.setState({
+                currentListData: currentListData,
+                editItem: null,
+                editItemIndex: -1,
+            })
+        }
+    }
+
     render() {
 
 
@@ -326,8 +341,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
       return (
     <UIPage current="EquipmentEditor" appGlobals={this.props.appGlobals}>
         <div className="alert alert-warning text-center">
-            <p><strong>Developers only!</strong> This area doesn't work yet, but when it does it shouldn't be used by the average user.</p>
-            <p className="no-margins">This should make data entry so much easier in the long run</p>
+            <p className="no-margins"><strong>Developers only!</strong> This area is getting <em>really close</em> for data-entry, but this should never be used by the average user.</p>
         </div>
 {this.state.showJSON ? (
     <StandardModal
@@ -358,6 +372,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
         onClose={this.closeEditItem}
         onSave={this.state.editItemIndex > -1 ? this.saveItem : undefined}
         onAdd={this.state.editItemIndex === -1 ? this.saveItem : undefined}
+        onSaveAsNew={this.state.editItemIndex > -1 ? this.saveItemAsNew : undefined}
         title={this.state.editItemIndex > -1 ? "Editing Item" : "Adding Item"}
     >
         <EquipmentEditForm
@@ -402,8 +417,14 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                 Name
                 <div className="small-text">tag</div>
             </th>
-            <th className="min-width text-center no-wrap">Damage</th>
-            <th className="min-width text-center no-wrap">Range</th>
+            <th className="min-width text-center no-wrap">
+                Damage<br />
+                <div className="small-text">Or Shots per ton</div>
+            </th>
+            <th className="min-width text-center no-wrap">
+                Range
+                <div className="small-text">or Min Ammo Tons</div>
+            </th>
             <th className="min-width text-center no-wrap">BM Crits</th>
             <th className="min-width text-center no-wrap">Mass</th>
 
@@ -437,7 +458,13 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                     <div className="small-text">{item.tag}</div>
                 </td>
                 <td className="text-center no-wrap">
-                    {item.damageDivisor && item.damageDivisor > 0 ? (
+                    {item.isAmmo ? (
+                        <>
+                            {item.ammoPerTon} shots / ton
+                        </>
+                    ) : (
+                        <>
+{item.damageDivisor && item.damageDivisor > 0 ? (
                         <>
                             <>Mass ÷ {item.damageDivisor}<br /></>
                         </>
@@ -460,16 +487,26 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                         </>
                     )
                     }
+                        </>
+                    )}
+
 
 
                 </td>
                 <td className="text-center no-wrap">
+                {item.isAmmo ? (
+                        <>
+                        min tons: {item.minAmmoTons}
+                        </>
+                    ) : (
+                        <>
                     {item.isMelee ? (
                         <>Melee</>
                     ) : (
                         <>{item.range.short} / {item.range.medium} / {item.range.long}</>
                     )}
-
+</>
+                    )}
                 </td>
                 <td className="text-center no-wrap">
 

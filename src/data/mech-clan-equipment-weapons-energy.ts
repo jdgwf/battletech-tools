@@ -571,6 +571,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Vehicle Flamer)",
 		tag: "ammo-vehicle-flamer",
 		sort: "ammo, flamer, vehicle",
@@ -822,6 +823,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Plasma Cannon)",
 		tag: "ammo-plasma-cannon",
 		sort: "ammo-plasma, cannon",

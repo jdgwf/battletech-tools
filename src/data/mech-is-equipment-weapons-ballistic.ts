@@ -63,6 +63,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/2)",
 		tag: "ammo-standard-autocannon-a",
 		sort: "ammo, Autocannon/a",
@@ -92,8 +93,8 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			smallCraft: 1,
 			dropShip: 1
 		},
-		ammoPerTon: 0,
-		minAmmoTons: 0,
+		ammoPerTon: 45,
+		minAmmoTons: 1,
 		explosive: true,
 		weaponType: [
 			"DB",
@@ -113,6 +114,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/2 Armor-Piercing)",
 		tag: "ammo-standard-autocannon-a-armor-piercing",
 		sort: "ammo, Autocannon/a, Armor-Piercing",
@@ -163,6 +165,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/2 Caseless)",
 		tag: "ammo-standard-autocannon-a-caseless",
 		sort: "ammo, Autocannon/a, Caseless",
@@ -213,6 +216,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/2 Flak)",
 		tag: "ammo-standard-autocannon-a-flak",
 		sort: "ammo, Autocannon/a, Flak",
@@ -263,6 +267,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/2 Flechette)",
 		tag: "ammo-standard-autocannon-a-flechette",
 		sort: "ammo, Autocannon/a, Flechette",
@@ -363,6 +368,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/2 Tracer)",
 		tag: "ammo-standard-autocannon-a-tracer",
 		sort: "ammo, Autocannon/a, Tracer",
@@ -467,6 +473,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/5)",
 		tag: "ammo-standard-autocannon-b",
 		sort: "ammo, Autocannon/b",
@@ -517,6 +524,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/5 Armor-Piercing)",
 		tag: "ammo-standard-autocannon-b-armor-piercing",
 		sort: "ammo, Autocannon/b, Armor-Piercing",
@@ -567,6 +575,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/5 Caseless)",
 		tag: "ammo-standard-autocannon-b-caseless",
 		sort: "ammo, Autocannon/b, Caseless",
@@ -617,6 +626,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/5 Flak)",
 		tag: "ammo-standard-autocannon-b-flak",
 		sort: "ammo, Autocannon/b, Flak",
@@ -667,6 +677,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/5 Flechette)",
 		tag: "ammo-standard-autocannon-b-flechette",
 		sort: "ammo, Autocannon/b, Flechette",
@@ -717,6 +728,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/5 Precision)",
 		tag: "ammo-standard-autocannon-b-precision",
 		sort: "ammo, Autocannon/b, Precision",
@@ -767,6 +779,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/5 Tracer)",
 		tag: "ammo-standard-autocannon-b-tracer",
 		sort: "ammo, Autocannon/b, Tracer",
@@ -871,6 +884,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/10)",
 		tag: "ammo-standard-autocannon-c",
 		sort: "ammo, Autocannon/c",
@@ -921,6 +935,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/10 Armor-Piercing)",
 		tag: "ammo-standard-autocannon-c-armor-piercing",
 		sort: "ammo, Autocannon/c, Armor-Piercing",
@@ -971,6 +986,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/10 Caseless)",
 		tag: "ammo-standard-autocannon-c-caseless",
 		sort: "ammo, Autocannon/c, Caseless",
@@ -1021,6 +1037,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/10 Flak)",
 		tag: "ammo-standard-autocannon-c-flak",
 		sort: "ammo, Autocannon/c, Flak",
@@ -1071,6 +1088,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/10 Flechette)",
 		tag: "ammo-standard-autocannon-c-flechette",
 		sort: "ammo, Autocannon/c, Flechette",
@@ -1121,6 +1139,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/10 Precision)",
 		tag: "ammo-standard-autocannon-c-precision",
 		sort: "ammo, Autocannon/c, Precision",
@@ -1171,6 +1190,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/10 Tracer)",
 		tag: "ammo-standard-autocannon-c-tracer",
 		sort: "ammo, Autocannon/c, Tracer",
@@ -1274,6 +1294,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/20)",
 		tag: "ammo-standard-autocannon-d",
 		sort: "ammo, Autocannon/d",
@@ -1324,6 +1345,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/20 Armor-Piercing)",
 		tag: "ammo-standard-autocannon-d-armor-piercing",
 		sort: "ammo, Autocannon/d, Armor-Piercing",
@@ -1374,6 +1396,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/20 Caseless)",
 		tag: "ammo-standard-autocannon-d-caseless",
 		sort: "ammo, Autocannon/d, Caseless",
@@ -1424,6 +1447,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/20 Flak)",
 		tag: "ammo-standard-autocannon-d-flak",
 		sort: "ammo, Autocannon/d, Flak",
@@ -1474,6 +1498,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/20 Flechette)",
 		tag: "ammo-standard-autocannon-d-flechette",
 		sort: "ammo, Autocannon/d, Flechette",
@@ -1524,6 +1549,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/20 Precision)",
 		tag: "ammo-standard-autocannon-d-precision",
 		sort: "ammo, Autocannon/d, Precision",
@@ -1574,6 +1600,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (AC/20 Tracer)",
 		tag: "ammo-standard-autocannon-d-tracer",
 		sort: "ammo, Autocannon/d, Tracer",
@@ -1726,6 +1753,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Light Autocannon/2 Armor-Piercing)",
 		tag: "ammo-light-autocannon-2-armor-piercing",
 		sort: "ammo, Light Autocannon/2, Armor-Piercing",
@@ -1776,6 +1804,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Light Autocannon/2 Caseless)",
 		tag: "ammo-light-autocannon-2-caseless",
 		sort: "ammo, Light Autocannon/2, Caseless",
@@ -1826,6 +1855,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Light Autocannon/2 Flak)",
 		tag: "ammo-light-autocannon-2-flak",
 		sort: "ammo, Light Autocannon/2, Flak",
@@ -1876,6 +1906,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Light Autocannon/2 Flechette)",
 		tag: "ammo-light-autocannon-2-flechette",
 		sort: "ammo, Light Autocannon/2, Flechette",
@@ -1926,6 +1957,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Light Autocannon/2 Precision)",
 		tag: "ammo-light-autocannon-2-precision",
 		sort: "ammo, Light Autocannon/2, Precision",
@@ -1976,6 +2008,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Light Autocannon/2 Tracer)",
 		tag: "ammo-light-autocannon-2-tracer",
 		sort: "ammo, Light Autocannon/2, Tracer",
@@ -2076,6 +2109,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Light Autocannon/5)",
 		tag: "ammo-light-autocannon-5",
 		sort: "ammo, Light Autocannon/5",
@@ -2126,6 +2160,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Light Autocannon/5 Armor-Piercing)",
 		tag: "ammo-light-autocannon-5-armor-piercing",
 		sort: "ammo, Light Autocannon/5, Armor-Piercing",
@@ -2176,6 +2211,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Light Autocannon/5 Caseless)",
 		tag: "ammo-light-autocannon-5-caseless",
 		sort: "ammo, Light Autocannon/5, Caseless",
@@ -2226,6 +2262,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Light Autocannon/5 Flak)",
 		tag: "ammo-light-autocannon-5-flak",
 		sort: "ammo, Light Autocannon/5, Flak",
@@ -2276,6 +2313,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Light Autocannon/5 Flechette)",
 		tag: "ammo-light-autocannon-5-flechette",
 		sort: "ammo, Light Autocannon/5, Flechette",
@@ -2326,6 +2364,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Light Autocannon/5 Precision)",
 		tag: "ammo-light-autocannon-5-precision",
 		sort: "ammo, Light Autocannon/5, Precision",
@@ -2376,6 +2415,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Light Autocannon/5 Tracer)",
 		tag: "ammo-light-autocannon-5-tracer",
 		sort: "ammo, Light Autocannon/5, Tracer",
@@ -2480,6 +2520,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Ultra AC/2)",
 		tag: "ammo-ultra-autocannon-a",
 		sort: "ammo, Ultra AC/a",
@@ -2584,6 +2625,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Ultra AC/5)",
 		tag: "ammo-ultra-autocannon-b",
 		sort: "ammo, Ultra AC/b",
@@ -2792,6 +2834,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Ultra AC/20)",
 		tag: "ammo-ultra-autocannon-d",
 		sort: "ammo, Ultra AC/d",
@@ -2900,6 +2943,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (LB 2-X)",
 		tag: "ammo-lb-x-autocannon-a",
 		sort: "ammo, LB a-X",
@@ -2950,6 +2994,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (LB 2-X) Cluster",
 		tag: "ammo-lb-x-autocannon-a-cluster",
 		sort: "ammo, LB a-X, Cluster",
@@ -3058,6 +3103,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (LB 5-X)",
 		tag: "ammo-lb-x-autocannon-b",
 		sort: "ammo, LB b-X",
@@ -3108,6 +3154,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (LB 5-X) Cluster",
 		tag: "ammo-lb-x-autocannon-b-cluster",
 		sort: "ammo, LB b-X, Cluster",
@@ -3216,6 +3263,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (LB 10-X)",
 		tag: "ammo-lc-X-autocannon-c",
 		sort: "ammo, LB c-X",
@@ -3266,6 +3314,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (LB 10-X) Cluster",
 		tag: "ammo-lc-X-autocannon-c-cluster",
 		sort: "ammo, LB c-X, Cluster",
@@ -3374,6 +3423,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (LB 20-X)",
 		tag: "ammo-ld-X-autocannon-d",
 		sort: "ammo, LB d-X",
@@ -3424,6 +3474,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (LB 20-X) Cluster",
 		tag: "ammo-ld-X-autocannon-d-cluster",
 		sort: "ammo, LB d-X, Cluster",
@@ -3526,6 +3577,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Light Gauss)",
 		tag: "ammo-light-gauss-rifle",
 		sort: "ammo, gauss rifle, a",
@@ -3624,6 +3676,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Gauss)",
 		tag: "ammo-standard-gauss-rifle",
 		sort: "ammo, gauss rifle, b",
@@ -3728,6 +3781,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Heavy Gauss)",
 		tag: "ammo-heavy-gauss-rifle",
 		sort: "ammo, gauss rifle, c",
@@ -3827,6 +3881,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (IHGR)",
 		tag: "ammo-heavy-improved-gauss-rifle",
 		sort: "ammo, gauss rifle, d",
@@ -3928,6 +3983,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (SB Gauss)",
 		tag: "ammo-silver-bullet-gauss-rifle",
 		sort: "ammo, gauss rifle, e",
@@ -4028,6 +4084,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (MagShot)",
 		tag: "ammo-magshot-gauss-rifle",
 		sort: "ammo, gauss rifle, f",
@@ -4128,6 +4185,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (MG)",
 		tag: "ammo-machine-gun",
 		sort: "ammo, machine gun",

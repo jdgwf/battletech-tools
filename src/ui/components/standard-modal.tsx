@@ -80,7 +80,7 @@ export default class StandardModal extends React.Component<IStandardModalProps, 
             {this.props.children}
     </Modal.Body>
     <Modal.Footer>
-        <div className="text-right no-wrap width-100-percent">
+        <div className="text-right no-wrap full-width">
 
             {this.props.onSaveAsNew ? (
                 <>

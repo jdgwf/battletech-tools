@@ -1210,6 +1210,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Plasma Rifle)",
 		tag: "ammo-plasma-rifle",
 		sort: "ammo, plasma rifle",
@@ -1424,6 +1425,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Vehicle Flamer)",
 		tag: "ammo-vehicle-flamer",
 		sort: "ammo, flamer, vehicle",
@@ -1474,6 +1476,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Vehicle Flamer Coolant)",
 		tag: "ammo-vehicle-flamer-coolant",
 		sort: "ammo, flamer, vehicle, coolant",
@@ -1524,6 +1527,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Vehicle Flamer Inferno)",
 		tag: "ammo-vehicle-flamer-inferno",
 		sort: "ammo, flamer, vehicle, inferno",
@@ -1574,6 +1578,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Vehicle Flamer Water)",
 		tag: "ammo-vehicle-flamer-water",
 		sort: "ammo, flamer, vehicle, water",
@@ -1677,6 +1682,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Heavy Flamer)",
 		tag: "ammo-heavy-flamer",
 		sort: "ammo, flamer, heavy",
@@ -1727,6 +1733,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Heavy Flamer Coolant)",
 		tag: "ammo-heavy-flamer-coolant",
 		sort: "ammo, flamer, heavy, coolant",
@@ -1777,6 +1784,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Heavy Flamer Inferno)",
 		tag: "ammo-heavy-flamer-inferno",
 		sort: "ammo, flamer, heavy, inferno",
@@ -1827,6 +1835,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		}
 	},
 	{
+		isAmmo: true,
 		name: "Ammo (Heavy Flamer Water)",
 		tag: "ammo-heavy-flamer-water",
 		sort: "ammo, flamer, heavy, water",
