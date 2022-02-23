@@ -126,7 +126,7 @@ export interface IEquipmentItem {
         rangeMedium: number;
         rangeLong: number;
         rangeExtreme: number;
-        tc: number;
+        tc: boolean;
         notes: string[];
     };
     battleValuePerItemDamage?: number;

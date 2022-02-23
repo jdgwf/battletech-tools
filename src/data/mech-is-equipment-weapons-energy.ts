@@ -54,7 +54,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -104,7 +104,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0.5,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -154,7 +154,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0.8,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -204,7 +204,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 1.2,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -255,7 +255,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0.3,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -305,7 +305,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0.5,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -355,7 +355,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0.8,
 			rangeLong: 0.8,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -407,7 +407,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: [
 				"Point Defense"
 			],
@@ -459,7 +459,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0.66,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -509,7 +509,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0.99,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -561,7 +561,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: [
 				"Point Defense",
 			],
@@ -613,7 +613,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0.66,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -663,7 +663,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0.99,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -724,7 +724,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0.378,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -784,7 +784,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0.648,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -844,7 +844,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0.863,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -894,7 +894,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 1.02,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -945,7 +945,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0.5,
 			rangeLong: 0.5,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -995,7 +995,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 1,
 			rangeLong: 1,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -1045,7 +1045,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 1.5,
 			rangeLong: 1.5,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -1101,7 +1101,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0.65,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -1151,7 +1151,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 1,
 			rangeLong: 1,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -1202,7 +1202,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 1,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: [
 				"Heat"
 			]
@@ -1255,7 +1255,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 1,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: [
 				"Heat"
 			]
@@ -1309,7 +1309,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: [
 				"Heat",
 				"Point Defense"
@@ -1363,7 +1363,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0.2,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: [
 				"Heat"
 			]
@@ -1416,7 +1416,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: [
 				"Heat",
 				"Point Defense"
@@ -1470,7 +1470,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -1521,7 +1521,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -1572,7 +1572,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -1623,7 +1623,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -1674,7 +1674,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0.4,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: [
 				"Heat"
 			]
@@ -1727,7 +1727,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -1778,7 +1778,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -1828,7 +1828,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -1879,7 +1879,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},

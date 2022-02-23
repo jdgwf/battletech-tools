@@ -193,6 +193,19 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         this.props.onChange( item );
     }
 
+    updateHeat = (
+        e: React.FormEvent<HTMLInputElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item = this.props.editingItem;
+
+        item.heat = +e.currentTarget.value;
+
+        this.props.onChange( item );
+    }
+
     toggleWeightDivisor = (
         e: React.FormEvent<HTMLInputElement>,
     ) => {
@@ -417,6 +430,15 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
             >
                 <div className="row">
                     <div className="col">
+
+                        <InputNumeric
+                            step={1}
+                            onChange={this.updateHeat}
+                            value={this.props.editingItem.heat}
+                            label="Heat"
+                        />
+
+                        <hr />
 
                         <InputCheckbox
                             label="Weight is based on a divisor of installed vehicle's tonnage"

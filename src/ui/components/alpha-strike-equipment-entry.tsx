@@ -34,7 +34,7 @@ export default class AlphaStrikeEquipmentEntry extends React.Component<IAlphaStr
         }
         let item = this.props.editingItem;
 
-        item.alphaStrike.tc = +e.currentTarget.value;
+        item.alphaStrike.tc = e.currentTarget.checked;
 
         this.props.onChange( item );
     }
@@ -115,11 +115,9 @@ export default class AlphaStrikeEquipmentEntry extends React.Component<IAlphaStr
                             step={1}
                             label="Heat"
                         />
-                        <InputNumeric
-                            value={this.props.editingItem.alphaStrike.tc}
+                        <InputCheckbox
+                            checked={this.props.editingItem.alphaStrike.tc}
                             onChange={this.updateTC}
-                            min={0}
-                            step={1}
                             label="TC"
                         />
                         <hr />

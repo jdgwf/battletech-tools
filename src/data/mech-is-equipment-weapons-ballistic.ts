@@ -56,7 +56,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.2,
 			rangeLong: 0.2,
 			rangeExtreme: 0.2,
-			tc: 1,
+			tc: true,
 			notes: [
 				"ac"
 			]
@@ -109,7 +109,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.2,
 			rangeLong: 0.2,
 			rangeExtreme: 0.2,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -160,7 +160,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.2,
 			rangeLong: 0.2,
 			rangeExtreme: 0.2,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -211,7 +211,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.2,
 			rangeLong: 0.2,
 			rangeExtreme: 0.2,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -262,7 +262,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.2,
 			rangeLong: 0.2,
 			rangeExtreme: 0.2,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -313,7 +313,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.2,
 			rangeLong: 0.2,
 			rangeExtreme: 0.2,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -363,7 +363,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.2,
 			rangeLong: 0.2,
 			rangeExtreme: 0.2,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -414,7 +414,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.2,
 			rangeLong: 0.2,
 			rangeExtreme: 0.2,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -466,7 +466,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.5,
 			rangeLong: 0.5,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: [
 				"ac"
 			]
@@ -519,7 +519,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.5,
 			rangeLong: 0.5,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -570,7 +570,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.5,
 			rangeLong: 0.5,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -621,7 +621,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.5,
 			rangeLong: 0.5,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -672,7 +672,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.5,
 			rangeLong: 0.5,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -723,7 +723,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.5,
 			rangeLong: 0.5,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -774,7 +774,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.5,
 			rangeLong: 0.5,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -825,7 +825,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.5,
 			rangeLong: 0.5,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -877,7 +877,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 1,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: [
 				"ac"
 			]
@@ -930,7 +930,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 1,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -981,7 +981,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 1,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -1032,7 +1032,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 1,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -1083,7 +1083,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 1,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -1134,7 +1134,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 1,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -1185,7 +1185,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 1,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -1236,7 +1236,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 1,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -1287,7 +1287,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 2,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: [
 				"ac"
 			]
@@ -1340,7 +1340,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 1,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -1391,7 +1391,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 2,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -1442,7 +1442,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 2,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -1493,7 +1493,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 2,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -1544,7 +1544,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 2,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -1595,7 +1595,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 2,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -1646,7 +1646,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 2,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -1696,7 +1696,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.2,
 			rangeLong: 0.2,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: [
 				"ac"
 			]
@@ -1748,7 +1748,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.2,
 			rangeLong: 0.2,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -1799,7 +1799,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.2,
 			rangeLong: 0.2,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -1850,7 +1850,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.2,
 			rangeLong: 0.2,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -1901,7 +1901,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.2,
 			rangeLong: 0.2,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -1952,7 +1952,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.2,
 			rangeLong: 0.2,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -2003,7 +2003,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.2,
 			rangeLong: 0.2,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -2054,7 +2054,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.2,
 			rangeLong: 0.2,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -2104,7 +2104,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.5,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -2155,7 +2155,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.5,
 			rangeLong: 0.0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -2206,7 +2206,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.5,
 			rangeLong: 0.0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -2257,7 +2257,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.5,
 			rangeLong: 0.0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -2308,7 +2308,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.5,
 			rangeLong: 0.0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -2359,7 +2359,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.5,
 			rangeLong: 0.0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -2410,7 +2410,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.5,
 			rangeLong: 0.0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -2461,7 +2461,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.5,
 			rangeLong: 0.0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -2515,7 +2515,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.3,
 			rangeLong: 0.3,
 			rangeExtreme: 0.3,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -2567,7 +2567,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -2620,7 +2620,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.75,
 			rangeLong: 0.75,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -2672,7 +2672,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -2725,7 +2725,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 1.5,
 			rangeLong: 1.5,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -2776,7 +2776,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -2829,7 +2829,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 3,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -2881,7 +2881,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -2936,7 +2936,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.105,
 			rangeLong: 0.105,
 			rangeExtreme: 0.105,
-			tc: 1,
+			tc: true,
 			notes: [
 				"flak"
 			]
@@ -2989,7 +2989,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -3042,7 +3042,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -3096,7 +3096,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.315,
 			rangeLong: 0.315,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: [
 				"flak"
 			]
@@ -3149,7 +3149,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -3202,7 +3202,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -3256,7 +3256,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.63,
 			rangeLong: 0.63,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: [
 				"flak"
 			]
@@ -3309,7 +3309,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -3362,7 +3362,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -3416,7 +3416,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 1.26,
 			rangeLong: 0.0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: [
 				"flak"
 			]
@@ -3469,7 +3469,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -3522,7 +3522,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -3572,7 +3572,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.8,
 			rangeLong: 0.8,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -3622,7 +3622,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -3671,7 +3671,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 1.5,
 			rangeLong: 1.5,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -3721,7 +3721,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -3776,7 +3776,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 2,
 			rangeLong: 1,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -3826,7 +3826,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -3876,7 +3876,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 2.2,
 			rangeLong: 2.2,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -3926,7 +3926,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -3978,7 +3978,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.945,
 			rangeLong: 0.945,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -4030,7 +4030,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -4079,7 +4079,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0.2,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -4129,7 +4129,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -4180,7 +4180,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -4231,7 +4231,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},
@@ -4279,7 +4279,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: [
 				"MEL"
 			]

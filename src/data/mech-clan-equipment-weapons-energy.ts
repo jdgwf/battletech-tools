@@ -50,7 +50,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 1.5,
 			rangeLong: 1.5,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -101,7 +101,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},{
@@ -150,7 +150,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0.5,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -200,7 +200,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0.7,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -250,7 +250,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 1,
 			rangeLong: 1,
 			rangeExtreme: 1,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -302,7 +302,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: [
 				"Point Defense"
 			],
@@ -355,7 +355,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0.33,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: [
 				""
 			],
@@ -407,7 +407,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0.77,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -457,7 +457,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 1.1,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -509,7 +509,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: [
 				"Heat",
 				"Point Defense"
@@ -563,7 +563,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: [
 				"Heat",
 				"Point Defense"
@@ -617,7 +617,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 0,
+			tc: false,
 			notes: []
 		}
 	},{
@@ -666,7 +666,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0.0,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: [
 				"Point Defense"
 			],
@@ -718,7 +718,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 0.95,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -768,7 +768,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 1.52,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -817,7 +817,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 1.52,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	},
@@ -867,7 +867,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 			rangeMedium: 1.52,
 			rangeLong: 0,
 			rangeExtreme: 0,
-			tc: 1,
+			tc: true,
 			notes: []
 		}
 	}

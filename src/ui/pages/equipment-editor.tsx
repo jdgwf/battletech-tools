@@ -274,7 +274,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                 rangeMedium: 0,
                 rangeLong: 0,
                 rangeExtreme: 0,
-                tc: 0,
+                tc: false,
                 notes: [],
             },
             battleValuePerItemDamage: 0,
@@ -430,6 +430,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
 
             <th className="min-width text-center no-wrap">Heat</th>
             <th className="min-width text-center no-wrap">BV</th>
+            <th className="min-width text-center no-wrap">CBills</th>
 
             <th className="min-width text-center no-wrap">Active</th>
 
@@ -531,6 +532,10 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                 </td>
                 <td className="text-center no-wrap ">
                     {item.battleValue}<br />
+                </td>
+
+                <td className="text-center no-wrap ">
+                    {item.cbills.toLocaleString()}<br />
                 </td>
 
 
