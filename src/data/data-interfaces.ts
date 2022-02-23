@@ -99,7 +99,6 @@ export interface IEquipmentItem {
     damagePerCluster?: number;
     damageClusters?: number;
     accuracyModifier?: number | IAccuracyModifier;
-    ammoBattleValue?: number;
     accuracyModifiier?: number;
     cbills: number;
     cbillsOneShot?: number;

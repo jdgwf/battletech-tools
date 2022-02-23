@@ -232,7 +232,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
             damagePerCluster: 0,
             damageClusters: 0,
             accuracyModifier: 0,
-            ammoBattleValue: 0,
+
             accuracyModifiier: 0,
             cbills: 0,
             cbillsOneShot: 0,

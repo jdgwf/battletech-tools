@@ -70,7 +70,7 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
         extinct: 0,
         reintroduced: 0,
         battleValue: 6,
-        heat: 1,
+        heat: 0,
         weight: 1,
         range: {
             min: 0,

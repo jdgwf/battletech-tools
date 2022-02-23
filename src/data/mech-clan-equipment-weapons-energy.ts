@@ -17,7 +17,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 2860,
 		reintroduced: 3037,
 		battleValue: 412,
-		ammoBattleValue: 0,
+
 		heat: 15,
 		weight: 6,
 		range: {
@@ -68,7 +68,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 7,
-		ammoBattleValue: 0,
+
 		heat: 1,
 		weight: 0.25,
 		range: {
@@ -117,7 +117,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 31,
-		ammoBattleValue: 0,
+
 		heat: 2,
 		weight: 0.5,
 		range: {
@@ -167,7 +167,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 108,
-		ammoBattleValue: 0,
+
 		heat: 5,
 		weight: 1,
 		range: {
@@ -217,7 +217,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 2950,
 		reintroduced: 3037,
 		battleValue: 248,
-		ammoBattleValue: 0,
+
 		heat: 12,
 		weight: 4,
 		range: {
@@ -268,7 +268,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 12,
-		ammoBattleValue: 0,
+
 		heat: 1,
 		weight: .5,
 		range: {
@@ -321,7 +321,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 2950,
 		reintroduced: 3037,
 		battleValue: 24,
-		ammoBattleValue: 0,
+
 		heat: 2,
 		weight: 1,
 		range: {
@@ -374,7 +374,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 2950,
 		reintroduced: 3037,
 		battleValue: 111,
-		ammoBattleValue: 0,
+
 		heat: 4,
 		weight: 2,
 		range: {
@@ -424,7 +424,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 2950,
 		reintroduced: 3037,
 		battleValue: 265,
-		ammoBattleValue: 0,
+
 		heat: 10,
 		weight: 7,
 		range: {
@@ -475,7 +475,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 6,
-		ammoBattleValue: 1,
+
 		heat: 3,
 		weight: 1,
 		range: {
@@ -529,7 +529,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 5,
-		ammoBattleValue: 1,
+
 		heat: 3,
 		weight: 0.5,
 		range: {
@@ -584,8 +584,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 1,
-		ammoBattleValue: 1,
-		heat: 3,
+
+		heat: 0,
 		weight: 1,
 		range: {
 			min: 0,
@@ -633,7 +633,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 15,
-		ammoBattleValue: 0,
+
 		heat: 3,
 		weight: 1,
 		range: {
@@ -685,7 +685,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 76,
-		ammoBattleValue: 0,
+
 		heat: 7,
 		weight: 2,
 		range: {
@@ -735,7 +735,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 244,
-		ammoBattleValue: 0,
+
 		heat: 18,
 		weight: 6,
 		range: {
@@ -785,7 +785,6 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 170,
-		ammoBattleValue: 21,
 		heat: 7,
 		weight: 3,
 		range: {
@@ -835,9 +834,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
 		introduced: 3069,
 		extinct: 0,
 		reintroduced: 0,
-		battleValue: 170,
-		ammoBattleValue: 21,
-		heat: 7,
+		battleValue: 21,
+		heat: 0,
 		weight: 3,
 		range: {
 			min: 0,

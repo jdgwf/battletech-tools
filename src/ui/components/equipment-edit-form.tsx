@@ -55,17 +55,17 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         this.props.onChange( item );
     }
 
-    updateAmmoBattleValue = (
-        e: React.FormEvent<HTMLInputElement>,
-    ) => {
-        if( e && e.preventDefault ) {
-            e.preventDefault();
-        }
-        let item = this.props.editingItem;
-        item.ammoBattleValue = +e.currentTarget.value;
+    // updateAmmoBattleValue = (
+    //     e: React.FormEvent<HTMLInputElement>,
+    // ) => {
+    //     if( e && e.preventDefault ) {
+    //         e.preventDefault();
+    //     }
+    //     let item = this.props.editingItem;
+    //     item.ammoBattleValue = +e.currentTarget.value;
 
-        this.props.onChange( item );
-    }
+    //     this.props.onChange( item );
+    // }
 
     updateBattleValuePerItemDamage = (
         e: React.FormEvent<HTMLInputElement>,
@@ -186,6 +186,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
             item.isAmmo = false;
         } else {
             item.isAmmo = true;
+            item.heat = 0;
         }
 
 
@@ -257,6 +258,17 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         this.props.onChange( item );
     }
 
+    updateAlternativeName = (
+        e: React.FormEvent<HTMLInputElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item = this.props.editingItem;
+        item.alternameName = e.currentTarget.value;
+
+        this.props.onChange( item );
+    }
     updateName = (
         e: React.FormEvent<HTMLInputElement>,
     ) => {
@@ -308,6 +320,11 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                     onChange={this.updateName}
                     value={this.props.editingItem.name}
                     label="Name"
+                />
+                <InputField
+                    onChange={this.updateAlternativeName}
+                    value={this.props.editingItem.alternameName}
+                    label="Alternative Name"
                 />
                 <InputField
                     onChange={this.updateTag}

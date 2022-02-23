@@ -21,7 +21,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 9,
-		ammoBattleValue: 0,
+
 		heat: 1,
 		weight: 0.5,
 		range: {
@@ -71,7 +71,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 46,
-		ammoBattleValue: 0,
+
 		heat: 3,
 		weight: 1,
 		range: {
@@ -121,7 +121,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 123,
-		ammoBattleValue: 0,
+
 		heat: 8,
 		weight: 5,
 		range: {
@@ -171,7 +171,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 222,
-		ammoBattleValue: 0,
+
 		heat: 16,
 		weight: 9,
 		range: {
@@ -222,7 +222,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 17,
-		ammoBattleValue: 0,
+
 		heat: 2,
 		weight: 0.5,
 		range: {
@@ -272,7 +272,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 62,
-		ammoBattleValue: 0,
+
 		heat: 5,
 		weight: 1,
 		range: {
@@ -322,7 +322,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 2950,
 		reintroduced: 3037,
 		battleValue: 163,
-		ammoBattleValue: 0,
+
 		heat: 12,
 		weight: 5,
 		range: {
@@ -373,7 +373,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 2950,
 		reintroduced: 3037,
 		battleValue: 12,
-		ammoBattleValue: 0,
+
 		heat: 2,
 		weight: 1,
 		range: {
@@ -426,7 +426,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 2950,
 		reintroduced: 3037,
 		battleValue: 48,
-		ammoBattleValue: 0,
+
 		heat: 4,
 		weight: 2,
 		range: {
@@ -476,7 +476,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 2950,
 		reintroduced: 3037,
 		battleValue: 119,
-		ammoBattleValue: 0,
+
 		heat: 10,
 		weight: 7,
 		range: {
@@ -527,7 +527,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 21,
-		ammoBattleValue: 0,
+
 		heat: 3,
 		weight: 1,
 		range: {
@@ -580,7 +580,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 71,
-		ammoBattleValue: 0,
+
 		heat: 6,
 		weight: 2,
 		range: {
@@ -630,7 +630,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 119,
-		ammoBattleValue: 0,
+
 		heat: 10,
 		weight: 7,
 		range: {
@@ -691,7 +691,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 22,
-		ammoBattleValue: 0,
+
 		heat: 3,
 		weight: 2,
 		range: {
@@ -751,7 +751,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 56,
-		ammoBattleValue: 0,
+
 		heat: 7,
 		weight: 4,
 		range: {
@@ -811,7 +811,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 123,
-		ammoBattleValue: 0,
+
 		heat: 10,
 		weight: 9,
 		range: {
@@ -861,7 +861,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 137,
-		ammoBattleValue: 0,
+
 		heat: 12,
 		weight: 7,
 		range: {
@@ -912,7 +912,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 88,
-		ammoBattleValue: 0,
+
 		heat: 5,
 		weight: 3,
 		range: {
@@ -962,7 +962,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 176,
-		ammoBattleValue: 0,
+
 		heat: 10,
 		weight: 7,
 		range: {
@@ -1012,7 +1012,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 317,
-		ammoBattleValue: 0,
+
 		heat: 15,
 		weight: 10,
 		range: {
@@ -1068,7 +1068,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 2790,
 		reintroduced: 3067,
 		battleValue: 165,
-		ammoBattleValue: 0,
+
 		heat: 10,
 		weight: 6,
 		range: {
@@ -1118,7 +1118,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 2860,
 		reintroduced: 3037,
 		battleValue: 229,
-		ammoBattleValue: 0,
+
 		heat: 15,
 		weight: 7,
 		range: {
@@ -1169,7 +1169,6 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 210,
-		ammoBattleValue: 26,
 		heat: 10,
 		weight: 6,
 		range: {
@@ -1276,7 +1275,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 6,
-		ammoBattleValue: 1,
+
 		heat: 3,
 		weight: 1,
 		range: {
@@ -1329,8 +1328,8 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		introduced: 3070,
 		extinct: 0,
 		reintroduced: 0,
-		battleValue: 16,
-		ammoBattleValue: 1,
+		battleValue: 1,
+
 		heat: 4,
 		weight: 1,
 		range: {
@@ -1383,7 +1382,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		extinct: 0,
 		reintroduced: 0,
 		battleValue: 5,
-		ammoBattleValue: 1,
+
 		heat: 3,
 		weight: 0.5,
 		range: {
@@ -1437,9 +1436,9 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		introduced: 1950,
 		extinct: 0,
 		reintroduced: 0,
-		battleValue: 5,
-		ammoBattleValue: 1,
-		heat: 3,
+		battleValue: 1,
+
+		heat: 0,
 		weight: 1,
 		range: {
 			min: 0,
@@ -1488,9 +1487,9 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		introduced: 2050,
 		extinct: 0,
 		reintroduced: 0,
-		battleValue: 5,
-		ammoBattleValue: 1,
-		heat: 3,
+		battleValue: 1,
+
+		heat: 0,
 		weight: 1,
 		range: {
 			min: 0,
@@ -1539,9 +1538,9 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		introduced: 2400,
 		extinct: 0,
 		reintroduced: 0,
-		battleValue: 5,
-		ammoBattleValue: 2,
-		heat: 3,
+		battleValue: 2,
+
+		heat: 0,
 		weight: 1,
 		range: {
 			min: 0,
@@ -1590,9 +1589,9 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		introduced: 1950,
 		extinct: 0,
 		reintroduced: 0,
-		battleValue: 5,
-		ammoBattleValue: 1,
-		heat: 3,
+		battleValue: 1,
+
+		heat: 0,
 		weight: 1,
 		range: {
 			min: 0,
@@ -1640,8 +1639,8 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		introduced: 3068,
 		extinct: 0,
 		reintroduced: 0,
-		battleValue: 15,
-		ammoBattleValue: 1,
+		battleValue: 1,
+
 		heat: 5,
 		weight: 1.5,
 		range: {
@@ -1694,9 +1693,9 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		introduced: 3068,
 		extinct: 0,
 		reintroduced: 0,
-		battleValue: 2,
-		ammoBattleValue: 1,
-		heat: 5,
+		battleValue: 1,
+
+		heat: 0,
 		weight: 1,
 		range: {
 			min: 0,
@@ -1745,9 +1744,9 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		introduced: 3068,
 		extinct: 0,
 		reintroduced: 0,
-		battleValue: 5,
-		ammoBattleValue: 2,
-		heat: 5,
+		battleValue: 2,
+
+		heat: 0,
 		weight: 1,
 		range: {
 			min: 0,
@@ -1796,9 +1795,8 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		introduced: 3068,
 		extinct: 0,
 		reintroduced: 0,
-		battleValue: 15,
-		ammoBattleValue: 4,
-		heat: 5,
+		battleValue: 4,
+		heat: 0,
 		weight: 1,
 		range: {
 			min: 0,
@@ -1847,9 +1845,9 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
 		introduced: 3068,
 		extinct: 0,
 		reintroduced: 0,
-		battleValue: 15,
-		ammoBattleValue: 2,
-		heat: 5,
+		battleValue: 2,
+
+		heat: 0,
 		weight: 1,
 		range: {
 			min: 0,

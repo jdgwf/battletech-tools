@@ -31,6 +31,32 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
         this.props.onChange( item );
     }
 
+    toggleDamageIsInClusters = (
+        e: React.FormEvent<HTMLInputElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item = this.props.editingItem;
+
+
+        if(
+            ( !this.props.editingItem.damageClusters || this.props.editingItem.damageClusters == 0 )
+            &&
+            ( !this.props.editingItem.damagePerCluster || this.props.editingItem.damagePerCluster == 0 )
+        ) {
+            item.damage = 0;
+            this.props.editingItem.damageClusters = 1;
+            this.props.editingItem.damagePerCluster = 1;
+        } else {
+            this.props.editingItem.damageClusters = 0;
+            this.props.editingItem.damagePerCluster = 0;
+        }
+
+
+        this.props.onChange( item );
+    }
+
     toggleDamagePerRange = (
         e: React.FormEvent<HTMLInputElement>,
     ) => {
@@ -56,7 +82,7 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
         this.props.onChange( item );
     }
 
-    updatedamageDivisor = (
+    updateDamageDivisor = (
         e: React.FormEvent<HTMLInputElement>,
     ) => {
         if( e && e.preventDefault ) {
@@ -64,6 +90,43 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
         }
         let item = this.props.editingItem;
         item.damageDivisor = +e.currentTarget.value;
+
+        this.props.onChange( item );
+    }
+
+    updateDamageAerospace = (
+        e: React.FormEvent<HTMLInputElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item = this.props.editingItem;
+        item.damageAero = +e.currentTarget.value;
+
+        this.props.onChange( item );
+    }
+
+    updateDamagePerCluster = (
+        e: React.FormEvent<HTMLInputElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item = this.props.editingItem;
+        item.damagePerCluster = +e.currentTarget.value;
+
+        this.props.onChange( item );
+    }
+
+
+    updateDamageClusters = (
+        e: React.FormEvent<HTMLInputElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item = this.props.editingItem;
+        item.damageClusters = +e.currentTarget.value;
 
         this.props.onChange( item );
     }
@@ -179,22 +242,58 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
                             <InputNumeric
                                 step={1}
                                 min={1}
-                                onChange={this.updatedamageDivisor}
+                                onChange={this.updateDamageDivisor}
                                 value={this.props.editingItem.damageDivisor ? this.props.editingItem.damageDivisor : 0}
                                 label="Weight Divisor"
                                 description='Divide the weight of the installed vehicle by this number to get the damage of this weapon.'
 
                             />
-                        ) : (
+                        ) : null}
+
+                        {!this.props.editingItem.damageDivisor
+                         && typeof(this.props.editingItem.damage) !== "number"
+                         && typeof(this.props.editingItem.damage) !== "undefined"  ? (
                             <InputCheckbox
                                 label="Damage Changes per range"
                                 onChange={this.toggleDamagePerRange}
-                                checked={!this.props.editingItem.damageDivisor && typeof(this.props.editingItem.damage) !== "number" ? true : false }
+                                checked={!this.props.editingItem.damageDivisor && typeof(this.props.editingItem.damage) !== "number" && typeof(this.props.editingItem.damage) !== "undefined" ? true : false }
                             />
-                        )
-                        }
+                        ) : null }
 
-                        {!this.props.editingItem.damageDivisor && typeof(this.props.editingItem.damage) === "number" ? (
+                        {!this.props.editingItem.damageDivisor ? (
+                            <InputCheckbox
+                                label="Damage is in Clusters"
+                                description='For most missles and LB-X weapons'
+                                onChange={this.toggleDamageIsInClusters}
+                                checked={this.props.editingItem.damageClusters && this.props.editingItem.damageClusters > 0 && this.props.editingItem.damagePerCluster && this.props.editingItem.damagePerCluster > 0 ? true : false }
+                            />
+                        ) : null }
+
+                        {this.props.editingItem.damagePerCluster && this.props.editingItem.damagePerCluster > 0
+                        && this.props.editingItem.damageClusters && this.props.editingItem.damageClusters  > 0 ? (
+                            <>
+                            <InputNumeric
+                                value={this.props.editingItem.damageClusters}
+                                onChange={this.updateDamageClusters}
+                                min={1}
+                                step={1}
+                                label="Damage Cluster"
+                                description='This is the 20 in the LRM 20'
+                            />
+                            <InputNumeric
+                                value={this.props.editingItem.damagePerCluster}
+                                onChange={this.updateDamagePerCluster}
+                                min={1}
+                                step={1}
+                                label="Damage Per Cluster"
+                                description='Usually 1 or 2 points of damage'
+                            />
+                            </>
+                        ) : (
+                            <>
+
+{!this.props.editingItem.damageDivisor && typeof(this.props.editingItem.damage) === "number" ? (
+                            <>
                             <InputNumeric
                                 value={this.props.editingItem.damage}
                                 onChange={this.updateDamage}
@@ -202,6 +301,14 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
                                 step={1}
                                 label="Damage Value"
                             />
+                            <InputNumeric
+                                value={this.props.editingItem.damageAero}
+                                onChange={this.updateDamageAerospace}
+                                min={0}
+                                step={1}
+                                label="Aerospace Damage Value"
+                            />
+                            </>
                         ) : (
                             <>
                                 {!this.props.editingItem.damageDivisor && typeof(this.props.editingItem.damage) !== "number" && typeof(this.props.editingItem.damage) !== "undefined" ? (
@@ -255,6 +362,9 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
                             </>
 
                         )}
+                            </>
+                        )}
+
             </fieldset>
         )
 
