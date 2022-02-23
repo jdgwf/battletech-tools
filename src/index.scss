@@ -33,6 +33,16 @@ body {
   overflow: scroll;
 }
 
+.text-right {
+  text-align: right;
+}
+.text-left {
+  text-align: left;
+}
+.text-center {
+  text-align: center;
+}
+
 .mech-tro {
   background: $bodyBackground;
   color: $fontColor;
@@ -479,7 +489,7 @@ body {
       color: $fontColor;
       max-height: 80vh;
       svg {
-        max-height: 75vh;
+        max-height: 65vh;
       }
     }
   }
@@ -1031,6 +1041,12 @@ body.retro {
     }
   }
 
+}
+
+@media (min-width: 768px) {
+  .content {
+      left: 0 !important;
+  }
 }
 
 @media print {

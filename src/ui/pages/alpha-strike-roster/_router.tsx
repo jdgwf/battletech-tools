@@ -4,6 +4,7 @@ import { IAppGlobals } from '../../app-router';
 import Error404 from "../error404";
 import Home from './home';
 import InPlay from './in-play';
+import PrintSheet from './print';
 
 export default class AlphaStrikeRosterRouter extends React.Component<IAlphaStrikeRosterRouterProps, IAlphaStrikeRosterRouterState> {
 
@@ -26,6 +27,12 @@ export default class AlphaStrikeRosterRouter extends React.Component<IAlphaStrik
 
                 <Route path={`/play`} element={
                     <InPlay
+                        appGlobals={this.props.appGlobals}
+                    />
+                }></Route>
+
+                <Route path={`/print`} element={
+                    <PrintSheet
                         appGlobals={this.props.appGlobals}
                     />
                 }></Route>

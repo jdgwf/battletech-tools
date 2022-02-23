@@ -5717,7 +5717,7 @@ export class BattleMech {
             if( line.toLowerCase().startsWith("double heat sinks: ")) {
                 line = line.replace(/double heat sink:/ig, '').trim();
                 if( line && line.indexOf(" ") > - 1 ) {
-                    line = line.replace(/  /ig, ' ').trim(); // Safari breaks on line = line.replace(/ {2}/ig, ' ').trim();
+                    line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split(" ");
                     // console.log("armor splitLine", splitLine)
                     if( splitLine.length > 1 && !isNaN(+splitLine[0]) ) {
@@ -5731,7 +5731,7 @@ export class BattleMech {
             if( line.toLowerCase().startsWith("single heat sinks: ")) {
                 line = line.replace(/single heat sinks:/ig, '').trim();
                 if( line && line.indexOf(" ") > - 1 ) {
-                    line = line.replace(/  /ig, ' ').trim(); // Safari breaks on line = line.replace(/ {2}/ig, ' ').trim();
+                    line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split(" ");
                     // console.log("armor splitLine", splitLine)
                     if( splitLine.length > 1 && !isNaN(+splitLine[0]) ) {
@@ -5746,7 +5746,7 @@ export class BattleMech {
             if( line.toLowerCase().startsWith("heat sinks: ")) {
                 line = line.replace(/heat sinks:/ig, '').trim();
                 if( line && line.indexOf(" ") > - 1 ) {
-                    line = line.replace(/  /ig, ' ').trim(); // Safari breaks on line = line.replace(/ {2}/ig, ' ').trim();
+                    line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split(" ");
                     // console.log("heat sinks splitLine", splitLine)
                     if( splitLine.length > 1 && !isNaN(+splitLine[0]) ) {
@@ -5767,7 +5767,7 @@ export class BattleMech {
             if( line.toLowerCase().startsWith("armor factor: ")) {
                 line = line.replace(/armor factor:/ig, '').trim();
                 if( line && line.indexOf(" ") > - 1 ) {
-                    line = line.replace(/  /ig, ' ').trim(); // Safari breaks on line = line.replace(/ {2}/ig, ' ').trim();
+                    line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split(" ");
                     // console.log("armor splitLine", splitLine)
                     if( splitLine.length > 1 && +splitLine[1] > 0) {
@@ -5781,7 +5781,7 @@ export class BattleMech {
             if( line.toLowerCase().startsWith("head")) {
                 line = line.replace(/head/ig, '').trim();
                 if( line && line.indexOf(" ") > - 1 ) {
-                    line = line.replace(/  /ig, ' ').trim(); // Safari breaks on line = line.replace(/ {2}/ig, ' ').trim();
+                    line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split(" ");
                     // console.log("head", splitLine)
                     if( splitLine.length > 1 && +splitLine[1] > 0) {
@@ -5794,7 +5794,7 @@ export class BattleMech {
             if( line.toLowerCase().startsWith("center torso") && line.toLowerCase().indexOf("(rear)") === -1 ) {
                 line = line.replace(/center torso/ig, '').trim();
                 if( line && line.indexOf(" ") > - 1 ) {
-                    line = line.replace(/  /ig, ' ').trim(); // Safari breaks on line = line.replace(/ {2}/ig, ' ').trim();
+                    line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split(" ");
                     // console.log("center torso", splitLine)
                     if( splitLine.length > 1 && +splitLine[1] > 0) {
@@ -5808,7 +5808,7 @@ export class BattleMech {
 
                 line = line.replace(/center torso \(rear\)/ig, '').trim();
                 // console.log("CTR", line)
-                // line = line.replace(/  /ig, ' ').trim(); // Safari breaks on line = line.replace(/ {2}/ig, ' ').trim();
+                // line = line.replace(/ {2}/ig, ' ').trim();
                 // console.log("center torso (rear)", +line)
                 if( +line > 0) {
                     this.setCenterTorsoRearArmor( +line )
@@ -5821,7 +5821,7 @@ export class BattleMech {
             if( line.toLowerCase().startsWith("r/l torso") && line.toLowerCase().indexOf("(rear)") === -1 ) {
                 line = line.replace(/r\/l torso/ig, '').trim();
                 if( line && line.indexOf(" ") > - 1 ) {
-                    line = line.replace(/  /ig, ' ').trim(); // Safari breaks on line = line.replace(/ {2}/ig, ' ').trim();
+                    line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split(" ");
                     // console.log("r/l torso", splitLine)
                     if( splitLine.length > 1 && +splitLine[1] > 0) {
@@ -5845,7 +5845,7 @@ export class BattleMech {
             if( line.toLowerCase().startsWith("r/l leg") ) {
                 line = line.replace(/r\/l leg/ig, '').trim();
                 if( line && line.indexOf(" ") > - 1 ) {
-                    line = line.replace(/  /ig, ' ').trim(); // Safari breaks on line = line.replace(/ {2}/ig, ' ').trim();
+                    line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split(" ");
                     // console.log("r/l torso", splitLine)
                     if( splitLine.length > 1 && +splitLine[1] > 0) {
@@ -5859,7 +5859,7 @@ export class BattleMech {
             if( line.toLowerCase().startsWith("r/l arm") ) {
                 line = line.replace(/r\/l arm/ig, '').trim();
                 if( line && line.indexOf(" ") > - 1 ) {
-                    line = line.replace(/  /ig, ' ').trim(); // Safari breaks on line = line.replace(/ {2}/ig, ' ').trim();
+                    line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split(" ");
                     // console.log("r/l torso", splitLine)
                     if( splitLine.length > 1 && +splitLine[1] > 0) {
@@ -5881,7 +5881,7 @@ export class BattleMech {
             if( inEquipmentList && equipmentList.length > 0 ) {
 
                 // remove double-spaces
-                line = line.replace(/  /ig, ' ').trim(); // Safari breaks on line = line.replace(/ {2}/ig, ' ').trim();
+                line = line.replace(/ {2}/ig, ' ').trim();
                 let lineSplit = line.split(' ');
                 // console.log("Equipment Parse?", lineSplit);
                 let equipmentLine = {

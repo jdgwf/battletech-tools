@@ -4,7 +4,7 @@ import {IAppGlobals} from '../../app-router';
 import { getMULASSearchResults, makeRange } from '../../../utils';
 import { IASMULUnit, AlphaStrikeUnit } from '../../../classes/alpha-strike-unit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTrash, faEdit, faBars, faEye, faHeart, faFileImport, faArrowsAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTrash, faEdit, faBars, faEye, faHeart, faFileImport, faArrowsAlt, faDice, faPrint } from '@fortawesome/free-solid-svg-icons';
 import { Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import AlphaStrikeUnitSVG from '../../components/svg/alpha-strike-unit-svg';
@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import AlphaStrikeGroup from '../../../classes/alpha-strike-group';
 import UIPage from '../../components/ui-page';
 import { formationBonuses } from '../../../data/formation-bonuses';
+import StandardModal from '../../components/standard-modal';
 
 export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, IHomeState> {
     searchTech: string = "";
@@ -286,26 +287,22 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
     render() {
       return (
         <>
+<StandardModal
+    onClose={this.closeShowUnitDialog}
+    show={this.state.showASUnit !== null}
+    className="modal-xl"
+    title={
+      this.state.showASUnit ?
+       (
+         "Showing Unit: " + (this.state.showASUnit ? (this.state.showASUnit.name ) : ( "" ) )
+       ) : (
+         "Editing Unit:" + (this.state.showASUnit ? (this.state.showASUnit ) : ( "" ) )
+      )
 
-            <Modal
-              onHide={this.closeShowUnitDialog}
-              show={this.state.showASUnit !== null}
-              className="modal-xl"
-            >
-              <Modal.Header closeButton>
-                  <Modal.Title>
-                    {this.state.editASUnit ? (
-                      <>
-                        Editing Unit: {this.state.showASUnit ? (this.state.showASUnit.name ) : ( "" ) }
-                      </>
-                    ) : (
-                      <>Viewing Unit: {this.state.showASUnit ? (this.state.showASUnit.name ) : ( "" ) }</>
-                    )}
-
-                  </Modal.Title>
-              </Modal.Header>
-              <Modal.Body className="text-center">
-                    {this.state.editASUnit && this.state.showASUnit ? (
+    }
+>
+<div className="text-center">
+{this.state.editASUnit && this.state.showASUnit ? (
                       <div className="row">
                         <div className="col-xs-6 col-lg-8 text-left" >
                           <label>
@@ -347,27 +344,31 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                     asUnit={this.state.showASUnit}
                     // inPlay={true}
                   />
-              </Modal.Body>
-              {/* <Modal.Footer>
+</div>
+</StandardModal>
 
-                  <Button variant="secondary" onClick={this.closeShowUnitDialog}>
-                      Close
-                  </Button>
-
-              </Modal.Footer> */}
-          </Modal>
 
         <UIPage current="alpha-strike-roster" appGlobals={this.props.appGlobals}>
 
           {this.props.appGlobals.currentASForce.getTotalUnits() > 0 ? (
             <div className="row">
-              <div className="col-12">
+              <div className="col-6">
                 <Link
                   to={`${process.env.PUBLIC_URL}/alpha-strike-roster/play`}
                   className="btn btn-primary no-margin full-width"
                   title="Click here to go into 'Play Mode'"
                 >
-                    Play Mode
+                    <FontAwesomeIcon icon={faDice} />&nbsp;Play Mode
+                </Link><br />
+                <br />
+              </div>
+              <div className="col-6">
+                <Link
+                  to={`${process.env.PUBLIC_URL}/alpha-strike-roster/print`}
+                  className="btn btn-primary no-margin full-width"
+                  title="Click here to go to a printable version of this page"
+                >
+                    <FontAwesomeIcon icon={faPrint} />&nbsp;Print Force
                 </Link><br />
                 <br />
               </div>

@@ -82,7 +82,9 @@
 .mobile-menu {
     ul {
         li {
+            display: block;
             a {
+                text-decoration: none;
                 border: solid 1px $primaryBG;
                 padding: .5rem 1rem;
                 display: block;
@@ -101,19 +103,37 @@
 }
 
 body.desaturated {
+    .mobile-menu {
+        border-right: solid 2px $desaturatedPrimaryBG;
+    }
+
     .mobile-menu,
     .topmenu {
         ul {
             li {
+                display: block;
                 a, span {
+                    text-decoration: none;
                     color: $desaturatedPrimaryBG;
+                    border-right: solid 2px $desaturatedPrimaryBG;
+                    border-top: solid 2px $desaturatedPrimaryBG;
+                    border-bottom: solid 2px $desaturatedPrimaryBG;
+                    border-left: solid 2px $desaturatedPrimaryBG;
                     &.current {
                         background: $desaturatedPrimaryBG;
                         color: $desaturatedPrimaryTextColor;
+                        border-right: solid 2px $desaturatedPrimaryBG;
+                        border-top: solid 2px $desaturatedPrimaryBG;
+                        border-bottom: solid 2px $desaturatedPrimaryBG;
+                        border-left: solid 2px $desaturatedPrimaryBG;
                     }
                     &:hover {
                         background: $desaturatedPrimaryBGHover;
                         color: $desaturatedPrimaryTextColor;
+                        border-right: solid 2px $desaturatedPrimaryBG;
+                        border-top: solid 2px $desaturatedPrimaryBG;
+                        border-bottom: solid 2px $desaturatedPrimaryBG;
+                        border-left: solid 2px $desaturatedPrimaryBG;
                     }
                 }
             }
@@ -127,23 +147,28 @@ body.desaturated {
 }
 
 body.retro {
+    .mobile-menu {
+        border-right: dotted 2px $retroPrimaryBG;
+    }
     .mobile-menu,
     .topmenu {
         ul {
             li {
-                display: inline-block;
+                display: block;
                 a, span {
                     font-size: .55rem;
                     color: $retroPrimaryBG;
                     background: $headerFooterBackground;
                     border-right: dotted 2px $headerFooterBackground;
                     border-top: dotted 2px $headerFooterBackground;
+                    border-bottom: dotted 2px $headerFooterBackground;
                     border-left: dotted 2px $headerFooterBackground;
                     &.current {
                         // background: $retroPrimaryBG;
                         // color: $retroPrimaryTextColor;
                         border-right: dotted 2px $retroPrimaryBG;
                         border-top: dotted 2px $retroPrimaryBG;
+                        border-bottom: dotted 2px $retroPrimaryBG;
                         border-left: dotted 2px $retroPrimaryBG;
                         color: $colorWhite;
                     }
@@ -154,6 +179,7 @@ body.retro {
                         border-right: dotted 2px $retroPrimaryBGHover;
                         border-top: dotted 2px $retroPrimaryBGHover;
                         border-left: dotted 2px $retroPrimaryBGHover;
+                        border-bottom: dotted 2px $retroPrimaryBGHover;
                     }
                 }
 
@@ -174,20 +200,23 @@ body.retro {
             border-bottom: dotted 2px $retroPrimaryBG;
         }
     }
+    .mobile-menu {
+        ul {
+            li {
+                a {
+                    font-size: 1rem;
+                }
+            }
+        }
+    }
 }
 
 // Medium devices (tablets, 768px and up)
-// @media (min-width: 768px) {
-//     .topmenu {
-//         ul {
-//             li {
-//                 a {
-//                     font-size: .8rem;
-//                 }
-//             }
-//         }
-//     }
-// }
+@media (min-width: 768px) {
+    .mobile-menu {
+        display: none !important
+    }
+}
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) {
@@ -207,6 +236,7 @@ body.retro {
         .topmenu {
             ul {
                 li {
+                    display: block;
                     a {
                         font-size: 1rem;
                     }

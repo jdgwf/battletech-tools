@@ -17,13 +17,6 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
     render() {
       return (
         <UIPage current="dev-status" appGlobals={this.props.appGlobals}>
-            <div className="alert alert-info">
-              <p>
-                I only started this rewrite on Friday 7/18/19. Since I'm mostly done with the Alpha Strike Roster, I suppose development is coming along nicely.
-              </p>
-              <p>If you see anything wrong with the Alpha Strike area - let me know in the <a href="https://github.com/jdgwf/battletech-tools/issues">GitHub issues</a> or a <a href="https://twitter.com/JeffreyDGordon/">send me a Tweet</a>. :)</p>
-              <p className="text-right">- Jeff</p>
-            </div>
             <h2>Development Status</h2>
 
             <p><strong>Current Focus:</strong> 'Mech Creator Class and Data conversions</p>
@@ -59,6 +52,8 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                 <div className="text-section ">
                   <h2>Alpha Strike Roster</h2>
                   <div className="section-content">
+
+                    <div className="alert alert-success">This section should be pretty feature complete, although there are some UI annoyances.</div>
                     <h4>Completed</h4>
                     <ul>
                       <li><del>Search MUL</del></li>
@@ -71,12 +66,11 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                       <li><del>Rename Groups</del></li>
                       <li><del>Unit Skills</del></li>
                       <li><del>Group Favoites</del></li>
+                      <li><del>Printable AS Rosters</del></li>
                     </ul>
-                    <h4>TO DO</h4>
-                    <p>This section should be pretty feature complete, although there are some UI annoyances.</p>
-                    <ul>
-                      <li>Printable AS Roster</li>
-                    </ul>
+
+
+
                   </div>
                 </div>
               </div>
