@@ -9,10 +9,11 @@ body {
         .print-section {
             border: none !important;
             width: 100%;
-            margin-top: 2rem;
-            &:first-child {
-                margin-top: 0;
-            }
+            display: block;
+            padding-top: .25in;
+            // &:first-child {
+            //     padding-top: 0;
+            // }
             .section-content {
                 display: flex;
                 flex-wrap: wrap;
@@ -24,7 +25,7 @@ body {
                 .card {
                     border: none !important;
                     // width: 35%;
-                    max-width: 3.8in;
+                    max-width: 3.5in;
                 }
             }
         }
@@ -34,14 +35,23 @@ body {
 @media print {
     @page {
         margin: 0;
+
     }
 
     header {
         display: none !important;
     }
+    // .print-header {
+    //     display: block !important;
+    //     margin-bottom: .25in;
+    //     position: absolute;
+    //     top: .25in;
+    //     width: 100%;
+
+    // }
     .print-cards {
         position: relative;
-        padding: .25in;
+        // padding: .25in;
         .print-section {
             break-inside: avoid;
 

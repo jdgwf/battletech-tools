@@ -2,6 +2,7 @@ import React from 'react';
 import './development-status.scss';
 import {IAppGlobals} from '../app-router';
 import UIPage from '../components/ui-page';
+import TextSection from '../components/text-section';
 
 export default class DevelopmentStatus extends React.Component<IDevelopmentStatusProps, IDevelopmentStatusState> {
     constructor(props: IDevelopmentStatusProps) {
@@ -22,9 +23,9 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
             <p><strong>Current Focus:</strong> 'Mech Creator Class and Data conversions</p>
             <div className="row">
               <div className="col-lg-4">
-                <div className="text-section ">
-                  <h2>General App</h2>
-                  <div className="section-content">
+              <TextSection
+            label="General App"
+          >
                     <h4>Completed</h4>
                     <ul>
                       <li><del>General Scaffolding</del></li>
@@ -45,13 +46,12 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                     <div className="small-pt-text">
                       <sup>*</sup> unknown if technically possible with PWA/Pure web apis. I do know that I can sync with GoogleDrive, for I have another web project which does this.
                     </div>
-                  </div>
-                </div>
+                  </TextSection>
               </div>
               <div className="col-lg-4">
-                <div className="text-section ">
-                  <h2>Alpha Strike Roster</h2>
-                  <div className="section-content">
+              <TextSection
+                label="Alpha Strike Roster"
+              >
 
                     <div className="alert alert-success">This section should be pretty feature complete, although there are some UI annoyances.</div>
                     <h4>Completed</h4>
@@ -71,13 +71,12 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
 
 
 
-                  </div>
-                </div>
+                  </TextSection>
               </div>
               <div className="col-lg-4">
-                <div className="text-section ">
-                  <h2>'Mech Creator</h2>
-                  <div className="section-content">
+              <TextSection
+            label="'Mech Creator'"
+          >
                     <h4>Completed</h4>
                     <ul>
                       <li><del>Typescript interfaces for data</del></li>
@@ -122,8 +121,7 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
 
                     </ul>
 
-                  </div>
-                </div>
+                  </TextSection>
               </div>
             </div>
           </UIPage>

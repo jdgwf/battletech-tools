@@ -2,6 +2,7 @@ import React from 'react';
 import { IAppGlobals } from '../app-router';
 import './about.scss';
 import UIPage from '../components/ui-page';
+import TextSection from '../components/text-section';
 
 export default class About extends React.Component<IAboutProps, IAboutState> {
     constructor(props: IAboutProps) {
@@ -21,9 +22,9 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
 
     <div className="row">
         <div className="col-md-6">
-          <div className="text-section">
-            <h2>Credits</h2>
-            <div className="section-content">
+          <TextSection
+            label="Credits"
+          >
               <h4>Jeffrey D. Gordon</h4>
               <strong>Developer and Designer</strong> - <a href="https://twitter.com/JeffreyDGordon/">@JeffreyDGordon</a><br />
               <p>Jeff has been playing BattleTech since 1985 and has been a professional developer since 1996.
@@ -36,13 +37,12 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
 
               <h4><a href="https://github.com/MoonSword22" rel="noopener noreferrer" target="_blank">MoonSword22</a></h4>
               <p><strong>Data Entry and consulting</strong></p>
-              </div>
-          </div>
+              </TextSection>
         </div>
         <div className="col-md-6">
-        <div className="text-section">
-          <h2>Copyright</h2>
-          <div className="section-content">
+          <TextSection
+            label="Copyrights"
+          >
           <p>This site and app is a completely free fan-site that makes no claim to ownership to any of <a href="http://catalystgamelabs.com/">Catalyst Game Labs</a> or <a href="http://topps.com">The Topps Company, Inc</a> properties.</p>
 
           <p>MechWarrior, BattleMech, ‘Mech and AeroTech are registered trademarks
@@ -51,16 +51,15 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
           <p> Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of InMediaRes Production, LLC. Used with permission. Neither Topps nor Catalyst Game Labs makes no representation or warranty as to the quality, viability, or suitability for purpose of this product.</p>
 
           <p><a href="http://bg.battletech.com/?page_id=34">See additional information on the BattleTech The Board Game Website</a></p>
-        </div>
-        </div>
+        </TextSection>
 
       </div>
     </div>
     <div className="row">
       <div className="col-md-6">
-        <div className="text-section">
-            <h2>Software License</h2>
-            <div className="section-content">
+        <TextSection
+          label="Software License"
+        >
             <p>This project is open source (GPLv3) with exceptions to the Data directory, see below.</p>
 
             <p>View the full license here: <a href="https://github.com/jdgwf/battletech-tools/blob/master/LICENSE">at the GitHub repository</a></p>
@@ -68,17 +67,15 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
 
             <h4>Exceptions</h4>
             <p>The data in ./src/data/* contains copyrighted material and is not included. Each of the comments header in the file repeats this exception in the above license.</p>
-              </div>
-          </div>
+          </TextSection>
         </div>
 
       <div className="col-md-6">
-      <div className="text-section">
-          <h2>Bug Reporting</h2>
-          <div className="section-content">
+      <TextSection
+        label="Bug Reporting"
+      >
           <p>I have a lot of projects, and I'm only one (busy) man. If you're finding some bugs in this software #sorrynotsorry, but I'll be happy to try to fix any <a href="https://github.com/jdgwf/battletech-tools/issues">issues that are filed on the github project</a>. :)</p>
-          </div>
-        </div>
+        </TextSection>
       </div>
 	</div>
           </UIPage>

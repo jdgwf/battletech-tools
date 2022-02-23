@@ -3,6 +3,7 @@ import './home.scss';
 import {IAppGlobals} from '../app-router';
 import UIPage from '../components/ui-page';
 import { Link } from 'react-router-dom';
+import TextSection from '../components/text-section';
 
 export default class Home extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -22,9 +23,9 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
             <p>I'll try to keep the <Link to="dev-status">Development Status</Link> page up to date, but it's easy to forget with all my other projects</p>
             <div className="text-right"><span title="Commanding Officer, Commanding Officer 😉😘">XOXO</span> - Jeff</div>
           </div>
-            <div className="text-section">
-              <h2>News</h2>
-              <div className="section-content">
+          <TextSection
+            label="News"
+          >
                   <ul className="news">
                     <li>
                       <p><strong>2021 Feb 1238</strong> - Added a Print function to your Alpha Strike Rosters (finally!?!?!).</p>
@@ -36,8 +37,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
 
                     </li>
                   </ul>
-              </div>
-            </div>
+              </TextSection>
 
         </UIPage>
       );

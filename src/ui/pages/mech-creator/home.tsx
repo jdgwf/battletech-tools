@@ -10,6 +10,7 @@ import MechCreatorStatusbar from '../../components/mech-creator-status-bar';
 import UIPage from '../../components/ui-page';
 import { BattleMech, IBattleMechExport } from '../../../classes/battlemech';
 import StandardModal from '../../components/standard-modal';
+import TextSection from '../../components/text-section';
 
 export default class MechCreatorHome extends React.Component<IHomeProps, IHomeState> {
     fileReader: FileReader | null = null;
@@ -253,9 +254,11 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
               <div className="col-md-9 col-lg-10">
                   <div className="row">
                     <div className="col-md-12 col-lg-8">
-                      <div className="text-section">
-                        <h2>Welcome</h2>
-                        <div className="section-content">
+                      <TextSection
+                        label="Welcome"
+                      >
+
+
                           <p>Welcome to the BattleTech 'mech builder.</p>
 
                           <p>This tool attempts to <em>closely</em> follow the steps in the BattleTech TechManual and the steps in that book should be referenced during 'mech creation</p>
@@ -275,21 +278,22 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                                   Next Step <FontAwesomeIcon icon={faArrowCircleRight} />
                               </Link>
                           </div>
-                        </div>
-                      </div>
+                    </TextSection>
 
-                      <div className="text-section">
-                  <h2>
-                    <button
-                      className="btn btn-primary btn-sm pull-right"
-                      title="Click here to save a a new 'mech row"
-                      onClick={this.saveAsNew}
-                    >
-                      <FontAwesomeIcon icon={faSave} />&nbsp;Save as New
-                    </button>
-                    Your Saved 'Mechs
-                  </h2>
-                  <div className="section-content">
+
+<TextSection
+  label={"Your Saved 'Mechs"}
+  labelButton={<button
+    className="btn btn-primary btn-sm pull-right"
+    title="Click here to save a a new 'mech row"
+    onClick={this.saveAsNew}
+  >
+    <FontAwesomeIcon icon={faSave} />&nbsp;Save as New
+  </button>}
+>
+
+
+
                     <table className="table">
                       <thead>
                         <tr>
@@ -396,8 +400,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                         </tr>
                       </tfoot>
                     </table>
-                  </div>
-                </div>
+              </TextSection>
 
                     </div>
                     <div className="d-none d-lg-block col-lg-4">

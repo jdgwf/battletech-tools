@@ -10,6 +10,7 @@ import MechCreatorStatusbar from '../../components/mech-creator-status-bar';
 import UIPage from '../../components/ui-page';
 import AlphaStrikeUnitSVG from '../../components/svg/alpha-strike-unit-svg';
 import BattleMechSVG from '../../components/svg/battlemech-svg';
+import TextSection from '../../components/text-section';
 
 export default class MechCreatorSummary extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -64,9 +65,10 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
               <div className="col-md-9 col-lg-10">
                   <div className="row">
                     <div className="col-md-12">
-                      <div className="text-section">
-                        <h2>Summary</h2>
-                        <div className="section-content">
+                      <TextSection
+                        label="Summary"
+                      >
+
                           <div className="row">
                             <div className="col-md-6">
                               <fieldset className="fieldset">
@@ -204,8 +206,7 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
                               <Link to={`${process.env.PUBLIC_URL}/mech-creator/step6`} className="btn btn-sm btn-primary"><FontAwesomeIcon icon={faArrowCircleLeft} /> Previous Step</Link>
                             </div>
                           </div>
-                        </div>
-                      </div>
+                        </TextSection>
 
                     </div>
 

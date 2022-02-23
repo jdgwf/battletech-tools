@@ -13,6 +13,7 @@ import AlphaStrikeGroup from '../../../classes/alpha-strike-group';
 import UIPage from '../../components/ui-page';
 import { formationBonuses } from '../../../data/formation-bonuses';
 import StandardModal from '../../components/standard-modal';
+import TextSection from '../../components/text-section';
 
 export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, IHomeState> {
     searchTech: string = "";
@@ -378,9 +379,12 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
           )}
           <div className="row">
             <div className="col-lg-5">
-              <div className="text-section">
-                <h2>Current Force</h2>
-                <div className="section-content">
+              <TextSection
+                label="Current Force"
+              >
+
+
+
                 {this.props.appGlobals.currentASForce.groups.map( (asGroup, asGroupIndex) => {
                   return (<fieldset key={asGroupIndex} className="fieldset">
                     <legend>{asGroup.getName(asGroupIndex + 1)}</legend>
@@ -557,14 +561,14 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
                 </p>
 
-                </div>
-              </div>
+                </TextSection>
 
               {this.props.appGlobals.favoriteASGroups.length > 0 ? (
-                <>
-                <div className="text-section">
-                <h2>Favorite Groups</h2>
-                <div className="section-content">
+
+                <TextSection
+                  label="Favorite Groups"
+                >
+
                 {this.props.appGlobals.favoriteASGroups.map( (asFavGroup, asFavGroupIndex) => {
                   return (<fieldset key={asFavGroupIndex} className="fieldset">
                     <legend>{asFavGroup.getName(asFavGroupIndex + 1)}</legend>
@@ -627,19 +631,16 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                   )
                 })}
 
-                </div>
-              </div>
-                </>
-              ): (
-                <></>
-              )}
+                </TextSection>
+              ): null}
 
 
             </div>
             <div className="col-lg-7">
-              <div className="text-section">
-                <h2>Search for Units</h2>
-                <div className="section-content">
+              <TextSection
+                label="Search for Units"
+              >
+
                   <fieldset className="fieldset">
                     <div className="row">
                       <div className="col-md-6 text-center">
@@ -805,8 +806,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
                     </tbody>
                   </table>
-                </div>
-              </div>
+                </TextSection>
             </div>
           </div>
 

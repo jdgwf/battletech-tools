@@ -13,6 +13,7 @@ import { makeRange } from '../../../utils';
 import { Button } from 'react-bootstrap';
 import QuadArmorDiagramSVG from '../../components/svg/quad-armor-diagram-svg';
 import UIPage from '../../components/ui-page';
+import TextSection from '../../components/text-section';
 
 export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -141,9 +142,12 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
               <div className="col-md-9 col-lg-10">
                   <div className="row">
                     <div className="col-md-12 col-lg-8">
-                      <div className="text-section">
-                        <h2>Step 4: Add armor</h2>
-                        <div className="section-content">
+                      <TextSection
+                        label="Step 4: Add armor"
+                      >
+
+
+
                           <div className="row">
                             <div className="col-xs-12 col-md-6">
                             <label>
@@ -619,8 +623,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                               <Link to={`${process.env.PUBLIC_URL}/mech-creator/step3`} className="btn btn-primary btn-sm"><FontAwesomeIcon icon={faArrowCircleLeft} /> Previous Step</Link>
                             </div>
                           </div>
-                        </div>
-                      </div>
+                      </TextSection>
 
                     </div>
                     <div className="d-none d-lg-block col-lg-4">

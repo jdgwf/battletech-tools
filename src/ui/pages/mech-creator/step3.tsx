@@ -9,6 +9,7 @@ import { faArrowCircleRight, faArrowCircleLeft } from '@fortawesome/free-solid-s
 import MechCreatorStatusbar from '../../components/mech-creator-status-bar';
 import { makeRange } from '../../../utils';
 import UIPage from '../../components/ui-page';
+import TextSection from '../../components/text-section';
 
 export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -55,9 +56,12 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
               <div className="col-md-9 col-lg-10">
                   <div className="row">
                     <div className="col-md-12 col-lg-8">
-                      <div className="text-section">
-                        <h2>Step 3: Add additional heat sinks</h2>
-                        <div className="section-content">
+                      <TextSection
+                        label="Step 3: Add additional heat sinks"
+                      >
+
+
+
                           <p className="text-center">Your BattleMech includes 10 heat sinks.</p>
 
                           <label>
@@ -106,8 +110,7 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
                               <Link to={`${process.env.PUBLIC_URL}/mech-creator/step2`} className="btn btn-primary btn-sm"><FontAwesomeIcon icon={faArrowCircleLeft} /> Previous Step</Link>
                             </div>
                             </div>
-                        </div>
-                      </div>
+                        </TextSection>
 
                     </div>
                     <div className="d-none d-lg-block col-lg-4">

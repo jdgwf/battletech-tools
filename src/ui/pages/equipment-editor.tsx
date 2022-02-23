@@ -345,6 +345,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
         <EquipmentEditForm
             editingItem={this.state.editItem}
             onChange={this.editItemOnChange}
+            techBase={this.state.currentList.indexOf("-is-") > -1 ? "Inner Sphere" : "Clan"}
         />
     </StandardModal>
 ) : null}

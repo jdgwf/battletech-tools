@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleRight, faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import MechCreatorStatusbar from '../../components/mech-creator-status-bar';
 import UIPage from '../../components/ui-page';
+import TextSection from '../../components/text-section';
 
 export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -61,9 +62,12 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
               <div className="col-md-9 col-lg-10">
                   <div className="row">
                     <div className="col-md-12 col-lg-8">
-                      <div className="text-section">
-                        <h2>Step 2: Install engine and control systems</h2>
-                        <div className="section-content">
+                      <TextSection
+                        label="Step 2: Install engine and control systems"
+                      >
+
+
+
                           <h3>Select Movement</h3>
                           <label>
                               Walking Movement Points:
@@ -152,8 +156,7 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                                 <Link to={`${process.env.PUBLIC_URL}/mech-creator/step1`} className="btn btn-primary btn-sm"><FontAwesomeIcon icon={faArrowCircleLeft} /> Previous Step</Link>
                               </div>
                             </div>
-                          </div>
-                      </div>
+                        </TextSection>
 
                     </div>
                     <div className="d-none d-lg-block col-lg-4">

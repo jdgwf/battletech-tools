@@ -3,6 +3,8 @@ import { Modal } from 'react-bootstrap';
 import { IEquipmentItem } from '../../data/data-interfaces';
 import InputCheckbox from './form_elements/input_checkbox';
 import InputField from './form_elements/input_field';
+import InputNumeric from './form_elements/input_numeric';
+import TextSection from './text-section';
 
 
 export default class EquipmentEditForm extends React.Component<IEquipmentEditFormProps, IEquipmentEditFormState> {
@@ -12,6 +14,42 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         this.state = {
             updated: false,
         };
+    }
+
+    updateReintroduced = (
+        e: React.FormEvent<HTMLInputElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item = this.props.editingItem;
+        item.reintroduced = +e.currentTarget.value;
+
+        this.props.onChange( item );
+    }
+
+    updateExtinct = (
+        e: React.FormEvent<HTMLInputElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item = this.props.editingItem;
+        item.extinct = +e.currentTarget.value;
+
+        this.props.onChange( item );
+    }
+
+    updateIntroduced = (
+        e: React.FormEvent<HTMLInputElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item = this.props.editingItem;
+        item.introduced = +e.currentTarget.value;
+
+        this.props.onChange( item );
     }
 
     updateName = (
@@ -56,10 +94,10 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         return (
 <div className="form">
     <div className="row">
-        <div className="col">
-          <div className="text-section">
-                <h2>Name, Sort, and Tag</h2>
-                <div className="section-content">
+        <div className="col-md-6">
+            <TextSection
+                label="Name, Sort, and Tag"
+            >
 
                 <InputField
                     onChange={this.updateName}
@@ -76,19 +114,56 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                     value={this.props.editingItem.sort}
                     label="Sort"
                     description="Weapons with potential 2 digit Damage Ratings (such as AC10, LRM5) referred to internally as a-d instead of numerically to avoid sort and partial"
-                /><br />
-            </div>
-            </div>
+                />
+
+
+                <br />
+            </TextSection>
 
         </div>
-        <div className="col">
+        <div className="col-md-6">
+            <TextSection
+                label="Tech, Active Years"
+            >
 
+                <label>
+                    Technology:&nbsp;
+                    {this.props.techBase}
+                    <div className="small-text">This is derived from the list you've chosen to edit or add to.</div>
+                </label>
+                <InputNumeric
+                    step={1}
+                    onChange={this.updateIntroduced}
+                    value={this.props.editingItem.introduced}
+                    label="Introduced"
+                />
+
+                <InputNumeric
+                    step={1}
+                    onChange={this.updateExtinct}
+                    value={this.props.editingItem.extinct}
+                    label="Extinct"
+                />
+
+                <InputNumeric
+                    step={1}
+                    onChange={this.updateReintroduced}
+                    value={this.props.editingItem.reintroduced}
+                    label="Reintroduced"
+                />
+
+
+            <br />
+        </TextSection>
         </div>
+
+    </div>
+
+    <div className="row">
         <div className="col">
 
         </div>
     </div>
-
 
 
 
@@ -100,6 +175,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
 
 interface IEquipmentEditFormProps {
     editingItem: IEquipmentItem;
+    techBase: string;
     onChange( nv: IEquipmentItem): void
 }
 

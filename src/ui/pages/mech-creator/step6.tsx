@@ -11,6 +11,7 @@ import CriticalAllocationSection from '../../components/critical-allocation-sect
 import { ICriticalSlot } from '../../../classes/battlemech';
 import { Button } from 'react-bootstrap';
 import UIPage from '../../components/ui-page';
+import TextSection from '../../components/text-section';
 
 export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -111,10 +112,12 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
               <div className="col-md-9 col-lg-10">
                   <div className="row">
                     <div className="col-md-12">
-                      <div className="text-section">
-                        <h2>Step 6: Complete the record sheet</h2>
+                      <TextSection
+                        label="Step 6: Complete the record sheet"
+                      >
 
-                        <div className="section-content">
+
+
                           <fieldset className="fieldset">
                             <legend>Instructions</legend>
                             <p>To assign equipment to your critical allocation table, just click on an assignable item then click on an unallocated location.</p>
@@ -297,8 +300,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                               <Link to={`${process.env.PUBLIC_URL}/mech-creator/step5`} className="btn btn-primary btn-sm"><FontAwesomeIcon icon={faArrowCircleLeft} /> Previous Step</Link>
                             </div>
                         </div>
-                      </div>
-                    </div>
+                      </TextSection>
 
                     </div>
 

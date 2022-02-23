@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import UIPage from '../../components/ui-page';
+import TextSection from '../../components/text-section';
 
 export default class MechCreatorExports extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -33,9 +34,10 @@ export default class MechCreatorExports extends React.Component<IHomeProps, IHom
               <div className="col-md-9 col-lg-10">
                   <div className="row">
                     <div className="col-md-12 col-lg-8">
-                      <div className="text-section">
-                        <h2>Exports</h2>
-                        <div className="section-content">
+                      <TextSection
+                        label="Exports"
+                      >
+
                           TODO
 
 
@@ -46,8 +48,7 @@ export default class MechCreatorExports extends React.Component<IHomeProps, IHom
                               <Link to={`${process.env.PUBLIC_URL}/mech-creator/summary`} className="btn btn-primary btn-sm"><FontAwesomeIcon icon={faArrowCircleLeft} /> Summary</Link>
                             </div>
                           </div>
-                        </div>
-                      </div>
+                        </TextSection>
 
                     </div>
                     <div className="d-none d-lg-block col-lg-4">

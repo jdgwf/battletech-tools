@@ -121,6 +121,7 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
               <p>Printed using Jeff's Battletech Tools at https://jdgwf.github.io/battletech-tools/. Huge thanks to the Master Unit List</p>
               <p>MechWarrior, BattleMech, ‘Mech and AeroTech are registered trademarks of The Topps Company, Inc. All Rights Reserved.</p>
             </footer>
+            {/* <header className="print-header">&nbsp;</header> */}
           </div>
 
 
