@@ -141,7 +141,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                 </>
                                 ) : (
                                   <>
-                                  <p className="text-center">Hooray! All equipment has been allocated!</p>
+                                  <p className="text-center">Huzzah! All equipment has been allocated!</p>
                                   </>
                                 )}
 

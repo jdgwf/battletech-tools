@@ -12,7 +12,7 @@ export const mechISEquipmentMisc: IEquipmentItem[] = [
         alternameName: "",
         tag: "ew-equipment",
         sort: "",
-        category: "",
+        category: "Miscellaneous Equipment",
         damage: 0,
         damageAero: 0,
         damagePerCluster: 0,

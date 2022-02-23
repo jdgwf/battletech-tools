@@ -186,13 +186,13 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
     }
 
     _getCategoryName = (): string => {
-        if( this.state.currentList.toLocaleLowerCase().indexOf("-energy")) {
+        if( this.state.currentList.toLocaleLowerCase().indexOf("-energy") > -1) {
             return "Energy Weapons"
-        } else if( this.state.currentList.toLocaleLowerCase().indexOf("-ballistic")) {
+        } else if( this.state.currentList.toLocaleLowerCase().indexOf("-ballistic") > -1) {
             return "Ballistic Weapons"
-        } else if( this.state.currentList.toLocaleLowerCase().indexOf("-misc")) {
+        } else if( this.state.currentList.toLocaleLowerCase().indexOf("-misc") > -1) {
             return "Miscellaneous Equipment"
-        } else if( this.state.currentList.toLocaleLowerCase().indexOf("-missiles")) {
+        } else if( this.state.currentList.toLocaleLowerCase().indexOf("-missiles") > -1) {
             return "Missile Weapons"
         }
 
