@@ -56,6 +56,7 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
         }
     },
     {
+        isAmmo: true,
         name: "Ammo (LRM-5)",
         tag: "ammo-lrm-5",
         sort: "ammo, lrm-5",

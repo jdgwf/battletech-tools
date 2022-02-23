@@ -116,7 +116,7 @@ input[type=number] {
 }
 .fieldset {
   border: solid 2px $primaryBG;
-  margin: 0 0 .5rem 0;
+  margin: 1rem 0 .5rem 0;
   padding: .5rem;
   legend {
     background: $primaryBG;
@@ -125,7 +125,7 @@ input[type=number] {
     border-radius: .5rem;
     display: inline-block;
     width: auto;
-    margin: 0 0 0 1rem;
+    margin: -1.25rem 0 0 0rem;
     font-size: 1rem;
   }
 }
@@ -487,13 +487,16 @@ body {
       background: $bodyBackground;
       border: solid 2px $primaryBG;
       color: $fontColor;
-      max-height: 80vh;
+      // max-height: 80vh;
       svg {
         max-height: 65vh;
       }
     }
   }
 
+  .checkbox-input {
+    cursor: pointer;
+  }
   .pull-right,
   .float-right {
     float: right;

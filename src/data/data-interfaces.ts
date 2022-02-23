@@ -80,7 +80,7 @@ export interface IRangeNumbers {
     short: number;
     medium: number;
     long: number;
-    exterme?: number;
+    extreme?: number;
 }
 
 
@@ -88,6 +88,8 @@ export interface IEquipmentItem {
     uuid?: string;
     count?: number;
     name: string;
+    isEquipment?: boolean;
+    isAmmo?: boolean;
     alternameName?: string;
     tag: string;
     sort: string;
@@ -109,15 +111,7 @@ export interface IEquipmentItem {
     heat: number;
     weight: number;
     range: IRangeNumbers,
-    space: {
-        battlemech: number;
-        protomech: number;
-        combatVehicle: number;
-        supportVehicle: number;
-        aerospaceFighter: number;
-        smallCraft: number;
-        dropShip: number;
-    },
+    space: ICriticalSpace,
     ammoPerTon?: number;
     minAmmoTons?: number;
     explosive?: boolean;
@@ -140,7 +134,7 @@ export interface IEquipmentItem {
     requiresHandActuator?: boolean;
 
     weightDivisor?: number;
-    damageDivisior?: number;
+    damageDivisor?: number;
     criticalsDivisor?: number;
 
     variableSize?: boolean;
@@ -150,6 +144,16 @@ export interface IEquipmentItem {
     rear?: boolean;
     criticals?: number;
     available?: boolean;
+}
+
+export interface ICriticalSpace {
+    battlemech: number;
+    protomech: number;
+    combatVehicle: number;
+    supportVehicle: number;
+    aerospaceFighter: number;
+    smallCraft: number;
+    dropShip: number;
 }
 
 export interface IGyro {

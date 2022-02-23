@@ -224,7 +224,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                             <textarea
                               onChange={this.updateTRO}
                               value={this.state.TRO}
-                              className="full-width"
+                              className="full-width tall"
                             >
 
                             </textarea>

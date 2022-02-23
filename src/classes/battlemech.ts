@@ -5356,8 +5356,8 @@ export class BattleMech {
                     currentItem.weight = Math.ceil( this.getTonnage() / currentItem.weightDivisor );
                 }
 
-                if( currentItem.damageDivisior ) {
-                    currentItem.damage = Math.ceil( this.getTonnage() / currentItem.damageDivisior );
+                if( currentItem.damageDivisor ) {
+                    currentItem.damage = Math.ceil( this.getTonnage() / currentItem.damageDivisor );
                 }
 
                 if( currentItem.criticalsDivisor ) {

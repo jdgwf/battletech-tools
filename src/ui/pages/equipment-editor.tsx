@@ -75,7 +75,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
             e.preventDefault();
         }
         this.setState({
-            showJSON: true,
+            showJSON: false,
         })
     }
 
@@ -181,6 +181,24 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
         })
     }
 
+    _getCategoryName = (): string => {
+        if( this.state.currentList.toLocaleLowerCase().indexOf("-energy")) {
+            return "Energy Weapons"
+        } else if( this.state.currentList.toLocaleLowerCase().indexOf("-ballistic")) {
+            return "Ballistic Weapons"
+        } else if( this.state.currentList.toLocaleLowerCase().indexOf("-misc")) {
+            return "Miscellaneous Equipment"
+        } else if( this.state.currentList.toLocaleLowerCase().indexOf("-missiles")) {
+            return "Missile Weapons"
+        }
+
+        return "????";
+    }
+
+    _getTechnologyName = (): string => {
+        return this.state.currentList.indexOf("-is-") > -1 ? "Inner Sphere" : "Clan"
+    }
+
     editItem = (
         e: React.FormEvent<HTMLButtonElement>,
         item: IEquipmentItem,
@@ -230,7 +248,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                 short: 0,
                 medium: 0,
                 long: 0,
-                exterme: 0,
+                extreme: 0,
             },
             space: {
                 battlemech: 0,
@@ -248,7 +266,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
             weaponType: [],
             techRating: "",
             unique: false,
-            book: "",
+            book: "TM",
             page: 0,
             alphaStrike: {
                 heat: 0,
@@ -263,7 +281,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
             requiresHandActuator: false,
 
             weightDivisor: 0,
-            damageDivisior: 0,
+            damageDivisor: 0,
             criticalsDivisor: 0,
 
             variableSize: false,
@@ -339,13 +357,14 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
         className="modal-xl"
         onClose={this.closeEditItem}
         onSave={this.state.editItemIndex > -1 ? this.saveItem : undefined}
-        onAdd={this.state.editItemIndex == -1 ? this.saveItem : undefined}
+        onAdd={this.state.editItemIndex === -1 ? this.saveItem : undefined}
         title={this.state.editItemIndex > -1 ? "Editing Item" : "Adding Item"}
     >
         <EquipmentEditForm
             editingItem={this.state.editItem}
             onChange={this.editItemOnChange}
-            techBase={this.state.currentList.indexOf("-is-") > -1 ? "Inner Sphere" : "Clan"}
+            category={this._getCategoryName()}
+            techBase={this._getTechnologyName()}
         />
     </StandardModal>
 ) : null}
@@ -374,13 +393,18 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
 <table className="table">
     <thead>
         <tr>
+            <th colSpan={10} className="text-center">
+                {this._getTechnologyName()} {this._getCategoryName()}
+            </th>
+        </tr>
+        <tr>
             <th>
                 Name
                 <div className="small-text">tag</div>
             </th>
             <th className="min-width text-center no-wrap">Damage</th>
             <th className="min-width text-center no-wrap">Range</th>
-            <th className="min-width text-center no-wrap">Crits</th>
+            <th className="min-width text-center no-wrap">BM Crits</th>
             <th className="min-width text-center no-wrap">Mass</th>
 
             <th className="min-width text-center no-wrap">Heat</th>
@@ -413,30 +437,56 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                     <div className="small-text">{item.tag}</div>
                 </td>
                 <td className="text-center no-wrap">
-                    {item.damageClusters ? (
+                    {item.damageDivisor && item.damageDivisor > 0 ? (
                         <>
-                            Clusters: {item.damageClusters}<br />
-                            Damage Per: {item.damagePerCluster}<br />
+                            <>Mass ÷ {item.damageDivisor}<br /></>
                         </>
                     ) : (
                         <>
-                            {typeof(item.damage) == "number" ? (
-                                <>{item.damage}</>
-                            ) : (
-                                <>{item.damage?.short} / {item.damage?.medium} / {item.damage?.long} </>
-                            )}
+                        {item.damageClusters ? (
+                            <>
+                                Clusters: {item.damageClusters}<br />
+                                Damage Per: {item.damagePerCluster}<br />
+                            </>
+                        ) : (
+                            <>
+                                {typeof(item.damage) === "number" ? (
+                                    <>{item.damage}</>
+                                ) : (
+                                    <>{item.damage?.short} / {item.damage?.medium} / {item.damage?.long} </>
+                                )}
+                            </>
+                        )}
                         </>
+                    )
+                    }
+
+
+                </td>
+                <td className="text-center no-wrap">
+                    {item.isMelee ? (
+                        <>Melee</>
+                    ) : (
+                        <>{item.range.short} / {item.range.medium} / {item.range.long}</>
                     )}
 
                 </td>
                 <td className="text-center no-wrap">
-                    {item.range.short} / {item.range.medium} / {item.range.long}
-                </td>
-                <td className="text-center no-wrap">
-                    {item.space.battlemech}<br />
+
+                {item.criticalsDivisor && item.criticalsDivisor > 1 ? (
+                        <>Mass ÷ {item.criticalsDivisor}<br /></>
+                    ) : (
+                        <>{item.space.battlemech}<br /></>
+                    )}
+
                 </td>
                 <td className="text-center no-wrap ">
-                    {item.weight}<br />
+                    {item.weightDivisor && item.weightDivisor > 1 ? (
+                        <>Mass ÷ {item.weightDivisor}<br /></>
+                    ) : (
+                        <>{item.weight}<br /></>
+                    )}
+
                 </td>
 
                 <td className="text-center no-wrap ">
@@ -450,7 +500,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                 <td className="text-center no-wrap ">
                     {item.introduced}-{item.extinct > 0 ? item.extinct : "current"}<br />
                     {item.reintroduced > 0 ? (
-                        <div>{item.reintroduced}</div>
+                        <div className="small-text">Reintroduced: {item.reintroduced}</div>
                     ): null}
                 </td>
 

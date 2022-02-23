@@ -4188,7 +4188,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
 		isMelee: true,
 		cbills: 0,
 		weightDivisor: 15,
-		damageDivisior: 5,
+		damageDivisor: 5,
 		criticalsDivisor: 15,
 		requiresHandActuator: true,
 		introduced: 3022,
