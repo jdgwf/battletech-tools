@@ -121,6 +121,18 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         this.props.onChange( item );
     }
 
+    updateNotes = (
+        e: React.FormEvent<HTMLInputElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item = this.props.editingItem;
+        item.notes = e.currentTarget.value;
+
+        this.props.onChange( item );
+    }
+
     updateMinAmmoTons = (
         e: React.FormEvent<HTMLInputElement>,
     ) => {
@@ -360,6 +372,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                                 value={this.props.editingItem.book}
                             >
                                 <option value="TM">Tech Manual</option>
+                                <option value="TO">Tactical Operations</option>
                             </select>
                         </label>
                     </div>
@@ -522,7 +535,11 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                         {!this.props.editingItem.isAmmo && this.props.editingItem.isEquipment ? (
                             <fieldset className="fieldset">
                                 <legend>Equipment Options</legend>
-                                (TODO)
+                                <InputField
+                                    label="Notes"
+                                    onChange={this.updateNotes}
+                                    value={this.props.editingItem.notes ? this.props.editingItem.notes : ""}
+                                />
                             </fieldset>
                         ) : null}
                     </div>

@@ -4918,6 +4918,7 @@ export class BattleMech {
 
             this.equipmentList.push(equipmentItem);
             this.sortInstalledEquipment();
+
             return equipmentItem;
         }
 
@@ -5980,6 +5981,27 @@ export class BattleMech {
                                             false,
                                             null,
                                         )
+
+                                        this.calcCriticals();
+
+                                        for( let count = 0; count < equipmentLine.criticals; count++) {
+
+                                            for( let critIndex = this.unallocatedCriticals.length -1; critIndex > -1; critIndex--  ) {
+
+                                                if( this.unallocatedCriticals[critIndex] && this.unallocatedCriticals[critIndex].name.trim().toLowerCase() == equipmentLine.name.trim().toLowerCase() ) {
+
+                                                    this.moveCritical(
+                                                        "un",
+                                                        +critIndex,
+                                                        equipmentLine.location.trim().toLowerCase(),
+                                                        -1,
+                                                    )
+                                                    break;
+                                                }
+
+                                            }
+
+                                    }
                                     }
 
                                 }

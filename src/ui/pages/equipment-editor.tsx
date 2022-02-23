@@ -137,8 +137,12 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
         if( fileN === "mech-clan-equipment-weapons-energy" ) {
             return "mechClanEquipmentEnergy";
         }
-        if( fileN === "mech-clan-equipment-weapons-misc" ) {
+        if( fileN === "mech-is-equipment-weapons-misc" ) {
             return "mechISEquipmentMisc";
+        }
+
+        if( fileN === "mech-clan-equipment-weapons-misc" ) {
+            return "mechClanEquipmentMisc";
         }
 
         return "unknown;"
@@ -221,6 +225,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
         }
         let item: IEquipmentItem = {
             uuid: "",
+            notes: "",
             count: 0,
             name: "",
             alternameName: "",

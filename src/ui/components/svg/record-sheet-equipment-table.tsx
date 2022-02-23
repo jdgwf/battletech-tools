@@ -49,8 +49,9 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
                 rearDesignation = " [R]"
 
             let ammoPerTon = this.props.mechData.sortedEquipmentList[ eq_count].ammoPerTon ;
+            let isAmmo = this.props.mechData.sortedEquipmentList[ eq_count].isAmmo ? true : false ;
 
-            if( ammoPerTon )
+            if( ammoPerTon && isAmmo )
                 equipmentList.push( <text key={ eq_count.toString() + "c"} x={wacCol2 } y={weapAndEqpTop + 120 + this.eqLineHeight * eq_count } textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.sortedEquipmentList[eq_count].name + rearDesignation} {this.props.mechData.sortedEquipmentList[ eq_count].ammoPerTon}</text> );
             else
                 equipmentList.push( <text key={ eq_count.toString() + "d"} x={wacCol2 } y={weapAndEqpTop + 120 + this.eqLineHeight * eq_count } textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.sortedEquipmentList[eq_count].name + rearDesignation}</text> );
