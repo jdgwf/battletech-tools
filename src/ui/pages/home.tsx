@@ -1,9 +1,9 @@
 import React from 'react';
-import './home.scss';
-import {IAppGlobals} from '../app-router';
-import UIPage from '../components/ui-page';
 import { Link } from 'react-router-dom';
+import { IAppGlobals } from '../app-router';
 import TextSection from '../components/text-section';
+import UIPage from '../components/ui-page';
+import './home.scss';
 
 export default class Home extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -15,11 +15,10 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
         this.props.appGlobals.makeDocumentTitle("Home");
     }
 
-
-
     render() {
       return (
         <UIPage current="home" appGlobals={this.props.appGlobals}>
+
           <div className="alert alert-success">
             <p>Yes! We're back. Sorry about that. I was hoping that the official BattleTech app would cover most of the functionality of this app, but, alas, it didn't. So we're back!</p>
             <p>I'll try to keep the <Link to="dev-status">Development Status</Link> page up to date, but it's easy to forget with all my other projects</p>

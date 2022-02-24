@@ -911,10 +911,7 @@ body.retro {
     }
   }
 
-  .alert {
-    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
-    filter: grayscale(100%);
-  }
+
 
   .fieldset {
     border: dotted 2px $retroPrimaryBG;
@@ -1043,7 +1040,34 @@ body.retro {
     }
   }
 
+  a {
+    color: #fff !important;
+    &:hover {
+      color: #eee !important;
+    }
+  }
 
+  @keyframes blink {
+    50% {
+      border: dotted 2px lighten($retroPrimaryBG, 10);
+      background-color: lighten($headerFooterBackground, 1);
+    }
+    // 50% {
+    //   border: dotted 2px $retroPrimaryBG;
+    //   background-color: $headerFooterBackground;
+    // }
+ }
+  .alert {
+
+    border: dotted 2px $retroPrimaryBG;
+    background-color: $headerFooterBackground;
+    color: $retroFontColor !important;
+    animation: blink 1s step-end infinite alternate;
+    p {
+      color: $retroFontColor !important;
+    }
+
+  }
 
   table {
     border-top: dotted 2px $retroFontColor !important;

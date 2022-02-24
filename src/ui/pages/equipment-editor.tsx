@@ -8,7 +8,7 @@ import { mechISEquipmentEnergy } from "../../data/mech-is-equipment-weapons-ener
 import { mechISEquipmentMissiles } from '../../data/mech-is-equipment-weapons-missiles';
 import { mechISEquipmentMisc } from '../../data/mech-is-equipment-weapons-misc';
 
-import { exportCleanJSON } from '../../utils';
+import { addCommas, exportCleanJSON } from '../../utils';
 import { IAppGlobals } from '../app-router';
 import StandardModal from '../components/standard-modal';
 import UIPage from '../components/ui-page';
@@ -540,7 +540,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                 </td>
 
                 <td className="text-center no-wrap ">
-                    {item.cbills.toLocaleString()}<br />
+                    {addCommas(item.cbills)}<br />
                 </td>
 
 
