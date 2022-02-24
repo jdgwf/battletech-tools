@@ -5676,7 +5676,7 @@ export class BattleMech {
         // console.log("lines", lines);
         let inEquipmentList = false;
         let equipmentList: IEquipmentItem[] = [];
-        let jjCount = 1;
+
         for( let line of lines ) {
             // console.log("line", line);
             if( line.toLowerCase().startsWith("technology base:")) {
@@ -5954,7 +5954,7 @@ export class BattleMech {
                                     }
 
                             }
-                            jjCount++;
+
                         } else {
 
                             // console.log("finding eq.name", equipmentLine, equipmentList.length)
@@ -5988,7 +5988,7 @@ export class BattleMech {
 
                                             for( let critIndex = this.unallocatedCriticals.length -1; critIndex > -1; critIndex--  ) {
 
-                                                if( this.unallocatedCriticals[critIndex] && this.unallocatedCriticals[critIndex].name.trim().toLowerCase() == equipmentLine.name.trim().toLowerCase() ) {
+                                                if( this.unallocatedCriticals[critIndex] && this.unallocatedCriticals[critIndex].name.trim().toLowerCase() === equipmentLine.name.trim().toLowerCase() ) {
 
                                                     this.moveCritical(
                                                         "un",

@@ -2,16 +2,10 @@ import * as React from 'react';
 import { ICriticalSpace } from '../../data/data-interfaces';
 import InputCheckbox from './form_elements/input_checkbox';
 import InputNumeric from './form_elements/input_numeric';
-// import * as sanitizeHtml from 'sanitize-html';
-var sanitizeHtml = require('sanitize-html');
 
 export default class CriticalEntry extends React.Component<ICriticalEntryProps, ICriticalEntryState> {
     showDialog: boolean = false;
-    constructor(props: ICriticalEntryProps) {
-        super(props);
-        this.state = {
-        }
-    }
+
 
 
     updateWeightDivisor = (

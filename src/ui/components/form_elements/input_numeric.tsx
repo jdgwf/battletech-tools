@@ -2,9 +2,6 @@ import * as React from 'react';
 import { makeRange } from '../../../utils';
 
 export default class InputNumeric extends React.Component<IInputNumericProps, IInputNumericState> {
-    constructor( props: IInputNumericProps ) {
-        super( props);
-    }
 
     onSelectFocus = (event: React.FormEvent<HTMLSelectElement>) => {
         if( this.props.onFocus ) {

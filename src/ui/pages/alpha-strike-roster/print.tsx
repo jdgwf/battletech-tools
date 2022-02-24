@@ -1,11 +1,11 @@
-import React from 'react';
-import './print.scss';
-import {IAppGlobals} from '../../app-router';
+import { faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {  faArrowAltCircleLeft, faTh, faList } from '@fortawesome/free-solid-svg-icons';
-import AlphaStrikeUnitSVG from '../../components/svg/alpha-strike-unit-svg';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { IAppGlobals } from '../../app-router';
 import BattleTechLogo from '../../components/battletech-logo';
+import AlphaStrikeUnitSVG from '../../components/svg/alpha-strike-unit-svg';
+import './print.scss';
 
 export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps, IPrintState> {
     searchTech: string = "";

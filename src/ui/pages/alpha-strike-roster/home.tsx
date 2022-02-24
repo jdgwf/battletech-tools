@@ -1,19 +1,18 @@
-import React from 'react';
-import './home.scss';
-import {IAppGlobals} from '../../app-router';
-import { getMULASSearchResults, makeRange, makeURLSlug } from '../../../utils';
-import { IASMULUnit, AlphaStrikeUnit } from '../../../classes/alpha-strike-unit';
+import { faArrowsAlt, faBars, faDice, faEdit, faEye, faFileExport, faFileImport, faHeart, faPlus, faPrint, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTrash, faEdit, faBars, faEye, faHeart, faFileImport, faArrowsAlt, faDice, faPrint, faDownload, faFileExport } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
 import { Button } from 'react-bootstrap';
-import { Modal } from 'react-bootstrap';
-import AlphaStrikeUnitSVG from '../../components/svg/alpha-strike-unit-svg';
 import { Link } from 'react-router-dom';
 import AlphaStrikeGroup, { IASGroupExport } from '../../../classes/alpha-strike-group';
-import UIPage from '../../components/ui-page';
+import { AlphaStrikeUnit, IASMULUnit } from '../../../classes/alpha-strike-unit';
 import { formationBonuses } from '../../../data/formation-bonuses';
+import { getMULASSearchResults, makeRange, makeURLSlug } from '../../../utils';
+import { IAppGlobals } from '../../app-router';
 import StandardModal from '../../components/standard-modal';
+import AlphaStrikeUnitSVG from '../../components/svg/alpha-strike-unit-svg';
 import TextSection from '../../components/text-section';
+import UIPage from '../../components/ui-page';
+import './home.scss';
 
 export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, IHomeState> {
 

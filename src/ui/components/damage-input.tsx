@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { ICriticalSpace, IEquipmentItem } from '../../data/data-interfaces';
+import { IEquipmentItem } from '../../data/data-interfaces';
 import InputCheckbox from './form_elements/input_checkbox';
 import InputNumeric from './form_elements/input_numeric';
-// import * as sanitizeHtml from 'sanitize-html';
-var sanitizeHtml = require('sanitize-html');
 
 export default class DamageInput extends React.Component<IDamageInputProps, IDamageInputState> {
     showDialog: boolean = false;
@@ -41,9 +39,9 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
 
 
         if(
-            ( !this.props.editingItem.damageClusters || this.props.editingItem.damageClusters == 0 )
+            ( !this.props.editingItem.damageClusters || this.props.editingItem.damageClusters === 0 )
             &&
-            ( !this.props.editingItem.damagePerCluster || this.props.editingItem.damagePerCluster == 0 )
+            ( !this.props.editingItem.damagePerCluster || this.props.editingItem.damagePerCluster === 0 )
         ) {
             item.damage = 0;
             this.props.editingItem.damageClusters = 1;

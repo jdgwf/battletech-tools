@@ -225,15 +225,27 @@ export function replaceAll(
         needle = needle.replace("_", "\\_");
         needle = needle.replace(")", "\\)");
         if( wholeWordOnly ) {
-            re = new RegExp("\\b" + needle + "\\b","gi");
-            if( caseSensitive )
-                var re = new RegExp("\\b" + needle + "\\b","g");
+
+            if( caseSensitive ) {
+                let re = new RegExp("\\b" + needle + "\\b","g");
+                return haystack.replace(re, replace);
+            } else {
+                let re = new RegExp("\\b" + needle + "\\b","gi");
+                return haystack.replace(re, replace);
+            }
+
         } else {
-            re = new RegExp(needle,"gi");
-            if( caseSensitive )
-                var re = new RegExp(needle,"g");
+
+            if( caseSensitive ) {
+                let re = new RegExp(needle,"gi");
+                return haystack.replace(re, replace);
+            }else {
+                let re = new RegExp(needle,"g");
+                return haystack.replace(re, replace);
+            }
+
         }
 
-        return haystack.replace(re, replace);
+
     }
 }

@@ -5,11 +5,6 @@ import { faSquare } from '@fortawesome/free-regular-svg-icons';
 
 export default class InputCheckbox extends React.Component<IInputCheckboxProps, IInputCheckboxState> {
 
-    constructor( props: IInputCheckboxProps ) {
-        super( props);
-
-    }
-
     onChange = ( event: React.FormEvent<HTMLInputElement>): void => {
         if(!this.props.readOnly) {
             let returnEvent = {

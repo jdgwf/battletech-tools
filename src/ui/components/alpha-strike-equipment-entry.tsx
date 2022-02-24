@@ -1,18 +1,12 @@
 import * as React from 'react';
-import { ICriticalSpace, IEquipmentItem } from '../../data/data-interfaces';
+import { IEquipmentItem } from '../../data/data-interfaces';
 import InputCheckbox from './form_elements/input_checkbox';
 import InputNumeric from './form_elements/input_numeric';
 import TextAreaField from './form_elements/textarea_field';
-// import * as sanitizeHtml from 'sanitize-html';
-var sanitizeHtml = require('sanitize-html');
+
 
 export default class AlphaStrikeEquipmentEntry extends React.Component<IAlphaStrikeEquipmentEntryProps, IAlphaStrikeEquipmentEntryState> {
     showDialog: boolean = false;
-    constructor(props: IAlphaStrikeEquipmentEntryProps) {
-        super(props);
-        this.state = {
-        }
-    }
 
     updateHeat = (
         e: React.FormEvent<HTMLInputElement>,

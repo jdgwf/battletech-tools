@@ -2,11 +2,6 @@ import * as React from 'react';
 
 export default class TextAreaField extends React.Component<ITextAreaFieldProps, ITextAreaFieldState> {
 
-    constructor( props: ITextAreaFieldProps ) {
-        super( props);
-
-    }
-
     render() {
         return (
             <label className={this.props.className}>
