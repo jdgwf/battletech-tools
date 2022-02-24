@@ -12,6 +12,8 @@ export default class Settings extends React.Component<ISettingsProps, ISettingsS
         this.props.appGlobals.makeDocumentTitle("Settings");
     }
 
+
+
     setUITheme = ( event: React.FormEvent<HTMLSelectElement>): void => {
       let settings = this.props.appGlobals.settings;
       settings.uiTheme = event.currentTarget.value;
@@ -47,7 +49,9 @@ export default class Settings extends React.Component<ISettingsProps, ISettingsS
               <div className="col-md-6">
                 <fieldset className="fieldset">
                   <legend>Data Syncing </legend>
+                  {/* <GoogleApiProvider clientId={"908506056755-9vo2d56s5e57i9cmr526a9u2knl4la5p.apps.googleusercontent.com"}> */}
                     (TODO: sync settings/logins)
+                    {/* </GoogleApiProvider> */}
                   </fieldset>
               </div>
             </div>

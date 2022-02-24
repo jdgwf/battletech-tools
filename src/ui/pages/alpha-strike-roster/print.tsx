@@ -29,6 +29,8 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
     }
 
 
+
+
     toggleCardMode = (): void => {
       if( !this.state.cardMode ) {
         localStorage.setItem("asPlayCardMode", "y");

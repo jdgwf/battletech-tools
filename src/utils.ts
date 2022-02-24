@@ -160,6 +160,80 @@ export function exportCleanJSON(obj: any) {
     //     return match.replace(/"/g, "");
     // });
     return cleaned.replace(/"([^"]+)":/g, '$1:');;
-    return cleaned;
 }
 
+export function makeURLSlug( str: string ): string {
+
+    return replaceAll(
+        str.trim().toLowerCase()
+        .replace(/ /g, '-')
+        .replace(/[^\w-]+/g, ''),
+        "--",
+        "-",
+        false,
+        false,
+        true);
+}
+
+
+export function replaceAll(
+    haystack: string,
+    needle: string,
+    replace: string,
+    caseSensitive: boolean = true,
+    wholeWordOnly: boolean = false,
+    noRegex: boolean = false,
+): string {
+
+    if(!haystack)
+        return haystack;
+    if(!needle)
+        return haystack;
+    if(!replace)
+        return haystack;
+    if( typeof(haystack) !== "string") {
+        //@ts-ignore
+        haystack = haystack.join("\n")
+    }
+    if( noRegex ) {
+        if( wholeWordOnly ) {
+            needle = " " + needle;
+            replace = " " + replace;
+        }
+        let iterations = 0
+        let maxIterations = 1000;
+        while( haystack.indexOf( needle ) > -1 ) {
+            // console.log("replacing ", needle)
+            if( maxIterations < iterations ) {
+                console.error("replaceAll - max Iterations reached!")
+                break;
+            }
+
+            try {
+                haystack = haystack.replace(needle, replace);
+            }
+            catch(e: any) {
+                console.error("replaceAll err", haystack, e)
+            }
+
+            iterations++;
+        }
+
+        return haystack;
+    } else {
+        needle = needle.replace("(", "\\(");
+        needle = needle.replace("_", "\\_");
+        needle = needle.replace(")", "\\)");
+        if( wholeWordOnly ) {
+            re = new RegExp("\\b" + needle + "\\b","gi");
+            if( caseSensitive )
+                var re = new RegExp("\\b" + needle + "\\b","g");
+        } else {
+            re = new RegExp(needle,"gi");
+            if( caseSensitive )
+                var re = new RegExp(needle,"g");
+        }
+
+        return haystack.replace(re, replace);
+    }
+}

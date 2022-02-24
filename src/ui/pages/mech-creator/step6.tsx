@@ -27,6 +27,8 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
         this.props.appGlobals.makeDocumentTitle("Step 6 | 'Mech Creator");
     }
 
+
+
     toggleLowerArmActuator = ( loc: string ): void => {
       this.props.appGlobals.currentBattleMech.toggleLowerArmActuator( loc );
       this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );

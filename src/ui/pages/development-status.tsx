@@ -15,6 +15,8 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
     }
 
 
+
+
     render() {
       return (
         <UIPage current="dev-status" appGlobals={this.props.appGlobals}>
@@ -106,18 +108,19 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                     <ul>
 
                       <li>
-                        <h4 className="text-center color-blue">Current Focus</h4>
+                        <h4 className="text-left no-margins color-blue">Current Focus</h4>
                         Load/Save/Export
                       </li>
 
                       <li>
                         Add remaining Clan Equipment,
-                        <h4 className="text-center color-blue">Current Focus</h4>
+                        <h4 className="text-left no-margins color-blue">Current Focus</h4>
                         IS SRM/LRMs to Data
                       </li>
                       <li>In-Play Sheet</li>
-                      <li>Companies</li>
-                      <li>Lances</li>
+                      <li>Lances/Stars</li>
+                      <li>Companies/Binaries/Trinaries</li>
+
 
                     </ul>
 

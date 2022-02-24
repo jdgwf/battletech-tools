@@ -26,6 +26,8 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
         this.props.appGlobals.makeDocumentTitle("Step 5 | 'Mech Creator");
     }
 
+
+
     addEquipment = ( item: IEquipmentItem ): boolean => {
 
       this.props.appGlobals.currentBattleMech.addEquipmentFromTag(

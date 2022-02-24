@@ -29,6 +29,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
     }
 
 
+
     toggleCardMode = (): void => {
       if( !this.state.cardMode ) {
         localStorage.setItem("asPlayCardMode", "y");

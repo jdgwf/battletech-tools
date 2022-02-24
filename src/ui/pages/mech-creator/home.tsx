@@ -27,6 +27,8 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
         this.props.appGlobals.makeDocumentTitle("'Mech Creator");
     }
 
+
+
     updateTRO = (e: React.FormEvent<HTMLTextAreaElement>) => {
 
 

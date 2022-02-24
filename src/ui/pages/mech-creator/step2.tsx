@@ -20,6 +20,8 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
         this.props.appGlobals.makeDocumentTitle("Step 2 | 'Mech Creator");
     }
 
+
+
     setWalkingMP = ( event: React.FormEvent<HTMLSelectElement>): void => {
       let currentMech = this.props.appGlobals.currentBattleMech;
       currentMech.setWalkSpeed( +event.currentTarget.value);

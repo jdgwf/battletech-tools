@@ -1,21 +1,24 @@
 import React from 'react';
 import './home.scss';
 import {IAppGlobals} from '../../app-router';
-import { getMULASSearchResults, makeRange } from '../../../utils';
+import { getMULASSearchResults, makeRange, makeURLSlug } from '../../../utils';
 import { IASMULUnit, AlphaStrikeUnit } from '../../../classes/alpha-strike-unit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTrash, faEdit, faBars, faEye, faHeart, faFileImport, faArrowsAlt, faDice, faPrint } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTrash, faEdit, faBars, faEye, faHeart, faFileImport, faArrowsAlt, faDice, faPrint, faDownload, faFileExport } from '@fortawesome/free-solid-svg-icons';
 import { Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import AlphaStrikeUnitSVG from '../../components/svg/alpha-strike-unit-svg';
 import { Link } from 'react-router-dom';
-import AlphaStrikeGroup from '../../../classes/alpha-strike-group';
+import AlphaStrikeGroup, { IASGroupExport } from '../../../classes/alpha-strike-group';
 import UIPage from '../../components/ui-page';
 import { formationBonuses } from '../../../data/formation-bonuses';
 import StandardModal from '../../components/standard-modal';
 import TextSection from '../../components/text-section';
 
 export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, IHomeState> {
+
+    fileReader: FileReader | null = null;
+
     searchTech: string = "";
     searchTerm: string = "";
     searchRules: string = "";
@@ -77,6 +80,8 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
         this.updateSearchResults();
     }
+
+
 
     removeFavoriteConfirm = ( asFavGroupIndex: number ): void => {
 
@@ -285,6 +290,44 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       }
     }
 
+
+    selectFile = async (e: React.FormEvent<HTMLInputElement>): Promise<void> => {
+      e.preventDefault();
+      if( e.currentTarget.files && e.currentTarget.files.length > 0 ) {
+        let foundFile = e.currentTarget.files[0];
+        // console.log( "test", foundFIle );
+        if( foundFile.type === "application/json" ) {
+          this.fileReader = new FileReader();
+          this.fileReader.onloadend = this.handleFileRead;
+          this.fileReader.readAsText( foundFile );
+        }
+
+      }
+    }
+
+    handleFileRead = (e: any) => {
+      if( this.fileReader ) {
+        let content = this.fileReader.result;
+
+        console.log("content", content)
+        try {
+          if( content ) {
+            let data: IASGroupExport = JSON.parse( content.toString() )
+
+            // let btFavASGroup = this.props.appGlobals.favoriteASGroup;
+            // for( let item of data ) {
+            let parsedItem =  new AlphaStrikeGroup(data);
+            // }
+
+            this.props.appGlobals.saveASGroupFavorite( parsedItem );
+          }
+        }
+        catch (err) {
+          console.error("Could not import JSON", err)
+        }
+      }
+    }
+
     render() {
       return (
         <>
@@ -453,7 +496,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                                       </li>
                                       {this.props.appGlobals.currentASForce.groups.map( (asGroup, asGroupListIndex) => {
                                         return (
-                                          <>
+                                          <React.Fragment key={asGroupListIndex}>
                                             {asGroupListIndex !== asGroupIndex ? (
                                               <li
                                                 onClick={() => this.moveUnitToGroup(asUnitIndex, asGroupIndex, asGroupListIndex)}
@@ -464,7 +507,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                                               </li>
                                             ) :
                                             ( <></> )}
-                                          </>
+                                          </React.Fragment>
                                         )
                                       })}
                                     </ul>
@@ -569,11 +612,22 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                   label="Favorite Groups"
                 >
 
+
                 {this.props.appGlobals.favoriteASGroups.map( (asFavGroup, asFavGroupIndex) => {
                   return (<fieldset key={asFavGroupIndex} className="fieldset">
                     <legend>{asFavGroup.getName(asFavGroupIndex + 1)}</legend>
 
                     <div className="pull-right">
+                      <a
+                          className="btn btn-primary btn-sm"
+                          title="Export this favorite to a JSON format to transfer between devices"
+                          href={`data:text/json;charset=utf-8,${encodeURIComponent(
+                            JSON.stringify(asFavGroup.export())
+                          )}`}
+                          download={"as-favorite-export" + makeURLSlug(asFavGroup.getName(asFavGroupIndex + 1)) + ".json"}
+                        >
+                          <FontAwesomeIcon icon={faFileExport} />
+                        </a>
                       <Button
                         onClick={() => this.loadASFavorite(asFavGroup)}
                         title="Load this favorite group to your current force"
@@ -591,6 +645,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                       </Button>
                     </div>
                     <div className="text-center">
+                      <br />
                       <strong># Units/Points</strong>: {asFavGroup.getTotalUnits()}/{asFavGroup.getTotalPoints()}
                     </div>
 
@@ -634,7 +689,23 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                 </TextSection>
               ): null}
 
+<TextSection
+  label='Import to your AS Favorites'
+>
+<div className="text-small">Use this uploader to restore your favorites from another device.</div>
 
+  <label
+      title="Click here to select a JSON file exported this page"
+    >
+      Import JSON:&nbsp;
+      <input
+        type="file"
+        style={{width: "auto"}}
+        onChange={this.selectFile}
+      />
+    </label>
+                <br />
+</TextSection>
             </div>
             <div className="col-lg-7">
               <TextSection
@@ -693,7 +764,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                         <option value="">All</option>
                         {makeRange(3025, 3500, 1).map( (year) => {
                           return (
-                            <option value={year}>{year}</option>
+                            <option key={year} value={year}>{year}</option>
                           )
                         })}
                       </select>
@@ -743,6 +814,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
         {this.props.appGlobals.currentASForce.groups.map( (asGroup, asGroupIndex) => {
           return (
             <li
+              key={asGroupIndex}
               onClick={() => this.addToGroup(asUnit, asGroupIndex)}
               title={"Adds this unit to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
             >

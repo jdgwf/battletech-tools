@@ -6015,6 +6015,7 @@ export class BattleMech {
             }
 
         }
+        this.calc()
     }
 
     getEquipmentList(equipmentListTag: string): IEquipmentItem[] {

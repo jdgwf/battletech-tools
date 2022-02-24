@@ -22,6 +22,8 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
 
     }
 
+
+
     setAdditionalHeatSinks = ( event: React.FormEvent<HTMLSelectElement>): void => {
       let currentMech = this.props.appGlobals.currentBattleMech;
       currentMech.setAdditionalHeatSinks( +event.currentTarget.value);

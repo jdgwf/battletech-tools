@@ -16,7 +16,6 @@ import { BattleMech, IBattleMechExport } from "../classes/battlemech";
 import Settings from "./pages/settings";
 import EquipmentEditor from "./pages/equipment-editor";
 
-
 export default class AppRouter extends React.Component<IAppRouterProps, IAppRouterState> {
 
     constructor(props: IAppRouterProps) {
@@ -270,6 +269,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             appGlobals: appGlobals,
         })
     }
+
 
 
     render() {

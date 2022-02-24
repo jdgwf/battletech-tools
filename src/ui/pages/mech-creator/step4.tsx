@@ -26,6 +26,8 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
         this.props.appGlobals.makeDocumentTitle("Step 4 | 'Mech Creator");
     }
 
+
+
     allocateSanely = (): void => {
       let currentMech = this.props.appGlobals.currentBattleMech;
       currentMech.allocateArmorSane();

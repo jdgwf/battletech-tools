@@ -26,6 +26,8 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
         this.props.appGlobals.makeDocumentTitle("Step 1 | 'Mech Creator");
     }
 
+
+
     updateHideNonAvailableEquipment = ( event: React.FormEvent<HTMLInputElement>): void => {
       let currentMech = this.props.appGlobals.currentBattleMech;
       currentMech.hideNonAvailableEquipment = event.currentTarget.checked;

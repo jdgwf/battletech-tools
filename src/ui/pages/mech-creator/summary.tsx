@@ -22,6 +22,8 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
         this.props.appGlobals.makeDocumentTitle("Summary | 'Mech Creator");
     }
 
+
+
     setASRole = ( event: React.FormEvent<HTMLInputElement>): void => {
       this.props.appGlobals.currentBattleMech.setASRole( event.currentTarget.value );
       this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
