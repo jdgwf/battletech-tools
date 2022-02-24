@@ -552,6 +552,11 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                               <td colSpan={3}>
                                 <strong>Armor/IS</strong>: {asUnit.armor}/{asUnit.structure}
                                 &nbsp;|&nbsp;<strong>Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
+                                {asUnit.overheat  && asUnit.overheat > 0 ? (
+                                  <>
+                                   &nbsp;|&nbsp;<strong>OHV</strong>: {asUnit.overheat}
+                                  </>
+                                ) : null}
                                 {asUnit.abilities.trim() ? (
                                   <>
                                    &nbsp;|&nbsp;<strong>Abilities</strong>: {asUnit.abilities}
@@ -885,6 +890,11 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                               <td colSpan={6}>
                                 <strong>Armor/IS</strong>: {asUnit.BFArmor}/{asUnit.BFStructure}
                                 &nbsp;|&nbsp;<strong>Damage</strong>: {asUnit.BFDamageShort}/{asUnit.BFDamageMedium}/{asUnit.BFDamageLong}
+                                {asUnit.BFOverheat  && asUnit.BFOverheat > 0 ? (
+                                  <>
+                                   &nbsp;|&nbsp;<strong>OHV</strong>: {asUnit.BFOverheat}
+                                  </>
+                                ) : null}
                                 {asUnit.BFAbilities && asUnit.BFAbilities.trim() ? (
                                   <>
                                     &nbsp;|&nbsp;<strong>Abilities</strong>: {asUnit.BFAbilities}
