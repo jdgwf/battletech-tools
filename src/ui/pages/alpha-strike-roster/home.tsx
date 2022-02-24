@@ -885,9 +885,9 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                               <td colSpan={6}>
                                 <strong>Armor/IS</strong>: {asUnit.BFArmor}/{asUnit.BFStructure}
                                 &nbsp;|&nbsp;<strong>Damage</strong>: {asUnit.BFDamageShort}/{asUnit.BFDamageMedium}/{asUnit.BFDamageLong}
-                                {asUnit.BFAbilities.trim() ? (
+                                {asUnit.BFAbilities && asUnit.BFAbilities.trim() ? (
                                   <>
-                                   &nbsp;|&nbsp;<strong>Abilities</strong>: {asUnit.BFAbilities}
+                                    &nbsp;|&nbsp;<strong>Abilities</strong>: {asUnit.BFAbilities}
                                   </>
                                 ) : null}
 
