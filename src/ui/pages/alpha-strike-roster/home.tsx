@@ -467,12 +467,13 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
                         </tr>
                       </thead>
-                      <tbody>
+
                       {asGroup.members.length > 0 ? (
                         <>
                         {asGroup.members.map( (asUnit, asUnitIndex) => {
                           return (
-                            <tr key={asUnitIndex}>
+                            <tbody key={asUnitIndex}>
+                            <tr>
                               <td className="text-left min-width no-wrap">
                                 {this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
                                 (
@@ -546,13 +547,26 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                               <td>{asUnit.currentPoints}</td>
 
                             </tr>
+                            <tr>
+                              <td>&nbsp;</td>
+                              <td colSpan={3}>
+                                <strong>Armor/IS</strong>: {asUnit.armor}/{asUnit.structure}
+                                &nbsp;|&nbsp;<strong>Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
+                                {asUnit.abilities.trim() ? (
+                                  <>
+                                   &nbsp;|&nbsp;<strong>Abilities</strong>: {asUnit.abilities}
+                                  </>
+                                ) : null}
+
+                              </td>
+                            </tr>
+                            </tbody>
                           )
                         })}
                         </>
                       ) : (
                         <tr><td colSpan={3} className="text-center">No Units</td></tr>
                       )}
-                      </tbody>
 
 
                       <tfoot key="footer">
@@ -656,12 +670,13 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                           <th>Points</th>
                         </tr>
                       </thead>
-                      <tbody>
+
                       {asFavGroup.members.length > 0 ? (
                         <>
                         {asFavGroup.members.map( (asFavGroupUnit, asFavGroupUnitIndex) => {
                           return (
-                            <tr key={asFavGroupUnitIndex}>
+                            <tbody key={asFavGroupUnitIndex}>
+                            <tr>
                               <td>
                                 {asFavGroupUnit.customName ? (
                                   <><strong>{asFavGroupUnit.customName}</strong><br /></>
@@ -673,13 +688,15 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                               <td>{asFavGroupUnit.currentPoints}</td>
 
                             </tr>
+                            </tbody>
                           )
                         })}
                         </>
                       ) : (
+                        <tbody>
                         <tr><td colSpan={3} className="text-center">No Units</td></tr>
+                        </tbody>
                       )}
-                      </tbody>
 
                     </table>
                   </fieldset>
@@ -786,14 +803,21 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                         <th>Points</th>
 
                       </tr>
+                      <tr>
+                        <th>&nbsp;</th>
+                        <th colSpan={6}>Notes</th>
+
+
+                      </tr>
                     </thead>
-                    <tbody>
+
                     {this.state.searchResults.length > 0 ? (
                       <>
                         {this.state.searchResults.map( (asUnit: IASMULUnit, unitIndex: number) => {
 
                           return (
-                            <tr key={unitIndex}>
+                            <tbody key={unitIndex}>
+                            <tr>
                               <td className="text-left min-width no-wrap">
 
 
@@ -855,28 +879,47 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                               <td>{asUnit.BFPointValue}</td>
 
                             </tr>
+                            <tr>
+                              <td>&nbsp;</td>
+                              <td>&nbsp;</td>
+                              <td colSpan={6}>
+                                <strong>Armor/IS</strong>: {asUnit.BFArmor}/{asUnit.BFStructure}
+                                &nbsp;|&nbsp;<strong>Damage</strong>: {asUnit.BFDamageShort}/{asUnit.BFDamageMedium}/{asUnit.BFDamageLong}
+                                {asUnit.BFAbilities.trim() ? (
+                                  <>
+                                   &nbsp;|&nbsp;<strong>Abilities</strong>: {asUnit.BFAbilities}
+                                  </>
+                                ) : null}
+
+                              </td>
+                            </tr>
+                            </tbody>
                           )
                         })}
                       </>
                     ) : (
                       <>
                       {this.searchRules.length > 2 ? (
+                        <tbody>
                         <tr>
                           <td className="text-center" colSpan={6}>
                             Please type a search term 3 or more characters.
                           </td>
                         </tr>
+                        </tbody>
                       ) : (
+                        <tbody>
                         <tr>
                           <td className="text-center" colSpan={6}>
                             Sorry, there are no matches with those parameters
                           </td>
                         </tr>
+                        </tbody>
                       )}
                       </>
                     )}
 
-                    </tbody>
+
                   </table>
                 </TextSection>
             </div>

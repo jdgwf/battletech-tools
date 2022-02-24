@@ -308,12 +308,13 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                           <th></th>
                         </tr>
                       </thead>
-                      <tbody>
+
                       {this.props.appGlobals.battleMechSaves && this.props.appGlobals.battleMechSaves.length > 0 ? (
                         <>
                         {this.props.appGlobals.battleMechSaves.map( (mech, mechIndex) => {
                           return (
-                            <tr key={mechIndex}>
+                            <tbody key={mechIndex}>
+                            <tr>
                               <td>{mech.name}</td>
                               <td>{mech.tech}</td>
                               <td className="min-width">{mech.tonnage}</td>
@@ -347,17 +348,20 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                                 </button>
                               </td>
                             </tr>
+                            </tbody>
                           )
                         })}
                         </>
                       ) : (
+                        <tbody>
                         <tr>
                           <td className="text-center" colSpan={7}>
                             You have no saves on this device or browser.
                           </td>
                         </tr>
+                        </tbody>
                       )}
-                      </tbody>
+
                       <tfoot>
                         <tr>
                           <th

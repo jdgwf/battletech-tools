@@ -148,10 +148,11 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                     <th>&nbsp;</th>
                                   </tr>
                                 </thead>
-                                <tbody>
+
                                 {this.props.appGlobals.currentBattleMech.getInstalledEquipment().map( (item, itemIndex) => {
                                   return (
-                                    <tr key={itemIndex}>
+                                    <tbody key={itemIndex}>
+                                    <tr>
                                       <td>{item.name}</td>
                                       {/* <td>{item.sort}</td> */}
                                       <td>{item.weight}</td>
@@ -173,9 +174,10 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
 
                                       </td>
                                     </tr>
+                                    </tbody>
                                   )
                                 })}
-                                </tbody>
+
                               </table>
                           ) : (
                             <>

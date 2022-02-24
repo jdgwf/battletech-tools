@@ -226,11 +226,20 @@ input[type=number] {
   tfoot, tbody, thead {
     tr {
       th, td {
-        border-bottom: solid 1px $colorWhite;
+        vertical-align: top;
         border-top: 0;
+        box-shadow: none !important;
+        border: none !important;
+        padding: .25rem .5rem;
       }
     }
   }
+
+  tbody {
+    border-bottom: solid 1px $colorWhite !important;
+    border-top: none !important;
+  }
+
   thead, tbody, tfoot {
     tr {
       td, th {
