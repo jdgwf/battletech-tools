@@ -1,17 +1,17 @@
-import React from 'react';
-import './home.scss';
-import {IAppGlobals} from '../../app-router';
-import MechCreatorSideMenu from '../../components/mech-creator-side-menu';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleLeft, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
-import MechCreatorStatusbar from '../../components/mech-creator-status-bar';
-import UnallocatedEquipmentList from '../../components/unallocated-equipment-list';
-import CriticalAllocationSection from '../../components/critical-allocation-section';
-import { ICriticalSlot } from '../../../classes/battlemech';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
 import { Button } from 'react-bootstrap';
-import UIPage from '../../components/ui-page';
+import { Link } from 'react-router-dom';
+import { ICriticalSlot } from '../../../classes/battlemech';
+import { IAppGlobals } from '../../app-router';
+import CriticalAllocationSection from '../../components/critical-allocation-section';
+import MechCreatorSideMenu from '../../components/mech-creator-side-menu';
+import MechCreatorStatusbar from '../../components/mech-creator-status-bar';
 import TextSection from '../../components/text-section';
+import UIPage from '../../components/ui-page';
+import UnallocatedEquipmentList from '../../components/unallocated-equipment-list';
+import './home.scss';
 
 export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {

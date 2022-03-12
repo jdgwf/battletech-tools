@@ -1,5 +1,5 @@
 import React from 'react';
-import {IAppGlobals} from '../../app-router';
+import { IAppGlobals } from '../../app-router';
 import PrintablePage from '../../components/printable-page';
 import BattleMechSVG from '../../components/svg/battlemech-svg';
 

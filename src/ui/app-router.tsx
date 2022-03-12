@@ -1,20 +1,20 @@
 import React from "react";
+import { Button, Modal } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./pages/home";
-import Error404 from "./pages/error404";
-import About from "./pages/about";
-import { Modal, Button } from 'react-bootstrap';
-import {CONFIGSiteTitle} from '../configVars';
-import SanitizedHTML from './components/sanitized-html';
-import Alerts from './classes/alerts';
-import AlphaStrikeRosterRouter from './pages/alpha-strike-roster/_router'
-import MechCreatorRouter from './pages/mech-creator/_router'
 import AlphaStrikeForce, { IASForceExport } from "../classes/alpha-strike-force";
 import AlphaStrikeGroup, { IASGroupExport } from "../classes/alpha-strike-group";
-import DevelopmentStatus from "./pages/development-status";
 import { BattleMech, IBattleMechExport } from "../classes/battlemech";
-import Settings from "./pages/settings";
+import { CONFIGSiteTitle } from '../configVars';
+import Alerts from './classes/alerts';
+import SanitizedHTML from './components/sanitized-html';
+import About from "./pages/about";
+import AlphaStrikeRosterRouter from './pages/alpha-strike-roster/_router';
+import DevelopmentStatus from "./pages/development-status";
 import EquipmentEditor from "./pages/equipment-editor";
+import Error404 from "./pages/error404";
+import Home from "./pages/home";
+import MechCreatorRouter from './pages/mech-creator/_router';
+import Settings from "./pages/settings";
 
 export default class AppRouter extends React.Component<IAppRouterProps, IAppRouterState> {
 
@@ -102,6 +102,16 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             }
         }
 
+        window.addEventListener('offline', (event) => {
+            this.setState({
+                updated: true,
+            })
+        });
+        window.addEventListener('online', (event) => {
+            this.setState({
+                updated: true,
+            })
+        });
     }
 
     saveBattleMechSaves = ( newValue: IBattleMechExport[] ): void => {
@@ -275,6 +285,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
     render() {
         return (
             <>
+
                 <Modal show={this.state.appGlobals.showConfirmDialog} onHide={this.closeConfirmDialog}>
                 <Modal.Header closeButton>
                     <Modal.Title>

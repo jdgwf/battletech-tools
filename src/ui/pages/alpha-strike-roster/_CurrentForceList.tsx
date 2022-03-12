@@ -1,4 +1,4 @@
-import { faArrowsAlt, faBars, faEdit, faHeart, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faArrowsAlt, faBars, faEdit, faExclamation, faHeart, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
 import { Button } from 'react-bootstrap';
@@ -113,6 +113,15 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
             className="btn btn-sm btn-primary pull-right"
             >
             <FontAwesomeIcon icon={faPlus} />&nbsp;Add Units
+            </button>
+        }
+
+        if( !navigator.onLine ) {
+            addUnitButton =  <button
+            title="You're offline, so you can't search the MUL for units. Sorry :("
+            className="btn btn-sm btn-danger pull-right"
+            >
+            <FontAwesomeIcon icon={faExclamation} />&nbsp;Offline
             </button>
         }
         return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import {IAppGlobals} from '../app-router';
+import { IAppGlobals } from '../app-router';
 import UIPage from '../components/ui-page';
 
 export default class Settings extends React.Component<ISettingsProps, ISettingsState> {

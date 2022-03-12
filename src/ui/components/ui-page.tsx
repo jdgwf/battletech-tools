@@ -1,5 +1,5 @@
 import React from 'react';
-import {IAppGlobals} from '../app-router';
+import { IAppGlobals } from '../app-router';
 import ShowAlerts from './show-alerts';
 import TopMenu from './top-menu';
 

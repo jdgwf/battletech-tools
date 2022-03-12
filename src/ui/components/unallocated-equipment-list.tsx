@@ -1,8 +1,8 @@
 import React from 'react';
-import './unallocated-equipment-list.scss';
-import './critical-assignment-container.scss';
-import {IAppGlobals} from '../app-router';
 import { ICriticalSlot } from '../../classes/battlemech';
+import { IAppGlobals } from '../app-router';
+import './critical-assignment-container.scss';
+import './unallocated-equipment-list.scss';
 
 export default class UnallocatedEquipmentList extends React.Component<IUnallocatedEquipmentListProps, IUnallocatedEquipmentListState> {
     constructor(props: IUnallocatedEquipmentListProps) {

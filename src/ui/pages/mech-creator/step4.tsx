@@ -1,19 +1,19 @@
+import { faArrowCircleLeft, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import './home.scss';
-import './step4.scss';
-import {IAppGlobals} from '../../app-router';
+import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { makeRange } from '../../../utils';
+import { IAppGlobals } from '../../app-router';
+import MechCreatorSideMenu from '../../components/mech-creator-side-menu';
+import MechCreatorStatusbar from '../../components/mech-creator-status-bar';
 import SanitizedHTML from '../../components/sanitized-html';
 import BipedArmorDiagramSVG from '../../components/svg/biped-armor-diagram';
-import MechCreatorSideMenu from '../../components/mech-creator-side-menu';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowCircleRight, faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
-import MechCreatorStatusbar from '../../components/mech-creator-status-bar';
-import { makeRange } from '../../../utils';
-import { Button } from 'react-bootstrap';
 import QuadArmorDiagramSVG from '../../components/svg/quad-armor-diagram-svg';
-import UIPage from '../../components/ui-page';
 import TextSection from '../../components/text-section';
+import UIPage from '../../components/ui-page';
+import './home.scss';
+import './step4.scss';
 
 export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {

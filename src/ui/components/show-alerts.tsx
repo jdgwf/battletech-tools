@@ -1,10 +1,10 @@
-import * as React from 'react';
-import SanitizedHTML from './sanitized-html';
-import {IAlert} from '../classes/alerts';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
-import {IAppGlobals} from '../app-router';
+import { IAppGlobals } from '../app-router';
+import { IAlert } from '../classes/alerts';
+import SanitizedHTML from './sanitized-html';
 
 export default class ShowAlerts extends React.Component<IShowAlertsProps, IShowAlertsState> {
 

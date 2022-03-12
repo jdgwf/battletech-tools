@@ -1,13 +1,13 @@
-import React from 'react';
-import './home.scss';
-import {IAppGlobals} from '../../app-router';
-import SanitizedHTML from '../../components/sanitized-html';
-import MechCreatorSideMenu from '../../components/mech-creator-side-menu';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
-import UIPage from '../../components/ui-page';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { IAppGlobals } from '../../app-router';
+import MechCreatorSideMenu from '../../components/mech-creator-side-menu';
+import SanitizedHTML from '../../components/sanitized-html';
 import TextSection from '../../components/text-section';
+import UIPage from '../../components/ui-page';
+import './home.scss';
 
 export default class MechCreatorExports extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {

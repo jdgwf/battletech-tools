@@ -1,10 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './top-menu.scss';
-import BattleTechLogo from './battletech-logo';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {IAppGlobals} from '../app-router';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { IAppGlobals } from '../app-router';
+import BattleTechLogo from './battletech-logo';
+import './top-menu.scss';
 
 export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuState> {
     constructor(props: ITopMenuProps) {

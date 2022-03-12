@@ -1,16 +1,16 @@
-import React from 'react';
-import './home.scss';
-import {IAppGlobals} from '../../app-router';
-import SanitizedHTML from '../../components/sanitized-html';
-import MechCreatorSideMenu from '../../components/mech-creator-side-menu';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleRight, faFile, faFileExport, faFolderOpen, faSave, faTrash } from '@fortawesome/free-solid-svg-icons';
-import MechCreatorStatusbar from '../../components/mech-creator-status-bar';
-import UIPage from '../../components/ui-page';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { BattleMech, IBattleMechExport } from '../../../classes/battlemech';
+import { IAppGlobals } from '../../app-router';
+import MechCreatorSideMenu from '../../components/mech-creator-side-menu';
+import MechCreatorStatusbar from '../../components/mech-creator-status-bar';
+import SanitizedHTML from '../../components/sanitized-html';
 import StandardModal from '../../components/standard-modal';
 import TextSection from '../../components/text-section';
+import UIPage from '../../components/ui-page';
+import './home.scss';
 
 export default class MechCreatorHome extends React.Component<IHomeProps, IHomeState> {
     fileReader: FileReader | null = null;

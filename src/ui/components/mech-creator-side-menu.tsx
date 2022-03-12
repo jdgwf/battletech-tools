@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { IAppGlobals } from '../app-router';
 import './mech-creator-side-menu.scss';
-import {IAppGlobals} from '../app-router';
 
 export default class MechCreatorSideMenu extends React.Component<IMechCreatorSideMenuProps, IMechCreatorSideMenuState> {
     constructor(props: IMechCreatorSideMenuProps) {

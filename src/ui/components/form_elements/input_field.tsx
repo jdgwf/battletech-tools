@@ -1,6 +1,6 @@
-import * as React from 'react';
 import { faChevronDown, faChevronUp, faQuestion } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
 
 export default class InputField extends React.Component<IInputFieldProps, IInputFieldState> {

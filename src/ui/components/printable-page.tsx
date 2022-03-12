@@ -1,9 +1,9 @@
-import React from 'react';
-import {IAppGlobals} from '../app-router';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleLeft, faPrint } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { IAppGlobals } from '../app-router';
 import BattleTechLogo from './battletech-logo';
 
 export default class PrintablePage extends React.Component<IPrintablePageProps, IPrintablePageState> {

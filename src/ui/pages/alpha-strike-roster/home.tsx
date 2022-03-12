@@ -1,20 +1,19 @@
-import { faArrowsAlt, faBars, faDice, faEdit, faEye, faFileExport, faFileImport, faHeart, faPlus, faPrint, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faDice, faEye, faFileExport, faFileImport, faPlus, faPrint, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AlphaStrikeGroup, { IASGroupExport } from '../../../classes/alpha-strike-group';
 import { AlphaStrikeUnit, IASMULUnit } from '../../../classes/alpha-strike-unit';
-
 import { getMULASSearchResults, makeRange, makeURLSlug } from '../../../utils';
 import { IAppGlobals } from '../../app-router';
 import StandardModal from '../../components/standard-modal';
-import AlphaStrikeUnitSVG from '../../components/svg/alpha-strike-unit-svg';
 import TextSection from '../../components/text-section';
 import UIPage from '../../components/ui-page';
 import './home.scss';
 import CurrentForceList from './_CurrentForceList';
 import AlphaStrikeUnitEditViewModal from './_showAlphaStrikeUnit';
+
 
 export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, IHomeState> {
 
