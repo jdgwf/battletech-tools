@@ -1,3 +1,5 @@
+import { faCancel, faSave } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
 import { Modal } from 'react-bootstrap';
 import InputCheckbox from './form_elements/input_checkbox';
@@ -19,6 +21,12 @@ export default class StandardModal extends React.Component<IStandardModalProps, 
         let labelSaveAsNew = "Save as New";
         if( this.props.labelSaveAsNew)
             labelSaveAsNew = this.props.labelSaveAsNew;
+
+        let closeClass = "btn btn-secondary";
+        let addClass  = "btn btn-primary";
+        if( !this.props.onAdd && !this.props.onSave && !this.props.onSaveAsNew ) {
+            closeClass = addClass
+        }
 
         return (
 <Modal show={this.props.show} className={this.props.className ? this.props.className + " form" : "form"}>
@@ -42,9 +50,10 @@ export default class StandardModal extends React.Component<IStandardModalProps, 
                 &nbsp;
             <button
                 onClick={this.props.onClose}
-                className="btn btn-secondary"
+                className={closeClass}
+                title={labelClose}
             >
-                {labelClose}
+                <FontAwesomeIcon icon={faCancel} />
             </button>
 
                 </>
@@ -55,9 +64,11 @@ export default class StandardModal extends React.Component<IStandardModalProps, 
                 &nbsp;
             <button
                 onClick={this.props.onSave}
-                className="btn btn-primary"
+                className={addClass}
+                title={labelSave}
             >
-                {labelSave}
+
+                <FontAwesomeIcon icon={faSave} />
             </button>
 
                 </>
@@ -67,9 +78,11 @@ export default class StandardModal extends React.Component<IStandardModalProps, 
                 &nbsp;
             <button
                 onClick={this.props.onAdd}
-                className="btn btn-primary"
+                className={addClass}
+                title={labelAdd}
             >
-                {labelAdd}
+
+                <FontAwesomeIcon icon={faSave} />
             </button>
 
                 </>
@@ -100,7 +113,7 @@ export default class StandardModal extends React.Component<IStandardModalProps, 
                 &nbsp;
             <button
                 onClick={this.props.onClose}
-                className="btn btn-secondary"
+                className={closeClass}
             >
                 {labelClose}
             </button>
@@ -113,7 +126,7 @@ export default class StandardModal extends React.Component<IStandardModalProps, 
                 &nbsp;
             <button
                 onClick={this.props.onSave}
-                className="btn btn-primary"
+                className={addClass}
             >
                 {labelSave}
             </button>
@@ -125,7 +138,7 @@ export default class StandardModal extends React.Component<IStandardModalProps, 
                 &nbsp;
             <button
                 onClick={this.props.onAdd}
-                className="btn btn-primary"
+                className={addClass}
             >
                 {labelAdd}
             </button>

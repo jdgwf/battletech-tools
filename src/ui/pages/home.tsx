@@ -19,15 +19,19 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
       return (
         <UIPage current="home" appGlobals={this.props.appGlobals}>
 
-          <div className="alert alert-success">
+          {/* <div className="alert alert-success">
             <p>Yes! We're back. Sorry about that. I was hoping that the official BattleTech app would cover most of the functionality of this app, but, alas, it didn't. So we're back!</p>
             <p>I'll try to keep the <Link to="dev-status">Development Status</Link> page up to date, but it's easy to forget with all my other projects</p>
             <div className="text-right"><span title="Commanding Officer, Commanding Officer 😉😘">XOXO</span> - Jeff</div>
-          </div>
+          </div> */}
           <TextSection
             label="News"
           >
                   <ul className="news">
+                  <li>
+                      <p><strong>2022 Mar 11</strong> - I've started reworking the <Link to="alpha-strike-roster">Alpha Strike Roster</Link> interface. Adding units to the current force is now on a button. Later I might change the main screen so that all the Current Units show up on top and favorite units will be at the bottom. Right now this cleans uop the page significantly, but I'm still not happy with it.</p>
+
+                    </li>
                     <li>
                       <p><strong>2022 Feb 23</strong> - Added a Print function to your Alpha Strike Rosters (finally!?!?!).</p>
                       <p>I might be working on Google Account data syncing this afternoon, although Google still gives me the heebie-jeebies. First, however, I want to finish the internal <Link to="equipment-editor">Equipment Editor</Link> so I can get the rest of the Clan and Inner Sphere weapons ready for the BattleMech creator.</p>

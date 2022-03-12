@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AlphaStrikeGroup, { IASGroupExport } from '../../../classes/alpha-strike-group';
 import { AlphaStrikeUnit, IASMULUnit } from '../../../classes/alpha-strike-unit';
-import { formationBonuses } from '../../../data/formation-bonuses';
+
 import { getMULASSearchResults, makeRange, makeURLSlug } from '../../../utils';
 import { IAppGlobals } from '../../app-router';
 import StandardModal from '../../components/standard-modal';
@@ -13,6 +13,8 @@ import AlphaStrikeUnitSVG from '../../components/svg/alpha-strike-unit-svg';
 import TextSection from '../../components/text-section';
 import UIPage from '../../components/ui-page';
 import './home.scss';
+import CurrentForceList from './_CurrentForceList';
+import AlphaStrikeUnitEditViewModal from './_showAlphaStrikeUnit';
 
 export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, IHomeState> {
 
@@ -69,10 +71,9 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
             searchText: lsSearchTerm,
             editASUnit: false,
 
-            contextMenuGroup: -1,
-            contextMenuUnit: -1,
-
             contextMenuSearch: -1,
+
+            addingUnitsModal: false,
         }
 
         this.props.appGlobals.makeDocumentTitle("Alpha Strike Roster");
@@ -80,6 +81,13 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
         this.updateSearchResults();
     }
 
+    addToGroup = ( mulUnit: IASMULUnit,  groupIndex: number = 0  ): void => {
+      this.props.appGlobals.currentASForce.addToGroup( mulUnit, groupIndex );
+      this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+      this.setState({
+        contextMenuSearch: -1,
+      })
+    }
 
 
     removeFavoriteConfirm = ( asFavGroupIndex: number ): void => {
@@ -101,39 +109,6 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
     }
 
-    removeGroup = ( groupIndex: number ): void => {
-      if( this.props.appGlobals.currentASForce.groups.length > groupIndex ) {
-        if(this.props.appGlobals.currentASForce.groups[groupIndex].getTotalUnits() === 0 ) {
-          this.props.appGlobals.currentASForce.removeGroup(groupIndex);
-          this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
-        } else {
-          this.props.appGlobals.openConfirmDialog(
-            "Confirmation",
-            "This group still contains units. Are you sure you want to still remove it?",
-            "Yes",
-            "No",
-            () => {
-              this.props.appGlobals.currentASForce.removeGroup(groupIndex);
-              this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
-            }
-          );
-        }
-      }
-    }
-
-    moveUnitToGroup = (
-      fromUnitIndex: number,
-      fromGroupIndex: number,
-      toGroupIndex: number,
-    ): void => {
-        this.props.appGlobals.currentASForce.moveUnitToGroup( fromUnitIndex, fromGroupIndex, toGroupIndex );
-        this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
-        this.setState({
-          contextMenuSearch: -1,
-          contextMenuUnit: -1,
-          contextMenuGroup: -1,
-        })
-    }
 
     toggleContextMenuSearch = ( searchIndex: number ): void => {
       let newIndex: number = -1;
@@ -143,25 +118,10 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
       this.setState({
         contextMenuSearch: newIndex,
-        contextMenuUnit: -1,
-        contextMenuGroup: -1,
+
       })
     }
 
-    toggleContextMenuForce = ( asGroupIndex: number, asUnitIndex: number ): void => {
-      let newGroup: number = -1;
-      let newUnit: number = -1;
-      if( this.state.contextMenuGroup !== asGroupIndex && this.state.contextMenuUnit !== asUnitIndex ) {
-        newGroup = asGroupIndex;
-        newUnit = asUnitIndex;
-      }
-
-      this.setState({
-        contextMenuGroup: newGroup,
-        contextMenuUnit: newUnit,
-        contextMenuSearch: -1,
-      })
-    }
 
     updateSearch = ( event: React.FormEvent<HTMLInputElement> ): void => {
         localStorage.setItem( "asSearchTerm", event.currentTarget.value);
@@ -180,10 +140,6 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       this.updateSearchResults();
     }
 
-    updateFormationBonus = (event:React.FormEvent<HTMLSelectElement>, groupIndex:number): void => {
-      this.props.appGlobals.currentASForce.groups[groupIndex].formationBonus=formationBonuses.find(x=>x.Name===event.currentTarget.value);
-      this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
-    }
 
     updateTech = ( event: React.FormEvent<HTMLSelectElement> ): void => {
 
@@ -213,8 +169,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       this.setState({
         searchResults: data,
         contextMenuSearch: -1,
-        contextMenuUnit: -1,
-        contextMenuGroup: -1,
+
       })
 
       localStorage.setItem( "asSearchResults", JSON.stringify(data));
@@ -236,8 +191,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       this.setState({
         showASUnit: showASUnit,
         editASUnit: true,
-        contextMenuGroup: -1,
-        contextMenuUnit: -1,
+
       })
     }
 
@@ -248,47 +202,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       })
     }
 
-    renameGroup = ( newName: string, groupIndex: number ): void => {
-      this.props.appGlobals.currentASForce.renameGroup( newName, groupIndex );
-      this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
-    }
 
-    removeUnitFromGroup = (asGroupIndex: number, asUnitIndex: number): void => {
-      this.props.appGlobals.currentASForce.removeUnitFromGroup( asGroupIndex, asUnitIndex );
-      this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
-    }
-
-
-    addToGroup = ( mulUnit: IASMULUnit,  groupIndex: number = 0  ): void => {
-      this.props.appGlobals.currentASForce.addToGroup( mulUnit, groupIndex );
-      this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
-      this.setState({
-        contextMenuSearch: -1,
-      })
-    }
-
-    newGroup = (): void => {
-      this.props.appGlobals.currentASForce.newGroup();
-      this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
-    }
-
-    updateUnitSkill = (event: React.FormEvent<HTMLSelectElement>): void => {
-      if(this.state.showASUnit) {
-        this.state.showASUnit.setSkill( +event.currentTarget.value );
-        this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
-      }
-    }
-
-    renameUnit = (event: React.FormEvent<HTMLInputElement>): void => {
-      if(this.state.showASUnit) {
-        let asUnit = this.state.showASUnit;
-        asUnit.customName = event.currentTarget.value;
-        this.setState({
-          showASUnit: asUnit,
-        })
-        this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
-      }
-    }
 
 
     selectFile = async (e: React.FormEvent<HTMLInputElement>): Promise<void> => {
@@ -328,409 +242,57 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       }
     }
 
+    closeAddingUnits = (
+        e: React.FormEvent<HTMLButtonElement>
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault()
+      }
+
+      this.setState({
+        addingUnitsModal: false,
+      })
+
+    }
+
+    openAddingUnits = (
+      e: React.FormEvent<HTMLButtonElement>
+  ) => {
+    if( e && e.preventDefault ) {
+      e.preventDefault()
+    }
+
+    this.setState({
+      addingUnitsModal: true,
+    })
+
+  }
+
     render() {
       return (
         <>
+<AlphaStrikeUnitEditViewModal
+  appGlobals={this.props.appGlobals}
+  showASUnit={this.state.showASUnit}
+  editASUnit={this.state.editASUnit}
+  closeShowUnitDialog={this.closeShowUnitDialog}
+/>
 <StandardModal
-    onClose={this.closeShowUnitDialog}
-    show={this.state.showASUnit !== null}
-    className="modal-xl"
-    title={
-      this.state.showASUnit ?
-       (
-         "Showing Unit: " + (this.state.showASUnit ? (this.state.showASUnit.name ) : ( "" ) )
-       ) : (
-         "Editing Unit:" + (this.state.showASUnit ? (this.state.showASUnit ) : ( "" ) )
-      )
-
-    }
+  show={this.state.addingUnitsModal}
+  onClose={this.closeAddingUnits}
+  className="modal-xl"
+  title="Adding units to Current Force"
 >
-<div className="text-center">
-{this.state.editASUnit && this.state.showASUnit ? (
-                      <div className="row">
-                        <div className="col-xs-6 col-lg-8 text-left" >
-                          <label>
-                            Custom Unit Name:<br />
-                            <input
-                              type="text"
-                              value={this.state.showASUnit.customName}
-                              placeholder="Enter your custom mech's name here"
-                              onChange={this.renameUnit}
-                            />
-                          </label>
-                        </div>
-                        <div className="col-xs-6 col-lg-4 text-left">
-                          <label>
-                            Skill Level:<br />
-                            <select
-                              value={this.state.showASUnit.currentSkill}
-                              onChange={this.updateUnitSkill}
-                            >
-                              <option value={1}>1</option>
-                              <option value={2}>2</option>
-                              <option value={3}>3</option>
-                              <option value={4}>4</option>
-                              <option value={5}>5</option>
-                              <option value={6}>6</option>
-                              <option value={7}>7</option>
-                              <option value={8}>8</option>
-                            </select>
-                          </label>
-                        </div>
-                      </div>
-                    ) : (
-                      <></>
-                    )}
-                  <AlphaStrikeUnitSVG
-                    height="auto"
-                    width="100%"
-                    appGlobals={this.props.appGlobals}
-                    asUnit={this.state.showASUnit}
-                    // inPlay={true}
-                  />
-</div>
-</StandardModal>
-
-
-        <UIPage current="alpha-strike-roster" appGlobals={this.props.appGlobals}>
-
-          {this.props.appGlobals.currentASForce.getTotalUnits() > 0 ? (
-            <div className="row">
-              <div className="col-6">
-                <Link
-                  to={`${process.env.PUBLIC_URL}/alpha-strike-roster/play`}
-                  className="btn btn-primary no-margin full-width"
-                  title="Click here to go into 'Play Mode'"
-                >
-                    <FontAwesomeIcon icon={faDice} />&nbsp;Play Mode
-                </Link><br />
-                <br />
-              </div>
-              <div className="col-6">
-                <Link
-                  to={`${process.env.PUBLIC_URL}/alpha-strike-roster/print`}
-                  className="btn btn-primary no-margin full-width"
-                  title="Click here to go to a printable version of this page"
-                >
-                    <FontAwesomeIcon icon={faPrint} />&nbsp;Print Force
-                </Link><br />
-                <br />
-              </div>
-            </div>
-          ) : (
-            <></>
-          )}
-          <div className="row">
-            <div className="col-lg-5">
-              <TextSection
-                label="Current Force"
-              >
-
-
-
-                {this.props.appGlobals.currentASForce.groups.map( (asGroup, asGroupIndex) => {
-                  return (<fieldset key={asGroupIndex} className="fieldset">
-                    <legend>{asGroup.getName(asGroupIndex + 1)}</legend>
-
-                    <div className="pull-right">
-                      <Button
-                        onClick={() => this.props.appGlobals.saveASGroupFavorite( asGroup )}
-                        title="Click here to add this group to your favorites."
-                        className="btn-sm"
-                      >
-                        <FontAwesomeIcon icon={faHeart} />
-                      </Button>
-                      <Button
-                        onClick={() => this.removeGroup(asGroupIndex)}
-                        title="Click here to remove this group."
-                        className="btn-sm"
-                      >
-                        <FontAwesomeIcon icon={faTrash} />
-                      </Button>
-                    </div>
-                    <label
-                      className="width-80"
-                    >
-                      <input
-                        type="text"
-                        onChange={(event: React.FormEvent<HTMLInputElement>) => this.renameGroup(event.currentTarget.value, asGroupIndex)}
-                        value={asGroup.customName}
-                      />
-                    </label>
-
-                    <table className="table">
-                      <thead>
-                        <tr>
-                          <th>&nbsp;</th>
-                          <th>Name</th>
-                          <th>Points</th>
-
-                        </tr>
-                      </thead>
-
-                      {asGroup.members.length > 0 ? (
-                        <>
-                        {asGroup.members.map( (asUnit, asUnitIndex) => {
-                          return (
-                            <tbody key={asUnitIndex}>
-                            <tr>
-                              <td className="text-left min-width no-wrap">
-                                {this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
-                                (
-                                  <div className="drop-down-menu-container">
-                                    <Button
-                                      variant="primary"
-                                      className="btn-sm"
-                                      title="Open the context menu for this unit"
-                                      onClick={() => this.toggleContextMenuForce( asGroupIndex, asUnitIndex )}
-                                    >
-                                      <FontAwesomeIcon icon={faBars} />
-                                    </Button>
-                                    <ul
-                                      className={this.state.contextMenuGroup === asGroupIndex && this.state.contextMenuUnit === asUnitIndex ? "styleless dd-menu active" : "styleless dd-menu"}
-                                    >
-                                      <li
-                                        onClick={() => this.openEditUnit(asUnit)}
-                                        title="Edit this unit"
-                                      ><
-                                        FontAwesomeIcon icon={faEdit} /> Edit
-                                      </li>
-                                      {this.props.appGlobals.currentASForce.groups.map( (asGroup, asGroupListIndex) => {
-                                        return (
-                                          <React.Fragment key={asGroupListIndex}>
-                                            {asGroupListIndex !== asGroupIndex ? (
-                                              <li
-                                                onClick={() => this.moveUnitToGroup(asUnitIndex, asGroupIndex, asGroupListIndex)}
-                                                title="Move this unit to another group"
-                                              >
-                                                <FontAwesomeIcon icon={faArrowsAlt} />&nbsp;
-                                                Move to {asGroup.getName(asGroupListIndex + 1)}
-                                              </li>
-                                            ) :
-                                            ( <></> )}
-                                          </React.Fragment>
-                                        )
-                                      })}
-                                    </ul>
-                                  </div>
-                                ) : (
-                                  <>
-                                  <Button
-                                    variant="primary"
-                                    className="btn-sm"
-                                    onClick={() => this.openEditUnit(asUnit)}
-                                    title="Edit this unit's skill and name"
-                                  >
-                                    <FontAwesomeIcon icon={faEdit} />
-                                  </Button>
-                                  </>
-                                )}
-
-
-                                <Button
-                                  variant="primary"
-                                  className="btn-sm no-right-margin"
-                                  onClick={() => this.removeUnitFromGroup(asGroupIndex, asUnitIndex)}
-                                  title="Remove this unit"
-                                >
-                                  <FontAwesomeIcon icon={faTrash} />
-                                </Button>
-                              </td>
-                              <td>
-                                {asUnit.customName ? (
-                                  <><strong>{asUnit.customName}</strong><br /></>
-                                ) : (
-                                  <></>
-                                )}
-                                {asUnit.name}
-                              </td>
-                              <td>{asUnit.currentPoints}</td>
-
-                            </tr>
-                            <tr>
-                              <td>&nbsp;</td>
-                              <td colSpan={3}>
-                                <strong>Armor/IS</strong>: {asUnit.armor}/{asUnit.structure}
-                                &nbsp;|&nbsp;<strong>Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
-                                {asUnit.overheat  && asUnit.overheat > 0 ? (
-                                  <>
-                                   &nbsp;|&nbsp;<strong>OHV</strong>: {asUnit.overheat}
-                                  </>
-                                ) : null}
-                                {asUnit.abilities.trim() ? (
-                                  <>
-                                   &nbsp;|&nbsp;<strong>Abilities</strong>: {asUnit.abilities}
-                                  </>
-                                ) : null}
-
-                              </td>
-                            </tr>
-                            </tbody>
-                          )
-                        })}
-                        </>
-                      ) : (
-                        <tbody><tr><td colSpan={3} className="text-center">No Units</td></tr></tbody>
-                      )}
-
-
-                      <tfoot key="footer">
-                        <tr key="groupsum">
-
-                          <td colSpan={2}>
-                            <strong>Available Bonuses</strong>:({asGroup.availableFormationBonuses.length-1})
-                            <select
-                              value={asGroup.formationBonus? asGroup.formationBonus.Name:"" }
-                              onChange={(event:React.FormEvent<HTMLSelectElement>)=>this.updateFormationBonus(event, asGroupIndex)}
-                            >
-                              {asGroup.availableFormationBonuses.map((bonus)=>{
-                                return (
-                                <option key={bonus.Name} value={bonus.Name}>{bonus.Name}</option>
-                                )
-                              })}
-                            </select>
-                            <br/>
-                            {(asGroup.formationBonus && asGroup.formationBonus.Name!=="None") ? (
-
-                              <div className="small-pt-text">
-                                <strong>Bonus</strong>: {asGroup.formationBonus.BonusDescription}
-                                </div>
-
-                            ) : null
-                            }
-                          </td>
-                          <td>Points: {asGroup.getTotalPoints()}</td>
-                        </tr>
-                      </tfoot>
-
-                    </table>
-                  </fieldset>
-                  )
-                })}
-                <p>
-                  <Button
-                    variant="primary"
-                    onClick={this.newGroup}
-                    className="display-block text-center full-width no-margin"
-                  >
-                    New Group
-                  </Button>
-                </p>
-                <p className="text-right">
-                  <strong>Total Groups</strong>: {this.props.appGlobals.currentASForce.getTotalGroups()}<br />
-                  <strong>Total Units</strong>: {this.props.appGlobals.currentASForce.getTotalUnits()}<br />
-                  <strong>Total Points</strong>: {this.props.appGlobals.currentASForce.getTotalPoints()}<br />
-
-                </p>
-
-                </TextSection>
-
-              {this.props.appGlobals.favoriteASGroups.length > 0 ? (
-
-                <TextSection
-                  label="Favorite Groups"
-                >
-
-
-                {this.props.appGlobals.favoriteASGroups.map( (asFavGroup, asFavGroupIndex) => {
-                  return (<fieldset key={asFavGroupIndex} className="fieldset">
-                    <legend>{asFavGroup.getName(asFavGroupIndex + 1)}</legend>
-
-                    <div className="pull-right">
-                      <a
-                          className="btn btn-primary btn-sm"
-                          title="Export this favorite to a JSON format to transfer between devices"
-                          href={`data:text/json;charset=utf-8,${encodeURIComponent(
-                            JSON.stringify(asFavGroup.export())
-                          )}`}
-                          download={"as-favorite-export" + makeURLSlug(asFavGroup.getName(asFavGroupIndex + 1)) + ".json"}
-                        >
-                          <FontAwesomeIcon icon={faFileExport} />
-                        </a>
-                      <Button
-                        onClick={() => this.loadASFavorite(asFavGroup)}
-                        title="Load this favorite group to your current force"
-                        className="btn-sm"
-                      >
-                        <FontAwesomeIcon icon={faFileImport} />
-                      </Button>
-
-                      <Button
-                        onClick={() => this.removeFavoriteConfirm( asFavGroupIndex)}
-                        title="Remove this favorite"
-                        className="btn-sm"
-                      >
-                        <FontAwesomeIcon icon={faTrash} />
-                      </Button>
-                    </div>
-                    <div className="text-center">
-                      <br />
-                      <strong># Units/Points</strong>: {asFavGroup.getTotalUnits()}/{asFavGroup.getTotalPoints()}
-                    </div>
-
-                    <table className="table tighter-padding">
-                      <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>Points</th>
-                        </tr>
-                      </thead>
-
-                      {asFavGroup.members.length > 0 ? (
-                        <>
-                        {asFavGroup.members.map( (asFavGroupUnit, asFavGroupUnitIndex) => {
-                          return (
-                            <tbody key={asFavGroupUnitIndex}>
-                            <tr>
-                              <td>
-                                {asFavGroupUnit.customName ? (
-                                  <><strong>{asFavGroupUnit.customName}</strong><br /></>
-                                ) : (
-                                  <></>
-                                )}
-                                {asFavGroupUnit.name}
-                              </td>
-                              <td>{asFavGroupUnit.currentPoints}</td>
-
-                            </tr>
-                            </tbody>
-                          )
-                        })}
-                        </>
-                      ) : (
-                        <tbody>
-                        <tr><td colSpan={3} className="text-center">No Units</td></tr>
-                        </tbody>
-                      )}
-
-                    </table>
-                  </fieldset>
-                  )
-                })}
-
-                </TextSection>
-              ): null}
-
-<TextSection
-  label='Import to your AS Favorites'
->
-<div className="text-small">Use this uploader to restore your favorites from another device.</div>
-
-  <label
-      title="Click here to select a JSON file exported this page"
-    >
-      Import JSON:&nbsp;
-      <input
-        type="file"
-        style={{width: "auto"}}
-        onChange={this.selectFile}
+  <div className="row">
+    <div className="col">
+      <CurrentForceList
+          appGlobals={this.props.appGlobals}
+          // openAddingUnits={this.openAddingUnits}
+          openEditUnit={this.openEditUnit}
       />
-    </label>
-                <br />
-</TextSection>
-            </div>
-            <div className="col-lg-7">
-              <TextSection
+    </div>
+    <div className="col">
+    <TextSection
                 label="Search for Units"
               >
 
@@ -932,6 +494,153 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
                   </table>
                 </TextSection>
+    </div>
+  </div>
+</StandardModal>
+
+
+
+        <UIPage current="alpha-strike-roster" appGlobals={this.props.appGlobals}>
+
+          {this.props.appGlobals.currentASForce.getTotalUnits() > 0 ? (
+            <div className="row">
+              <div className="col-6">
+                <Link
+                  to={`${process.env.PUBLIC_URL}/alpha-strike-roster/play`}
+                  className="btn btn-primary no-margin full-width"
+                  title="Click here to go into 'Play Mode'"
+                >
+                    <FontAwesomeIcon icon={faDice} />&nbsp;Play Mode
+                </Link><br />
+                <br />
+              </div>
+              <div className="col-6">
+                <Link
+                  to={`${process.env.PUBLIC_URL}/alpha-strike-roster/print`}
+                  className="btn btn-primary no-margin full-width"
+                  title="Click here to go to a printable version of this page"
+                >
+                    <FontAwesomeIcon icon={faPrint} />&nbsp;Print Force
+                </Link><br />
+                <br />
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
+          <div className="row">
+            <div className="col-lg-6">
+              <CurrentForceList
+                  appGlobals={this.props.appGlobals}
+                  openAddingUnits={this.openAddingUnits}
+                  openEditUnit={this.openEditUnit}
+              />
+            </div>
+            <div className="col-lg-6">
+
+            {this.props.appGlobals.favoriteASGroups.length > 0 ? (
+
+<TextSection
+  label="Favorite Groups"
+>
+
+
+{this.props.appGlobals.favoriteASGroups.map( (asFavGroup, asFavGroupIndex) => {
+  return (<fieldset key={asFavGroupIndex} className="fieldset">
+    <legend>{asFavGroup.getName(asFavGroupIndex + 1)}</legend>
+
+    <div className="pull-right">
+      <a
+          className="btn btn-primary btn-sm"
+          title="Export this favorite to a JSON format to transfer between devices"
+          href={`data:text/json;charset=utf-8,${encodeURIComponent(
+            JSON.stringify(asFavGroup.export())
+          )}`}
+          download={"as-favorite-export" + makeURLSlug(asFavGroup.getName(asFavGroupIndex + 1)) + ".json"}
+        >
+          <FontAwesomeIcon icon={faFileExport} />
+        </a>
+      <Button
+        onClick={() => this.loadASFavorite(asFavGroup)}
+        title="Load this favorite group to your current force"
+        className="btn-sm"
+      >
+        <FontAwesomeIcon icon={faFileImport} />
+      </Button>
+
+      <Button
+        onClick={() => this.removeFavoriteConfirm( asFavGroupIndex)}
+        title="Remove this favorite"
+        className="btn-sm"
+      >
+        <FontAwesomeIcon icon={faTrash} />
+      </Button>
+    </div>
+    <div className="text-center">
+      <br />
+      <strong># Units/Points</strong>: {asFavGroup.getTotalUnits()}/{asFavGroup.getTotalPoints()}
+    </div>
+
+    <table className="table tighter-padding">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+
+      {asFavGroup.members.length > 0 ? (
+        <>
+        {asFavGroup.members.map( (asFavGroupUnit, asFavGroupUnitIndex) => {
+          return (
+            <tbody key={asFavGroupUnitIndex}>
+            <tr>
+              <td>
+                {asFavGroupUnit.customName ? (
+                  <><strong>{asFavGroupUnit.customName}</strong><br /></>
+                ) : (
+                  <></>
+                )}
+                {asFavGroupUnit.name}
+              </td>
+              <td>{asFavGroupUnit.currentPoints}</td>
+
+            </tr>
+            </tbody>
+          )
+        })}
+        </>
+      ) : (
+        <tbody>
+        <tr><td colSpan={3} className="text-center">No Units</td></tr>
+        </tbody>
+      )}
+
+    </table>
+  </fieldset>
+  )
+})}
+
+</TextSection>
+): null}
+
+<TextSection
+label='Import to your AS Favorites'
+>
+<div className="text-small">Use this uploader to restore your favorites from another device.</div>
+
+<label
+title="Click here to select a JSON file exported this page"
+>
+Import JSON:&nbsp;
+<input
+type="file"
+style={{width: "auto"}}
+onChange={this.selectFile}
+/>
+</label>
+<br />
+</TextSection>
             </div>
           </div>
 
@@ -955,8 +664,9 @@ interface IHomeState {
   showASUnit: AlphaStrikeUnit | null;
   editASUnit: boolean;
 
-  contextMenuGroup: number;
-  contextMenuUnit: number;
+
 
   contextMenuSearch: number;
+
+  addingUnitsModal: boolean;
 }
