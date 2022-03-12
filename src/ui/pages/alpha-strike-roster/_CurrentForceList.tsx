@@ -1,4 +1,4 @@
-import { faArrowsAlt, faBars, faEdit, faExclamation, faHeart, faPlus, faTrash, faWarning } from '@fortawesome/free-solid-svg-icons';
+import { faArrowsAlt, faBars, faEdit, faExclamation, faExclamationTriangle, faHeart, faPlus, faTrash, faWarning } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
 import { Button } from 'react-bootstrap';
@@ -18,7 +18,6 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
             contextMenuUnit: -1,
         };
     }
-
 
     updateFormationBonus = (event:React.FormEvent<HTMLSelectElement>, groupIndex:number): void => {
         this.props.appGlobals.currentASForce.groups[groupIndex].formationBonus = formationBonuses.find(x=>x.Name===event.currentTarget.value);
@@ -279,11 +278,20 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                             <tr>
                               <td>&nbsp;</td>
                               <td colSpan={3} className="med-small-text">
-                                {asUnit.isUnderStrength() ? (
-                                  <div className="pull-right damaged-tag">
-                                      <FontAwesomeIcon icon={faWarning} /> Damaged
+                              {asUnit.isWrecked() ? (
+                                  <div className="pull-right wrecked-tag">
+                                      <FontAwesomeIcon icon={faExclamationTriangle} /> Wrecked
                                   </div>
-                                ) : null}
+                                ) : (
+                                  <>
+                                    {asUnit.isUnderStrength() ? (
+                                    <div className="pull-right damaged-tag">
+                                        <FontAwesomeIcon icon={faWarning} /> Damaged
+                                    </div>
+                                  ) : null}
+                                  </>
+                                )}
+
 
                                 <strong title="Armor/Internal Structure values">A/IS</strong>: {asUnit.armor}/{asUnit.structure}
                                 &nbsp;|&nbsp;<strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}

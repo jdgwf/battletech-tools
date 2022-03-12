@@ -454,6 +454,11 @@ export class AlphaStrikeUnit {
         return rv;
     }
 
+    isWrecked(): boolean {
+        this.calcCurrentVals()
+        return !this.active;
+    }
+
     getWeaponHits(): number {
         let rv = 0;
         if( this.engineHits ) {
@@ -832,7 +837,7 @@ export class AlphaStrikeUnit {
         this.getCurrentStructure();
 
         if( currentEngineHits > 1 )
-        this.active = false;
+            this.active = false;
 
     }
 

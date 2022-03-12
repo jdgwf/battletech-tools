@@ -301,9 +301,18 @@ input[type=number] {
 .color-bright-red {
   color: $colorBrightRed;
 }
+
 .damaged-tag {
   display: inline-block;
-  background:$colorBrightRed;
+  background: $colorBrightOrange;
+  color: $colorWhite;
+  padding: .25rem 1rem;
+  border-radius: .25rem;
+}
+
+.wrecked-tag {
+  display: inline-block;
+  background: $colorBrightRed;
   color: $colorWhite;
   padding: .25rem 1rem;
   border-radius: .25rem;

@@ -189,7 +189,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 <svg className={this.props.className} version="1.1" x="0px" y="0px" viewBox="0 0 1000 640" xmlns="http://www.w3.org/2000/svg">
                 <g transform="translate(0, 0)">
                 <rect x="0" y="0" width="1000" height="640px" fill="rgb(0,0,0)"></rect>
-                {this.props.asUnit.active === false ? (
+                {this.props.asUnit.isWrecked() ? (
                     <>
                     <rect x="10" y="10" style={{zIndex: -1}} width="980" height="580" fill={this.activeDotColor}></rect>
                     </>
@@ -633,7 +633,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
                 {/* End Critical Hits */}
 
-                {this.props.asUnit.active === false ? (
+                {this.props.asUnit.isWrecked() ? (
                     <>
                     <text x="50" y="100" fontFamily="sans-serif" transform="rotate( 30, 50, 100)" fontSize="150" stroke="rgb(255,255,255)" strokeWidth="4" fill="rgb(200,0,0)">WRECKED</text>
                     </>
