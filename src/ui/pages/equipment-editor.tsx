@@ -338,6 +338,20 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
         }
     }
 
+    _sortByTag = (
+        a: IEquipmentItem,
+        b: IEquipmentItem,
+    ): number => {
+        if( a.tag.toLocaleLowerCase().trim() >  b.tag.toLocaleLowerCase().trim() ) {
+            return 1;
+        } else if( a.tag.toLocaleLowerCase().trim() <  b.tag.toLocaleLowerCase().trim() ) {
+            return -1;
+        } else {
+            return 0
+        }
+
+    }
+
     render() {
 
 
@@ -364,9 +378,11 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                 height: "73vh",
             }}
             spellCheck={false}
-        >
-            {this._makeJSONText()}
-        </textarea>
+            readOnly={true}
+            value={this._makeJSONText()}
+        />
+
+
     </StandardModal>
 ) : null}
 
@@ -420,7 +436,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
         <tr>
             <th>
                 Name
-                <div className="small-text">tag</div>
+                <div className="small-text">tag (sorting)</div>
             </th>
             <th className="min-width text-center no-wrap">
                 Damage<br />
@@ -452,7 +468,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
             </th>
         </tr>
     </thead>
-{this.state.currentListData.map( (
+{this.state.currentListData.sort(this._sortByTag).map( (
     item: IEquipmentItem,
     itemIndex: number,
 ) => {

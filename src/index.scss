@@ -44,9 +44,11 @@ body {
 }
 
 .mech-tro {
-  background: $bodyBackground;
+  // background: $darkenedBG;
   color: $fontColor;
   width: 100%;
+  // padding: .5rem;
+  // background-color: $darkenedBG;
 
   &.some-padding {
     padding: 1rem;
@@ -56,6 +58,7 @@ body {
   font-size: 12px;
   tbody {
       border: none;
+      background: transparent !important;
   }
   thead {
       background: transparent !important;
@@ -65,7 +68,8 @@ body {
       td, th {
           margin: auto;
           padding: 0 5px 0 0;
-          background: $bodyBackground;
+          // background: $bodyBackground;
+          background: transparent;
           color: $fontColor;
 
       }

@@ -2764,12 +2764,14 @@ export class BattleMech {
 
         this.alphaStrikeValue = Math.round(finalValue); // + " (WIP)";
         let asMechData: IASMULUnit = {
+            FormatedTonnage: this.tonnage.toString(),
+            GroupName: "",
             BFAbilities: "",             // "";
             BFArmor: 0,             // number;
-            BFDamageExtreme: "0",             // number;
-            BFDamageLong: "0",            // number;
-            BFDamageMedium: "0",          // number;
-            BFDamageShort: "0",           // number;
+            BFDamageExtreme: 0,             // number;
+            BFDamageLong: 0,            // number;
+            BFDamageMedium: 0,          // number;
+            BFDamageShort: 0,           // number;
             BFMove: "",          // string;
             BFOverheat: 0,          // number;
             BFPointValue: 0,            // number;
@@ -2833,10 +2835,10 @@ export class BattleMech {
         asMechData["BFOverheat"] = final_overheat_value;
 
 
-        asMechData["BFDamageShort"] = this.alphaStrikeForceStats.damage.short;
-        asMechData["BFDamageMedium"] = this.alphaStrikeForceStats.damage.medium;
-        asMechData["BFDamageLong"] = this.alphaStrikeForceStats.damage.long;
-        asMechData["BFDamageExtreme"] = this.alphaStrikeForceStats.damage.extreme;
+        asMechData["BFDamageShort"] = +this.alphaStrikeForceStats.damage.short;
+        asMechData["BFDamageMedium"] = +this.alphaStrikeForceStats.damage.medium;
+        asMechData["BFDamageLong"] = +this.alphaStrikeForceStats.damage.long;
+        asMechData["BFDamageExtreme"] = +this.alphaStrikeForceStats.damage.extreme;
 
         asMechData["BFOverheat"] = this.alphaStrikeForceStats.overheat;
 

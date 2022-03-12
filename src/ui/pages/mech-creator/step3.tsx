@@ -116,9 +116,13 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
 
                     </div>
                     <div className="d-none d-lg-block col-lg-4">
+                    <TextSection
+
+                    >
                       <div className="mech-tro">
                         <SanitizedHTML raw={true} html={this.props.appGlobals.currentBattleMech.makeTROHTML()} />
                       </div>
+                    </TextSection>
                     </div>
                   </div>
               </div>

@@ -207,6 +207,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
         this.searchRules,
         this.searchTech,
         this.searchEra,
+        !navigator.onLine,
       );
 
       this.setState({
@@ -569,7 +570,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                         })}
                         </>
                       ) : (
-                        <tr><td colSpan={3} className="text-center">No Units</td></tr>
+                        <tbody><tr><td colSpan={3} className="text-center">No Units</td></tr></tbody>
                       )}
 
 
@@ -794,7 +795,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                     </div>
                   </fieldset>
 
-                <h3 className="text-center">Search Results</h3>
+                <h3 className="text-center">Search Results ({this.state.searchResults.length})</h3>
                   <table className="table">
                     <thead>
                       <tr>

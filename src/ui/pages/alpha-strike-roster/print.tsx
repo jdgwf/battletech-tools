@@ -80,7 +80,12 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
             return (
               <React.Fragment key={groupIndex}>
               <div className="print-section">
-                <h2>{group.getName(groupIndex + 1)}</h2>
+                <h2>
+                  <div className="units-summary">
+                  {group.getTotalPoints()} points - {group.getTotalUnits()} units
+                  </div>
+                  {group.getName(groupIndex + 1)}
+                </h2>
 
                 <div className="section-content">
                 {group.formationBonus!.Name!=="None"?(

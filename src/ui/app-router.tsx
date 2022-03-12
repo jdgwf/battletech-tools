@@ -317,6 +317,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                         appGlobals={this.state.appGlobals}
                     />
                 }></Route>
+
                 <Route path={`${process.env.PUBLIC_URL}/dev-status`}    element={
                     <DevelopmentStatus
                         appGlobals={this.state.appGlobals}

@@ -5,6 +5,7 @@ import { mechISEquipmentBallistic } from "./data/mech-is-equipment-weapons-balli
 import { mechISEquipmentEnergy } from "./data/mech-is-equipment-weapons-energy";
 import { mechISEquipmentMisc } from "./data/mech-is-equipment-weapons-misc";
 import { mechISEquipmentMissiles } from "./data/mech-is-equipment-weapons-missiles";
+import { mulListItems } from "./data/mul-list-items";
 
 
 export function addCommas( numericalValue: number ): string {
@@ -28,98 +29,172 @@ export function getClanEquipmentList(): IEquipmentItem[] {
     return mechClanEquipmentEnergy;
 }
 
+
+export function getOfflineMULResults(
+    searchTerm: string,
+    mechRules: string,
+    techFilter: string,
+    eraFilter: string,
+): IASMULUnit[] {
+    let returnUnits: IASMULUnit[] = [];
+
+    console.log(
+        "getOfflineMULResults called!",
+        searchTerm,
+        mechRules,
+        techFilter,
+        eraFilter,
+    );
+
+    searchTerm = searchTerm.toLowerCase().trim()
+    mechRules = mechRules.toLowerCase().trim()
+    techFilter = techFilter.toLowerCase().trim()
+    eraFilter = eraFilter.toLowerCase().trim()
+    let numberEraFilter = eraFilter ? +eraFilter : 0;
+
+    if( searchTerm.length >= 3) {
+        for( let unit of mulListItems) {
+            // console.log("unit.BFType", unit.Name, unit)
+            if(
+                unit.Name.toLowerCase().trim().indexOf(searchTerm ) > -1
+                &&
+                (
+                    mechRules === ""
+                    ||
+                    unit.Rules.toLowerCase().trim().indexOf( mechRules ) > -1
+                )
+                &&
+                (
+                    techFilter === ""
+                    ||
+                    unit.Technology.Name.toLowerCase().trim().indexOf( techFilter ) > -1
+                )
+                &&
+                (
+                    numberEraFilter === 0
+                        ||
+                    unit.EraStart > numberEraFilter
+                )
+            ) {
+                returnUnits.push( unit );
+            }
+        }
+    }
+
+
+    return returnUnits;
+}
+
 export async function getMULASSearchResults(
     searchTerm: string,
     mechRules: string,
     techFilter: string,
     eraFilter: string,
+    offLine: boolean,
 ): Promise<IASMULUnit[]> {
-    let url = "https://masterunitlist.azurewebsites.net/Unit/QuickList?MinPV=1&MaxPV=999&Name=" + searchTerm;
+
     let returnUnits: IASMULUnit[] = [];
-    if( searchTerm.length >= 3 ) {
-        await fetch(url)
-        .then(async res => {
-            let returnData = await res.json();
 
-            if(!returnData) {
-                return [];
-            }
+    if( offLine === false ) {
+        let url = "https://masterunitlist.azurewebsites.net/Unit/QuickList?MinPV=1&MaxPV=999&Name=" + searchTerm;
 
-            returnUnits = returnData.Units;
+        if( searchTerm.length >= 3 ) {
+            await fetch(url)
+            .then(async res => {
+                let returnData = await res.json();
 
-            if( !returnUnits ) {
-                return [];
-            }
-
-			for( let mechCounter = returnUnits.length - 1; mechCounter > -1; mechCounter--) {
-                if( mechRules && returnUnits[mechCounter]) {
-                    switch( mechRules.toLowerCase() ) {
-                        case "introductory":
-                            if( returnUnits[mechCounter].Rules.toLowerCase() !== "introductory" )
-                                returnUnits.splice( mechCounter, 1 );
-                            break;
-                        case "standard":
-                            if(
-                                returnUnits[mechCounter].Rules.toLowerCase() !== "introductory"
-                                    &&
-                                returnUnits[mechCounter].Rules.toLowerCase() !== "standard"
-                            )
-                                returnUnits.splice( mechCounter, 1 );
-                            break;
-                        case "advanced":
-                            if(
-                                returnUnits[mechCounter].Rules.toLowerCase() !== "introductory"
-                                    &&
-                                returnUnits[mechCounter].Rules.toLowerCase() !== "standard"
-                                    &&
-                                returnUnits[mechCounter].Rules.toLowerCase() !== "advanced"
-                            )
-                                returnUnits.splice( mechCounter, 1 );
-                            break;
-                    }
+                if(!returnData) {
+                    return [];
                 }
 
-                if( techFilter && returnUnits[mechCounter]) {
-                    switch( techFilter.toLowerCase() ) {
-                        case "inner sphere":
-                            if( returnUnits[mechCounter].Technology.Name.toLowerCase() !== "inner sphere" )
-                                returnUnits.splice( mechCounter, 1 );
-                            break;
-                        case "clan":
-                            if( returnUnits[mechCounter].Technology.Name.toLowerCase() !== "clan" )
-                                returnUnits.splice( mechCounter, 1 );
-                            break;
-                    }
+                returnUnits = returnData.Units;
+
+                if( !returnUnits ) {
+                    return [];
                 }
 
-                if( eraFilter && +eraFilter > 0 && returnUnits[mechCounter]) {
-                    if( returnUnits[mechCounter].EraStart > +eraFilter ) {
-                        returnUnits.splice( mechCounter, 1 );
+                for( let mechCounter = returnUnits.length - 1; mechCounter > -1; mechCounter--) {
+                    if( mechRules && returnUnits[mechCounter]) {
+                        switch( mechRules.toLowerCase() ) {
+                            case "introductory":
+                                if( returnUnits[mechCounter].Rules.toLowerCase() !== "introductory" )
+                                    returnUnits.splice( mechCounter, 1 );
+                                break;
+                            case "standard":
+                                if(
+                                    returnUnits[mechCounter].Rules.toLowerCase() !== "introductory"
+                                        &&
+                                    returnUnits[mechCounter].Rules.toLowerCase() !== "standard"
+                                )
+                                    returnUnits.splice( mechCounter, 1 );
+                                break;
+                            case "advanced":
+                                if(
+                                    returnUnits[mechCounter].Rules.toLowerCase() !== "introductory"
+                                        &&
+                                    returnUnits[mechCounter].Rules.toLowerCase() !== "standard"
+                                        &&
+                                    returnUnits[mechCounter].Rules.toLowerCase() !== "advanced"
+                                )
+                                    returnUnits.splice( mechCounter, 1 );
+                                break;
+                        }
                     }
-                    // switch( techFilter.toLowerCase() ) {
-                    //     case "inner sphere":
-                    //         if( returnUnits[mechCounter].Technology.Name.toLowerCase() !== "inner sphere" )
-                    //             returnUnits.splice( mechCounter, 1 );
-                    //         break;
-                    //     case "clan":
-                    //         if( returnUnits[mechCounter].Technology.Name.toLowerCase() !== "clan" )
-                    //             returnUnits.splice( mechCounter, 1 );
-                    //         break;
-                    // }
+
+                    if( techFilter && returnUnits[mechCounter]) {
+                        switch( techFilter.toLowerCase() ) {
+                            case "inner sphere":
+                                if( returnUnits[mechCounter].Technology.Name.toLowerCase() !== "inner sphere" )
+                                    returnUnits.splice( mechCounter, 1 );
+                                break;
+                            case "clan":
+                                if( returnUnits[mechCounter].Technology.Name.toLowerCase() !== "clan" )
+                                    returnUnits.splice( mechCounter, 1 );
+                                break;
+                        }
+                    }
+
+                    if( eraFilter && +eraFilter > 0 && returnUnits[mechCounter]) {
+                        if( returnUnits[mechCounter].EraStart > +eraFilter ) {
+                            returnUnits.splice( mechCounter, 1 );
+                        }
+                        // switch( techFilter.toLowerCase() ) {
+                        //     case "inner sphere":
+                        //         if( returnUnits[mechCounter].Technology.Name.toLowerCase() !== "inner sphere" )
+                        //             returnUnits.splice( mechCounter, 1 );
+                        //         break;
+                        //     case "clan":
+                        //         if( returnUnits[mechCounter].Technology.Name.toLowerCase() !== "clan" )
+                        //             returnUnits.splice( mechCounter, 1 );
+                        //         break;
+                        // }
+                    }
+
+
                 }
 
+            })
+            .catch(err => {
+                console.log('Error: ', err)
+                returnUnits = getOfflineMULResults(
+                    searchTerm,
+                    mechRules,
+                    techFilter,
+                    eraFilter,
+                )
+            })
+        }
 
-            }
 
-        })
-        .catch(err => {
-          console.log('Error: ', err)
-        })
-
-      return returnUnits;
     } else {
-        return [];
+        returnUnits = getOfflineMULResults(
+            searchTerm,
+            mechRules,
+            techFilter,
+            eraFilter,
+        )
     }
+    return returnUnits;
 }
 export function getMovementModifier( moveScore: number ): number {
 	if( moveScore >= 25 ) {

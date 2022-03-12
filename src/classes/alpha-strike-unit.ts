@@ -14,29 +14,31 @@ export interface IMoveNumber {
 
 export interface ASMULType {
     Id: number;
-    Image: string;
+    Image: string | null;
     Name: string;
     SortOrder: number;
 }
 export interface ASMULRole {
     Id: number;
-    Image: string;
+    Image: string | null;
     Name: string;
     SortOrder: number;
 }
 export interface ASMULTech {
     Id: number;
-    Image: string;
+    Image: string | null;
     Name: string;
     SortOrder: number;
 }
 export interface IASMULUnit {
-    BFAbilities: string;
+    FormatedTonnage: string | null;
+    GroupName: string | null;
+    BFAbilities: string | null;
     BFArmor: number;
-    BFDamageExtreme: string;
-    BFDamageLong: string;
-    BFDamageMedium: string;
-    BFDamageShort: string;
+    BFDamageExtreme: number;
+    BFDamageLong: number;
+    BFDamageMedium: number;
+    BFDamageShort: number;
     BFMove: string;
     BFOverheat: number;
     BFPointValue: number;
@@ -44,9 +46,10 @@ export interface IASMULUnit {
     BFStructure: number;
     BFTMM: number;
     BFThreshold: number;
-    BFType: string;
+    BFType: string | null;
     BattleValue: number;
     Class: string;
+
     Cost: number;
     DateIntroduced: string;
     EraIcon:string;
@@ -54,8 +57,8 @@ export interface IASMULUnit {
     EraStart: number;
     Id: number;
     ImageUrl: string;
-    IsFeatured: true
-    IsPublished: true
+    IsFeatured: boolean;
+    IsPublished: boolean;
     Name: string;
     RS: string;
     RSId: number;
@@ -68,7 +71,7 @@ export interface IASMULUnit {
     Technology: ASMULTech;
     Tonnage: number;
     Type: ASMULType;
-    Variant: string;
+    Variant: string | null;
 
     customName?: string;
     currentSkill?: number;

@@ -5,12 +5,6 @@ import InputNumeric from './form_elements/input_numeric';
 
 export default class DamageInput extends React.Component<IDamageInputProps, IDamageInputState> {
     showDialog: boolean = false;
-    constructor(props: IDamageInputProps) {
-        super(props);
-        this.state = {
-        }
-    }
-
 
     toggleDamageDivisor = (
         e: React.FormEvent<HTMLInputElement>,
