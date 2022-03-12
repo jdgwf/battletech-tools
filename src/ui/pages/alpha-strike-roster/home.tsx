@@ -267,7 +267,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
   }
 
-    render() {
+    render = (): React.ReactFragment => {
       return (
         <>
 <AlphaStrikeUnitEditViewModal

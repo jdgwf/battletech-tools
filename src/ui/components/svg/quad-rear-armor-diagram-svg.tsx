@@ -47,7 +47,7 @@ export default class QuadRearArmorDiagramSVG extends React.Component<IQuadRearAr
         //     lineColor = colorGold;
     }
 
-    render() {
+    render = (): React.ReactFragment => {
 
 
 

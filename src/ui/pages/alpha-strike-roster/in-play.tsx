@@ -1,7 +1,8 @@
-import { faArrowAltCircleLeft, faList, faTh } from '@fortawesome/free-solid-svg-icons';
+import { faArrowAltCircleLeft, faList, faRefresh, faTh } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import AlphaStrikeGroup from '../../../classes/alpha-strike-group';
 import { IAppGlobals } from '../../app-router';
 import BattleTechLogo from '../../components/battletech-logo';
 import AlphaStrikeUnitSVG from '../../components/svg/alpha-strike-unit-svg';
@@ -43,7 +44,35 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
 
     }
 
-    render() {
+    resetGroup = (
+      e: React.FormEvent<HTMLButtonElement>,
+      group: AlphaStrikeGroup,
+    ): void => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+
+      this.props.appGlobals.openConfirmDialog(
+        "Confirmation",
+        "Are you sure you want to reset all the units to full status?",
+        "Yes",
+        "No, Thank you",
+        () => {
+          for( let unit of group.members ) {
+            if( unit && unit.reset ) {
+              unit.reset();
+            }
+
+          }
+
+          this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+        }
+      )
+
+
+    }
+
+    render = (): React.ReactFragment => {
       return (
         <>
           <header className="topmenu">
@@ -78,7 +107,16 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
             return (
               <React.Fragment key={groupIndex}>
               <div className="text-section lr-margin">
-                <h2>{group.getName(groupIndex + 1)}</h2>
+                <h2>
+                  <button
+                    className="pull-right btn-primary btn-sm"
+                    title={"Click here to reset the damage for this " + group.groupLabel + ". You'll be prompted for confirmation."}
+                    onClick={(e) => this.resetGroup( e, group )}
+                  >
+                    <FontAwesomeIcon icon={faRefresh} />&nbsp;Reset
+                  </button>
+                  {group.getName(groupIndex + 1)}
+                </h2>
                 <div className="section-content">
                   <div className="row">
                   {group.formationBonus!.Name!=="None"?(

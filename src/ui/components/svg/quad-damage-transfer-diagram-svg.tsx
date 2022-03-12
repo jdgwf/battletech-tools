@@ -46,7 +46,7 @@ export default class QuadDamageTransferDiagramSVG extends React.Component<IQuadD
         //     lineColor = colorGold;
     }
 
-    render() {
+    render = (): React.ReactFragment => {
 
 
 

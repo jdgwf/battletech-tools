@@ -39,7 +39,7 @@ export default class PilotHitTrackSVG extends React.Component<IPilotHitTrackSVGP
 
     }
 
-    render() {
+    render = (): React.ReactFragment => {
 
 
         let damageTrack: React.ReactFragment[] = [];

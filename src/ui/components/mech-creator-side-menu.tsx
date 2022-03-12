@@ -10,7 +10,7 @@ export default class MechCreatorSideMenu extends React.Component<IMechCreatorSid
         }
     }
 
-    render() {
+    render = (): React.ReactFragment => {
       return (
           <>
             <ul className="sidebar-menu">

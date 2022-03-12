@@ -20,7 +20,7 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
         };
     }
 
-    render() {
+    render = (): React.ReactFragment => {
 
         let weapAndEqpTop = this.props.yLoc;
         let weapAndEqpLeft = this.props.xLoc;

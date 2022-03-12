@@ -2,7 +2,7 @@ import * as React from 'react';
 
 export default class TextAreaField extends React.Component<ITextAreaFieldProps, ITextAreaFieldState> {
 
-    render() {
+    render = (): React.ReactFragment => {
         return (
             <label className={this.props.className}>
                 <strong>{this.props.label}</strong>:<br />

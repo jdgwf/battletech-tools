@@ -40,7 +40,7 @@ export default class BattleTechLogo extends React.Component<IBattleTechLogoProps
             this.altColor = this.props.altColor;
         }
     }
-    render() {
+    render = (): React.ReactFragment => {
         return (
             <svg
                 version="1.1"

@@ -15,7 +15,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
         this.props.appGlobals.makeDocumentTitle("Home");
     }
 
-    render() {
+    render = (): React.ReactFragment => {
       return (
         <UIPage current="home" appGlobals={this.props.appGlobals}>
 

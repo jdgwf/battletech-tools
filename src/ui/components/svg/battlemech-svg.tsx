@@ -73,7 +73,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
 
 
-    render() {
+    render = (): React.ReactFragment => {
         let generalDataBoxX = 10;
         let generalDataBoxY = 10;
 

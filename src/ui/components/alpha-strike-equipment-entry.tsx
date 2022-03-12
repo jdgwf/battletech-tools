@@ -98,7 +98,7 @@ export default class AlphaStrikeEquipmentEntry extends React.Component<IAlphaStr
         this.props.onChange( item );
     }
 
-    render() {
+    render = (): React.ReactFragment => {
         return (
                     <>
 

@@ -21,7 +21,7 @@ export default class QuadArmorCircles extends React.Component<IQuadArmorCirclesP
 			this.props.mechData.toggleArmorBubble(shortLoc, indexNumnber);
 		}
     }
-    render() {
+    render = (): React.ReactFragment => {
         return (
             <>
 

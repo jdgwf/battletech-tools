@@ -46,7 +46,7 @@ export default class BipedDamageTransferDiagramSVG extends React.Component<IBipe
         //     lineColor = colorGold;
     }
 
-    render() {
+    render = (): React.ReactFragment => {
 
 
 

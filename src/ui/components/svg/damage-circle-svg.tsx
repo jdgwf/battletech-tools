@@ -57,7 +57,7 @@ export default class DamageCircleSVG extends React.Component<IDamageCircleSVGPro
         }
     }
 
-    render() {
+    render = (): React.ReactFragment => {
         return (
             <circle
                 // className={this.armorClass}

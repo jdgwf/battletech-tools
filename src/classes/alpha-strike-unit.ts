@@ -387,6 +387,19 @@ export class AlphaStrikeUnit {
         this.calcCurrentVals();
     }
 
+
+    public reset() {
+        this.currentArmor = [];
+        this.currentStructure = [];
+        this.currentHeat = 0;
+        this.engineHits = [];
+        this.fireControlHits = [];
+        this.weaponHits = [];
+        this.mpControlHits = [];
+        this.engineHits = [];
+        this.calcCurrentVals();
+    }
+
     public calcCurrentVals() {
 
         if(

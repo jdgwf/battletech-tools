@@ -124,7 +124,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
 
 
 
-    render() {
+    render = (): React.ReactFragment => {
       let weightDropDownMax = this.props.appGlobals.currentBattleMech.getRemainingTonnage() + this.props.appGlobals.currentBattleMech.getArmorWeight();
       if( weightDropDownMax < this.props.appGlobals.currentBattleMech.getArmorWeight()) {
         weightDropDownMax = this.props.appGlobals.currentBattleMech.getArmorWeight()

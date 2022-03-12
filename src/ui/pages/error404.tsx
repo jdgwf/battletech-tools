@@ -11,7 +11,7 @@ export default class Error404 extends React.Component<IError404Props, IError404S
         this.props.appGlobals.makeDocumentTitle("404 - Page not Found");
     }
 
-    render() {
+    render = (): React.ReactFragment => {
       return (
         <UIPage appGlobals={this.props.appGlobals}>
             404 - Not Found

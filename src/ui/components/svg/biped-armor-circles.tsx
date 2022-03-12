@@ -21,7 +21,7 @@ export default class BipedArmorCircles extends React.Component<IBipedArmorCircle
 			this.props.mechData.toggleArmorBubble(shortLoc, indexNumnber);
 		}
     }
-    render() {
+    render = (): React.ReactFragment => {
         return (
             <>
 

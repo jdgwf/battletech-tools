@@ -22,7 +22,7 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
         this.props.appGlobals.closeMobile();
     }
 
-    render() {
+    render = (): React.ReactFragment => {
       return (
           <>
           <header className="topmenu">

@@ -352,7 +352,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
 
     }
 
-    render() {
+    render = (): React.ReactFragment => {
 
 
 

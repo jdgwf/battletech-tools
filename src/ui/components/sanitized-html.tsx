@@ -14,7 +14,7 @@ export default class SanitizedHTML extends React.Component<ISanitizedHTMLProps, 
     // For the SanitizeHTML function/module docs go here:
     // https://www.npmjs.com/package/sanitize-html
 
-    render() {
+    render = (): React.ReactFragment => {
 
         if( this.props.raw ) {
             return (

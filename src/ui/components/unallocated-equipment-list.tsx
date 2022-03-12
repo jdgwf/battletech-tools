@@ -11,7 +11,7 @@ export default class UnallocatedEquipmentList extends React.Component<IUnallocat
         }
     }
 
-    render() {
+    render = (): React.ReactFragment => {
         return (
             <ul className="critical-assignment-container">
             {this.props.crits.map( (crit, critIndex) => {

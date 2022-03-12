@@ -76,7 +76,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
       });
     }
 
-    render() {
+    render = (): React.ReactFragment => {
       return (
         <>
             <Modal

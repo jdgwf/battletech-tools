@@ -154,7 +154,6 @@ export default class AlphaStrikeForce {
             returnValue.groups.push( group.export() );
         }
 
-        console.log("ASF returnValue", returnValue)
         return returnValue;
     }
 

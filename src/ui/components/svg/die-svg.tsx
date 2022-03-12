@@ -44,7 +44,7 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
         }
     }
 
-    render() {
+    render = (): React.ReactFragment => {
         let pipRadius = this.width / 7;
 
         let pips: React.ReactFragment[] = [];

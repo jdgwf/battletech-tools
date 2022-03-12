@@ -20,7 +20,7 @@ export default class CritAllocationTableSVG extends React.Component<ICritAllocat
         };
     }
 
-    render() {
+    render = (): React.ReactFragment => {
 
         let critTable: React.ReactFragment[] = [];
         let critBackgrounds: React.ReactFragment[] = [];

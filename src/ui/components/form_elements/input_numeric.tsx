@@ -46,7 +46,7 @@ export default class InputNumeric extends React.Component<IInputNumericProps, II
             this.props.setValue( +event.currentTarget.value )
     }
 
-    render() {
+    render = (): React.ReactFragment => {
         let label = "";
         if( this.props.label && this.props.label.trim() )
             label = this.props.label;

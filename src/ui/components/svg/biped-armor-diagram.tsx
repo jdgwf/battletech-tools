@@ -47,7 +47,7 @@ export default class BipedArmorDiagramSVG extends React.Component<IBipedArmorDia
         //     lineColor = colorGold;
     }
 
-    render() {
+    render = (): React.ReactFragment => {
 
 
 

@@ -47,7 +47,7 @@ export default class RecordSheetGroupBoxSVG extends React.Component<IRecordSheet
         }
     }
 
-    render() {
+    render = (): React.ReactFragment => {
 
         // let children: React.ReactFragment[] = [];
         // let thisObject = this;

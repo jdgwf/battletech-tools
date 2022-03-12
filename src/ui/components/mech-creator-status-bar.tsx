@@ -10,7 +10,7 @@ export default class MechCreatorStatusBar extends React.Component<IMechCreatorSt
         }
     }
 
-    render() {
+    render = (): React.ReactFragment => {
       return (
           <div className="mech-creator-status-bar">
             <span className="no-wrap inline-block"><strong>Remaining Tons</strong>: {this.props.appGlobals.currentBattleMech.getRemainingTonnage()}</span>&nbsp;|&nbsp;

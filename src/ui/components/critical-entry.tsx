@@ -121,7 +121,7 @@ export default class CriticalEntry extends React.Component<ICriticalEntryProps, 
     // For the SanitizeHTML function/module docs go here:
     // https://www.npmjs.com/package/sanitize-html
 
-    render() {
+    render = (): React.ReactFragment => {
         return (
             <fieldset className="fieldset">
                 <legend>{this.props.label}</legend>

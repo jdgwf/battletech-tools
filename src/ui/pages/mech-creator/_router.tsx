@@ -23,7 +23,7 @@ export default class MechCreatorRouter extends React.Component<IMechCreatorRoute
         this.state = { };
     }
 
-    render() {
+    render = (): React.ReactFragment => {
         return(<>
             <Routes>
                 <Route path={`/`} element={

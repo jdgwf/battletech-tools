@@ -14,7 +14,7 @@ export default class AlphaStrikeRosterRouter extends React.Component<IAlphaStrik
         this.state = { };
     }
 
-    render() {
+    render = (): React.ReactFragment => {
         return(
             <Routes>
 

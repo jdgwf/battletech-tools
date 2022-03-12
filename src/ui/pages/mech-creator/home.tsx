@@ -198,7 +198,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
       })
     }
 
-    render() {
+    render = (): React.ReactFragment => {
       return (
         <>
           <UIPage current="mech-creator" appGlobals={this.props.appGlobals}>

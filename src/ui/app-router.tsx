@@ -282,7 +282,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
 
 
-    render() {
+    render = (): React.ReactFragment => {
         return (
             <>
 

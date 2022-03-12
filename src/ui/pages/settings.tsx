@@ -22,7 +22,7 @@ export default class Settings extends React.Component<ISettingsProps, ISettingsS
 
 
 
-    render() {
+    render = (): React.ReactFragment => {
       return (
         <UIPage current="settings" appGlobals={this.props.appGlobals}>
             <div className="row">

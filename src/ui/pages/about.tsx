@@ -16,7 +16,7 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
 
 
 
-    render() {
+    render = (): React.ReactFragment => {
       return (
     <UIPage current="about" appGlobals={this.props.appGlobals}>
 

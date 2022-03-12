@@ -5,7 +5,7 @@ import TopMenu from './top-menu';
 
 export default class UIPage extends React.Component<IUIPageProps, IUIPageState> {
 
-    render() {
+    render = (): React.ReactFragment => {
         return (
         <div className={this.props.appGlobals.showMobile ? "ui-page show-mobile" : "ui-page"}>
           <TopMenu current={this.props.current} sub={this.props.sub} appGlobals={this.props.appGlobals} />

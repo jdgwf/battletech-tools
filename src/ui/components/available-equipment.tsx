@@ -63,7 +63,7 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
         return false;
     }
 
-    render() {
+    render = (): React.ReactFragment => {
 
         let groupedItems : { [categoryName: string] : IEquipmentItem[]; }= {};
         for( let item of this.props.equipment ) {

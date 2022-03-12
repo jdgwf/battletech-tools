@@ -73,7 +73,7 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
 
 
 
-    render() {
+    render = (): React.ReactFragment => {
       return (
         <>
           <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  />
