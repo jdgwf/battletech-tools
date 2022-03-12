@@ -65,12 +65,21 @@ export default class AlphaStrikeGroup {
         return returnValue;
 	}
 
-	public getName( groupNumber: number): string {
-		if( this.customName ) {
-			return "Group #" + groupNumber.toString() + ": " + this.customName;
+	public getName( groupNumber: number = 0): string {
+		if( !groupNumber) {
+			if( this.customName ) {
+				return this.customName;
+			} else {
+				return "(The Nameless)";
+			}
 		} else {
-			return "Group #" + groupNumber.toString();
+			if( this.customName ) {
+				return "Group #" + groupNumber.toString() + ": " + this.customName;
+			} else {
+				return "Group #" + groupNumber.toString();
+			}
 		}
+
 	}
 
 	public sortUnits() {

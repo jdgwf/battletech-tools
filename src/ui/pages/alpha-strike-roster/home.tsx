@@ -449,17 +449,17 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                             <tr>
                               <td>&nbsp;</td>
                               <td>&nbsp;</td>
-                              <td colSpan={6}>
-                                <strong>Armor/IS</strong>: {asUnit.BFArmor}/{asUnit.BFStructure}
-                                &nbsp;|&nbsp;<strong>Damage</strong>: {asUnit.BFDamageShort}/{asUnit.BFDamageMedium}/{asUnit.BFDamageLong}
+                              <td colSpan={6} className="med-small-text">
+                                <strong title="Armor/Internal Structure values">A/IS</strong>: {asUnit.BFArmor}/{asUnit.BFStructure}
+                                &nbsp;|&nbsp;<strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.BFDamageShort}/{asUnit.BFDamageMedium}/{asUnit.BFDamageLong}
                                 {asUnit.BFOverheat  && asUnit.BFOverheat > 0 ? (
                                   <>
-                                   &nbsp;|&nbsp;<strong>OHV</strong>: {asUnit.BFOverheat}
+                                   &nbsp;|&nbsp;<strong title="Overheat Value">OHV</strong>: {asUnit.BFOverheat}
                                   </>
                                 ) : null}
                                 {asUnit.BFAbilities && asUnit.BFAbilities.trim() ? (
                                   <>
-                                    &nbsp;|&nbsp;<strong>Abilities</strong>: {asUnit.BFAbilities}
+                                    &nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.BFAbilities}
                                   </>
                                 ) : null}
 
@@ -547,7 +547,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
 {this.props.appGlobals.favoriteASGroups.map( (asFavGroup, asFavGroupIndex) => {
   return (<fieldset key={asFavGroupIndex} className="fieldset">
-    <legend>{asFavGroup.getName(asFavGroupIndex + 1)}</legend>
+    <legend>{asFavGroup.getName()}</legend>
 
     <div className="pull-right">
       <a
