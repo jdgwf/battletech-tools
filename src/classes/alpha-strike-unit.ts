@@ -387,6 +387,85 @@ export class AlphaStrikeUnit {
         this.calcCurrentVals();
     }
 
+    public isUnderStrength(): boolean {
+
+        if( this.getCurrentArmor() < this.armor ) {
+            return true;
+        }
+        if( this.getCurrentStructure() < this.structure ) {
+            return true;
+        }
+
+        if( this.getEngineHits() > 0 ) {
+            return true;
+        }
+
+        if( this.getFireControlHits() > 0 ) {
+            return true;
+        }
+
+        if( this.getMPHits() > 0 ) {
+            return true;
+        }
+
+        if( this.getWeaponHits() > 0 ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    getEngineHits(): number {
+        let rv = 0;
+        if( this.engineHits ) {
+            for( let val of this.engineHits  ) {
+                if( val ) {
+                    rv++;
+                }
+            }
+        }
+
+        return rv;
+    }
+
+    getFireControlHits(): number {
+        let rv = 0;
+        if( this.engineHits ) {
+            for( let val of this.fireControlHits  ) {
+                if( val ) {
+                    rv++;
+                }
+            }
+        }
+
+        return rv;
+    }
+
+    getMPHits(): number {
+        let rv = 0;
+        if( this.engineHits ) {
+            for( let val of this.mpControlHits  ) {
+                if( val ) {
+                    rv++;
+                }
+            }
+        }
+
+        return rv;
+    }
+
+    getWeaponHits(): number {
+        let rv = 0;
+        if( this.engineHits ) {
+            for( let val of this.weaponHits  ) {
+                if( val ) {
+                    rv++;
+                }
+            }
+        }
+
+        return rv;
+    }
 
     public reset() {
         this.currentArmor = [];

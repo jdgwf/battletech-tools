@@ -1,4 +1,4 @@
-import { faCancel, faSave } from '@fortawesome/free-solid-svg-icons';
+import { faSave, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
 import { Modal } from 'react-bootstrap';
@@ -53,7 +53,7 @@ export default class StandardModal extends React.Component<IStandardModalProps, 
                 className={closeClass}
                 title={labelClose}
             >
-                <FontAwesomeIcon icon={faCancel} />
+                <FontAwesomeIcon icon={faTimesCircle} />
             </button>
 
                 </>

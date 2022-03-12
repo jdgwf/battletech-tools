@@ -1,4 +1,4 @@
-import { faBars, faDice, faEye, faFileExport, faFileImport, faPlus, faPrint, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faDice, faDownload, faEye, faFileExport, faFileImport, faPlus, faPrint, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Button } from 'react-bootstrap';
@@ -462,6 +462,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                                   </>
                                 ) : null}
 
+
                               </td>
                             </tr>
                             </tbody>
@@ -557,7 +558,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
           )}`}
           download={"as-favorite-export" + makeURLSlug(asFavGroup.getName(0)) + ".json"}
         >
-          <FontAwesomeIcon icon={faFileExport} />
+          <FontAwesomeIcon icon={faDownload} />
         </a>
       <Button
         onClick={() => this.loadASFavorite(asFavGroup)}
