@@ -38,6 +38,12 @@ export default class AlphaStrikeForce {
         }
     }
 
+    public selectGroupLabel( newName: string, groupIndex: number ) {
+        if( this.groups.length > groupIndex && this.groups[groupIndex]) {
+            this.groups[groupIndex].groupLabel = newName;
+        }
+    }
+
 	public getActiveMembers() {
 		this.activeMembers = 0;
         this.forcePoints = 0;

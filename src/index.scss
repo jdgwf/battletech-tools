@@ -152,10 +152,22 @@ input[type=number] {
 
   .width-90 {
     width: 90%;
+    display: inline-block;
   }
 
   .width-80 {
     width: 80%;
+    display: inline-block;
+  }
+
+  .width-50 {
+    width: 50%;
+    display: inline-block;
+  }
+
+  .width-40 {
+    width: 40%;
+    display: inline-block;
   }
 
   .mobile-menu {
@@ -1113,6 +1125,7 @@ body.retro {
       border: solid 2px $retroPrimaryBG;
     }
   }
+
 
 }
 

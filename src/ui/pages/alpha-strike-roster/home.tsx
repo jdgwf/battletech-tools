@@ -547,7 +547,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
 {this.props.appGlobals.favoriteASGroups.map( (asFavGroup, asFavGroupIndex) => {
   return (<fieldset key={asFavGroupIndex} className="fieldset">
-    <legend>{asFavGroup.getName()}</legend>
+    <legend>{asFavGroup.getName(0)}</legend>
 
     <div className="pull-right">
       <a
@@ -556,7 +556,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
           href={`data:text/json;charset=utf-8,${encodeURIComponent(
             JSON.stringify(asFavGroup.export())
           )}`}
-          download={"as-favorite-export" + makeURLSlug(asFavGroup.getName(asFavGroupIndex + 1)) + ".json"}
+          download={"as-favorite-export" + makeURLSlug(asFavGroup.getName(0)) + ".json"}
         >
           <FontAwesomeIcon icon={faFileExport} />
         </a>

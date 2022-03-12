@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Button } from 'react-bootstrap';
 import { AlphaStrikeUnit } from '../../../classes/alpha-strike-unit';
 import { formationBonuses } from '../../../data/formation-bonuses';
+import { unitGroupNames } from '../../../data/group-names';
 import { IAppGlobals } from '../../app-router';
 import TextSection from '../../components/text-section';
 
@@ -77,6 +78,10 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
         this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
       }
 
+      selectGroupLabel = ( newName: string, groupIndex: number ): void => {
+        this.props.appGlobals.currentASForce.selectGroupLabel( newName, groupIndex );
+        this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+      }
       removeUnitFromGroup = (asGroupIndex: number, asUnitIndex: number): void => {
         this.props.appGlobals.currentASForce.removeUnitFromGroup( asGroupIndex, asUnitIndex );
         this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
@@ -116,7 +121,12 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                 labelButton={addUnitButton}
               >
 
+                <p className="text-center">
+                  <strong>Total Groups</strong>: {this.props.appGlobals.currentASForce.getTotalGroups()}&nbsp;|&nbsp;
+                  <strong>Total Units</strong>: {this.props.appGlobals.currentASForce.getTotalUnits()}&nbsp;|&nbsp;
+                  <strong>Total Points</strong>: {this.props.appGlobals.currentASForce.getTotalPoints()}
 
+                </p>
 
                 {this.props.appGlobals.currentASForce.groups.map( (asGroup, asGroupIndex) => {
                   return (<fieldset key={asGroupIndex} className="fieldset">
@@ -138,15 +148,35 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                         <FontAwesomeIcon icon={faTrash} />
                       </Button>
                     </div>
-                    <label
-                      className="width-80"
-                    >
-                      <input
-                        type="text"
-                        onChange={(event: React.FormEvent<HTMLInputElement>) => this.renameGroup(event.currentTarget.value, asGroupIndex)}
-                        value={asGroup.customName}
-                      />
-                    </label>
+                    <div className="width-80">
+                        <div className="width-50">
+                            <label>
+                                <select
+                                    title="Select your Group Organization Label"
+                                    onChange={(event: React.FormEvent<HTMLSelectElement>) => this.selectGroupLabel(event.currentTarget.value, asGroupIndex)}
+                                    value={asGroup.groupLabel}
+                                >
+                                    {unitGroupNames.map( (name, nameIndex) => {
+                                        return (
+                                            <option key={nameIndex}>{name}</option>
+                                        )
+                                    })}
+                                </select>
+                            </label>
+                        </div>
+                        <div className="width-50">
+                            <label>
+                                <input
+                                    title="Here you can name your unit"
+                                    placeholder={"Custom " + asGroup.groupLabel + " Name"}
+                                    type="text"
+                                    onChange={(event: React.FormEvent<HTMLInputElement>) => this.renameGroup(event.currentTarget.value, asGroupIndex)}
+                                    value={asGroup.customName}
+                                />
+                            </label>
+                        </div>
+                    </div>
+
 
                     <table className="table">
                       <thead>
@@ -306,10 +336,10 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                     New Group
                   </Button>
                 </p>
-                <p className="text-right">
-                  <strong>Total Groups</strong>: {this.props.appGlobals.currentASForce.getTotalGroups()}<br />
-                  <strong>Total Units</strong>: {this.props.appGlobals.currentASForce.getTotalUnits()}<br />
-                  <strong>Total Points</strong>: {this.props.appGlobals.currentASForce.getTotalPoints()}<br />
+                <p className="text-center">
+                  <strong>Total Groups</strong>: {this.props.appGlobals.currentASForce.getTotalGroups()}&nbsp;|&nbsp;
+                  <strong>Total Units</strong>: {this.props.appGlobals.currentASForce.getTotalUnits()}&nbsp;|&nbsp;
+                  <strong>Total Points</strong>: {this.props.appGlobals.currentASForce.getTotalPoints()}
 
                 </p>
 

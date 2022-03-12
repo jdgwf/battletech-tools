@@ -10,11 +10,14 @@ export interface IASGroupExport {
 	lastUpdated: Date;
 	location?: string;
 	formationBonus:string;
+	groupLabel: string;
 }
 
 export default class AlphaStrikeGroup {
 
 	members: AlphaStrikeUnit[] = [];
+
+	groupLabel: string = "Lance";
 
 	uuid: string = generateUUID();
 	lastUpdated: Date = new Date();
@@ -65,7 +68,10 @@ export default class AlphaStrikeGroup {
         return returnValue;
 	}
 
-	public getName( groupNumber: number = 0): string {
+	public getName(
+		groupNumber: number,
+	): string {
+
 		if( !groupNumber) {
 			if( this.customName ) {
 				return this.customName;
@@ -74,9 +80,9 @@ export default class AlphaStrikeGroup {
 			}
 		} else {
 			if( this.customName ) {
-				return "Group #" + groupNumber.toString() + ": " + this.customName;
+				return this.groupLabel + " #" + groupNumber.toString() + ": " + this.customName;
 			} else {
-				return "Group #" + groupNumber.toString();
+				return this.groupLabel + "Group #" + groupNumber.toString();
 			}
 		}
 
@@ -113,7 +119,8 @@ export default class AlphaStrikeGroup {
 			units: [],
             uuid: this.uuid,
 			lastUpdated: this.lastUpdated,
-			formationBonus: this.formationBonus?this.formationBonus.Name:"None"
+			formationBonus: this.formationBonus?this.formationBonus.Name:"None",
+			groupLabel: this.groupLabel,
 		}
 
 		for( let unit of this.members ) {
@@ -141,6 +148,10 @@ export default class AlphaStrikeGroup {
         if( importObj.uuid ) {
             this.uuid = importObj.uuid;
         }
+
+		if( importObj.groupLabel ) {
+            this.groupLabel = importObj.groupLabel;
+		}
 
         if( importObj.lastUpdated ) {
             this.lastUpdated = new Date(importObj.lastUpdated);
