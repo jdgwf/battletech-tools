@@ -5,12 +5,6 @@ import InputNumeric from './form_elements/input_numeric';
 
 export default class RangeInput extends React.Component<IRangeInputProps, IRangeInputState> {
     showDialog: boolean = false;
-    constructor(props: IRangeInputProps) {
-        super(props);
-        this.state = {
-        }
-    }
-
 
     toggleIsMelee = (
         e: React.FormEvent<HTMLInputElement>,

@@ -8,12 +8,6 @@ import PrintSheet from './print';
 
 export default class AlphaStrikeRosterRouter extends React.Component<IAlphaStrikeRosterRouterProps, IAlphaStrikeRosterRouterState> {
 
-    constructor(props: IAlphaStrikeRosterRouterProps) {
-        super(props);
-
-        this.state = { };
-    }
-
     render = (): React.ReactFragment => {
         return(
             <Routes>

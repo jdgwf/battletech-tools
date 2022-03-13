@@ -54,7 +54,7 @@ export function getOfflineMULResults(
 
     if( searchTerm.length >= 3) {
         for( let unit of mulListItems) {
-            // console.log("unit.BFType", unit.Name, unit)
+
             if(
                 unit.Name.toLowerCase().trim().indexOf(searchTerm ) > -1
                 &&
@@ -175,7 +175,7 @@ export async function getMULASSearchResults(
 
             })
             .catch(err => {
-                console.log('Error: ', err)
+                console.error('Error: ', err)
                 returnUnits = getOfflineMULResults(
                     searchTerm,
                     mechRules,
@@ -278,7 +278,6 @@ export function replaceAll(
         let iterations = 0
         let maxIterations = 1000;
         while( haystack.indexOf( needle ) > -1 ) {
-            // console.log("replacing ", needle)
             if( maxIterations < iterations ) {
                 console.error("replaceAll - max Iterations reached!")
                 break;

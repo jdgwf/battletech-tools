@@ -48,7 +48,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
       if( this.fileReader ) {
         let content = this.fileReader.result;
 
-        console.log("content", content)
+        // console.log("content", content)
         try {
           if( content ) {
             let data: IBattleMechExport[] = JSON.parse( content.toString() )

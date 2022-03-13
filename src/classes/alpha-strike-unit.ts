@@ -848,7 +848,7 @@ export class AlphaStrikeUnit {
 
     public takeDamage( numberOfPoints: number ) {
         let leftOverPoints = numberOfPoints;
-        //~ console.log("TODO: takeDamage();", numberOfPoints);
+
         for( let pointCounter = 0; pointCounter < numberOfPoints; pointCounter++ ) {
             for( let armorCounter = 0; armorCounter < this.currentArmor.length; armorCounter++ ) {
                 if( this.currentArmor[armorCounter] === false ) {
@@ -920,8 +920,6 @@ export class AlphaStrikeUnit {
             returnValue.fireControlHits = this.fireControlHits;
             returnValue.mpControlHits = this.mpControlHits;
             returnValue.weaponHits = this.weaponHits;
-
-            // console.log("ASG returnValue", returnValue)
 
             return returnValue;
         } else {

@@ -6,15 +6,12 @@ import TextSection from '../components/text-section';
 let pjson = require('../../../package.json');
 
 export default class About extends React.Component<IAboutProps, IAboutState> {
-    constructor(props: IAboutProps) {
-        super(props);
-        this.state = {
-            updated: false,
-        }
 
-        this.props.appGlobals.makeDocumentTitle("About");
-    }
+  constructor(props: IAboutProps) {
+    super(props);
 
+    this.props.appGlobals.makeDocumentTitle("About Jeff's BattleTech Tools");
+  }
 
 
     render = (): React.ReactFragment => {
@@ -91,6 +88,5 @@ interface IAboutProps {
 }
 
 interface IAboutState {
-    updated: boolean;
 
 }

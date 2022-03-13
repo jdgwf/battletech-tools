@@ -17,12 +17,6 @@ import MechCreatorSummary from './summary';
 
 export default class MechCreatorRouter extends React.Component<IMechCreatorRouterProps, IMechCreatorRouterState> {
 
-    constructor(props: IMechCreatorRouterProps) {
-        super(props);
-
-        this.state = { };
-    }
-
     render = (): React.ReactFragment => {
         return(<>
             <Routes>

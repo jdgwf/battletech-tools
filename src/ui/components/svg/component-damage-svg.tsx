@@ -57,7 +57,7 @@ export default class ComponentDamageSVG extends React.Component<IComponentDamage
 
         // if( standAlone ) {
         //     var svg = "<!DOCTYPE HTML><svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xml:space=\"preserve\" height=\"" + theHeight  + " px\" width=\"" + theWidth  + "px\" viewBox=\"0 0 790 100\" ><g>\n";
-        console.log( this.theWidth )
+        // console.log( this.theWidth )
 
         let textRightLine = this.theWidth * 2 / 3 - 40;
 

@@ -4,11 +4,6 @@ import { IAppGlobals } from '../app-router';
 import './mech-creator-status-bar.scss';
 
 export default class MechCreatorStatusBar extends React.Component<IMechCreatorStatusBarProps, IMechCreatorStatusBarState> {
-    constructor(props: IMechCreatorStatusBarProps) {
-        super(props);
-        this.state = {
-        }
-    }
 
     render = (): React.ReactFragment => {
       return (

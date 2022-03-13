@@ -321,6 +321,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
             this.setState({
                 currentListData: currentListData,
                 editItem: null,
+                isDirty: true,
                 editItemIndex: -1,
             })
         }
@@ -336,6 +337,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
             this.setState({
                 currentListData: currentListData,
                 editItem: null,
+                isDirty: true,
                 editItemIndex: -1,
             })
         }

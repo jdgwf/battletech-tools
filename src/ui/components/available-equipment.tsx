@@ -7,12 +7,6 @@ import './available-equipment.scss';
 
 export default class AvailableEquipment extends React.Component<IAvailableEquipmentProps, IAvailableEquipmentState> {
 
-
-    // constructor(props: IAvailableEquipmentProps) {
-    //     super(props);
-
-    // }
-
     updateEquipmentFilter = (e: React.FormEvent<HTMLInputElement>):void => {
 
         let appSettings = this.props.appGlobals.appSettings;

@@ -19,10 +19,6 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
     fileReader: FileReader | null = null;
 
-    // searchTech: string = "";
-    // searchTerm: string = "";
-    // searchRules: string = "";
-    // searchEra: string = "";
     constructor(props: IHomeProps) {
         super(props);
 
@@ -200,7 +196,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       if( this.fileReader ) {
         let content = this.fileReader.result;
 
-        console.log("content", content)
+        // console.log("content", content)
         try {
           if( content ) {
             let data: IASGroupExport = JSON.parse( content.toString() )

@@ -4,12 +4,6 @@ var sanitizeHtml = require('sanitize-html');
 
 export default class SanitizedHTML extends React.Component<ISanitizedHTMLProps, ISanitizedHTMLState> {
 
-    constructor(props: ISanitizedHTMLProps) {
-        super(props);
-        this.state = {
-        }
-    }
-
 
     // For the SanitizeHTML function/module docs go here:
     // https://www.npmjs.com/package/sanitize-html

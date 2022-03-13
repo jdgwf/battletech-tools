@@ -130,8 +130,6 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         let appGlobals = this.state.appGlobals;
         appGlobals.appSettings = appSettings;
 
-
-
         if( appSettings.uiTheme.trim() ) {
             document.body.className = appSettings.uiTheme;
         } else {
@@ -140,13 +138,13 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
         saveAppSettings( appGlobals.appSettings.export() )
 
+
         this.setState({
             appGlobals: appGlobals,
         });
     }
 
     saveCurrentBattleMech = ( mech: BattleMech ): void => {
-        let exportBM: string = mech.exportJSON();
         let appGlobals = this.state.appGlobals;
         appGlobals.currentBattleMech = mech;
         this.setState({
@@ -156,7 +154,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
     }
 
     saveCurrentASForce = ( asForce: AlphaStrikeForce ): void => {
-        let exportASForce = asForce.export();
+        // let exportASForce = asForce.export();
         let appGlobals = this.state.appGlobals;
         appGlobals.currentASForce = asForce;
         this.setState({
@@ -372,10 +370,6 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
 interface IAppRouterProps {
 
-}
-
-interface ISettings {
-    uiTheme: string;
 }
 
 interface IAppRouterState {

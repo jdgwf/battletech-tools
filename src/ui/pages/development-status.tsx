@@ -7,10 +7,7 @@ import TextSection from '../components/text-section';
 export default class DevelopmentStatus extends React.Component<IDevelopmentStatusProps, IDevelopmentStatusState> {
     constructor(props: IDevelopmentStatusProps) {
         super(props);
-        this.state = {
-            updated: false,
-            showXLDialog: false,
-        }
+
         this.props.appGlobals.makeDocumentTitle("Development Status");
     }
 
@@ -137,6 +134,5 @@ interface IDevelopmentStatusProps {
 }
 
 interface IDevelopmentStatusState {
-    updated: boolean;
-    showXLDialog: boolean;
+
 }

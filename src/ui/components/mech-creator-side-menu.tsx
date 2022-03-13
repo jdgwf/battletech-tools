@@ -4,11 +4,6 @@ import { IAppGlobals } from '../app-router';
 import './mech-creator-side-menu.scss';
 
 export default class MechCreatorSideMenu extends React.Component<IMechCreatorSideMenuProps, IMechCreatorSideMenuState> {
-    constructor(props: IMechCreatorSideMenuProps) {
-        super(props);
-        this.state = {
-        }
-    }
 
     render = (): React.ReactFragment => {
       return (

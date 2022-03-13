@@ -9,9 +9,7 @@ import AlphaStrikeUnitSVG from '../../components/svg/alpha-strike-unit-svg';
 import './in-play.scss';
 
 export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProps, IInPlayState> {
-    searchTech: string = "";
-    searchTerm: string = "";
-    searchRules: string = "";
+
     constructor(props: IInPlayProps) {
         super(props);
 

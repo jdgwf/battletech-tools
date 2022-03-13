@@ -5,11 +5,6 @@ import './critical-allocation-section.scss';
 import './critical-assignment-container.scss';
 
 export default class CriticalAllocationSection extends React.Component<ICriticalAllocationSectionProps, ICriticalAllocationSectionState> {
-    constructor(props: ICriticalAllocationSectionProps) {
-        super(props);
-        this.state = {
-        }
-    }
 
     render = (): React.ReactFragment => {
         let critItems: JSX.Element[] = [];
