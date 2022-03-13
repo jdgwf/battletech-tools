@@ -1,4 +1,4 @@
-import { faBars, faDice, faDownload, faEye, faFileExport, faFileImport, faPlus, faPrint, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faDice, faDownload, faEye, faFileImport, faPlus, faPrint, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Button } from 'react-bootstrap';
@@ -19,55 +19,19 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
     fileReader: FileReader | null = null;
 
-    searchTech: string = "";
-    searchTerm: string = "";
-    searchRules: string = "";
-    searchEra: string = "";
+    // searchTech: string = "";
+    // searchTerm: string = "";
+    // searchRules: string = "";
+    // searchEra: string = "";
     constructor(props: IHomeProps) {
         super(props);
 
-        let lsSearchTerm = "";
-        let rawLSSearchTerm = localStorage.getItem("asSearchTerm");
-        if( rawLSSearchTerm ) {
-          lsSearchTerm = rawLSSearchTerm;
-        }
-
-        let lsSearchEra = "";
-        let rawSearchEra = localStorage.getItem("asEraSearch");
-        if( rawSearchEra ) {
-          lsSearchEra = rawSearchEra;
-        }
-
-
-        let lsSearchRules = "";
-        let rawLSsearchRules = localStorage.getItem("asSearchRules");
-        if( rawLSsearchRules ) {
-          lsSearchRules = rawLSsearchRules;
-        }
-
-        let lsSearchTech = "";
-        let rawLSSearchTech = localStorage.getItem("asSearchTech");
-        if( rawLSSearchTech ) {
-          lsSearchTech = rawLSSearchTech;
-        }
-
-        let lsSearchResults: IASMULUnit[] = [];
-        let rawLSSearchResults = localStorage.getItem("asSearchResults");
-        if( rawLSSearchResults ) {
-          lsSearchResults = JSON.parse(rawLSSearchResults);
-        }
-
-        this.searchTech = lsSearchTech;
-        this.searchTerm = lsSearchTerm;
-        this.searchRules = lsSearchRules;
-        this.searchEra = lsSearchEra;
 
         this.state = {
             updated: false,
-            foundItems: [],
-            searchResults: lsSearchResults,
+            searchResults: this.props.appGlobals.appSettings.alphasStrikeCachedSearchResults,
             showASUnit: null,
-            searchText: lsSearchTerm,
+
             editASUnit: false,
 
             contextMenuSearch: -1,
@@ -123,18 +87,23 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
 
     updateSearch = ( event: React.FormEvent<HTMLInputElement> ): void => {
-        localStorage.setItem( "asSearchTerm", event.currentTarget.value);
-        this.searchTerm = event.currentTarget.value;
-        this.setState({
-          searchText:  event.currentTarget.value
-        })
+
+        let appSettings = this.props.appGlobals.appSettings;
+
+        appSettings.alphaStrikeSearchTerm = event.currentTarget.value;
+        this.props.appGlobals.saveAppSettings( appSettings );
+
+
         this.updateSearchResults();
     }
 
     updateRules = ( event: React.FormEvent<HTMLSelectElement> ): void => {
-      localStorage.setItem( "asSearchRules", event.currentTarget.value);
 
-      this.searchRules = event.currentTarget.value;
+      let appSettings = this.props.appGlobals.appSettings;
+
+      appSettings.alphaStrikeSearchRules = event.currentTarget.value;
+      this.props.appGlobals.saveAppSettings( appSettings );
+
 
       this.updateSearchResults();
     }
@@ -142,26 +111,32 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
     updateTech = ( event: React.FormEvent<HTMLSelectElement> ): void => {
 
+      let appSettings = this.props.appGlobals.appSettings;
 
-      localStorage.setItem( "asSearchTech", event.currentTarget.value);
-      this.searchTech = event.currentTarget.value;
+      appSettings.alphaStrikeSearchTech = event.currentTarget.value;
+      this.props.appGlobals.saveAppSettings( appSettings );
+
+
+
       this.updateSearchResults();
     }
 
     updateEra = ( event: React.FormEvent<HTMLSelectElement> ): void => {
 
+      let appSettings = this.props.appGlobals.appSettings;
 
-      localStorage.setItem( "asEraSearch", event.currentTarget.value);
-      this.searchEra = event.currentTarget.value;
+      appSettings.alphaStrikeSearchEra = event.currentTarget.value;
+      this.props.appGlobals.saveAppSettings( appSettings );
+
       this.updateSearchResults();
     }
 
     updateSearchResults = async (): Promise<void> => {
       let data: IASMULUnit[] = await getMULASSearchResults(
-        this.searchTerm,
-        this.searchRules,
-        this.searchTech,
-        this.searchEra,
+        this.props.appGlobals.appSettings.alphaStrikeSearchTerm,
+        this.props.appGlobals.appSettings.alphaStrikeSearchRules,
+        this.props.appGlobals.appSettings.alphaStrikeSearchTech,
+        this.props.appGlobals.appSettings.alphaStrikeSearchEra,
         !navigator.onLine,
       );
 
@@ -171,8 +146,11 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
       })
 
-      localStorage.setItem( "asSearchResults", JSON.stringify(data));
-      // console.log("data", data)
+      let appSettings = this.props.appGlobals.appSettings;
+
+      appSettings.alphasStrikeCachedSearchResults = data;
+      this.props.appGlobals.saveAppSettings( appSettings );
+
     }
 
 
@@ -303,7 +281,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                       <input
                         type="search"
                         onChange={this.updateSearch}
-                        value={this.state.searchText}
+                        value={this.props.appGlobals.appSettings.alphaStrikeSearchTerm}
                       />
                     </label>
                       </div>
@@ -312,7 +290,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                       Search Rules:<br />
                       <select
                         onChange={this.updateRules}
-                        value={this.searchRules.toLowerCase()}
+                        value={this.props.appGlobals.appSettings.alphaStrikeSearchRules}
                       >
                         <option value="">All</option>
                         <option value="introductory">Introductory</option>
@@ -329,7 +307,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                       Search Tech:<br />
                       <select
                         onChange={this.updateTech}
-                        value={this.searchTech.toLowerCase()}
+                        value={this.props.appGlobals.appSettings.alphaStrikeSearchTech}
                       >
                         <option value="">All</option>
                         <option value="inner sphere">Inner Sphere</option>
@@ -342,7 +320,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                       Year:<br />
                       <select
                         onChange={this.updateEra}
-                        value={this.searchEra}
+                        value={this.props.appGlobals.appSettings.alphaStrikeSearchEra}
                       >
                         <option value="">All</option>
                         {makeRange(3025, 3500, 1).map( (year) => {
@@ -471,7 +449,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                       </>
                     ) : (
                       <>
-                      {this.searchRules.length > 2 ? (
+                      {this.props.appGlobals.appSettings.alphaStrikeSearchTerm.length > 2 ? (
                         <tbody>
                         <tr>
                           <td className="text-center" colSpan={6}>
@@ -657,10 +635,9 @@ interface IHomeProps {
 
 interface IHomeState {
   updated: boolean;
-  foundItems: any[];
   searchResults: IASMULUnit[];
 
-  searchText: string;
+  // searchText: string;
   showASUnit: AlphaStrikeUnit | null;
   editASUnit: boolean;
 

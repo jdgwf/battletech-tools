@@ -118,7 +118,7 @@ export default class AlphaStrikeGroup {
 			name: this.customName,
 			units: [],
             uuid: this.uuid,
-			lastUpdated: this.lastUpdated,
+			lastUpdated: new Date(),
 			formationBonus: this.formationBonus?this.formationBonus.Name:"None",
 			groupLabel: this.groupLabel,
 		}
@@ -140,6 +140,8 @@ export default class AlphaStrikeGroup {
 	}
 
     import(importObj: IASGroupExport) {
+
+
 		this.customName = importObj.name;
 		for( let unit of importObj.units) {
 			let theUnit = new AlphaStrikeUnit( unit );

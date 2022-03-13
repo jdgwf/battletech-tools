@@ -92,6 +92,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                     <div className="form">
                         <div>
                             <AvailableEquipment
+                              appGlobals={this.props.appGlobals}
                               equipment={this.props.appGlobals.currentBattleMech.getAvailableEquipment()}
                               addFunction={this.addEquipment}
                               hideUnavailable={this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment}

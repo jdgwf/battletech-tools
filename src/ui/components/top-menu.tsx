@@ -44,8 +44,8 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                         title="Click here to go to the official BattleTech website!"
                     >
                         <BattleTechLogo
-                            baseColor={this.props.appGlobals.settings.uiTheme === "desaturated" ? "#ddd" : ""}
-                            altColor={this.props.appGlobals.settings.uiTheme === "desaturated" ? "#aaa" : ""}
+                            baseColor={this.props.appGlobals.appSettings.uiTheme === "desaturated" ? "#ddd" : ""}
+                            altColor={this.props.appGlobals.appSettings.uiTheme === "desaturated" ? "#aaa" : ""}
                         />
                     </a>
                 </li>
@@ -60,7 +60,7 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                     <li><Link onClick={this.closeMobile} className={this.props.current === "alpha-strike-roster" ? "current" : "" } to={`${process.env.PUBLIC_URL}/alpha-strike-roster`}>Alpha Strike Roster</Link></li>
                     <li><Link onClick={this.closeMobile} className={this.props.current === "about" ? "current" : "" } to={`${process.env.PUBLIC_URL}/about`}>About</Link></li>
                     <li><Link onClick={this.closeMobile} className={this.props.current === "dev-status" ? "current" : "" } to={`${process.env.PUBLIC_URL}/dev-status`}>Status</Link></li>
-                    <li><Link onClick={this.closeMobile} className={this.props.current === "settings" ? "current" : "" } to={`${process.env.PUBLIC_URL}/settings`}>Settings</Link></li>
+                    <li><Link onClick={this.closeMobile} className={this.props.current === "settings" ? "current" : "" } to={`${process.env.PUBLIC_URL}/appSettings`}>Settings</Link></li>
                 </ul>
 
             </div>

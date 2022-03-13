@@ -10,7 +10,6 @@ export interface IASForceExport {
 }
 
 export default class AlphaStrikeForce {
-
     uuid: string = generateUUID();
     lastUpdated: Date = new Date();
 
@@ -147,7 +146,7 @@ export default class AlphaStrikeForce {
         let returnValue: IASForceExport = {
             groups: [],
             uuid: this.uuid,
-            lastUpdated: this.lastUpdated,
+            lastUpdated: new Date(),
         }
 
         for( let group of this.groups) {

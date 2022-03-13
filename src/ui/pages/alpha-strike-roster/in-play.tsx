@@ -15,15 +15,8 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
     constructor(props: IInPlayProps) {
         super(props);
 
-        let cardMode = true;
-        let lsCardMode = localStorage.getItem("asPlayCardMode");
-        if( lsCardMode && lsCardMode === "n" ) {
-          cardMode = false;
-        }
-
         this.state = {
             updated: false,
-            cardMode: cardMode,
         };
 
         this.props.appGlobals.makeDocumentTitle("Playing Alpha Strike");
@@ -32,15 +25,12 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
 
 
     toggleCardMode = (): void => {
-      if( !this.state.cardMode ) {
-        localStorage.setItem("asPlayCardMode", "y");
-      } else {
-        localStorage.setItem("asPlayCardMode", "n");
-      }
 
-      this.setState({
-        cardMode: !this.state.cardMode,
-      });
+
+      let appSettings = this.props.appGlobals.appSettings;
+
+      appSettings.alphaStrikeInPlayCardMode = !appSettings.alphaStrikeInPlayCardMode;
+      this.props.appGlobals.saveAppSettings( appSettings );
 
     }
 
@@ -79,7 +69,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
             <ul>
                 <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/alpha-strike-roster`}><FontAwesomeIcon icon={faArrowAltCircleLeft} /></Link></li>
 
-                {this.state.cardMode ? (
+                {this.props.appGlobals.appSettings.alphaStrikeInPlayCardMode ? (
                   <li title="Switch a large list mode"><span className="current" onClick={this.toggleCardMode}><FontAwesomeIcon icon={faList} /></span></li>
                 ) : (
                   <li title="Switch to showing 2+ cards per row"><span className="current" onClick={this.toggleCardMode}><FontAwesomeIcon icon={faTh} /></span></li>
@@ -121,7 +111,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
                   <div className="row">
                   {group.formationBonus!.Name!=="None"?(
                     <>
-                    <div className={this.state.cardMode ? "col-md-12" : "col-md-12"}>
+                    <div className={this.props.appGlobals.appSettings.alphaStrikeInPlayCardMode ? "col-md-12" : "col-md-12"}>
                       <p><strong>Bonus</strong>:&nbsp;
                       <em>{group.formationBonus!.Name}</em> - {group.formationBonus!.BonusDescription}</p>
                     </div>
@@ -131,7 +121,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
                   {group.members.map( (unit, unitIndex) => {
                     return (
                     <React.Fragment key={unitIndex}>
-                      <div className={this.state.cardMode ? "col-md-6 col-lg-6 col-xl-6" : "col-md-12"}>
+                      <div className={this.props.appGlobals.appSettings.alphaStrikeInPlayCardMode ? "col-md-6 col-lg-6 col-xl-6" : "col-md-12"}>
                         <AlphaStrikeUnitSVG
                           asUnit={unit}
                           inPlay={true}
@@ -161,5 +151,4 @@ interface IInPlayProps {
 
 interface IInPlayState {
   updated: boolean;
-  cardMode: boolean;
 }

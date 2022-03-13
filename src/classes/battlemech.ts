@@ -132,12 +132,14 @@ interface IAlphaStrikeExport {
 
 export class BattleMech {
 
+    lastUpdated: Date = new Date();
+    uuid: string = generateUUID();
+
     mechType = mechTypeOptions[0];
     tech = btTechOptions[0];
     era = btEraOptions[1]; // Default to Succession Wars
     make: string = "";
     model: string = "";
-    uuid: string = "";
     tonnage = 20;
     hideNonAvailableEquipment: boolean = true;
     currentTonnage = 0;
@@ -4673,6 +4675,10 @@ export class BattleMech {
             this.setTonnage(importObject.tonnage);
 
             this.mirrorArmorAllocations = false;
+
+            if( importObject.lastUpdated ) {
+                this.lastUpdated = new Date( importObject.lastUpdated )
+            }
 
             if( importObject.mirrorArmorAllocations ) {
                 this.mirrorArmorAllocations = true;

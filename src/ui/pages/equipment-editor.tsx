@@ -27,15 +27,12 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
     constructor(props: IEquipmentEditorProps) {
         super(props);
 
-        let currentList = "mech-is-equipment-weapons-ballistic";
-        let lsCurrentList = localStorage.getItem( "ee-editing-list");
-        if( lsCurrentList ) {
-            currentList = lsCurrentList;
-        }
+        let currentList = this.props.appGlobals.appSettings.equipmentEditorFile;
+
 
         let currentListData: IEquipmentItem[] = [];
 
-        if( currentList === null ) {
+        if( !currentList || currentList.trim() ) {
             currentList = "mech-is-equipment-weapons-ballistic"
         }
         if( !this.fileDataList[currentList] ) {
@@ -103,7 +100,10 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                             currentListData: currentListData,
                         });
 
-                        localStorage.setItem( "ee-editing-list", e.currentTarget.value)
+                        let appSettings = this.props.appGlobals.appSettings;
+
+                        appSettings.equipmentEditorFile = e.currentTarget.value;
+                        this.props.appGlobals.saveAppSettings( appSettings );
                     }
                 )
             } else {
@@ -116,7 +116,10 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                     currentListData: currentListData,
                 });
 
-                localStorage.setItem( "ee-editing-list", e.currentTarget.value)
+                let appSettings = this.props.appGlobals.appSettings;
+
+                appSettings.equipmentEditorFile = e.currentTarget.value;
+                this.props.appGlobals.saveAppSettings( appSettings );
             }
 
 

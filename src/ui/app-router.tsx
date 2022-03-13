@@ -5,7 +5,9 @@ import AlphaStrikeForce, { IASForceExport } from "../classes/alpha-strike-force"
 import AlphaStrikeGroup, { IASGroupExport } from "../classes/alpha-strike-group";
 import { BattleMech, IBattleMechExport } from "../classes/battlemech";
 import { CONFIGSiteTitle } from '../configVars';
+import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getFavoriteASGroups, saveAppSettings } from "../dataSaves";
 import Alerts from './classes/alerts';
+import { AppSettings } from "./classes/app_settings";
 import SanitizedHTML from './components/sanitized-html';
 import About from "./pages/about";
 import AlphaStrikeRosterRouter from './pages/alpha-strike-roster/_router';
@@ -16,37 +18,37 @@ import Home from "./pages/home";
 import MechCreatorRouter from './pages/mech-creator/_router';
 import Settings from "./pages/settings";
 
+
 export default class AppRouter extends React.Component<IAppRouterProps, IAppRouterState> {
 
     constructor(props: IAppRouterProps) {
         super(props);
 
-        let asImport: IASForceExport | null = null;
-        let lsASFImport = localStorage.getItem("currentASForce");
-        if( lsASFImport ) {
-            asImport = JSON.parse( lsASFImport );
-        }
+        let asImport: IASForceExport | null = getCurrentASForce();
+        // let lsASFImport = getData("currentASForce");
+        // if( lsASFImport ) {
+        //     asImport = JSON.parse( lsASFImport );
+        // }
         let alphaStrikeForce = new AlphaStrikeForce( asImport );
 
-        let lsBMImport = localStorage.getItem("currentBattleMech");
+        let lsBMImport = getCurrentBattleMech();
         let currentBattleMech = new BattleMech();
         if( lsBMImport ) {
             currentBattleMech.importJSON( lsBMImport);
         }
 
-        let lsBMSavesImport: null|string = localStorage.getItem("battleMechSaves");
-        let battleMechSaves: IBattleMechExport[] = [];
-        if( lsBMSavesImport ) {
-            battleMechSaves = JSON.parse( lsBMSavesImport );
-        } else {
-            battleMechSaves = [];
-        }
+        // let lsBMSavesImport: null|string = getData("battleMechSaves");
+        let battleMechSaves: IBattleMechExport[] = getBattleMechSaves();
+        // if( lsBMSavesImport ) {
+        //     battleMechSaves = JSON.parse( lsBMSavesImport );
+        // } else {
+        //     battleMechSaves = [];
+        // }
 
-        let asImportFavorites: IASGroupExport[] = [];
+        let asImportFavorites: IASGroupExport[] = getFavoriteASGroups();
         let asImportedFavorites: AlphaStrikeGroup[] = [];
-        let lsASFImportFavorites = localStorage.getItem("favoriteASGroups");
-        if( lsASFImportFavorites ) {
-            asImportFavorites = JSON.parse( lsASFImportFavorites );
+        // let lsASFImportFavorites = getData("favoriteASGroups");
+        if( asImportFavorites.length > 0 ) {
             if( asImportFavorites && asImportFavorites.length > 0 )  {
                 for( let importItem of asImportFavorites ) {
                     asImportedFavorites.push( new AlphaStrikeGroup(importItem) );
@@ -54,22 +56,23 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             }
         }
 
-        let uiTheme: string = "";
-        let lsTheme = localStorage.getItem("uiTheme");
-        if( lsTheme ) {
-            uiTheme = lsTheme;
-            document.body.className = uiTheme;
+        // let uiTheme: string = "";
+        // let lsTheme = getData("uiTheme");
+
+        let settingsData = getAppSettings();
+
+        // console.log("settingsData", settingsData);
+        if( settingsData && settingsData.uiTheme ) {
+
+            document.body.className = settingsData.uiTheme;
         } else {
             document.body.className = '';
         }
 
-
         this.state = {
             updated: false,
             appGlobals: {
-                settings: {
-                    uiTheme: uiTheme,
-                },
+                appSettings: new AppSettings( settingsData ),
                 currentPageTitle: "",
                 siteAlerts: new Alerts( this ),
                 showMobile: false,
@@ -86,6 +89,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                 closeMobile: this.closeMobile,
                 currentASForce: alphaStrikeForce,
                 saveCurrentASForce: this.saveCurrentASForce,
+                saveAppSettings: this.saveAppSettings,
 
                 favoriteASGroups: asImportedFavorites,
                 saveFavoriteASGroups: this.saveFavoriteASGroups,
@@ -94,8 +98,6 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
                 currentBattleMech: currentBattleMech,
                 saveCurrentBattleMech: this.saveCurrentBattleMech,
-
-                saveSettings: this.saveSettings,
 
                 battleMechSaves: battleMechSaves,
                 saveBattleMechSaves: this.saveBattleMechSaves,
@@ -115,7 +117,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
     }
 
     saveBattleMechSaves = ( newValue: IBattleMechExport[] ): void => {
-        localStorage.setItem("battleMechSaves", JSON.stringify(newValue) );
+
 
         let appGlobals = this.state.appGlobals;
         appGlobals.battleMechSaves = newValue;
@@ -124,20 +126,23 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         });
     }
 
-    saveSettings = ( settings: ISettings ): void => {
+    saveAppSettings = ( appSettings: AppSettings ): void => {
         let appGlobals = this.state.appGlobals;
-        appGlobals.settings = settings;
-        this.setState({
-            appGlobals: appGlobals,
-        });
+        appGlobals.appSettings = appSettings;
 
-        if( settings.uiTheme.trim() ) {
-            document.body.className = settings.uiTheme;
+
+
+        if( appSettings.uiTheme.trim() ) {
+            document.body.className = appSettings.uiTheme;
         } else {
             document.body.className = '';
         }
 
-        localStorage.setItem("uiTheme", settings.uiTheme);
+        saveAppSettings( appGlobals.appSettings.export() )
+
+        this.setState({
+            appGlobals: appGlobals,
+        });
     }
 
     saveCurrentBattleMech = ( mech: BattleMech ): void => {
@@ -148,7 +153,6 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             appGlobals: appGlobals,
         });
 
-        localStorage.setItem("currentBattleMech", exportBM);
     }
 
     saveCurrentASForce = ( asForce: AlphaStrikeForce ): void => {
@@ -159,7 +163,6 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             appGlobals: appGlobals,
         });
 
-        localStorage.setItem("currentASForce", JSON.stringify( exportASForce ));
     }
 
     saveASGroupFavorite = ( asGroup: AlphaStrikeGroup ): void => {
@@ -189,7 +192,6 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             appGlobals: appGlobals,
         });
 
-        localStorage.setItem("favoriteASGroups", JSON.stringify( exportASGroups ));
     }
 
     toggleMobile = (): void => {
@@ -384,7 +386,7 @@ interface IAppRouterState {
 export interface IAppGlobals {
     currentPageTitle: string;
     siteAlerts: Alerts;
-    settings: ISettings;
+    appSettings: AppSettings;
     showMobile: boolean;
     confirmDialogMessage: string;
     confirmDialogTitle: string;
@@ -417,7 +419,7 @@ export interface IAppGlobals {
 
     currentBattleMech: BattleMech;
     saveCurrentBattleMech( mech: BattleMech ): void;
-    saveSettings( settings: ISettings ): void;
+    saveAppSettings( appSettings: AppSettings ): void;
 
     battleMechSaves: IBattleMechExport[];
     saveBattleMechSaves( newValue: IBattleMechExport[]): void;

@@ -2,43 +2,34 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { IEquipmentItem } from '../../data/data-interfaces';
+import { IAppGlobals } from '../app-router';
 import './available-equipment.scss';
 
 export default class AvailableEquipment extends React.Component<IAvailableEquipmentProps, IAvailableEquipmentState> {
-    currentCategory: string = "";
 
 
-    constructor(props: IAvailableEquipmentProps) {
-        super(props);
+    // constructor(props: IAvailableEquipmentProps) {
+    //     super(props);
 
-        let equipmentFilter: string | null = localStorage.getItem("equipment_filter")
-        if(!equipmentFilter)
-            equipmentFilter = "";
-        this.state = {
-            updated: false,
-            equipmentFilter: equipmentFilter,
-        }
-
-        let lsCurrentCategory = localStorage.getItem("installEquipCat");
-        if( lsCurrentCategory ) {
-            this.currentCategory = lsCurrentCategory;
-        }
-
-    }
+    // }
 
     updateEquipmentFilter = (e: React.FormEvent<HTMLInputElement>):void => {
-        localStorage.setItem("equipment_filter", e.currentTarget.value);
-        this.setState({
-            equipmentFilter: e.currentTarget.value,
-        })
+
+        let appSettings = this.props.appGlobals.appSettings;
+
+        appSettings.equipmentFilter = e.currentTarget.value;
+        this.props.appGlobals.saveAppSettings( appSettings );
+
+
     }
 
     clickSelectCategory = ( newValue: string ): void => {
-        this.currentCategory = newValue;
-        localStorage.setItem("installEquipCat", newValue);
-        this.setState({
-            updated: true,
-        })
+
+        let appSettings = this.props.appGlobals.appSettings;
+
+        appSettings.installEquipCategory =newValue;
+        this.props.appGlobals.saveAppSettings( appSettings );
+
     }
 
     equipmentFilter = ( item: IEquipmentItem ): boolean => {
@@ -65,14 +56,16 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
 
     render = (): React.ReactFragment => {
 
+        let currentCategory = "";
+
         let groupedItems : { [categoryName: string] : IEquipmentItem[]; }= {};
         for( let item of this.props.equipment ) {
             if( !this.props.hideUnavailable || item.available ) {
                 if( !groupedItems[item.category ] ) {
                     groupedItems[item.category ] = []
                 }
-                if( this.currentCategory === "" ) {
-                    this.currentCategory = item.category;
+                if( this.props.appGlobals.appSettings.installEquipCategory === "" ) {
+                    currentCategory = item.category;
                 }
                 groupedItems[item.category ].push( item );
             }
@@ -116,7 +109,7 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
                     </th>
                 </tr>
                     {this.state.equipmentFilter.trim() ||
-                    this.currentCategory === catName ? (
+                    currentCategory === catName ? (
                         <>
                         {groupedItems[catName].filter(this.equipmentFilter).map( (item, itemIndex) => {
                             if( !this.props.hideUnavailable || item.available ) {
@@ -161,6 +154,7 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
 }
 
 interface IAvailableEquipmentProps {
+    appGlobals: IAppGlobals;
     equipment: IEquipmentItem[];
     addFunction( item: IEquipmentItem ): boolean;
     hideUnavailable?: boolean;

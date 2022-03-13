@@ -8,41 +8,16 @@ import AlphaStrikeUnitSVG from '../../components/svg/alpha-strike-unit-svg';
 import './print.scss';
 
 export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps, IPrintState> {
-    searchTech: string = "";
-    searchTerm: string = "";
-    searchRules: string = "";
     constructor(props: IPrintProps) {
         super(props);
 
-        let cardMode = true;
-        let lsCardMode = localStorage.getItem("asPlayCardMode");
-        if( lsCardMode && lsCardMode === "n" ) {
-          cardMode = false;
-        }
-
         this.state = {
             updated: false,
-            cardMode: cardMode,
         };
 
         this.props.appGlobals.makeDocumentTitle("Playing Alpha Strike");
     }
 
-
-
-
-    toggleCardMode = (): void => {
-      if( !this.state.cardMode ) {
-        localStorage.setItem("asPlayCardMode", "y");
-      } else {
-        localStorage.setItem("asPlayCardMode", "n");
-      }
-
-      this.setState({
-        cardMode: !this.state.cardMode,
-      });
-
-    }
 
     render = (): React.ReactFragment => {
       return (
@@ -50,14 +25,6 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
           <header className="topmenu">
             <ul>
                 <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/alpha-strike-roster`}><FontAwesomeIcon icon={faArrowAltCircleLeft} /></Link></li>
-{/*
-                {this.state.cardMode ? (
-                  <li title="Switch a large list mode"><span className="current" onClick={this.toggleCardMode}><FontAwesomeIcon icon={faList} /></span></li>
-                ) : (
-                  <li title="Switch to showing 2+ cards per row"><span className="current" onClick={this.toggleCardMode}><FontAwesomeIcon icon={faTh} /></span></li>
-
-                )} */}
-
 
                 <li className="logo">
                     <a
@@ -144,5 +111,4 @@ interface IPrintProps {
 
 interface IPrintState {
   updated: boolean;
-  cardMode: boolean;
 }
