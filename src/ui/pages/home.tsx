@@ -28,7 +28,11 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
             label="News"
           >
                   <ul className="news">
-                  <li>
+                    <li>
+                      <p><strong>2022 Mar 13</strong> - The <Link to="settings">Settings</Link> page now includes some total backup/restore functionality. Some care has been made to be sure that if you have any new items on the restore-to device, that the data won't be overwritten. Work still progresses on that safety. You should now have all you need to sync (manually) across devices until I find some syncing solution which is compatible with GitHub pages.</p>
+
+                    </li>
+                    <li>
                       <p><strong>2022 Mar 11</strong> - I've started reworking the <Link to="alpha-strike-roster">Alpha Strike Roster</Link> interface. Adding units to the current force is now on a button. Later I might change the main screen so that all the Current Units show up on top and favorite units will be at the bottom. Right now this cleans uop the page significantly, but I'm still not happy with it.</p>
 
                     </li>
