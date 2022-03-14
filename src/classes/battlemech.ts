@@ -4568,6 +4568,7 @@ export class BattleMech {
     export():IBattleMechExport {
         // TODO
         this.calc();
+        this.calcAlphaStrike();
 
         let exportObject: IBattleMechExport = {
             additionalHeatSinks: this.additionalHeatSinks,

@@ -5,7 +5,7 @@ import AlphaStrikeForce, { IASForceExport } from "../classes/alpha-strike-force"
 import AlphaStrikeGroup, { IASGroupExport } from "../classes/alpha-strike-group";
 import { BattleMech, IBattleMechExport } from "../classes/battlemech";
 import { CONFIGSiteTitle } from '../configVars';
-import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getFavoriteASGroups, saveAppSettings } from "../dataSaves";
+import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getFavoriteASGroups, saveAppSettings, saveBattleMechSaves } from "../dataSaves";
 import Alerts from './classes/alerts';
 import { AppSettings } from "./classes/app_settings";
 import SanitizedHTML from './components/sanitized-html';
@@ -121,6 +121,9 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
         let appGlobals = this.state.appGlobals;
         appGlobals.battleMechSaves = newValue;
+
+        saveBattleMechSaves( appGlobals.battleMechSaves )
+
         this.setState({
             appGlobals: appGlobals,
         });
