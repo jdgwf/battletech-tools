@@ -5,7 +5,7 @@ import AlphaStrikeForce, { IASForceExport } from "../classes/alpha-strike-force"
 import AlphaStrikeGroup, { IASGroupExport } from "../classes/alpha-strike-group";
 import { BattleMech, IBattleMechExport } from "../classes/battlemech";
 import { CONFIGSiteTitle } from '../configVars';
-import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getFavoriteASGroups, saveAppSettings, saveBattleMechSaves } from "../dataSaves";
+import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getFavoriteASGroups, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveFavoriteASGroups, saveFavoriteASGroupsObjects } from "../dataSaves";
 import Alerts from './classes/alerts';
 import { AppSettings } from "./classes/app_settings";
 import SanitizedHTML from './components/sanitized-html';
@@ -154,6 +154,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             appGlobals: appGlobals,
         });
 
+        saveCurrentBattleMech( mech.exportJSON() );
     }
 
     saveCurrentASForce = ( asForce: AlphaStrikeForce ): void => {
@@ -164,12 +165,14 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             appGlobals: appGlobals,
         });
 
+        saveCurrentASForce( asForce.export() );
     }
 
     saveASGroupFavorite = ( asGroup: AlphaStrikeGroup ): void => {
         let appGlobals = this.state.appGlobals;
         appGlobals.favoriteASGroups.push( asGroup );
         this.saveFavoriteASGroups( appGlobals.favoriteASGroups );
+
     }
 
     removeASGroupFavorite = ( asGroupIndex: number ): void => {
@@ -178,6 +181,8 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         if( appGlobals.favoriteASGroups.length > asGroupIndex ) {
             appGlobals.favoriteASGroups.splice( asGroupIndex, 1 );
             this.saveFavoriteASGroups( appGlobals.favoriteASGroups );
+
+            saveFavoriteASGroupsObjects( appGlobals.favoriteASGroups )
         }
 
     }

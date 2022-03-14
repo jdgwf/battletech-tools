@@ -212,7 +212,7 @@ export function getBattleMechSaves(): IBattleMechExport[] {
 
 
 export function saveCurrentASForce(
-    nv: IBattleMechExport[]
+    nv: IASForceExport
 ) {
     saveData("currentASForce", JSON.stringify(nv) );
 }
@@ -254,6 +254,16 @@ export function saveFavoriteASGroups(
     nv: IASGroupExport[]
 ) {
     saveData("favoriteASGroups", JSON.stringify(nv) );
+}
+
+export function saveFavoriteASGroupsObjects(
+    nv: AlphaStrikeGroup[]
+) {
+    let rv: IASGroupExport[] = [];
+    for( let unit of nv ) {
+        rv.push( unit.export() );
+    }
+    saveData("favoriteASGroups", JSON.stringify(rv) );
 }
 
 export function getFavoriteASGroups(): IASGroupExport[] {
