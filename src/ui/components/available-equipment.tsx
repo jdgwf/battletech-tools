@@ -7,6 +7,15 @@ import './available-equipment.scss';
 
 export default class AvailableEquipment extends React.Component<IAvailableEquipmentProps, IAvailableEquipmentState> {
 
+
+    constructor( props: IAvailableEquipmentProps ) {
+        super(props);
+        this.state = {
+            updated: false,
+            // equipmentFilter: this.props.appGlobals.appSettings.equipmentFilter,
+        }
+    }
+
     updateEquipmentFilter = (e: React.FormEvent<HTMLInputElement>):void => {
 
         let appSettings = this.props.appGlobals.appSettings;
@@ -26,18 +35,19 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
 
     }
 
-    equipmentFilter = ( item: IEquipmentItem ): boolean => {
+    _equipmentFilter = ( item: IEquipmentItem ): boolean => {
+
         if(
-            this.state.equipmentFilter.trim() === ""
+            this.props.appGlobals.appSettings.equipmentFilter.trim() === ""
                 ||
             item.name.toLowerCase().trim().indexOf(
-                this.state.equipmentFilter.toLowerCase().trim()
+                this.props.appGlobals.appSettings.equipmentFilter.toLowerCase().trim()
             ) > -1
                 || (
                 item.alternameName
                 &&
                 item.alternameName.toLowerCase().trim().indexOf(
-                    this.state.equipmentFilter.toLowerCase().trim()
+                    this.props.appGlobals.appSettings.equipmentFilter.toLowerCase().trim()
                 ) > -1
             )
 
@@ -50,18 +60,19 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
 
     render = (): React.ReactFragment => {
 
-        let currentCategory = "";
+        let currentCategory = this.props.appGlobals.appSettings.installEquipCategory;
 
         let groupedItems : { [categoryName: string] : IEquipmentItem[]; }= {};
         for( let item of this.props.equipment ) {
             if( !this.props.hideUnavailable || item.available ) {
-                if( !groupedItems[item.category ] ) {
-                    groupedItems[item.category ] = []
+                if( !groupedItems[ item.category ] ) {
+                    groupedItems[ item.category ] = []
                 }
-                if( this.props.appGlobals.appSettings.installEquipCategory === "" ) {
+                if( currentCategory.trim() === "" ) {
+
                     currentCategory = item.category;
                 }
-                groupedItems[item.category ].push( item );
+                groupedItems[ item.category ].push( item );
             }
         }
 
@@ -71,7 +82,7 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
         <input
             type="search"
             placeholder="Filter Equipment"
-            value={this.state.equipmentFilter}
+            value={this.props.appGlobals.appSettings.equipmentFilter}
             onChange={this.updateEquipmentFilter}
             className="filter-equiment-box"
         />
@@ -90,6 +101,8 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
         </thead>
 
             {Object.keys(groupedItems).map((catName, catIndex) => {
+
+                // this.props.appGlobals.appSettings.equipmentFilter
                 return (
                     <tbody key={catIndex}>
                 <tr>
@@ -102,10 +115,11 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
                         </Button>
                     </th>
                 </tr>
-                    {this.state.equipmentFilter.trim() ||
-                    currentCategory === catName ? (
+                    {this.props.appGlobals.appSettings.equipmentFilter.trim()
+                    ||
+                    currentCategory.trim().toLowerCase() === catName.trim().toLowerCase() ? (
                         <>
-                        {groupedItems[catName].filter(this.equipmentFilter).map( (item, itemIndex) => {
+                        {groupedItems[catName].filter(this._equipmentFilter).map( (item, itemIndex) => {
                             if( !this.props.hideUnavailable || item.available ) {
                                 return (
                                     <tr
@@ -156,5 +170,5 @@ interface IAvailableEquipmentProps {
 
 interface IAvailableEquipmentState {
     updated: boolean;
-    equipmentFilter: string;
+    // equipmentFilter: string;
 }
