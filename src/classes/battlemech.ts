@@ -1791,8 +1791,6 @@ export class BattleMech {
     calcAlphaStrike(): AlphaStrikeUnit {
 
         this.alphaStrikeForceStats.name = this.make;
-        this.alphaStrikeForceStats.mechCreatorUUID = this.uuid;
-        //~ this.alphaStrikeForceStats.model  = _model;
         this.alphaStrikeForceStats.move = this.getWalkSpeed() * 2;
         this.alphaStrikeForceStats.jumpMove = this.getJumpSpeed() * 2;
         this.alphaStrikeForceStats.pv = 0;
@@ -2793,6 +2791,7 @@ export class BattleMech {
 
         this.alphaStrikeValue = Math.round(finalValue); // + " (WIP)";
         let asMechData: IASMULUnit = {
+            mechCreatorUUID: this.uuid,
             FormatedTonnage: this.tonnage.toString(),
             GroupName: "",
             BFAbilities: "",             // "";
@@ -2848,9 +2847,6 @@ export class BattleMech {
                 Image: "",
             },            // ASMULType;
             Variant: "",             // string;
-
-
-            mechCreatorUUID: "",
 
             classification: "",
             costCR: 0,

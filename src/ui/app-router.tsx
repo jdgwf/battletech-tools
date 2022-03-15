@@ -5,7 +5,8 @@ import AlphaStrikeForce, { IASForceExport } from "../classes/alpha-strike-force"
 import AlphaStrikeGroup, { IASGroupExport } from "../classes/alpha-strike-group";
 import { BattleMech, IBattleMechExport } from "../classes/battlemech";
 import { CONFIGSiteTitle } from '../configVars';
-import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getFavoriteASGroups, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveFavoriteASGroupsObjects } from "../dataSaves";
+import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getFavoriteASGroups, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveFavoriteASGroups, saveFavoriteASGroupsObjects } from "../dataSaves";
+import { generateUUID } from "../utils";
 import Alerts from './classes/alerts';
 import { AppSettings } from "./classes/app_settings";
 import SanitizedHTML from './components/sanitized-html';
@@ -25,10 +26,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         super(props);
 
         let asImport: IASForceExport | null = getCurrentASForce();
-        // let lsASFImport = getData("currentASForce");
-        // if( lsASFImport ) {
-        //     asImport = JSON.parse( lsASFImport );
-        // }
+
         let alphaStrikeForce = new AlphaStrikeForce( asImport );
 
         let lsBMImport = getCurrentBattleMech();
@@ -37,17 +35,38 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             currentBattleMech.importJSON( lsBMImport);
         }
 
-        // let lsBMSavesImport: null|string = getData("battleMechSaves");
         let battleMechSaves: IBattleMechExport[] = getBattleMechSaves();
-        // if( lsBMSavesImport ) {
-        //     battleMechSaves = JSON.parse( lsBMSavesImport );
-        // } else {
-        //     battleMechSaves = [];
-        // }
-
         let asImportFavorites: IASGroupExport[] = getFavoriteASGroups();
+
+        // Basic Data Integrity Checks
+        let needsBMReSave = false;
+        for( let item of battleMechSaves ) {
+            if( !item.uuid ) {
+                item.uuid = generateUUID();
+                needsBMReSave = true;
+            }
+        }
+
+        if( needsBMReSave ) {
+            console.info("Some UUIDs not found in BattleMech saves, generating UUIDS and re-saving...")
+            saveBattleMechSaves( battleMechSaves )
+        }
+        let needsASReSave = false;
+        for( let item of asImportFavorites ) {
+            if( !item.uuid ) {
+                item.uuid = generateUUID();
+                needsASReSave = true;
+            }
+        }
+        if( needsASReSave ) {
+            console.info("Some UUIDs not found in AlphaStrike Favorites saves, generating UUIDS and re-saving...")
+            saveFavoriteASGroups( asImportFavorites )
+        }
+
+        // End of Basic Data Integrity Checks
+
         let asImportedFavorites: AlphaStrikeGroup[] = [];
-        // let lsASFImportFavorites = getData("favoriteASGroups");
+
         if( asImportFavorites.length > 0 ) {
             if( asImportFavorites && asImportFavorites.length > 0 )  {
                 for( let importItem of asImportFavorites ) {

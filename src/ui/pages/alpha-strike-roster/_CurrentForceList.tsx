@@ -264,12 +264,19 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                                   <></>
                                 )}
                                 {asUnit.name}
+
                               </td>
                               <td>{asUnit.currentPoints}</td>
 
                             </tr>
                             <tr>
-                              <td>&nbsp;</td>
+                              <td className="text-center small-text">
+                              {asUnit.mechCreatorUUID ? (
+                                  <div title="This mech was created with the 'Mech Builder">Custom</div>
+                                ) : (
+                                  <>&nbsp;</>
+                                )}
+                              </td>
                               <td colSpan={3} className="med-small-text">
                               {asUnit.isWrecked() ? (
                                   <div className="pull-right wrecked-tag">

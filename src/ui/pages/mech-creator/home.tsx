@@ -315,7 +315,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                           return (
                             <tbody key={mechIndex}>
                             <tr>
-                              <td>{mech.name}</td>
+                              <td title={"UUD: " + mech.uuid}>{mech.name}</td>
                               <td>{mech.tech}</td>
                               <td className="min-width">{mech.tonnage}</td>
                               <td className="min-width">{mech.battle_value}</td>

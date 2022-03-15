@@ -124,10 +124,12 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       />
     </div>
     <div className="col">
-    <TextSection
-                label="Search for Units"
-              >
-
+        <TextSection
+            label="Search for Units"
+        >
+            <div className="small-text text-center">
+                We integrate with the <a href="http://masterunitlist.info/" target="mul">Master Unit List</a> to make sure that all the stats are as official and as up to date as possible.
+            </div>
 {navigator.onLine ? (
     <>
 
@@ -340,7 +342,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
 {this.props.appGlobals.battleMechSaves && this.props.appGlobals.battleMechSaves.length > 0 ? (
     <TextSection
-        label="Your BattleMechs"
+        label="Your Created BattleMechs"
     >
                   <table className="table">
                     <thead>
@@ -356,7 +358,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                       </tr>
                       <tr>
                         <th>&nbsp;</th>
-                        <th colSpan={6}>Notes</th>
+                        <th colSpan={3}>Notes</th>
 
 
                       </tr>
@@ -365,6 +367,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         {this.props.appGlobals.battleMechSaves.map( (bm, unitIndex) => {
             let bmObj = new BattleMech();
             bmObj.import( bm );
+
             let asUnit = bmObj.calcAlphaStrike();
 
             return (
@@ -422,7 +425,7 @@ title="View this unit's Alpha Strike Card"
 <FontAwesomeIcon icon={faEye} />
 </Button>
 </td>
-                  <td>{asUnit.name}</td>
+                  <td title={"UUID: " + asUnit.mechCreatorUUID}>{asUnit.name}</td>
 
                   {/* <td>{asUnit.r}</td>
                   <td>{asUnit.Technology.Name}</td>
@@ -433,8 +436,7 @@ title="View this unit's Alpha Strike Card"
                 </tr>
                 <tr>
                   <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td colSpan={6} className="med-small-text">
+                  <td colSpan={3} className="med-small-text">
                     <strong title="Armor/Internal Structure values">A/IS</strong>: {asUnit.armor}/{asUnit.structure}
                     &nbsp;|&nbsp;<strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
                     {asUnit.overheat  && asUnit.overheat > 0 ? (

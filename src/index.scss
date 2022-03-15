@@ -25,6 +25,7 @@ body {
 .overflow-scroll-y {
   overflow-y: scroll;
 }
+
 .overflow-scroll-x {
   overflow-x: scroll;
 }
@@ -36,11 +37,20 @@ body {
 .text-right {
   text-align: right;
 }
+
 .text-left {
   text-align: left;
 }
+
 .text-center {
   text-align: center;
+}
+a {
+  color: $primaryBG;
+  outline: none !important;
+  &:hover {
+    color: $primaryBGHover;
+  }
 }
 
 .mech-tro {
@@ -142,13 +152,6 @@ input[type=number] {
   color: $fontColor;
   position: relative;
 
-  a {
-    color: $primaryBG;
-    outline: none !important;
-    &:hover {
-      color: $primaryBGHover;
-    }
-  }
 
   .width-90 {
     width: 90%;
