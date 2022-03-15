@@ -101,7 +101,7 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
 
 
 interface IAlphaStrikeUnitEditViewModalProps {
-    appGlobals: IAppGlobals,
+    appGlobals: IAppGlobals;
     showASUnit: AlphaStrikeUnit | null;
     editASUnit: boolean;
     closeShowUnitDialog( e: React.FormEvent<HTMLButtonElement>): void;

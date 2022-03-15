@@ -42,7 +42,7 @@ export default class AlphaStrikeRosterRouter extends React.Component<IAlphaStrik
 }
 
 interface IAlphaStrikeRosterRouterProps {
-    appGlobals: IAppGlobals,
+    appGlobals: IAppGlobals;
 }
 
 interface IAlphaStrikeRosterRouterState {

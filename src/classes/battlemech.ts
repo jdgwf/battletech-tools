@@ -106,6 +106,7 @@ export interface IBattleMechExport {
 }
 
 interface IAlphaStrikeExport {
+    mechCreatorUUID: string;
     name: string;
     move: number;
     type: string;
@@ -283,6 +284,7 @@ export class BattleMech {
     };
 
     alphaStrikeForceStats: IAlphaStrikeExport = {
+        mechCreatorUUID: "",
         name: "",
         move: 0,
         type: "BM",
@@ -1789,6 +1791,7 @@ export class BattleMech {
     calcAlphaStrike(): AlphaStrikeUnit {
 
         this.alphaStrikeForceStats.name = this.make;
+        this.alphaStrikeForceStats.mechCreatorUUID = this.uuid;
         //~ this.alphaStrikeForceStats.model  = _model;
         this.alphaStrikeForceStats.move = this.getWalkSpeed() * 2;
         this.alphaStrikeForceStats.jumpMove = this.getJumpSpeed() * 2;
@@ -2260,50 +2263,74 @@ export class BattleMech {
                         }
 
                         if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "heat") {
+                            //@ts-ignore
                             heatDamage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
+                            //@ts-ignore
                             heatDamage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
+                            //@ts-ignore
                             heatDamage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
+                            //@ts-ignore
                             heatDamage.extreme += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
                         }
 
                         if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "lrm") {
+                            //@ts-ignore
                             lrmDamage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
+                            //@ts-ignore
                             lrmDamage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
+                            //@ts-ignore
                             lrmDamage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
+                            //@ts-ignore
                             lrmDamage.extreme += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
                         }
 
                         if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "ac") {
+                            //@ts-ignore
                             acDamage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
+                            //@ts-ignore
                             acDamage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
+                            //@ts-ignore
                             acDamage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
+                            //@ts-ignore
                             acDamage.extreme += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
                         }
 
                         if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "flak") {
+                            //@ts-ignore
                             flakDamage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
+                            //@ts-ignore
                             flakDamage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
+                            //@ts-ignore
                             flakDamage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
+                            //@ts-ignore
                             flakDamage.extreme += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
                         }
 
                         if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "srm") {
-
+                            //@ts-ignore
                             indirectFireRating += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
 
                         }
 
                         if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "indirect fire" || this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "if") {
+                            //@ts-ignore
                             srmDamage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
+                            //@ts-ignore
                             srmDamage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
+                            //@ts-ignore
                             srmDamage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
+                            //@ts-ignore
                             srmDamage.extreme += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
                         }
 
                         if (this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "missile" || this.equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "msl") {
+                            //@ts-ignore
                             mslDamage.short += this.equipmentList[weapon_counter].alphaStrike.rangeShort;
+                            //@ts-ignore
                             mslDamage.medium += this.equipmentList[weapon_counter].alphaStrike.rangeMedium;
+                            //@ts-ignore
                             mslDamage.long += this.equipmentList[weapon_counter].alphaStrike.rangeLong;
+                            //@ts-ignore
                             mslDamage.extreme += this.equipmentList[weapon_counter].alphaStrike.rangeExtreme;
                         }
 
@@ -2822,6 +2849,37 @@ export class BattleMech {
             },            // ASMULType;
             Variant: "",             // string;
 
+
+            mechCreatorUUID: "",
+
+            classification: "",
+            costCR: 0,
+            mulID: 0,
+            currentHeat: 0,
+            damage: {
+                short: 0,
+                medium: 0,
+                long: 0,
+                extreme: 0,
+            },
+            variant: "",
+            dateIntroduced: "",
+            name: "",
+            tonnage: 0,
+            tro: "",
+            role: "",
+            threshold: 0,
+            move: [],
+            jumpMove: 0,
+            structure: 0,
+            armor: 0,
+            type: "",
+            size: 0,
+            showDetails: false,
+            abilities: "",
+            overheat: 0,
+            basePoints: 0,
+            currentSkill: 0,
         };
         asMechData["BFPointValue"] = Math.round(finalValue);
 

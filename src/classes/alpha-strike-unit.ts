@@ -1,9 +1,9 @@
 
 export interface IAlphaStrikeDamage {
-    short: string;
-    medium: string;
-    long: string;
-    extreme: string;
+    short: number | string;
+    medium: number | string;
+    long: number | string;
+    extreme: number | string;
 }
 
 export interface IMoveNumber {
@@ -31,6 +31,7 @@ export interface ASMULTech {
     SortOrder: number;
 }
 export interface IASMULUnit {
+    mechCreatorUUID: string;
     FormatedTonnage: string | null;
     GroupName: string | null;
     BFAbilities: string | null;
@@ -74,7 +75,7 @@ export interface IASMULUnit {
     Variant: string | null;
 
     customName?: string;
-    currentSkill?: number;
+    // currentSkill?: number;
 
     currentArmor?: boolean[];
     currentStructure?: boolean[];
@@ -82,10 +83,39 @@ export interface IASMULUnit {
     fireControlHits?: boolean[];
     mpControlHits?: boolean[];
     weaponHits?: boolean[];
+
+
+    // Additional Fields we use internally
+    classification: string;
+    costCR: number;
+    mulID: number;
+    currentHeat: number;
+    damage: IAlphaStrikeDamage;
+    variant: string;
+    dateIntroduced: string;
+    name: string;
+    tonnage: number;
+    tro: string;
+    role: string;
+    threshold: number;
+
+    move: IMoveNumber[];
+    jumpMove: number;
+    structure: number;
+    armor: number;
+    type: string;
+    size: number;
+    showDetails: boolean;
+    abilities: string;
+    overheat: number;
+    basePoints: number;
+    currentSkill: number;
 }
 
 export class AlphaStrikeUnit {
     originalStats:IASMULUnit | null = null;
+
+    mechCreatorUUID: string = "";
 
     classification: string = "";
     costCR: number = 0;
@@ -94,7 +124,7 @@ export class AlphaStrikeUnit {
     isInfantry: boolean = false;
     immobile: boolean = false;
 
-    variant: string = "";
+    variant: string | null = "";
     name: string = "";
     dateIntroduced: string = "";
     era: string = "";
@@ -128,10 +158,10 @@ export class AlphaStrikeUnit {
     currentToHitExtreme: number = 0;
 
     damage: IAlphaStrikeDamage = {
-            short: "0",
-            medium: "0",
-            long: "0",
-            extreme: "0"
+            short: 0,
+            medium: 0,
+            long: 0,
+            extreme: 0,
         };
 
     move: IMoveNumber[] = [];
@@ -139,7 +169,7 @@ export class AlphaStrikeUnit {
 
     mulID: number = 0;
 
-    abilities:string = "";
+    abilities: string = "";
 
     overheat: number = 0;
     role = "";
@@ -149,10 +179,10 @@ export class AlphaStrikeUnit {
     currentHeat: number = 0;
 
     currentDamage: IAlphaStrikeDamage = {
-        short: "0",
-        medium: "0",
-        long: "0",
-        extreme: "0",
+        short: 0,
+        medium: 0,
+        long: 0,
+        extreme: 0,
     };
 
     currentArmor: boolean[] = [];
@@ -184,7 +214,7 @@ export class AlphaStrikeUnit {
 
     }
 
-    constructor( incomingMechData: any ) {
+    constructor( incomingMechData: IASMULUnit ) {
         if( typeof(incomingMechData) !== "undefined" && incomingMechData !== null ) {
             this.originalStats = incomingMechData;
 
@@ -197,6 +227,10 @@ export class AlphaStrikeUnit {
             this.variant = incomingMechData.Variant;
             this.name = incomingMechData.Name;
             this.dateIntroduced = incomingMechData.DateIntroduced;
+
+            if( incomingMechData.mechCreatorUUID ) {
+                this.mechCreatorUUID = incomingMechData.mechCreatorUUID;
+            }
 
             this.tro = incomingMechData.TRO;
 
@@ -212,7 +246,8 @@ export class AlphaStrikeUnit {
                 this.role = "Not Specified";
             }
 
-            this.type = incomingMechData.BFType;
+            if( incomingMechData.BFType )
+                this.type = incomingMechData.BFType;
             this.size = incomingMechData.BFSize;
 
             this.armor = +incomingMechData.BFArmor;
@@ -222,18 +257,19 @@ export class AlphaStrikeUnit {
                     short: incomingMechData.BFDamageShort,
                     medium: incomingMechData.BFDamageMedium,
                     long: incomingMechData.BFDamageLong,
-                    extreme: "0",
+                    extreme: 0,
                 };
 
             if( incomingMechData.BFDamageExtreme ) {
                 this.damage.extreme = incomingMechData.BFDamageExtreme;
             } else {
-                this.damage.extreme = "0";
+                this.damage.extreme = 0;
             }
 
+            if( incomingMechData.BFAbilities )
             this.abilities = incomingMechData.BFAbilities;
             if (!this.abilities){
-                this.abilities="";
+                this.abilities = "";
             }
 
             this.overheat = +incomingMechData.BFOverheat;
@@ -296,9 +332,10 @@ export class AlphaStrikeUnit {
                     this.currentSkill = incomingMechData.currentSkill;
 
             } else {
-                // Interally Processed Data
+                // Internally Processed Data
 
-                this.classification = incomingMechData.classification;
+                if( incomingMechData.classification )
+                    this.classification = incomingMechData.classification;
                 this.costCR = incomingMechData.costCR / 1;
 
                 this.mulID = incomingMechData.mulID / 1;
@@ -336,7 +373,7 @@ export class AlphaStrikeUnit {
                     };
 
                 if( !this.damage.extreme )
-                    this.damage.extreme = "0";
+                    this.damage.extreme = 0;
 
                 this.move = incomingMechData.move;
 
@@ -348,7 +385,7 @@ export class AlphaStrikeUnit {
 
                 this.basePoints = incomingMechData.basePoints / 1;
 
-                if( incomingMechData.currentSkill > 0  )
+                if( incomingMechData.currentSkill && incomingMechData.currentSkill > 0  )
                     this.currentSkill = incomingMechData.currentSkill;
                 else
                     this.currentSkill = 4;
@@ -487,9 +524,9 @@ export class AlphaStrikeUnit {
     public calcCurrentVals() {
 
         if(
-            this.type.trim().toLowerCase() === "sv"
+            (this.type && this.type.trim().toLowerCase() === "sv")
                 ||
-            this.type.trim().toLowerCase() === "cv"
+            (this.type && this.type.trim().toLowerCase() === "cv")
         ) {
             while( this.mpControlHits.length < 5 ) {
                 this.mpControlHits.push( false );
@@ -499,18 +536,18 @@ export class AlphaStrikeUnit {
 
         this.isAerospace = false;
         if(
-            this.type.trim().toLowerCase() === "af"
+            (this.type && this.type.trim().toLowerCase() === "af")
                     ||
-            this.type.trim().toLowerCase() === "cf"
+            (this.type && this.type.trim().toLowerCase() === "cf")
         ) {
             this.isAerospace = true;
         }
 
         this.isInfantry = false;
         if(
-            this.type.trim().toLowerCase() === "ba"
+            (this.type && this.type.trim().toLowerCase() === "ba")
                     ||
-            this.type.trim().toLowerCase() === "ci"
+            (this.type && this.type.trim().toLowerCase() === "ci")
         ) {
             this.isInfantry = true;
         }
@@ -694,9 +731,9 @@ export class AlphaStrikeUnit {
 
         // Calculate Critical Movement
         if(
-            this.type.toLowerCase() === "bm"
+            ( this.type && this.type.toLowerCase() === "bm" )
                 ||
-            this.type.toLowerCase() === "im"
+            ( this.type && this.type.toLowerCase() === "im" )
         ) {
             // for BattleMechs
             for( let mpHitsCount = 0; mpHitsCount < this.mpControlHits.length; mpHitsCount++) {
@@ -718,9 +755,9 @@ export class AlphaStrikeUnit {
         }
 
         if(
-            this.type.trim().toLowerCase() === "sv"
+            ( this.type && this.type.trim().toLowerCase() === "sv" )
                 ||
-            this.type.trim().toLowerCase() === "cv"
+            ( this.type && this.type.trim().toLowerCase() === "cv" )
         ) {
             let numMPHits = 0;
             for( let mpHitsCount = 0; mpHitsCount < this.mpControlHits.length; mpHitsCount++) {
@@ -912,6 +949,7 @@ export class AlphaStrikeUnit {
         if( this.originalStats ) {
             let returnValue: IASMULUnit = this.originalStats;
             returnValue.customName = this.customName;
+            returnValue.mechCreatorUUID = this.mechCreatorUUID;
             returnValue.currentSkill = this.currentSkill;
 
             returnValue.currentArmor = this.currentArmor;

@@ -180,7 +180,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
         let damageLabelColWidth=130;
         let damageColWidth=150;
-        if (this.props.asUnit.damage.extreme!=="0"){
+        if (this.props.asUnit.damage.extreme > 0 ){
             damageColWidth=110;
         }
         return (
@@ -254,17 +254,17 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
                 <text x={damageLabelColWidth+(damageColWidth*2)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">24"-42"</text>
                 <text x={damageLabelColWidth+(damageColWidth*2)} y="280" fontFamily="sans-serif" textAnchor="middle" fontSize={35}>{this.props.asUnit.currentDamage.long}</text>
-                {this.props.asUnit.damage.extreme!=="0" ? ( this.props.forPrint ? (
+                {this.props.asUnit.damage.extreme > 0 ? ( this.props.forPrint ? (
                     <text x={damageLabelColWidth+(damageColWidth*3)} y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">E (+6)</text>
                 ) : (
                     <text x={damageLabelColWidth+(damageColWidth*3)} y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">E (+6 | {this.props.asUnit.currentToHitExtreme}+)</text>
                 )) : null
                 }
-                {this.props.asUnit.damage.extreme!=="0" ? (
+                {this.props.asUnit.damage.extreme > 0 ? (
                 <text x={damageLabelColWidth+(damageColWidth*3)} y="280" fontFamily="sans-serif" textAnchor="middle" fontSize={35}>{this.props.asUnit.currentDamage.extreme}</text>
                 ) : null
                 }
-                {this.props.asUnit.damage.extreme!=="0" ? (
+                {this.props.asUnit.damage.extreme > 0 ? (
                 <text x={damageLabelColWidth+(damageColWidth*3)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">&gt; 42"</text>
                 ) : null}
 

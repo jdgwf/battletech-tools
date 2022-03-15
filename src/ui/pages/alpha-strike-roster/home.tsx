@@ -1,16 +1,17 @@
-import { faBars, faDice, faDownload, faEye, faFileImport, faPlus, faPrint, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faDice, faDownload, faFileImport, faPrint, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AlphaStrikeGroup, { IASGroupExport } from '../../../classes/alpha-strike-group';
 import { AlphaStrikeUnit, IASMULUnit } from '../../../classes/alpha-strike-unit';
-import { getMULASSearchResults, makeRange, makeURLSlug } from '../../../utils';
+import { makeURLSlug } from '../../../utils';
 import { IAppGlobals } from '../../app-router';
 import StandardModal from '../../components/standard-modal';
 import TextSection from '../../components/text-section';
 import UIPage from '../../components/ui-page';
 import './home.scss';
+import AlphaStrikeAddUnitsView from './_AddUnitsPage';
 import CurrentForceList from './_CurrentForceList';
 import AlphaStrikeUnitEditViewModal from './_showAlphaStrikeUnit';
 
@@ -25,28 +26,17 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
         this.state = {
             updated: false,
-            searchResults: this.props.appGlobals.appSettings.alphasStrikeCachedSearchResults,
             showASUnit: null,
-
             editASUnit: false,
-
-            contextMenuSearch: -1,
-
             addingUnitsModal: false,
         }
 
         this.props.appGlobals.makeDocumentTitle("Alpha Strike Roster");
 
-        this.updateSearchResults();
+
     }
 
-    addToGroup = ( mulUnit: IASMULUnit,  groupIndex: number = 0  ): void => {
-      this.props.appGlobals.currentASForce.addToGroup( mulUnit, groupIndex );
-      this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
-      this.setState({
-        contextMenuSearch: -1,
-      })
-    }
+
 
 
     removeFavoriteConfirm = ( asFavGroupIndex: number ): void => {
@@ -69,89 +59,9 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
     }
 
 
-    toggleContextMenuSearch = ( searchIndex: number ): void => {
-      let newIndex: number = -1;
-      if( this.state.contextMenuSearch !== searchIndex) {
-        newIndex = searchIndex;
-      }
 
-      this.setState({
-        contextMenuSearch: newIndex,
-
-      })
-    }
-
-
-    updateSearch = ( event: React.FormEvent<HTMLInputElement> ): void => {
-
-        let appSettings = this.props.appGlobals.appSettings;
-
-        appSettings.alphaStrikeSearchTerm = event.currentTarget.value;
-        this.props.appGlobals.saveAppSettings( appSettings );
-
-
-        this.updateSearchResults();
-    }
-
-    updateRules = ( event: React.FormEvent<HTMLSelectElement> ): void => {
-
-      let appSettings = this.props.appGlobals.appSettings;
-
-      appSettings.alphaStrikeSearchRules = event.currentTarget.value;
-      this.props.appGlobals.saveAppSettings( appSettings );
-
-
-      this.updateSearchResults();
-    }
-
-
-    updateTech = ( event: React.FormEvent<HTMLSelectElement> ): void => {
-
-      let appSettings = this.props.appGlobals.appSettings;
-
-      appSettings.alphaStrikeSearchTech = event.currentTarget.value;
-      this.props.appGlobals.saveAppSettings( appSettings );
-
-
-
-      this.updateSearchResults();
-    }
-
-    updateEra = ( event: React.FormEvent<HTMLSelectElement> ): void => {
-
-      let appSettings = this.props.appGlobals.appSettings;
-
-      appSettings.alphaStrikeSearchEra = event.currentTarget.value;
-      this.props.appGlobals.saveAppSettings( appSettings );
-
-      this.updateSearchResults();
-    }
-
-    updateSearchResults = async (): Promise<void> => {
-      let data: IASMULUnit[] = await getMULASSearchResults(
-        this.props.appGlobals.appSettings.alphaStrikeSearchTerm,
-        this.props.appGlobals.appSettings.alphaStrikeSearchRules,
-        this.props.appGlobals.appSettings.alphaStrikeSearchTech,
-        this.props.appGlobals.appSettings.alphaStrikeSearchEra,
-        !navigator.onLine,
-      );
-
-      this.setState({
-        searchResults: data,
-        contextMenuSearch: -1,
-
-      })
-
-      let appSettings = this.props.appGlobals.appSettings;
-
-      appSettings.alphasStrikeCachedSearchResults = data;
-      this.props.appGlobals.saveAppSettings( appSettings );
-
-    }
-
-
-    openViewUnit = ( theUnit: IASMULUnit ): void => {
-      let showASUnit = new AlphaStrikeUnit( theUnit );
+    openViewUnit = ( theUnit: AlphaStrikeUnit ): void => {
+      let showASUnit = theUnit;
 
       this.setState({
         showASUnit: showASUnit,
@@ -256,220 +166,11 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
   className="modal-xl"
   title="Adding units to Current Force"
 >
-  <div className="row">
-    <div className="col">
-      <CurrentForceList
+        <AlphaStrikeAddUnitsView
           appGlobals={this.props.appGlobals}
-          // openAddingUnits={this.openAddingUnits}
           openEditUnit={this.openEditUnit}
-      />
-    </div>
-    <div className="col">
-    <TextSection
-                label="Search for Units"
-              >
-
-                  <fieldset className="fieldset">
-                    <div className="row">
-                      <div className="col-md-6 text-center">
-                      <label>
-                      Search Name:<br />
-                      <input
-                        type="search"
-                        onChange={this.updateSearch}
-                        value={this.props.appGlobals.appSettings.alphaStrikeSearchTerm}
-                      />
-                    </label>
-                      </div>
-                      <div className="col-md-6 text-center">
-                      <label>
-                      Search Rules:<br />
-                      <select
-                        onChange={this.updateRules}
-                        value={this.props.appGlobals.appSettings.alphaStrikeSearchRules}
-                      >
-                        <option value="">All</option>
-                        <option value="introductory">Introductory</option>
-                        <option value="standard">Standard</option>
-                        <option value="advanced">Advanced</option>
-                      </select>
-                    </label>
-
-                      </div>
-</div>
-<div className="row">
-                      <div className="col-md-6 text-center">
-                      <label>
-                      Search Tech:<br />
-                      <select
-                        onChange={this.updateTech}
-                        value={this.props.appGlobals.appSettings.alphaStrikeSearchTech}
-                      >
-                        <option value="">All</option>
-                        <option value="inner sphere">Inner Sphere</option>
-                        <option value="clan">Clan</option>
-                      </select>
-                    </label>
-                      </div>
-                      <div className="col-md-6 text-center">
-                      <label>
-                      Year:<br />
-                      <select
-                        onChange={this.updateEra}
-                        value={this.props.appGlobals.appSettings.alphaStrikeSearchEra}
-                      >
-                        <option value="">All</option>
-                        {makeRange(3025, 3500, 1).map( (year) => {
-                          return (
-                            <option key={year} value={year}>{year}</option>
-                          )
-                        })}
-                      </select>
-                    </label>
-                      </div>
-                    </div>
-                  </fieldset>
-
-                <h3 className="text-center">Search Results ({this.state.searchResults.length})</h3>
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th>&nbsp;</th>
-                        <th>Name</th>
-                        <th>Rules</th>
-                        <th>Tech</th>
-                        <th>Era</th>
-                        <th>Type</th>
-                        <th>Points</th>
-
-                      </tr>
-                      <tr>
-                        <th>&nbsp;</th>
-                        <th colSpan={6}>Notes</th>
-
-
-                      </tr>
-                    </thead>
-
-                    {this.state.searchResults.length > 0 ? (
-                      <>
-                        {this.state.searchResults.map( (asUnit: IASMULUnit, unitIndex: number) => {
-
-                          return (
-                            <tbody key={unitIndex}>
-                            <tr>
-                              <td className="text-left min-width no-wrap">
-
-
-{this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
-  (
-    <div className="drop-down-menu-container">
-      <Button
-        variant="primary"
-        className="btn-sm"
-        onClick={() => this.toggleContextMenuSearch(unitIndex)}
-        title="Open the context menu for this unit"
-      >
-        <FontAwesomeIcon icon={faBars} />
-      </Button>
-      <ul
-        className={this.state.contextMenuSearch === unitIndex ? "styleless dd-menu active" : "styleless dd-menu"}
-      >
-        {this.props.appGlobals.currentASForce.groups.map( (asGroup, asGroupIndex) => {
-          return (
-            <li
-              key={asGroupIndex}
-              onClick={() => this.addToGroup(asUnit, asGroupIndex)}
-              title={"Adds this unit to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
-            >
-              <FontAwesomeIcon icon={faPlus} />&nbsp;
-              Add to {asGroup.getName(asGroupIndex + 1)}
-            </li>
-          )
-        })}
-
-      </ul>
-    </div>
-  ) : (
-    <Button
-      variant="primary"
-      className="btn-sm no-right-margin"
-      onClick={() => this.addToGroup(asUnit, 0)}
-      title="Add this unit to your current group"
-    >
-      <FontAwesomeIcon icon={faPlus} />
-    </Button>
-)}
-
-  <Button
-    variant="primary"
-    className="btn-sm"
-    onClick={() => this.openViewUnit(asUnit)}
-    title="View this unit's Alpha Strike Card"
-  >
-    <FontAwesomeIcon icon={faEye} />
-  </Button>
-</td>
-                              <td>{asUnit.Name}</td>
-
-                              <td>{asUnit.Rules}</td>
-                              <td>{asUnit.Technology.Name}</td>
-                              <td>{asUnit.EraStart}</td>
-                              <td>{asUnit.BFType}</td>
-                              <td>{asUnit.BFPointValue}</td>
-
-                            </tr>
-                            <tr>
-                              <td>&nbsp;</td>
-                              <td>&nbsp;</td>
-                              <td colSpan={6} className="med-small-text">
-                                <strong title="Armor/Internal Structure values">A/IS</strong>: {asUnit.BFArmor}/{asUnit.BFStructure}
-                                &nbsp;|&nbsp;<strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.BFDamageShort}/{asUnit.BFDamageMedium}/{asUnit.BFDamageLong}
-                                {asUnit.BFOverheat  && asUnit.BFOverheat > 0 ? (
-                                  <>
-                                   &nbsp;|&nbsp;<strong title="Overheat Value">OHV</strong>: {asUnit.BFOverheat}
-                                  </>
-                                ) : null}
-                                {asUnit.BFAbilities && asUnit.BFAbilities.trim() ? (
-                                  <>
-                                    &nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.BFAbilities}
-                                  </>
-                                ) : null}
-
-
-                              </td>
-                            </tr>
-                            </tbody>
-                          )
-                        })}
-                      </>
-                    ) : (
-                      <>
-                      {this.props.appGlobals.appSettings.alphaStrikeSearchTerm.length > 2 ? (
-                        <tbody>
-                        <tr>
-                          <td className="text-center" colSpan={6}>
-                            Please type a search term 3 or more characters.
-                          </td>
-                        </tr>
-                        </tbody>
-                      ) : (
-                        <tbody>
-                        <tr>
-                          <td className="text-center" colSpan={6}>
-                            Sorry, there are no matches with those parameters
-                          </td>
-                        </tr>
-                        </tbody>
-                      )}
-                      </>
-                    )}
-
-
-                  </table>
-                </TextSection>
-    </div>
-  </div>
+          openViewUnit={this.openViewUnit}
+        />
 </StandardModal>
 
 
@@ -631,7 +332,7 @@ interface IHomeProps {
 
 interface IHomeState {
   updated: boolean;
-  searchResults: IASMULUnit[];
+
 
   // searchText: string;
   showASUnit: AlphaStrikeUnit | null;
@@ -639,7 +340,7 @@ interface IHomeState {
 
 
 
-  contextMenuSearch: number;
+
 
   addingUnitsModal: boolean;
 }

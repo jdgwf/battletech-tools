@@ -88,7 +88,7 @@ export default class MechCreatorRouter extends React.Component<IMechCreatorRoute
 }
 
 interface IMechCreatorRouterProps {
-    appGlobals: IAppGlobals,
+    appGlobals: IAppGlobals;
 }
 
 interface IMechCreatorRouterState {

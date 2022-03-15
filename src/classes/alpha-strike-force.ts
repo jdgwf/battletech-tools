@@ -58,14 +58,12 @@ export default class AlphaStrikeForce {
 		this.membersLabel = " (" + this.activeMembers + "/" + this.groups.length + ")";
     }
 
-    public addToGroup( mulUnit: IASMULUnit,  groupIndex: number = 0 ) {
+    public addToGroup( mulUnit: AlphaStrikeUnit,  groupIndex: number = 0 ) {
         if( this.groups.length < groupIndex)  {
             groupIndex = this.groups.length
         }
         if( this.groups.length > groupIndex && this.groups[groupIndex]) {
-            this.groups[groupIndex].members.push(
-                new AlphaStrikeUnit( mulUnit )
-            );
+            this.groups[groupIndex].members.push( mulUnit );
             this.groups[groupIndex].sortUnits();
             this.groups[groupIndex].setAvailableFormationBonuses( formationBonuses.filter(x=>x.IsValid(this.groups[groupIndex])));
         }

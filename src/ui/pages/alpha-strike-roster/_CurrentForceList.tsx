@@ -1,4 +1,4 @@
-import { faArrowsAlt, faBars, faEdit, faExclamation, faExclamationTriangle, faHeart, faPlus, faTrash, faWarning } from '@fortawesome/free-solid-svg-icons';
+import { faArrowsAlt, faBars, faEdit, faExclamationTriangle, faHeart, faPlus, faTrash, faWarning } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
 import { Button } from 'react-bootstrap';
@@ -115,14 +115,7 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
             </button>
         }
 
-        if( !navigator.onLine ) {
-            addUnitButton =  <button
-            title="You're offline, so you can't search the MUL for units. Sorry :("
-            className="btn btn-sm btn-danger pull-right"
-            >
-            <FontAwesomeIcon icon={faExclamation} />&nbsp;Offline
-            </button>
-        }
+
         return (
 <TextSection
                 label="Current Force"
@@ -300,7 +293,7 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                                    &nbsp;|&nbsp;<strong title="Overheat Value">OHV</strong>: {asUnit.overheat}
                                   </>
                                 ) : null}
-                                {asUnit.abilities.trim() ? (
+                                {asUnit.abilities && asUnit.abilities.trim() ? (
                                   <>
                                    &nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities}
                                   </>
@@ -376,7 +369,7 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
 
 
 interface ICurrentForceListProps {
-    appGlobals: IAppGlobals,
+    appGlobals: IAppGlobals;
     openAddingUnits?( e: React.FormEvent<HTMLButtonElement>): void;
 
     openEditUnit( showASUnit: AlphaStrikeUnit ): void
