@@ -6,6 +6,7 @@ import AlphaStrikeGroup, { IASGroupExport } from "../classes/alpha-strike-group"
 import { BattleMech, IBattleMechExport } from "../classes/battlemech";
 import { CONFIGSiteTitle } from '../configVars';
 import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getFavoriteASGroups, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveFavoriteASGroups, saveFavoriteASGroupsObjects } from "../dataSaves";
+import { callAnalytics } from "../jdgAnalytics";
 import { generateUUID } from "../utils";
 import Alerts from './classes/alerts';
 import { AppSettings } from "./classes/app_settings";
@@ -239,6 +240,9 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
     makeDocumentTitle = ( subTitle: string = "" ): void => {
         let appGlobals = this.state.appGlobals;
+        callAnalytics(
+            window.location.pathname,
+        );
         if( subTitle ) {
             document.title = subTitle + " | " + CONFIGSiteTitle;
             appGlobals.currentPageTitle = subTitle;
