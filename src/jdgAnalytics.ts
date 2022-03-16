@@ -1,7 +1,9 @@
 const propertyID = 1;
 
 export function callAnalytics(
+    host: string,
     url: string,
+    appSessionID: string = "",
 ) {
     if( typeof(fetch) != "undefined" ) {
         fetch('https://analytics.jdgwf.com/analytics/', {
@@ -9,7 +11,7 @@ export function callAnalytics(
             headers: new Headers({
                 'Content-Type': 'application/x-www-form-urlencoded',
             }),
-            body: "property=" + propertyID.toString() + "&url=" + encodeURI(url),
+            body: "property=" + propertyID.toString() + "&url=" + encodeURI(url) + "&host=" + encodeURI(host) + "&app_session_id=" + encodeURI(appSessionID),
         })
         .then(async (response) => {
             // response.json()

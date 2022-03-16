@@ -131,7 +131,32 @@ interface IAlphaStrikeExport {
     abilityCodes: string[],
 }
 
+export interface ITargetToHit {
+    rangeCount: number;
+    movementCount: number;
+    otherMods: number;
+    jumped: boolean;
+}
+
+export interface IGATOR {
+    gunnerySkill: number;
+    attackerMovementModifier: number;
+    targetMovementModifier: number;
+    otherModifiers: number;
+    rangeModifier: number;
+    finalToHit: number;
+}
+
 export class BattleMech {
+
+    targetToHit: ITargetToHit = {
+        rangeCount: 0,
+        movementCount: 0,
+        otherMods: 0,
+        jumped: false,
+    };
+
+
 
     lastUpdated: Date = new Date();
     uuid: string = generateUUID();
@@ -338,6 +363,24 @@ export class BattleMech {
         this.setTonnage( this.tonnage );
         this.calc();
         return this.mechType;
+    }
+
+    getGATOR(): IGATOR {
+        let rv: IGATOR = {
+            gunnerySkill: 0,
+            attackerMovementModifier: 0,
+            targetMovementModifier: 0,
+            otherModifiers: 0,
+            rangeModifier: 0,
+            finalToHit: 0,
+        };
+
+        if( this.pilot ) {
+            rv.gunnerySkill = this.pilot.gunnery;
+        }
+
+
+        return rv;
     }
 
     getHighestDamage(incomingDamageObjects: IAlphaStrikeDamage): number {

@@ -241,6 +241,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
     makeDocumentTitle = ( subTitle: string = "" ): void => {
         let appGlobals = this.state.appGlobals;
         callAnalytics(
+            window.location.hostname,
             window.location.pathname,
         );
         if( subTitle ) {

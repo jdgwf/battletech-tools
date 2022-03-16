@@ -21,6 +21,7 @@ import QuadDamageTransferDiagramSVG from './quad-damage-transfer-diagram-svg';
 import QuadInternalStructureDiagramSVG from './quad-internal-structure-damage-svg';
 import QuadRearArmorDiagramSVG from './quad-rear-armor-diagram-svg';
 import RecordSheetEquipmentTable from './record-sheet-equipment-table';
+import RecordSheetGATORTable from './record-sheet-gator-table';
 import RecordSheetGroupBoxSVG from './record-sheet-group-box-svg';
 
 export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, IBattleMechSVGState> {
@@ -490,9 +491,17 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
     <RecordSheetEquipmentTable
         width={1215}
-        height={770}
+        height={645}
         xLoc={10}
         yLoc={440}
+        mechData={this.props.mechData}
+    />
+
+    <RecordSheetGATORTable
+        width={1215}
+        height={99}
+        xLoc={10}
+        yLoc={1113}
         mechData={this.props.mechData}
     />
 
