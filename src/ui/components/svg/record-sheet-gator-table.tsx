@@ -50,7 +50,7 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
 
                         {this.props.mechData.pilot ? (
                                 <text
-                                    x={this.props.xLoc + 150 }
+                                    x={this.props.xLoc + 125 }
                                     y={this.props.yLoc + 100}
                                     textAnchor="start"
                                     fontFamily="sans-serif"
@@ -64,7 +64,7 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
 
                         <line
                             x1={this.props.xLoc + 100 }
-                            x2={this.props.xLoc + 240 }
+                            x2={this.props.xLoc + 200 }
                             y1={this.props.yLoc + 110}
                             y2={this.props.yLoc + 110}
                             strokeWidth={2}
@@ -74,7 +74,7 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
                 )}
 
                 <text
-                    x={this.props.xLoc + 250 }
+                    x={this.props.xLoc + 200 }
                     y={this.props.yLoc + 100}
                     textAnchor="start"
                     fontFamily="sans-serif"
@@ -82,14 +82,14 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
                     style={{fontWeight: 700}}
                     fontSize={50}
                 >A</text>
-                               {this.props.inPlay ? (
+                {this.props.inPlay ? (
                     <>
                     </>
                 ) : (
                     <>
                 <line
-                    x1={this.props.xLoc + 300 }
-                    x2={this.props.xLoc + 440 }
+                    x1={this.props.xLoc + 250 }
+                    x2={this.props.xLoc + 350 }
                     y1={this.props.yLoc + 110}
                     y2={this.props.yLoc + 110}
                     strokeWidth={2}
@@ -98,7 +98,7 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
                 </>
                 )}
                 <text
-                    x={this.props.xLoc + 450 }
+                    x={this.props.xLoc + 350 }
                     y={this.props.yLoc + 100}
                     textAnchor="start"
                     fontFamily="sans-serif"
@@ -112,8 +112,8 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
                 ) : (
                     <>
                 <line
-                    x1={this.props.xLoc + 500 }
-                    x2={this.props.xLoc + 640 }
+                    x1={this.props.xLoc + 400 }
+                    x2={this.props.xLoc + 500 }
                     y1={this.props.yLoc + 110}
                     y2={this.props.yLoc + 110}
                     strokeWidth={2}
@@ -121,7 +121,7 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
                 />
                 </>)}
                 <text
-                    x={this.props.xLoc + 650 }
+                    x={this.props.xLoc + 500 }
                     y={this.props.yLoc + 100}
                     textAnchor="start"
                     fontFamily="sans-serif"
@@ -134,8 +134,8 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
                     </>
                 ) : (
                 <line
-                    x1={this.props.xLoc + 700 }
-                    x2={this.props.xLoc + 840 }
+                    x1={this.props.xLoc + 550 }
+                    x2={this.props.xLoc + 650 }
                     y1={this.props.yLoc + 110}
                     y2={this.props.yLoc + 110}
                     strokeWidth={2}
@@ -143,7 +143,7 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
                 />
                 )}
                 <text
-                    x={this.props.xLoc + 850 }
+                    x={this.props.xLoc + 650 }
                     y={this.props.yLoc + 100}
                     textAnchor="start"
                     fontFamily="sans-serif"
@@ -156,8 +156,8 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
                     </>
                 ) : (
                 <line
-                    x1={this.props.xLoc + 900 }
-                    x2={this.props.xLoc + 1040 }
+                    x1={this.props.xLoc + 700}
+                    x2={this.props.xLoc + 800}
                     y1={this.props.yLoc + 110}
                     y2={this.props.yLoc + 110}
                     strokeWidth={2}
