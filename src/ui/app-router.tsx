@@ -12,15 +12,13 @@ import Alerts from './classes/alerts';
 import { AppSettings } from "./classes/app_settings";
 import SanitizedHTML from './components/sanitized-html';
 import About from "./pages/about";
-import AlphaStrikeRosterRouter from './pages/alpha-strike/roster/_router';
+import AlphaStrikeRouter from "./pages/alpha-strike/_router";
+import ClassicBattleTechRouter from "./pages/classic-battletech/_router";
 import DevelopmentStatus from "./pages/development-status";
 import EquipmentEditor from "./pages/equipment-editor";
 import Error404 from "./pages/error404";
 import Home from "./pages/home";
-import MechCreatorRouter from './pages/classic-battletech/mech-creator/_router';
 import Settings from "./pages/settings";
-import AlphaStrikeRouter from "./pages/alpha-strike/_router";
-import ClassicBattleTechRouter from "./pages/classic-battletech/_router";
 
 
 export default class AppRouter extends React.Component<IAppRouterProps, IAppRouterState> {

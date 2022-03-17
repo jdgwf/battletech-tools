@@ -11,7 +11,7 @@ export default class MechCreatorSideMenu extends React.Component<IMechCreatorSid
             <ul className="sidebar-menu">
                 <li>
                     <Link
-                        to={`${process.env.PUBLIC_URL}/mech-creator`}
+                        to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator`}
                         className={this.props.current === "home" ? "btn btn-primary" : "btn btn-lightbg"}
                     >
                         <div className="title">Welcome</div>
@@ -19,7 +19,7 @@ export default class MechCreatorSideMenu extends React.Component<IMechCreatorSid
                 </li>
                 <li>
                     <Link
-                        to={`${process.env.PUBLIC_URL}/mech-creator/step1`}
+                        to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step1`}
                         className={this.props.current === "step1" ? "btn btn-primary" : "btn btn-lightbg"}
                     >
                         <div className="title">Step 1</div>
@@ -28,7 +28,7 @@ export default class MechCreatorSideMenu extends React.Component<IMechCreatorSid
                 </li>
                 <li>
                     <Link
-                        to={`${process.env.PUBLIC_URL}/mech-creator/step2`}
+                        to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step2`}
                         className={this.props.current === "step2" ? "btn btn-primary" : "btn btn-lightbg"}
                     >
                         <div className="title">Step 2</div>
@@ -37,7 +37,7 @@ export default class MechCreatorSideMenu extends React.Component<IMechCreatorSid
                 </li>
                 <li>
                     <Link
-                        to={`${process.env.PUBLIC_URL}/mech-creator/step3`}
+                        to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step3`}
                         className={this.props.current === "step3" ? "btn btn-primary" : "btn btn-lightbg"}
                     >
                         <div className="title">Step 3</div>
@@ -46,7 +46,7 @@ export default class MechCreatorSideMenu extends React.Component<IMechCreatorSid
                 </li>
                 <li>
                     <Link
-                        to={`${process.env.PUBLIC_URL}/mech-creator/step4`}
+                        to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step4`}
                         className={this.props.current === "step4" ? "btn btn-primary" : "btn btn-lightbg"}
                     >
                         <div className="title">Step 4</div>
@@ -55,7 +55,7 @@ export default class MechCreatorSideMenu extends React.Component<IMechCreatorSid
                 </li>
                 <li>
                     <Link
-                        to={`${process.env.PUBLIC_URL}/mech-creator/step5`}
+                        to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step5`}
                         className={this.props.current === "step5" ? "btn btn-primary" : "btn btn-lightbg"}
                     >
                         <div className="title">Step 5</div>
@@ -64,7 +64,7 @@ export default class MechCreatorSideMenu extends React.Component<IMechCreatorSid
                 </li>
                 <li>
                     <Link
-                        to={`${process.env.PUBLIC_URL}/mech-creator/step6`}
+                        to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step6`}
                         className={this.props.current === "step6" ? "btn btn-primary" : "btn btn-lightbg"}
                     >
                         <div className="title">Step 6</div>
@@ -73,7 +73,7 @@ export default class MechCreatorSideMenu extends React.Component<IMechCreatorSid
                 </li>
                 <li>
                     <Link
-                        to={`${process.env.PUBLIC_URL}/mech-creator/summary`}
+                        to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/summary`}
                         className={this.props.current === "summary" ? "btn btn-primary" : "btn btn-lightbg"}
                     >
                         <div className="title">Summary</div>
@@ -81,7 +81,7 @@ export default class MechCreatorSideMenu extends React.Component<IMechCreatorSid
                 </li>
                 <li>
                     <Link
-                        to={`${process.env.PUBLIC_URL}/mech-creator/exports`}
+                        to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/exports`}
                         className={this.props.current === "exports" ? "btn btn-primary" : "btn btn-lightbg"}
                     >
                         <div className="title">Exports</div>

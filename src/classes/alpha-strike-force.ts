@@ -1,7 +1,7 @@
 import { formationBonuses } from '../data/formation-bonuses';
 import { generateUUID } from '../utils';
 import AlphaStrikeGroup, { IASGroupExport } from './alpha-strike-group';
-import { AlphaStrikeUnit, IASMULUnit } from './alpha-strike-unit';
+import { AlphaStrikeUnit } from './alpha-strike-unit';
 
 export interface IASForceExport {
     groups: IASGroupExport[];
