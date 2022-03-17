@@ -3,14 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { IEquipmentItem } from '../../../data/data-interfaces';
-import { IAppGlobals } from '../../app-router';
-import AvailableEquipment from '../../components/available-equipment';
-import MechCreatorSideMenu from '../../components/mech-creator-side-menu';
-import MechCreatorStatusbar from '../../components/mech-creator-status-bar';
-import SanitizedHTML from '../../components/sanitized-html';
-import TextSection from '../../components/text-section';
-import UIPage from '../../components/ui-page';
+import { IEquipmentItem } from '../../../../data/data-interfaces';
+import { IAppGlobals } from '../../../app-router';
+import AvailableEquipment from '../../../components/available-equipment';
+import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
+import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
+import SanitizedHTML from '../../../components/sanitized-html';
+import TextSection from '../../../components/text-section';
+import UIPage from '../../../components/ui-page';
 import './home.scss';
 
 export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeState> {

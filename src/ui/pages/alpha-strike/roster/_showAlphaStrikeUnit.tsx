@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { AlphaStrikeUnit } from '../../../classes/alpha-strike-unit';
-import { IAppGlobals } from '../../app-router';
-import StandardModal from '../../components/standard-modal';
-import AlphaStrikeUnitSVG from '../../components/svg/alpha-strike-unit-svg';
+import { AlphaStrikeUnit } from '../../../../classes/alpha-strike-unit';
+import { IAppGlobals } from '../../../app-router';
+import StandardModal from '../../../components/standard-modal';
+import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
 
 export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlphaStrikeUnitEditViewModalProps, IAlphaStrikeUnitEditViewModalState> {
 

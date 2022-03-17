@@ -33,7 +33,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
 
                     </li>
                     <li>
-                      <p><strong>2022 Mar 11</strong> - I've started reworking the <Link to="alpha-strike-roster">Alpha Strike Roster</Link> interface. Adding units to the current force is now on a button. Later I might change the main screen so that all the Current Units show up on top and favorite units will be at the bottom. Right now this cleans uop the page significantly, but I'm still not happy with it.</p>
+                      <p><strong>2022 Mar 11</strong> - I've started reworking the <Link to="alpha-strike/roster">Alpha Strike Roster</Link> interface. Adding units to the current force is now on a button. Later I might change the main screen so that all the Current Units show up on top and favorite units will be at the bottom. Right now this cleans uop the page significantly, but I'm still not happy with it.</p>
 
                     </li>
                     <li>

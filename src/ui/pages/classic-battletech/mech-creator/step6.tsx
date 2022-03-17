@@ -3,14 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { ICriticalSlot } from '../../../classes/battlemech';
-import { IAppGlobals } from '../../app-router';
-import CriticalAllocationSection from '../../components/critical-allocation-section';
-import MechCreatorSideMenu from '../../components/mech-creator-side-menu';
-import MechCreatorStatusbar from '../../components/mech-creator-status-bar';
-import TextSection from '../../components/text-section';
-import UIPage from '../../components/ui-page';
-import UnallocatedEquipmentList from '../../components/unallocated-equipment-list';
+import { ICriticalSlot } from '../../../../classes/battlemech';
+import { IAppGlobals } from '../../../app-router';
+import CriticalAllocationSection from '../../../components/critical-allocation-section';
+import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
+import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
+import TextSection from '../../../components/text-section';
+import UIPage from '../../../components/ui-page';
+import UnallocatedEquipmentList from '../../../components/unallocated-equipment-list';
 import './home.scss';
 
 export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeState> {

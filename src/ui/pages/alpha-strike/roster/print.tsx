@@ -2,9 +2,9 @@ import { faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { IAppGlobals } from '../../app-router';
-import BattleTechLogo from '../../components/battletech-logo';
-import AlphaStrikeUnitSVG from '../../components/svg/alpha-strike-unit-svg';
+import { IAppGlobals } from '../../../app-router';
+import BattleTechLogo from '../../../components/battletech-logo';
+import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
 import './print.scss';
 
 export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps, IPrintState> {
@@ -24,7 +24,7 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
         <>
           <header className="topmenu">
             <ul>
-                <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/alpha-strike-roster`}><FontAwesomeIcon icon={faArrowAltCircleLeft} /></Link></li>
+                <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/alpha-strike/roster`}><FontAwesomeIcon icon={faArrowAltCircleLeft} /></Link></li>
 
                 <li className="logo">
                     <a

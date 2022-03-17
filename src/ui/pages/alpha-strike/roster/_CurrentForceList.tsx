@@ -2,11 +2,11 @@ import { faArrowsAlt, faBars, faEdit, faExclamationTriangle, faHeart, faPlus, fa
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
 import { Button } from 'react-bootstrap';
-import { AlphaStrikeUnit } from '../../../classes/alpha-strike-unit';
-import { formationBonuses } from '../../../data/formation-bonuses';
-import { unitGroupNames } from '../../../data/group-names';
-import { IAppGlobals } from '../../app-router';
-import TextSection from '../../components/text-section';
+import { AlphaStrikeUnit } from '../../../../classes/alpha-strike-unit';
+import { formationBonuses } from '../../../../data/formation-bonuses';
+import { unitGroupNames } from '../../../../data/group-names';
+import { IAppGlobals } from '../../../app-router';
+import TextSection from '../../../components/text-section';
 
 export default class CurrentForceList extends React.Component<ICurrentForceListProps, ICurrentForceListState> {
 

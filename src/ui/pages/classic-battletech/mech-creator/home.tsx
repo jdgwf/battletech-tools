@@ -2,14 +2,14 @@ import { faArrowCircleRight, faFile, faFileExport, faFolderOpen, faSave, faTrash
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BattleMech, IBattleMechExport } from '../../../classes/battlemech';
-import { IAppGlobals } from '../../app-router';
-import MechCreatorSideMenu from '../../components/mech-creator-side-menu';
-import MechCreatorStatusbar from '../../components/mech-creator-status-bar';
-import SanitizedHTML from '../../components/sanitized-html';
-import StandardModal from '../../components/standard-modal';
-import TextSection from '../../components/text-section';
-import UIPage from '../../components/ui-page';
+import { BattleMech, IBattleMechExport } from '../../../../classes/battlemech';
+import { IAppGlobals } from '../../../app-router';
+import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
+import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
+import SanitizedHTML from '../../../components/sanitized-html';
+import StandardModal from '../../../components/standard-modal';
+import TextSection from '../../../components/text-section';
+import UIPage from '../../../components/ui-page';
 import './home.scss';
 
 export default class MechCreatorHome extends React.Component<IHomeProps, IHomeState> {

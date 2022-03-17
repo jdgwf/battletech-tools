@@ -3,13 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import AlphaStrikeGroup, { IASGroupExport } from '../../../classes/alpha-strike-group';
-import { AlphaStrikeUnit, IASMULUnit } from '../../../classes/alpha-strike-unit';
-import { makeURLSlug } from '../../../utils';
-import { IAppGlobals } from '../../app-router';
-import StandardModal from '../../components/standard-modal';
-import TextSection from '../../components/text-section';
-import UIPage from '../../components/ui-page';
+import AlphaStrikeGroup, { IASGroupExport } from '../../../../classes/alpha-strike-group';
+import { AlphaStrikeUnit, IASMULUnit } from '../../../../classes/alpha-strike-unit';
+import { makeURLSlug } from '../../../../utils';
+import { IAppGlobals } from '../../../app-router';
+import StandardModal from '../../../components/standard-modal';
+import TextSection from '../../../components/text-section';
+import UIPage from '../../../components/ui-page';
 import './home.scss';
 import AlphaStrikeAddUnitsView from './_AddUnitsPage';
 import CurrentForceList from './_CurrentForceList';
@@ -181,7 +181,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
             <div className="row">
               <div className="col-6">
                 <Link
-                  to={`${process.env.PUBLIC_URL}/alpha-strike-roster/play`}
+                  to={`${process.env.PUBLIC_URL}/play`}
                   className="btn btn-primary no-margin full-width"
                   title="Click here to go into 'Play Mode'"
                 >
@@ -191,7 +191,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
               </div>
               <div className="col-6">
                 <Link
-                  to={`${process.env.PUBLIC_URL}/alpha-strike-roster/print`}
+                  to={`${process.env.PUBLIC_URL}/print`}
                   className="btn btn-primary no-margin full-width"
                   title="Click here to go to a printable version of this page"
                 >

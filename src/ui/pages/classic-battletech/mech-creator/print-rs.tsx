@@ -1,7 +1,7 @@
 import React from 'react';
-import { IAppGlobals } from '../../app-router';
-import PrintablePage from '../../components/printable-page';
-import BattleMechSVG from '../../components/svg/battlemech-svg';
+import { IAppGlobals } from '../../../app-router';
+import PrintablePage from '../../../components/printable-page';
+import BattleMechSVG from '../../../components/svg/battlemech-svg';
 
 
 export default class MechCreatorPrintRS extends React.Component<IPrintRSProps, IPrintRSState> {

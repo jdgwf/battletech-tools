@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Route, Routes } from 'react-router';
-import { IAppGlobals } from '../../app-router';
-import Error404 from "../error404";
+import { IAppGlobals } from '../../../app-router';
+import Error404 from "../../error404";
 import MechCreatorExports from './exports';
 import Home from './home';
 import MechCreatorPrintRS from './print-rs';
@@ -24,63 +24,63 @@ export default class MechCreatorRouter extends React.Component<IMechCreatorRoute
                     <Home
                         appGlobals={this.props.appGlobals}
                     />
-                }></Route>
+                }/>
                 <Route path={`/step1`} element={
                     <MechCreatorStep1
                         appGlobals={this.props.appGlobals}
                     />
-                }></Route>
+                }/>
 
                 <Route path={`/step2`} element={
                     <MechCreatorStep2
                         appGlobals={this.props.appGlobals}
                     />
-                }></Route>
+                }/>
 
                 <Route path={`/step3`} element={
                     <MechCreatorStep3
                         appGlobals={this.props.appGlobals}
                     />
-                }></Route>
+                }/>
                 <Route path={`/step4`} element={
                     <MechCreatorStep4
                         appGlobals={this.props.appGlobals}
                     />
-                }></Route>
+                }/>
                 <Route path={`/step5`} element={
                     <MechCreatorStep5
                         appGlobals={this.props.appGlobals}
                     />
-                }></Route>
+                }/>
                 <Route path={`/step6`} element={
                     <MechCreatorStep6
                         appGlobals={this.props.appGlobals}
                     />
-                }></Route>
+                }/>
 
                 <Route path={`/summary`} element={
                     <MechCreatorSummary
                         appGlobals={this.props.appGlobals}
                     />
-                }></Route>
+                }/>
 
                 <Route path={`/exports`} element={
                     <MechCreatorExports
                         appGlobals={this.props.appGlobals}
                     />
-                }></Route>
+                }/>
 
                 <Route path={`/print-rs`} element={
                     <MechCreatorPrintRS
                         appGlobals={this.props.appGlobals}
                     />
-                }></Route>
+                }/>
 
-                <Route element={
+                <Route path="*" element={
                     <Error404
                         appGlobals={this.props.appGlobals}
                     />
-                }></Route>
+                }/>
             </Routes>
         </>
         )

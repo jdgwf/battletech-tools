@@ -2,17 +2,17 @@ import { faArrowCircleLeft, faArrowCircleRight } from '@fortawesome/free-solid-s
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { btEraOptions } from '../../../data/era-options';
-import { mechInternalStructureTypes } from '../../../data/mech-internal-structure-types';
-import { btMechTonnages } from '../../../data/mech-tonnages';
-import { mechTypeOptions } from '../../../data/mech-type-options';
-import { btTechOptions } from '../../../data/tech-options';
-import { IAppGlobals } from '../../app-router';
-import MechCreatorSideMenu from '../../components/mech-creator-side-menu';
-import MechCreatorStatusbar from '../../components/mech-creator-status-bar';
-import SanitizedHTML from '../../components/sanitized-html';
-import TextSection from '../../components/text-section';
-import UIPage from '../../components/ui-page';
+import { btEraOptions } from '../../../../data/era-options';
+import { mechInternalStructureTypes } from '../../../../data/mech-internal-structure-types';
+import { btMechTonnages } from '../../../../data/mech-tonnages';
+import { mechTypeOptions } from '../../../../data/mech-type-options';
+import { btTechOptions } from '../../../../data/tech-options';
+import { IAppGlobals } from '../../../app-router';
+import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
+import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
+import SanitizedHTML from '../../../components/sanitized-html';
+import TextSection from '../../../components/text-section';
+import UIPage from '../../../components/ui-page';
 import './home.scss';
 
 export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeState> {

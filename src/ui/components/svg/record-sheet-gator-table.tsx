@@ -5,7 +5,6 @@ import RecordSheetGroupBoxSVG from './record-sheet-group-box-svg';
 export default class RecordSheetGATORTable extends React.Component<IRecordSheetGATORTableProps, IRecordSheetGATORTableState> {
     bgColor = "rgb(255,255,255)";
     strokeColor = "rgb(0,0,0)";
-    // landscape: boolean = false;
     inPlay: boolean = false;
     eqLineHeight = 33;
 
@@ -43,29 +42,37 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
                     fontSize={50}
                 >G</text>
 
+                {this.props.inPlay ? (
+                    <>
+                    </>
+                ) : (
+                    <>
 
-                    {this.props.mechData.pilot ? (
-                        <text
-                            x={this.props.xLoc + 150 }
-                            y={this.props.yLoc + 100}
-                            textAnchor="start"
-                            fontFamily="sans-serif"
-                            fill={this.strokeColor}
-                            style={{fontWeight: 100}}
-                            fontSize={50}
-                        >
-                            {this.props.mechData.pilot.gunnery}
-                        </text>
-                    ): null }
+                        {this.props.mechData.pilot ? (
+                                <text
+                                    x={this.props.xLoc + 150 }
+                                    y={this.props.yLoc + 100}
+                                    textAnchor="start"
+                                    fontFamily="sans-serif"
+                                    fill={this.strokeColor}
+                                    style={{fontWeight: 100}}
+                                    fontSize={50}
+                                >
+                                    {this.props.mechData.pilot.gunnery}
+                                </text>
+                            ): null }
 
-                <line
-                    x1={this.props.xLoc + 100 }
-                    x2={this.props.xLoc + 240 }
-                    y1={this.props.yLoc + 110}
-                    y2={this.props.yLoc + 110}
-                    strokeWidth={2}
-                    stroke={this.strokeColor}
-                />
+                        <line
+                            x1={this.props.xLoc + 100 }
+                            x2={this.props.xLoc + 240 }
+                            y1={this.props.yLoc + 110}
+                            y2={this.props.yLoc + 110}
+                            strokeWidth={2}
+                            stroke={this.strokeColor}
+                        />
+                    </>
+                )}
+
                 <text
                     x={this.props.xLoc + 250 }
                     y={this.props.yLoc + 100}
@@ -75,6 +82,11 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
                     style={{fontWeight: 700}}
                     fontSize={50}
                 >A</text>
+                               {this.props.inPlay ? (
+                    <>
+                    </>
+                ) : (
+                    <>
                 <line
                     x1={this.props.xLoc + 300 }
                     x2={this.props.xLoc + 440 }
@@ -83,6 +95,8 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
                     strokeWidth={2}
                     stroke={this.strokeColor}
                 />
+                </>
+                )}
                 <text
                     x={this.props.xLoc + 450 }
                     y={this.props.yLoc + 100}
@@ -92,6 +106,11 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
                     style={{fontWeight: 700}}
                     fontSize={50}
                 >T</text>
+                               {this.props.inPlay ? (
+                    <>
+                    </>
+                ) : (
+                    <>
                 <line
                     x1={this.props.xLoc + 500 }
                     x2={this.props.xLoc + 640 }
@@ -100,6 +119,7 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
                     strokeWidth={2}
                     stroke={this.strokeColor}
                 />
+                </>)}
                 <text
                     x={this.props.xLoc + 650 }
                     y={this.props.yLoc + 100}
@@ -109,6 +129,10 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
                     style={{fontWeight: 700}}
                     fontSize={50}
                 >O</text>
+                {this.props.inPlay ? (
+                    <>
+                    </>
+                ) : (
                 <line
                     x1={this.props.xLoc + 700 }
                     x2={this.props.xLoc + 840 }
@@ -117,6 +141,7 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
                     strokeWidth={2}
                     stroke={this.strokeColor}
                 />
+                )}
                 <text
                     x={this.props.xLoc + 850 }
                     y={this.props.yLoc + 100}
@@ -126,6 +151,10 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
                     style={{fontWeight: 700}}
                     fontSize={50}
                 >R</text>
+                {this.props.inPlay ? (
+                    <>
+                    </>
+                ) : (
                 <line
                     x1={this.props.xLoc + 900 }
                     x2={this.props.xLoc + 1040 }
@@ -134,7 +163,7 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
                     strokeWidth={2}
                     stroke={this.strokeColor}
                 />
-
+                )}
             </RecordSheetGroupBoxSVG>
         )
     }

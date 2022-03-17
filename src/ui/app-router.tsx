@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Modal } from 'react-bootstrap';
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
 import AlphaStrikeForce, { IASForceExport } from "../classes/alpha-strike-force";
 import AlphaStrikeGroup, { IASGroupExport } from "../classes/alpha-strike-group";
 import { BattleMech, IBattleMechExport } from "../classes/battlemech";
@@ -12,13 +12,15 @@ import Alerts from './classes/alerts';
 import { AppSettings } from "./classes/app_settings";
 import SanitizedHTML from './components/sanitized-html';
 import About from "./pages/about";
-import AlphaStrikeRosterRouter from './pages/alpha-strike-roster/_router';
+import AlphaStrikeRosterRouter from './pages/alpha-strike/roster/_router';
 import DevelopmentStatus from "./pages/development-status";
 import EquipmentEditor from "./pages/equipment-editor";
 import Error404 from "./pages/error404";
 import Home from "./pages/home";
-import MechCreatorRouter from './pages/mech-creator/_router';
+import MechCreatorRouter from './pages/classic-battletech/mech-creator/_router';
 import Settings from "./pages/settings";
+import AlphaStrikeRouter from "./pages/alpha-strike/_router";
+import ClassicBattleTechRouter from "./pages/classic-battletech/_router";
 
 
 export default class AppRouter extends React.Component<IAppRouterProps, IAppRouterState> {
@@ -349,7 +351,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                     <Home
                         appGlobals={this.state.appGlobals}
                     />
-                }></Route>
+                }/>
                 {/* <Route path={`${process.env.PUBLIC_URL}/page1`} >
                     <Page1
                         appGlobals={this.state.appGlobals}
@@ -359,39 +361,47 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                     <EquipmentEditor
                         appGlobals={this.state.appGlobals}
                     />
-                }></Route>
+                }/>
 
                 <Route path={`${process.env.PUBLIC_URL}/dev-status`}    element={
                     <DevelopmentStatus
                         appGlobals={this.state.appGlobals}
                     />
-                }></Route>
+                }/>
                 <Route path={`${process.env.PUBLIC_URL}/about`}  element={
                     <About
                         appGlobals={this.state.appGlobals}
                     />
-                }></Route>
+                }/>
                 <Route path={`${process.env.PUBLIC_URL}/settings`}  element={
                     <Settings
                         appGlobals={this.state.appGlobals}
                     />
-                }></Route>
+                }/>
                 <Route path={`${process.env.PUBLIC_URL}/alpha-strike-roster/*`}  element={
-                    <AlphaStrikeRosterRouter
-                        appGlobals={this.state.appGlobals}
-                    />
-                }></Route>
-                <Route path={`${process.env.PUBLIC_URL}/mech-creator/*`}  element={
-                    <MechCreatorRouter
-                        appGlobals={this.state.appGlobals}
-                    />
-                }></Route>
+                    <Navigate to={`${process.env.PUBLIC_URL}/alpha-strike/roster/`} />
+                } />
 
-                <Route element={
+                <Route path={`${process.env.PUBLIC_URL}/mech-creator/*`}  element={
+                    <Navigate to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/`} />
+                } />
+
+                <Route path={`${process.env.PUBLIC_URL}/alpha-strike/*`}  element={
+                    <AlphaStrikeRouter
+                        appGlobals={this.state.appGlobals}
+                    />
+                }/>
+                <Route path={`${process.env.PUBLIC_URL}/classic-battletech/*`}  element={
+                    <ClassicBattleTechRouter
+                        appGlobals={this.state.appGlobals}
+                    />
+                }/>
+
+                <Route path="*" element={
                     <Error404
                         appGlobals={this.state.appGlobals}
                     />
-                }></Route>
+                }/>
 
             </Routes>
             </Router>
