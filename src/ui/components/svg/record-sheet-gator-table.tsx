@@ -21,7 +21,6 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
 
     render = (): React.ReactFragment => {
 
-
         return (
             <RecordSheetGroupBoxSVG
                 width={this.props.width}
