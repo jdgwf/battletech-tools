@@ -2247,7 +2247,7 @@ export class BattleMech {
         let extremeTotalDamageRear = 0;
 
         for (let weapon_counter = 0; weapon_counter < this.equipmentList.length; weapon_counter++) {
-            if (this.equipmentList[weapon_counter].alphaStrike) {
+            if (this.equipmentList[weapon_counter].alphaStrike && !this.equipmentList[weapon_counter].isAmmo ) {
                 if (this.equipmentList[weapon_counter].alphaStrike.rangeLong > 0) {
                     total_weapon_heat_long += this.equipmentList[weapon_counter].alphaStrike.heat;
                 }
@@ -2286,7 +2286,6 @@ export class BattleMech {
                 this.alphaStrikeForceStats.damage.medium = mediumTotalDamage.toString()
                 this.alphaStrikeForceStats.damage.long = longTotalDamage.toString()
                 this.alphaStrikeForceStats.damage.extreme = extremeTotalDamage.toString()
-
 
                 rearDamage.short = shortTotalDamageRear.toString();
                 rearDamage.medium = mediumTotalDamageRear.toString()
@@ -3612,7 +3611,6 @@ export class BattleMech {
         }
 
         this.calcCriticals();
-        // this._calcAlphaStrike();
         this.calcBattleValue();
         this.calcCBillCost();
 
