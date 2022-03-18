@@ -166,7 +166,7 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
                             </div>
                             <div className="col-lg-6">
                               <h3 className="text-center">Record Sheets</h3>
-                              <Link to={`${process.env.PUBLIC_URL}/mech-creator/print-rs`}>
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/print-rs`}>
                                 <BattleMechSVG
                                   mechData={this.props.appGlobals.currentBattleMech}
                                 />
@@ -203,9 +203,9 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
 
                           <div className="clear-both overflow-hidden">
                             <hr />
-                          <Link to={`${process.env.PUBLIC_URL}/mech-creator/exports`} className="btn btn-sm btn-primary pull-right">Summary <FontAwesomeIcon icon={faArrowAltCircleRight} /></Link>
+                          <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/exports`} className="btn btn-sm btn-primary pull-right">Summary <FontAwesomeIcon icon={faArrowAltCircleRight} /></Link>
                             <div className="inline-block text-left">
-                              <Link to={`${process.env.PUBLIC_URL}/mech-creator/step6`} className="btn btn-sm btn-primary"><FontAwesomeIcon icon={faArrowCircleLeft} /> Previous Step</Link>
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step6`} className="btn btn-sm btn-primary"><FontAwesomeIcon icon={faArrowCircleLeft} /> Previous Step</Link>
                             </div>
                           </div>
                         </TextSection>

@@ -6,7 +6,7 @@ import ClassicBattleTechHome from './home';
 import MechCreatorRouter from './mech-creator/_router';
 
 
-export default class ClassicBattletechRouter extends React.Component<IClassicBattletechRouterProps, IClassicBattletechRouterState> {
+export default class ClassicBattleTechRouter extends React.Component<IClassicBattleTechRouterProps, IClassicBattleTechRouterState> {
 
     render = (): React.ReactFragment => {
         return(
@@ -36,10 +36,10 @@ export default class ClassicBattletechRouter extends React.Component<IClassicBat
     }
 }
 
-interface IClassicBattletechRouterProps {
+interface IClassicBattleTechRouterProps {
     appGlobals: IAppGlobals;
 }
 
-interface IClassicBattletechRouterState {
+interface IClassicBattleTechRouterState {
 
 }

@@ -297,9 +297,9 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
 
                         <div className="clear-both overflow-hidden">
                           <hr />
-                          <Link to={`${process.env.PUBLIC_URL}/mech-creator/summary`} className="btn btn-primary pull-right btn-sm">Summary <FontAwesomeIcon icon={faArrowCircleRight} /></Link>
+                          <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/summary`} className="btn btn-primary pull-right btn-sm">Summary <FontAwesomeIcon icon={faArrowCircleRight} /></Link>
                           <div className="inline-block text-left">
-                              <Link to={`${process.env.PUBLIC_URL}/mech-creator/step5`} className="btn btn-primary btn-sm"><FontAwesomeIcon icon={faArrowCircleLeft} /> Previous Step</Link>
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step5`} className="btn btn-primary btn-sm"><FontAwesomeIcon icon={faArrowCircleLeft} /> Previous Step</Link>
                             </div>
                         </div>
                       </TextSection>

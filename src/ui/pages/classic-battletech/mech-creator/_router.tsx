@@ -20,57 +20,57 @@ export default class MechCreatorRouter extends React.Component<IMechCreatorRoute
     render = (): React.ReactFragment => {
         return(<>
             <Routes>
-                <Route path={`/`} element={
+                <Route path={``} element={
                     <Home
                         appGlobals={this.props.appGlobals}
                     />
                 }/>
-                <Route path={`/step1`} element={
+                <Route path={`step1`} element={
                     <MechCreatorStep1
                         appGlobals={this.props.appGlobals}
                     />
                 }/>
 
-                <Route path={`/step2`} element={
+                <Route path={`step2`} element={
                     <MechCreatorStep2
                         appGlobals={this.props.appGlobals}
                     />
                 }/>
 
-                <Route path={`/step3`} element={
+                <Route path={`step3`} element={
                     <MechCreatorStep3
                         appGlobals={this.props.appGlobals}
                     />
                 }/>
-                <Route path={`/step4`} element={
+                <Route path={`step4`} element={
                     <MechCreatorStep4
                         appGlobals={this.props.appGlobals}
                     />
                 }/>
-                <Route path={`/step5`} element={
+                <Route path={`step5`} element={
                     <MechCreatorStep5
                         appGlobals={this.props.appGlobals}
                     />
                 }/>
-                <Route path={`/step6`} element={
+                <Route path={`step6`} element={
                     <MechCreatorStep6
                         appGlobals={this.props.appGlobals}
                     />
                 }/>
 
-                <Route path={`/summary`} element={
+                <Route path={`summary`} element={
                     <MechCreatorSummary
                         appGlobals={this.props.appGlobals}
                     />
                 }/>
 
-                <Route path={`/exports`} element={
+                <Route path={`exports`} element={
                     <MechCreatorExports
                         appGlobals={this.props.appGlobals}
                     />
                 }/>
 
-                <Route path={`/print-rs`} element={
+                <Route path={`print-rs`} element={
                     <MechCreatorPrintRS
                         appGlobals={this.props.appGlobals}
                     />

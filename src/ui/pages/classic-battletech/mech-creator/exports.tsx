@@ -45,7 +45,7 @@ export default class MechCreatorExports extends React.Component<IHomeProps, IHom
                             <hr />
 
                               <div className="text-left inline-block">
-                              <Link to={`${process.env.PUBLIC_URL}/mech-creator/summary`} className="btn btn-primary btn-sm"><FontAwesomeIcon icon={faArrowCircleLeft} /> Summary</Link>
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/summary`} className="btn btn-primary btn-sm"><FontAwesomeIcon icon={faArrowCircleLeft} /> Summary</Link>
                             </div>
                           </div>
                         </TextSection>

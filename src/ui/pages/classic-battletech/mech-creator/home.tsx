@@ -275,7 +275,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                                 <FontAwesomeIcon icon={faFile} />&nbsp;Start Over
                               </button>
                               <Link
-                                to={`${process.env.PUBLIC_URL}/mech-creator/step1`}
+                                to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step1`}
                                 className="btn btn-primary pull-right btn-sm">
                                   Next Step <FontAwesomeIcon icon={faArrowCircleRight} />
                               </Link>
