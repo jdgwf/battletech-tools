@@ -214,6 +214,9 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
                 <rect x="850" y="9" width="150" height="35" fill="rgb(0,0,0)"></rect>
                 <text x="990" y="35" textAnchor="end" fill="rgb(255,255,255)" stroke="rgb(255,255,255)" fontFamily="sans-serif" fontSize="33">PV: {this.props.asUnit.currentPoints}</text>
+                {this.props.asUnit.currentTMM != this.props.asUnit.basePoints.toString() ? (
+                    <text x="988" y="60" textAnchor="end" fontFamily="sans-serif" fontSize="20">Base PV: {this.props.asUnit.basePoints.toString().toUpperCase()}</text>
+                ) : null}
                 <rect x="20" y="100" width="550" height="105" fill="rgb(0,0,0)" rx="18" ry="18"></rect>
                 <rect x="25" y="105" width="540" height="95" fill="rgba( 255,255,255,.8)" rx="15" ry="15"></rect>
                 <text x="30" y="140" fontFamily="sans-serif" fontSize="25">TP: {this.props.asUnit.type}</text>
@@ -223,6 +226,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 ) : (
                     <></>
                 )}
+
 
                 <text x="540" y="140" fontFamily="sans-serif" textAnchor="end" fontSize="25">MV: {this.props.asUnit.currentMove.toUpperCase()}</text>
                 <text x="30" y="180" fontFamily="sans-serif" fontSize="25">ROLE: {this.props.asUnit.role.toUpperCase()}</text>

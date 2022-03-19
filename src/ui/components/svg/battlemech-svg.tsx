@@ -94,8 +94,12 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         eraLine2 = eraLine2.trim();
 
         let battleValue = this.props.mechData.getBattleValue().toString();
-        if( battleValue !== this.props.mechData.getPilotAdjustedBattleValue().toString() )
-            battleValue = battleValue + " (" + this.props.mechData.getPilotAdjustedBattleValue() + ")";
+        let adjustedBattleValue = this.props.mechData.getPilotAdjustedBattleValue().toString();
+        let battleValueLabel = "BattleValue (BV2)"
+        if( battleValue !== adjustedBattleValue ) {
+            battleValueLabel = "Adjusted / Base BV (BV2)"
+            battleValue = "with pilot: " + adjustedBattleValue + " / base: " + battleValue + "";
+        }
 
         let critBoxTop = 1250;
         let critBoxLeft = 10;
@@ -374,7 +378,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 </text>
 	            {/* // BV */}
                 <text
-                    x={generalDataBoxX + 340}
+                    x={generalDataBoxX + 300}
                     y={generalDataBoxY + 350}
                     textAnchor="start"
                     fontFamily="sans-serif"
@@ -382,12 +386,12 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     style={{fontWeight: 700}}
                     fontSize={30}
                 >
-                    BattleValue (BV2)
+                    {battleValueLabel}
                 </text>
 
 
             <text
-                x={generalDataBoxX + 340}
+                x={generalDataBoxX + 300}
                 y={generalDataBoxY + 380}
                 textAnchor="start"
                 fontFamily="sans-serif"

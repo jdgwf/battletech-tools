@@ -437,8 +437,8 @@ title="View this unit's Alpha Strike Card"
                 <tr>
                   <td>&nbsp;</td>
                   <td colSpan={3} className="med-small-text">
-                    <strong title="Armor/Internal Structure values">A/IS</strong>: {asUnit.armor}/{asUnit.structure}
-                    &nbsp;|&nbsp;<strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
+
+                    <strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
                     {asUnit.overheat  && asUnit.overheat > 0 ? (
                       <>
                        &nbsp;|&nbsp;<strong title="Overheat Value">OHV</strong>: {asUnit.overheat}

@@ -260,6 +260,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       <thead>
         <tr>
           <th>Name</th>
+          <th>Pilot</th>
           <th>Points</th>
         </tr>
       </thead>
@@ -278,6 +279,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                 )}
                 {asFavGroupUnit.name}
               </td>
+              <td>{asFavGroupUnit.currentSkill}</td>
               <td>{asFavGroupUnit.currentPoints}</td>
 
             </tr>
