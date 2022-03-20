@@ -1,5 +1,4 @@
-import { faSave, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FaSave, FaTimesCircle } from "react-icons/fa";
 import * as React from 'react';
 import { Modal } from 'react-bootstrap';
 import InputCheckbox from './form_elements/input_checkbox';
@@ -53,7 +52,7 @@ export default class StandardModal extends React.Component<IStandardModalProps, 
                 className={closeClass}
                 title={labelClose}
             >
-                <FontAwesomeIcon icon={faTimesCircle} />
+                <FaTimesCircle />
             </button>
 
                 </>
@@ -68,7 +67,7 @@ export default class StandardModal extends React.Component<IStandardModalProps, 
                 title={labelSave}
             >
 
-                <FontAwesomeIcon icon={faSave} />
+                <FaSave />
             </button>
 
                 </>
@@ -82,7 +81,7 @@ export default class StandardModal extends React.Component<IStandardModalProps, 
                 title={labelAdd}
             >
 
-                <FontAwesomeIcon icon={faSave} />
+                <FaSave />
             </button>
 
                 </>

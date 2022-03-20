@@ -1,5 +1,5 @@
-import { faArrowsAlt, faBars, faEdit, faExclamationTriangle, faHeart, faPlus, faTrash, faWarning } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FaArrowsAlt, FaBars, FaEdit, FaExclamationTriangle, FaHeart, FaPlus, FaTrash } from "react-icons/fa";
+import { AiOutlineWarning } from 'react-icons/ai';
 import * as React from 'react';
 import { Button } from 'react-bootstrap';
 import { AlphaStrikeUnit } from '../../../../classes/alpha-strike-unit';
@@ -111,7 +111,7 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
             onClick={this.props.openAddingUnits}
             className="btn btn-sm btn-primary pull-right"
             >
-            <FontAwesomeIcon icon={faPlus} />&nbsp;Add Units
+            <FaPlus />&nbsp;Add Units
             </button>
         }
 
@@ -139,14 +139,14 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                         title="Click here to add this group to your favorites."
                         className="btn-sm"
                       >
-                        <FontAwesomeIcon icon={faHeart} />
+                        <FaHeart />
                       </Button>
                       <Button
                         onClick={() => this.removeGroup(asGroupIndex)}
                         title="Click here to remove this group."
                         className="btn-sm"
                       >
-                        <FontAwesomeIcon icon={faTrash} />
+                        <FaTrash />
                       </Button>
                     </div>
                     <div className="width-80">
@@ -205,7 +205,7 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                                       title="Open the context menu for this unit"
                                       onClick={() => this.toggleContextMenuForce( asGroupIndex, asUnitIndex )}
                                     >
-                                      <FontAwesomeIcon icon={faBars} />
+                                      <FaBars />
                                     </Button>
                                     <ul
                                       className={this.state.contextMenuGroup === asGroupIndex && this.state.contextMenuUnit === asUnitIndex ? "styleless dd-menu active" : "styleless dd-menu"}
@@ -213,8 +213,7 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                                       <li
                                         onClick={() => this.openEditUnit(asUnit)}
                                         title="Edit this unit"
-                                      ><
-                                        FontAwesomeIcon icon={faEdit} /> Edit
+                                      ><FaEdit /> Edit
                                       </li>
                                       {this.props.appGlobals.currentASForce.groups.map( (asGroup, asGroupListIndex) => {
                                         return (
@@ -224,7 +223,7 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                                                 onClick={() => this.moveUnitToGroup(asUnitIndex, asGroupIndex, asGroupListIndex)}
                                                 title="Move this unit to another group"
                                               >
-                                                <FontAwesomeIcon icon={faArrowsAlt} />&nbsp;
+                                                <FaArrowsAlt />&nbsp;
                                                 Move to {asGroup.getName(asGroupListIndex + 1)}
                                               </li>
                                             ) :
@@ -242,7 +241,7 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                                     onClick={() => this.openEditUnit(asUnit)}
                                     title="Edit this unit's skill and name"
                                   >
-                                    <FontAwesomeIcon icon={faEdit} />
+                                    <FaEdit />
                                   </Button>
                                   </>
                                 )}
@@ -254,7 +253,7 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                                   onClick={() => this.removeUnitFromGroup(asGroupIndex, asUnitIndex)}
                                   title="Remove this unit"
                                 >
-                                  <FontAwesomeIcon icon={faTrash} />
+                                  <FaTrash />
                                 </Button>
                               </td>
                               <td>
@@ -280,13 +279,13 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                               <td colSpan={3} className="med-small-text">
                               {asUnit.isWrecked() ? (
                                   <div className="pull-right wrecked-tag">
-                                      <FontAwesomeIcon icon={faExclamationTriangle} /> Wrecked
+                                      <FaExclamationTriangle /> Wrecked
                                   </div>
                                 ) : (
                                   <>
                                     {asUnit.isUnderStrength() ? (
                                     <div className="pull-right damaged-tag">
-                                        <FontAwesomeIcon icon={faWarning} /> Damaged
+                                        <AiOutlineWarning /> Damaged
                                     </div>
                                   ) : null}
                                   </>

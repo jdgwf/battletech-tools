@@ -1,5 +1,5 @@
-import { faArrowCircleLeft, faPrint } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { FaArrowCircleLeft, FaPrint } from "react-icons/fa";
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -27,14 +27,14 @@ export default class PrintablePage extends React.Component<IPrintablePageProps, 
               className="pull-left"
             >
               <Button variant="primary">
-                <FontAwesomeIcon icon={faArrowCircleLeft} />
+                <FaArrowCircleLeft />
               </Button>
             </Link>
             <Button
               variant="primary"
               onClick={() => window.print()}
             >
-              <FontAwesomeIcon icon={faPrint} /> Print
+              <FaPrint /> Print
             </Button>
           </div>
           <div className="print-bg">

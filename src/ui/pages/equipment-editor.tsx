@@ -1,5 +1,4 @@
-import { faEdit, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import React from 'react';
 import { IEquipmentItem } from "../../data/data-interfaces";
 import { mechClanEquipmentEnergy } from '../../data/mech-clan-equipment-weapons-energy';
@@ -468,7 +467,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                     className="btn btn-sm btn-primary"
                     onClick={this.addItem}
                 >
-                    <FontAwesomeIcon icon={faPlus} />&nbsp;Add
+                    <FaPlus />&nbsp;Add
                 </button>
             </th>
         </tr>
@@ -577,12 +576,12 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                         className="btn btn-sm btn-primary"
                         onClick={(e) => this.editItem( e, item, itemIndex)}
                     >
-                        <FontAwesomeIcon icon={faEdit} />
+                        <FaEdit />
                     </button>
                     <button
                         className="btn btn-sm btn-danger"
                     >
-                        <FontAwesomeIcon icon={faTrash} />
+                        <FaTrash />
                     </button>
                 </td>
             </tr>

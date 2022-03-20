@@ -1,5 +1,5 @@
-import { faExclamationTriangle, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { FaExclamationCircle, FaExclamationTriangle } from "react-icons/fa";
 import React from 'react';
 import { checkFullRestoreData, getFullBackup, IFullBackup, IRestoreMessage, restoreFullBackup } from '../../dataSaves';
 import { IAppGlobals } from '../app-router';
@@ -236,9 +236,9 @@ export default class Settings extends React.Component<ISettingsProps, ISettingsS
         return (
           <li key={msgIndex}>
             {msg.severity === "add" ? (
-                <FontAwesomeIcon icon={faPlus} className="color-green" />
+                <FaExclamationCircle className="color-green" />
               ) : (
-                <FontAwesomeIcon icon={faExclamationTriangle} className="color-red" />
+                <FaExclamationTriangle className="color-red" />
               )}&nbsp; {msg.message}
           </li>
         )

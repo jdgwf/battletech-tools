@@ -1,5 +1,4 @@
-import { faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FaArrowCircleLeft } from "react-icons/fa";
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { IAppGlobals } from '../../../app-router';
@@ -24,7 +23,7 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
         <>
           <header className="topmenu">
             <ul>
-                <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/alpha-strike/roster`}><FontAwesomeIcon icon={faArrowAltCircleLeft} /></Link></li>
+                <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/alpha-strike/roster`}><FaArrowCircleLeft /></Link></li>
 
                 <li className="logo">
                     <a

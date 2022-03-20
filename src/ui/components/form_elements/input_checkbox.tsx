@@ -1,6 +1,5 @@
-import { faSquare } from '@fortawesome/free-regular-svg-icons';
-import { faCheckCircle, faCheckSquare, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { FaSquare, FaCheckCircle, FaTimesCircle, FaCheckSquare } from "react-icons/fa";
 import * as React from 'react';
 
 export default class InputCheckbox extends React.Component<IInputCheckboxProps, IInputCheckboxState> {
@@ -47,17 +46,17 @@ export default class InputCheckbox extends React.Component<IInputCheckboxProps, 
 {this.props.readOnly ? (
     <div title={this.props.checked ? "Is" : "Is NOT"}>
     {this.props.checked ? (
-        <FontAwesomeIcon icon={faCheckCircle} className="color-green" />
+        <FaCheckCircle className="color-green" />
     ) : (
-        <FontAwesomeIcon icon={faTimesCircle} className="color-red" />
+        <FaTimesCircle className="color-red" />
     )}&nbsp;<strong>{this.props.label}</strong>
     </div>
 ) : (<>
 
                 {this.props.checked ? (
-                    <FontAwesomeIcon icon={faCheckSquare} className="color-green" />
+                    <FaCheckSquare className="color-green" />
                 ) : (
-                    <FontAwesomeIcon icon={faSquare} className="color-black" />
+                    <FaSquare className="color-black" />
                 )}
 
                 &nbsp;<strong>{this.props.label}</strong>

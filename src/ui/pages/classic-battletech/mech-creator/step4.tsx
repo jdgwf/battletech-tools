@@ -1,5 +1,4 @@
-import { faArrowCircleLeft, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -620,9 +619,9 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
 
                           <div className="clear-both overflow-hidden">
                             <hr />
-                            <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step5`} className="btn btn-primary pull-right btn-sm">Next Step <FontAwesomeIcon icon={faArrowCircleRight} /></Link>
+                            <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step5`} className="btn btn-primary pull-right btn-sm">Next Step <FaArrowCircleRight /></Link>
                             <div className="inline-block text-left">
-                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step3`} className="btn btn-primary btn-sm"><FontAwesomeIcon icon={faArrowCircleLeft} /> Previous Step</Link>
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step3`} className="btn btn-primary btn-sm"><FaArrowCircleLeft /> Previous Step</Link>
                             </div>
                           </div>
                       </TextSection>

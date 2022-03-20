@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { IAppGlobals } from '../../app-router';
 import TextSection from '../../components/text-section';
 import UIPage from '../../components/ui-page';
+import { MdTableView } from "react-icons/md";
 
 export default class AlphaStrikeHome extends React.Component<IAlphaStrikeHomeProps, IAlphaStrikeHomeState> {
     constructor(props: IAlphaStrikeHomeProps) {
@@ -22,11 +23,15 @@ export default class AlphaStrikeHome extends React.Component<IAlphaStrikeHomePro
           <TextSection
             label="Alpha Strike"
           >
-            Nothing to see here yet!
-            <br /><br />
-            <Link  to={`${process.env.PUBLIC_URL}/alpha-strike/roster`}>Alpha Strike Roster</Link><br />
-            <br /><br />
-          </TextSection>
+              <ul className="icon-links">
+                <li>
+                  <Link  to={`${process.env.PUBLIC_URL}/alpha-strike/roster`}>
+                    <MdTableView />
+                    Alpha Strike Roster
+                  </Link>
+                </li>
+              </ul>
+           </TextSection>
 
         </UIPage>
       );

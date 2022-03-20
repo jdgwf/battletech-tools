@@ -1,6 +1,6 @@
-import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import React from 'react';
+import { FaBars } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { IAppGlobals } from '../app-router';
 import BattleTechLogo from './battletech-logo';
@@ -41,7 +41,7 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
           <>
           <header className="topmenu">
             <ul className="main-menu">
-                <li onClick={this.toggleMobile} className="mobile-menu-button d-inline d-md-none"><FontAwesomeIcon icon={faBars} /></li>
+                <li onClick={this.toggleMobile} className="mobile-menu-button d-inline d-md-none"><FaBars /></li>
                 <li className="d-none d-md-inline"><Link className={this.props.current === "home" ? "current" : "" } to={`${process.env.PUBLIC_URL}/`}>Home</Link></li>
                 {/* <li className="d-none d-md-inline"><Link className={this.props.current === "page1" ? "current" : "" } to={`${process.env.PUBLIC_URL}/page1`}>Page1</Link></li> */}
                 {this.props.appGlobals.appSettings.developerMenu ? (
@@ -82,7 +82,7 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
 
           </header>
             <div className="mobile-menu">
-                <ul className="styleless">
+                <ul className="main-menu">
                     <li><Link onClick={this.closeMobile} className={this.props.current === "home" ? "current" : "" } to={`${process.env.PUBLIC_URL}/`}>Home</Link></li>
                     {/* <li><Link onClick={this.closeMobile} className={this.props.current === "page1" ? "current" : "" } to={`${process.env.PUBLIC_URL}/page1`}>Page1</Link></li> */}
                     {this.props.appGlobals.appSettings.developerMenu ? (

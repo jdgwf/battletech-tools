@@ -1,5 +1,5 @@
-import { faArrowAltCircleLeft, faList, faRefresh, faTh } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FaArrowCircleLeft, FaList, FaTh } from "react-icons/fa";
+import { FiRefreshCcw } from "react-icons/fi";
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AlphaStrikeGroup from '../../../../classes/alpha-strike-group';
@@ -65,12 +65,12 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
         <>
           <header className="topmenu">
             <ul>
-                <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/alpha-strike-roster`}><FontAwesomeIcon icon={faArrowAltCircleLeft} /></Link></li>
+                <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/alpha-strike-roster`}><FaArrowCircleLeft /></Link></li>
 
                 {this.props.appGlobals.appSettings.alphaStrikeInPlayCardMode ? (
-                  <li title="Switch a large list mode"><span className="current" onClick={this.toggleCardMode}><FontAwesomeIcon icon={faList} /></span></li>
+                  <li title="Switch a large list mode"><span className="current" onClick={this.toggleCardMode}><FaList /></span></li>
                 ) : (
-                  <li title="Switch to showing 2+ cards per row"><span className="current" onClick={this.toggleCardMode}><FontAwesomeIcon icon={faTh} /></span></li>
+                  <li title="Switch to showing 2+ cards per row"><span className="current" onClick={this.toggleCardMode}><FaTh /></span></li>
 
                 )}
 
@@ -101,7 +101,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
                     title={"Click here to reset the damage for this " + group.groupLabel + ". You'll be prompted for confirmation."}
                     onClick={(e) => this.resetGroup( e, group )}
                   >
-                    <FontAwesomeIcon icon={faRefresh} />&nbsp;Reset
+                    <FiRefreshCcw />&nbsp;Reset
                   </button>
                   {group.getName(groupIndex + 1)}
                 </h2>

@@ -1,5 +1,4 @@
-import { faBars, faEye, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FaBars, FaEye, FaPlus } from "react-icons/fa";
 import * as React from 'react';
 import { Button } from 'react-bootstrap';
 import { AlphaStrikeUnit, IASMULUnit } from '../../../../classes/alpha-strike-unit';
@@ -234,7 +233,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         onClick={() => this.toggleContextMenuSearch(unitIndex)}
         title="Open the context menu for this unit"
       >
-        <FontAwesomeIcon icon={faBars} />
+        <FaBars />
       </Button>
       <ul
         className={this.state.contextMenuSearch === unitIndex ? "styleless dd-menu active" : "styleless dd-menu"}
@@ -246,7 +245,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
               onClick={() => this.addToGroup( new AlphaStrikeUnit(asUnit), asGroupIndex)}
               title={"Adds this unit to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
             >
-              <FontAwesomeIcon icon={faPlus} />&nbsp;
+              <FaPlus />&nbsp;
               Add to {asGroup.getName(asGroupIndex + 1)}
             </li>
           )
@@ -261,7 +260,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       onClick={() => this.addToGroup( new AlphaStrikeUnit(asUnit), 0)}
       title="Add this unit to your current group"
     >
-      <FontAwesomeIcon icon={faPlus} />
+      <FaPlus />
     </Button>
 )}
 
@@ -271,7 +270,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
     onClick={() => this.props.openViewUnit( new AlphaStrikeUnit(asUnit))}
     title="View this unit's Alpha Strike Card"
   >
-    <FontAwesomeIcon icon={faEye} />
+    <FaEye />
   </Button>
 </td>
                               <td>{asUnit.Name}</td>
@@ -385,7 +384,7 @@ className="btn-sm"
 onClick={() => this.toggleContextMenuSearch(unitIndex)}
 title="Open the context menu for this unit"
 >
-<FontAwesomeIcon icon={faBars} />
+<FaBars />
 </Button>
 <ul
 className={this.state.contextMenuSearch === unitIndex ? "styleless dd-menu active" : "styleless dd-menu"}
@@ -397,7 +396,7 @@ return (
   onClick={() => this.addToGroup(asUnit, asGroupIndex)}
   title={"Adds this unit to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
 >
-  <FontAwesomeIcon icon={faPlus} />&nbsp;
+  <FaPlus />&nbsp;
   Add to {asGroup.getName(asGroupIndex + 1)}
 </li>
 )
@@ -412,7 +411,7 @@ className="btn-sm no-right-margin"
 onClick={() => this.addToGroup(asUnit, 0)}
 title="Add this unit to your current group"
 >
-<FontAwesomeIcon icon={faPlus} />
+<FaPlus />
 </Button>
 )}
 
@@ -422,7 +421,7 @@ className="btn-sm"
 onClick={() => this.props.openViewUnit(asUnit)}
 title="View this unit's Alpha Strike Card"
 >
-<FontAwesomeIcon icon={faEye} />
+<FaEye />
 </Button>
 </td>
                   <td title={"UUID: " + asUnit.mechCreatorUUID}>{asUnit.name}</td>

@@ -1,5 +1,4 @@
-import { faDice, faDownload, faFileImport, faPrint, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FaDice, FaDownload, FaFileImport, FaPrint, FaTrash } from "react-icons/fa";
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -185,7 +184,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                   className="btn btn-primary no-margin full-width"
                   title="Click here to go into 'Play Mode'"
                 >
-                    <FontAwesomeIcon icon={faDice} />&nbsp;Play Mode
+                    <FaDice />&nbsp;Play Mode
                 </Link><br />
                 <br />
               </div>
@@ -195,7 +194,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                   className="btn btn-primary no-margin full-width"
                   title="Click here to go to a printable version of this page"
                 >
-                    <FontAwesomeIcon icon={faPrint} />&nbsp;Print Force
+                    <FaPrint />&nbsp;Print Force
                 </Link><br />
                 <br />
               </div>
@@ -233,14 +232,14 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
           )}`}
           download={"as-favorite-export" + makeURLSlug(asFavGroup.getName(0)) + ".json"}
         >
-          <FontAwesomeIcon icon={faDownload} />
+          <FaDownload />
         </a>
       <Button
         onClick={() => this.loadASFavorite(asFavGroup)}
         title="Load this favorite group to your current force"
         className="btn-sm"
       >
-        <FontAwesomeIcon icon={faFileImport} />
+        <FaFileImport />
       </Button>
 
       <Button
@@ -248,7 +247,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
         title="Remove this favorite"
         className="btn-sm"
       >
-        <FontAwesomeIcon icon={faTrash} />
+        <FaTrash />
       </Button>
     </div>
     <div className="text-center">

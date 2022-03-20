@@ -1,5 +1,4 @@
-import { faArrowCircleLeft, faArrowCircleRight, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FaArrowCircleLeft, FaArrowCircleRight, FaPlus, FaTrash } from "react-icons/fa";
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -130,7 +129,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                             title="Open the add dialog"
                             onClick={this.openInstallDialog}
                           >
-                            <FontAwesomeIcon icon={faPlus} />
+                            <FaPlus />
                           </Button>
 
                           <h3 className="text-center">Installed Equipment</h3>
@@ -169,7 +168,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                           className="btn-sm"
                                           onClick={() => this.removeEquipment( itemIndex)}
                                         >
-                                          <FontAwesomeIcon icon={faTrash} />
+                                          <FaTrash />
                                         </Button>
 
                                       </td>
@@ -191,16 +190,16 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                               title="Open the add dialog"
                               onClick={this.openInstallDialog}
                             >
-                              <FontAwesomeIcon icon={faPlus} />
+                              <FaPlus />
                             </Button>&nbsp;
                             to the top left to install equipment.</p>
                             </>
                           )}
                           <div className="clear-both overflow-hidden">
                             <hr />
-                            <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step6`} className="btn btn-primary pull-right btn-sm">Next Step <FontAwesomeIcon icon={faArrowCircleRight} /></Link>
+                            <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step6`} className="btn btn-primary pull-right btn-sm">Next Step <FaArrowCircleRight /></Link>
                             <div className="inline-block text-left">
-                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step4`} className="btn btn-primary btn-sm"><FontAwesomeIcon icon={faArrowCircleLeft} /> Previous Step</Link>
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step4`} className="btn btn-primary btn-sm"><FaArrowCircleLeft /> Previous Step</Link>
                             </div>
                           </div>
                           </TextSection>

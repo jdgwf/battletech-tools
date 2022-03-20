@@ -1,5 +1,4 @@
-import { faArrowCircleRight, faFile, faFileExport, faFolderOpen, faSave, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FaArrowCircleRight, FaFile, FaFileExport, FaFolder, FaFolderOpen, FaSave, FaTrash } from "react-icons/fa";
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BattleMech, IBattleMechExport } from '../../../../classes/battlemech';
@@ -272,12 +271,12 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                                 onClick={this.startNew}
                                 title="Click here to clear out your current 'mech and start over."
                               >
-                                <FontAwesomeIcon icon={faFile} />&nbsp;Start Over
+                                <FaFile />&nbsp;Start Over
                               </button>
                               <Link
                                 to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step1`}
                                 className="btn btn-primary pull-right btn-sm">
-                                  Next Step <FontAwesomeIcon icon={faArrowCircleRight} />
+                                  Next Step <FaArrowCircleRight />
                               </Link>
                           </div>
                     </TextSection>
@@ -290,7 +289,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
     title="Click here to save a a new 'mech row"
     onClick={this.saveAsNew}
   >
-    <FontAwesomeIcon icon={faSave} />&nbsp;Save as New
+    <FaSave />&nbsp;Save as New
   </button>}
 >
 
@@ -328,7 +327,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                                   title={"Click here to load " + mech.name + " into the editor"}
                                   onClick={ (e) => this.loadSave( e, mechIndex)}
                                 >
-                                  <FontAwesomeIcon icon={faFolderOpen} />
+                                  <FaFolderOpen />
                                 </button>
                                 <button
                                   className="btn btn-sm btn-primary"
@@ -336,7 +335,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                                   title={"Click here to save the currently loadoed over " + mech.name + ". You'll be prompted for confirmation."}
                                   onClick={ (e) => this.saveOver( e, mechIndex)}
                                 >
-                                  <FontAwesomeIcon icon={faSave} />
+                                  <FaSave />
                                 </button>
                                 <button
                                   className="btn btn-sm btn-primary"
@@ -344,7 +343,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                                   title={"Click here to delete " + mech.name + " from this list. You'll be prompted for a confirmation."}
                                   onClick={ (e) => this.deleteSave( e, mechIndex)}
                                 >
-                                  <FontAwesomeIcon icon={faTrash} />
+                                  <FaTrash />
                                 </button>
                               </td>
                             </tr>
@@ -389,7 +388,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                               )}`}
                               download="battlmech-exports.json"
                             >
-                              <FontAwesomeIcon icon={faFileExport} />&nbsp;Export
+                              <FaFileExport />&nbsp;Export
                             </a>
                           </th>
                         </tr>

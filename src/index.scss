@@ -22,6 +22,22 @@ body {
   background-color: $bodyBackground;
 }
 
+
+.icon-spin {
+  animation: rotation 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
 .overflow-scroll-y {
   overflow-y: scroll;
 }
@@ -40,6 +56,24 @@ body {
 
 .text-left {
   text-align: left;
+}
+
+.icon-links {
+  list-style: none;
+  li {
+    display: inline-block;
+    a {
+      width: 5rem;
+      height: 5rem;
+      text-align: center;
+      svg {
+        height: 4rem;
+        width: 4rem;
+        margin: 0 auto;
+        display: block;
+      }
+    }
+  }
 }
 
 .text-center {

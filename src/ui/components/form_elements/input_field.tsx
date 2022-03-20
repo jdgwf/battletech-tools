@@ -1,5 +1,4 @@
-import { faChevronDown, faChevronUp, faQuestion } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FaChevronDown, FaChevronUp, FaQuestion } from "react-icons/fa";
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -136,7 +135,7 @@ export default class InputField extends React.Component<IInputFieldProps, IInput
                     target="savaged-help"
                     className="pull-left btn-sm btn-primary btn help-button"
                 >
-                    <FontAwesomeIcon icon={faQuestion}></FontAwesomeIcon>
+                    <FaQuestion />
                 </Link>
                 )
                 :
@@ -151,9 +150,9 @@ export default class InputField extends React.Component<IInputFieldProps, IInput
                             onClick={this.toggleDD}
                         >
                             {this.state.ddOpen ? (
-                                <FontAwesomeIcon icon={faChevronDown} />
+                                <FaChevronDown />
                             ) : (
-                                <FontAwesomeIcon icon={faChevronUp} />
+                                <FaChevronUp />
                             )}
                         </button>
                         {this.state.ddOpen ? (

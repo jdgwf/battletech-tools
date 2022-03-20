@@ -4,8 +4,7 @@ import {IAppGlobals} from '../../../app-router';
 import SanitizedHTML from '../../../components/sanitized-html';
 import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
 import { Link } from 'react-router-dom';
-import { faArrowCircleLeft, faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
 import UIPage from '../../../components/ui-page';
 import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
@@ -203,9 +202,9 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
 
                           <div className="clear-both overflow-hidden">
                             <hr />
-                          <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/exports`} className="btn btn-sm btn-primary pull-right">Summary <FontAwesomeIcon icon={faArrowAltCircleRight} /></Link>
+                          <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/exports`} className="btn btn-sm btn-primary pull-right">Summary <FaArrowCircleRight /></Link>
                             <div className="inline-block text-left">
-                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step6`} className="btn btn-sm btn-primary"><FontAwesomeIcon icon={faArrowCircleLeft} /> Previous Step</Link>
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step6`} className="btn btn-sm btn-primary"><FaArrowCircleLeft /> Previous Step</Link>
                             </div>
                           </div>
                         </TextSection>

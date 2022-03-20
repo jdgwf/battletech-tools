@@ -1,5 +1,4 @@
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FaTimesCircle } from "react-icons/fa";
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { IAppGlobals } from '../app-router';
@@ -55,7 +54,7 @@ export default class ShowAlerts extends React.Component<IShowAlertsProps, IShowA
                                     style={{fontSize: "1.5rem"}}
                                     title={"Click here to dismiss this alert, but it'll auto-dismiss in " + alert.autoDismissSeconds + " seconds"}
                                 >
-                                    <FontAwesomeIcon icon={faTimesCircle} spin />
+                                    <FaTimesCircle className="icon-spin" />
                                 </span>
                                 </>
                             )
@@ -70,7 +69,7 @@ export default class ShowAlerts extends React.Component<IShowAlertsProps, IShowA
                                                 style={{fontSize: "1.5rem"}}
                                                 title="Click here to dismiss this alert"
                                             >
-                                                <FontAwesomeIcon icon={faTimesCircle} />
+                                                <FaTimesCircle />
                                             </span>
                                         ):
                                         (

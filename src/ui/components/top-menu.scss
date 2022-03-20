@@ -85,6 +85,7 @@
 .mobile-menu {
 
     ul {
+        padding-left: 0rem;
         li {
             display: block;
             a {
@@ -125,6 +126,34 @@ body.desaturated {
 
     .mobile-menu,
     .topmenu {
+        ul.sub-menu {
+            li {
+                a, span {
+                    text-decoration: none;
+                    color: $desaturatedPrimaryBG;
+                    border-right: solid 2px $desaturatedPrimaryBG;
+                    border-top: solid 2px $desaturatedPrimaryBG;
+                    border-bottom: solid 2px $desaturatedPrimaryBG;
+                    border-left: solid 2px $desaturatedPrimaryBG;
+                    &.current {
+                        background: $desaturatedPrimaryBG;
+                        color: $desaturatedPrimaryTextColor;
+                        border-right: solid 2px $desaturatedPrimaryBG;
+                        border-top: solid 2px $desaturatedPrimaryBG;
+                        border-bottom: solid 2px $desaturatedPrimaryBG;
+                        border-left: solid 2px $desaturatedPrimaryBG;
+                    }
+                    &:hover {
+                        background: $desaturatedPrimaryBGHover;
+                        color: $desaturatedPrimaryTextColor;
+                        border-right: solid 2px $desaturatedPrimaryBG;
+                        border-top: solid 2px $desaturatedPrimaryBG;
+                        border-bottom: solid 2px $desaturatedPrimaryBG;
+                        border-left: solid 2px $desaturatedPrimaryBG;
+                    }
+                }
+            }
+        }
         ul.main-menu {
             li {
                 display: block;
@@ -168,6 +197,37 @@ body.retro {
     }
     .mobile-menu,
     .topmenu {
+        ul.sub-menu {
+            li {
+                a {
+                    font-size: .55rem;
+                    color: $retroPrimaryBG;
+                    background: $headerFooterBackground;
+                    border-right: dotted 2px $headerFooterBackground;
+                    border-top: dotted 2px $headerFooterBackground;
+                    border-bottom: dotted 2px $headerFooterBackground;
+                    border-left: dotted 2px $headerFooterBackground;
+                    &.current {
+                        // background: $retroPrimaryBG;
+                        // color: $retroPrimaryTextColor;
+                        border-right: dotted 2px $retroPrimaryBG;
+                        border-top: dotted 2px $retroPrimaryBG;
+                        border-bottom: dotted 2px $retroPrimaryBG;
+                        border-left: dotted 2px $retroPrimaryBG;
+                        color: $colorWhite;
+                    }
+                    &:hover {
+                        // background: $retroPrimaryBGHover;
+                        // color: $retroPrimaryTextColo r;
+                        color: $retroPrimaryBGHover;
+                        border-right: dotted 2px $retroPrimaryBGHover;
+                        border-top: dotted 2px $retroPrimaryBGHover;
+                        border-left: dotted 2px $retroPrimaryBGHover;
+                        border-bottom: dotted 2px $retroPrimaryBGHover;
+                    }
+                }
+            }
+        }
         ul.main-menu {
             li {
                 display: block;
@@ -311,7 +371,8 @@ body.retro {
     body.retro {
         .mobile-menu,
         .topmenu {
-            ul.main-menu {
+            ul.main-menu,
+            ul.sub-menu {
                 li {
                     display: block;
                     a {
