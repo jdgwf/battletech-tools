@@ -201,7 +201,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
     render = (): React.ReactFragment => {
       return (
         <>
-          <UIPage current="mech-creator" appGlobals={this.props.appGlobals}>
+          <UIPage current="classic-battletech-mech-creator" appGlobals={this.props.appGlobals}>
             <StandardModal
               title="Experimental TRO importer!"
               show={this.state.importTROModal}

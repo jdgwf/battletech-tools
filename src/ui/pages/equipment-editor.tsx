@@ -363,7 +363,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
 
 
       return (
-    <UIPage current="EquipmentEditor" appGlobals={this.props.appGlobals}>
+    <UIPage current="equipment-editor" appGlobals={this.props.appGlobals}>
         <div className="alert alert-warning text-center">
             <p className="no-margins"><strong>Developers only!</strong> This area is getting <em>really close</em> for data-entry, but this should never be used by the average user.</p>
         </div>

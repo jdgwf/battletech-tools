@@ -55,7 +55,7 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
       return (
         <>
           <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  />
-          <UIPage current="mech-creator" appGlobals={this.props.appGlobals}>
+          <UIPage current="classic-battletech-mech-creator" appGlobals={this.props.appGlobals}>
 
             <div className="row">
               <div className="d-none d-md-block col-md-3 col-lg-2">

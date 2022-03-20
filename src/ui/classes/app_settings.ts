@@ -1,6 +1,7 @@
 import { IASMULUnit } from "../../classes/alpha-strike-unit";
 
 export class AppSettings {
+    developerMenu: boolean = false;
     uiTheme: string = "";
     equipmentFilter: string = "";
     installEquipCategory: string = "";
@@ -24,6 +25,9 @@ export class AppSettings {
                 this.uiTheme = io.uiTheme;
             }
 
+            if ( typeof( io.developerMenu ) != "undefined" ) {
+                this.developerMenu = io.developerMenu;
+            }
             if ( typeof( io.equipmentFilter ) != "undefined" ) {
                 this.equipmentFilter = io.equipmentFilter;
             }
@@ -65,6 +69,7 @@ export class AppSettings {
     export(): IAppSettingsExport {
         return {
             uiTheme: this.uiTheme,
+            developerMenu: this.developerMenu,
             equipmentFilter: this.equipmentFilter,
             installEquipCategory: this.installEquipCategory,
             alphasStrikeCachedSearchResults: this.alphasStrikeCachedSearchResults,
@@ -81,6 +86,7 @@ export class AppSettings {
 
 export interface IAppSettingsExport {
     uiTheme: string;
+    developerMenu: boolean;
     equipmentFilter: string;
     installEquipCategory: string;
 

@@ -165,25 +165,44 @@ export default class Settings extends React.Component<ISettingsProps, ISettingsS
       this.props.appGlobals.saveAppSettings( appSettings );
     }
 
+    setDeveloperMenu = ( event: React.FormEvent<HTMLInputElement>): void => {
+      let appSettings = this.props.appGlobals.appSettings;
+      appSettings.developerMenu = event.currentTarget.checked;
+      this.props.appGlobals.saveAppSettings( appSettings );
+    }
+
     render = (): React.ReactFragment => {
 
       let restoreFileName = this.restoreFileName + "-" + (new Date()).toLocaleString() + ".json"
       return (
-        <UIPage current="appSettings" appGlobals={this.props.appGlobals}>
+        <UIPage current="settings" appGlobals={this.props.appGlobals}>
             <div className="row">
               <div className="col-md-6">
                 <fieldset className="fieldset">
                   <legend>User Interface</legend>
 
-                  <select
+                  <label>
+                    App Theme:
+                    <select
                       value={this.props.appGlobals.appSettings.uiTheme}
                       onChange={this.setUITheme}
-                  >
-                    <option value="">Default</option>
-                    <option value="desaturated">Desaturated</option>
-                    <option value="retro">Retro</option>
-                  </select>
+                    >
+                      <option value="">Default</option>
+                      <option value="desaturated">Desaturated</option>
+                      <option value="retro">Retro</option>
+                    </select>
+                  </label>
+
+
+
+                  <InputCheckbox
+                  label='Show Developer/Work In Progress Menu'
+                  checked={this.props.appGlobals.appSettings.developerMenu}
+                  onChange={this.setDeveloperMenu}
+                />
                 </fieldset>
+
+
               </div>
               <div className="col-md-6">
                 <fieldset className="fieldset">

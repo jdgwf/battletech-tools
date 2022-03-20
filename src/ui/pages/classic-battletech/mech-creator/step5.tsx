@@ -107,7 +107,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                 </Modal.Footer>
             </Modal>
             <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  />
-          <UIPage current="mech-creator" appGlobals={this.props.appGlobals}>
+          <UIPage current="classic-battletech-mech-creator" appGlobals={this.props.appGlobals}>
 
             <div className="row">
               <div className="d-none d-md-block col-md-3 col-lg-2">

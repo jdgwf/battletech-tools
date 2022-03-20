@@ -5,7 +5,10 @@
     z-index: 1000;
     margin: 0 0 1rem 0;
     background: $headerFooterBackground;
-    ul {
+    ul.sub-menu {
+        display: none;
+    }
+    ul.main-menu {
         background: $headerFooterBackground;
         color: $headerFontColor;
         list-style: none;
@@ -80,6 +83,7 @@
 
 }
 .mobile-menu {
+
     ul {
         li {
             display: block;
@@ -98,9 +102,21 @@
                 }
 
             }
+            .sub-menu {
+                display: block !important;
+                list-style: none !important;
+                padding: 0 !important;
+                margin: 0 0 0 2rem !important;
+                li {
+                     a {
+                        padding: .125rem 1rem !important;
+                     }
+                }
+            }
         }
     }
 }
+
 
 body.desaturated {
     .mobile-menu {
@@ -109,7 +125,7 @@ body.desaturated {
 
     .mobile-menu,
     .topmenu {
-        ul {
+        ul.main-menu {
             li {
                 display: block;
                 a, span {
@@ -140,7 +156,7 @@ body.desaturated {
         }
     }
     .topmenu {
-        ul {
+        ul.main-menu {
             border-bottom: solid 2px $desaturatedPrimaryBG;
         }
     }
@@ -152,7 +168,7 @@ body.retro {
     }
     .mobile-menu,
     .topmenu {
-        ul {
+        ul.main-menu {
             li {
                 display: block;
                 a, span {
@@ -196,12 +212,12 @@ body.retro {
         }
     }
     .topmenu {
-        ul {
+        ul.main-menu {
             border-bottom: dotted 2px $retroPrimaryBG;
         }
     }
     .mobile-menu {
-        ul {
+        ul.main-menu {
             li {
                 a {
                     font-size: 1rem;
@@ -216,12 +232,73 @@ body.retro {
     .mobile-menu {
         display: none !important
     }
+    .topmenu {
+        .sub-menu {
+            display: block !important;
+            margin-top: -.25rem;
+            padding-bottom: .5rem;
+            li {
+                margin: 0;
+                padding: 0;
+
+                // display: inline;
+
+                span, a {
+                    display: inline-block;
+                    color: $primaryBG;
+                    cursor: pointer;
+                    text-decoration: none;
+                    padding: .5rem .75rem;
+                    font-size: .8rem;
+                    border-bottom-left-radius: .5rem;
+                    border-bottom-right-radius: .5rem;
+                    margin: .25rem .125rem 0 0;
+                    white-space: nowrap;
+                    min-height: 2.5rem;
+                    &:hover {
+                        background: $primaryBGHover;
+                        color: $primaryTextColor;
+                    }
+
+                    &.current {
+                        background: $primaryBG;
+                        color: $headerFooterBackground;
+
+                        color: $primaryTextColor;
+                    }
+                }
+
+                &:first-child {
+                    a {
+                        border-left: 0;
+                    }
+                }
+                &.logo {
+                    // float: right;
+                    text-align: right;
+                    margin-left: auto;
+                    a {
+                        border: 0 !important;
+                        margin: 0;
+                        &:hover {
+                            background-color: $bodyBackground;
+                        }
+                        svg {
+                            height: 1.45rem;
+                            width: auto;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
 }
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) {
     .topmenu {
-        ul {
+        ul.main-menu {
             li {
                 a {
                     font-size: 1rem;
@@ -234,7 +311,7 @@ body.retro {
     body.retro {
         .mobile-menu,
         .topmenu {
-            ul {
+            ul.main-menu {
                 li {
                     display: block;
                     a {
