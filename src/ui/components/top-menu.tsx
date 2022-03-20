@@ -7,6 +7,7 @@ import BattleTechLogo from './battletech-logo';
 import './top-menu.scss';
 
 export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuState> {
+
     constructor(props: ITopMenuProps) {
         super(props);
         this.state = {
@@ -24,45 +25,142 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
 
     render = (): React.ReactFragment => {
 
-    let subMenu: React.ReactFragment | null = null;
-    if( this.props.appGlobals.appSettings.developerMenu && this.props.current && this.props.current.startsWith("classic-battletech") ) {
-        subMenu = <ul className="sub-menu">
-            <li className="d-none d-md-inline"><Link className={this.props.current === "classic-battletech" ? "current" : "" } to={`${process.env.PUBLIC_URL}/classic-battletech`}>Home</Link></li>
-            <li className="d-none d-md-inline"><Link className={this.props.current === "classic-battletech-mech-creator" ? "current" : "" } to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator`}>'Mech Creator</Link></li>
-        </ul>
+    let menuStructure: IMenuDef[] = [
+        {
+            label: "Home",
+            url: "",
+            tag: "home",
+        },
+    ];
+
+    if( this.props.appGlobals.appSettings.developerMenu ) {
+        menuStructure.push({
+            label: "Classic BattleTech",
+            url: "/classic-battletech",
+            tag: "classic-battletech-home",
+            startsWithTag: "classic-battletech",
+            subMenu: [
+                {
+                    label: "'Home",
+                    url: "/classic-battletech/",
+                    tag: "classic-battletech-home",
+                },
+                {
+                    label: "'Mech Creator",
+                    url: "/classic-battletech/mech-creator",
+                    tag: "classic-battletech-mech-creator",
+                }
+            ]
+        });
+        menuStructure.push({
+            label: "Alpha Strike",
+            url: "/alpha-strike",
+            tag: "alpha-strike-home",
+            startsWithTag: "alpha-strike",
+            subMenu: [
+                {
+                    label: "Home",
+                    url: "/alpha-strike/",
+                    tag: "alpha-strike-home",
+                },
+                {
+                    label: "Roster",
+                    url: "/alpha-strike/roster",
+                    tag: "alpha-strike-roster",
+                }
+            ]
+
+        });
+    } else {
+        menuStructure.push({
+            label: "'Mech Creator",
+            url: "/classic-battletech/mech-creator",
+            tag: "classic-battletech-mech-creator",
+        });
+        menuStructure.push({
+            label: "Alpha Strike Roster",
+            url: "/alpha-strike/roster",
+            tag: "alpha-strike-roster",
+        });
     }
-    if( this.props.appGlobals.appSettings.developerMenu && this.props.current && this.props.current.startsWith("alpha-strike") ) {
-        subMenu = <ul className="sub-menu">
-            <li className="d-none d-md-inline"><Link className={this.props.current === "alpha-strike" ? "current" : "" } to={`${process.env.PUBLIC_URL}/alpha-strike`}>Home</Link></li>
-            <li className="d-none d-md-inline"><Link className={this.props.current === "alpha-strike-roster" ? "current" : "" } to={`${process.env.PUBLIC_URL}/alpha-strike/roster`}>Roster</Link></li>
-        </ul>
+
+    menuStructure.push(
+        {
+            label: "About",
+            url: "/about",
+            tag: "about",
+        },
+    );
+
+    menuStructure.push(
+        {
+            label: "Status",
+            url: "/dev-status",
+            tag: "dev-status",
+        },
+    );
+
+    menuStructure.push({
+        label: "Settings",
+        url: "/settings",
+        tag: "settings-home",
+        startsWithTag: "settings",
+        subMenu: [
+            {
+                label: "Settings",
+                url: "/settings/",
+                tag: "settings-home",
+            },
+            {
+                label: "Backup and Restore",
+                url: "/settings/backup-and-restore",
+                tag: "settings-roster",
+            }
+        ]
+
+    });
+
+    if( this.props.appGlobals.appSettings.developerMenu ) {
+        menuStructure.push(
+            {
+                label: "Equipment Editor",
+                url: "/equipment-editor",
+                tag: "equipment-editor",
+            },
+        );
+    }
+
+    let currentSubmenu: IMenuDef[] = [];
+    for( let menu of menuStructure ) {
+        if(
+            menu &&
+            menu.startsWithTag &&
+            menu.subMenu &&
+            menu.subMenu.length > 0 &&
+            this.props.current?.startsWith(menu.startsWithTag)
+        ) {
+            currentSubmenu = menu.subMenu;
+        }
     }
       return (
           <>
           <header className="topmenu">
             <ul className="main-menu">
                 <li onClick={this.toggleMobile} className="mobile-menu-button d-inline d-md-none"><FaBars /></li>
-                <li className="d-none d-md-inline"><Link className={this.props.current === "home" ? "current" : "" } to={`${process.env.PUBLIC_URL}/`}>Home</Link></li>
-                {/* <li className="d-none d-md-inline"><Link className={this.props.current === "page1" ? "current" : "" } to={`${process.env.PUBLIC_URL}/page1`}>Page1</Link></li> */}
-                {this.props.appGlobals.appSettings.developerMenu ? (
-                    <>
-                    <li className="d-none d-md-inline"><Link onClick={this.closeMobile} className={this.props.current && this.props.current.startsWith("classic-battletech") ? "current" : "" } to={`${process.env.PUBLIC_URL}/classic-battletech`}>Classic BattleTech</Link></li>
-                    <li className="d-none d-md-inline"><Link onClick={this.closeMobile} className={this.props.current && this.props.current.startsWith("alpha-strike") ? "current" : "" } to={`${process.env.PUBLIC_URL}/alpha-strike`}>Alpha Strike</Link></li>
-                    </>
-                ) : (
-                    <>
-                <li className="d-none d-md-inline"><Link className={this.props.current === "classic-battletech-mech-creator" ? "current" : "" } to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator`}>'Mech Creator</Link></li>
-                <li className="d-none d-md-inline"><Link className={this.props.current === "alpha-strike-roster" ? "current" : "" } to={`${process.env.PUBLIC_URL}/alpha-strike/roster`}>Alpha Strike Roster</Link></li>
-                    </>
-                )}
+                {menuStructure.map( (item, itemIndex) => {
+                    return (
+                        <React.Fragment key={itemIndex}>
+                            {item.startsWithTag && item.subMenu && item.subMenu.length > 0 ? (
+                                <>
+                                    <li className="d-none d-md-inline"><Link className={this.props.current?.startsWith(item.startsWithTag) ? "current" : "" } to={`${process.env.PUBLIC_URL}${item.url}`}>{item.label}</Link></li>
+                                </>
+                            ) : (
+                                <li className="d-none d-md-inline"><Link className={this.props.current === item.tag ? "current" : "" } to={`${process.env.PUBLIC_URL}${item.url}`}>{item.label}</Link></li>
+                            )}
 
-                <li className="d-none d-md-inline"><Link className={this.props.current === "about" ? "current" : "" } to={`${process.env.PUBLIC_URL}/about`}>About</Link></li>
-                <li className="d-none d-md-inline"><Link className={this.props.current === "dev-status" ? "current" : "" } to={`${process.env.PUBLIC_URL}/dev-status`}>Status</Link></li>
-                <li className="d-none d-md-inline"><Link className={this.props.current === "settings" ? "current" : "" } to={`${process.env.PUBLIC_URL}/settings`}>Settings</Link></li>
-
-                {this.props.appGlobals.appSettings.developerMenu ? (
-                    <li className="d-none d-md-inline"><Link className={this.props.current === "equipment-editor" ? "current" : "" } to={`${process.env.PUBLIC_URL}/equipment-editor`}>Equipment Editor</Link></li>
-                ) : null}
+                        </React.Fragment>
+                    )
+                })}
 
                 <li className="logo">
                     <a
@@ -78,43 +176,44 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                     </a>
                 </li>
             </ul>
-        {subMenu}
+        {/* {subMenu} */}
+        {currentSubmenu ? (
+            <ul className="sub-menu">
+                {currentSubmenu.map( (item, itemIndex) => {
+                    return (
+                        <li key={itemIndex} className="d-none d-md-inline"><Link className={this.props.current === item.tag ? "current" : "" } to={`${process.env.PUBLIC_URL}${item.url}`}>{item.label}</Link></li>
+                    )
+                })}
+            </ul>
+        ) : null}
+
 
           </header>
             <div className="mobile-menu">
                 <ul className="main-menu">
-                    <li><Link onClick={this.closeMobile} className={this.props.current === "home" ? "current" : "" } to={`${process.env.PUBLIC_URL}/`}>Home</Link></li>
-                    {/* <li><Link onClick={this.closeMobile} className={this.props.current === "page1" ? "current" : "" } to={`${process.env.PUBLIC_URL}/page1`}>Page1</Link></li> */}
-                    {this.props.appGlobals.appSettings.developerMenu ? (
-                        <>
-                    <li>
-                        <div>Classic BattleTech</div>
-                        <ul className="sub-menu">
-                            <li><Link onClick={this.closeMobile} className={this.props.current === "classic-battletech" ? "current" : "" } to={`${process.env.PUBLIC_URL}/classic-battletech`}>Home</Link></li>
-                            <li><Link onClick={this.closeMobile} className={this.props.current === "classic-battletech-mech-creator" ? "current" : "" } to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator`}>'Mech Creator</Link></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <div>Alpha Strike</div>
-                        <ul className="sub-menu">
-                            <li><Link onClick={this.closeMobile} className={this.props.current === "alpha-strike" ? "current" : "" } to={`${process.env.PUBLIC_URL}/alpha-strike`}>Home</Link></li>
-                            <li><Link onClick={this.closeMobile} className={this.props.current === "alpha-strike-roster" ? "current" : "" } to={`${process.env.PUBLIC_URL}/alpha-strike/roster`}>Roster</Link></li>
-                        </ul>
-                    </li>
-                        </>
-                    ) : (
-                        <>
-                    <li><Link onClick={this.closeMobile} className={this.props.current === "classic-battletech-mech-creator" ? "current" : "" } to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator`}>'Mech Creator</Link></li>
-                    <li><Link onClick={this.closeMobile} className={this.props.current === "alpha-strike-roster" ? "current" : "" } to={`${process.env.PUBLIC_URL}/alpha-strike/roster`}>Alpha Strike Roster</Link></li>
-                        </>
-                    )}
+                {menuStructure.map( (item, itemIndex) => {
+                    return (
+                        <React.Fragment key={itemIndex}>
+                            {item.subMenu && item.subMenu.length > 0 && item.startsWithTag ? (
+                                <li>
+                                <div>{item.label}</div>
+                                <ul className="sub-menu">
+                                    {item.subMenu.map( (subItem, subItemIndex) => {
+                                        return (
+                                            <li key={subItemIndex}><Link onClick={this.closeMobile} className={this.props.current === subItem.tag ? "current" : "" } to={`${process.env.PUBLIC_URL}${subItem.url}`}>{subItem.label}</Link></li>
+                                        )
+                                    })}
 
-                    <li><Link onClick={this.closeMobile} className={this.props.current === "about" ? "current" : "" } to={`${process.env.PUBLIC_URL}/about`}>About</Link></li>
-                    <li><Link onClick={this.closeMobile} className={this.props.current === "dev-status" ? "current" : "" } to={`${process.env.PUBLIC_URL}/dev-status`}>Status</Link></li>
-                    <li><Link onClick={this.closeMobile} className={this.props.current === "settings" ? "current" : "" } to={`${process.env.PUBLIC_URL}/settings`}>Settings</Link></li>
-                    {this.props.appGlobals.appSettings.developerMenu ? (
-                    <li className="d-none d-md-inline"><Link className={this.props.current === "equipment-editor" ? "current" : "" } to={`${process.env.PUBLIC_URL}/equipment-editor`}>Equipment Editor</Link></li>
-                ) : null}
+
+                                </ul>
+                            </li>
+                            ) : (
+                                <li><Link onClick={this.closeMobile} className={this.props.current === item.tag ? "current" : "" } to={`${process.env.PUBLIC_URL}${item.url}`}>{item.label}</Link></li>
+                            )}
+                        </React.Fragment>
+                    )
+                })}
+
                 </ul>
 
             </div>
@@ -132,4 +231,12 @@ interface ITopMenuProps {
 interface ITopMenuState {
     updated: boolean;
 
+}
+
+interface IMenuDef {
+    label: string;
+    tag: string;
+    url: string;
+    startsWithTag?: string;
+    subMenu?: IMenuDef[];
 }

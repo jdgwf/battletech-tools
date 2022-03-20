@@ -6,6 +6,7 @@ import { AppSettings, IAppSettingsExport } from "./ui/classes/app_settings";
 
 export enum ESaveDataMode {
     localStorage = 0,
+    firebase = 1,
 }
 
 export interface IFullBackup {
@@ -170,7 +171,6 @@ export function restoreFullBackup(
 
     return restoreMessages;
 }
-
 
 function saveData(
     keyName: string,

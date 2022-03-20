@@ -17,7 +17,7 @@ export default class ClassicBattleTechHome extends React.Component<IClassicBattl
 
     render = (): React.ReactFragment => {
       return (
-        <UIPage current="classic-battletech" appGlobals={this.props.appGlobals}>
+        <UIPage current="classic-battletech-home" appGlobals={this.props.appGlobals}>
 
 
           <TextSection

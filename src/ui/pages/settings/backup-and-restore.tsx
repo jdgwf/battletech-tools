@@ -1,18 +1,18 @@
 
 import { FaExclamationCircle, FaExclamationTriangle } from "react-icons/fa";
 import React from 'react';
-import { checkFullRestoreData, getFullBackup, IFullBackup, IRestoreMessage, restoreFullBackup } from '../../dataSaves';
-import { IAppGlobals } from '../app-router';
-import InputCheckbox from '../components/form_elements/input_checkbox';
-import UIPage from '../components/ui-page';
+import { checkFullRestoreData, getFullBackup, IFullBackup, IRestoreMessage, restoreFullBackup } from '../../../dataSaves';
+import { IAppGlobals } from '../../app-router';
+import InputCheckbox from '../../components/form_elements/input_checkbox';
+import UIPage from '../../components/ui-page';
 
-export default class Settings extends React.Component<ISettingsProps, ISettingsState> {
+export default class SettingsBackupAndRestore extends React.Component<ISettingsBackupAndRestoreProps, ISettingsBackupAndRestoreState> {
     // [openPicker, data, authResponse] = useDrivePicker();
     fileReader: FileReader | null = null;
 
     restoreFileName = "jeffs-battletech-tools-full-export";
 
-    constructor(props: ISettingsProps) {
+    constructor(props: ISettingsBackupAndRestoreProps) {
         super(props);
         this.state = {
             updated: false,
@@ -26,7 +26,7 @@ export default class Settings extends React.Component<ISettingsProps, ISettingsS
 
 
 
-        this.props.appGlobals.makeDocumentTitle("Settings");
+        this.props.appGlobals.makeDocumentTitle("SettingsBackupAndRestore");
     }
 
     doRestore = (
@@ -159,51 +159,14 @@ export default class Settings extends React.Component<ISettingsProps, ISettingsS
       }
     }
 
-    setUITheme = ( event: React.FormEvent<HTMLSelectElement>): void => {
-      let appSettings = this.props.appGlobals.appSettings;
-      appSettings.uiTheme = event.currentTarget.value;
-      this.props.appGlobals.saveAppSettings( appSettings );
-    }
-
-    setDeveloperMenu = ( event: React.FormEvent<HTMLInputElement>): void => {
-      let appSettings = this.props.appGlobals.appSettings;
-      appSettings.developerMenu = event.currentTarget.checked;
-      this.props.appGlobals.saveAppSettings( appSettings );
-    }
 
     render = (): React.ReactFragment => {
 
       let restoreFileName = this.restoreFileName + "-" + (new Date()).toLocaleString() + ".json"
       return (
-        <UIPage current="settings" appGlobals={this.props.appGlobals}>
+        <UIPage current="settings-backup-and-restore" appGlobals={this.props.appGlobals}>
             <div className="row">
-              <div className="col-md-6">
-                <fieldset className="fieldset">
-                  <legend>User Interface</legend>
 
-                  <label>
-                    App Theme:
-                    <select
-                      value={this.props.appGlobals.appSettings.uiTheme}
-                      onChange={this.setUITheme}
-                    >
-                      <option value="">Default</option>
-                      <option value="desaturated">Desaturated</option>
-                      <option value="retro">Retro</option>
-                    </select>
-                  </label>
-
-
-
-                  <InputCheckbox
-                  label='Show Developer/Work In Progress Menu'
-                  checked={this.props.appGlobals.appSettings.developerMenu}
-                  onChange={this.setDeveloperMenu}
-                />
-                </fieldset>
-
-
-              </div>
               <div className="col-md-6">
                 <fieldset className="fieldset">
                   <legend>Backup and Restore</legend>
@@ -281,7 +244,7 @@ export default class Settings extends React.Component<ISettingsProps, ISettingsS
 <p>What we'll try to do:</p>
   <ul>
     <li>Verify that the restore file is correct.</li>
-    <li>Overwrite App Settings, including theme, search history, etc</li>
+    <li>Overwrite App SettingsBackupAndRestore, including theme, search history, etc</li>
     <li>We'll ask you to overwrite your current Alpha Strike Roster, defaulting to "no"</li>
     <li>
       Merge your Saved Alpha Strike Groups<br />
@@ -303,7 +266,7 @@ export default class Settings extends React.Component<ISettingsProps, ISettingsS
   <label
     title="Click here to select a JSON file exported by the button to the right"
   >
-    Restore Settings:&nbsp;
+    Restore SettingsBackupAndRestore:&nbsp;
     <input
       type="file"
       onChange={this.selectFile}
@@ -321,11 +284,11 @@ export default class Settings extends React.Component<ISettingsProps, ISettingsS
     }
 }
 
-interface ISettingsProps {
+interface ISettingsBackupAndRestoreProps {
   appGlobals: IAppGlobals;
 }
 
-interface ISettingsState {
+interface ISettingsBackupAndRestoreState {
     updated: boolean;
     fullRestoreObject: IFullBackup | null;
     restoreError: string;

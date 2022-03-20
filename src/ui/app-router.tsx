@@ -18,7 +18,7 @@ import DevelopmentStatus from "./pages/development-status";
 import EquipmentEditor from "./pages/equipment-editor";
 import Error404 from "./pages/error404";
 import Home from "./pages/home";
-import Settings from "./pages/settings";
+import SettingsRouter from "./pages/settings/_router";
 
 
 export default class AppRouter extends React.Component<IAppRouterProps, IAppRouterState> {
@@ -372,8 +372,8 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                         appGlobals={this.state.appGlobals}
                     />
                 }/>
-                <Route path={`${process.env.PUBLIC_URL}/settings`}  element={
-                    <Settings
+                <Route path={`${process.env.PUBLIC_URL}/settings/*`}  element={
+                    <SettingsRouter
                         appGlobals={this.state.appGlobals}
                     />
                 }/>
