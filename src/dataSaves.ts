@@ -1,6 +1,8 @@
 import AlphaStrikeForce, { IASForceExport } from "./classes/alpha-strike-force";
 import AlphaStrikeGroup, { IASGroupExport } from "./classes/alpha-strike-group";
 import { BattleMech, IBattleMechExport } from "./classes/battlemech";
+import { IBMForceExport } from "./classes/battlemech-force";
+import { BattleMechGroup, IBMGroupExport } from "./classes/battlemech-group";
 import { IAppGlobals } from "./ui/app-router";
 import { AppSettings, IAppSettingsExport } from "./ui/classes/app_settings";
 
@@ -243,11 +245,39 @@ export async function getBattleMechSaves(
 }
 
 
+export function saveCurrentBMForce(
+    appSettings: AppSettings,
+    nv: IBMForceExport,
+) {
+    saveData(appSettings, "currentBMForce", JSON.stringify(nv) );
+}
+
 export function saveCurrentASForce(
     appSettings: AppSettings,
     nv: IASForceExport,
 ) {
     saveData(appSettings, "currentASForce", JSON.stringify(nv) );
+}
+
+export async function getCurrentBMForce(
+    appSettings: AppSettings,
+): Promise<IBMForceExport | null> {
+    let rv: IBMForceExport | null = null;
+
+    let rawData = await getData(appSettings, "currentBMForce" );
+    try {
+        if( rawData )
+            rv = JSON.parse( rawData );
+
+        if(!rv ) {
+            return rv;
+        }
+    }
+    catch {
+        return rv;
+    }
+
+    return rv;
 }
 
 export async function getCurrentASForce(
@@ -315,6 +345,38 @@ export async function getFavoriteASGroups(
     let rv: IASGroupExport[] = [];
 
     let rawData = await getData(appSettings, "favoriteASGroups" );
+    try {
+        if( rawData )
+            rv = JSON.parse( rawData );
+
+        if(!rv ) {
+            rv = [];
+        }
+    }
+    catch {
+        rv = [];
+    }
+
+    return rv;
+}
+
+export function saveFavoriteBMGroupsObjects(
+    appSettings: AppSettings,
+    nv: BattleMechGroup[]
+) {
+    let rv: IBMGroupExport[] = [];
+    for( let unit of nv ) {
+        rv.push( unit.export() );
+    }
+    saveData(appSettings, "favoriteBMGroups", JSON.stringify(rv) );
+}
+
+export async function getFavoriteBMGroups(
+    appSettings: AppSettings,
+): Promise<IBMGroupExport[]> {
+    let rv: IBMGroupExport[] = [];
+
+    let rawData = await getData(appSettings, "favoriteBMGroups" );
     try {
         if( rawData )
             rv = JSON.parse( rawData );

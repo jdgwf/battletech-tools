@@ -32,6 +32,20 @@ export class BattleMechGroup {
 		// this.availableFormationBonuses= formationBonuses.filter(x=>x.IsValid(this));
 	}
 
+	public setNew() {
+		this.uuid = generateUUID();
+		this.lastUpdated = new Date();
+	}
+
+	getTotaBV2(): number {
+        let rv = 0;
+
+        for( let unit of this.members ) {
+            rv += unit.battleValue;
+        }
+
+        return rv;
+    }
 
     import(importObj: IBMGroupExport) {
 
@@ -75,4 +89,9 @@ export class BattleMechGroup {
 
         return returnValue;
     }
+
+	public getTotalUnits(): number {
+        return this.members.length;
+    }
+
 }

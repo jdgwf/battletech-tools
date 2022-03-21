@@ -4,8 +4,10 @@ import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-d
 import AlphaStrikeForce, { IASForceExport } from "../classes/alpha-strike-force";
 import AlphaStrikeGroup, { IASGroupExport } from "../classes/alpha-strike-group";
 import { BattleMech, IBattleMechExport } from "../classes/battlemech";
+import { BattleMechForce, IBMForceExport } from "../classes/battlemech-force";
+import { BattleMechGroup, IBMGroupExport } from "../classes/battlemech-group";
 import { CONFIGSiteTitle } from '../configVars';
-import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getFavoriteASGroups, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveFavoriteASGroups, saveFavoriteASGroupsObjects } from "../dataSaves";
+import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getCurrentBMForce, getFavoriteASGroups, getFavoriteBMGroups, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveCurrentBMForce, saveFavoriteASGroups, saveFavoriteASGroupsObjects, saveFavoriteBMGroupsObjects } from "../dataSaves";
 import { callAnalytics } from "../jdgAnalytics";
 import { generateUUID } from "../utils";
 import Alerts from './classes/alerts';
@@ -61,16 +63,25 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             toggleMobile: this.toggleMobile,
             closeMobile: this.closeMobile,
 
-            saveCurrentASForce: this.saveCurrentASForce,
+
             saveAppSettings: this.saveAppSettings,
 
             favoriteASGroups: [],
             currentASForce: null,
             currentBattleMech: null,
             battleMechSaves: [],
+            favoriteBMGroups: [],
+            currentBMForce: null,
+
+            saveCurrentASForce: this.saveCurrentASForce,
             saveFavoriteASGroups: this.saveFavoriteASGroups,
             saveASGroupFavorite: this.saveASGroupFavorite,
             removeASGroupFavorite: this.removeASGroupFavorite,
+
+            saveCurrentBMForce: this.saveCurrentBMForce,
+            saveFavoriteBMGroups: this.saveFavoriteBMGroups,
+            saveBMGroupFavorite: this.saveBMGroupFavorite,
+            removeBMGroupFavorite: this.removeBMGroupFavorite,
 
 
             saveCurrentBattleMech: this.saveCurrentBattleMech,
@@ -152,10 +163,29 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             }
         }
 
+        let bmImportFavorites: IBMGroupExport[] = await getFavoriteBMGroups(appSettings);
+
+        let bmImportedFavorites: BattleMechGroup[] = [];
+
+        if( asImportFavorites.length > 0 ) {
+            if( bmImportFavorites && bmImportFavorites.length > 0 )  {
+                for( let importItem of bmImportFavorites ) {
+                    bmImportedFavorites.push( new BattleMechGroup(importItem) );
+                }
+            }
+        }
+
+        let bmfImport: IBMForceExport | null = await getCurrentBMForce(appSettings);
+
+        let currentBMForce = new BattleMechForce( bmfImport );
+
         appGlobals.favoriteASGroups = asImportedFavorites;
         appGlobals.currentASForce = alphaStrikeForce;
         appGlobals.currentBattleMech = currentBattleMech;
         appGlobals.battleMechSaves = battleMechSaves;
+
+        appGlobals.favoriteBMGroups = bmImportedFavorites;
+        appGlobals.currentBMForce = currentBMForce;
 
         this.setState({
             appGlobals: appGlobals,
@@ -240,6 +270,50 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         }
         let appGlobals = this.state.appGlobals;
         appGlobals.favoriteASGroups = asGroups;
+        this.setState({
+            appGlobals: appGlobals,
+        });
+
+    }
+
+
+    saveCurrentBMForce = ( bmForce: BattleMechForce ): void => {
+        // let exportBMForce = asForce.export();
+        let appGlobals = this.state.appGlobals;
+        appGlobals.currentBMForce = bmForce;
+        this.setState({
+            appGlobals: appGlobals,
+        });
+
+        saveCurrentBMForce( appGlobals.appSettings, bmForce.export() );
+    }
+
+    saveBMGroupFavorite = ( bmGroup: BattleMechGroup ): void => {
+        let appGlobals = this.state.appGlobals;
+        appGlobals.favoriteBMGroups.push( bmGroup );
+        this.saveFavoriteBMGroups( appGlobals.favoriteBMGroups );
+
+    }
+
+    removeBMGroupFavorite = ( asGroupIndex: number ): void => {
+        let appGlobals = this.state.appGlobals;
+
+        if( appGlobals.favoriteBMGroups.length > asGroupIndex ) {
+            appGlobals.favoriteBMGroups.splice( asGroupIndex, 1 );
+            this.saveFavoriteBMGroups( appGlobals.favoriteBMGroups );
+
+            saveFavoriteBMGroupsObjects( appGlobals.appSettings, appGlobals.favoriteBMGroups )
+        }
+
+    }
+
+    saveFavoriteBMGroups = ( asGroups: BattleMechGroup[] ): void => {
+        let exportBMGroups: IBMGroupExport[] = [];
+        for( let group of asGroups) {
+            exportBMGroups.push( group.export() );
+        }
+        let appGlobals = this.state.appGlobals;
+        appGlobals.favoriteBMGroups = asGroups;
         this.setState({
             appGlobals: appGlobals,
         });
@@ -471,9 +545,11 @@ export interface IAppGlobals {
     ): void;
 
     currentASForce: AlphaStrikeForce | null;
+    currentBMForce: BattleMechForce | null;
     saveCurrentASForce( asForce: AlphaStrikeForce | null ): void;
 
     favoriteASGroups: AlphaStrikeGroup[];
+    favoriteBMGroups: BattleMechGroup[];
     saveFavoriteASGroups( asGroups: AlphaStrikeGroup[] ): void
     saveASGroupFavorite( asGroup: AlphaStrikeGroup ): void;
     removeASGroupFavorite( asGroupIndex: number ): void;
@@ -485,4 +561,12 @@ export interface IAppGlobals {
     battleMechSaves: IBattleMechExport[];
     saveBattleMechSaves( newValue: IBattleMechExport[]): void;
 
+
+    saveCurrentBMForce( bmForce: BattleMechForce ): void;
+
+    saveBMGroupFavorite( bmGroup: BattleMechGroup ): void;
+
+    removeBMGroupFavorite( asGroupIndex: number ): void;
+
+    saveFavoriteBMGroups( asGroups: BattleMechGroup[] ): void;
 }

@@ -59,21 +59,23 @@ body {
 }
 
 .icon-links {
-  list-style: none;
-  li {
-    display: inline-block;
-    a {
-      width: 5rem;
-      height: 5rem;
-      text-align: center;
-      svg {
-        height: 4rem;
-        width: 4rem;
-        margin: 0 auto;
-        display: block;
-      }
+  display: flex;
+
+  a {
+    margin: 1rem;
+    // width: 5rem;
+    min-height: 5rem;
+    max-width: 10rem;
+    display: block;
+    text-align: center;
+    svg {
+      height: 4rem;
+      width: 4rem;
+      margin: 0 auto;
+      display: block;
     }
   }
+
 }
 
 .text-center {

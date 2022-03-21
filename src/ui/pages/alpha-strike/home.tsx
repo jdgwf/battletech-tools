@@ -23,14 +23,12 @@ export default class AlphaStrikeHome extends React.Component<IAlphaStrikeHomePro
           <TextSection
             label="Alpha Strike"
           >
-              <ul className="icon-links">
-                <li>
-                  <Link  to={`${process.env.PUBLIC_URL}/alpha-strike/roster`}>
-                    <MdTableView />
-                    Alpha Strike Roster
-                  </Link>
-                </li>
-              </ul>
+              <div className="icon-links">
+                <Link  to={`${process.env.PUBLIC_URL}/alpha-strike/roster`}>
+                  <MdTableView />
+                  Alpha Strike Roster
+                </Link>
+              </div>
            </TextSection>
 
         </UIPage>

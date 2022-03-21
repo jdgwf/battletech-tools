@@ -344,8 +344,8 @@ export class BattleMech {
             this.importJSON( importJSON );
         } else {
             this.setTonnage( 20 );
-            this.calc();
         }
+        this.calc();
 
     }
 

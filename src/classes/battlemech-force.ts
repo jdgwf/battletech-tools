@@ -20,6 +20,36 @@ export class BattleMechForce {
 
     groups: BattleMechGroup[] = [];
 
+    constructor(importObj: IBMForceExport | null = null ) {
+        if( importObj ) {
+            this.import(importObj);
+        }
+
+        if( this.groups.length === 0 ) {
+            this.groups.push( new BattleMechGroup() )
+        }
+    }
+
+
+    public removeGroup(asGroupIndex: number) {
+        if( this.groups.length > asGroupIndex && this.groups[asGroupIndex]) {
+            this.groups.splice( asGroupIndex, 1);
+        }
+    }
+
+    public renameGroup( newName: string, groupIndex: number ) {
+        if( this.groups.length > groupIndex && this.groups[groupIndex]) {
+            this.groups[groupIndex].customName = newName;
+        }
+    }
+
+    public selectGroupLabel( newName: string, groupIndex: number ) {
+        if( this.groups.length > groupIndex && this.groups[groupIndex]) {
+            this.groups[groupIndex].groupLabel = newName;
+        }
+    }
+
+
     public export(): IBMForceExport {
         let returnValue: IBMForceExport = {
             groups: [],
@@ -46,5 +76,26 @@ export class BattleMechForce {
             this.lastUpdated = new Date(importObj.lastUpdated);
         }
 
+    }
+
+    public getTotalUnits(): number {
+        let returnValue: number = 0;
+
+        for( let group of this.groups ) {
+            returnValue += group.getTotalUnits();
+        }
+
+        return returnValue;
+    }
+
+
+    getTotaBV2(): number {
+        let rv = 0;
+
+        for( let group of this.groups ) {
+            rv += group.getTotaBV2();
+        }
+
+        return rv;
     }
 }

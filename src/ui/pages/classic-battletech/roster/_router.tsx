@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { Route, Routes } from "react-router-dom";
-import { IAppGlobals } from '../../app-router';
-import Error404 from "../error404";
-import ClassicBattleTechHome from './home';
-import MechCreatorRouter from './mech-creator/_router';
-import BattleMechRosterRouter from './roster/_router';
+import { IAppGlobals } from '../../../app-router';
+import Error404 from "../../error404";
+import Home from './home';
+// import InPlay from './in-play';
+// import PrintSheet from './print';
 
-
-export default class ClassicBattleTechRouter extends React.Component<IClassicBattleTechRouterProps, IClassicBattleTechRouterState> {
+export default class BattleMechRosterRouter extends React.Component<IBattleMechRosterRouterProps, IBattleMechRosterRouterState> {
 
     render = (): React.ReactFragment => {
         return(
@@ -15,22 +14,22 @@ export default class ClassicBattleTechRouter extends React.Component<IClassicBat
 
 
                 <Route path={``} element={
-                    <ClassicBattleTechHome
+                    <Home
                         appGlobals={this.props.appGlobals}
                     />
                 }/>
 
-                <Route path={`mech-creator/*`} element={
-                    <MechCreatorRouter
+                {/* <Route path={`/play`} element={
+                    <InPlay
                         appGlobals={this.props.appGlobals}
                     />
                 }/>
 
-                <Route path={`roster/*`} element={
-                    <BattleMechRosterRouter
+                <Route path={`/print`} element={
+                    <PrintSheet
                         appGlobals={this.props.appGlobals}
                     />
-                }/>
+                }/> */}
 
                 <Route path="*" element={
                     <Error404
@@ -42,10 +41,10 @@ export default class ClassicBattleTechRouter extends React.Component<IClassicBat
     }
 }
 
-interface IClassicBattleTechRouterProps {
+interface IBattleMechRosterRouterProps {
     appGlobals: IAppGlobals;
 }
 
-interface IClassicBattleTechRouterState {
+interface IBattleMechRosterRouterState {
 
 }

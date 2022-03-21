@@ -49,6 +49,11 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                     label: "'Mech Creator",
                     url: "/classic-battletech/mech-creator",
                     tag: "classic-battletech-mech-creator",
+                },
+                {
+                    label: "Roster",
+                    url: "/classic-battletech/roster",
+                    tag: "classic-battletech-roster",
                 }
             ]
         });
