@@ -27,38 +27,44 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
 
 
     addEquipment = ( item: IEquipmentItem ): boolean => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.addEquipmentFromTag(
+          item.tag,
+          this.props.appGlobals.currentBattleMech.getTech().tag,
+          "",
+          false,
+          null,
+        );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
 
-      this.props.appGlobals.currentBattleMech.addEquipmentFromTag(
-        item.tag,
-        this.props.appGlobals.currentBattleMech.getTech().tag,
-        "",
-        false,
-        null,
-      );
-      this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
-
-      return true;
+        return true;
+      }
+      return false;
     }
 
     removeEquipment = ( itemIndex: number ): boolean => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.removeEquipment(
+          itemIndex
+        );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
 
-      this.props.appGlobals.currentBattleMech.removeEquipment(
-        itemIndex
-      );
-      this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
-
-      return true;
+        return true;
+      }
+      return false;
     }
 
     setRear = ( itemIndex: number, isRear: boolean ): boolean => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.setRear(
+          itemIndex,
+          isRear,
+        );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
 
-      this.props.appGlobals.currentBattleMech.setRear(
-        itemIndex,
-        isRear,
-      );
-      this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
-
-      return true;
+        return true;
+      }
+      return false;
     }
 
 
@@ -76,6 +82,8 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
     }
 
     render = (): React.ReactFragment => {
+      if(!this.props.appGlobals.currentBattleMech)
+        return <></>
       return (
         <>
             <Modal

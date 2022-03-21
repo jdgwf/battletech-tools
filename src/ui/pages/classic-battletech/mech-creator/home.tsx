@@ -1,5 +1,5 @@
-import { FaArrowCircleRight, FaFile, FaFileExport, FaFolder, FaFolderOpen, FaSave, FaTrash } from "react-icons/fa";
 import React from 'react';
+import { FaArrowCircleRight, FaFile, FaFileExport, FaFolderOpen, FaSave, FaTrash } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { BattleMech, IBattleMechExport } from '../../../../classes/battlemech';
 import { IAppGlobals } from '../../../app-router';
@@ -82,6 +82,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
 
     saveAsNew = (e: React.FormEvent<HTMLButtonElement>): void => {
       e.preventDefault();
+      if( this.props.appGlobals.currentBattleMech ){
       let battleMechSaves = this.props.appGlobals.battleMechSaves;
       if( !battleMechSaves )
         battleMechSaves = [];
@@ -89,6 +90,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
         this.props.appGlobals.currentBattleMech.export()
       )
       this.props.appGlobals.saveBattleMechSaves( battleMechSaves );
+      }
     }
 
     deleteSave = (e: React.FormEvent<HTMLButtonElement>, saveIndex: number): void => {
@@ -112,18 +114,20 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
 
     saveOver = (e: React.FormEvent<HTMLButtonElement>, saveIndex: number): void => {
       e.preventDefault();
-      if( this.props.appGlobals.battleMechSaves.length > saveIndex) {
+      if( this.props.appGlobals.currentBattleMech && this.props.appGlobals.battleMechSaves.length > saveIndex) {
         this.props.appGlobals.openConfirmDialog(
           "Deletion Confirmation",
           "Aer you sure you want to save the currently loaded 'mech over the saved 'mech \"" + this.props.appGlobals.battleMechSaves[saveIndex].name + "\"?",
           "Yes",
           "No, thank you",
           () => {
-            let battleMechSaves = this.props.appGlobals.battleMechSaves;
-            if( !battleMechSaves )
-              battleMechSaves = [];
-            battleMechSaves[saveIndex] = this.props.appGlobals.currentBattleMech.export()
-            this.props.appGlobals.saveBattleMechSaves( battleMechSaves );
+            if( this.props.appGlobals.currentBattleMech ){
+              let battleMechSaves = this.props.appGlobals.battleMechSaves;
+              if( !battleMechSaves )
+                battleMechSaves = [];
+              battleMechSaves[saveIndex] = this.props.appGlobals.currentBattleMech.export()
+              this.props.appGlobals.saveBattleMechSaves( battleMechSaves );
+            }
           }
         )
       }
@@ -198,6 +202,9 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
     }
 
     render = (): React.ReactFragment => {
+      if(!this.props.appGlobals.currentBattleMech) {
+        return <></>;
+      }
       return (
         <>
           <UIPage current="classic-battletech-mech-creator" appGlobals={this.props.appGlobals}>

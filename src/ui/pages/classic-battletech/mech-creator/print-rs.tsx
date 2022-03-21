@@ -16,6 +16,9 @@ export default class MechCreatorPrintRS extends React.Component<IPrintRSProps, I
 
 
     render = (): React.ReactFragment => {
+      if(!this.props.appGlobals.currentBattleMech) {
+        return <></>
+      }
       return (
         <>
           <PrintablePage backTo={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/summary`} appGlobals={this.props.appGlobals}>

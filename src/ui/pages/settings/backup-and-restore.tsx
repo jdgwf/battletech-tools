@@ -22,11 +22,20 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
 
             overwriteCurrentBattlemech: false,
             overwriteCurrentASGroup: false,
+
+            fullBackupString: "",
         }
 
-
+        this.getFullBackupString();
 
         this.props.appGlobals.makeDocumentTitle("SettingsBackupAndRestore");
+    }
+
+    getFullBackupString = async() => {
+      let fullBackupString = await getFullBackup(this.props.appGlobals.appSettings);
+      this.setState({
+        fullBackupString: fullBackupString,
+      })
     }
 
     doRestore = (
@@ -162,7 +171,8 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
 
     render = (): React.ReactFragment => {
 
-      let restoreFileName = this.restoreFileName + "-" + (new Date()).toLocaleString() + ".json"
+
+      let restoreFileName = this.restoreFileName + "-" + (new Date()).toLocaleString() + ".json";
       return (
         <UIPage current="settings-backup-and-restore" appGlobals={this.props.appGlobals}>
             <div className="row">
@@ -175,7 +185,7 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
 
                   <div className="text-center">
                     <a
-                        href={`data:text/json;charset=utf-8,${encodeURIComponent(getFullBackup())}`}
+                        href={`data:text/json;charset=utf-8,${encodeURIComponent( this.state.fullBackupString )}`}
                         download={restoreFileName}
                     >
                         <button
@@ -296,4 +306,6 @@ interface ISettingsBackupAndRestoreState {
 
     overwriteCurrentBattlemech: boolean;
     overwriteCurrentASGroup: boolean;
+
+    fullBackupString: string;
 }

@@ -24,20 +24,26 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
 
 
     setAdditionalHeatSinks = ( event: React.FormEvent<HTMLSelectElement>): void => {
-      let currentMech = this.props.appGlobals.currentBattleMech;
-      currentMech.setAdditionalHeatSinks( +event.currentTarget.value);
-      this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setAdditionalHeatSinks( +event.currentTarget.value);
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
     }
 
     setHeatSinkType = ( event: React.FormEvent<HTMLSelectElement>): void => {
-      let currentMech = this.props.appGlobals.currentBattleMech;
-      currentMech.setHeatSinksType( event.currentTarget.value);
-      this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setHeatSinksType( event.currentTarget.value);
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
     }
 
 
 
     render = (): React.ReactFragment => {
+      if(!this.props.appGlobals.currentBattleMech)
+        return <></>
       let weightDropDownMax = this.props.appGlobals.currentBattleMech.getRemainingTonnage() + this.props.appGlobals.currentBattleMech.getAdditionalHeatSinks();
       if( weightDropDownMax < this.props.appGlobals.currentBattleMech.getAdditionalHeatSinks()) {
         weightDropDownMax = this.props.appGlobals.currentBattleMech.getArmorWeight()

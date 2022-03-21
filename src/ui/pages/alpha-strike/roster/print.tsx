@@ -19,6 +19,9 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
 
 
     render = (): React.ReactFragment => {
+      if(!this.props.appGlobals.currentASForce) {
+        return <></>;
+      }
       return (
         <>
           <header className="topmenu">

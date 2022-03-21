@@ -28,102 +28,120 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
 
 
     allocateSanely = (): void => {
-      let currentMech = this.props.appGlobals.currentBattleMech;
-      currentMech.allocateArmorSane();
-      this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.allocateArmorSane();
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
     }
 
 
     allocateMax = (): void => {
-      let currentMech = this.props.appGlobals.currentBattleMech;
-      currentMech.allocateArmorMax();
-      this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.allocateArmorMax();
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
     }
 
     allocateClear = (): void => {
-      let currentMech = this.props.appGlobals.currentBattleMech;
-      currentMech.allocateArmorClear();
-      this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.allocateArmorClear();
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
     }
 
     toggleMirrorArmorAllocations = (): void => {
-      let currentMech = this.props.appGlobals.currentBattleMech;
-      currentMech.toggleMirrorArmorAllocations();
-      this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.toggleMirrorArmorAllocations();
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
     }
 
     setArmorLocationValue = ( locationAbbr: string, newValue: number ): void => {
-      let currentMech = this.props.appGlobals.currentBattleMech;
-      switch( locationAbbr.toLowerCase().trim() ) {
-        case "hd": {
-          currentMech.setHeadArmor( newValue);
-          break;
-        }
-        case "lt": {
-          currentMech.setLeftTorsoArmor( newValue);
-          break;
-        }
-        case "ct": {
-          currentMech.setCenterTorsoArmor( newValue);
-          break;
-        }
-        case "rt": {
-          currentMech.setRightTorsoArmor( newValue);
-          break;
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        switch( locationAbbr.toLowerCase().trim() ) {
+          case "hd": {
+            currentMech.setHeadArmor( newValue);
+            break;
+          }
+          case "lt": {
+            currentMech.setLeftTorsoArmor( newValue);
+            break;
+          }
+          case "ct": {
+            currentMech.setCenterTorsoArmor( newValue);
+            break;
+          }
+          case "rt": {
+            currentMech.setRightTorsoArmor( newValue);
+            break;
+          }
+
+          case "ltr": {
+            currentMech.setLeftTorsoRearArmor( newValue);
+            break;
+          }
+          case "ctr": {
+            currentMech.setCenterTorsoRearArmor( newValue);
+            break;
+          }
+          case "rtr": {
+            currentMech.setRightTorsoRearArmor( newValue);
+            break;
+          }
+
+          case "la": {
+            currentMech.setLeftArmArmor( newValue);
+            break;
+          }
+          case "ra": {
+            currentMech.setRightArmArmor( newValue);
+            break;
+          }
+
+          case "ll": {
+            currentMech.setLeftLegArmor( newValue);
+            break;
+          }
+
+          case "rl": {
+            currentMech.setRightLegArmor( newValue);
+            break;
+          }
         }
 
-        case "ltr": {
-          currentMech.setLeftTorsoRearArmor( newValue);
-          break;
-        }
-        case "ctr": {
-          currentMech.setCenterTorsoRearArmor( newValue);
-          break;
-        }
-        case "rtr": {
-          currentMech.setRightTorsoRearArmor( newValue);
-          break;
-        }
-
-        case "la": {
-          currentMech.setLeftArmArmor( newValue);
-          break;
-        }
-        case "ra": {
-          currentMech.setRightArmArmor( newValue);
-          break;
-        }
-
-        case "ll": {
-          currentMech.setLeftLegArmor( newValue);
-          break;
-        }
-
-        case "rl": {
-          currentMech.setRightLegArmor( newValue);
-          break;
-        }
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
-
-      this.props.appGlobals.saveCurrentBattleMech( currentMech );
     }
 
     setArmorWeight = ( event: React.FormEvent<HTMLSelectElement>): void => {
-      let currentMech = this.props.appGlobals.currentBattleMech;
-      currentMech.setArmorWeight( +event.currentTarget.value);
-      this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setArmorWeight( +event.currentTarget.value);
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
     }
 
     setArmorType = ( event: React.FormEvent<HTMLSelectElement>): void => {
-      let currentMech = this.props.appGlobals.currentBattleMech;
-      currentMech.setArmorType( event.currentTarget.value);
-      this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setArmorType( event.currentTarget.value);
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
     }
 
 
 
 
     render = (): React.ReactFragment => {
+      if(!this.props.appGlobals.currentBattleMech) {
+        return <></>
+      }
+
       let weightDropDownMax = this.props.appGlobals.currentBattleMech.getRemainingTonnage() + this.props.appGlobals.currentBattleMech.getArmorWeight();
       if( weightDropDownMax < this.props.appGlobals.currentBattleMech.getArmorWeight()) {
         weightDropDownMax = this.props.appGlobals.currentBattleMech.getArmorWeight()
@@ -165,7 +183,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                                           <option key={armorIndex} value={armorData.tag}>{armorData.name}</option>
                                         )
                                       } else {
-                                        if( !this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment) {
+                                        if( this.props.appGlobals.currentBattleMech &&  !this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment) {
                                           return (
                                             <option disabled={true} key={armorIndex} value={armorData.tag}>{armorData.name}</option>
                                           )

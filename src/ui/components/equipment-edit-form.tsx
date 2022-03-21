@@ -199,6 +199,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         } else {
             item.isAmmo = true;
             item.heat = 0;
+            item.heatAero = 0;
         }
 
 
@@ -214,6 +215,19 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         let item = this.props.editingItem;
 
         item.heat = +e.currentTarget.value;
+
+        this.props.onChange( item );
+    }
+
+    updateHeatAero  = (
+        e: React.FormEvent<HTMLInputElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item = this.props.editingItem;
+
+        item.heatAero = +e.currentTarget.value;
 
         this.props.onChange( item );
     }
@@ -450,6 +464,12 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                             value={this.props.editingItem.heat}
                             label="Heat"
                         />
+                        <InputNumeric
+                            step={1}
+                            onChange={this.updateHeatAero}
+                            value={this.props.editingItem.heatAero}
+                            label="Heat (Aero)"
+                        />
 
                         <hr />
 
@@ -503,6 +523,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                                 editingItem={this.props.editingItem}
                                 onChange={this.props.onChange}
                             />
+
                             <RangeInput
                                 label="Range"
                                 editingItem={this.props.editingItem}

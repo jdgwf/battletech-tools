@@ -28,51 +28,67 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
 
 
     updateHideNonAvailableEquipment = ( event: React.FormEvent<HTMLInputElement>): void => {
-      let currentMech = this.props.appGlobals.currentBattleMech;
-      currentMech.hideNonAvailableEquipment = event.currentTarget.checked;
-      this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.hideNonAvailableEquipment = event.currentTarget.checked;
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
     }
 
     updateMake = ( event: React.FormEvent<HTMLInputElement>): void => {
-      let currentMech = this.props.appGlobals.currentBattleMech;
-      currentMech.setMake( event.currentTarget.value);
-      this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setMake( event.currentTarget.value);
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
     }
 
     updateTech = ( event: React.FormEvent<HTMLSelectElement>): void => {
-      let currentMech = this.props.appGlobals.currentBattleMech;
-      currentMech.setTech( event.currentTarget.value);
-      this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setTech( event.currentTarget.value);
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
     }
 
     updateType = ( event: React.FormEvent<HTMLSelectElement>): void => {
-      let currentMech = this.props.appGlobals.currentBattleMech;
-      currentMech.setType( event.currentTarget.value);
-      this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setType( event.currentTarget.value);
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
     }
 
     updateTonnage = ( event: React.FormEvent<HTMLSelectElement>): void => {
-      let currentMech = this.props.appGlobals.currentBattleMech;
-      currentMech.setTonnage( +event.currentTarget.value);
-      this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setTonnage( +event.currentTarget.value);
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
     }
 
     updateStructureType = ( event: React.FormEvent<HTMLSelectElement>): void => {
-      let currentMech = this.props.appGlobals.currentBattleMech;
-      currentMech.setInternalStructureType( event.currentTarget.value);
-      this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setInternalStructureType( event.currentTarget.value);
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
     }
 
 
     updateEra = ( event: React.FormEvent<HTMLSelectElement>): void => {
-      let currentMech = this.props.appGlobals.currentBattleMech;
-      currentMech.setEra( event.currentTarget.value);
-      this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setEra( event.currentTarget.value);
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
     }
 
 
 
     render = (): React.ReactFragment => {
+      if(!this.props.appGlobals.currentBattleMech)
+        return <></>
       return (
         <>
           <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  />

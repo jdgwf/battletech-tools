@@ -20,9 +20,11 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
     }
 
     updateFormationBonus = (event:React.FormEvent<HTMLSelectElement>, groupIndex:number): void => {
-        this.props.appGlobals.currentASForce.groups[groupIndex].formationBonus = formationBonuses.find(x=>x.Name===event.currentTarget.value);
-        this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+      if( this.props.appGlobals.currentASForce ) {
+          this.props.appGlobals.currentASForce.groups[groupIndex].formationBonus = formationBonuses.find(x=>x.Name===event.currentTarget.value);
+          this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
       }
+    }
 
     toggleContextMenuForce = ( asGroupIndex: number, asUnitIndex: number ): void => {
         let newGroup: number = -1;
@@ -39,7 +41,7 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
       }
 
     removeGroup = ( groupIndex: number ): void => {
-        if( this.props.appGlobals.currentASForce.groups.length > groupIndex ) {
+        if( this.props.appGlobals.currentASForce && this.props.appGlobals.currentASForce.groups.length > groupIndex ) {
           if(this.props.appGlobals.currentASForce.groups[groupIndex].getTotalUnits() === 0 ) {
             this.props.appGlobals.currentASForce.removeGroup(groupIndex);
             this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
@@ -50,8 +52,10 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
               "Yes",
               "No",
               () => {
-                this.props.appGlobals.currentASForce.removeGroup(groupIndex);
-                this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+                if( this.props.appGlobals.currentASForce ) {
+                  this.props.appGlobals.currentASForce.removeGroup(groupIndex);
+                  this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+                }
               }
             );
           }
@@ -63,35 +67,45 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
         fromGroupIndex: number,
         toGroupIndex: number,
       ): void => {
+        if( this.props.appGlobals.currentASForce) {
           this.props.appGlobals.currentASForce.moveUnitToGroup( fromUnitIndex, fromGroupIndex, toGroupIndex );
           this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
           this.setState({
             contextMenuUnit: -1,
             contextMenuGroup: -1,
           })
+        }
       }
 
 
     renameGroup = ( newName: string, groupIndex: number ): void => {
+      if( this.props.appGlobals.currentASForce) {
         this.props.appGlobals.currentASForce.renameGroup( newName, groupIndex );
         this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
       }
+    }
 
       selectGroupLabel = ( newName: string, groupIndex: number ): void => {
+        if( this.props.appGlobals.currentASForce) {
         this.props.appGlobals.currentASForce.selectGroupLabel( newName, groupIndex );
         this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
       }
+    }
       removeUnitFromGroup = (asGroupIndex: number, asUnitIndex: number): void => {
+        if( this.props.appGlobals.currentASForce) {
         this.props.appGlobals.currentASForce.removeUnitFromGroup( asGroupIndex, asUnitIndex );
         this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
       }
+    }
 
 
 
     newGroup = (): void => {
+      if( this.props.appGlobals.currentASForce) {
         this.props.appGlobals.currentASForce.newGroup();
         this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
       }
+    }
 
     openEditUnit = ( showASUnit: AlphaStrikeUnit ): void => {
         this.setState({
@@ -103,7 +117,9 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
 
 
     render = (): React.ReactFragment => {
-
+      if(!this.props.appGlobals.currentASForce) {
+        return <></>
+      }
         let addUnitButton: React.ReactFragment = <></>;
 
         if( this.props.openAddingUnits ) {
@@ -196,7 +212,7 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                             <tbody key={asUnitIndex}>
                             <tr>
                               <td className="text-left min-width no-wrap">
-                                {this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
+                                {this.props.appGlobals.currentASForce && this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
                                 (
                                   <div className="drop-down-menu-container">
                                     <Button

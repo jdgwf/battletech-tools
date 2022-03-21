@@ -29,13 +29,17 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
 
 
     toggleLowerArmActuator = ( loc: string ): void => {
-      this.props.appGlobals.currentBattleMech.toggleLowerArmActuator( loc );
-      this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.toggleLowerArmActuator( loc );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      }
     }
 
     toggleHandActuator = ( loc: string ): void => {
-      this.props.appGlobals.currentBattleMech.toggleHandActuator( loc );
-      this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.toggleHandActuator( loc );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      }
     }
 
     resetAllocations = (): void => {
@@ -45,8 +49,10 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
         "Yes",
         "No",
         () => {
-          this.props.appGlobals.currentBattleMech.clearCriticalAllocationTable();
-          this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+          if( this.props.appGlobals.currentBattleMech ) {
+            this.props.appGlobals.currentBattleMech.clearCriticalAllocationTable();
+            this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+          }
         }
       )
 
@@ -63,7 +69,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
       } else {
 
         // try to move item to slot
-        if( this.state.selectedItem ) {
+        if( this.state.selectedItem && this.props.appGlobals.currentBattleMech) {
           let wasMoved = this.props.appGlobals.currentBattleMech.moveCritical(
             // this.state.selectedItem.tag,
             // this.state.selectedItem.rear,
@@ -98,6 +104,8 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
 
 
     render = (): React.ReactFragment => {
+      if(!this.props.appGlobals.currentBattleMech)
+        return <></>
       return (
         <>
           <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  />

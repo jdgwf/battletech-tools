@@ -22,6 +22,8 @@ export default class MechCreatorExports extends React.Component<IHomeProps, IHom
 
 
     render = (): React.ReactFragment => {
+      if(!this.props.appGlobals.currentBattleMech)
+        return <></>
       return (
         <UIPage current="classic-battletech-mech-creator" appGlobals={this.props.appGlobals}>
             <div className="row">

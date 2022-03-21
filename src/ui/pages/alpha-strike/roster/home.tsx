@@ -52,9 +52,11 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
     }
 
     loadASFavorite = (asFavGroup: AlphaStrikeGroup ): void => {
-      asFavGroup.setNew();
-      this.props.appGlobals.currentASForce.groups.push( asFavGroup );
-      this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+      if( this.props.appGlobals.currentASForce ) {
+        asFavGroup.setNew();
+        this.props.appGlobals.currentASForce.groups.push( asFavGroup );
+        this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+      }
     }
 
 
@@ -176,7 +178,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
         <UIPage current="alpha-strike-roster" appGlobals={this.props.appGlobals}>
 
-          {this.props.appGlobals.currentASForce.getTotalUnits() > 0 ? (
+          {this.props.appGlobals.currentASForce && this.props.appGlobals.currentASForce.getTotalUnits() > 0 ? (
             <div className="row">
               <div className="col-6">
                 <Link

@@ -41,7 +41,7 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
             startsWithTag: "classic-battletech",
             subMenu: [
                 {
-                    label: "'Home",
+                    label: "Home",
                     url: "/classic-battletech/",
                     tag: "classic-battletech-home",
                 },
@@ -52,6 +52,7 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                 }
             ]
         });
+
         menuStructure.push({
             label: "Alpha Strike",
             url: "/alpha-strike",

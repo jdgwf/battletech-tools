@@ -104,14 +104,21 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
     }
 
     addToGroup = ( mulUnit: AlphaStrikeUnit,  groupIndex: number = 0  ): void => {
+      if( this.props.appGlobals.currentASForce ) {
         this.props.appGlobals.currentASForce.addToGroup( mulUnit, groupIndex );
         this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
         this.setState({
           contextMenuSearch: -1,
         })
       }
+      }
 
     render = (): React.ReactFragment => {
+      if(!this.props.appGlobals.currentASForce) {
+        return <></>
+      }
+
+
         return(
             <>
                   <div className="row">
@@ -224,7 +231,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                               <td className="text-left min-width no-wrap">
 
 
-{this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
+{this.props.appGlobals.currentASForce && this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
   (
     <div className="drop-down-menu-container">
       <Button
@@ -375,7 +382,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                   <td className="text-left min-width no-wrap">
 
 
-{this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
+{this.props.appGlobals.currentASForce && this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
 (
 <div className="drop-down-menu-container">
 <Button

@@ -40,6 +40,12 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
             currentListData = JSON.parse(JSON.stringify(this.fileDataList[currentList]))
         }
 
+        for(let item of currentListData) {
+            if( typeof(item.heatAero) === "undefined") {
+                item.heatAero = item.heat;
+            }
+        }
+
         this.state = {
             isDirty: false,
             updated: false,
@@ -94,6 +100,12 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
 
                         currentListData = JSON.parse(JSON.stringify(this.fileDataList[e.currentTarget.value]))
 
+                        for(let item of currentListData) {
+                            if( typeof(item.heatAero) === "undefined") {
+                                item.heatAero = item.heat;
+                            }
+                        }
+
                         this.setState({
                             currentList: e.currentTarget.value,
                             currentListData: currentListData,
@@ -109,6 +121,12 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                 let currentListData: IEquipmentItem[] = [];
 
                 currentListData = JSON.parse(JSON.stringify(this.fileDataList[e.currentTarget.value]))
+
+                for(let item of currentListData) {
+                    if( typeof(item.heatAero) === "undefined") {
+                        item.heatAero = item.heat;
+                    }
+                }
 
                 this.setState({
                     currentList: e.currentTarget.value,
@@ -236,6 +254,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
             category: "",
             damage: 0,
             damageAero: 0,
+            heatAero: 0,
             damagePerCluster: 0,
             damageClusters: 0,
             accuracyModifier: 0,
@@ -357,6 +376,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
     }
 
     render = (): React.ReactFragment => {
+
 
 
 

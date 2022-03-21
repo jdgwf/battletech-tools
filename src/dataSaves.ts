@@ -11,19 +11,21 @@ export enum ESaveDataMode {
 
 export interface IFullBackup {
     battleMechSaves: IBattleMechExport[];
-    appSettings: IAppSettingsExport;
+    // appSettings: IAppSettingsExport;
     favoriteASGroups: IASGroupExport[];
     currentASForce: IASForceExport | null;
     currentVBattleMech: string | null;
 }
 
-export function getFullBackup(): string {
+export async function getFullBackup(
+    appSettings: AppSettings,
+): Promise<string> {
     let rv: IFullBackup  = {
-        battleMechSaves: getBattleMechSaves(),
-        appSettings: getAppSettings(),
-        favoriteASGroups: getFavoriteASGroups(),
-        currentASForce: getCurrentASForce(),
-        currentVBattleMech: getCurrentBattleMech(),
+        battleMechSaves: await getBattleMechSaves(appSettings),
+        // appSettings: getAppSettings(),
+        favoriteASGroups: await getFavoriteASGroups(appSettings),
+        currentASForce: await getCurrentASForce(appSettings),
+        currentVBattleMech: await getCurrentBattleMech(appSettings),
     }
 
     return JSON.stringify( rv );
@@ -40,9 +42,9 @@ export function checkFullRestoreData(
     if( typeof(io.battleMechSaves) !== "object" ) {
         return false;
     }
-    if( typeof(io.appSettings) !== "object" ) {
-        return false;
-    }
+    // if( typeof(io.appSettings) !== "object" ) {
+    //     return false;
+    // }
     // if( typeof(io.currentASForce) !== "object" ) {
     //     return false;
     // }
@@ -165,36 +167,66 @@ export function restoreFullBackup(
         appGlobals.saveCurrentASForce( appGlobals.currentASForce );
         appGlobals.saveBattleMechSaves( appGlobals.battleMechSaves );
         appGlobals.saveFavoriteASGroups( appGlobals.favoriteASGroups );
-        let appSettingsObj = new AppSettings(io.appSettings);
-        appGlobals.saveAppSettings( appSettingsObj );
+        // let appSettingsObj = new AppSettings(io.appSettings);
+        // appGlobals.saveAppSettings( appSettingsObj );
     }
 
     return restoreMessages;
 }
 
 function saveData(
+    appSettings: AppSettings,
     keyName: string,
     data: string,
 ): void {
-    localStorage.setItem(keyName, data);
+    switch( appSettings.storageLocation ) {
+        case ESaveDataMode.localStorage: {
+            localStorage.setItem(keyName, data);
+            break;
+        }
+        case ESaveDataMode.firebase: {
+            // localStorage.setItem(keyName, data);
+            break;
+        }
+        default: {
+            console.error("Unknown Save Storage", appSettings.storageLocation)
+            break;
+        }
+    }
+
 }
 
-function getData(
+async function getData(
+    appSettings: AppSettings,
     keyName: string,
-): string | null {
-    return localStorage.getItem(keyName);
+): Promise<string | null> {
+    switch( appSettings.storageLocation ) {
+        case ESaveDataMode.localStorage: {
+            return localStorage.getItem(keyName);
+        }
+        case ESaveDataMode.firebase: {
+            return null;
+        }
+        default: {
+            console.error("Unknown Save Storage", appSettings.storageLocation)
+            return null;
+        }
+    }
 }
 
 export function saveBattleMechSaves(
+    appSettings: AppSettings,
     nv: IBattleMechExport[]
 ) {
-    saveData("battleMechSaves", JSON.stringify(nv) );
+    saveData(appSettings, "battleMechSaves", JSON.stringify(nv) );
 }
 
-export function getBattleMechSaves(): IBattleMechExport[] {
+export async function getBattleMechSaves(
+    appSettings: AppSettings,
+): Promise<IBattleMechExport[]> {
     let rv: IBattleMechExport[] = [];
 
-    let rawData = getData("battleMechSaves" );
+    let rawData = await getData(appSettings, "battleMechSaves" );
     try {
         if( rawData )
             rv = JSON.parse( rawData );
@@ -212,15 +244,18 @@ export function getBattleMechSaves(): IBattleMechExport[] {
 
 
 export function saveCurrentASForce(
-    nv: IASForceExport
+    appSettings: AppSettings,
+    nv: IASForceExport,
 ) {
-    saveData("currentASForce", JSON.stringify(nv) );
+    saveData(appSettings, "currentASForce", JSON.stringify(nv) );
 }
 
-export function getCurrentASForce(): IASForceExport | null {
+export async function getCurrentASForce(
+    appSettings: AppSettings,
+): Promise<IASForceExport | null> {
     let rv: IASForceExport | null = null;
 
-    let rawData = getData("currentASForce" );
+    let rawData = await getData(appSettings, "currentASForce" );
     try {
         if( rawData )
             rv = JSON.parse( rawData );
@@ -238,38 +273,48 @@ export function getCurrentASForce(): IASForceExport | null {
 
 
 export function saveCurrentBattleMech(
+    appSettings: AppSettings,
     nv: string,
 ) {
-    saveData("currentBattleMech", nv );
+    saveData(appSettings, "currentBattleMech", nv );
 }
 
-export function getCurrentBattleMech(): string | null {
+export async function getCurrentBattleMech(
+    appSettings: AppSettings,
+): Promise<string | null> {
 
-    return  getData("currentBattleMech" );
+    return await getData(
+        appSettings,
+        "currentBattleMech"
+    );
 
 }
 
 
 export function saveFavoriteASGroups(
+    appSettings: AppSettings,
     nv: IASGroupExport[]
 ) {
-    saveData("favoriteASGroups", JSON.stringify(nv) );
+    saveData(appSettings, "favoriteASGroups", JSON.stringify(nv) );
 }
 
 export function saveFavoriteASGroupsObjects(
+    appSettings: AppSettings,
     nv: AlphaStrikeGroup[]
 ) {
     let rv: IASGroupExport[] = [];
     for( let unit of nv ) {
         rv.push( unit.export() );
     }
-    saveData("favoriteASGroups", JSON.stringify(rv) );
+    saveData(appSettings, "favoriteASGroups", JSON.stringify(rv) );
 }
 
-export function getFavoriteASGroups(): IASGroupExport[] {
+export async function getFavoriteASGroups(
+    appSettings: AppSettings,
+): Promise<IASGroupExport[]> {
     let rv: IASGroupExport[] = [];
 
-    let rawData = getData("favoriteASGroups" );
+    let rawData = await getData(appSettings, "favoriteASGroups" );
     try {
         if( rawData )
             rv = JSON.parse( rawData );
@@ -289,12 +334,12 @@ export function getFavoriteASGroups(): IASGroupExport[] {
 export function saveAppSettings(
     nv: IAppSettingsExport,
 ) {
-    saveData("appSettings", JSON.stringify(nv) );
+    localStorage.setItem("appSettings", JSON.stringify(nv) );
 }
 
 export function getAppSettings(): IAppSettingsExport {
     let rv: IAppSettingsExport = (new AppSettings(null)).export()
-    let rawData = getData("appSettings" );
+    let rawData = localStorage.getItem("appSettings" );
 
     try {
         if( rawData )

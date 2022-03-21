@@ -26,18 +26,94 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
     constructor(props: IAppRouterProps) {
         super(props);
 
-        let asImport: IASForceExport | null = getCurrentASForce();
+        let settingsData = getAppSettings();
+
+        let appSettings = new AppSettings( settingsData );
+
+
+        // let uiTheme: string = "";
+        // let lsTheme = getData("uiTheme");
+
+
+
+        // console.log("settingsData", settingsData);
+        if( settingsData && settingsData.uiTheme ) {
+
+            document.body.className = settingsData.uiTheme;
+        } else {
+            document.body.className = '';
+        }
+
+        let appGlobals: IAppGlobals = {
+            appSettings: appSettings,
+            currentPageTitle: "",
+            siteAlerts: new Alerts( this ),
+            showMobile: false,
+            confirmDialogMessage: "",
+            confirmDialogTitle: "",
+            confirmDialogYesLabel: "",
+            confirmDialogNoLabel: "",
+            showConfirmDialog: false,
+            confirmDialogConfirm: null,
+            makeDocumentTitle: this.makeDocumentTitle,
+            openConfirmDialog: this.openConfirmDialog,
+            refreshGlobalState: this.refreshGlobalState,
+            toggleMobile: this.toggleMobile,
+            closeMobile: this.closeMobile,
+
+            saveCurrentASForce: this.saveCurrentASForce,
+            saveAppSettings: this.saveAppSettings,
+
+            favoriteASGroups: [],
+            currentASForce: null,
+            currentBattleMech: null,
+            battleMechSaves: [],
+            saveFavoriteASGroups: this.saveFavoriteASGroups,
+            saveASGroupFavorite: this.saveASGroupFavorite,
+            removeASGroupFavorite: this.removeASGroupFavorite,
+
+
+            saveCurrentBattleMech: this.saveCurrentBattleMech,
+
+
+            saveBattleMechSaves: this.saveBattleMechSaves,
+        }
+        this.state = {
+            updated: false,
+            appGlobals: appGlobals,
+        }
+
+        window.addEventListener('offline', (event) => {
+            this.setState({
+                updated: true,
+            })
+        });
+        window.addEventListener('online', (event) => {
+            this.setState({
+                updated: true,
+            })
+        });
+
+        this.setData( appSettings, appGlobals );
+    }
+
+    setData = async (
+        appSettings: AppSettings,
+        appGlobals: IAppGlobals,
+    ) => {
+
+        let asImport: IASForceExport | null = await getCurrentASForce(appSettings);
 
         let alphaStrikeForce = new AlphaStrikeForce( asImport );
 
-        let lsBMImport = getCurrentBattleMech();
+        let lsBMImport = await getCurrentBattleMech(appSettings);
         let currentBattleMech = new BattleMech();
         if( lsBMImport ) {
             currentBattleMech.importJSON( lsBMImport);
         }
 
-        let battleMechSaves: IBattleMechExport[] = getBattleMechSaves();
-        let asImportFavorites: IASGroupExport[] = getFavoriteASGroups();
+        let battleMechSaves: IBattleMechExport[] = await getBattleMechSaves(appSettings);
+        let asImportFavorites: IASGroupExport[] = await getFavoriteASGroups(appSettings);
 
         // Basic Data Integrity Checks
         let needsBMReSave = false;
@@ -50,7 +126,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
         if( needsBMReSave ) {
             console.info("Some UUIDs not found in BattleMech saves, generating UUIDS and re-saving...")
-            saveBattleMechSaves( battleMechSaves )
+            await saveBattleMechSaves( appSettings, battleMechSaves )
         }
         let needsASReSave = false;
         for( let item of asImportFavorites ) {
@@ -61,7 +137,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         }
         if( needsASReSave ) {
             console.info("Some UUIDs not found in AlphaStrike Favorites saves, generating UUIDS and re-saving...")
-            saveFavoriteASGroups( asImportFavorites )
+            await saveFavoriteASGroups(appSettings,  asImportFavorites )
         }
 
         // End of Basic Data Integrity Checks
@@ -76,64 +152,14 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             }
         }
 
-        // let uiTheme: string = "";
-        // let lsTheme = getData("uiTheme");
+        appGlobals.favoriteASGroups = asImportedFavorites;
+        appGlobals.currentASForce = alphaStrikeForce;
+        appGlobals.currentBattleMech = currentBattleMech;
+        appGlobals.battleMechSaves = battleMechSaves;
 
-        let settingsData = getAppSettings();
-
-        // console.log("settingsData", settingsData);
-        if( settingsData && settingsData.uiTheme ) {
-
-            document.body.className = settingsData.uiTheme;
-        } else {
-            document.body.className = '';
-        }
-
-        this.state = {
-            updated: false,
-            appGlobals: {
-                appSettings: new AppSettings( settingsData ),
-                currentPageTitle: "",
-                siteAlerts: new Alerts( this ),
-                showMobile: false,
-                confirmDialogMessage: "",
-                confirmDialogTitle: "",
-                confirmDialogYesLabel: "",
-                confirmDialogNoLabel: "",
-                showConfirmDialog: false,
-                confirmDialogConfirm: null,
-                makeDocumentTitle: this.makeDocumentTitle,
-                openConfirmDialog: this.openConfirmDialog,
-                refreshGlobalState: this.refreshGlobalState,
-                toggleMobile: this.toggleMobile,
-                closeMobile: this.closeMobile,
-                currentASForce: alphaStrikeForce,
-                saveCurrentASForce: this.saveCurrentASForce,
-                saveAppSettings: this.saveAppSettings,
-
-                favoriteASGroups: asImportedFavorites,
-                saveFavoriteASGroups: this.saveFavoriteASGroups,
-                saveASGroupFavorite: this.saveASGroupFavorite,
-                removeASGroupFavorite: this.removeASGroupFavorite,
-
-                currentBattleMech: currentBattleMech,
-                saveCurrentBattleMech: this.saveCurrentBattleMech,
-
-                battleMechSaves: battleMechSaves,
-                saveBattleMechSaves: this.saveBattleMechSaves,
-            }
-        }
-
-        window.addEventListener('offline', (event) => {
-            this.setState({
-                updated: true,
-            })
-        });
-        window.addEventListener('online', (event) => {
-            this.setState({
-                updated: true,
-            })
-        });
+        this.setState({
+            appGlobals: appGlobals,
+        })
     }
 
     saveBattleMechSaves = ( newValue: IBattleMechExport[] ): void => {
@@ -142,7 +168,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         let appGlobals = this.state.appGlobals;
         appGlobals.battleMechSaves = newValue;
 
-        saveBattleMechSaves( appGlobals.battleMechSaves )
+        saveBattleMechSaves( appGlobals.appSettings, appGlobals.battleMechSaves )
 
         this.setState({
             appGlobals: appGlobals,
@@ -174,7 +200,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             appGlobals: appGlobals,
         });
 
-        saveCurrentBattleMech( mech.exportJSON() );
+        saveCurrentBattleMech( appGlobals.appSettings, mech.exportJSON() );
     }
 
     saveCurrentASForce = ( asForce: AlphaStrikeForce ): void => {
@@ -185,7 +211,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             appGlobals: appGlobals,
         });
 
-        saveCurrentASForce( asForce.export() );
+        saveCurrentASForce( appGlobals.appSettings, asForce.export() );
     }
 
     saveASGroupFavorite = ( asGroup: AlphaStrikeGroup ): void => {
@@ -202,7 +228,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             appGlobals.favoriteASGroups.splice( asGroupIndex, 1 );
             this.saveFavoriteASGroups( appGlobals.favoriteASGroups );
 
-            saveFavoriteASGroupsObjects( appGlobals.favoriteASGroups )
+            saveFavoriteASGroupsObjects( appGlobals.appSettings, appGlobals.favoriteASGroups )
         }
 
     }
@@ -444,16 +470,16 @@ export interface IAppGlobals {
         confirmCallback: Function,
     ): void;
 
-    currentASForce: AlphaStrikeForce;
-    saveCurrentASForce( asForce: AlphaStrikeForce ): void;
+    currentASForce: AlphaStrikeForce | null;
+    saveCurrentASForce( asForce: AlphaStrikeForce | null ): void;
 
     favoriteASGroups: AlphaStrikeGroup[];
     saveFavoriteASGroups( asGroups: AlphaStrikeGroup[] ): void
     saveASGroupFavorite( asGroup: AlphaStrikeGroup ): void;
     removeASGroupFavorite( asGroupIndex: number ): void;
 
-    currentBattleMech: BattleMech;
-    saveCurrentBattleMech( mech: BattleMech ): void;
+    currentBattleMech: BattleMech | null;
+    saveCurrentBattleMech( mech: BattleMech | null ): void;
     saveAppSettings( appSettings: AppSettings ): void;
 
     battleMechSaves: IBattleMechExport[];

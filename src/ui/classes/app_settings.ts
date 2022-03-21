@@ -1,10 +1,13 @@
 import { IASMULUnit } from "../../classes/alpha-strike-unit";
+import { ESaveDataMode } from "../../dataSaves";
 
 export class AppSettings {
     developerMenu: boolean = false;
     uiTheme: string = "";
     equipmentFilter: string = "";
     installEquipCategory: string = "";
+
+    storageLocation: ESaveDataMode = ESaveDataMode.localStorage;
 
     alphasStrikeCachedSearchResults: IASMULUnit[] = [];
     alphaStrikeSearchTerm: string = "";

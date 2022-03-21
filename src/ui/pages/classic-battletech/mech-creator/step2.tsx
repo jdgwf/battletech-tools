@@ -22,32 +22,44 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
 
 
     setWalkingMP = ( event: React.FormEvent<HTMLSelectElement>): void => {
-      let currentMech = this.props.appGlobals.currentBattleMech;
-      currentMech.setWalkSpeed( +event.currentTarget.value);
-      this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setWalkSpeed( +event.currentTarget.value);
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
     }
 
     setJumpingMP = ( event: React.FormEvent<HTMLSelectElement>): void => {
-      let currentMech = this.props.appGlobals.currentBattleMech;
-      currentMech.setJumpSpeed( +event.currentTarget.value);
-      this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setJumpSpeed( +event.currentTarget.value);
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
     }
 
     setEngineType = ( event: React.FormEvent<HTMLSelectElement>): void => {
-      let currentMech = this.props.appGlobals.currentBattleMech;
-      currentMech.setEngineType( event.currentTarget.value);
-      this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setEngineType( event.currentTarget.value);
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
     }
 
     setGyroType = ( event: React.FormEvent<HTMLSelectElement>): void => {
-      let currentMech = this.props.appGlobals.currentBattleMech;
-      currentMech.setGyroType( event.currentTarget.value);
-      this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setGyroType( event.currentTarget.value);
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
     }
 
 
 
     render = (): React.ReactFragment => {
+      if(!this.props.appGlobals.currentBattleMech) {
+        return <></>
+      }
+
       return (
         <>
           <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  />
@@ -113,7 +125,7 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                                       <option key={engineIndex} value={engineData.tag}>{engineData.name}</option>
                                     )
                                   } else {
-                                    if( !this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment) {
+                                    if( this.props.appGlobals.currentBattleMech && !this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment) {
                                       return (
                                         <option disabled={true} key={engineIndex} value={engineData.tag}>{engineData.name}</option>
                                       )
@@ -138,7 +150,7 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                                       <option key={gyroIndex} value={gyroData.tag}>{gyroData.name}</option>
                                     )
                                   } else {
-                                    if( !this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment) {
+                                    if( this.props.appGlobals.currentBattleMech &&  !this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment) {
                                       return (
                                         <option disabled={true} key={gyroIndex} value={gyroData.tag}>{gyroData.name}</option>
                                       )

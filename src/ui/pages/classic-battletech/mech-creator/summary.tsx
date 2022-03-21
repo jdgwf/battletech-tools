@@ -24,33 +24,45 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
 
 
     setASRole = ( event: React.FormEvent<HTMLInputElement>): void => {
-      this.props.appGlobals.currentBattleMech.setASRole( event.currentTarget.value );
-      this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.setASRole( event.currentTarget.value );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      }
     }
 
     setASCustomName = ( event: React.FormEvent<HTMLInputElement>): void => {
-      this.props.appGlobals.currentBattleMech.setASCustomName( event.currentTarget.value );
-      this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.setASCustomName( event.currentTarget.value );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      }
     }
 
     setPilotName = ( event: React.FormEvent<HTMLInputElement>): void => {
-      this.props.appGlobals.currentBattleMech.setPilotName( event.currentTarget.value );
-      this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.setPilotName( event.currentTarget.value );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      }
     }
 
     setPilotPiloting = ( event: React.FormEvent<HTMLSelectElement>): void => {
-      this.props.appGlobals.currentBattleMech.setPilotPiloting( +event.currentTarget.value );
-      this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.setPilotPiloting( +event.currentTarget.value );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      }
     }
 
     setPilotGunnery = ( event: React.FormEvent<HTMLSelectElement>): void => {
-      this.props.appGlobals.currentBattleMech.setPilotGunnery( +event.currentTarget.value );
-      this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.setPilotGunnery( +event.currentTarget.value );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      }
     }
 
 
 
     render = (): React.ReactFragment => {
+      if(!this.props.appGlobals.currentBattleMech)
+        return <></>
       return (
         <>
           <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  />

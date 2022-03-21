@@ -27,6 +27,7 @@ export const mechISEquipmentMisc: IEquipmentItem[] = [
         battleValue: 0,
         battleValueOneShot: 0,
         heat: 0,
+        heatAero: 0,
         weight: 7.5,
         range: {
             min: 0,

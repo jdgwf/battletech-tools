@@ -61,6 +61,9 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
     }
 
     render = (): React.ReactFragment => {
+      if(!this.props.appGlobals.currentASForce) {
+        return <></>;
+      }
       return (
         <>
           <header className="topmenu">

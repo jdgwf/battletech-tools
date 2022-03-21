@@ -109,6 +109,7 @@ export interface IEquipmentItem {
     battleValue?: number;
     battleValueOneShot?: number;
     heat: number;
+    heatAero: number;
     weight: number;
     range: IRangeNumbers,
     space: ICriticalSpace,
