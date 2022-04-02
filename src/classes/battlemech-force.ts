@@ -9,16 +9,16 @@ export interface IBMForceExport {
 
 export class BattleMechForce {
 
-	members: BattleMechGroup[] = [];
+	public members: BattleMechGroup[] = [];
 
-	groupLabel: string = "Lance";
+	public groupLabel: string = "Lance";
 
-	uuid: string = generateUUID();
-	lastUpdated: Date = new Date();
+	private _uuid: string = generateUUID();
+	private _lastUpdated: Date = new Date();
 
-	customName : string= "";
+	public customName : string= "";
 
-    groups: BattleMechGroup[] = [];
+    public groups: BattleMechGroup[] = [];
 
     constructor(importObj: IBMForceExport | null = null ) {
         if( importObj ) {
@@ -53,7 +53,7 @@ export class BattleMechForce {
     public export(): IBMForceExport {
         let returnValue: IBMForceExport = {
             groups: [],
-            uuid: this.uuid,
+            uuid: this._uuid,
             lastUpdated: new Date(),
         }
 
@@ -69,11 +69,11 @@ export class BattleMechForce {
             this.groups.push( new BattleMechGroup( group) );
         }
         if( importObj.uuid ) {
-            this.uuid = importObj.uuid;
+            this._uuid = importObj.uuid;
         }
 
         if( importObj.lastUpdated ) {
-            this.lastUpdated = new Date(importObj.lastUpdated);
+            this._lastUpdated = new Date(importObj.lastUpdated);
         }
 
     }
@@ -89,7 +89,7 @@ export class BattleMechForce {
     }
 
 
-    getTotaBV2(): number {
+    public getTotaBV2(): number {
         let rv = 0;
 
         for( let group of this.groups ) {

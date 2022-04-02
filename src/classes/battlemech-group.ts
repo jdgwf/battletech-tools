@@ -13,14 +13,14 @@ export interface IBMGroupExport {
 
 export class BattleMechGroup {
 
-    groupLabel: string = "Lance";
+    public groupLabel: string = "Lance";
 
-	uuid: string = generateUUID();
-	lastUpdated: Date = new Date();
+	private _uuid: string = generateUUID();
+	private _lastUpdated: Date = new Date();
 
-    members: BattleMech[] = [];
+    public members: BattleMech[] = [];
 
-	customName : string= "";
+	public customName : string= "";
 
     constructor(importObj: IBMGroupExport | null = null ) {
         if( importObj ) {
@@ -33,11 +33,11 @@ export class BattleMechGroup {
 	}
 
 	public setNew() {
-		this.uuid = generateUUID();
-		this.lastUpdated = new Date();
+		this._uuid = generateUUID();
+		this._lastUpdated = new Date();
 	}
 
-	getTotaBV2(): number {
+	public getTotaBV2(): number {
         let rv = 0;
 
         for( let unit of this.members ) {
@@ -47,7 +47,7 @@ export class BattleMechGroup {
         return rv;
     }
 
-    import(importObj: IBMGroupExport) {
+    public import(importObj: IBMGroupExport) {
 
 
 		this.customName = importObj.name;
@@ -56,7 +56,7 @@ export class BattleMechGroup {
 			this.members.push( theUnit );
 		}
         if( importObj.uuid ) {
-            this.uuid = importObj.uuid;
+            this._uuid = importObj.uuid;
         }
 
 		if( importObj.groupLabel ) {
@@ -64,18 +64,18 @@ export class BattleMechGroup {
 		}
 
         if( importObj.lastUpdated ) {
-            this.lastUpdated = new Date(importObj.lastUpdated);
+            this._lastUpdated = new Date(importObj.lastUpdated);
 		}
 		// if( importObj.formationBonus ){
 		// 	this.formationBonus = formationBonuses.find(x=>x.Name===importObj.formationBonus);
 		// }
     }
 
-    export(): IBMGroupExport {
+    public export(): IBMGroupExport {
         let returnValue: IBMGroupExport = {
 			name: this.customName,
 			units: [],
-            uuid: this.uuid,
+            uuid: this._uuid,
 			lastUpdated: new Date(),
 			groupLabel: this.groupLabel,
 		}

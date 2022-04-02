@@ -10,16 +10,16 @@ export interface IASForceExport {
 }
 
 export default class AlphaStrikeForce {
-    uuid: string = generateUUID();
-    lastUpdated: Date = new Date();
+    _uuid: string = generateUUID();
+    _lastUpdated: Date = new Date();
 
-    groups: AlphaStrikeGroup[] = [];
+    public groups: AlphaStrikeGroup[] = [];
 
-	customName : string= "";
+	public customName : string= "";
 
-	activeMembers: number = 0;
-	forcePoints: number = 0;
-    membersLabel: string = "";
+	public activeMembers: number = 0;
+	public forcePoints: number = 0;
+    public membersLabel: string = "";
 
     constructor(importObj: IASForceExport | null = null ) {
         if( importObj ) {
@@ -143,7 +143,7 @@ export default class AlphaStrikeForce {
     public export(): IASForceExport {
         let returnValue: IASForceExport = {
             groups: [],
-            uuid: this.uuid,
+            uuid: this._uuid,
             lastUpdated: new Date(),
         }
 
@@ -159,11 +159,11 @@ export default class AlphaStrikeForce {
             this.groups.push( new AlphaStrikeGroup( group) );
         }
         if( importObj.uuid ) {
-            this.uuid = importObj.uuid;
+            this._uuid = importObj.uuid;
         }
 
         if( importObj.lastUpdated ) {
-            this.lastUpdated = new Date(importObj.lastUpdated);
+            this._lastUpdated = new Date(importObj.lastUpdated);
         }
 
     }

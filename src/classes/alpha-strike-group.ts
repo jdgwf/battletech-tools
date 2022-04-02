@@ -15,21 +15,21 @@ export interface IASGroupExport {
 
 export default class AlphaStrikeGroup {
 
-	members: AlphaStrikeUnit[] = [];
+	public members: AlphaStrikeUnit[] = [];
 
-	groupLabel: string = "Lance";
+	public groupLabel: string = "Lance";
 
-	uuid: string = generateUUID();
-	lastUpdated: Date = new Date();
+	public uuid: string = generateUUID();
+	public lastUpdated: Date = new Date();
 
-	customName : string= "";
+	public customName : string= "";
 
-	activeMembers: number = 0;
-	groupPoints: number = 0;
-	membersLabel: string = "";
+	public activeMembers: number = 0;
+	public groupPoints: number = 0;
+	public membersLabel: string = "";
 
-	formationBonus?: IFormationBonus=formationBonuses.find(x=>x.Name ==="None");
-	availableFormationBonuses: IFormationBonus[]=[];
+	public formationBonus?: IFormationBonus=formationBonuses.find(x=>x.Name ==="None");
+	public availableFormationBonuses: IFormationBonus[]=[];
 
     constructor(importObj: IASGroupExport | null = null ) {
         if( importObj ) {
@@ -113,7 +113,7 @@ export default class AlphaStrikeGroup {
 	}
 
 
-    export(): IASGroupExport {
+    public export(): IASGroupExport {
         let returnValue: IASGroupExport = {
 			name: this.customName,
 			units: [],
@@ -140,7 +140,7 @@ export default class AlphaStrikeGroup {
 
 
 
-    import(importObj: IASGroupExport) {
+    public import(importObj: IASGroupExport) {
 
 
 		this.customName = importObj.name;

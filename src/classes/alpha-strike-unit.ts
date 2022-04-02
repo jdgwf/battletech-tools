@@ -113,106 +113,86 @@ export interface IASMULUnit {
 }
 
 export class AlphaStrikeUnit {
-    originalStats:IASMULUnit | null = null;
+    public originalStats: IASMULUnit | null = null;
 
-    mechCreatorUUID: string = "";
+    public mechCreatorUUID: string = "";
 
-    classification: string = "";
-    costCR: number = 0;
+    public classification: string = "";
+    public costCR: number = 0;
 
-    isAerospace: boolean = false;
-    isInfantry: boolean = false;
-    immobile: boolean = false;
+    public isAerospace: boolean = false;
+    public isInfantry: boolean = false;
+    public immobile: boolean = false;
 
-    variant: string | null = "";
-    name: string = "";
-    dateIntroduced: string = "";
-    era: string = "";
+    public variant: string | null = "";
+    public name: string = "";
+    public dateIntroduced: string = "";
+    public era: string = "";
 
-    tro: string = "";
+    public tro: string = "";
 
-    showDetails: boolean = false;
+    public showDetails: boolean = false;
 
-    active: boolean = true;
+    public  active: boolean = true;
 
-    tonnage: number = 0;
+    public tonnage: number = 0;
 
-    currentSkill: number = 4;
-    type: string = "BattleMech";
-    size: number = 0;
-    tmm: number = 0;
+    public currentSkill: number = 4;
+    public type: string = "BattleMech";
+    public size: number = 0;
+    public tmm: number = 0;
 
-    ImageUrl: string = "";
+    public ImageUrl: string = "";
 
-    currentMove: string = "";
-    currentTMM: string = "";
+    public currentMove: string = "";
+    public currentTMM: string = "";
 
-    armor: number = 0;
-    structure: number = 0;
+    public armor: number = 0;
+    public structure: number = 0;
 
-    threshold: number = 0;
+    public threshold: number = 0;
 
-    currentToHitShort: number = 0;
-    currentToHitMedium: number = 0;
-    currentToHitLong: number = 0;
-    currentToHitExtreme: number = 0;
+    public currentToHitShort: number = 0;
+    public currentToHitMedium: number = 0;
+    public currentToHitLong: number = 0;
+    public currentToHitExtreme: number = 0;
 
-    damage: IAlphaStrikeDamage = {
+    public damage: IAlphaStrikeDamage = {
             short: 0,
             medium: 0,
             long: 0,
             extreme: 0,
         };
 
-    move: IMoveNumber[] = [];
-    jumpMove: number = 0;
+    public move: IMoveNumber[] = [];
+    public jumpMove: number = 0;
 
-    mulID: number = 0;
+    public mulID: number = 0;
 
-    abilities: string = "";
+    public abilities: string = "";
 
-    overheat: number = 0;
-    role = "";
+    public overheat: number = 0;
+    public role = "";
 
-    basePoints: number = 0;
-    currentPoints: number = 0;
-    currentHeat: number = 0;
+    public basePoints: number = 0;
+    public currentPoints: number = 0;
+    public currentHeat: number = 0;
 
-    currentDamage: IAlphaStrikeDamage = {
+    public currentDamage: IAlphaStrikeDamage = {
         short: 0,
         medium: 0,
         long: 0,
         extreme: 0,
     };
 
-    currentArmor: boolean[] = [];
-    currentStructure: boolean[] = [];
-    engineHits: boolean[] = [];
-    fireControlHits: boolean[] = [];
-    mpControlHits: boolean[] = [];
-    weaponHits: boolean[] = [];
+    public currentArmor: boolean[] = [];
+    public currentStructure: boolean[] = [];
+    public engineHits: boolean[] = [];
+    public fireControlHits: boolean[] = [];
+    public mpControlHits: boolean[] = [];
+    public weaponHits: boolean[] = [];
 
-    customName: string = "";
-
-    public getRawNumber( incomingString: string ): number {
-        let myString = incomingString.replace(/\D/g,'');
-        return +myString / 1;
-    }
-
-    public getRawAlpha( incomingString: string ): string {
-        let myString = incomingString.replace(/\d/g,'');
-        return myString.toLowerCase().trim();
-    }
-
-    public toggleShowingDetails() {
-
-        if( this.showDetails) {
-            this.showDetails = false;
-        } else {
-            this.showDetails = true;
-        }
-
-    }
+    public customName: string = "";
 
     constructor( incomingMechData: IASMULUnit ) {
         if( typeof(incomingMechData) !== "undefined" && incomingMechData !== null ) {
@@ -419,6 +399,26 @@ export class AlphaStrikeUnit {
         this.calcCurrentVals();
     }
 
+    public getRawNumber( incomingString: string ): number {
+        let myString = incomingString.replace(/\D/g,'');
+        return +myString / 1;
+    }
+
+    public getRawAlpha( incomingString: string ): string {
+        let myString = incomingString.replace(/\d/g,'');
+        return myString.toLowerCase().trim();
+    }
+
+    public toggleShowingDetails() {
+
+        if( this.showDetails) {
+            this.showDetails = false;
+        } else {
+            this.showDetails = true;
+        }
+
+    }
+
     public setSkill( newSkillValue: number ) {
         this.currentSkill = newSkillValue ;
         this.calcCurrentVals();
@@ -452,7 +452,7 @@ export class AlphaStrikeUnit {
         return false;
     }
 
-    getEngineHits(): number {
+    public getEngineHits(): number {
         let rv = 0;
         if( this.engineHits ) {
             for( let val of this.engineHits  ) {
@@ -465,7 +465,7 @@ export class AlphaStrikeUnit {
         return rv;
     }
 
-    getFireControlHits(): number {
+    public getFireControlHits(): number {
         let rv = 0;
         if( this.engineHits ) {
             for( let val of this.fireControlHits  ) {
@@ -478,7 +478,7 @@ export class AlphaStrikeUnit {
         return rv;
     }
 
-    getMPHits(): number {
+    public getMPHits(): number {
         let rv = 0;
         if( this.engineHits ) {
             for( let val of this.mpControlHits  ) {
@@ -491,12 +491,12 @@ export class AlphaStrikeUnit {
         return rv;
     }
 
-    isWrecked(): boolean {
+    public isWrecked(): boolean {
         this.calcCurrentVals()
         return !this.active;
     }
 
-    getWeaponHits(): number {
+    public getWeaponHits(): number {
         let rv = 0;
         if( this.engineHits ) {
             for( let val of this.weaponHits  ) {
