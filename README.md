@@ -18,9 +18,10 @@ The tools are powered by HTML, Bootstrap 4, TypeScript, and React. All data and 
 
 There are no server moving parts for the application itself, and I'm going to do my best to keep it that way.
 
-### Team
+### Known Contributors
 
 [Jeffrey D. Gordon](https://github.com/jdgwf) ([@JeffreyDGordon](https://twitter.com/JeffreyDGordon)), Lead Developer and designer
 
 [MoonSword22](https://github.com/MoonSword22), Data Entry and consulting
 
+[cam-smith](https://github.com/cam-smith), fixes for formation bonuses and aero damages
