@@ -63,8 +63,18 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
                 equipmentList.push( <text key={ eq_count.toString() + "f"} x={wacCol3 + 30 } y={weapAndEqpTop + 120 + this.eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 100}} fontSize={30}>-</text> );
             }
 
-            equipmentList.push( <text key={ eq_count.toString() + "g"} x={wacCol4 + 30 } y={weapAndEqpTop + 120 + this.eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.sortedEquipmentList[eq_count].heat}</text> );
-            equipmentList.push( <text key={ eq_count.toString() + "h"} x={wacCol5 + 30 } y={weapAndEqpTop + 120 + this.eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.sortedEquipmentList[eq_count].damage}</text> );
+            if(!this.props.mechData.sortedEquipmentList[eq_count].isAmmo) {
+                if(this.props.mechData.sortedEquipmentList[eq_count].heatPerShot) {
+                    equipmentList.push( <text key={ eq_count.toString() + "g"} x={wacCol4 + 30 } y={weapAndEqpTop + 120 + this.eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.sortedEquipmentList[eq_count].heat}/shot</text> );
+                } else {
+                    equipmentList.push( <text key={ eq_count.toString() + "g"} x={wacCol4 + 30 } y={weapAndEqpTop + 120 + this.eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.sortedEquipmentList[eq_count].heat}</text> );
+                }
+                if(this.props.mechData.sortedEquipmentList[eq_count].damagePerShot) {
+                    equipmentList.push( <text key={ eq_count.toString() + "h"} x={wacCol5 + 30 } y={weapAndEqpTop + 120 + this.eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.sortedEquipmentList[eq_count].damage}/shot</text> );
+                } else {
+                    equipmentList.push( <text key={ eq_count.toString() + "h"} x={wacCol5 + 30 } y={weapAndEqpTop + 120 + this.eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.sortedEquipmentList[eq_count].damage}</text> );
+                }
+            }
 
             if( this.props.mechData.sortedEquipmentList[eq_count].isMelee ) {
                 equipmentList.push( <text key={ eq_count.toString() + "i"} x={wacCol7 + 30 } y={weapAndEqpTop + 120 + this.eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 100}} fontSize={30}> MELEE </text> );
@@ -72,13 +82,18 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
             } else {
 
 
-                if(this.props.mechData.sortedEquipmentList[eq_count].range.min === 0)
-                    equipmentList.push( <text key={ eq_count.toString() + "j"} x={wacCol6 + 30 } y={weapAndEqpTop + 120 + this.eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 100}} fontSize={30}>-</text> );
-                else
-                    equipmentList.push( <text key={ eq_count.toString() + "k"} x={wacCol6 + 30 } y={weapAndEqpTop + 120 + this.eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.sortedEquipmentList[eq_count].range.min}</text> );
-                equipmentList.push( <text key={ eq_count.toString() + "l"} x={wacCol7 + 30 } y={weapAndEqpTop + 120 + this.eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.sortedEquipmentList[eq_count].range.short}</text> );
-                equipmentList.push( <text key={ eq_count.toString() + "m"} x={wacCol8 + 30 } y={weapAndEqpTop + 120 + this.eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.sortedEquipmentList[eq_count].range.medium}</text> );
-                equipmentList.push( <text key={ eq_count.toString() + "n"} x={wacCol9 + 30 } y={weapAndEqpTop + 120 + this.eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.sortedEquipmentList[eq_count].range.long}</text> );
+                if(!this.props.mechData.sortedEquipmentList[eq_count].isAmmo) {
+
+                    if(this.props.mechData.sortedEquipmentList[eq_count].range.min === 0)
+                        equipmentList.push( <text key={ eq_count.toString() + "j"} x={wacCol6 + 30 } y={weapAndEqpTop + 120 + this.eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 100}} fontSize={30}>-</text> );
+                    else
+                        equipmentList.push( <text key={ eq_count.toString() + "k"} x={wacCol6 + 30 } y={weapAndEqpTop + 120 + this.eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.sortedEquipmentList[eq_count].range.min}</text> );
+                    equipmentList.push( <text key={ eq_count.toString() + "l"} x={wacCol7 + 30 } y={weapAndEqpTop + 120 + this.eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.sortedEquipmentList[eq_count].range.short}</text> );
+                    equipmentList.push( <text key={ eq_count.toString() + "m"} x={wacCol8 + 30 } y={weapAndEqpTop + 120 + this.eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.sortedEquipmentList[eq_count].range.medium}</text> );
+                    equipmentList.push( <text key={ eq_count.toString() + "n"} x={wacCol9 + 30 } y={weapAndEqpTop + 120 + this.eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.sortedEquipmentList[eq_count].range.long}</text> );
+                }
+
+
             }
         }
 

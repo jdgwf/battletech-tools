@@ -253,8 +253,10 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
             sort: "",
             category: "",
             damage: 0,
+            damagePerShot: false,
             damageAero: 0,
             heatAero: 0,
+            heatPerShot: false,
             damagePerCluster: 0,
             damageClusters: 0,
             accuracyModifier: 0,
@@ -524,7 +526,12 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                         ) : (
                             <>
                                 {typeof(item.damage) === "number" ? (
-                                    <>{item.damage}</>
+                                    <>
+                                        {item.damage}
+                                        {item.damagePerShot ? (
+                                            <>/shot</>
+                                        ) : null}
+                                    </>
                                 ) : (
                                     <>{item.damage?.short} / {item.damage?.medium} / {item.damage?.long} </>
                                 )}
@@ -573,7 +580,11 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                 </td>
 
                 <td className="text-center no-wrap ">
-                    {item.heat}<br />
+                    {item.heat}
+                    {item.heatPerShot ? (
+                        <>/shot</>
+                    ) : null}
+                    <br />
                 </td>
                 <td className="text-center no-wrap ">
                     {item.battleValue}<br />

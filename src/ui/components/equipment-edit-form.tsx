@@ -219,6 +219,19 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         this.props.onChange( item );
     }
 
+    updateHeatPerShot = (
+        e: React.FormEvent<HTMLInputElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item = this.props.editingItem;
+
+        item.heatPerShot = e.currentTarget.checked;
+
+        this.props.onChange( item );
+    }
+
     updateHeatAero  = (
         e: React.FormEvent<HTMLInputElement>,
     ) => {
@@ -463,6 +476,11 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                             onChange={this.updateHeat}
                             value={this.props.editingItem.heat}
                             label="Heat"
+                        />
+                        <InputCheckbox
+                            onChange={this.updateHeatPerShot}
+                            checked={this.props.editingItem.heatPerShot ? true : false}
+                            label="above is per Shot"
                         />
                         <InputNumeric
                             step={1}

@@ -28,6 +28,10 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
             label="News"
           >
                   <ul className="news">
+                  <li>
+                      <p><strong>2022 April 2</strong> - Added Rotary ACs for Inner Sphere. I think this closes out the Ballistic Weapons for that tech. Shows up /shot on record sheet too.</p>
+
+                    </li>
                     <li>
                       <p><strong>2022 Mar 13</strong> - The <Link to="settings">Settings</Link> page now includes some total backup/restore functionality. Some care has been made to be sure that if you have any new items on the restore-to device, that the data won't be overwritten. Work still progresses on that safety. You should now have all you need to sync (manually) across devices until I find some syncing solution which is compatible with GitHub pages.</p>
 

@@ -135,6 +135,18 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
         this.props.onChange( item );
     }
 
+    updateDamagePerShot = (
+        e: React.FormEvent<HTMLInputElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item = this.props.editingItem;
+        item.damagePerShot = e.currentTarget.checked;
+
+        this.props.onChange( item );
+    }
+
     updateDamageShort = (
         e: React.FormEvent<HTMLInputElement>,
     ) => {
@@ -292,6 +304,11 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
                                 min={0}
                                 step={1}
                                 label="Damage Value"
+                            />
+                            <InputCheckbox
+                                onChange={this.updateDamagePerShot}
+                                checked={this.props.editingItem.damagePerShot ? true : false}
+                                label="above is per Shot"
                             />
                             <InputNumeric
                                 value={this.props.editingItem.damageAero}
