@@ -11,6 +11,7 @@ import SanitizedHTML from '../../../components/sanitized-html';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
+import { sortEquipment } from "../../../../utils";
 
 export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -156,7 +157,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                   </tr>
                                 </thead>
 
-                                {this.props.appGlobals.currentBattleMech.getInstalledEquipment().map( (item, itemIndex) => {
+                                {this.props.appGlobals.currentBattleMech.getInstalledEquipment().sort(sortEquipment).map( (item, itemIndex) => {
                                   return (
                                     <tbody key={itemIndex}>
                                     <tr>

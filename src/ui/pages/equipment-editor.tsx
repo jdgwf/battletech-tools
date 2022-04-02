@@ -7,7 +7,7 @@ import { mechISEquipmentEnergy } from "../../data/mech-is-equipment-weapons-ener
 import { mechISEquipmentMissiles } from '../../data/mech-is-equipment-weapons-missiles';
 import { mechISEquipmentMisc } from '../../data/mech-is-equipment-weapons-misc';
 
-import { addCommas, exportCleanJSON } from '../../utils';
+import { addCommas, exportCleanJSON, getAeroRangeLabel, sortEquipment } from '../../utils';
 import { IAppGlobals } from '../app-router';
 import StandardModal from '../components/standard-modal';
 import UIPage from '../components/ui-page';
@@ -377,6 +377,8 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
 
     }
 
+
+
     render = (): React.ReactFragment => {
 
 
@@ -465,11 +467,11 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                 <div className="small-text">tag (sorting)</div>
             </th>
             <th className="min-width text-center no-wrap">
-                Damage<br />
+                Damage (Aero)<br />
                 <div className="small-text">Or Shots per ton</div>
             </th>
             <th className="min-width text-center no-wrap">
-                Range
+                Range (Aero)
                 <div className="small-text">or Min Ammo Tons</div>
             </th>
             <th className="min-width text-center no-wrap">BM Crits</th>
@@ -494,7 +496,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
             </th>
         </tr>
     </thead>
-{this.state.currentListData.sort(this._sortByTag).map( (
+{this.state.currentListData.sort(sortEquipment).map( (
     item: IEquipmentItem,
     itemIndex: number,
 ) => {
@@ -537,6 +539,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                                 )}
                             </>
                         )}
+                        &nbsp;<span title="Aero damage">({item.damageAero})</span>
                         </>
                     )
                     }
@@ -556,7 +559,10 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                     {item.isMelee ? (
                         <>Melee</>
                     ) : (
-                        <>{item.range.short} / {item.range.medium} / {item.range.long}</>
+                        <>
+                        {item.range.short} / {item.range.medium} / {item.range.long}
+                        &nbsp;<span title="Aero range">({item.rangeAero ? getAeroRangeLabel(item.rangeAero) : <span className="color-red">N/E</span>})</span>
+                        </>
                     )}
 </>
                     )}

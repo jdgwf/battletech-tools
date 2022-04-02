@@ -676,7 +676,8 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 12
+        heatAero: 12,
+        rangeAero: "l"
     },
     {
         name: "ER Medium Laser",
@@ -726,7 +727,8 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 5
+        heatAero: 5,
+        rangeAero: "m"
     },
     {
         name: "Extended-Range PPC",
@@ -776,7 +778,8 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 15
+        heatAero: 15,
+        rangeAero: "l"
     },
     {
         name: "ER Small Laser",
@@ -826,7 +829,8 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 2
+        heatAero: 2,
+        rangeAero: "s"
     },
     {
         name: "Heavy Flamer",
@@ -929,7 +933,8 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 15
+        heatAero: 15,
+        rangeAero: "m"
     },
     {
         name: "Large Laser",
@@ -979,7 +984,8 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 8
+        heatAero: 8,
+        rangeAero: "m"
     },
     {
         name: "Large Pulse Laser",
@@ -1029,7 +1035,8 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 10
+        heatAero: 10,
+        rangeAero: "m"
     },
     {
         name: "Large Variable-Speed Pulse Laser",
@@ -1189,7 +1196,8 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 5
+        heatAero: 5,
+        rangeAero: "m"
     },
     {
         name: "Medium Laser",
@@ -1239,7 +1247,8 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 3
+        heatAero: 3,
+        rangeAero: "s"
     },
     {
         name: "Medium Pulse Laser",
@@ -1289,7 +1298,8 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 4
+        heatAero: 4,
+        rangeAero: "s"
     },
     {
         name: "Medium Variable-Speed Pulse Laser",
@@ -1452,7 +1462,8 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
                 "Heat"
             ]
         },
-        heatAero: 10
+        heatAero: 10,
+        rangeAero: "m"
     },
     {
         name: "Small Laser",
@@ -1502,7 +1513,8 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 1
+        heatAero: 1,
+        rangeAero: "s"
     },
     {
         name: "Small Pulse Laser",
@@ -1555,7 +1567,8 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
                 "Point Defense"
             ]
         },
-        heatAero: 2
+        heatAero: 2,
+        rangeAero: "s"
     },
     {
         name: "Small Variable-Speed Pulse Laser",
@@ -1724,7 +1737,8 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 10
+        heatAero: 10,
+        rangeAero: "m"
     },
     {
         name: "Flamer",
@@ -1778,7 +1792,8 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
                 "Point Defense"
             ]
         },
-        heatAero: 3
+        heatAero: 3,
+        rangeAero: "s"
     },
     {
         name: "PPC",
@@ -1828,7 +1843,8 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 10
+        heatAero: 10,
+        rangeAero: "m"
     },
     {
         name: "Vehicle Flamer",
@@ -1882,6 +1898,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
                 "Point Defense"
             ]
         },
-        heatAero: 3
+        heatAero: 3,
+        rangeAero: "s"
     }
 ]

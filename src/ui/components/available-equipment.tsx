@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { IEquipmentItem } from '../../data/data-interfaces';
+import { sortEquipment } from '../../utils';
 import { IAppGlobals } from '../app-router';
 import './available-equipment.scss';
 
@@ -103,6 +104,8 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
             {Object.keys(groupedItems).map((catName, catIndex) => {
 
                 // this.props.appGlobals.appSettings.equipmentFilter
+                if(!catName)
+                    return <React.Fragment key={catIndex}></React.Fragment>
                 return (
                     <tbody key={catIndex}>
                 <tr>
@@ -119,7 +122,7 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
                     ||
                     currentCategory.trim().toLowerCase() === catName.trim().toLowerCase() ? (
                         <>
-                        {groupedItems[catName].filter(this._equipmentFilter).map( (item, itemIndex) => {
+                        {groupedItems[catName].filter(this._equipmentFilter).sort( sortEquipment ).map( (item, itemIndex) => {
                             if( !this.props.hideUnavailable || item.available ) {
                                 return (
                                     <tr

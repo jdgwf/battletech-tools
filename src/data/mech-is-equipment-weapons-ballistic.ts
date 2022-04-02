@@ -3144,6 +3144,112 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     },
     {
         isAmmo: true,
+        name: "Ammo (HMG)",
+        tag: "ammo-machine-gun-heavy",
+        sort: "ammo, machine gun, heavy",
+        category: "Ammunition",
+        damage: 0,
+        notes: "",
+        damageAero: 0,
+        accuracyModifier: 0,
+        cbills: 1000,
+        introduced: 3060,
+        extinct: 0,
+        reintroduced: 0,
+        battleValue: 1,
+        heat: 0,
+        weight: 1,
+        range: {
+            min: 0,
+            short: 1,
+            medium: 2,
+            long: 3
+        },
+        space: {
+            battlemech: 1,
+            protomech: -1,
+            combatVehicle: 1,
+            supportVehicle: 1,
+            aerospaceFighter: 1,
+            smallCraft: 1,
+            dropShip: 1
+        },
+        ammoPerTon: 100,
+        minAmmoTons: 0.5,
+        explosive: true,
+        weaponType: [
+            "DB",
+            "AI"
+        ],
+        techRating: "b",
+        book: "TM",
+        page: 228,
+        alphaStrike: {
+            heat: 0,
+            rangeShort: 0,
+            rangeMedium: 0,
+            rangeLong: 0,
+            rangeExtreme: 0,
+            tc: false,
+            notes: []
+        },
+        heatAero: 0
+    },
+    {
+        isAmmo: true,
+        name: "Ammo (LMG)",
+        tag: "ammo-machine-gun-light",
+        sort: "ammo, machine gun, light",
+        category: "Ammunition",
+        damage: 0,
+        notes: "",
+        damageAero: 0,
+        accuracyModifier: 0,
+        cbills: 500,
+        introduced: 3060,
+        extinct: 0,
+        reintroduced: 0,
+        battleValue: 1,
+        heat: 0,
+        weight: 1,
+        range: {
+            min: 0,
+            short: 1,
+            medium: 2,
+            long: 3
+        },
+        space: {
+            battlemech: 1,
+            protomech: -1,
+            combatVehicle: 1,
+            supportVehicle: 1,
+            aerospaceFighter: 1,
+            smallCraft: 1,
+            dropShip: 1
+        },
+        ammoPerTon: 200,
+        minAmmoTons: 0.5,
+        explosive: true,
+        weaponType: [
+            "DB",
+            "AI"
+        ],
+        techRating: "b",
+        book: "TM",
+        page: 228,
+        alphaStrike: {
+            heat: 0,
+            rangeShort: 0,
+            rangeMedium: 0,
+            rangeLong: 0,
+            rangeExtreme: 0,
+            tc: false,
+            notes: []
+        },
+        heatAero: 0
+    },
+    {
+        isAmmo: true,
         name: "Ammo (Rotary AC/2)",
         tag: "ammo-rotary-ac-2",
         sort: "ammo, rotary, ac2",
@@ -3408,7 +3514,8 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
                 "flak"
             ]
         },
-        heatAero: 1
+        heatAero: 1,
+        rangeAero: "e"
     },
     {
         name: "LB 5-X AC",
@@ -3464,7 +3571,8 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
                 "flak"
             ]
         },
-        heatAero: 1
+        heatAero: 1,
+        rangeAero: "l"
     },
     {
         name: "LB 10-X AC",
@@ -3520,7 +3628,8 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
                 "flak"
             ]
         },
-        heatAero: 2
+        heatAero: 2,
+        rangeAero: "m"
     },
     {
         name: "LB 20-X AC",
@@ -3576,7 +3685,8 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
                 "flak"
             ]
         },
-        heatAero: 6
+        heatAero: 6,
+        rangeAero: "m"
     },
     {
         name: "Light Autocannon/2",
@@ -3629,7 +3739,8 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
                 "ac"
             ]
         },
-        heatAero: 0
+        heatAero: 0,
+        rangeAero: "m"
     },
     {
         name: "Light Autocannon/5",
@@ -3680,7 +3791,8 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 0
+        heatAero: 0,
+        rangeAero: "m"
     },
     {
         name: "Autocannon/2",
@@ -3734,7 +3846,8 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
                 "ac"
             ]
         },
-        heatAero: 1
+        heatAero: 1,
+        rangeAero: "l"
     },
     {
         name: "Autocannon/5",
@@ -3788,7 +3901,8 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
                 "ac"
             ]
         },
-        heatAero: 1
+        heatAero: 1,
+        rangeAero: "m"
     },
     {
         name: "Autocannon/10",
@@ -3842,7 +3956,8 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
                 "ac"
             ]
         },
-        heatAero: 3
+        heatAero: 3,
+        rangeAero: "m"
     },
     {
         name: "Autocannon/20",
@@ -3896,7 +4011,8 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
                 "ac"
             ]
         },
-        heatAero: 7
+        heatAero: 7,
+        rangeAero: "s"
     },
     {
         name: "Ultra AC/2",
@@ -3949,7 +4065,8 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 1
+        heatAero: 1,
+        rangeAero: "e"
     },
     {
         name: "Ultra AC/5",
@@ -4002,7 +4119,8 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 1
+        heatAero: 1,
+        rangeAero: "l"
     },
     {
         name: "Ultra AC/10",
@@ -4055,7 +4173,8 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 4
+        heatAero: 4,
+        rangeAero: "m"
     },
     {
         name: "Ultra AC/20",
@@ -4108,7 +4227,8 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 8
+        heatAero: 8,
+        rangeAero: "m"
     },
     {
         name: "Heavy Gauss Rifle",
@@ -4164,7 +4284,8 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 2
+        heatAero: 2,
+        rangeAero: "l"
     },
     {
         name: "Improved Heavy Gauss Rifle",
@@ -4264,7 +4385,8 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 1
+        heatAero: 1,
+        rangeAero: "e"
     },
     {
         name: "MagShot Gauss Rifle",
@@ -4363,9 +4485,120 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
             rangeLong: 0,
             rangeExtreme: 0,
             tc: false,
-            notes: []
+            notes: [
+                "Point Defense"
+            ]
         },
-        heatAero: 0
+        heatAero: 0,
+        rangeAero: "s"
+    },
+    {
+        name: "Heavy Machine Gun",
+        tag: "machine-gun-heavy",
+        sort: "machine gun, heavy",
+        category: "Ballistic Weapons",
+        damage: 3,
+        damageAero: 3,
+        accuracyModifier: 0,
+        cbills: 7500,
+        introduced: 3060,
+        extinct: 0,
+        reintroduced: 0,
+        battleValue: 6,
+        heat: 0,
+        weight: 1,
+        range: {
+            min: 0,
+            short: 1,
+            medium: 2,
+            long: 0
+        },
+        space: {
+            battlemech: 1,
+            protomech: -1,
+            combatVehicle: 0,
+            supportVehicle: 1,
+            aerospaceFighter: 1,
+            smallCraft: 1,
+            dropShip: 1
+        },
+        ammoPerTon: 0,
+        minAmmoTons: 0.5,
+        explosive: false,
+        weaponType: [
+            "DB",
+            "AI"
+        ],
+        techRating: "b",
+        book: "TM",
+        page: 228,
+        alphaStrike: {
+            heat: 0,
+            rangeShort: 0.3,
+            rangeMedium: 0,
+            rangeLong: 0,
+            rangeExtreme: 0,
+            tc: false,
+            notes: [
+                "Point Defense"
+            ]
+        },
+        heatAero: 0,
+        rangeAero: "s"
+    },
+    {
+        name: "Light Machine Gun",
+        tag: "machine-gun-light",
+        sort: "machine gun, light",
+        category: "Ballistic Weapons",
+        damage: 2,
+        damageAero: 2,
+        accuracyModifier: 0,
+        cbills: 5000,
+        introduced: 3060,
+        extinct: 0,
+        reintroduced: 0,
+        battleValue: 5,
+        heat: 0,
+        weight: 0.5,
+        range: {
+            min: 0,
+            short: 2,
+            medium: 4,
+            long: 6
+        },
+        space: {
+            battlemech: 1,
+            protomech: -1,
+            combatVehicle: 1,
+            supportVehicle: 1,
+            aerospaceFighter: 1,
+            smallCraft: 1,
+            dropShip: 1
+        },
+        ammoPerTon: 0,
+        minAmmoTons: 0.5,
+        explosive: false,
+        weaponType: [
+            "DB",
+            "AI"
+        ],
+        techRating: "b",
+        book: "TM",
+        page: 228,
+        alphaStrike: {
+            heat: 0,
+            rangeShort: 0.1,
+            rangeMedium: 0.1,
+            rangeLong: 0,
+            rangeExtreme: 0,
+            tc: false,
+            notes: [
+                "Point Defense"
+            ]
+        },
+        heatAero: 0,
+        rangeAero: "s"
     },
     {
         name: "Hatchet",
@@ -4489,7 +4722,8 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
         criticals: 0,
         available: false,
         damagePerShot: true,
-        heatPerShot: true
+        heatPerShot: true,
+        rangeAero: "m"
     },
     {
         uuid: "",
@@ -4563,7 +4797,8 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
         criticals: 0,
         available: false,
         damagePerShot: true,
-        heatPerShot: true
+        heatPerShot: true,
+        rangeAero: "m"
     },
     {
         name: "Silver Bullet Gauss Rifle",
@@ -4666,6 +4901,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 1
+        heatAero: 1,
+        rangeAero: "l"
     }
 ]

@@ -156,7 +156,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 12
+        heatAero: 12,
+        rangeAero: "e"
     },
     {
         name: "ER Medium Laser",
@@ -206,7 +207,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 5
+        heatAero: 5,
+        rangeAero: "m"
     },
     {
         name: "ER Micro Laser",
@@ -256,7 +258,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 1
+        heatAero: 1,
+        rangeAero: "s"
     },
     {
         name: "Extended-Range PPC",
@@ -306,7 +309,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 15
+        heatAero: 15,
+        rangeAero: "l"
     },
     {
         name: "ER Small Laser",
@@ -356,7 +360,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 2
+        heatAero: 2,
+        rangeAero: "s"
     },
     {
         name: "Heavy Large Laser",
@@ -406,7 +411,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 18
+        heatAero: 18,
+        rangeAero: "m"
     },
     {
         name: "Large Pulse Laser",
@@ -456,7 +462,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 10
+        heatAero: 10,
+        rangeAero: "l"
     },
     {
         name: "Heavy Medium Laser",
@@ -506,7 +513,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 7
+        heatAero: 7,
+        rangeAero: "s"
     },
     {
         name: "Medium Pulse Laser",
@@ -556,7 +564,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 4
+        heatAero: 4,
+        rangeAero: "m"
     },
     {
         name: "Micro Pulse Laser",
@@ -609,7 +618,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
                 "Point Defense"
             ]
         },
-        heatAero: 1
+        heatAero: 1,
+        rangeAero: "s"
     },
     {
         name: "Plasma Cannon",
@@ -660,7 +670,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 7
+        heatAero: 7,
+        rangeAero: "m"
     },
     {
         name: "Heavy Small Laser",
@@ -712,7 +723,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
                 "Point Defense"
             ]
         },
-        heatAero: 3
+        heatAero: 3,
+        rangeAero: "s"
     },
     {
         name: "Small Pulse Laser",
@@ -765,7 +777,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
                 ""
             ]
         },
-        heatAero: 2
+        heatAero: 2,
+        rangeAero: "s"
     },
     {
         name: "Flamer",
@@ -819,7 +832,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
                 "Point Defense"
             ]
         },
-        heatAero: 3
+        heatAero: 3,
+        rangeAero: "s"
     },
     {
         name: "Vehicle Flamer",
@@ -873,6 +887,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
                 "Point Defense"
             ]
         },
-        heatAero: 3
+        heatAero: 3,
+        rangeAero: "s"
     }
 ]

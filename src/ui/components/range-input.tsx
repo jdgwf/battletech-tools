@@ -88,6 +88,19 @@ export default class RangeInput extends React.Component<IRangeInputProps, IRange
         this.props.onChange( item );
     }
 
+    updateAero = (
+        e: React.FormEvent<HTMLSelectElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item = this.props.editingItem;
+
+        item.rangeAero = e.currentTarget.value;
+
+        this.props.onChange( item );
+    }
+
     render = (): React.ReactFragment => {
         return (
             <fieldset className="fieldset">
@@ -137,6 +150,20 @@ export default class RangeInput extends React.Component<IRangeInputProps, IRange
                             step={1}
                             label="Extreme"
                         />
+
+                        <label>
+                            Aero Range:<br />
+                            <select
+                                onChange={this.updateAero}
+                                value={this.props.editingItem.rangeAero ? this.props.editingItem.rangeAero : ""}
+                            >
+                                <option value={""}>- Select Aero Range -</option>
+                                <option value={"s"}>Short</option>
+                                <option value={"m"}>Medium</option>
+                                <option value={"l"}>Long</option>
+                                <option value={"e"}>Extreme</option>
+                            </select>
+                        </label>
                     </>
                 ) : null}
             </fieldset>

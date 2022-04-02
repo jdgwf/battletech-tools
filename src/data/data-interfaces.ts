@@ -97,6 +97,7 @@ export interface IEquipmentItem {
     category: string;
     damage?: number | IDamagePerRange;
     damagePerShot?: boolean;
+    rangeAero?: string;
     heatPerShot?: boolean;
     damageAero?: number;
     damagePerCluster?: number;

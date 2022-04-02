@@ -323,3 +323,30 @@ export function replaceAll(
 
     }
 }
+
+export function getAeroRangeLabel( aeroAbbr: string): string {
+
+    if( aeroAbbr === "s" )
+        return "Short";
+    if( aeroAbbr === "m" )
+        return "Medium";
+    if( aeroAbbr === "l" )
+        return "Long";
+    if( aeroAbbr === "e" )
+        return "Extreme";
+    return "";
+}
+
+export function sortEquipment (
+    a: IEquipmentItem,
+    b: IEquipmentItem,
+): number {
+    if( a.sort.toLocaleLowerCase().trim() >  b.sort.toLocaleLowerCase().trim() ) {
+        return 1;
+    } else if( a.sort.toLocaleLowerCase().trim() <  b.sort.toLocaleLowerCase().trim() ) {
+        return -1;
+    } else {
+        return 0
+    }
+
+}
