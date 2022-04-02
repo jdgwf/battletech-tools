@@ -218,9 +218,9 @@ async function getData(
 
 export function saveBattleMechSaves(
     appSettings: AppSettings,
-    nv: IBattleMechExport[]
+    newValue: IBattleMechExport[]
 ) {
-    saveData(appSettings, "battleMechSaves", JSON.stringify(nv) );
+    saveData(appSettings, "battleMechSaves", JSON.stringify(newValue) );
 }
 
 export async function getBattleMechSaves(
@@ -247,16 +247,16 @@ export async function getBattleMechSaves(
 
 export function saveCurrentBMForce(
     appSettings: AppSettings,
-    nv: IBMForceExport,
+    newValue: IBMForceExport,
 ) {
-    saveData(appSettings, "currentBMForce", JSON.stringify(nv) );
+    saveData(appSettings, "currentBMForce", JSON.stringify(newValue) );
 }
 
 export function saveCurrentASForce(
     appSettings: AppSettings,
-    nv: IASForceExport,
+    newValue: IASForceExport,
 ) {
-    saveData(appSettings, "currentASForce", JSON.stringify(nv) );
+    saveData(appSettings, "currentASForce", JSON.stringify(newValue) );
 }
 
 export async function getCurrentBMForce(
@@ -304,9 +304,9 @@ export async function getCurrentASForce(
 
 export function saveCurrentBattleMech(
     appSettings: AppSettings,
-    nv: string,
+    newValue: string,
 ) {
-    saveData(appSettings, "currentBattleMech", nv );
+    saveData(appSettings, "currentBattleMech", newValue );
 }
 
 export async function getCurrentBattleMech(
@@ -323,17 +323,17 @@ export async function getCurrentBattleMech(
 
 export function saveFavoriteASGroups(
     appSettings: AppSettings,
-    nv: IASGroupExport[]
+    newValue: IASGroupExport[]
 ) {
-    saveData(appSettings, "favoriteASGroups", JSON.stringify(nv) );
+    saveData(appSettings, "favoriteASGroups", JSON.stringify(newValue) );
 }
 
 export function saveFavoriteASGroupsObjects(
     appSettings: AppSettings,
-    nv: AlphaStrikeGroup[]
+    newValue: AlphaStrikeGroup[]
 ) {
     let rv: IASGroupExport[] = [];
-    for( let unit of nv ) {
+    for( let unit of newValue ) {
         rv.push( unit.export() );
     }
     saveData(appSettings, "favoriteASGroups", JSON.stringify(rv) );
@@ -362,10 +362,10 @@ export async function getFavoriteASGroups(
 
 export function saveFavoriteBMGroupsObjects(
     appSettings: AppSettings,
-    nv: BattleMechGroup[]
+    newValue: BattleMechGroup[]
 ) {
     let rv: IBMGroupExport[] = [];
-    for( let unit of nv ) {
+    for( let unit of newValue ) {
         rv.push( unit.export() );
     }
     saveData(appSettings, "favoriteBMGroups", JSON.stringify(rv) );
@@ -394,9 +394,9 @@ export async function getFavoriteBMGroups(
 
 
 export function saveAppSettings(
-    nv: IAppSettingsExport,
+    newValue: IAppSettingsExport,
 ) {
-    localStorage.setItem("appSettings", JSON.stringify(nv) );
+    localStorage.setItem("appSettings", JSON.stringify(newValue) );
 }
 
 export function getAppSettings(): IAppSettingsExport {

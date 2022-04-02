@@ -383,7 +383,7 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
 interface IDamageInputProps{
     label: string;
     editingItem: IEquipmentItem;
-    onChange( nv: IEquipmentItem): void
+    onChange( newValue: IEquipmentItem): void
 }
 
 interface IDamageInputState{

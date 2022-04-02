@@ -91,9 +91,9 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         this.props.onChange( item );
     }
 
-    updateCriticals = ( nv: ICriticalSpace ) => {
+    updateCriticals = ( newValue: ICriticalSpace ) => {
         let item = this.props.editingItem;
-        item.space = nv;
+        item.space = newValue;
         this.props.onChange( item );
     }
 
@@ -158,11 +158,11 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
     }
 
     updateCriticalstDivisor = (
-        nv: number,
+        newValue: number,
     ) => {
 
         let item = this.props.editingItem;
-        item.criticalsDivisor = nv;
+        item.criticalsDivisor = newValue;
 
         this.props.onChange( item );
     }
@@ -647,7 +647,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
 
 interface IEquipmentEditFormProps {
     editingItem: IEquipmentItem;
-    onChange( nv: IEquipmentItem): void
+    onChange( newValue: IEquipmentItem): void
     techBase: string;
     category: string;
 

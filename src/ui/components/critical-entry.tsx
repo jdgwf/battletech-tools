@@ -193,8 +193,8 @@ interface ICriticalEntryProps{
     label: string;
     valueCritical: ICriticalSpace;
     valueCriticalDivisor: number | undefined;
-    onChange( nv: ICriticalSpace): void;
-    onChangeWeightDivisor( nv: number): void;
+    onChange( newValue: ICriticalSpace): void;
+    onChangeWeightDivisor( newValue: number): void;
 }
 
 interface ICriticalEntryState{

@@ -199,9 +199,9 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
         })
     }
 
-    editItemOnChange = ( nv: IEquipmentItem): void => {
+    editItemOnChange = ( newValue: IEquipmentItem): void => {
         this.setState({
-            editItem: nv,
+            editItem: newValue,
         })
     }
 

@@ -17,6 +17,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
         super(props);
         this.state = {
             updated: false,
+            selectedMessageType: "info",
             selectionMessage: "Select an item to allocate",
             selectedItemIndex: -1,
             selectedItemLocation: "",
@@ -63,9 +64,11 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
       selectedLocation: string,
       selectedItem: ICriticalSlot | null
     ): void => {
+      let selectedMessageType = "info";
       let selectedMessage = "Select an item to allocate";
       if( selectedItem ) {
         selectedMessage = "Select a location to place your " + selectedItem.name;
+        selectedMessageType = "warning";
       } else {
 
         // try to move item to slot
@@ -79,14 +82,30 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
             selectedIndex,
           );
 
+
           if( wasMoved ) {
             // save the mech
             this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+            selectedMessageType = "success";
+            if( this.state.selectedItem ) {
+              selectedMessage = this.state.selectedItem.name + " was successfully placed!";
+            } else {
+              selectedMessage = "Item was successfully placed!";
+            }
+            setTimeout( () => {
+              this.setState({
+                selectedMessageType: "info",
+                selectionMessage: "Select an item to allocate",
+              })
+            },
+            1000)
           } else {
             if( this.state.selectedItem ) {
               selectedMessage = "Cannot place that "  + this.state.selectedItem.name + " there.";
+              selectedMessageType = "danger";
             } else {
               selectedMessage = "Cannot place that item there";
+              selectedMessageType = "danger";
             }
           }
         }
@@ -96,6 +115,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
       }
       this.setState({
         selectionMessage: selectedMessage,
+        selectedMessageType: selectedMessageType,
         selectedItemIndex: selectedIndex,
         selectedItemLocation: selectedLocation,
         selectedItem: selectedItem,
@@ -131,9 +151,17 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                             <legend>Instructions</legend>
                             <p>To assign equipment to your critical allocation table, just click on an assignable item then click on an unallocated location.</p>
                           </fieldset>
-                          <br /><p className="text-center no-margin"><strong>
+                          <br />
+                          {this.state.selectedMessageType ? (
+                            <div className={"alert alert-" + this.state.selectedMessageType + " text-center"}>
+                              {this.state.selectionMessage}
+                            </div>
+                          ) : (
+                          <p className="text-center no-margin"><strong>
                             {this.state.selectionMessage}
                           </strong></p>
+                          )}
+
                           <div className="row">
                             <div className="col-lg-3">
                               <fieldset className="fieldset">
@@ -333,5 +361,6 @@ interface IHomeState {
     selectionMessage: string;
     selectedItemLocation: string;
     selectedItemIndex: number;
+    selectedMessageType: string,
     selectedItem: ICriticalSlot | null;
 }

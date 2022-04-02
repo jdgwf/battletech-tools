@@ -175,7 +175,7 @@ export default class RangeInput extends React.Component<IRangeInputProps, IRange
 interface IRangeInputProps{
     label: string;
     editingItem: IEquipmentItem;
-    onChange( nv: IEquipmentItem): void
+    onChange( newValue: IEquipmentItem): void
 }
 
 interface IRangeInputState{

@@ -159,7 +159,7 @@ export default class AlphaStrikeEquipmentEntry extends React.Component<IAlphaStr
 
 interface IAlphaStrikeEquipmentEntryProps{
     editingItem: IEquipmentItem;
-    onChange( nv: IEquipmentItem): void
+    onChange( newValue: IEquipmentItem): void
 }
 
 interface IAlphaStrikeEquipmentEntryState{
