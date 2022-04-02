@@ -1554,6 +1554,39 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
     CLASSIC BATTLETECH
     </text> */}
     <text
+        x={450}
+        y={this.docHeight - 75}
+        textAnchor="start"
+        fontFamily="sans-serif"
+        fill={this.colorTan}
+        style={{fontWeight: 100}}
+        fontSize={15}
+    >
+    MechWarrior, BattleMech, ‘Mech and AeroTech are registered trademarks of The Topps Company, Inc. All Rights Reserved.
+    </text>
+    <text
+        x={450}
+        y={this.docHeight - 45}
+        textAnchor="start"
+        fontFamily="sans-serif"
+        fill={this.colorTan}
+        style={{fontWeight: 100}}
+        fontSize={15}
+    >
+Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of InMediaRes Production, LLC. Used with permission.
+    </text>
+    <text
+        x={450}
+        y={this.docHeight - 15}
+        textAnchor="start"
+        fontFamily="sans-serif"
+        fill={this.colorTan}
+        style={{fontWeight: 100}}
+        fontSize={15}
+    >
+Neither Topps nor Catalyst Game Labs makes no representation or warranty as to the quality, viability, or suitability for purpose of this product.
+    </text>
+    <text
         x={20}
         y={this.docHeight - 55}
         textAnchor="start"
@@ -1571,7 +1604,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         fontFamily="sans-serif"
         fill={this.colorTan}
         style={{fontWeight: 700}}
-        fontSize={20}
+        fontSize={15}
     >
     https://jdgwf.github.io/battletech-tools/
     </text>
