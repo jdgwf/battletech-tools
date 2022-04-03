@@ -37,6 +37,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         // let lsTheme = getData("uiTheme");
 
 
+        let sessionUUID = generateUUID();
 
         // console.log("settingsData", settingsData);
         if( settingsData && settingsData.uiTheme ) {
@@ -47,6 +48,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         }
 
         let appGlobals: IAppGlobals = {
+            sessionUUID: sessionUUID,
             appSettings: appSettings,
             currentPageTitle: "",
             siteAlerts: new Alerts( this ),
@@ -186,6 +188,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
         appGlobals.favoriteBMGroups = bmImportedFavorites;
         appGlobals.currentBMForce = currentBMForce;
+
 
         this.setState({
             appGlobals: appGlobals,
@@ -342,7 +345,8 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         let appGlobals = this.state.appGlobals;
 
         callAnalytics(
-            window
+            window,
+            appGlobals.sessionUUID,
         );
 
         if( subTitle ) {
@@ -519,6 +523,7 @@ interface IAppRouterState {
 }
 
 export interface IAppGlobals {
+    sessionUUID: string;
     currentPageTitle: string;
     siteAlerts: Alerts;
     appSettings: AppSettings;
