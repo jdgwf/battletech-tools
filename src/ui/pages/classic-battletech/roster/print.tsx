@@ -27,7 +27,7 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
           <header className="topmenu">
             <ul className="main-menu">
                 <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/classic-battletech/roster`}><FaArrowCircleLeft /></Link></li>
-                <li><a title="Click here open the Print Dialog" className="current" href="javascript:window.print()"><FaPrint /></a></li>
+                <li><span title="Click here open the Print Dialog" onClick={() => window.print()} className="current" ><FaPrint /></span></li>
                 <li className="logo">
                     <a
                         href="https://battletech.com"
@@ -45,12 +45,24 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
             <br />
             <h1 className="text-center">Classic BattleTech Force Summary</h1>
 
-            <p className="text-right">
+          <table className="full-width">
+            <tbody>
+              <tr>
+                <td className="text-center"><strong># Groups:</strong> {this.props.appGlobals.currentCBTForce.getTotalGroups()}</td>
+                <td className="text-center"><strong># Units:</strong> {this.props.appGlobals.currentCBTForce.getTotalUnits()}</td>
+                <td className="text-center"><strong>Tons:</strong> {this.props.appGlobals.currentCBTForce.getTotalTons()}</td>
+                <td className="text-center"><strong>Tech:</strong> {this.props.appGlobals.currentCBTForce.getTech()}</td>
+                <td className="text-center"><strong>Total BV2:</strong> {this.props.appGlobals.currentCBTForce.getTotalBV2()}</td>
+              </tr>
+            </tbody>
+          </table>
+            {/* <p className="text-right">
 
             <strong># Groups:</strong> {this.props.appGlobals.currentCBTForce.getTotalGroups()}<br />
             <strong># Units:</strong> {this.props.appGlobals.currentCBTForce.getTotalUnits()}<br />
             <strong>Tons:</strong> {this.props.appGlobals.currentCBTForce.getTotalTons()}<br />
-            <strong>Total BV2:</strong> {this.props.appGlobals.currentCBTForce.getTotalBV2()}</p>
+            <strong>Tech:</strong> {this.props.appGlobals.currentCBTForce.getTech()}<br />
+            <strong>Total BV2:</strong> {this.props.appGlobals.currentCBTForce.getTotalBV2()}</p> */}
             {this.props.appGlobals.currentCBTForce.groups.map( (group, groupIndex) => {
               return (
                 <div className="group" key={groupIndex}>
@@ -69,7 +81,7 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                         >
                           # Units {group.getTotalUnits()}
                           &nbsp;|&nbsp;
-                          {group.getTotalTons()} Tons
+                          {group.getTotalTons()} Tons - {group.getTech()}
                           &nbsp;|&nbsp;
                           Group BV2: {group.getTotaBV2()}
                         </th>

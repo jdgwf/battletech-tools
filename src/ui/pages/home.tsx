@@ -32,6 +32,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                       <p><strong>2022 April 3</strong> - Work on the <Link to="classic-battletech/roster">CBT Roster</Link> has started. If you want to see it in the menu, go to <Link to="settings">Settings</Link> then click on "Show Developer/Work In Progress Menu"</p>
                       <p>The basic rostering functions should work, but the Print and Play buttons don't have a URL endpoint yet. I'll have the Print completed first, but the Play button will likely take me the better part of a week to code as I'll need to code the Electronic Character Sheet functions both into the SVG Record Sheet and in the BattleMech class object </p>
                       <p>Ideally all you should need is your tablet for quick and easy lance management during your games. This may take a while for me to iron out the in-play workflow</p>
+                      <p className="text-center"><strong>Update</strong>: Print Roster function seems to be working great already!</p>
                     </li>
                   <li>
                       <p><strong>2022 April 2</strong> - Added Rotary ACs for Inner Sphere. I think this closes out the Ballistic Weapons for that tech. Shows up /shot on record sheet too.</p>

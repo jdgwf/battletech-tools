@@ -100,6 +100,22 @@ export class BattleMechForce {
         return returnValue;
     }
 
+    getTech(): string {
+        let rv = "";
+
+        for( let group of this.groups ) {
+            let tech = group.getTech();
+            if( rv !== tech && rv !== "" ) {
+                rv = "Mixed";
+            }  else {
+                if( rv !== "Mixed")
+                    rv = tech;
+            }
+        }
+
+        return rv;
+    }
+
     getTotalTons(): number {
         let returnValue: number = 0;
 

@@ -27,7 +27,7 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
           <header className="topmenu">
           <ul className="main-menu">
                 <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/alpha-strike/roster`}><FaArrowCircleLeft /></Link></li>
-                <li><a title="Click here open the Print Dialog" className="current" href="javascript:window.print()"><FaPrint /></a></li>
+                <li><span title="Click here open the Print Dialog" onClick={() => window.print()} className="current" ><FaPrint /></span></li>
                 <li className="logo">
                     <a
                         href="https://battletech.com"

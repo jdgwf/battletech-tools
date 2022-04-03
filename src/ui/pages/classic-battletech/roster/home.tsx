@@ -409,7 +409,7 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
 )}
 </td>
 <td colSpan={4} className="text-center">
-    {favGroup.getTotalTons()} Tons
+    {favGroup.getTotalTons()} Tons - {favGroup.getTech()}
 </td>
 <td colSpan={1} className="no-wrap text-right">BV2: {favGroup.getTotaBV2()}</td>
 </tr>

@@ -67,6 +67,22 @@ export class BattleMechGroup {
         return rv;
     }
 
+	getTech(): string {
+        let rv = "";
+
+        for( let group of this.members ) {
+            let tech = group.getTech().name;
+            if( rv !== tech && rv !== "" ) {
+                rv = "Mixed"
+            }  else {
+                if( rv !== "Mixed")
+                    rv = tech;
+            }
+        }
+
+        return rv;
+    }
+
     public import(importObj: ICBTGroupExport) {
 
 

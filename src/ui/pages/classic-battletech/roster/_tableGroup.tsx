@@ -475,7 +475,7 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
 )}
 </td>
 <td colSpan={this.props.showEdit ? 4 : 3} className="text-center">
-    {this.props.appGlobals.currentCBTForce.groups[this.props.bmGroupIndex].getTotalTons()} Tons
+    {this.props.appGlobals.currentCBTForce.groups[this.props.bmGroupIndex].getTotalTons()} Tons - {this.props.appGlobals.currentCBTForce.groups[this.props.bmGroupIndex].getTech()}
 </td>
 <td colSpan={2} className="text-right">BV2: {this.props.appGlobals.currentCBTForce.groups[this.props.bmGroupIndex].getTotaBV2()}</td>
 </tr>
