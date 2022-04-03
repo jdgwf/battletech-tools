@@ -175,7 +175,9 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
 
           <div className="alert alert-danger text-center">
             <h4>In Development</h4>
-            This area will be the equivalent of the Roster Maker in Alpha Strike. If anything seems to work, it likely doesn't. Use at your owm risk!
+            This area will be the equivalent of the Roster Maker in Alpha Strike. If anything seems to work, it likely doesn't. Use at your owm risk!<br />
+            <br />
+            <strong>Update 2022 Apr 3</strong>: With the exception of the Play/Print buttons this <em>MIGHT</em> work. I'll work on the Print button first, then onward to the intense Play button (since I'll have to code the electronic record sheet functions)
           </div>
           {this.props.appGlobals.currentBMForce && this.props.appGlobals.currentBMForce.getTotalUnits() > 0 ? (
             <div className="row">
@@ -205,6 +207,17 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
           )}
           <div className="row">
             <div className="col-lg-6">
+              <TextSection
+                label='Current CBT Force'
+              >
+            {this.props.appGlobals.currentBMForce ? (
+                  <p className="text-center">
+                  <strong>Total Groups</strong>: {this.props.appGlobals.currentBMForce.getTotalGroups()}&nbsp;|&nbsp;
+                  <strong>Total Units</strong>: {this.props.appGlobals.currentBMForce.getTotalUnits()}&nbsp;|&nbsp;
+                  <strong>Total BV2</strong>: {this.props.appGlobals.currentBMForce.getTotalBV2()}
+
+                </p>
+                ) : null}
               {this.props.appGlobals.currentBMForce ? (
                 <>
                   {this.props.appGlobals.currentBMForce.groups.map( (bmGroup, bmGroupIndex) => {
@@ -288,6 +301,7 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
 
                 </p>
                 ) : null}
+                </TextSection>
             </div>
             <div className="col-lg-6">
 
