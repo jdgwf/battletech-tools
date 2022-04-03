@@ -1,12 +1,13 @@
 {
   "short_name": "BattleTech Tools",
   "name": "Jeff's BattleTech Tools",
-  "icons": {
-    "57": "icon-57x57.png",
-    "114": "icon-114x114.png",
-    "144": "icon-144x144.png",
-    "180": "icon-180x180.png"
-  },
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ],
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
