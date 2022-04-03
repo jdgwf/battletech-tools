@@ -53,9 +53,9 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        if( this.props.appGlobals.currentBMForce && this.state.viewingUnit ) {
+        if( this.props.appGlobals.currentCBTForce && this.state.viewingUnit ) {
 
-            let bmGroup = this.props.appGlobals.currentBMForce.groups[this.props.bmGroupIndex];
+            let bmGroup = this.props.appGlobals.currentCBTForce.groups[this.props.bmGroupIndex];
             bmGroup.members.push (
                 new BattleMech( this.state.viewingUnit.exportJSON()  )
             )
@@ -82,10 +82,10 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
     }
 
   onAddUnitsChange = ( nv: BattleMechGroup ): void => {
-    if( this.props.appGlobals.currentBMForce && this.props.appGlobals.currentBMForce.groups[this.state.addingUnitsGroupIndex] ) {
-      let currentBMForce = this.props.appGlobals.currentBMForce;
-      currentBMForce.groups[this.state.addingUnitsGroupIndex] = nv;
-      this.props.appGlobals.saveCurrentBMForce( currentBMForce );
+    if( this.props.appGlobals.currentCBTForce && this.props.appGlobals.currentCBTForce.groups[this.state.addingUnitsGroupIndex] ) {
+      let currentCBTForce = this.props.appGlobals.currentCBTForce;
+      currentCBTForce.groups[this.state.addingUnitsGroupIndex] = nv;
+      this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
 
     }
 
@@ -114,15 +114,15 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
             e.preventDefault()
         }
 
-        if( this.props.appGlobals.currentBMForce ) {
-            let currentBMForce = this.props.appGlobals.currentBMForce;
-            let editUnit = new BattleMech(currentBMForce.groups[this.props.bmGroupIndex].members[editUnitIndex].exportJSON() );
+        if( this.props.appGlobals.currentCBTForce ) {
+            let currentCBTForce = this.props.appGlobals.currentCBTForce;
+            let editUnit = new BattleMech(currentCBTForce.groups[this.props.bmGroupIndex].members[editUnitIndex].exportJSON() );
             this.setState({
                 editingUnit: editUnit,
                 editingUnitIndex: editUnitIndex,
             })
         } else {
-            console.error("Cannot find this.props.appGlobals.currentBMForce!")
+            console.error("Cannot find this.props.appGlobals.currentCBTForce!")
         }
 
     }
@@ -134,17 +134,17 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
             e.preventDefault()
         }
 
-        if( this.props.appGlobals.currentBMForce && this.state.editingUnit) {
-            let currentBMForce = this.props.appGlobals.currentBMForce;
+        if( this.props.appGlobals.currentCBTForce && this.state.editingUnit) {
+            let currentCBTForce = this.props.appGlobals.currentCBTForce;
             let saveUnit = new BattleMech(this.state.editingUnit.exportJSON() );
-            currentBMForce.groups[this.props.bmGroupIndex].members[this.state.editingUnitIndex] = saveUnit;
-            this.props.appGlobals.saveCurrentBMForce( currentBMForce );
+            currentCBTForce.groups[this.props.bmGroupIndex].members[this.state.editingUnitIndex] = saveUnit;
+            this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
             this.setState({
                 editingUnit: null,
                 editingUnitIndex: -1,
             })
         } else {
-            console.error("Cannot find this.props.appGlobals.currentBMForce!")
+            console.error("Cannot find this.props.appGlobals.currentCBTForce!")
         }
     }
 
@@ -163,10 +163,10 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
           "Yes",
           "No, thank you",
           () => {
-            if( this.props.appGlobals.currentBMForce ) {
-                let currentBMForce = this.props.appGlobals.currentBMForce;
-                currentBMForce.groups[this.props.bmGroupIndex].members.splice(removeUnitIndex, 1);
-                this.props.appGlobals.saveCurrentBMForce( currentBMForce );
+            if( this.props.appGlobals.currentCBTForce ) {
+                let currentCBTForce = this.props.appGlobals.currentCBTForce;
+                currentCBTForce.groups[this.props.bmGroupIndex].members.splice(removeUnitIndex, 1);
+                this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
             }
           }
       )
@@ -231,7 +231,7 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
       }
 
     render = (): React.ReactFragment => {
-        if(!this.props.appGlobals.currentBMForce) {
+        if(!this.props.appGlobals.currentCBTForce) {
             return ("No BM Force Error");
         }
         return(
@@ -331,12 +331,12 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
   show={this.state.addingUnitsModal}
   onClose={this.closeAddingUnits}
   className="modal-xl"
-  title={this.props.appGlobals.currentBMForce && this.props.appGlobals.currentBMForce.groups[this.state.addingUnitsGroupIndex] ? "Adding units to '" + this.props.appGlobals.currentBMForce.groups[this.state.addingUnitsGroupIndex].getName(this.state.addingUnitsGroupIndex) + "'" : "Adding units to Current Force"}
+  title={this.props.appGlobals.currentCBTForce && this.props.appGlobals.currentCBTForce.groups[this.state.addingUnitsGroupIndex] ? "Adding units to '" + this.props.appGlobals.currentCBTForce.groups[this.state.addingUnitsGroupIndex].getName(this.state.addingUnitsGroupIndex) + "'" : "Adding units to Current Force"}
 >
-    {this.props.appGlobals.currentBMForce ? (
+    {this.props.appGlobals.currentCBTForce ? (
       <BattleMechAddMechDialog
         appGlobals={this.props.appGlobals}
-        currentForce={this.props.appGlobals.currentBMForce.groups[this.state.addingUnitsGroupIndex]}
+        currentForce={this.props.appGlobals.currentCBTForce.groups[this.state.addingUnitsGroupIndex]}
         currentForceIndex={this.state.addingUnitsGroupIndex}
         onChange={this.onAddUnitsChange}
       />
@@ -395,9 +395,9 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
       </tr>
     </thead>
 
-    {this.props.appGlobals.currentBMForce.groups[this.props.bmGroupIndex].members.length > 0 ? (
+    {this.props.appGlobals.currentCBTForce.groups[this.props.bmGroupIndex].members.length > 0 ? (
       <>
-        {this.props.appGlobals.currentBMForce.groups[this.props.bmGroupIndex].members.map( (mechObj, mechIndex) => {
+        {this.props.appGlobals.currentCBTForce.groups[this.props.bmGroupIndex].members.map( (mechObj, mechIndex) => {
             let pilotBV2 = mechObj.getPilotAdjustedBattleValue();
             let baseBV2 = mechObj.getBattleValue();
 
@@ -458,10 +458,10 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
 <tr>
 
 <td colSpan={this.props.showEdit ? 3 : 2}>
-{this.props.appGlobals.currentBMForce.groups[this.props.bmGroupIndex].members.length > 0 ? (
+{this.props.appGlobals.currentCBTForce.groups[this.props.bmGroupIndex].members.length > 0 ? (
     <>
-        {this.props.appGlobals.currentBMForce.groups[this.props.bmGroupIndex].members.length > 0 ? (
-            <>{this.props.appGlobals.currentBMForce.groups[this.props.bmGroupIndex].members.length} Units</>
+        {this.props.appGlobals.currentCBTForce.groups[this.props.bmGroupIndex].members.length > 0 ? (
+            <>{this.props.appGlobals.currentCBTForce.groups[this.props.bmGroupIndex].members.length} Units</>
         ) : (
             <>One Unit</>
         )}
@@ -470,7 +470,7 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
     <>No Units</>
 )}
 </td>
-<td colSpan={2} className="text-right">BV2: {this.props.appGlobals.currentBMForce.groups[this.props.bmGroupIndex].getTotaBV2()}</td>
+<td colSpan={2} className="text-right">BV2: {this.props.appGlobals.currentCBTForce.groups[this.props.bmGroupIndex].getTotaBV2()}</td>
 </tr>
 </tfoot>
 

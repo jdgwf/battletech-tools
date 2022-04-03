@@ -4,10 +4,10 @@ import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-d
 import AlphaStrikeForce, { IASForceExport } from "../classes/alpha-strike-force";
 import AlphaStrikeGroup, { IASGroupExport } from "../classes/alpha-strike-group";
 import { BattleMech, IBattleMechExport } from "../classes/battlemech";
-import { BattleMechForce, IBMForceExport } from "../classes/battlemech-force";
-import { BattleMechGroup, IBMGroupExport } from "../classes/battlemech-group";
+import { BattleMechForce, ICBTForceExport } from "../classes/battlemech-force";
+import { BattleMechGroup, ICBTGroupExport } from "../classes/battlemech-group";
 import { CONFIGSiteTitle } from '../configVars';
-import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getCurrentBMForce, getFavoriteASGroups, getFavoriteBMGroups, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveCurrentBMForce, saveFavoriteASGroups, saveFavoriteASGroupsObjects, saveFavoriteBMGroupsObjects } from "../dataSaves";
+import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getCurrentCBTForce, getFavoriteASGroups, getFavoriteCBTGroups, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveCurrentCBTForce, saveFavoriteASGroups, saveFavoriteASGroupsObjects, saveFavoriteCBTGroupsObjects } from "../dataSaves";
 import { callAnalytics } from "../jdgAnalytics";
 import { generateUUID } from "../utils";
 import Alerts from './classes/alerts';
@@ -74,18 +74,18 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             currentASForce: null,
             currentBattleMech: null,
             battleMechSaves: [],
-            favoriteBMGroups: [],
-            currentBMForce: null,
+            favoriteCBTGroups: [],
+            currentCBTForce: null,
 
             saveCurrentASForce: this.saveCurrentASForce,
             saveFavoriteASGroups: this.saveFavoriteASGroups,
             saveASGroupFavorite: this.saveASGroupFavorite,
             removeASGroupFavorite: this.removeASGroupFavorite,
 
-            saveCurrentBMForce: this.saveCurrentBMForce,
-            saveFavoriteBMGroups: this.saveFavoriteBMGroups,
-            saveBMGroupFavorite: this.saveBMGroupFavorite,
-            removeBMGroupFavorite: this.removeBMGroupFavorite,
+            saveCurrentCBTForce: this.saveCurrentCBTForce,
+            saveFavoriteCBTGroups: this.saveFavoriteCBTGroups,
+            saveCBTGroupFavorite: this.saveCBTGroupFavorite,
+            removeCBTGroupFavorite: this.removeCBTGroupFavorite,
 
 
             saveCurrentBattleMech: this.saveCurrentBattleMech,
@@ -167,7 +167,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             }
         }
 
-        let bmImportFavorites: IBMGroupExport[] = await getFavoriteBMGroups(appSettings);
+        let bmImportFavorites: ICBTGroupExport[] = await getFavoriteCBTGroups(appSettings);
 
         let bmImportedFavorites: BattleMechGroup[] = [];
 
@@ -179,17 +179,17 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             }
         }
 
-        let bmfImport: IBMForceExport | null = await getCurrentBMForce(appSettings);
+        let bmfImport: ICBTForceExport | null = await getCurrentCBTForce(appSettings);
 
-        let currentBMForce = new BattleMechForce( bmfImport );
+        let currentCBTForce = new BattleMechForce( bmfImport );
 
         appGlobals.favoriteASGroups = asImportedFavorites;
         appGlobals.currentASForce = alphaStrikeForce;
         appGlobals.currentBattleMech = currentBattleMech;
         appGlobals.battleMechSaves = battleMechSaves;
 
-        appGlobals.favoriteBMGroups = bmImportedFavorites;
-        appGlobals.currentBMForce = currentBMForce;
+        appGlobals.favoriteCBTGroups = bmImportedFavorites;
+        appGlobals.currentCBTForce = currentCBTForce;
 
 
         this.setState({
@@ -282,43 +282,43 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
     }
 
 
-    saveCurrentBMForce = ( bmForce: BattleMechForce ): void => {
-        // let exportBMForce = asForce.export();
+    saveCurrentCBTForce = ( bmForce: BattleMechForce ): void => {
+        // let exportCBTForce = asForce.export();
         let appGlobals = this.state.appGlobals;
-        appGlobals.currentBMForce = bmForce;
+        appGlobals.currentCBTForce = bmForce;
         this.setState({
             appGlobals: appGlobals,
         });
 
-        saveCurrentBMForce( appGlobals.appSettings, bmForce.export() );
+        saveCurrentCBTForce( appGlobals.appSettings, bmForce.export() );
     }
 
-    saveBMGroupFavorite = ( bmGroup: BattleMechGroup ): void => {
+    saveCBTGroupFavorite = ( bmGroup: BattleMechGroup ): void => {
         let appGlobals = this.state.appGlobals;
-        appGlobals.favoriteBMGroups.push( bmGroup );
-        this.saveFavoriteBMGroups( appGlobals.favoriteBMGroups );
-        saveFavoriteBMGroupsObjects( appGlobals.appSettings, appGlobals.favoriteBMGroups )
+        appGlobals.favoriteCBTGroups.push( bmGroup );
+        this.saveFavoriteCBTGroups( appGlobals.favoriteCBTGroups );
+        saveFavoriteCBTGroupsObjects( appGlobals.appSettings, appGlobals.favoriteCBTGroups )
     }
 
-    removeBMGroupFavorite = ( asGroupIndex: number ): void => {
+    removeCBTGroupFavorite = ( asGroupIndex: number ): void => {
         let appGlobals = this.state.appGlobals;
 
-        if( appGlobals.favoriteBMGroups.length > asGroupIndex ) {
-            appGlobals.favoriteBMGroups.splice( asGroupIndex, 1 );
-            this.saveFavoriteBMGroups( appGlobals.favoriteBMGroups );
+        if( appGlobals.favoriteCBTGroups.length > asGroupIndex ) {
+            appGlobals.favoriteCBTGroups.splice( asGroupIndex, 1 );
+            this.saveFavoriteCBTGroups( appGlobals.favoriteCBTGroups );
 
-            saveFavoriteBMGroupsObjects( appGlobals.appSettings, appGlobals.favoriteBMGroups )
+            saveFavoriteCBTGroupsObjects( appGlobals.appSettings, appGlobals.favoriteCBTGroups )
         }
 
     }
 
-    saveFavoriteBMGroups = ( asGroups: BattleMechGroup[] ): void => {
-        let exportBMGroups: IBMGroupExport[] = [];
+    saveFavoriteCBTGroups = ( asGroups: BattleMechGroup[] ): void => {
+        let exportCBTGroups: ICBTGroupExport[] = [];
         for( let group of asGroups) {
-            exportBMGroups.push( group.export() );
+            exportCBTGroups.push( group.export() );
         }
         let appGlobals = this.state.appGlobals;
-        appGlobals.favoriteBMGroups = asGroups;
+        appGlobals.favoriteCBTGroups = asGroups;
         this.setState({
             appGlobals: appGlobals,
         });
@@ -552,11 +552,11 @@ export interface IAppGlobals {
     ): void;
 
     currentASForce: AlphaStrikeForce | null;
-    currentBMForce: BattleMechForce | null;
+    currentCBTForce: BattleMechForce | null;
     saveCurrentASForce( asForce: AlphaStrikeForce | null ): void;
 
     favoriteASGroups: AlphaStrikeGroup[];
-    favoriteBMGroups: BattleMechGroup[];
+    favoriteCBTGroups: BattleMechGroup[];
     saveFavoriteASGroups( asGroups: AlphaStrikeGroup[] ): void
     saveASGroupFavorite( asGroup: AlphaStrikeGroup ): void;
     removeASGroupFavorite( asGroupIndex: number ): void;
@@ -569,11 +569,11 @@ export interface IAppGlobals {
     saveBattleMechSaves( newValue: IBattleMechExport[]): void;
 
 
-    saveCurrentBMForce( bmForce: BattleMechForce ): void;
+    saveCurrentCBTForce( bmForce: BattleMechForce ): void;
 
-    saveBMGroupFavorite( bmGroup: BattleMechGroup ): void;
+    saveCBTGroupFavorite( bmGroup: BattleMechGroup ): void;
 
-    removeBMGroupFavorite( asGroupIndex: number ): void;
+    removeCBTGroupFavorite( asGroupIndex: number ): void;
 
-    saveFavoriteBMGroups( asGroups: BattleMechGroup[] ): void;
+    saveFavoriteCBTGroups( asGroups: BattleMechGroup[] ): void;
 }

@@ -1,7 +1,7 @@
 import { generateUUID } from "../utils";
 import { BattleMech, IBattleMechExport } from "./battlemech";
 
-export interface IBMGroupExport {
+export interface ICBTGroupExport {
 	name: string;
 	units: IBattleMechExport[];
 	uuid: string;
@@ -21,7 +21,7 @@ export class BattleMechGroup {
 
 	public customName : string= "";
 
-    constructor(importObj: IBMGroupExport | null = null ) {
+    constructor(importObj: ICBTGroupExport | null = null ) {
         if( importObj ) {
             this.import(importObj);
 		}
@@ -57,7 +57,7 @@ export class BattleMechGroup {
         return rv;
     }
 
-    public import(importObj: IBMGroupExport) {
+    public import(importObj: ICBTGroupExport) {
 
 
 		this.customName = importObj.name;
@@ -79,8 +79,8 @@ export class BattleMechGroup {
 
     }
 
-    public export(): IBMGroupExport {
-        let returnValue: IBMGroupExport = {
+    public export(): ICBTGroupExport {
+        let returnValue: ICBTGroupExport = {
 			name: this.customName,
 			units: [],
             uuid: this.uuid,

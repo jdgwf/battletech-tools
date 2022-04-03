@@ -1,8 +1,8 @@
 import { generateUUID } from "../utils";
-import { BattleMechGroup, IBMGroupExport } from "./battlemech-group";
+import { BattleMechGroup, ICBTGroupExport } from "./battlemech-group";
 
-export interface IBMForceExport {
-    groups: IBMGroupExport[];
+export interface ICBTForceExport {
+    groups: ICBTGroupExport[];
 	uuid: string;
 	lastUpdated: Date;
 }
@@ -20,7 +20,7 @@ export class BattleMechForce {
 
     public groups: BattleMechGroup[] = [];
 
-    constructor(importObj: IBMForceExport | null = null ) {
+    constructor(importObj: ICBTForceExport | null = null ) {
         if( importObj ) {
             this.import(importObj);
         }
@@ -50,8 +50,8 @@ export class BattleMechForce {
     }
 
 
-    public export(): IBMForceExport {
-        let returnValue: IBMForceExport = {
+    public export(): ICBTForceExport {
+        let returnValue: ICBTForceExport = {
             groups: [],
             uuid: this._uuid,
             lastUpdated: new Date(),
@@ -64,7 +64,7 @@ export class BattleMechForce {
         return returnValue;
     }
 
-    public import(importObj: IBMForceExport) {
+    public import(importObj: ICBTForceExport) {
         for( let group of importObj.groups ) {
             this.groups.push( new BattleMechGroup( group) );
         }

@@ -1,8 +1,8 @@
 import AlphaStrikeForce, { IASForceExport } from "./classes/alpha-strike-force";
 import AlphaStrikeGroup, { IASGroupExport } from "./classes/alpha-strike-group";
 import { BattleMech, IBattleMechExport } from "./classes/battlemech";
-import { BattleMechForce, IBMForceExport } from "./classes/battlemech-force";
-import { BattleMechGroup, IBMGroupExport } from "./classes/battlemech-group";
+import { BattleMechForce, ICBTForceExport } from "./classes/battlemech-force";
+import { BattleMechGroup, ICBTGroupExport } from "./classes/battlemech-group";
 import { IAppGlobals } from "./ui/app-router";
 import { AppSettings, IAppSettingsExport } from "./ui/classes/app_settings";
 
@@ -17,8 +17,8 @@ export interface IFullBackup {
     favoriteASGroups: IASGroupExport[];
     currentASForce: IASForceExport | null;
 
-    favoriteBMGroups: IBMGroupExport[];
-    currentBMForce: IBMForceExport | null;
+    favoriteCBTGroups: ICBTGroupExport[];
+    currentCBTForce: ICBTForceExport | null;
 
     currentVBattleMech: string | null;
 }
@@ -31,8 +31,8 @@ export async function getFullBackup(
         // appSettings: getAppSettings(),
         favoriteASGroups: await getFavoriteASGroups(appSettings),
         currentASForce: await getCurrentASForce(appSettings),
-        favoriteBMGroups: await getFavoriteBMGroups(appSettings),
-        currentBMForce: await getCurrentBMForce(appSettings),
+        favoriteCBTGroups: await getFavoriteCBTGroups(appSettings),
+        currentCBTForce: await getCurrentCBTForce(appSettings),
         currentVBattleMech: await getCurrentBattleMech(appSettings),
     }
 
@@ -59,7 +59,7 @@ export function checkFullRestoreData(
     if( typeof(io.favoriteASGroups) !== "object" ) {
         return false;
     }
-    // if( typeof(io.favoriteBMGroups) !== "object" ) {
+    // if( typeof(io.favoriteCBTGroups) !== "object" ) {
     //     return false;
     // }
     // if( typeof(io.currentVBattleMech) !== "object" ) {
@@ -77,7 +77,7 @@ export function restoreFullBackup(
     appGlobals: IAppGlobals,
     overWriteCurrentBattlemech: boolean = false,
     overWriteCurrentASGroup: boolean = false,
-    overWriteCurrentBMGroup: boolean = false,
+    overWriteCurrentCBTGroup: boolean = false,
     performActions: boolean = false,
 ): IRestoreMessage[] {
 
@@ -127,14 +127,14 @@ export function restoreFullBackup(
         }
     }
 
-    if( io.favoriteBMGroups ) {
-        for( let item of io.favoriteBMGroups ) {
-            let foundItem: IBMGroupExport | null = null;
+    if( io.favoriteCBTGroups ) {
+        for( let item of io.favoriteCBTGroups ) {
+            let foundItem: ICBTGroupExport | null = null;
             let itemName = "(nameless)";
             if( item.name ) {
                 itemName = item.name;
             }
-            for( let existingItem of appGlobals.favoriteBMGroups ) {
+            for( let existingItem of appGlobals.favoriteCBTGroups ) {
                 let existingItemExport = existingItem.export();
                 if( existingItem.uuid === item.uuid ) {
                     foundItem = existingItemExport;
@@ -160,7 +160,7 @@ export function restoreFullBackup(
                     message: "Add To your Classic BattleTech Favorite groups: '" + itemName + "'",
                 })
                 if( performActions ) {
-                    appGlobals.favoriteBMGroups.push( new BattleMechGroup(item) );
+                    appGlobals.favoriteCBTGroups.push( new BattleMechGroup(item) );
                 }
             }
         }
@@ -220,15 +220,15 @@ export function restoreFullBackup(
         appGlobals.currentASForce = new AlphaStrikeForce(io.currentASForce);
     }
 
-    if( overWriteCurrentBMGroup && performActions && io.currentBMForce) {
-        appGlobals.currentBMForce = new BattleMechForce(io.currentBMForce);
+    if( overWriteCurrentCBTGroup && performActions && io.currentCBTForce) {
+        appGlobals.currentCBTForce = new BattleMechForce(io.currentCBTForce);
     }
 
     if( performActions ) {
         appGlobals.saveCurrentBattleMech( appGlobals.currentBattleMech );
         appGlobals.saveCurrentASForce( appGlobals.currentASForce );
-        if( appGlobals.currentBMForce )
-            appGlobals.saveCurrentBMForce( appGlobals.currentBMForce );
+        if( appGlobals.currentCBTForce )
+            appGlobals.saveCurrentCBTForce( appGlobals.currentCBTForce );
         appGlobals.saveBattleMechSaves( appGlobals.battleMechSaves );
         // let appSettingsObj = new AppSettings(io.appSettings);
         // appGlobals.saveAppSettings( appSettingsObj );
@@ -306,11 +306,11 @@ export async function getBattleMechSaves(
 }
 
 
-export function saveCurrentBMForce(
+export function saveCurrentCBTForce(
     appSettings: AppSettings,
-    newValue: IBMForceExport,
+    newValue: ICBTForceExport,
 ) {
-    saveData(appSettings, "currentBMForce", JSON.stringify(newValue) );
+    saveData(appSettings, "currentCBTForce", JSON.stringify(newValue) );
 }
 
 export function saveCurrentASForce(
@@ -320,12 +320,12 @@ export function saveCurrentASForce(
     saveData(appSettings, "currentASForce", JSON.stringify(newValue) );
 }
 
-export async function getCurrentBMForce(
+export async function getCurrentCBTForce(
     appSettings: AppSettings,
-): Promise<IBMForceExport | null> {
-    let rv: IBMForceExport | null = null;
+): Promise<ICBTForceExport | null> {
+    let rv: ICBTForceExport | null = null;
 
-    let rawData = await getData(appSettings, "currentBMForce" );
+    let rawData = await getData(appSettings, "currentCBTForce" );
     try {
         if( rawData )
             rv = JSON.parse( rawData );
@@ -421,23 +421,23 @@ export async function getFavoriteASGroups(
     return rv;
 }
 
-export function saveFavoriteBMGroupsObjects(
+export function saveFavoriteCBTGroupsObjects(
     appSettings: AppSettings,
     newValue: BattleMechGroup[]
 ) {
-    let rv: IBMGroupExport[] = [];
+    let rv: ICBTGroupExport[] = [];
     for( let unit of newValue ) {
         rv.push( unit.export() );
     }
-    saveData(appSettings, "favoriteBMGroups", JSON.stringify(rv) );
+    saveData(appSettings, "favoriteCBTGroups", JSON.stringify(rv) );
 }
 
-export async function getFavoriteBMGroups(
+export async function getFavoriteCBTGroups(
     appSettings: AppSettings,
-): Promise<IBMGroupExport[]> {
-    let rv: IBMGroupExport[] = [];
+): Promise<ICBTGroupExport[]> {
+    let rv: ICBTGroupExport[] = [];
 
-    let rawData = await getData(appSettings, "favoriteBMGroups" );
+    let rawData = await getData(appSettings, "favoriteCBTGroups" );
     try {
         if( rawData )
             rv = JSON.parse( rawData );

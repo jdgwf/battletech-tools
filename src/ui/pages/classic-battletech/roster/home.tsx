@@ -2,7 +2,7 @@ import React from 'react';
 import { FaDice, FaDownload, FaFileImport, FaHeart, FaPrint, FaTrash } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { BattleMech } from "../../../../classes/battlemech";
-import { BattleMechGroup, IBMGroupExport } from '../../../../classes/battlemech-group';
+import { BattleMechGroup, ICBTGroupExport } from '../../../../classes/battlemech-group';
 import { unitGroupNames } from '../../../../data/group-names';
 import { makeURLSlug } from '../../../../utils';
 import { IAppGlobals } from '../../../app-router';
@@ -34,17 +34,17 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
     }
 
     newGroup = (): void => {
-      if( this.props.appGlobals.currentBMForce) {
-        this.props.appGlobals.currentBMForce.newGroup();
-        this.props.appGlobals.saveCurrentBMForce( this.props.appGlobals.currentBMForce );
+      if( this.props.appGlobals.currentCBTForce) {
+        this.props.appGlobals.currentCBTForce.newGroup();
+        this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
       }
     }
 
     removeGroup = ( bmGroupIndex: number ): void => {
-      if( this.props.appGlobals.currentBMForce && this.props.appGlobals.currentBMForce.groups.length > bmGroupIndex ) {
-        if(this.props.appGlobals.currentBMForce.groups[bmGroupIndex].getTotalUnits() === 0 ) {
-          this.props.appGlobals.currentBMForce.removeGroup(bmGroupIndex);
-          this.props.appGlobals.saveCurrentBMForce( this.props.appGlobals.currentBMForce );
+      if( this.props.appGlobals.currentCBTForce && this.props.appGlobals.currentCBTForce.groups.length > bmGroupIndex ) {
+        if(this.props.appGlobals.currentCBTForce.groups[bmGroupIndex].getTotalUnits() === 0 ) {
+          this.props.appGlobals.currentCBTForce.removeGroup(bmGroupIndex);
+          this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
         } else {
           this.props.appGlobals.openConfirmDialog(
             "Confirmation",
@@ -52,9 +52,9 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
             "Yes",
             "No",
             () => {
-              if( this.props.appGlobals.currentBMForce ) {
-                this.props.appGlobals.currentBMForce.removeGroup(bmGroupIndex);
-                this.props.appGlobals.saveCurrentBMForce( this.props.appGlobals.currentBMForce );
+              if( this.props.appGlobals.currentCBTForce ) {
+                this.props.appGlobals.currentCBTForce.removeGroup(bmGroupIndex);
+                this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
               }
             }
           );
@@ -63,16 +63,16 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
     }
 
     selectGroupLabel = ( newName: string, groupIndex: number ): void => {
-      if( this.props.appGlobals.currentBMForce) {
-      this.props.appGlobals.currentBMForce.selectGroupLabel( newName, groupIndex );
-      this.props.appGlobals.saveCurrentBMForce( this.props.appGlobals.currentBMForce );
+      if( this.props.appGlobals.currentCBTForce) {
+      this.props.appGlobals.currentCBTForce.selectGroupLabel( newName, groupIndex );
+      this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
     }
   }
 
     renameGroup = ( newName: string, bmGroupIndex: number ): void => {
-      if( this.props.appGlobals.currentBMForce) {
-        this.props.appGlobals.currentBMForce.renameGroup( newName, bmGroupIndex );
-        this.props.appGlobals.saveCurrentBMForce( this.props.appGlobals.currentBMForce );
+      if( this.props.appGlobals.currentCBTForce) {
+        this.props.appGlobals.currentCBTForce.renameGroup( newName, bmGroupIndex );
+        this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
       }
     }
 
@@ -84,16 +84,16 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
         "Yes",
         "No",
         () => {
-          this.props.appGlobals.removeBMGroupFavorite(favGroupIndex);
+          this.props.appGlobals.removeCBTGroupFavorite(favGroupIndex);
         }
       );
     }
 
     loadBMFavorite = (favGroup: BattleMechGroup ): void => {
-      if( this.props.appGlobals.currentBMForce ) {
+      if( this.props.appGlobals.currentCBTForce ) {
         favGroup.setNew();
-        this.props.appGlobals.currentBMForce.groups.push( favGroup );
-        this.props.appGlobals.saveCurrentBMForce( this.props.appGlobals.currentBMForce );
+        this.props.appGlobals.currentCBTForce.groups.push( favGroup );
+        this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
       }
     }
 
@@ -142,14 +142,14 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
         // console.log("content", content)
         try {
           if( content ) {
-            let data: IBMGroupExport = JSON.parse( content.toString() )
+            let data: ICBTGroupExport = JSON.parse( content.toString() )
 
-            // let btFavBMGroup = this.props.appGlobals.favoriteBMGroup;
+            // let btFavCBTGroup = this.props.appGlobals.favoriteCBTGroup;
             // for( let item of data ) {
             let parsedItem =  new BattleMechGroup(data);
             // }
 
-            this.props.appGlobals.saveBMGroupFavorite( parsedItem );
+            this.props.appGlobals.saveCBTGroupFavorite( parsedItem );
           }
         }
         catch (err) {
@@ -179,7 +179,7 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
             <p><strong>Update 2022 Apr 3</strong>: With the exception of the Play/Print buttons this <em>MIGHT</em> work. I'll work on the Print button first, then onward to the intense Play button (since I'll have to code the electronic record sheet functions)</p>
             <p className="text-center">Feel free to file an <a target="github" href="https://github.com/jdgwf/battletech-tools/issues">Issue</a> for anything but the Play/Print areas just in case my test cases aren't lining up with yours.</p>
           </div>
-          {this.props.appGlobals.currentBMForce && this.props.appGlobals.currentBMForce.getTotalUnits() > 0 ? (
+          {this.props.appGlobals.currentCBTForce && this.props.appGlobals.currentCBTForce.getTotalUnits() > 0 ? (
             <div className="row">
               <div className="col-6">
                 <Link
@@ -210,24 +210,24 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
               <TextSection
                 label='Current CBT Force'
               >
-            {this.props.appGlobals.currentBMForce ? (
+            {this.props.appGlobals.currentCBTForce ? (
                   <p className="text-center">
-                  <strong>Total Groups</strong>: {this.props.appGlobals.currentBMForce.getTotalGroups()}&nbsp;|&nbsp;
-                  <strong>Total Units</strong>: {this.props.appGlobals.currentBMForce.getTotalUnits()}&nbsp;|&nbsp;
-                  <strong>Total BV2</strong>: {this.props.appGlobals.currentBMForce.getTotalBV2()}
+                  <strong>Total Groups</strong>: {this.props.appGlobals.currentCBTForce.getTotalGroups()}&nbsp;|&nbsp;
+                  <strong>Total Units</strong>: {this.props.appGlobals.currentCBTForce.getTotalUnits()}&nbsp;|&nbsp;
+                  <strong>Total BV2</strong>: {this.props.appGlobals.currentCBTForce.getTotalBV2()}
 
                 </p>
                 ) : null}
-              {this.props.appGlobals.currentBMForce ? (
+              {this.props.appGlobals.currentCBTForce ? (
                 <>
-                  {this.props.appGlobals.currentBMForce.groups.map( (bmGroup, bmGroupIndex) => {
+                  {this.props.appGlobals.currentCBTForce.groups.map( (bmGroup, bmGroupIndex) => {
                     return (
                       <fieldset key={bmGroupIndex} className="fieldset">
                         <legend>{bmGroup.groupLabel} #{bmGroupIndex +1}</legend>
 
                     <div className="pull-right">
                       <button
-                        onClick={() => this.props.appGlobals.saveBMGroupFavorite( bmGroup )}
+                        onClick={() => this.props.appGlobals.saveCBTGroupFavorite( bmGroup )}
                         title={bmGroup.members.length === 0 ? "A group need to have members to save as a favorite" : "Click here to add this group to your favorites."}
                         className="btn btn-primary btn-sm"
                         disabled={bmGroup.members.length === 0}
@@ -293,11 +293,11 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
                     New Group
                   </button>
                 </p>
-                {this.props.appGlobals.currentBMForce ? (
+                {this.props.appGlobals.currentCBTForce ? (
                   <p className="text-center">
-                  <strong>Total Groups</strong>: {this.props.appGlobals.currentBMForce.getTotalGroups()}&nbsp;|&nbsp;
-                  <strong>Total Units</strong>: {this.props.appGlobals.currentBMForce.getTotalUnits()}&nbsp;|&nbsp;
-                  <strong>Total BV2</strong>: {this.props.appGlobals.currentBMForce.getTotalBV2()}
+                  <strong>Total Groups</strong>: {this.props.appGlobals.currentCBTForce.getTotalGroups()}&nbsp;|&nbsp;
+                  <strong>Total Units</strong>: {this.props.appGlobals.currentCBTForce.getTotalUnits()}&nbsp;|&nbsp;
+                  <strong>Total BV2</strong>: {this.props.appGlobals.currentCBTForce.getTotalBV2()}
 
                 </p>
                 ) : null}
@@ -305,13 +305,13 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
             </div>
             <div className="col-lg-6">
 
-            {this.props.appGlobals.favoriteBMGroups.length > 0 ? (
+            {this.props.appGlobals.favoriteCBTGroups.length > 0 ? (
 
 <TextSection
   label="Favorite Groups"
 >
 
-{this.props.appGlobals.favoriteBMGroups.map( (favGroup, favGroupIndex)=> {
+{this.props.appGlobals.favoriteCBTGroups.map( (favGroup, favGroupIndex)=> {
   return (
     <fieldset className='fieldset'  key={favGroupIndex}>
       <legend>{favGroup.getName(favGroupIndex, true)}</legend>
