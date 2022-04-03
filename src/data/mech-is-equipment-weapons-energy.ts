@@ -731,7 +731,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         rangeAero: "m"
     },
     {
-        name: "Extended-Range PPC",
+        name: "ER PPC",
         tag: "er-ppc",
         sort: "ppc, er",
         category: "Energy Weapons",
