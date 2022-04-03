@@ -88,6 +88,26 @@ export class BattleMechForce {
         return returnValue;
     }
 
+    public getTotalBV2(): number {
+        let returnValue: number = 0;
+
+        for( let group of this.groups ) {
+            for( let unit of group.members ) {
+                returnValue += unit.getPilotAdjustedBattleValue();
+            }
+        }
+
+        return returnValue;
+    }
+
+    public newGroup() {
+        this.groups.push( new BattleMechGroup() );
+    }
+
+    public getTotalGroups(): number {
+        return this.groups.length;
+    }
+
 
     public getTotaBV2(): number {
         let rv = 0;

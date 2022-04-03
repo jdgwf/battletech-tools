@@ -32,6 +32,16 @@ export class BattleMechGroup {
 		// this.availableFormationBonuses= formationBonuses.filter(x=>x.IsValid(this));
 	}
 
+	public getName(
+		indexNumber: number,
+	): string {
+		if( this.customName && this.customName.trim() ) {
+			return this.customName;
+		} else {
+			return this.groupLabel + " #" + (indexNumber + 1).toString();
+		}
+	}
+
 	public setNew() {
 		this._uuid = generateUUID();
 		this._lastUpdated = new Date();
@@ -41,7 +51,7 @@ export class BattleMechGroup {
         let rv = 0;
 
         for( let unit of this.members ) {
-            rv += unit.battleValue;
+            rv += unit.getPilotAdjustedBattleValue();
         }
 
         return rv;

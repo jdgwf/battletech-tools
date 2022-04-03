@@ -78,7 +78,10 @@ interface IBMEquipmentExport {
     uuid: string | undefined;
 }
 export interface IBattleMechExport {
-    name: string;
+
+    name?: string;
+    make: string;
+    nickname: string;
     mirrorArmorAllocations: boolean;
     tonnage: number;
     walkSpeed: number;
@@ -102,7 +105,7 @@ export interface IBattleMechExport {
     features: string[],
     pilot: IPilot,
     as_role: string;
-    as_custom_name: string;
+    as_custom_nickname: string;
     lastUpdated: Date;
     location?: string;
 
@@ -165,6 +168,7 @@ export class BattleMech {
 
 
 
+    private _nickname = "";
     private _lastUpdated: Date = new Date();
     private _uuid: string = generateUUID();
 
@@ -3659,7 +3663,7 @@ export class BattleMech {
                 ) {
                     this._addCriticalItem(
                         "engine", // item_tag
-                        this._engineType.name, // item_name
+                        this._engineType.name, // item_nickname
                         3, // criticalCount
                         "ct" // location
                         // slot
@@ -3671,7 +3675,7 @@ export class BattleMech {
                         this.setEngineType("standard");
                         this._addCriticalItem(
                             "engine", // item_tag
-                            this._engineType.name, // item_name
+                            this._engineType.name, // item_nickname
                             engineCrits.ct, // criticalCount
                             "ct" // location
                             // slot
@@ -3696,7 +3700,7 @@ export class BattleMech {
                 // Gyro
                 this._addCriticalItem(
                     "gyro", // item_tag
-                    this._gyro.name, // item_name
+                    this._gyro.name, // item_nickname
                     this._gyro.criticals, // criticalCount
                     "ct" // location
                 );
@@ -3705,7 +3709,7 @@ export class BattleMech {
                 if( engineCrits.ct > 3) {
                     this._addCriticalItem(
                         "engine", // item_tag
-                        this._engineType.name, // item_name
+                        this._engineType.name, // item_nickname
                         engineCrits.ct - 3, // criticalCount
                         "ct" // location
                     );
@@ -3715,7 +3719,7 @@ export class BattleMech {
             // Gyro, but no engine
             this._addCriticalItem(
                 "gyro", // item_tag
-                this._gyro.name, // item_name
+                this._gyro.name, // item_nickname
                 this._gyro.criticals, // criticalCount
                 "ct" // location
             );
@@ -3757,7 +3761,7 @@ export class BattleMech {
                     for( let nameLoc in armorObj.critLocs) {
                         this._addCriticalItem(
                             armorObj.tag, // item_tag
-                            armorObj.name, // item_name
+                            armorObj.name, // item_nickname
                             armorObj.critLocs[nameLoc], // criticalCount
                             nameLoc, // location
                             // slot
@@ -3784,7 +3788,7 @@ export class BattleMech {
                     for( let nameLoc in armorObj.critLocs) {
                         this._addCriticalItem(
                             armorObj.tag, // item_tag
-                            armorObj.name, // item_name
+                            armorObj.name, // item_nickname
                             armorObj.critLocs[nameLoc], // criticalCount
                             nameLoc // location
                             // slot
@@ -3862,17 +3866,17 @@ export class BattleMech {
 
         // Heat Sink Requirements
         let hs_requirements = this.getHeatSinkCriticalRequirements();
-        let hs_name = "";
+        let hs_nickname = "";
         if( hs_requirements.slotsEach > 1)
-            hs_name = "Double Heat Sink";
+            hs_nickname = "Double Heat Sink";
         else
-            hs_name ="Heat Sink";
+            hs_nickname ="Heat Sink";
         for( let hsc = 0; hsc < hs_requirements.number; hsc++) {
 
             this._unallocatedCriticals.push({
                 obj: null,
                 uuid: generateUUID(),
-                name: hs_name,
+                name: hs_nickname,
                 rear: false,
                 tag: "heat-sink",
                 crits: hs_requirements.slotsEach,
@@ -4048,7 +4052,7 @@ export class BattleMech {
 
     private _addCriticalItem(
         item_tag: string,
-        item_name: string,
+        item_nickname: string,
         criticalCount: number,
         location: string,
         slot: number | null = 0,
@@ -4059,7 +4063,7 @@ export class BattleMech {
             obj: null,
             rear: false,
             tag: item_tag,
-            name: item_name,
+            name: item_nickname,
             crits: criticalCount,
             movable: movable,
             uuid: uuid
@@ -4532,10 +4536,20 @@ export class BattleMech {
     }
 
     getName() {
-        if( this._make )
-            return this._make;
-        else
-            return "";
+        if( this._nickname && this._nickname.trim() ) {
+            let rv = this._nickname.trim();
+
+            if( this._make && this._make.trim() )
+                rv += " (" + this._make.trim() + ")";
+
+            return rv;
+        } else {
+            if( this._make && this._make.trim() )
+                return this._make.trim();
+            else
+                return "";
+        }
+
     }
 
     public setMake(
@@ -4636,12 +4650,14 @@ export class BattleMech {
         this.calcAlphaStrike();
 
         let exportObject: IBattleMechExport = {
+            make: this._make,
+            nickname: this._nickname,
             additionalHeatSinks: this._additionalHeatSinks,
             mirrorArmorAllocations: this._mirrorArmorAllocations,
             allocation: this._criticalAllocationTable,
             armor_allocation: this._armorAllocation,
             armor_weight: this._armorWeight,
-            as_custom_name: this._alphaStrikeForceStats.customName,
+            as_custom_nickname: this._alphaStrikeForceStats.customName,
             as_role: this._alphaStrikeForceStats.role,
             engineType: this.getEngineType().tag,
             equipment: [],
@@ -4661,7 +4677,6 @@ export class BattleMech {
             armor_type: this.getArmorType(),
             lastUpdated: new Date(),
             hideNonAvailableEquipment: this._hideNonAvailableEquipment,
-            name: this.getName(),
 
             c_bills: this.getCBillCost(),
             as_value: this.getAlphaStrikeValue(),
@@ -4741,7 +4756,10 @@ export class BattleMech {
 
 
         if( importObject && importObject.mechType  ) {
-            this.setMake(importObject.name);
+            if( importObject.name )
+                this.setMake(importObject.name);
+            if( importObject.make )
+                this.setMake(importObject.make);
             // console.log( "importObject.mechType", importObject.mechType );
             if( importObject.mechType)
                 this.setMechType(importObject.mechType);
@@ -4774,8 +4792,8 @@ export class BattleMech {
             if( importObject.armor_type)
                 this.setArmorType(importObject.armor_type);
 
-            if( importObject.as_custom_name)
-                this.setASCustomName(importObject.as_custom_name);
+            if( importObject.as_custom_nickname)
+                this.setASCustomName(importObject.as_custom_nickname);
 
             if( importObject.is_type)
                 this.setInternalStructureType(importObject.is_type);
@@ -4813,6 +4831,10 @@ export class BattleMech {
 
             if( importObject.uuid)
                 this._uuid = importObject.uuid;
+
+            this._nickname = "";
+            if( importObject.nickname)
+                this._nickname = importObject.nickname;
 
             if( importObject.features) {
 
@@ -6161,6 +6183,15 @@ export class BattleMech {
         this._hideNonAvailableEquipment = nv;
     }
 
+    public get nickname(): string {
+        return this._nickname;
+    }
+    public set nickname(
+        nv: string,
+    ) {
+        this._nickname = nv;
+    }
+
     public get mirrorArmorAllocations(): boolean {
         return this._mirrorArmorAllocations;
     }
@@ -6190,9 +6221,6 @@ export class BattleMech {
         return this._pilot;
     }
 
-    public get battleValue(): number {
-        return this._battleValue;
-    }
 }
 
 function sortByBVThenRearThenHeat(  a: IEquipmentItem, b: IEquipmentItem  ) {

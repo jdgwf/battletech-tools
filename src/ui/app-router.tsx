@@ -297,7 +297,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         let appGlobals = this.state.appGlobals;
         appGlobals.favoriteBMGroups.push( bmGroup );
         this.saveFavoriteBMGroups( appGlobals.favoriteBMGroups );
-
+        saveFavoriteBMGroupsObjects( appGlobals.appSettings, appGlobals.favoriteBMGroups )
     }
 
     removeBMGroupFavorite = ( asGroupIndex: number ): void => {

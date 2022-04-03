@@ -152,8 +152,9 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                     <div className="pull-right">
                       <Button
                         onClick={() => this.props.appGlobals.saveASGroupFavorite( asGroup )}
-                        title="Click here to add this group to your favorites."
+                        title={asGroup.members.length === 0 ? "A group need to have members to save as a favorite" : "Click here to add this group to your favorites."}
                         className="btn-sm"
+                        disabled={asGroup.members.length === 0}
                       >
                         <FaHeart />
                       </Button>
@@ -200,7 +201,7 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                         <tr>
                           <th>&nbsp;</th>
                           <th>Name</th>
-                          <th>Points</th>
+                          <th className="min-width no-wrap">Points</th>
 
                         </tr>
                       </thead>
@@ -281,7 +282,7 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                                 {asUnit.name}
 
                               </td>
-                              <td>{asUnit.currentPoints}</td>
+                              <td className="min-width no-wrap">{asUnit.currentPoints}</td>
 
                             </tr>
                             <tr>
@@ -359,7 +360,7 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                             ) : null
                             }
                           </td>
-                          <td>Points: {asGroup.getTotalPoints()}</td>
+                          <td className="min-width no-wrap">Points: {asGroup.getTotalPoints()}</td>
                         </tr>
                       </tfoot>
 

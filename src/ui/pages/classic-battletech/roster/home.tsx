@@ -1,15 +1,14 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
 import { FaDice, FaHeart, FaPrint, FaTrash } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { BattleMech } from "../../../../classes/battlemech";
 import { BattleMechGroup, IBMGroupExport } from '../../../../classes/battlemech-group';
 import { unitGroupNames } from '../../../../data/group-names';
 import { IAppGlobals } from '../../../app-router';
-import StandardModal from '../../../components/standard-modal';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
+import BattleMechTableGroup from './_tableGroup';
 
 
 
@@ -25,7 +24,7 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
             updated: false,
             showBMUnit: null,
             editBMUnit: false,
-            addingUnitsModal: false,
+
         }
 
         this.props.appGlobals.makeDocumentTitle("Alpha Strike Roster");
@@ -33,6 +32,12 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
 
     }
 
+    newGroup = (): void => {
+      if( this.props.appGlobals.currentBMForce) {
+        this.props.appGlobals.currentBMForce.newGroup();
+        this.props.appGlobals.saveCurrentBMForce( this.props.appGlobals.currentBMForce );
+      }
+    }
 
     removeGroup = ( bmGroupIndex: number ): void => {
       if( this.props.appGlobals.currentBMForce && this.props.appGlobals.currentBMForce.groups.length > bmGroupIndex ) {
@@ -158,31 +163,6 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
       }
     }
 
-    closeAddingUnits = (
-        e: React.FormEvent<HTMLButtonElement>
-    ) => {
-      if( e && e.preventDefault ) {
-        e.preventDefault()
-      }
-
-      this.setState({
-        addingUnitsModal: false,
-      })
-
-    }
-
-    openAddingUnits = (
-      e: React.FormEvent<HTMLButtonElement>
-  ) => {
-    if( e && e.preventDefault ) {
-      e.preventDefault()
-    }
-
-    this.setState({
-      addingUnitsModal: true,
-    })
-
-  }
 
     render = (): React.ReactFragment => {
       return (
@@ -193,31 +173,20 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
   editBMUnit={this.state.editBMUnit}
   closeShowUnitDialog={this.closeShowUnitDialog}
 /> */}
-<StandardModal
-  show={this.state.addingUnitsModal}
-  onClose={this.closeAddingUnits}
-  className="modal-xl"
-  title="Adding units to Current Force"
->
-        {/* <BattleMechAddUnitsView
-          appGlobals={this.props.appGlobals}
-          openEditUnit={this.openEditUnit}
-          openViewUnit={this.openViewUnit}
-        /> */}
-</StandardModal>
 
 
 
         <UIPage current="classic-battletech-roster" appGlobals={this.props.appGlobals}>
 
           <div className="alert alert-danger text-center">
-            This is TOTALLY Broken - don't use this!
+            <h4>In Development</h4>
+            This area will be the equivalent of the Roster Maker in Alpha Strike. If anything seems to work, it likely doesn't. Use at your owm risk!
           </div>
           {this.props.appGlobals.currentBMForce && this.props.appGlobals.currentBMForce.getTotalUnits() > 0 ? (
             <div className="row">
               <div className="col-6">
                 <Link
-                  to={`${process.env.PUBLIC_URL}/alpha-strike/roster/play`}
+                  to={`${process.env.PUBLIC_URL}/classic-battletech/roster/play`}
                   className="btn btn-primary no-margin full-width"
                   title="Click here to go into 'Play Mode'"
                 >
@@ -227,7 +196,7 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
               </div>
               <div className="col-6">
                 <Link
-                  to={`${process.env.PUBLIC_URL}/alpha-strike/roster/print`}
+                  to={`${process.env.PUBLIC_URL}/classic-battletech/roster/print`}
                   className="btn btn-primary no-margin full-width"
                   title="Click here to go to a printable version of this page"
                 >
@@ -249,20 +218,21 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
                         <legend>{bmGroup.groupLabel} #{bmGroupIndex +1}</legend>
 
                     <div className="pull-right">
-                      <Button
+                      <button
                         onClick={() => this.props.appGlobals.saveBMGroupFavorite( bmGroup )}
-                        title="Click here to add this group to your favorites."
-                        className="btn-sm"
+                        title={bmGroup.members.length === 0 ? "A group need to have members to save as a favorite" : "Click here to add this group to your favorites."}
+                        className="btn btn-primary btn-sm"
+                        disabled={bmGroup.members.length === 0}
                       >
                         <FaHeart />
-                      </Button>
-                      <Button
+                      </button>
+                      <button
                         onClick={() => this.removeGroup(bmGroupIndex)}
                         title="Click here to remove this group."
-                        className="btn-sm"
+                        className="btn btn-danger btn-sm"
                       >
                         <FaTrash />
-                      </Button>
+                      </button>
                     </div>
                     <div className="width-80">
                         <div className="width-50">
@@ -294,60 +264,35 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
                     </div>
 
 
-                    <table className="table">
-                      <thead>
-                        <tr>
-                          <th>&nbsp;</th>
-                          <th>Name</th>
-                          <th>Points</th>
-
-                        </tr>
-                      </thead>
-
-                      {bmGroup.members.length > 0 ? (
-                        <>
-                        </>
-) : (
-  <tbody><tr><td colSpan={3} className="text-center">No Units</td></tr></tbody>
-)}
+                    <BattleMechTableGroup
+                      appGlobals={this.props.appGlobals}
+                      bmGroupIndex={bmGroupIndex}
+                      showAdd={true}
+                      showEdit={true}
+                    />
 
 
-<tfoot key="footer">
-  <tr key="groupsum">
-
-    <td colSpan={2}>
-      {/* <strong>Available Bonuses</strong>:({bmGroup.availableFormationBonuses.length-1})
-      <select
-        value={bmGroup.formationBonus? bmGroup.formationBonus.Name:"" }
-        onChange={(event:React.FormEvent<HTMLSelectElement>)=>this.updateFormationBonus(event, bmGroupIndex)}
-      >
-        {bmGroup.availableFormationBonuses.map((bonus)=>{
-          return (
-          <option key={bonus.Name} value={bonus.Name}>{bonus.Name}</option>
-          )
-        })}
-      </select>
-      <br/>
-      {(bmGroup.formationBonus && bmGroup.formationBonus.Name!=="None") ? (
-
-        <div className="small-pt-text">
-          <strong>Bonus</strong>: {bmGroup.formationBonus.BonusDescription}
-          </div>
-
-      ) : null
-      } */}
-    </td>
-    <td>BV2: {bmGroup.getTotaBV2()}</td>
-  </tr>
-</tfoot>
-
-</table>
                       </fieldset>
                     )
                   })}
                 </>
               ) : null}
+<p>
+                  <button
+                    onClick={this.newGroup}
+                    className="display-block text-center btn btn-primary full-width no-margin"
+                  >
+                    New Group
+                  </button>
+                </p>
+                {this.props.appGlobals.currentBMForce ? (
+                  <p className="text-center">
+                  <strong>Total Groups</strong>: {this.props.appGlobals.currentBMForce.getTotalGroups()}&nbsp;|&nbsp;
+                  <strong>Total Units</strong>: {this.props.appGlobals.currentBMForce.getTotalUnits()}&nbsp;|&nbsp;
+                  <strong>Total BV2</strong>: {this.props.appGlobals.currentBMForce.getTotalBV2()}
 
+                </p>
+                ) : null}
             </div>
             <div className="col-lg-6">
 
@@ -357,8 +302,76 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
   label="Favorite Groups"
 >
 
+{this.props.appGlobals.favoriteBMGroups.map( (favGroup, favGroupIndex)=> {
+  return (
+    <div  key={favGroupIndex}>
+      {favGroup.getName(favGroupIndex)}
+    <table className='table'>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th className="min-width no-wrap text-center">Piloting</th>
+          <th className="min-width no-wrap text-center">Gunnery</th>
+          <th className="min-width no-wrap text-center">Points</th>
+        </tr>
+      </thead>
+      {favGroup.members.map( (mechObj, mechIndex) => {
+            let pilotBV2 = mechObj.getPilotAdjustedBattleValue();
+            let baseBV2 = mechObj.getBattleValue();
 
+            return (
+                <tbody key={mechIndex}>
+                <tr>
+                    <td>
+                        {mechObj.getName()}
+                        {mechObj.pilot.name && mechObj.pilot.name.trim() ? (
+                            <div className='small-text'>
+                                <strong>Pilot:</strong> {mechObj.pilot.name}
+                            </div>
+                        ) : null}
 
+                    </td>
+                    <td className="min-width no-wrap text-center">{mechObj.pilot.piloting}</td>
+                    <td className="min-width no-wrap text-center">{mechObj.pilot.gunnery}</td>
+                    <td className="min-width no-wrap text-center">
+                        {pilotBV2 !== baseBV2 ? (
+                            <>
+                                {pilotBV2}
+                                <div className='small-text'>Base: {baseBV2}</div>
+                            </>
+                        ) : (
+                            <>{pilotBV2}</>
+                        )}
+                    </td>
+
+                </tr>
+                </tbody>
+            )
+        })}
+
+<tfoot>
+<tr>
+
+<td colSpan={2}>
+{favGroup.members.length > 0 ? (
+    <>
+        {favGroup.members.length > 0 ? (
+            <>{favGroup.members.length} Units</>
+        ) : (
+            <>One Unit</>
+        )}
+    </>
+) : (
+    <>No Units</>
+)}
+</td>
+<td colSpan={2} className="text-right">BV2: {favGroup.getTotaBV2()}</td>
+</tr>
+</tfoot>
+    </table>
+    </div>
+  )
+ })}
 </TextSection>
 ): null}
 
@@ -388,5 +401,5 @@ interface IHomeState {
 
 
 
-  addingUnitsModal: boolean;
+
 }
