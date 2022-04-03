@@ -1,79 +1,21 @@
 body {
-    .print-footer { display: none};
-    .print-cards {
-        h2 {
-            text-align: center;
-            padding: 0 5%;
-            .units-summary {
-                float: right;
-                font-size: 1rem;
-            }
-        }
-        background: #ffffff;
-        width: 100%;
-        .print-section {
-            border: none !important;
-            width: 100%;
-            display: block;
-            padding-top: .25in;
-            // &:first-child {
-            //     padding-top: 0;
-            // }
-            .section-content {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                border: none !important;
-                .lance-bonus {
-                    font-size: 1rem;
-                }
-                .card {
-                    border: none !important;
-                    // width: 35%;
-                    max-width: 3.5in;
-                    width: 3.5in;
-                }
-            }
-        }
-    }
-}
-
-@media print {
-    @page {
-        margin: 0;
-
-    }
-
-    header {
-        display: none !important;
-    }
-    // .print-header {
-    //     display: block !important;
-    //     margin-bottom: .25in;
-    //     position: absolute;
-    //     top: .25in;
-    //     width: 100%;
-
-    // }
-    .print-cards {
+    .summary-page {
+        min-height: 11in;
+        width: 8.5in;
+        background: #fff;
+        margin: 1rem;
+        max-width: 90%;
+        padding: .125in;
         position: relative;
-        // padding: .25in;
-        .print-section {
-            break-inside: avoid;
-
-            .lance-bonus {
-                font-size: .9rem !important;
-            }
-        }
 
         .print-footer {
             display: block !important;
-            position: fixed;
+            position: absolute;
             bottom: .25in;
             left: 0;
             padding: 0 .5in;
 
-            width: 100%;
+            width: 8.5in;
             border-top: solid 1px #000 !important;
             p {
                 font-size: .5rem;
@@ -86,6 +28,60 @@ body {
                 -webkit-print-color-adjust: exact;
                 color-adjust: exact;
             }
+        }
+    }
+    .page {
+        height: 11in;
+        width: 8.5in;
+        background: #fff;
+        margin: 1rem;
+        max-width: 90%;
+        padding: .125in;
+        svg {
+            max-height: 10.75in;
+            max-width: 8.25in;
+        }
+    }
+    .print-table {
+        border-top: solid 1px #000;
+        border-left: solid 1px #000;
+        thead {
+            tr {
+                th {
+                    background: #ddd;
+                    border-bottom: solid 1px #000;
+                    border-right: solid 1px #000;
+                    padding: 0 .25rem;
+                    &.no-right-border {
+                        border-right: none !important;
+                    }
+                }
+            }
+        }
+        tbody {
+            tr {
+                td {
+                    border-bottom: solid 1px #000;
+                    border-right: solid 1px #000;
+                    padding: 0 .25rem;
+                }
+            }
+        }
+    }
+}
+
+@media print {
+    body {
+        .summary-page {
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 0 .125in !important;
+        }
+        .page {
+            max-width: 100% !important;
+            margin: 0 !important;
+            page-break-inside: avoid;
+            padding: 0 .125in !important;
         }
     }
 }

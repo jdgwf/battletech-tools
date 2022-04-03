@@ -67,7 +67,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
       return (
         <>
           <header className="topmenu">
-            <ul>
+          <ul className="main-menu">
                 <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/alpha-strike-roster`}><FaArrowCircleLeft /></Link></li>
 
                 {this.props.appGlobals.appSettings.alphaStrikeInPlayCardMode ? (

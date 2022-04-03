@@ -1,4 +1,4 @@
-import { FaArrowCircleLeft } from "react-icons/fa";
+import { FaArrowCircleLeft, FaPrint } from "react-icons/fa";
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { IAppGlobals } from '../../../app-router';
@@ -14,7 +14,7 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
             updated: false,
         };
 
-        this.props.appGlobals.makeDocumentTitle("Playing Alpha Strike");
+        this.props.appGlobals.makeDocumentTitle("Printing Alpha Strike Force");
     }
 
 
@@ -25,9 +25,9 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
       return (
         <>
           <header className="topmenu">
-            <ul>
+          <ul className="main-menu">
                 <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/alpha-strike/roster`}><FaArrowCircleLeft /></Link></li>
-
+                <li><a title="Click here open the Print Dialog" className="current" href="javascript:window.print()"><FaPrint /></a></li>
                 <li className="logo">
                     <a
                         href="https://battletech.com"
@@ -94,7 +94,7 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
               <div className="print-logo">
                 <BattleTechLogo />
               </div>
-              <p>Printed using Jeff's Battletech Tools at https://jdgwf.github.io/battletech-tools/. Huge thanks to the Master Unit List</p>
+              <p>Printed using Jeff's BattleTech Tools at https://jdgwf.github.io/battletech-tools/. Huge thanks to the Master Unit List</p>
               <p>MechWarrior, BattleMech, ‘Mech and AeroTech are registered trademarks of The Topps Company, Inc. All Rights Reserved.</p>
             </footer>
             {/* <header className="print-header">&nbsp;</header> */}

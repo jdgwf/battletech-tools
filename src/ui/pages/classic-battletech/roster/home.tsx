@@ -308,7 +308,7 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
             {this.props.appGlobals.favoriteCBTGroups.length > 0 ? (
 
 <TextSection
-  label="Favorite Groups"
+  label="Favorite CBT Groups"
 >
 
 {this.props.appGlobals.favoriteCBTGroups.map( (favGroup, favGroupIndex)=> {

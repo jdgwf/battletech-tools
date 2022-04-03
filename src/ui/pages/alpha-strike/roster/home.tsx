@@ -216,7 +216,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
             {this.props.appGlobals.favoriteASGroups.length > 0 ? (
 
 <TextSection
-  label="Favorite Groups"
+  label="Favorite Alpha Strike Groups"
 >
 
 

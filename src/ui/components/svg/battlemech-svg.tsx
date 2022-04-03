@@ -1529,7 +1529,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         yLoc={1260}
     />
 
-	{/* // Classic Battletech Logo on bottom. */}
+	{/* // Classic BattleTech Logo on bottom. */}
     <rect
         x={0}
         y={this.docHeight - 100}
@@ -1595,7 +1595,7 @@ Neither Topps nor Catalyst Game Labs makes no representation or warranty as to t
         style={{fontWeight: 700}}
         fontSize={20}
     >
-    Created with Jeff's Battletech Tools
+    Created with Jeff's BattleTech Tools
     </text>
     <text
         x={20}

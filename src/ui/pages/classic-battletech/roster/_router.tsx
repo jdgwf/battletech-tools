@@ -4,7 +4,7 @@ import { IAppGlobals } from '../../../app-router';
 import Error404 from "../../error404";
 import Home from './home';
 // import InPlay from './in-play';
-// import PrintSheet from './print';
+import PrintSheet from './print';
 
 export default class BattleMechRosterRouter extends React.Component<IBattleMechRosterRouterProps, IBattleMechRosterRouterState> {
 
@@ -24,12 +24,12 @@ export default class BattleMechRosterRouter extends React.Component<IBattleMechR
                         appGlobals={this.props.appGlobals}
                     />
                 }/>
-
+                */}
                 <Route path={`/print`} element={
                     <PrintSheet
                         appGlobals={this.props.appGlobals}
                     />
-                }/> */}
+                }/>
 
                 <Route path="*" element={
                     <Error404

@@ -1,9 +1,10 @@
-import { FaArrowCircleLeft } from "react-icons/fa";
+import { FaArrowCircleLeft, FaPrint } from "react-icons/fa";
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { IAppGlobals } from '../../../app-router';
 import BattleTechLogo from '../../../components/battletech-logo';
 import './print.scss';
+import BattleMechSVG from "../../../components/svg/battlemech-svg";
 
 export default class ClassicBattleTechRosterPrint extends React.Component<IPrintProps, IPrintState> {
     constructor(props: IPrintProps) {
@@ -13,7 +14,7 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
             updated: false,
         };
 
-        this.props.appGlobals.makeDocumentTitle("Playing Alpha Strike");
+        this.props.appGlobals.makeDocumentTitle("Printing CBT Force");
     }
 
 
@@ -24,9 +25,9 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
       return (
         <>
           <header className="topmenu">
-            <ul>
-                <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/alpha-strike/roster`}><FaArrowCircleLeft /></Link></li>
-
+            <ul className="main-menu">
+                <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/classic-battletech/roster`}><FaArrowCircleLeft /></Link></li>
+                <li><a title="Click here open the Print Dialog" className="current" href="javascript:window.print()"><FaPrint /></a></li>
                 <li className="logo">
                     <a
                         href="https://battletech.com"
@@ -40,7 +41,88 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
             </ul>
 
           </header>
-          <div className="print-cards">
+          <div className={"summary-page"}>
+            <br />
+            <h1 className="text-center">Classic BattleTech Force Summary</h1>
+
+            <p className="text-right">
+            <strong># Groups:</strong> {this.props.appGlobals.currentCBTForce.getTotalGroups()}<br />
+            <strong># Units:</strong> {this.props.appGlobals.currentCBTForce.getTotalUnits()}<br />
+            <strong>Total BV2:</strong> {this.props.appGlobals.currentCBTForce.getTotalBV2()}</p>
+            {this.props.appGlobals.currentCBTForce.groups.map( (group, groupIndex) => {
+              return (
+                <div className="group" key={groupIndex}>
+                  <table className="print-table">
+                    <thead>
+                      <tr>
+                        <th
+                          colSpan={1}
+                          className="no-right-border"
+                        >
+                          {group.getName(groupIndex)}
+                        </th>
+                        <th
+                          colSpan={4}
+                          className="text-right"
+                        >
+                          # Units {group.getTotalUnits()}
+                          &nbsp;|&nbsp;
+                          Group BV2: {group.getTotaBV2()}
+                        </th>
+                      </tr>
+                      <tr>
+                        <th>
+                          Unit Name
+                        </th>
+                        <th className="min-width no-wrap">
+                        MW Piloting
+                        </th>
+                        <th className="min-width no-wrap">
+                        MW Gunnery
+                        </th>
+                        <th className="min-width no-wrap">
+                          Base BV2
+                        </th>
+                        <th className="min-width no-wrap">
+                          Adjusted BV2
+                        </th>
+                      </tr>
+                    </thead>
+                    {group.members.map( (unit, unitIndex) => {
+                    return (
+                    <tbody key={unitIndex}>
+                    <tr>
+                        <td>
+                          {unit.getName()}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {unit.pilot.piloting}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {unit.pilot.gunnery}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {unit.getBattleValue()}
+                        </td>
+                        <td className="min-width no-wrap text-right">
+                          {unit.getPilotAdjustedBattleValue()}
+                        </td>
+                      </tr>
+                    </tbody>
+                    )
+                    })}
+                  </table>
+                </div>
+              )
+            })}
+            <div className="print-footer">
+              <div className="print-logo">
+                <BattleTechLogo />
+              </div>
+              <p>Printed using Jeff's BattleTech Tools at https://jdgwf.github.io/battletech-tools/. Huge thanks to the Master Unit List</p>
+              <p>MechWarrior, BattleMech, ‘Mech and AeroTech are registered trademarks of The Topps Company, Inc. All Rights Reserved.</p>
+            </div>
+          </div>
           {this.props.appGlobals.currentCBTForce.groups.map( (group, groupIndex) => {
             if( group.members.length === 0) {
               return (<></>);
@@ -48,32 +130,24 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
             return (
               <React.Fragment key={groupIndex}>
               <div className="print-section">
-                <h2>
-                  <div className="units-summary">
-                  {group.getTotaBV2()} points - {group.getTotalUnits()} units
-                  </div>
-                  {group.getName(groupIndex + 1)}
-                </h2>
-
-                <div className="section-content">
 
                   {group.members.map( (unit, unitIndex) => {
                     return (
 
                     <React.Fragment key={unitIndex}>
-                      <div className={"card"}>
-                        {/* <ClassicBattleTechUnitSVG
-                          asUnit={unit}
-                          inPlay={false}
-                          appGlobals={this.props.appGlobals}
-                          className="small-margins"
-                        /> */}
+                      <div className={"page"}>
+
+                        <BattleMechSVG
+                          mechData={unit}
+                        />
                       </div>
                     </React.Fragment>
                     )
                   })}
 
-                  </div>
+
+
+
               </div>
 
 
@@ -81,15 +155,14 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
             )
           })}
 
-            <footer className="print-footer">
+            {/* <footer className="print-footer">
               <div className="print-logo">
                 <BattleTechLogo />
               </div>
-              <p>Printed using Jeff's Battletech Tools at https://jdgwf.github.io/battletech-tools/. Huge thanks to the Master Unit List</p>
+              <p>Printed using Jeff's BattleTech Tools at https://jdgwf.github.io/battletech-tools/. Huge thanks to the Master Unit List</p>
               <p>MechWarrior, BattleMech, ‘Mech and AeroTech are registered trademarks of The Topps Company, Inc. All Rights Reserved.</p>
-            </footer>
+            </footer> */}
             {/* <header className="print-header">&nbsp;</header> */}
-          </div>
 
 
         </>
