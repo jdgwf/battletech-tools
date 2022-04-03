@@ -4473,12 +4473,14 @@ export class BattleMech {
         newValue: number,
     ) {
         this._pilot.piloting = newValue;
+        this._calcBattleValue();
     }
 
     public setPilotGunnery(
         newValue: number,
     ) {
         this._pilot.gunnery = newValue;
+        this._calcBattleValue();
     }
 
     public setEngineType(
