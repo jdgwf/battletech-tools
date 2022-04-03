@@ -388,6 +388,8 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
         </th>
 ): null}
         <th>Name</th>
+        <th>Tons</th>
+        <th>Tech</th>
         <th className="min-width no-wrap text-center">Piloting</th>
         <th className="min-width no-wrap text-center">Gunnery</th>
         <th className="min-width no-wrap text-center">Points</th>
@@ -431,6 +433,8 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
                         ) : null}
 
                     </td>
+                    <td className="min-width no-wrap text-center">{mechObj.getTonnage()}</td>
+                    <td className="min-width no-wrap text-center small-text">{mechObj.getTech().name}</td>
                     <td className="min-width no-wrap text-center">{mechObj.pilot.piloting}</td>
                     <td className="min-width no-wrap text-center">{mechObj.pilot.gunnery}</td>
                     <td className="min-width no-wrap text-center">
@@ -450,14 +454,14 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
         })}
       </>
 ) : (
-<tbody><tr><td colSpan={this.props.showEdit ? 5 : 4} className="text-center">No Units</td></tr></tbody>
+<tbody><tr><td colSpan={this.props.showEdit ? 7 : 6} className="text-center">No Units</td></tr></tbody>
 )}
 
 
 <tfoot>
 <tr>
 
-<td colSpan={this.props.showEdit ? 3 : 2}>
+<td colSpan={1}>
 {this.props.appGlobals.currentCBTForce.groups[this.props.bmGroupIndex].members.length > 0 ? (
     <>
         {this.props.appGlobals.currentCBTForce.groups[this.props.bmGroupIndex].members.length > 0 ? (
@@ -469,6 +473,9 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
 ) : (
     <>No Units</>
 )}
+</td>
+<td colSpan={this.props.showEdit ? 4 : 3} className="text-center">
+    {this.props.appGlobals.currentCBTForce.groups[this.props.bmGroupIndex].getTotalTons()} Tons
 </td>
 <td colSpan={2} className="text-right">BV2: {this.props.appGlobals.currentCBTForce.groups[this.props.bmGroupIndex].getTotaBV2()}</td>
 </tr>

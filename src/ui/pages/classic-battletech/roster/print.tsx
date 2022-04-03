@@ -46,8 +46,10 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
             <h1 className="text-center">Classic BattleTech Force Summary</h1>
 
             <p className="text-right">
+
             <strong># Groups:</strong> {this.props.appGlobals.currentCBTForce.getTotalGroups()}<br />
             <strong># Units:</strong> {this.props.appGlobals.currentCBTForce.getTotalUnits()}<br />
+            <strong>Tons:</strong> {this.props.appGlobals.currentCBTForce.getTotalTons()}<br />
             <strong>Total BV2:</strong> {this.props.appGlobals.currentCBTForce.getTotalBV2()}</p>
             {this.props.appGlobals.currentCBTForce.groups.map( (group, groupIndex) => {
               return (
@@ -56,16 +58,18 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                     <thead>
                       <tr>
                         <th
-                          colSpan={1}
+                          colSpan={2}
                           className="no-right-border"
                         >
                           {group.getName(groupIndex)}
                         </th>
                         <th
-                          colSpan={4}
+                          colSpan={5}
                           className="text-right"
                         >
                           # Units {group.getTotalUnits()}
+                          &nbsp;|&nbsp;
+                          {group.getTotalTons()} Tons
                           &nbsp;|&nbsp;
                           Group BV2: {group.getTotaBV2()}
                         </th>
@@ -73,6 +77,12 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                       <tr>
                         <th>
                           Unit Name
+                        </th>
+                        <th className="min-width no-wrap">
+                        Tons
+                        </th>
+                        <th className="min-width no-wrap">
+                        Tech
                         </th>
                         <th className="min-width no-wrap">
                         MW Piloting
@@ -94,6 +104,12 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                     <tr>
                         <td>
                           {unit.getName()}
+                        </td>
+                        <td>
+                          {unit.getTonnage()}
+                        </td>
+                        <td className="small-text">
+                          {unit.getTech().name}
                         </td>
                         <td className="min-width no-wrap text-center">
                           {unit.pilot.piloting}

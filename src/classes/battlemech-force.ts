@@ -100,6 +100,18 @@ export class BattleMechForce {
         return returnValue;
     }
 
+    getTotalTons(): number {
+        let returnValue: number = 0;
+
+        for( let group of this.groups ) {
+            for( let unit of group.members ) {
+                returnValue += unit.getTonnage();
+            }
+        }
+
+        return returnValue;
+    }
+
     public newGroup() {
         this.groups.push( new BattleMechGroup() );
     }

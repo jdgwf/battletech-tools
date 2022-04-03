@@ -57,6 +57,16 @@ export class BattleMechGroup {
         return rv;
     }
 
+	public getTotalTons(): number {
+        let rv = 0;
+
+        for( let unit of this.members ) {
+            rv += unit.getTonnage();
+        }
+
+        return rv;
+    }
+
     public import(importObj: ICBTGroupExport) {
 
 

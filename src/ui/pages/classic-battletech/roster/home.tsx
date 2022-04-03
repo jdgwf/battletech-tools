@@ -214,6 +214,7 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
                   <p className="text-center">
                   <strong>Total Groups</strong>: {this.props.appGlobals.currentCBTForce.getTotalGroups()}&nbsp;|&nbsp;
                   <strong>Total Units</strong>: {this.props.appGlobals.currentCBTForce.getTotalUnits()}&nbsp;|&nbsp;
+                  <strong>Total Tons</strong>: {this.props.appGlobals.currentCBTForce.getTotalTons()}&nbsp;|&nbsp;
                   <strong>Total BV2</strong>: {this.props.appGlobals.currentCBTForce.getTotalBV2()}
 
                 </p>
@@ -348,6 +349,8 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
       <thead>
         <tr>
           <th>Name</th>
+          <th>Tons</th>
+          <th>Tech</th>
           <th className="min-width no-wrap text-center">Piloting</th>
           <th className="min-width no-wrap text-center">Gunnery</th>
           <th className="min-width no-wrap text-center">Points</th>
@@ -369,6 +372,8 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
                         ) : null}
 
                     </td>
+                    <td className="min-width no-wrap text-center">{mechObj.getTonnage()}</td>
+                    <td className="min-width no-wrap text-center small-text">{mechObj.getTech().name}</td>
                     <td className="min-width no-wrap text-center">{mechObj.pilot.piloting}</td>
                     <td className="min-width no-wrap text-center">{mechObj.pilot.gunnery}</td>
                     <td className="min-width no-wrap text-center">
@@ -390,7 +395,7 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
 <tfoot>
 <tr>
 
-<td colSpan={2}>
+<td colSpan={1}>
 {favGroup.members.length > 0 ? (
     <>
         {favGroup.members.length > 0 ? (
@@ -403,7 +408,10 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
     <>No Units</>
 )}
 </td>
-<td colSpan={2} className="text-right">BV2: {favGroup.getTotaBV2()}</td>
+<td colSpan={4} className="text-center">
+    {favGroup.getTotalTons()} Tons
+</td>
+<td colSpan={1} className="no-wrap text-right">BV2: {favGroup.getTotaBV2()}</td>
 </tr>
 </tfoot>
     </table>
