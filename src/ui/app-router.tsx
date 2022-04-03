@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Modal } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
 import AlphaStrikeForce, { IASForceExport } from "../classes/alpha-strike-force";
 import AlphaStrikeGroup, { IASGroupExport } from "../classes/alpha-strike-group";
@@ -440,12 +440,12 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                 </Modal.Body>
                 <Modal.Footer>
 
-                    <Button variant="secondary" onClick={this.closeConfirmDialog}>
+                    <button className="btn btn-secondary" onClick={this.closeConfirmDialog}>
                         {this.state.appGlobals.confirmDialogNoLabel}
-                    </Button>
-                    <Button variant="primary" onClick={this.confirmConfirmDialog}>
+                    </button>
+                    <button className="btn btn-primary" onClick={this.confirmConfirmDialog}>
                         {this.state.appGlobals.confirmDialogYesLabel}
-                    </Button>
+                    </button>
 
                 </Modal.Footer>
             </Modal>

@@ -1,6 +1,5 @@
 import { FaDice, FaDownload, FaFileImport, FaPrint, FaTrash } from "react-icons/fa";
 import React from 'react';
-import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AlphaStrikeGroup, { IASGroupExport } from '../../../../classes/alpha-strike-group';
 import { AlphaStrikeUnit } from '../../../../classes/alpha-strike-unit';
@@ -232,25 +231,25 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
           href={`data:text/json;charset=utf-8,${encodeURIComponent(
             JSON.stringify(asFavGroup.export())
           )}`}
-          download={"as-favorite-export" + makeURLSlug(asFavGroup.getName(0)) + ".json"}
+          download={"as-group-favorite-export-" + makeURLSlug(asFavGroup.getName(0)) + ".json"}
         >
           <FaDownload />
         </a>
-      <Button
+      <button
         onClick={() => this.loadASFavorite(asFavGroup)}
         title="Load this favorite group to your current force"
-        className="btn-sm"
+        className="btn-sm btn-primary btn"
       >
         <FaFileImport />
-      </Button>
+      </button>
 
-      <Button
+      <button
         onClick={() => this.removeFavoriteConfirm( asFavGroupIndex)}
         title="Remove this favorite"
-        className="btn-sm"
+        className="btn-sm btn-danger btn"
       >
         <FaTrash />
-      </Button>
+      </button>
     </div>
     <div className="text-center">
       <br />
@@ -305,7 +304,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 <TextSection
 label='Import to your AS Favorites'
 >
-<div className="text-small">Use this uploader to restore your favorites from another device.</div>
+<div className="text-small">Use this uploader to restore your favorites from another device. The file will be named, unless it was renamed, "as-group-favorite-export-*,json"</div>
 
 <label
 title="Click here to select a JSON file exported this page"

@@ -15,8 +15,8 @@ export class BattleMechGroup {
 
     public groupLabel: string = "Lance";
 
-	private _uuid: string = generateUUID();
-	private _lastUpdated: Date = new Date();
+	public uuid: string = generateUUID();
+	public lastUpdated: Date = new Date();
 
     public members: BattleMech[] = [];
 
@@ -43,8 +43,8 @@ export class BattleMechGroup {
 	}
 
 	public setNew() {
-		this._uuid = generateUUID();
-		this._lastUpdated = new Date();
+		this.uuid = generateUUID();
+		this.lastUpdated = new Date();
 	}
 
 	public getTotaBV2(): number {
@@ -66,7 +66,7 @@ export class BattleMechGroup {
 			this.members.push( theUnit );
 		}
         if( importObj.uuid ) {
-            this._uuid = importObj.uuid;
+            this.uuid = importObj.uuid;
         }
 
 		if( importObj.groupLabel ) {
@@ -74,7 +74,7 @@ export class BattleMechGroup {
 		}
 
         if( importObj.lastUpdated ) {
-            this._lastUpdated = new Date(importObj.lastUpdated);
+            this.lastUpdated = new Date(importObj.lastUpdated);
 		}
 		// if( importObj.formationBonus ){
 		// 	this.formationBonus = formationBonuses.find(x=>x.Name===importObj.formationBonus);
@@ -85,7 +85,7 @@ export class BattleMechGroup {
         let returnValue: IBMGroupExport = {
 			name: this.customName,
 			units: [],
-            uuid: this._uuid,
+            uuid: this.uuid,
 			lastUpdated: new Date(),
 			groupLabel: this.groupLabel,
 		}

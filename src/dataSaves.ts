@@ -1,7 +1,7 @@
 import AlphaStrikeForce, { IASForceExport } from "./classes/alpha-strike-force";
 import AlphaStrikeGroup, { IASGroupExport } from "./classes/alpha-strike-group";
 import { BattleMech, IBattleMechExport } from "./classes/battlemech";
-import { IBMForceExport } from "./classes/battlemech-force";
+import { BattleMechForce, IBMForceExport } from "./classes/battlemech-force";
 import { BattleMechGroup, IBMGroupExport } from "./classes/battlemech-group";
 import { IAppGlobals } from "./ui/app-router";
 import { AppSettings, IAppSettingsExport } from "./ui/classes/app_settings";
@@ -16,6 +16,10 @@ export interface IFullBackup {
     // appSettings: IAppSettingsExport;
     favoriteASGroups: IASGroupExport[];
     currentASForce: IASForceExport | null;
+
+    favoriteBMGroups: IBMGroupExport[];
+    currentBMForce: IBMForceExport | null;
+
     currentVBattleMech: string | null;
 }
 
@@ -27,6 +31,8 @@ export async function getFullBackup(
         // appSettings: getAppSettings(),
         favoriteASGroups: await getFavoriteASGroups(appSettings),
         currentASForce: await getCurrentASForce(appSettings),
+        favoriteBMGroups: await getFavoriteBMGroups(appSettings),
+        currentBMForce: await getCurrentBMForce(appSettings),
         currentVBattleMech: await getCurrentBattleMech(appSettings),
     }
 
@@ -53,6 +59,9 @@ export function checkFullRestoreData(
     if( typeof(io.favoriteASGroups) !== "object" ) {
         return false;
     }
+    // if( typeof(io.favoriteBMGroups) !== "object" ) {
+    //     return false;
+    // }
     // if( typeof(io.currentVBattleMech) !== "object" ) {
     //     return false;
     // }
@@ -68,6 +77,7 @@ export function restoreFullBackup(
     appGlobals: IAppGlobals,
     overWriteCurrentBattlemech: boolean = false,
     overWriteCurrentASGroup: boolean = false,
+    overWriteCurrentBMGroup: boolean = false,
     performActions: boolean = false,
 ): IRestoreMessage[] {
 
@@ -78,76 +88,122 @@ export function restoreFullBackup(
         message: "Overwrite your Settings",
     })
 
-    for( let item of io.favoriteASGroups ) {
-        let foundItem: IASGroupExport | null = null;
-        let itemName = "(nameless)";
-        if( item.name ) {
-            itemName = item.name;
-        }
-        for( let existingItem of appGlobals.favoriteASGroups ) {
-            let existingItemExport = existingItem.export();
-            if( existingItem.uuid === item.uuid ) {
-                foundItem = existingItemExport;
+    if( io.favoriteASGroups ) {
+        for( let item of io.favoriteASGroups ) {
+            let foundItem: IASGroupExport | null = null;
+            let itemName = "(nameless)";
+            if( item.name ) {
+                itemName = item.name;
+            }
+            for( let existingItem of appGlobals.favoriteASGroups ) {
+                let existingItemExport = existingItem.export();
+                if( existingItem.uuid === item.uuid ) {
+                    foundItem = existingItemExport;
 
-                let existingName = "(nameless)";
-                if( existingItemExport.name ) {
-                    existingName = existingItemExport.name;
-                }
-                restoreMessages.push({
-                    severity: "replace",
-                    message: "Replace Alpha Strike Favorite Group '" + existingName + "' with '" + itemName + "'",
-                })
-                if( performActions ) {
+                    let existingName = "(nameless)";
+                    if( existingItemExport.name ) {
+                        existingName = existingItemExport.name;
+                    }
+                    restoreMessages.push({
+                        severity: "replace",
+                        message: "Replace Alpha Strike Favorite Group '" + existingName + "' with '" + itemName + "'",
+                    })
+                    if( performActions ) {
 
-                    existingItem.import( item );
+                        existingItem.import( item );
+                    }
                 }
             }
-        }
 
-        if( !foundItem ) {
-            restoreMessages.push({
-                severity: "add",
-                message: "Add To your Alpha Strike Favorite groups: '" + itemName + "'",
-            })
-            if( performActions ) {
-                appGlobals.favoriteASGroups.push( new AlphaStrikeGroup(item) );
+            if( !foundItem ) {
+                restoreMessages.push({
+                    severity: "add",
+                    message: "Add To your Alpha Strike Favorite groups: '" + itemName + "'",
+                })
+                if( performActions ) {
+                    appGlobals.favoriteASGroups.push( new AlphaStrikeGroup(item) );
+                }
             }
         }
     }
 
+    if( io.favoriteBMGroups ) {
+        for( let item of io.favoriteBMGroups ) {
+            let foundItem: IBMGroupExport | null = null;
+            let itemName = "(nameless)";
+            if( item.name ) {
+                itemName = item.name;
+            }
+            for( let existingItem of appGlobals.favoriteBMGroups ) {
+                let existingItemExport = existingItem.export();
+                if( existingItem.uuid === item.uuid ) {
+                    foundItem = existingItemExport;
 
-    for( let item of io.battleMechSaves ) {
-        let foundItem: IBattleMechExport | null = null;
-        let itemName = "(nameless)";
-        if( item.name ) {
-            itemName = item.name;
-        }
-        for( let existingItem of appGlobals.battleMechSaves ) {
+                    let existingName = "(nameless)";
+                    if( existingItemExport.name ) {
+                        existingName = existingItemExport.name;
+                    }
+                    restoreMessages.push({
+                        severity: "replace",
+                        message: "Replace Classic BattleTech Favorite Group '" + existingName + "' with '" + itemName + "'",
+                    })
+                    if( performActions ) {
 
-            if( existingItem.uuid === item.uuid ) {
-                foundItem = existingItem;
-
-                let existingName = "(nameless)";
-                if( existingItem.name ) {
-                    existingName = existingItem.name;
+                        existingItem.import( item );
+                    }
                 }
+            }
+
+            if( !foundItem ) {
                 restoreMessages.push({
-                    severity: "replace",
-                    message: "Replace Saved BattleMech '" + existingName + "' with '" + itemName + "'",
+                    severity: "add",
+                    message: "Add To your Classic BattleTech Favorite groups: '" + itemName + "'",
                 })
                 if( performActions ) {
-                    existingItem = item;
+                    appGlobals.favoriteBMGroups.push( new BattleMechGroup(item) );
                 }
             }
         }
+    }
 
-        if( !foundItem ) {
-            restoreMessages.push({
-                severity: "add",
-                message: "Add to your Saved BattleMech: '" + itemName + "'",
-            })
-            if( performActions ) {
-                appGlobals.battleMechSaves.push( item )
+    if( io.battleMechSaves ) {
+        for( let item of io.battleMechSaves ) {
+            let foundItem: IBattleMechExport | null = null;
+            let itemName = "(nameless)";
+            if( item.name ) {
+                itemName = item.name;
+            }
+            for( let existingItem of appGlobals.battleMechSaves ) {
+
+                if( existingItem.uuid === item.uuid ) {
+                    foundItem = existingItem;
+
+                    let existingName = "(nameless)";
+
+                    if( existingItem.name ) {
+                        existingName = existingItem.name;
+                    }
+
+                    restoreMessages.push({
+                        severity: "replace",
+                        message: "Replace Saved BattleMech '" + existingName + "' with '" + itemName + "'",
+                    });
+
+                    if( performActions ) {
+                        existingItem = item;
+                    }
+
+                }
+            }
+
+            if( !foundItem ) {
+                restoreMessages.push({
+                    severity: "add",
+                    message: "Add to your Saved BattleMech: '" + itemName + "'",
+                })
+                if( performActions ) {
+                    appGlobals.battleMechSaves.push( item )
+                }
             }
         }
     }
@@ -164,11 +220,16 @@ export function restoreFullBackup(
         appGlobals.currentASForce = new AlphaStrikeForce(io.currentASForce);
     }
 
+    if( overWriteCurrentBMGroup && performActions && io.currentBMForce) {
+        appGlobals.currentBMForce = new BattleMechForce(io.currentBMForce);
+    }
+
     if( performActions ) {
         appGlobals.saveCurrentBattleMech( appGlobals.currentBattleMech );
         appGlobals.saveCurrentASForce( appGlobals.currentASForce );
+        if( appGlobals.currentBMForce )
+            appGlobals.saveCurrentBMForce( appGlobals.currentBMForce );
         appGlobals.saveBattleMechSaves( appGlobals.battleMechSaves );
-        appGlobals.saveFavoriteASGroups( appGlobals.favoriteASGroups );
         // let appSettingsObj = new AppSettings(io.appSettings);
         // appGlobals.saveAppSettings( appSettingsObj );
     }

@@ -1,6 +1,5 @@
-import { FaBars, FaEye, FaPlus } from "react-icons/fa";
 import * as React from 'react';
-import { Button } from 'react-bootstrap';
+import { FaBars, FaEye, FaPlus } from "react-icons/fa";
 import { AlphaStrikeUnit, IASMULUnit } from '../../../../classes/alpha-strike-unit';
 import { BattleMech } from '../../../../classes/battlemech';
 import { getMULASSearchResults, makeRange } from '../../../../utils';
@@ -234,14 +233,13 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 {this.props.appGlobals.currentASForce && this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
   (
     <div className="drop-down-menu-container">
-      <Button
-        variant="primary"
-        className="btn-sm"
+      <button
+        className="btn-sm btn btn-primary"
         onClick={() => this.toggleContextMenuSearch(unitIndex)}
         title="Open the context menu for this unit"
       >
         <FaBars />
-      </Button>
+      </button>
       <ul
         className={this.state.contextMenuSearch === unitIndex ? "styleless dd-menu active" : "styleless dd-menu"}
       >
@@ -261,24 +259,22 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       </ul>
     </div>
   ) : (
-    <Button
-      variant="primary"
-      className="btn-sm no-right-margin"
+    <button
+      className="btn-sm btn btn-primary no-right-margin"
       onClick={() => this.addToGroup( new AlphaStrikeUnit(asUnit), 0)}
       title="Add this unit to your current group"
     >
       <FaPlus />
-    </Button>
+    </button>
 )}
 
-  <Button
-    variant="primary"
-    className="btn-sm"
+  <button
+    className="btn btn-primary btn-sm"
     onClick={() => this.props.openViewUnit( new AlphaStrikeUnit(asUnit))}
     title="View this unit's Alpha Strike Card"
   >
     <FaEye />
-  </Button>
+  </button>
 </td>
                               <td>{asUnit.Name}</td>
 
@@ -385,14 +381,14 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 {this.props.appGlobals.currentASForce && this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
 (
 <div className="drop-down-menu-container">
-<Button
-variant="primary"
-className="btn-sm"
+<button
+
+className="btn btn-primary btn-sm"
 onClick={() => this.toggleContextMenuSearch(unitIndex)}
 title="Open the context menu for this unit"
 >
 <FaBars />
-</Button>
+</button>
 <ul
 className={this.state.contextMenuSearch === unitIndex ? "styleless dd-menu active" : "styleless dd-menu"}
 >
@@ -412,24 +408,22 @@ return (
 </ul>
 </div>
 ) : (
-<Button
-variant="primary"
-className="btn-sm no-right-margin"
+<button
+className="btn btn-primary btn-sm no-right-margin"
 onClick={() => this.addToGroup(asUnit, 0)}
 title="Add this unit to your current group"
 >
 <FaPlus />
-</Button>
+</button>
 )}
 
-<Button
-variant="primary"
-className="btn-sm"
+<button
+className="btn btn-primary btn-sm"
 onClick={() => this.props.openViewUnit(asUnit)}
 title="View this unit's Alpha Strike Card"
 >
 <FaEye />
-</Button>
+</button>
 </td>
                   <td title={"UUID: " + asUnit.mechCreatorUUID}>{asUnit.name}</td>
 

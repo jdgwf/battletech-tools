@@ -1,9 +1,10 @@
 import React from 'react';
-import { FaDice, FaHeart, FaPrint, FaTrash } from "react-icons/fa";
+import { FaDice, FaDownload, FaFileImport, FaHeart, FaPrint, FaTrash } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { BattleMech } from "../../../../classes/battlemech";
 import { BattleMechGroup, IBMGroupExport } from '../../../../classes/battlemech-group';
 import { unitGroupNames } from '../../../../data/group-names';
+import { makeURLSlug } from '../../../../utils';
 import { IAppGlobals } from '../../../app-router';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
@@ -75,7 +76,7 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
       }
     }
 
-    removeFavoriteConfirm = ( asFavGroupIndex: number ): void => {
+    removeFavoriteConfirm = ( favGroupIndex: number ): void => {
 
       this.props.appGlobals.openConfirmDialog(
         "Confirmation",
@@ -83,20 +84,18 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
         "Yes",
         "No",
         () => {
-          this.props.appGlobals.removeBMGroupFavorite(asFavGroupIndex);
+          this.props.appGlobals.removeBMGroupFavorite(favGroupIndex);
         }
       );
     }
 
-    loadBMFavorite = (asFavGroup: BattleMechGroup ): void => {
+    loadBMFavorite = (favGroup: BattleMechGroup ): void => {
       if( this.props.appGlobals.currentBMForce ) {
-        asFavGroup.setNew();
-        this.props.appGlobals.currentBMForce.groups.push( asFavGroup );
+        favGroup.setNew();
+        this.props.appGlobals.currentBMForce.groups.push( favGroup );
         this.props.appGlobals.saveCurrentBMForce( this.props.appGlobals.currentBMForce );
       }
     }
-
-
 
     openViewUnit = ( theUnit: BattleMech ): void => {
       let showBMUnit = theUnit;
@@ -116,15 +115,11 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
       })
     }
 
-
     closeShowUnitDialog = (): void => {
       this.setState({
         showBMUnit: null,
       })
     }
-
-
-
 
     selectFile = async (e: React.FormEvent<HTMLInputElement>): Promise<void> => {
       e.preventDefault();
@@ -304,8 +299,37 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
 
 {this.props.appGlobals.favoriteBMGroups.map( (favGroup, favGroupIndex)=> {
   return (
-    <div  key={favGroupIndex}>
-      {favGroup.getName(favGroupIndex)}
+    <fieldset className='fieldset'  key={favGroupIndex}>
+      <legend>{favGroup.getName(favGroupIndex)}</legend>
+
+      <div className="pull-right">
+      <a
+          className="btn btn-primary btn-sm"
+          title="Export this favorite to a JSON format to transfer between devices"
+          href={`data:text/json;charset=utf-8,${encodeURIComponent(
+            JSON.stringify(favGroup.export())
+          )}`}
+          download={"cbt-group-favorite-export-" + makeURLSlug(favGroup.getName(0)) + ".json"}
+        >
+          <FaDownload />
+        </a>
+      <button
+        onClick={() => this.loadBMFavorite(favGroup)}
+        title="Load this favorite group to your current force"
+        className="btn-sm btn-primary btn"
+      >
+        <FaFileImport />
+      </button>
+
+      <button
+        onClick={() => this.removeFavoriteConfirm( favGroupIndex)}
+        title="Remove this favorite"
+        className="btn-sm btn-danger btn"
+      >
+        <FaTrash />
+      </button>
+    </div>
+
     <table className='table'>
       <thead>
         <tr>
@@ -369,12 +393,29 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
 </tr>
 </tfoot>
     </table>
-    </div>
+    </fieldset>
   )
  })}
 </TextSection>
 ): null}
 
+<TextSection
+label='Import to your CBT Favorites'
+>
+<div className="text-small">Use this uploader to restore your favorites from another device. The file will be named, unless it was renamed, "cbt-group-favorite-export-*,json"</div>
+
+<label
+title="Click here to select a JSON file exported this page"
+>
+Import JSON:&nbsp;
+<input
+type="file"
+style={{width: "auto"}}
+onChange={this.selectFile}
+/>
+</label>
+<br />
+</TextSection>
             </div>
           </div>
 

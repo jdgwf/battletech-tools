@@ -1,6 +1,5 @@
-import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { makeRange } from '../../../../utils';
 import { IAppGlobals } from '../../../app-router';
@@ -219,31 +218,28 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
 
                             <div className="row">
                               <div className="col-4">
-                                <Button
-                                  className="display-block full-width btn-sm"
-                                  variant="primary"
+                                <button
+                                  className="display-block full-width btn-sm btn btn-primary"
                                   onClick={this.allocateClear}
                                 >
                                   Clear Armor
-                                </Button>
+                                </button>
                               </div>
                               <div className="col-4">
-                              <Button
-                                  className="display-block full-width btn-sm"
-                                  variant="primary"
+                              <button
+                                  className="display-block full-width btn-sm btn btn-primary"
                                   onClick={this.allocateSanely}
                               >
                                   Best Guess
-                                </Button>
+                                </button>
                               </div>
                               <div className="col-4">
-                              <Button
-                                  className="display-block full-width btn-sm"
-                                  variant="primary"
+                              <button
+                                  className="display-block full-width btn-sm btn btn-primary"
                                   onClick={this.allocateMax}
                               >
                                   Allocate Max
-                              </Button>
+                              </button>
                               </div>
                             </div>
                             <div className="row">

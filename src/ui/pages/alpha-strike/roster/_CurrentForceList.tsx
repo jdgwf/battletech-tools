@@ -1,7 +1,6 @@
-import { FaArrowsAlt, FaBars, FaEdit, FaExclamationTriangle, FaHeart, FaPlus, FaTrash } from "react-icons/fa";
-import { AiOutlineWarning } from 'react-icons/ai';
 import * as React from 'react';
-import { Button } from 'react-bootstrap';
+import { AiOutlineWarning } from 'react-icons/ai';
+import { FaArrowsAlt, FaBars, FaEdit, FaExclamationTriangle, FaHeart, FaPlus, FaTrash } from "react-icons/fa";
 import { AlphaStrikeUnit } from '../../../../classes/alpha-strike-unit';
 import { formationBonuses } from '../../../../data/formation-bonuses';
 import { unitGroupNames } from '../../../../data/group-names';
@@ -150,21 +149,21 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                     <legend>{asGroup.getName(asGroupIndex + 1)}</legend>
 
                     <div className="pull-right">
-                      <Button
+                      <button
                         onClick={() => this.props.appGlobals.saveASGroupFavorite( asGroup )}
                         title={asGroup.members.length === 0 ? "A group need to have members to save as a favorite" : "Click here to add this group to your favorites."}
-                        className="btn-sm"
+                        className="btn btn-primary btn-sm"
                         disabled={asGroup.members.length === 0}
                       >
                         <FaHeart />
-                      </Button>
-                      <Button
+                      </button>
+                      <button
                         onClick={() => this.removeGroup(asGroupIndex)}
                         title="Click here to remove this group."
-                        className="btn-sm"
+                        className="btn btn-danger btn-sm"
                       >
                         <FaTrash />
-                      </Button>
+                      </button>
                     </div>
                     <div className="width-80">
                         <div className="width-50">
@@ -216,14 +215,13 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                                 {this.props.appGlobals.currentASForce && this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
                                 (
                                   <div className="drop-down-menu-container">
-                                    <Button
-                                      variant="primary"
-                                      className="btn-sm"
+                                    <button
+                                      className="btn btn-primary btn-sm"
                                       title="Open the context menu for this unit"
                                       onClick={() => this.toggleContextMenuForce( asGroupIndex, asUnitIndex )}
                                     >
                                       <FaBars />
-                                    </Button>
+                                    </button>
                                     <ul
                                       className={this.state.contextMenuGroup === asGroupIndex && this.state.contextMenuUnit === asUnitIndex ? "styleless dd-menu active" : "styleless dd-menu"}
                                     >
@@ -252,26 +250,24 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                                   </div>
                                 ) : (
                                   <>
-                                  <Button
-                                    variant="primary"
-                                    className="btn-sm"
+                                  <button
+                                    className="btn btn-primary btn-sm"
                                     onClick={() => this.openEditUnit(asUnit)}
                                     title="Edit this unit's skill and name"
                                   >
                                     <FaEdit />
-                                  </Button>
+                                  </button>
                                   </>
                                 )}
 
 
-                                <Button
-                                  variant="primary"
-                                  className="btn-sm no-right-margin"
+                                <button
+                                  className="btn-sm btn btn-danger no-right-margin"
                                   onClick={() => this.removeUnitFromGroup(asGroupIndex, asUnitIndex)}
                                   title="Remove this unit"
                                 >
                                   <FaTrash />
-                                </Button>
+                                </button>
                               </td>
                               <td>
                                 {asUnit.customName ? (
@@ -369,13 +365,12 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                   )
                 })}
                 <p>
-                  <Button
-                    variant="primary"
+                  <button
                     onClick={this.newGroup}
-                    className="display-block text-center full-width no-margin"
+                    className="btn btn-primary display-block text-center full-width no-margin"
                   >
                     New Group
-                  </Button>
+                  </button>
                 </p>
                 <p className="text-center">
                   <strong>Total Groups</strong>: {this.props.appGlobals.currentASForce.getTotalGroups()}&nbsp;|&nbsp;

@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Button } from 'react-bootstrap';
 import { IEquipmentItem } from '../../data/data-interfaces';
 import { sortEquipment } from '../../utils';
 import { IAppGlobals } from '../app-router';
@@ -110,12 +109,12 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
                     <tbody key={catIndex}>
                 <tr>
                     <th colSpan={5}>
-                        <Button
-                            className="full-width no-margin"
+                        <button
+                            className="btn btn-primary full-width no-margin"
                             onClick={() => this.clickSelectCategory( catName)}
                         >
                             {catName}
-                        </Button>
+                        </button>
                     </th>
                 </tr>
                     {this.props.appGlobals.appSettings.equipmentFilter.trim()
@@ -134,14 +133,13 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
                                         <td>{item.criticals}</td>
                                         <td>{item.weight}</td>
                                         <td>
-                                            <Button
-                                                variant="primary"
-                                                className="btn-md"
+                                            <button
+                                                className="btn btn-primary btn-md"
                                                 onClick={() => this.props.addFunction( item )}
                                                 // disabled={!item.available}
                                             >
                                                 Add
-                                            </Button>
+                                            </button>
                                         </td>
                                     </tr>
                                 )

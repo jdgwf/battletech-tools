@@ -1,8 +1,9 @@
-import { FaArrowCircleLeft, FaArrowCircleRight, FaPlus, FaTrash } from "react-icons/fa";
 import React from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
+import { FaArrowCircleLeft, FaArrowCircleRight, FaPlus, FaTrash } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { IEquipmentItem } from '../../../../data/data-interfaces';
+import { sortEquipment } from "../../../../utils";
 import { IAppGlobals } from '../../../app-router';
 import AvailableEquipment from '../../../components/available-equipment';
 import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
@@ -11,7 +12,6 @@ import SanitizedHTML from '../../../components/sanitized-html';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
-import { sortEquipment } from "../../../../utils";
 
 export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -109,9 +109,9 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={this.closeInstallDialog}>
+                    <button className="btn btn-primary" onClick={this.closeInstallDialog}>
                         Close
-                    </Button>
+                    </button>
                 </Modal.Footer>
             </Modal>
             <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  />
@@ -132,14 +132,13 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                       >
 
 
-                          <Button
-                            variant="primary"
-                            className="pull-right btn-sm"
+                          <button
+                            className="btn btn-primary pull-right btn-sm"
                             title="Open the add dialog"
                             onClick={this.openInstallDialog}
                           >
                             <FaPlus />
-                          </Button>
+                          </button>
 
                           <h3 className="text-center">Installed Equipment</h3>
 
@@ -172,13 +171,12 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                         />
                                       </td>
                                       <td className="text-right">
-                                        <Button
-                                          variant="primary"
-                                          className="btn-sm"
+                                        <button
+                                          className="btn-sm btn btn-danger"
                                           onClick={() => this.removeEquipment( itemIndex)}
                                         >
                                           <FaTrash />
-                                        </Button>
+                                        </button>
 
                                       </td>
                                     </tr>
@@ -193,14 +191,13 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                             <br />
                             <p className="text-center">No equipment has been installed.</p>
                             <p className="text-center">Click the
-                            &nbsp;<Button
-                              variant="primary"
-                              className="btn-xs no-margin"
+                            &nbsp;<button
+                              className="btn btn-primary btn-xs no-margin"
                               title="Open the add dialog"
                               onClick={this.openInstallDialog}
                             >
                               <FaPlus />
-                            </Button>&nbsp;
+                            </button>&nbsp;
                             to the top left to install equipment.</p>
                             </>
                           )}

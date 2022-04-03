@@ -1,7 +1,6 @@
 
-import { FaArrowCircleLeft, FaPrint } from "react-icons/fa";
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { FaArrowCircleLeft, FaPrint } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { IAppGlobals } from '../app-router';
 import BattleTechLogo from './battletech-logo';
@@ -26,16 +25,16 @@ export default class PrintablePage extends React.Component<IPrintablePageProps, 
               to={this.props.backTo}
               className="pull-left"
             >
-              <Button variant="primary">
+              <button className="btn btn-primary">
                 <FaArrowCircleLeft />
-              </Button>
+              </button>
             </Link>
-            <Button
-              variant="primary"
+            <button
+              className="btn btn-primary"
               onClick={() => window.print()}
             >
               <FaPrint /> Print
-            </Button>
+            </button>
           </div>
           <div className="print-bg">
             {this.props.children}

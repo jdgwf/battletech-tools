@@ -1,6 +1,5 @@
-import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { ICriticalSlot } from '../../../../classes/battlemech';
 import { IAppGlobals } from '../../../app-router';
@@ -182,13 +181,12 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                   </>
                                 )}
 
-                                <Button
-                                  variant="primary"
+                                <button
+                                  className="btn btn-primary full-width"
                                   onClick={this.resetAllocations}
-                                  className="full-width"
                                 >
                                   Reset Allocations
-                                </Button>
+                                </button>
                               </fieldset>
                             </div>
                             <div className="col-lg-9">

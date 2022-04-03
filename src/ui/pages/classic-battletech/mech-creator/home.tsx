@@ -345,7 +345,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                                   <FaSave />
                                 </button>
                                 <button
-                                  className="btn btn-sm btn-primary"
+                                  className="btn btn-sm btn-danger"
                                   type="button"
                                   title={"Click here to delete " + mech.name + " from this list. You'll be prompted for a confirmation."}
                                   onClick={ (e) => this.deleteSave( e, mechIndex)}

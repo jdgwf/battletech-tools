@@ -22,6 +22,7 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
 
             overwriteCurrentBattlemech: false,
             overwriteCurrentASGroup: false,
+            overwriteCurrentBMGroup: false,
 
             fullBackupString: "",
         }
@@ -57,6 +58,7 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
               this.props.appGlobals,
               this.state.overwriteCurrentBattlemech,
               this.state.overwriteCurrentASGroup,
+              this.state.overwriteCurrentBMGroup,
               true,
             )
 
@@ -64,7 +66,7 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
               fullRestoreObject: null,
               overwriteCurrentBattlemech: false,
               overwriteCurrentASGroup: false,
-
+              overwriteCurrentBMGroup: false,
             })
 
             this.props.appGlobals.siteAlerts.addAlert(
@@ -97,6 +99,15 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
         overwriteCurrentASGroup: e.currentTarget.checked,
       })
     }
+
+    updateOverwriteCurrentBMGroup = (
+      e: React.FormEvent<HTMLInputElement>,
+    ) => {
+      this.setState({
+        overwriteCurrentBMGroup: e.currentTarget.checked,
+      })
+    }
+
 
     selectFile = async (e: React.FormEvent<HTMLInputElement>): Promise<void> => {
       e.preventDefault();
@@ -135,6 +146,7 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
                 restoreMessages: restoreMessages,
                 overwriteCurrentBattlemech: false,
                 overwriteCurrentASGroup: false,
+                overwriteCurrentBMGroup: false,
               })
             }
             else {
@@ -143,6 +155,7 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
                 restoreError: "Sorry, this does not appear to be a valid restore file",
                 overwriteCurrentBattlemech: false,
                 overwriteCurrentASGroup: false,
+                overwriteCurrentBMGroup: false,
               })
             }
 
@@ -164,6 +177,7 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
           restoreError: "Sorry we couldn't parse this restore file",
           overwriteCurrentBattlemech: false,
           overwriteCurrentASGroup: false,
+          overwriteCurrentBMGroup: false,
         })
       }
     }
@@ -228,7 +242,7 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
       )}
 </li>
 <li>
-      {this.state.fullRestoreObject.currentVBattleMech ? (
+      {this.state.fullRestoreObject.currentASForce ? (
           <InputCheckbox
             label="Overwrite your current Alpha Strike Group"
             checked={this.state.overwriteCurrentASGroup}
@@ -236,6 +250,17 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
           />
       ) : (
         "This restore doesn't have a current Alpha Strike Group, so nothing will be overwritten"
+      )}
+</li>
+<li>
+      {this.state.fullRestoreObject.currentBMForce ? (
+          <InputCheckbox
+            label="Overwrite your current Classic BattleTech Group"
+            checked={this.state.overwriteCurrentBMGroup}
+            onChange={this.updateOverwriteCurrentBMGroup}
+          />
+      ) : (
+        "This restore doesn't have a current Classic BattleTech Group, so nothing will be overwritten"
       )}
 </li>
 
@@ -306,6 +331,7 @@ interface ISettingsBackupAndRestoreState {
 
     overwriteCurrentBattlemech: boolean;
     overwriteCurrentASGroup: boolean;
+    overwriteCurrentBMGroup: boolean;
 
     fullBackupString: string;
 }
