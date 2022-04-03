@@ -79,6 +79,7 @@ interface IBMEquipmentExport {
 }
 export interface IBattleMechExport {
 
+    introductoryRules?: boolean;
     name?: string;
     make: string;
     nickname: string;
@@ -166,6 +167,7 @@ export class BattleMech {
         jumped: false,
     };
 
+    private _introductoryRules: boolean = false;
 
 
     private _nickname = "";
@@ -176,11 +178,9 @@ export class BattleMech {
     private _tech = btTechOptions[0];
     private _era = btEraOptions[1]; // Default to Succession Wars
     private _make: string = "";
-    private _model: string = "";
     private _tonnage = 20;
     private _hideNonAvailableEquipment: boolean = true;
     private _currentTonnage = 0;
-    // useLang: string = "en-US";
 
     private _mirrorArmorAllocations: boolean = true;
 
@@ -278,8 +278,6 @@ export class BattleMech {
     };
 
     private _heatSinkType: IHeatSync = mechHeatSinkTypes[0];
-
-    // maxArmorTonnage = 0;
 
     private _cbillCost = "0";
     private _battleValue = 0;
@@ -4650,6 +4648,7 @@ export class BattleMech {
         this.calcAlphaStrike();
 
         let exportObject: IBattleMechExport = {
+            introductoryRules: this._introductoryRules,
             make: this._make,
             nickname: this._nickname,
             additionalHeatSinks: this._additionalHeatSinks,
@@ -4766,14 +4765,20 @@ export class BattleMech {
 
             this.setTonnage(importObject.tonnage);
 
-            this._mirrorArmorAllocations = false;
+
 
             if( importObject.lastUpdated ) {
                 this._lastUpdated = new Date( importObject.lastUpdated )
             }
 
+            this._mirrorArmorAllocations = false;
             if( importObject.mirrorArmorAllocations ) {
                 this._mirrorArmorAllocations = true;
+            }
+
+            this._introductoryRules = false;
+            if( importObject.introductoryRules ) {
+                this._introductoryRules = true;
             }
 
             this._hideNonAvailableEquipment = importObject.hideNonAvailableEquipment;
@@ -6172,6 +6177,16 @@ export class BattleMech {
     /* Public Getters */
     public get make(): string {
         return this._make;
+    }
+
+    public get introductoryRules(): boolean {
+        return this._introductoryRules;
+    }
+
+    public set introductoryRules(
+        nv: boolean,
+    ) {
+        this._introductoryRules = nv;
     }
 
     public get hideNonAvailableEquipment(): boolean {

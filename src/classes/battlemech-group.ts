@@ -7,7 +7,6 @@ export interface IBMGroupExport {
 	uuid: string;
 	lastUpdated: Date;
 	location?: string;
-	// formationBonus:string;
 	groupLabel: string;
 }
 
@@ -27,18 +26,19 @@ export class BattleMechGroup {
             this.import(importObj);
 		}
 
-
-		// this.sortUnits();
-		// this.availableFormationBonuses= formationBonuses.filter(x=>x.IsValid(this));
 	}
 
 	public getName(
 		indexNumber: number,
+		forFavorites: boolean = false,
 	): string {
 		if( this.customName && this.customName.trim() ) {
 			return this.customName;
 		} else {
-			return this.groupLabel + " #" + (indexNumber + 1).toString();
+			if( forFavorites )
+				return "Unnamed " + this.groupLabel;
+			else
+				return this.groupLabel + " #" + (indexNumber + 1).toString();
 		}
 	}
 
@@ -76,9 +76,7 @@ export class BattleMechGroup {
         if( importObj.lastUpdated ) {
             this.lastUpdated = new Date(importObj.lastUpdated);
 		}
-		// if( importObj.formationBonus ){
-		// 	this.formationBonus = formationBonuses.find(x=>x.Name===importObj.formationBonus);
-		// }
+
     }
 
     public export(): IBMGroupExport {

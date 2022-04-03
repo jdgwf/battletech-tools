@@ -173,11 +173,11 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
 
         <UIPage current="classic-battletech-roster" appGlobals={this.props.appGlobals}>
 
-          <div className="alert alert-danger text-center">
-            <h4>In Development</h4>
-            This area will be the equivalent of the Roster Maker in Alpha Strike. If anything seems to work, it likely doesn't. Use at your owm risk!<br />
-            <br />
-            <strong>Update 2022 Apr 3</strong>: With the exception of the Play/Print buttons this <em>MIGHT</em> work. I'll work on the Print button first, then onward to the intense Play button (since I'll have to code the electronic record sheet functions)
+          <div className="alert alert-danger">
+            <h4 className="text-center">In Development</h4>
+            <p>This area will be the equivalent of the Roster Maker in Alpha Strike. If anything seems to work, it likely doesn't. Use at your owm risk!</p>
+            <p><strong>Update 2022 Apr 3</strong>: With the exception of the Play/Print buttons this <em>MIGHT</em> work. I'll work on the Print button first, then onward to the intense Play button (since I'll have to code the electronic record sheet functions)</p>
+            <p className="text-center">Feel free to file an <a target="github" href="https://github.com/jdgwf/battletech-tools/issues">Issue</a> for anything but the Play/Print areas just in case my test cases aren't lining up with yours.</p>
           </div>
           {this.props.appGlobals.currentBMForce && this.props.appGlobals.currentBMForce.getTotalUnits() > 0 ? (
             <div className="row">
@@ -314,7 +314,7 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
 {this.props.appGlobals.favoriteBMGroups.map( (favGroup, favGroupIndex)=> {
   return (
     <fieldset className='fieldset'  key={favGroupIndex}>
-      <legend>{favGroup.getName(favGroupIndex)}</legend>
+      <legend>{favGroup.getName(favGroupIndex, true)}</legend>
 
       <div className="pull-right">
       <a
