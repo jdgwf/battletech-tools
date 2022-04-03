@@ -37,6 +37,8 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         // let lsTheme = getData("uiTheme");
 
 
+        // Don't worry about tracking individual users here, this UUID resets on every page load or refresh and is NOT tied to a machine or browser...
+        // this just helps me see the flow of traffic to help folks find what they need :)
         let sessionUUID = generateUUID();
 
         // console.log("settingsData", settingsData);
