@@ -28,7 +28,7 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
     let menuStructure: IMenuDef[] = [
         {
             label: "Home",
-            url: "",
+            url: "/",
             tag: "home",
         },
     ];
