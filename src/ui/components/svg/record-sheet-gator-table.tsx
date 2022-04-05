@@ -1,5 +1,6 @@
 import React from 'react';
 import { BattleMech } from "../../../classes/battlemech";
+import DieSVG from './die-svg';
 import RecordSheetGroupBoxSVG from './record-sheet-group-box-svg';
 
 export default class RecordSheetGATORTable extends React.Component<IRecordSheetGATORTableProps, IRecordSheetGATORTableState> {
@@ -20,6 +21,27 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
     }
 
     render = (): React.ReactFragment => {
+
+        let currentMoveColor = "white";
+        let currentMoveBackground = "#009";
+        let movePips = 0;
+        if( this.props.mechData.currentMovementMode === "w" ) {
+            currentMoveColor = "black";
+            currentMoveBackground = "white";
+            movePips = 1;
+        }
+
+        if( this.props.mechData.currentMovementMode === "r" ) {
+            currentMoveColor = "white";
+            currentMoveBackground = "black";
+            movePips = 2;
+        }
+
+        if( this.props.mechData.currentMovementMode === "j" ) {
+            currentMoveColor = "white";
+            currentMoveBackground = "red";
+            movePips = 3;
+        }
 
         return (
             <RecordSheetGroupBoxSVG
@@ -43,6 +65,19 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
 
                 {this.props.inPlay ? (
                     <>
+                        {this.props.mechData.pilot ? (
+                                <text
+                                    x={this.props.xLoc + 125 }
+                                    y={this.props.yLoc + 100}
+                                    textAnchor="start"
+                                    fontFamily="sans-serif"
+                                    fill={this.strokeColor}
+                                    style={{fontWeight: 100}}
+                                    fontSize={50}
+                                >
+                                    {this.props.mechData.pilot.gunnery}
+                                </text>
+                            ): null }
                     </>
                 ) : (
                     <>
@@ -81,9 +116,36 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
                     style={{fontWeight: 700}}
                     fontSize={50}
                 >A</text>
-                {this.props.inPlay ? (
-                    <>
-                    </>
+                {this.props.inPlay && this.props.openSetMovement ? (
+                    <svg onClick={this.props.openSetMovement}>
+                    {this.props.mechData.currentMovementMode ? (
+                        <DieSVG
+                            posX={this.props.xLoc + 260 }
+                            posY={this.props.yLoc + 45}
+                            width={60}
+                            bgColor={currentMoveBackground}
+                            pipColor={currentMoveColor}
+                            numberPips={movePips}
+                            numericPips={true}
+                            // title="Click here to change the Attacker's Move Modifier"
+                        />
+                    ) : (
+                        <DieSVG
+                            posX={this.props.xLoc + 260 }
+                            posY={this.props.yLoc + 45}
+                            width={60}
+                            className="cursor-pointer"
+                            bgColor={"#009"}
+                            pipColor={"#fff"}
+                            numberPips={0}
+                            numericPips={true}
+                            // title="Click here to change the Attacker's Move Modifier"
+                        />
+                    )}
+                                {/*  */}
+
+
+                    </svg>
                 ) : (
                     <>
                 <line
@@ -177,6 +239,7 @@ interface IRecordSheetGATORTableProps {
     yLoc: number;
     width: number;
     height: number;
+    openSetMovement?(): void;
 
     // landscape?: boolean;
     // itemIDField

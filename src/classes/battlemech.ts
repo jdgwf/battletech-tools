@@ -79,7 +79,15 @@ interface IBMEquipmentExport {
 }
 export interface IBattleMechExport {
 
+    // in play variables
+
     selectedMech: boolean;
+    currentMovementMode: string;
+    currentToHitMovementModifier: number;
+    currentTargetModifier: number;
+
+
+    // basic properties
     introductoryRules?: boolean;
     name?: string;
     make: string;
@@ -170,8 +178,18 @@ export class BattleMech {
 
     private _introductoryRules: boolean = false;
 
+    // in play variables
     public selectedMech: boolean = false;
 
+    public currentMovementMode: string = "";
+    public currentToHitMovementModifier: number = 0;
+    public currentTargetModifier: number = 0;
+
+
+        
+
+
+    // basic properties
     private _nickname = "";
     private _lastUpdated: Date = new Date();
     private _uuid: string = generateUUID();
@@ -4653,6 +4671,11 @@ export class BattleMech {
 
         let exportObject: IBattleMechExport = {
             selectedMech: this.selectedMech,
+
+            currentMovementMode: this.currentMovementMode,
+            currentToHitMovementModifier: this.currentToHitMovementModifier,
+            currentTargetModifier: this.currentTargetModifier,
+
             introductoryRules: this._introductoryRules,
             make: this._make,
             nickname: this._nickname,
@@ -4762,6 +4785,21 @@ export class BattleMech {
         if( importObject && importObject.selectedMech ) {
             this.selectedMech = true;
         }
+
+        if( importObject && importObject.currentMovementMode ) {
+            this.currentMovementMode = importObject.currentMovementMode;
+        }
+
+        if( importObject && importObject.currentTargetModifier ) {
+            this.currentTargetModifier = importObject.currentTargetModifier;
+        }
+
+        if( importObject && importObject.currentToHitMovementModifier ) {
+            this.currentToHitMovementModifier = importObject.currentToHitMovementModifier;
+        }
+        
+
+        
 
         if( importObject && importObject.mechType  ) {
             if( importObject.name )

@@ -507,6 +507,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         xLoc={10}
         yLoc={1113}
         mechData={this.props.mechData}
+        inPlay={this.props.inPlay}
+        openSetMovement={this.props.openSetMovement}
     />
 
 
@@ -1531,27 +1533,27 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
     {this.props.inPlay ? (
         <>
-    <rect
-        x={300}
-        y={300}
-        width={1600}
-        height={400}
-        fill="white"
-        fillOpacity={.8}
-        stroke="black"
-        strokeWidth={3}
-    />
-<text
-        x={1100}
-        y={500}
-        textAnchor="middle"
-        fontFamily="sans-serif"
-        fill={"red"}
-        style={{fontWeight: 700}}
-        fontSize={60}
-    >
-    TODO: IN-PLAY CONTROLS
-    </text> 
+            <rect
+                x={300}
+                y={300}
+                width={1600}
+                height={400}
+                fill="white"
+                fillOpacity={.8}
+                stroke="black"
+                strokeWidth={3}
+            />
+            <text
+                x={1100}
+                y={500}
+                textAnchor="middle"
+                fontFamily="sans-serif"
+                fill={"red"}
+                style={{fontWeight: 700}}
+                fontSize={60}
+            >
+            TODO: IN-PLAY CONTROLS
+            </text> 
         </>
     ): null}
 
@@ -1649,6 +1651,10 @@ interface IBattleMechSVGProps {
     strokeColor?: string;
     mechData: BattleMech;
     inPlay?: boolean;
+
+    openSetTarget?(): void;
+    openTakeDamage?(): void;
+    openSetMovement?(): void;
     // landscape?: boolean;
     // itemIDField
 }

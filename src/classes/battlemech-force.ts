@@ -36,7 +36,7 @@ export class BattleMechForce {
     ) {
         for( let group of this.groups ) {
             for( let unit of group.members ) {
-                if( unit.uuid == uuid ) {
+                if( unit.uuid === uuid ) {
                     unit.selectedMech = true;
                 } else {
                     unit.selectedMech = false;
