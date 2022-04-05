@@ -67,6 +67,17 @@ export default class InputNumeric extends React.Component<IInputNumericProps, II
                         </>
                     ) : null}
 
+
+                    {!this.props.inline && this.props.description ? (
+                        <div className="small-text">{this.props.description}</div>
+                    ) : ( <></> )}
+
+                    {!this.props.inline && this.props.children ? (
+                        <div className="small-text">
+                            {this.props.children}
+                        </div>
+                    ) : ( <></> )}
+
                     {this.props.readOnly ? (
                         <strong>
                             {this.props.value}
@@ -89,6 +100,15 @@ export default class InputNumeric extends React.Component<IInputNumericProps, II
                     </select>
                     )}
 
+                    {this.props.inline && this.props.description ? (
+                        <div className="small-text">{this.props.description}</div>
+                    ) : ( <></> )}
+
+                    {this.props.inline && this.props.children ? (
+                        <div className="small-text">
+                            {this.props.children}
+                        </div>
+                    ) : ( <></> )}
                 </label>
             )
         } else {
@@ -100,11 +120,12 @@ export default class InputNumeric extends React.Component<IInputNumericProps, II
                         </>
                     ) : null}
 
-                    {this.props.description ? (
+
+                    {!this.props.inline && this.props.description ? (
                         <div className="small-text">{this.props.description}</div>
                     ) : ( <></> )}
 
-                    {this.props.children ? (
+                    {!this.props.inline && this.props.children ? (
                         <div className="small-text">
                             {this.props.children}
                         </div>
@@ -126,6 +147,17 @@ export default class InputNumeric extends React.Component<IInputNumericProps, II
                         onFocus={this.onInputFocus}
                         onBlur={this.onInputBlur}
                     />
+
+
+                    {this.props.inline && this.props.description ? (
+                        <div className="small-text">{this.props.description}</div>
+                    ) : ( <></> )}
+
+                    {this.props.inline && this.props.children ? (
+                        <div className="small-text">
+                            {this.props.children}
+                        </div>
+                    ) : ( <></> )}
                 </label>
 
             )

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { BattleMech } from "../../../../classes/battlemech";
 import { IAppGlobals } from '../../../app-router';
 import BattleTechLogo from '../../../components/battletech-logo';
+import InputNumeric from '../../../components/form_elements/input_numeric';
 import StandardModal from '../../../components/standard-modal';
 import StatBar from "../../../components/stat-bar";
 import BattleMechSVG from "../../../components/svg/battlemech-svg";
@@ -23,6 +24,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             setMovementMode: "",
             setMovementNumber: 0,
             setMovementCanJump: false,
+            setMovementJumpingMP: 0,
 
             takeDamageDialog: false,
 
@@ -150,6 +152,10 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       if( this.props.appGlobals.currentCBTForce && currentBM ) {
         currentBM.currentMovementMode = this.state.setMovementMode;
         currentBM.currentToHitMovementModifier = this.state.setMovementNumber;
+        if( currentBM.currentMovementMode === "j")
+          currentBM.currentTargetJumpingMP = this.state.setMovementJumpingMP;
+        else 
+          currentBM.currentTargetJumpingMP = 0
         this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
       }
 
@@ -177,8 +183,52 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       if( e && e.preventDefault ) {
         e.preventDefault();
       }
+
+      let setMovementJumpingMP = 0;
+      if( nv > 5 ) {
+        setMovementJumpingMP = 25
+      } else if( nv > 4 ) {
+        setMovementJumpingMP = 18
+      } else if( nv > 3 ) {
+        setMovementJumpingMP = 10
+      } else if( nv > 2 ) {
+        setMovementJumpingMP = 7
+      } else if( nv > 1 ) {
+        setMovementJumpingMP = 5
+      } else if( nv > 0 ) {
+        setMovementJumpingMP = 3
+      }
       this.setState({
         setMovementNumber: nv,
+        setMovementJumpingMP: setMovementJumpingMP,
+      })
+    }
+
+    updateMovementJumpingMP = (
+      e: React.FormEvent<HTMLInputElement>,
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+
+      let setMovementNumber = 0;
+      if( +e.currentTarget.value >= 25 ) {
+        setMovementNumber = 6
+      } else if( +e.currentTarget.value >= 18 ) {
+        setMovementNumber = 5
+      } else if( +e.currentTarget.value >= 10 ) {
+        setMovementNumber = 4
+      } else if( +e.currentTarget.value >= 7 ) {
+        setMovementNumber = 3
+      } else if( +e.currentTarget.value >= 5 ) {
+        setMovementNumber = 2
+      } else if( +e.currentTarget.value >= 3 ) {
+        setMovementNumber = 1
+      }
+
+      this.setState({
+        setMovementJumpingMP: +e.currentTarget.value,
+        setMovementNumber: setMovementNumber,
       })
     }
 
@@ -349,16 +399,22 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           ) : null}
         </table>
       </div>
-      {/* <div className="col">
-        <InputNumeric
-          label="Current To-Hit Modifier from Attackers"
-          description={this.state.setMovementMode === "j" ? "Don't forget to add a +1 since you Jumped" : ""}
+      {this.state.setMovementMode === "j" ? (
+        <div className="text-center">
+        <InputNumeric 
+          label="Jumping MP Used (for heat calculation)"
+          value={this.state.setMovementJumpingMP}
+          onChange={this.updateMovementJumpingMP}
+          description="Changing this will also set the movement modifer above, so you don't have to perform two clicks."
+          inline={true}
           min={0}
-          max={7}
+          max={30}
           step={1}
-          value={this.state.setMovementNumber}
         />
-    </div> */}
+        </div>
+      ) : null}
+      
+      
   </div>
 </StandardModal>
 <StandardModal
@@ -543,6 +599,7 @@ interface IPlayState {
   setMovementMode: string;
   setMovementNumber: number;
   setMovementCanJump: boolean;
+  setMovementJumpingMP: number;
 
   takeDamageDialog: boolean;
 

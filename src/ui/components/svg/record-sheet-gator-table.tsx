@@ -123,6 +123,7 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
                             posX={this.props.xLoc + 260 }
                             posY={this.props.yLoc + 45}
                             width={60}
+                            className="cursor-pointer"
                             bgColor={currentMoveBackground}
                             pipColor={currentMoveColor}
                             numberPips={movePips}

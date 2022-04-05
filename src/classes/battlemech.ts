@@ -85,7 +85,7 @@ export interface IBattleMechExport {
     currentMovementMode: string;
     currentToHitMovementModifier: number;
     currentTargetModifier: number;
-
+    currentTargetJumpingMP: number;
 
     // basic properties
     introductoryRules?: boolean;
@@ -184,7 +184,7 @@ export class BattleMech {
     public currentMovementMode: string = "";
     public currentToHitMovementModifier: number = 0;
     public currentTargetModifier: number = 0;
-
+    public currentTargetJumpingMP: number = 0;
 
         
 
@@ -4675,6 +4675,7 @@ export class BattleMech {
             currentMovementMode: this.currentMovementMode,
             currentToHitMovementModifier: this.currentToHitMovementModifier,
             currentTargetModifier: this.currentTargetModifier,
+            currentTargetJumpingMP: this.currentTargetJumpingMP,
 
             introductoryRules: this._introductoryRules,
             make: this._make,
@@ -4798,7 +4799,9 @@ export class BattleMech {
             this.currentToHitMovementModifier = importObject.currentToHitMovementModifier;
         }
         
-
+        if( importObject && importObject.currentTargetJumpingMP ) {
+            this.currentTargetJumpingMP = importObject.currentTargetJumpingMP;
+        }
         
 
         if( importObject && importObject.mechType  ) {

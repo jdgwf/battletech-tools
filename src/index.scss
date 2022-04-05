@@ -22,6 +22,10 @@ body {
   background-color: $bodyBackground;
 }
 
+.auto-width {
+  width: auto;
+  display: inline-block;
+}
 
 .icon-spin {
   animation: rotation 2s;
