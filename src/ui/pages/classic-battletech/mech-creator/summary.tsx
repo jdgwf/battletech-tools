@@ -89,7 +89,7 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
                                 <div className="row">
                                   <div className="col-sm-12">
                                     <label>
-                                      Pilot Name:<br />
+                                      Handle:<br />
                                       <input
                                         type="string"
                                         value={this.props.appGlobals.currentBattleMech.getPilot().name}
@@ -101,7 +101,7 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
                                 <div className="row">
                                   <div className="col-sm-6">
                                     <label>
-                                      Piloting Skill:<br />
+                                      Piloting:<br />
 
                                       <select
                                         value={this.props.appGlobals.currentBattleMech.getPilot().piloting}
@@ -123,7 +123,7 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
                                   </div>
                                   <div className="col-sm-6">
                                     <label>
-                                      Gunnery Skill:<br />
+                                      Gunnery:<br />
                                       <select
                                         value={this.props.appGlobals.currentBattleMech.getPilot().gunnery}
                                         onChange={this.setPilotGunnery}

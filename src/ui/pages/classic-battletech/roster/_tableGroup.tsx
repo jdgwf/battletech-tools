@@ -243,9 +243,9 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
         title={"Editing " + this.state.editingUnit.make}
         onSave={this.saveUnit}
     >
-        TODO: Edit Mech Nickname, pilot name and skills dialog. Will show both base amd adjusted BV2
+        <div className="small-text">Here you may edit the Mech Nickname, Mechwarrior name, and skills. Skill changes Will display both base amd adjusted BV2.</div>
         <InputField
-            label="Nickname"
+            label="'Mech Nickname"
             value={this.state.editingUnit.nickname}
             onChange={this.updateNickname}
         />
@@ -256,7 +256,7 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
                 <div className="row">
                     <div className="col-sm-12">
                     <label>
-                        Pilot Name:<br />
+                        Handle:<br />
                         <input
                         type="string"
                         value={this.state.editingUnit.getPilot().name}
@@ -268,7 +268,7 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
                 <div className="row">
                     <div className="col-sm-6">
                     <label>
-                        Piloting Skill:<br />
+                        Piloting:<br />
 
                         <select
                         value={this.state.editingUnit.getPilot().piloting}
@@ -290,7 +290,7 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
                     </div>
                     <div className="col-sm-6">
                     <label>
-                        Gunnery Skill:<br />
+                        Gunnery:<br />
                         <select
                         value={this.state.editingUnit.getPilot().gunnery}
                         onChange={this.setPilotGunnery}
