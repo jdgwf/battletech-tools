@@ -823,9 +823,9 @@ export class AlphaStrikeUnit {
                 tmpTMM = 5;
             }
 
-            if( this.move[moveC].type === "j" ) {
-                tmpTMM++;
-            }
+            // if( this.move[moveC].type === "j" ) {
+            //     tmpTMM++;
+            // }
 
             if( this.move[moveC].currentMove < 0 ) {
                 this.move[moveC].currentMove = 0;
@@ -843,7 +843,7 @@ export class AlphaStrikeUnit {
             if( this.move[moveC].currentMove > 0 )
             this.immobile = false;
 
-        this.currentTMM += "" + tmpTMM + this.move[moveC].type;
+        this.currentTMM += "" + tmpTMM; //  + this.move[moveC].type;
 
             if( moveC !== this.move.length - 1 ) {
             this.currentTMM += "/";
@@ -853,17 +853,17 @@ export class AlphaStrikeUnit {
         }
 
         // Calculate To-Hits with Criticals
-        this.currentToHitShort = this.currentSkill + this.currentHeat + currentFCHits * 2 + currentEngineHits;
-        this.currentToHitMedium = this.currentSkill + 2 + this.currentHeat + currentFCHits * 2 + currentEngineHits;
-        this.currentToHitLong = this.currentSkill + 4 + this.currentHeat + currentFCHits * 2 + currentEngineHits;
-        this.currentToHitExtreme = this.currentSkill + 6 + this.currentHeat + currentFCHits * 2 + currentEngineHits;
+        this.currentToHitShort = this.currentSkill + this.currentHeat + currentFCHits * 2; // + currentEngineHits;
+        this.currentToHitMedium = this.currentSkill + 2 + this.currentHeat + currentFCHits * 2; // + currentEngineHits;
+        this.currentToHitLong = this.currentSkill + 4 + this.currentHeat + currentFCHits * 2; // + currentEngineHits;
+        this.currentToHitExtreme = this.currentSkill + 6 + this.currentHeat + currentFCHits * 2; // + currentEngineHits;
 
         this.currentHeat = this.currentHeat / 1;
 
         // Engine Hit Heat Effects
-        if( currentEngineHits === 1 )
-            if( this.currentHeat < 1)
-                this.currentHeat = 1;
+        // if( currentEngineHits === 1 )
+        //     if( this.currentHeat < 1)
+        //         this.currentHeat = 1;
 
         if( this.currentHeat < 0 )
             this.currentHeat = 0;
