@@ -56,8 +56,10 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
         if( this.props.appGlobals.currentCBTForce && this.state.viewingUnit ) {
 
             let bmGroup = this.props.appGlobals.currentCBTForce.groups[this.props.bmGroupIndex];
+            let newBM = new BattleMech( this.state.viewingUnit.exportJSON()  );
+            newBM.newUUID();
             bmGroup.members.push (
-                new BattleMech( this.state.viewingUnit.exportJSON()  )
+                newBM
             )
             // this.props.onChange( bmGroup );
             this.setState({

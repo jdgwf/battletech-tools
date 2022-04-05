@@ -3,6 +3,7 @@ import { FaEye, FaPlusCircle } from 'react-icons/fa';
 import { Link } from "react-router-dom";
 import { BattleMech } from '../../../../classes/battlemech';
 import { BattleMechGroup } from '../../../../classes/battlemech-group';
+import { generateUUID } from '../../../../utils';
 import { IAppGlobals } from '../../../app-router';
 import SanitizedHTML from '../../../components/sanitized-html';
 import StandardModal from '../../../components/standard-modal';
@@ -51,8 +52,10 @@ export default class BattleMechAddMechDialog extends React.Component<IBattleMech
         }
         if( this.props.currentForce && this.state.viewingUnit ) {
             let currentForce = this.props.currentForce;
+            let newBM = new BattleMech( this.state.viewingUnit.exportJSON()  );
+            newBM.newUUID();
             currentForce.members.push (
-                new BattleMech( this.state.viewingUnit.exportJSON()  )
+                newBM
             )
             this.props.onChange( currentForce );
             this.setState({
@@ -71,8 +74,10 @@ export default class BattleMechAddMechDialog extends React.Component<IBattleMech
         }
         if( this.props.currentForce && bm ) {
             let currentForce = this.props.currentForce;
+            let newBM = new BattleMech( bm.exportJSON()  );
+            newBM.newUUID();
             currentForce.members.push (
-                new BattleMech( bm.exportJSON()  )
+                newBM
             )
             this.props.onChange( currentForce );
             this.setState({

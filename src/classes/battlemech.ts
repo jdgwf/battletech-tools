@@ -378,6 +378,10 @@ export class BattleMech {
 
     }
 
+    public newUUID() {
+        this._uuid = generateUUID();
+    }
+
     public setMechType(typeTag: string) {
         for( let lcounter = 0; lcounter < mechTypeOptions.length; lcounter++) {
             if( typeTag === mechTypeOptions[lcounter].tag) {
