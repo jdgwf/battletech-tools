@@ -279,7 +279,7 @@ body.retro {
     .mobile-menu {
         ul.main-menu {
             li {
-                a {
+                a, span {
                     font-size: 1rem;
                 }
             }
@@ -360,7 +360,7 @@ body.retro {
     .topmenu {
         ul.main-menu {
             li {
-                a {
+                a, span {
                     font-size: 1rem;
                 }
             }
@@ -375,7 +375,7 @@ body.retro {
             ul.sub-menu {
                 li {
                     display: block;
-                    a {
+                    a, span {
                         font-size: 1rem;
                     }
                     &.logo {

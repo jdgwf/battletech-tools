@@ -1,0 +1,66 @@
+@import "../../../../common.scss";
+
+body {
+    .mech-selector {
+        position: absolute;
+        // height: 100%;
+        top: 0;
+        right: 0;
+        // background: $primaryBG;
+        // color: $primaryTextColor;
+        padding-top: 3rem;
+        width: 16vw;
+
+        .details {
+            display: none
+        }
+
+        // &.expanded {
+        //     .details {
+        //         display: block;
+        //     }
+        // }
+        .lance-name {
+            color: $primaryBG;
+            text-align: center;
+        }
+        .mech-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            li {
+                margin: 0;
+                padding: 0;
+                .stats {
+                    position: relative;
+                    height: 25px;
+                    .move {
+                        width: 20%;
+                        display: inline-block;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                    }
+                    .bars {
+                        width: 80%;
+                        display: inline-block;
+                        padding-left: 2px;
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                    }
+                }
+            }
+        }
+        
+    }
+    .selected-mech {
+        max-width: 84vw;
+        .text-section {
+            max-width: 50%;
+            margin: 10rem auto 0 auto;
+            padding: 3rem 0;
+        }
+    }
+}

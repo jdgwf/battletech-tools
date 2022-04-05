@@ -1,4 +1,5 @@
 import { generateUUID } from "../utils";
+import { BattleMech } from "./battlemech";
 import { BattleMechGroup, ICBTGroupExport } from "./battlemech-group";
 
 export interface ICBTForceExport {
@@ -17,7 +18,7 @@ export class BattleMechForce {
 	private _lastUpdated: Date = new Date();
 
 	public customName : string= "";
-
+    
     public groups: BattleMechGroup[] = [];
 
     constructor(importObj: ICBTForceExport | null = null ) {
@@ -30,6 +31,31 @@ export class BattleMechForce {
         }
     }
 
+    setSelectedMech( 
+        uuid: string
+    ) {
+        for( let group of this.groups ) {
+            for( let unit of group.members ) {
+                if( unit.uuid == uuid ) {
+                    unit.selectedMech = true;
+                } else {
+                    unit.selectedMech = false;
+                }
+            }
+        }
+    }
+
+
+    getSelectedMech(): BattleMech | null {
+        for( let group of this.groups ) {
+            for( let unit of group.members ) {
+                if( unit.selectedMech ) {
+                    return unit;
+                }
+            }
+        }
+        return null;
+    }
 
     public removeGroup(asGroupIndex: number) {
         if( this.groups.length > asGroupIndex && this.groups[asGroupIndex]) {

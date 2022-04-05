@@ -1529,6 +1529,32 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         yLoc={1260}
     />
 
+    {this.props.inPlay ? (
+        <>
+    <rect
+        x={300}
+        y={300}
+        width={1600}
+        height={400}
+        fill="white"
+        fillOpacity={.8}
+        stroke="black"
+        strokeWidth={3}
+    />
+<text
+        x={1100}
+        y={500}
+        textAnchor="middle"
+        fontFamily="sans-serif"
+        fill={"red"}
+        style={{fontWeight: 700}}
+        fontSize={60}
+    >
+    TODO: IN-PLAY CONTROLS
+    </text> 
+        </>
+    ): null}
+
 	{/* // Classic BattleTech Logo on bottom. */}
     <rect
         x={0}

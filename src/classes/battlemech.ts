@@ -79,6 +79,7 @@ interface IBMEquipmentExport {
 }
 export interface IBattleMechExport {
 
+    selectedMech: boolean;
     introductoryRules?: boolean;
     name?: string;
     make: string;
@@ -169,6 +170,7 @@ export class BattleMech {
 
     private _introductoryRules: boolean = false;
 
+    public selectedMech: boolean = false;
 
     private _nickname = "";
     private _lastUpdated: Date = new Date();
@@ -4650,6 +4652,7 @@ export class BattleMech {
         this.calcAlphaStrike();
 
         let exportObject: IBattleMechExport = {
+            selectedMech: this.selectedMech,
             introductoryRules: this._introductoryRules,
             make: this._make,
             nickname: this._nickname,
@@ -4755,6 +4758,10 @@ export class BattleMech {
         importObject: IBattleMechExport,
     ) {
 
+        this.selectedMech = false;
+        if( importObject && importObject.selectedMech ) {
+            this.selectedMech = true;
+        }
 
         if( importObject && importObject.mechType  ) {
             if( importObject.name )
@@ -6238,6 +6245,9 @@ export class BattleMech {
         return this._pilot;
     }
 
+    public get uuid(): string {
+        return this._uuid;
+    }
 }
 
 function sortByBVThenRearThenHeat(  a: IEquipmentItem, b: IEquipmentItem  ) {

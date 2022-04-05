@@ -1,0 +1,9 @@
+.stat-bar {
+    width: 100%;
+    position: relative;
+    
+    background: #666;
+    .stat-bar-current {
+        background: #fff;    
+    }
+}

@@ -16,7 +16,7 @@ export default class TextSection extends React.Component<ITextSectionProps, ITex
 
         return (
 
-          <div className="text-section">
+          <div className={this.props.className ? this.props.className + " text-section" : "text-section"}>
               {this.props.label ? (
                 <h2>
                     {this.props.label}
@@ -36,6 +36,7 @@ export default class TextSection extends React.Component<ITextSectionProps, ITex
 interface ITextSectionProps {
     label?: string;
     labelButton?: React.ReactFragment;
+    className?: string;
 }
 
 
