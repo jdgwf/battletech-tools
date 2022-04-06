@@ -809,15 +809,15 @@ export class AlphaStrikeUnit {
 
         this.currentMove += "" + this.move[moveC].currentMove + "\"" + this.move[moveC].type;
             let tmpTMM = 0;
-            if( this.move[moveC].currentMove < 5 ) {
+            if( this.move[moveC].move < 5 ) {
                 tmpTMM = 0;
-            } else if( this.move[moveC].currentMove < 9 ) {
+            } else if( this.move[moveC].move < 9 ) {
                 tmpTMM = 1;
-            } else if( this.move[moveC].currentMove < 13 ) {
+            } else if( this.move[moveC].move < 13 ) {
                 tmpTMM = 2;
-            } else if( this.move[moveC].currentMove < 19 ) {
+            } else if( this.move[moveC].move < 19 ) {
                 tmpTMM = 3;
-            } else if( this.move[moveC].currentMove < 35 ) {
+            } else if( this.move[moveC].move < 35 ) {
                 tmpTMM = 4;
             } else {
                 tmpTMM = 5;
@@ -827,12 +827,26 @@ export class AlphaStrikeUnit {
             //     tmpTMM++;
             // }
 
+            // MP Hits against TMM
+            for( let count = 0; count < this.getMPHits(); count++ ) {
+                let mpHit = Math.round(tmpTMM / 2);
+                if( mpHit < 1 ) {
+                    mpHit = 1;
+                }
+                tmpTMM -= mpHit;
+
+
+                if( tmpTMM < 0 ) {
+                    tmpTMM = 0;
+                }
+            }
+
             if( this.move[moveC].currentMove < 0 ) {
                 this.move[moveC].currentMove = 0;
             }
 
             if( this.move[moveC].currentMove === 0 )
-                tmpTMM = 0;
+                tmpTMM = -4;
 
             // shut down units have a tmm of -4 (ASC pg. 53)
             if( this.currentHeat===4 ){
@@ -843,7 +857,7 @@ export class AlphaStrikeUnit {
             if( this.move[moveC].currentMove > 0 )
             this.immobile = false;
 
-        this.currentTMM += "" + tmpTMM; //  + this.move[moveC].type;
+            this.currentTMM += tmpTMM.toString(); //  + this.move[moveC].type;
 
             if( moveC !== this.move.length - 1 ) {
             this.currentTMM += "/";
