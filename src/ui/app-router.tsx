@@ -21,6 +21,7 @@ import EquipmentEditor from "./pages/equipment-editor";
 import Error404 from "./pages/error404";
 import Home from "./pages/home";
 import SettingsRouter from "./pages/settings/_router";
+let pjson = require('../../package.json');
 
 
 export default class AppRouter extends React.Component<IAppRouterProps, IAppRouterState> {
@@ -351,6 +352,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         callAnalytics(
             window,
             appGlobals.sessionUUID,
+            pjson.version,
         );
 
         if( subTitle ) {

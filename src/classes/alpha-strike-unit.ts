@@ -842,29 +842,29 @@ export class AlphaStrikeUnit {
             // }
 
             // MP Hits against Move
-            // for( let count = 0; count < this.getMPHits(); count++ ) {
-            //     let mpHit = Math.round(tmpTMM / 2);
-            //     if( mpHit < 1 ) {
-            //         mpHit = 1;
-            //     }
-            //     tmpTMM -= mpHit;
+            for( let count = 0; count < this.getMPHits(); count++ ) {
+                let tmmHit = Math.round(tmpTMM / 2);
+                if( tmmHit < 1 ) {
+                    tmmHit = 1;
+                }
+                tmpTMM -= tmmHit;
 
 
-            //     if( tmpTMM < 0 ) {
-            //         tmpTMM = 0;
-            //     }
+                if( tmpTMM < 0 ) {
+                    tmpTMM = 0;
+                }
 
-            //     for( let moveC = 0; moveC < this.move.length; moveC++ ) {
-            //         let moveHit = Math.round(this.move[moveC].currentMove / 2);
-            //         if( moveHit < 2 ) {
-            //             moveHit = 2;
-            //         }
-            //         this.move[moveC].currentMove -= moveHit;
-            //         if( this.move[moveC].currentMove < 0 ) {
-            //             this.move[moveC].currentMove = 0;
-            //         }   
-            //     }
-            // }
+                // for( let moveC = 0; moveC < this.move.length; moveC++ ) {
+                    // let moveHit = Math.round(this.move[moveC].currentMove / 2);
+                    // if( moveHit < 2 ) {
+                    //     moveHit = 2;
+                    // }
+                    // this.move[moveC].currentMove -= moveHit;
+                    // if( this.move[moveC].currentMove < 0 ) {
+                    //     this.move[moveC].currentMove = 0;
+                    // }   
+                // }
+            }
 
             if( this.move[moveC].currentMove < 0 ) {
                 this.move[moveC].currentMove = 0;
@@ -877,6 +877,20 @@ export class AlphaStrikeUnit {
             if( this.currentHeat === 4 ){
                 tmpTMM = -4;
                 this.immobile = true;
+            } else {
+                if( this.currentHeat > 1 ){
+                    tmpTMM -= 1;
+                    if( tmpTMM < 0 ) {
+                        tmpTMM = 0;
+                    }
+                }
+                // UNCOMMENT the below area if it's a -1 TMM at OV3 on top of the -1 TMM at OV2
+                if( this.currentHeat > 2 ){
+                    tmpTMM -= 1;
+                    if( tmpTMM < 0 ) {
+                        tmpTMM = 0;
+                    }
+                }
             }
 
             if( this.move[moveC].currentMove > 0 )

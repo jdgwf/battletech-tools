@@ -4,6 +4,7 @@ const propertyID = 1;
 export function callAnalytics(
     window: any,
     appSessionID: string = "",
+    appVersion: string = "",
 ) {
 
     try {
@@ -21,7 +22,7 @@ export function callAnalytics(
             )
         ) {
             // don't run analytics in a development url
-            console.info("Analytics call ignored")
+            console.info("Analytics call ignored", appSessionID, appVersion)
             return;
         }
 
@@ -34,7 +35,7 @@ export function callAnalytics(
                 headers: new Headers({
                     'Content-Type': 'application/x-www-form-urlencoded',
                 }),
-                body: "property=" + propertyID.toString() + "&url=" + encodeURI(url) + "&host=" + encodeURI(host) + "&app_session_id=" + encodeURI(appSessionID),
+                body: "property=" + propertyID.toString() + "&url=" + encodeURI(url) + "&host=" + encodeURI(host) + "&app_session_id=" + encodeURI(appSessionID) + "&app_version=" + encodeURI(appVersion),
             })
             .then(async (response) => {
                 // response.json()
