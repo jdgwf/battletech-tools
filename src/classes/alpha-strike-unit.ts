@@ -736,22 +736,35 @@ export class AlphaStrikeUnit {
             ( this.type && this.type.toLowerCase() === "im" )
         ) {
             // for BattleMechs
-            for( let mpHitsCount = 0; mpHitsCount < this.mpControlHits.length; mpHitsCount++) {
-                if( this.mpControlHits[ mpHitsCount ] ) {
-
-                    for( let moveC = 0; moveC < this.move.length; moveC++ ) {
-                        let movePenalty = Math.round( +this.move[moveC].currentMove / 2);
-                        if( movePenalty < 2 )
-                            movePenalty = 2;
-
-                        this.move[moveC].currentMove = this.move[moveC].currentMove - movePenalty;
-
-                        if( this.move[moveC].currentMove < 0 )
-                            this.move[moveC].currentMove = 0;
+            for( let count = 0; count < this.getMPHits(); count++ ) {
+                for( let moveC = 0; moveC < this.move.length; moveC++ ) {
+                    let moveHit = Math.round(this.move[moveC].currentMove / 2);
+                    if( moveHit < 2 ) {
+                        moveHit = 2;
                     }
-
+                    this.move[moveC].currentMove -= moveHit;
+                    if( this.move[moveC].currentMove < 0 ) {
+                        this.move[moveC].currentMove = 0;
+                    }   
                 }
             }
+
+            // for( let mpHitsCount = 0; mpHitsCount < this.mpControlHits.length; mpHitsCount++) {
+            //     if( this.mpControlHits[ mpHitsCount ] ) {
+
+            //         for( let moveC = 0; moveC < this.move.length; moveC++ ) {
+            //             let movePenalty = Math.round( +this.move[moveC].currentMove / 2);
+            //             if( movePenalty < 2 )
+            //                 movePenalty = 2;
+
+            //             this.move[moveC].currentMove = this.move[moveC].currentMove - movePenalty;
+
+            //             if( this.move[moveC].currentMove < 0 )
+            //                 this.move[moveC].currentMove = 0;
+            //         }
+
+            //     }
+            // }
         }
 
         if(
@@ -802,12 +815,13 @@ export class AlphaStrikeUnit {
             if( this.move[moveC].type !== "j" ) {
                 this.move[moveC].currentMove = this.move[moveC].currentMove - this.currentHeat * 2;
                 //can't have minus move, or heat level "4" === shutdown
-                if (this.move[moveC].currentMove<0||this.currentHeat===4){
-                    this.move[moveC].currentMove=0;
+                if (this.move[moveC].currentMove < 0 || this.currentHeat === 4){
+                    this.move[moveC].currentMove = 0;
                 }
             }
 
-        this.currentMove += "" + this.move[moveC].currentMove + "\"" + this.move[moveC].type;
+            this.currentMove += "" + this.move[moveC].currentMove + "\"" + this.move[moveC].type;
+
             let tmpTMM = 0;
             if( this.move[moveC].move < 5 ) {
                 tmpTMM = 0;
@@ -827,19 +841,30 @@ export class AlphaStrikeUnit {
             //     tmpTMM++;
             // }
 
-            // MP Hits against TMM
-            for( let count = 0; count < this.getMPHits(); count++ ) {
-                let mpHit = Math.round(tmpTMM / 2);
-                if( mpHit < 1 ) {
-                    mpHit = 1;
-                }
-                tmpTMM -= mpHit;
+            // MP Hits against Move
+            // for( let count = 0; count < this.getMPHits(); count++ ) {
+            //     let mpHit = Math.round(tmpTMM / 2);
+            //     if( mpHit < 1 ) {
+            //         mpHit = 1;
+            //     }
+            //     tmpTMM -= mpHit;
 
 
-                if( tmpTMM < 0 ) {
-                    tmpTMM = 0;
-                }
-            }
+            //     if( tmpTMM < 0 ) {
+            //         tmpTMM = 0;
+            //     }
+
+            //     for( let moveC = 0; moveC < this.move.length; moveC++ ) {
+            //         let moveHit = Math.round(this.move[moveC].currentMove / 2);
+            //         if( moveHit < 2 ) {
+            //             moveHit = 2;
+            //         }
+            //         this.move[moveC].currentMove -= moveHit;
+            //         if( this.move[moveC].currentMove < 0 ) {
+            //             this.move[moveC].currentMove = 0;
+            //         }   
+            //     }
+            // }
 
             if( this.move[moveC].currentMove < 0 ) {
                 this.move[moveC].currentMove = 0;
@@ -849,9 +874,9 @@ export class AlphaStrikeUnit {
                 tmpTMM = -4;
 
             // shut down units have a tmm of -4 (ASC pg. 53)
-            if( this.currentHeat===4 ){
+            if( this.currentHeat === 4 ){
                 tmpTMM = -4;
-                this.immobile=true;
+                this.immobile = true;
             }
 
             if( this.move[moveC].currentMove > 0 )
