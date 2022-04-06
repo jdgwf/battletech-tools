@@ -878,6 +878,7 @@ export class AlphaStrikeUnit {
                 tmpTMM = -4;
                 this.immobile = true;
             } else {
+                // -1 TMM at OV2 or OV3 (ASC pg. 52)
                 if( this.currentHeat > 1 ){
                     tmpTMM -= 1;
                     if( tmpTMM < 0 ) {
@@ -885,12 +886,12 @@ export class AlphaStrikeUnit {
                     }
                 }
                 // UNCOMMENT the below area if it's a -1 TMM at OV3 on top of the -1 TMM at OV2
-                if( this.currentHeat > 2 ){
-                    tmpTMM -= 1;
-                    if( tmpTMM < 0 ) {
-                        tmpTMM = 0;
-                    }
-                }
+                // if( this.currentHeat > 2 ){
+                //     tmpTMM -= 1;
+                //     if( tmpTMM < 0 ) {
+                //         tmpTMM = 0;
+                //     }
+                // }
             }
 
             if( this.move[moveC].currentMove > 0 )
