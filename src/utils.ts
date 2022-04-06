@@ -5,7 +5,6 @@ import { mechISEquipmentBallistic } from "./data/mech-is-equipment-weapons-balli
 import { mechISEquipmentEnergy } from "./data/mech-is-equipment-weapons-energy";
 import { mechISEquipmentMisc } from "./data/mech-is-equipment-weapons-misc";
 import { mechISEquipmentMissiles } from "./data/mech-is-equipment-weapons-missiles";
-import { mulListItems } from "./data/mul-list-items";
 
 
 export function addCommas( numericalValue: number ): string {

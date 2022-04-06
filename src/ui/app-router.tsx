@@ -130,7 +130,6 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         let battleMechSaves: IBattleMechExport[] = await getBattleMechSaves(appSettings);
         let asImportFavorites: IASGroupExport[] = await getFavoriteASGroups(appSettings);
 
-        console.log("asImportFavorites", asImportFavorites);
         // Basic Data Integrity Checks
         let needsBMReSave = false;
         for( let item of battleMechSaves ) {
@@ -172,7 +171,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
         let bmImportedFavorites: BattleMechGroup[] = [];
 
-        if( asImportFavorites.length > 0 ) {
+        if( bmImportFavorites.length > 0 ) {
             if( bmImportFavorites && bmImportFavorites.length > 0 )  {
                 for( let importItem of bmImportFavorites ) {
                     bmImportedFavorites.push( new BattleMechGroup(importItem) );
@@ -240,7 +239,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
     }
 
     saveCurrentASForce = ( asForce: AlphaStrikeForce ): void => {
-        // let exportASForce = asForce.export();
+
         let appGlobals = this.state.appGlobals;
         appGlobals.currentASForce = asForce;
         this.setState({
@@ -285,7 +284,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
 
     saveCurrentCBTForce = ( bmForce: BattleMechForce ): void => {
-        // let exportCBTForce = asForce.export();
+
         let appGlobals = this.state.appGlobals;
         appGlobals.currentCBTForce = bmForce;
         this.setState({

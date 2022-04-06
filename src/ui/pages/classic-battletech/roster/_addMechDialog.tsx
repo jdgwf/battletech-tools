@@ -3,14 +3,11 @@ import { FaEye, FaPlusCircle } from 'react-icons/fa';
 import { Link } from "react-router-dom";
 import { BattleMech } from '../../../../classes/battlemech';
 import { BattleMechGroup } from '../../../../classes/battlemech-group';
-import { generateUUID } from '../../../../utils';
 import { IAppGlobals } from '../../../app-router';
 import SanitizedHTML from '../../../components/sanitized-html';
 import StandardModal from '../../../components/standard-modal';
 import BattleMechSVG from '../../../components/svg/battlemech-svg';
 import BattleMechTableGroup from './_tableGroup';
-// import InPlay from './in-play';
-// import PrintSheet from './print';
 
 export default class BattleMechAddMechDialog extends React.Component<IBattleMechAddMechDialogProps, IBattleMechAddMechDialogState> {
 
