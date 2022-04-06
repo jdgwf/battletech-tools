@@ -22,7 +22,12 @@ export function generateUUID(): string {
 }
 
 export function getISEquipmentList(): IEquipmentItem[] {
-    return mechISEquipmentBallistic.concat( mechISEquipmentEnergy, mechISEquipmentMissiles, mechISEquipmentMisc)
+    return mechISEquipmentBallistic
+        .concat( 
+            mechISEquipmentEnergy, 
+            mechISEquipmentMissiles, 
+            mechISEquipmentMisc
+        );
 }
 
 export function getClanEquipmentList(): IEquipmentItem[] {
@@ -30,60 +35,60 @@ export function getClanEquipmentList(): IEquipmentItem[] {
 }
 
 
-export function getOfflineMULResults(
-    searchTerm: string,
-    mechRules: string,
-    techFilter: string,
-    eraFilter: string,
-): IASMULUnit[] {
-    let returnUnits: IASMULUnit[] = [];
+// export function getOfflineMULResults(
+//     searchTerm: string,
+//     mechRules: string,
+//     techFilter: string,
+//     eraFilter: string,
+// ): IASMULUnit[] {
+//     let returnUnits: IASMULUnit[] = [];
 
-    console.log(
-        "getOfflineMULResults called!",
-        searchTerm,
-        mechRules,
-        techFilter,
-        eraFilter,
-    );
+//     console.log(
+//         "getOfflineMULResults called!",
+//         searchTerm,
+//         mechRules,
+//         techFilter,
+//         eraFilter,
+//     );
 
-    searchTerm = searchTerm.toLowerCase().trim()
-    mechRules = mechRules.toLowerCase().trim()
-    techFilter = techFilter.toLowerCase().trim()
-    eraFilter = eraFilter.toLowerCase().trim()
-    let numberEraFilter = eraFilter ? +eraFilter : 0;
+//     searchTerm = searchTerm.toLowerCase().trim()
+//     mechRules = mechRules.toLowerCase().trim()
+//     techFilter = techFilter.toLowerCase().trim()
+//     eraFilter = eraFilter.toLowerCase().trim()
+//     let numberEraFilter = eraFilter ? +eraFilter : 0;
 
-    if( searchTerm.length >= 3) {
-        for( let unit of mulListItems) {
+//     if( searchTerm.length >= 3) {
+//         for( let unit of mulListItems) {
 
-            if(
-                unit.Name.toLowerCase().trim().indexOf(searchTerm ) > -1
-                &&
-                (
-                    mechRules === ""
-                    ||
-                    unit.Rules.toLowerCase().trim().indexOf( mechRules ) > -1
-                )
-                &&
-                (
-                    techFilter === ""
-                    ||
-                    unit.Technology.Name.toLowerCase().trim().indexOf( techFilter ) > -1
-                )
-                &&
-                (
-                    numberEraFilter === 0
-                        ||
-                    unit.EraStart > numberEraFilter
-                )
-            ) {
-                returnUnits.push( unit );
-            }
-        }
-    }
+//             if(
+//                 unit.Name.toLowerCase().trim().indexOf(searchTerm ) > -1
+//                 &&
+//                 (
+//                     mechRules === ""
+//                     ||
+//                     unit.Rules.toLowerCase().trim().indexOf( mechRules ) > -1
+//                 )
+//                 &&
+//                 (
+//                     techFilter === ""
+//                     ||
+//                     unit.Technology.Name.toLowerCase().trim().indexOf( techFilter ) > -1
+//                 )
+//                 &&
+//                 (
+//                     numberEraFilter === 0
+//                         ||
+//                     unit.EraStart > numberEraFilter
+//                 )
+//             ) {
+//                 returnUnits.push( unit );
+//             }
+//         }
+//     }
 
 
-    return returnUnits;
-}
+//     return returnUnits;
+// }
 
 export async function getMULASSearchResults(
     searchTerm: string,
@@ -175,24 +180,25 @@ export async function getMULASSearchResults(
 
             })
             .catch(err => {
-                console.error('Error: ', err)
-                returnUnits = getOfflineMULResults(
-                    searchTerm,
-                    mechRules,
-                    techFilter,
-                    eraFilter,
-                )
+                console.error('MUL Fetch Error: ', err);
+                // returnUnits = getOfflineMULResults(
+                //     searchTerm,
+                //     mechRules,
+                //     techFilter,
+                //     eraFilter,
+                // )
             })
         }
 
 
     } else {
-        returnUnits = getOfflineMULResults(
-            searchTerm,
-            mechRules,
-            techFilter,
-            eraFilter,
-        )
+        // returnUnits = getOfflineMULResults(
+        //     searchTerm,
+        //     mechRules,
+        //     techFilter,
+        //     eraFilter,
+        // )
+        console.warn("Navigator is offline!")
     }
     return returnUnits;
 }

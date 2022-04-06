@@ -42,7 +42,6 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         appSettings.alphaStrikeSearchTerm = event.currentTarget.value;
         this.props.appGlobals.saveAppSettings( appSettings );
 
-
         this.updateSearchResults();
     }
 
@@ -81,6 +80,8 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
     }
 
     updateSearchResults = async (): Promise<void> => {
+
+      // console.log("updateSearchResults called")
       let data: IASMULUnit[] = await getMULASSearchResults(
         this.props.appGlobals.appSettings.alphaStrikeSearchTerm,
         this.props.appGlobals.appSettings.alphaStrikeSearchRules,
@@ -89,6 +90,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         !navigator.onLine,
       );
 
+      // console.log("updateSearchResults data", data);
       this.setState({
         searchResults: data,
         contextMenuSearch: -1,
@@ -311,7 +313,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                       </>
                     ) : (
                       <>
-                      {this.props.appGlobals.appSettings.alphaStrikeSearchTerm.length > 2 ? (
+                      {this.props.appGlobals.appSettings.alphaStrikeSearchTerm.length < 3 ? (
                         <tbody>
                         <tr>
                           <td className="text-center" colSpan={6}>
@@ -323,7 +325,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                         <tbody>
                         <tr>
                           <td className="text-center" colSpan={6}>
-                            Sorry, there are no matches with those parameters
+                            Sorry, there are no matches with those parameters. It is a remote possibility that the MUL is down if other searches don't work.
                           </td>
                         </tr>
                         </tbody>

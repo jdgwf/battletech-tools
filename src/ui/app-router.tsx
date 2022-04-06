@@ -130,6 +130,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         let battleMechSaves: IBattleMechExport[] = await getBattleMechSaves(appSettings);
         let asImportFavorites: IASGroupExport[] = await getFavoriteASGroups(appSettings);
 
+        console.log("asImportFavorites", asImportFavorites);
         // Basic Data Integrity Checks
         let needsBMReSave = false;
         for( let item of battleMechSaves ) {
@@ -254,6 +255,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         appGlobals.favoriteASGroups.push( asGroup );
         this.saveFavoriteASGroups( appGlobals.favoriteASGroups );
 
+        saveFavoriteASGroupsObjects( appGlobals.appSettings, appGlobals.favoriteASGroups )
     }
 
     removeASGroupFavorite = ( asGroupIndex: number ): void => {
@@ -278,7 +280,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         this.setState({
             appGlobals: appGlobals,
         });
-
+        saveFavoriteASGroupsObjects( appGlobals.appSettings, appGlobals.favoriteASGroups )
     }
 
 
@@ -291,6 +293,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         });
 
         saveCurrentCBTForce( appGlobals.appSettings, bmForce.export() );
+        saveFavoriteCBTGroupsObjects( appGlobals.appSettings, appGlobals.favoriteCBTGroups )
     }
 
     saveCBTGroupFavorite = ( bmGroup: BattleMechGroup ): void => {
@@ -322,7 +325,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         this.setState({
             appGlobals: appGlobals,
         });
-
+        saveFavoriteCBTGroupsObjects( appGlobals.appSettings, appGlobals.favoriteCBTGroups )
     }
 
     toggleMobile = (): void => {
