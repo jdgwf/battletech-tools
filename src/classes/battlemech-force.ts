@@ -9,6 +9,7 @@ export interface ICBTForceExport {
 
     turn: number;
     phase: number;
+    hideHelp: boolean;
 }
 
 export class BattleMechForce {
@@ -26,6 +27,8 @@ export class BattleMechForce {
 
     public turn: number = 1;
     public phase: number = 0;
+
+    public hideHelp: boolean = false;
 
     constructor(importObj: ICBTForceExport | null = null ) {
         if( importObj ) {
@@ -89,6 +92,7 @@ export class BattleMechForce {
             lastUpdated: new Date(),
             turn: this.turn,
             phase: this.phase,
+            hideHelp: this.hideHelp,
         }
 
         for( let group of this.groups) {
@@ -132,6 +136,10 @@ export class BattleMechForce {
         }
         if( typeof(importObj.phase) != "undefined" ) {
             this.phase = importObj.phase;
+        }
+
+        if( typeof(importObj.hideHelp) != "undefined" ) {
+            this.hideHelp = importObj.hideHelp;
         }
 
         if( importObj.lastUpdated ) {

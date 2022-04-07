@@ -1,6 +1,6 @@
 import React from 'react';
 import { HotSurface } from 'react-game-icons';
-import { FaArrowCircleLeft, FaDice, FaGift, FaShoePrints } from "react-icons/fa";
+import { FaArrowCircleLeft, FaDice, FaGift, FaQuestionCircle, FaShoePrints } from "react-icons/fa";
 import { GiBattleAxe, GiMissileSwarm } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
 import { BattleMech, IGATOR, ITargetToHit } from "../../../../classes/battlemech";
@@ -66,6 +66,23 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       if(this.props.appGlobals.currentCBTForce) {
         let currentCBTForce = this.props.appGlobals.currentCBTForce;
         currentCBTForce.phase = nv;
+
+        this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
+      }
+
+
+    }
+
+    toggleHelp = (
+      e: React.FormEvent<HTMLButtonElement>,
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+
+      if(this.props.appGlobals.currentCBTForce) {
+        let currentCBTForce = this.props.appGlobals.currentCBTForce;
+        currentCBTForce.hideHelp = !currentCBTForce.hideHelp;
 
         this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
       }
@@ -927,20 +944,29 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             </ul>
 
           </header>
+<div className="page-container">
+<div className="record-sheet-column">
 <div 
   className="alert alert-warning small-text"
-  style={{width: "83vw"}}
 >
   This is still far from ready to be used live. That said, much progress has been made on Target, per weapon GATOR, and movement.
   <br />Next up: Taking Damage, After that, turn progress (or vice/versa)
 </div>
-<div 
-style={{width: "83vw"}}
->
+<div>
 <TextSection
   
 >
   <div className="turn-counter">
+      <div>
+        <button
+          className={this.props.appGlobals.currentCBTForce.hideHelp ? "btn btn-secondary btn-sm" : "btn btn-primary btn-sm"}
+          onClick={this.toggleHelp}
+          title="Click here to toggle the help text below"
+        >
+          {this.props.appGlobals.currentCBTForce.hideHelp ? 
+          <FaQuestionCircle /> : <FaQuestionCircle /> }
+        </button>
+      </div>
       <div>
         <InputNumeric
           step={1}
@@ -1008,12 +1034,12 @@ style={{width: "83vw"}}
           <FaGift />
         </button>
       </div>
-      <div className="grow">
-        {this.props.appGlobals.currentCBTForce.getPhaseName(this.props.appGlobals.currentCBTForce.phase)}
+      <div className="grow-2">
+        <h5>{this.props.appGlobals.currentCBTForce.getPhaseName(this.props.appGlobals.currentCBTForce.phase)}</h5>
       </div>
 
       {this.props.appGlobals.currentCBTForce.phase === 4 ? (
-        <div>
+        <div className="grow-1">
           <button
             className="btn btn-sm btn-primary"
           >
@@ -1022,7 +1048,7 @@ style={{width: "83vw"}}
         </div>
       ) : null}
       {this.props.appGlobals.currentCBTForce.phase === 5 ? (
-        <div>
+        <div className="grow-1">
           <button
             className="btn btn-sm btn-primary"
             onClick={this.nextTurn}
@@ -1032,52 +1058,78 @@ style={{width: "83vw"}}
         </div>
       ) : null}
       {this.props.appGlobals.currentCBTForce.phase === 2 ? (
-        <div>
-          <button
+        <div className="grow-1">
+          <button 
             className="btn btn-sm btn-primary"
           >
-            Resolve Weapons Fire
+            Resolve Fire
           </button>
         </div>
       ) : null}
 </div>
-<div className="text-center">
+{!this.props.appGlobals.currentCBTForce.hideHelp ? (
+  <div className="text-center">
+    <hr />
   {this.props.appGlobals.currentCBTForce.phase === 0 ? (
-      <div className="small-text">
-          One player from each side rolls 2D6 and adds the results
-together to determine their side’s Initiative. The side with the higher
-result wins Initiative for that turn. Re-roll all ties.
-      </div>
-    ) : null}
-    {this.props.appGlobals.currentCBTForce.phase === 1 ? (
-      <div className="small-text">
-        Move your mechs as per standard rules. Click on the Blue Movement section below Weapons and Equipent for each moving 'mech. Set the Movement mode, and the to-hit modifier for each unit.
-      </div>
-    ) : null}
-    {this.props.appGlobals.currentCBTForce.phase === 2 ? (
-      <div className="small-text">
-        Declare all of your Weapon Attacks by setting a Target and then cycling through each weapon to be an "A", "B", or "C" a blank circle means the weapon will not be fired. Once all declarations are done, click on the "Resolve Weapons Fire" button above. A list of 'mech weapons, attacks, targets, damage, and to-hit roll needed will pop up.
-      </div>
-    ) : null}
-    {this.props.appGlobals.currentCBTForce.phase === 3 ? (
-      <div className="small-text">
-        Make physical attacks as per the rule book.
-      </div>
-    ) : null}
-    {this.props.appGlobals.currentCBTForce.phase === 4 ? (
-      <div className="small-text">
-        Click on the "Apply Heat" button above to add heat from movement, damage, etc and then subtract heat via heat sinks.
-      </div>
-    ) : null}
-    {this.props.appGlobals.currentCBTForce.phase === 5 ? (
-      <div className="small-text">
-        This turn's a wrap! Click on "Next Turn" above
-      </div>
-    ) : null}
-</div>
+        <div>
+            One player from each side rolls 2D6 and adds the results
+  together to determine their side’s Initiative. The side with the higher
+  result wins Initiative for that turn. Re-roll all ties.
+        </div>
+      ) : null}
+      {this.props.appGlobals.currentCBTForce.phase === 1 ? (
+        <div>
+          Move your mechs as per standard rules. Click on the Blue Movement section below Weapons and Equipent for each moving 'mech. Set the Movement mode, and the to-hit modifier for each unit.
+        </div>
+      ) : null}
+      {this.props.appGlobals.currentCBTForce.phase === 2 ? (
+        <div>
+          Declare all of your Weapon Attacks by setting a Target and then cycling through each weapon to be an "A", "B", or "C" a blank circle means the weapon will not be fired. Once all declarations are done, click on the "Resolve Fire" button above. A list of 'mech weapons, attacks, targets, damage, and to-hit roll needed will pop up.
+        </div>
+      ) : null}
+      {this.props.appGlobals.currentCBTForce.phase === 3 ? (
+        <div>
+          Make physical attacks as per the rule book.
+        </div>
+      ) : null}
+      {this.props.appGlobals.currentCBTForce.phase === 4 ? (
+        <div>
+          Click on the "Apply Heat" button above to add heat from movement, damage, etc and then subtract heat via heat sinks.
+        </div>
+      ) : null}
+      {this.props.appGlobals.currentCBTForce.phase === 5 ? (
+        <div>
+          This turn's a wrap! Click on "Next Turn" above
+        </div>
+      ) : null}
+  </div>
+) : null}
+
 </TextSection>
+
+<div className="selected-mech">
+          {selectedMech ? (
+              <BattleMechSVG
+                mechData={selectedMech}
+                inPlay={true}
+                openSetTarget={this.openSetTarget}
+                openTakeDamage={this.openTakeDamage}
+                openSetMovement={this.openSetMovement}
+                onChange={this.onChange}
+                viewGATOR={this.viewGATOR}
+              />
+          ) : (
+            <div className="text-center">
+              <TextSection>
+                (No Selected 'Mech)
+              </TextSection>
+            </div>
+          )}
+            </div>
 </div>
-<div className="postion-relative">
+
+</div>
+<div className="sidebar">
 
   <div className={this.state.mechSelectorExpanded ? "mech-selector" : "mech-selector expanded"}>
           {this.props.appGlobals.currentCBTForce.groups.map( (group, groupIndex) => {
@@ -1178,25 +1230,7 @@ result wins Initiative for that turn. Re-roll all ties.
             )
           })} 
     </div>
-    <div className="selected-mech">
-          {selectedMech ? (
-              <BattleMechSVG
-                mechData={selectedMech}
-                inPlay={true}
-                openSetTarget={this.openSetTarget}
-                openTakeDamage={this.openTakeDamage}
-                openSetMovement={this.openSetMovement}
-                onChange={this.onChange}
-                viewGATOR={this.viewGATOR}
-              />
-          ) : (
-            <div className="text-center">
-              <TextSection>
-                (No Selected 'Mech)
-              </TextSection>
-            </div>
-          )}
-            </div>
+    </div>
             </div>            
         </>
       );

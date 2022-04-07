@@ -2,14 +2,14 @@
 
 body {
     .mech-selector {
-        position: absolute;
-        // height: 100%;
-        top: 0;
-        right: 0;
-        // background: $primaryBG;
-        // color: $primaryTextColor;
-        padding-top: 3rem;
-        width: 16vw;
+        // position: absolute;
+        // // height: 100%;
+        // top: 0;
+        // right: 0;
+        // // background: $primaryBG;
+        // // color: $primaryTextColor;
+        // padding-top: 3rem;
+        // width: 16vw;
 
         .details {
             display: none
@@ -57,7 +57,7 @@ body {
 
     }
     .selected-mech {
-        max-width: 83vw;
+        max-width: 100%;
         .text-section {
             max-width: 50%;
             margin: 10rem auto 0 auto;
@@ -65,12 +65,17 @@ body {
         }
     }
     .turn-counter{
-        max-width: 83vw;
+        max-width: 100%;
         display: flex;
+        flex-wrap: wrap;
         flex-direction: row;
-        .grow {
+        .grow-1{
             text-align: center;
             flex-grow: 1;
+        }
+        .grow-2{
+            text-align: center;
+            flex-grow: 2;
         }
     }
     .table {
@@ -83,6 +88,50 @@ body {
                 }
             }
             
+        }
+    }
+
+    .page-container {
+        display: flex;
+        .record-sheet-column {
+            width: 60vw;
+            
+        }
+    
+        .sidebar {
+            width: 40vw;
+        }
+    }
+
+}
+
+@media (min-width: 768px) {
+
+    body {
+        .page-container {
+            .record-sheet-column {
+                width: 80vw;
+                
+            }
+        
+            .sidebar {
+                width: 20vw;
+            }
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    body {
+        .page-container {
+            .record-sheet-column {
+                width: 85vw;
+                
+            }
+        
+            .sidebar {
+                width: 15vw;
+            }
         }
     }
 }
