@@ -5019,45 +5019,37 @@ export class BattleMech {
     public cycleWeaponTarget(
         weaponIndex: number
     ) {
-        console.log("cycleWeaponTarget called")
         if( this._equipmentList.length > weaponIndex ) {
             if( typeof(this._equipmentList[weaponIndex].target) === "undefined" ) {
                 this._equipmentList[weaponIndex].target = "";
-                console.log("cycleWeaponTarget", "setting initial blank")
             }
 
             if( this._equipmentList[weaponIndex].target === "" ) {
                 if( this._targetAToHit && this._targetAToHit.active ) {
                     this._equipmentList[weaponIndex].target = "a";
-                    console.log("cycleWeaponTarget", "setting a")
                     return;
                 }
                 if( this._targetBToHit && this._targetBToHit.active ) {
                     this._equipmentList[weaponIndex].target = "b";
-                    console.log("cycleWeaponTarget", "setting b")
                     return;
                 }
                 if( this._targetCToHit && this._targetCToHit.active ) {
                     this._equipmentList[weaponIndex].target = "c";
-                    console.log("cycleWeaponTarget", "setting c")
                     return;
                 }
-                console.warn("No Active Targets!")
+                console.warn("cycleWeaponTarget No Active Targets!")
                 return;
             } 
 
             if( this._equipmentList[weaponIndex].target === "a" ) {
                 if( this._targetBToHit && this._targetBToHit.active ) {
                     this._equipmentList[weaponIndex].target = "b";
-                    console.log("cycleWeaponTarget", "setting b")
                     return;
                 } else if( this._targetCToHit && this._targetCToHit.active ) {
                     this._equipmentList[weaponIndex].target = "c";
-                    console.log("cycleWeaponTarget", "setting c")
                     return;
                 } else {
                     this._equipmentList[weaponIndex].target = "";
-                    console.log("cycleWeaponTarget", "setting blank")
                     return;
                 }
             }
@@ -5065,18 +5057,15 @@ export class BattleMech {
             if( this._equipmentList[weaponIndex].target === "b" ) {
                 if( this._targetCToHit && this._targetCToHit.active ) {
                     this._equipmentList[weaponIndex].target = "c";
-                    console.log("cycleWeaponTarget", "setting c")
                     return;
                 } else {
                     this._equipmentList[weaponIndex].target = "";
-                    console.log("cycleWeaponTarget", "setting blank")
                     return;
                 }
             }
 
             if( this._equipmentList[weaponIndex].target === "c" ) {
                 this._equipmentList[weaponIndex].target = "";
-                console.log("cycleWeaponTarget", "setting blank")
                 return;
             }
         }

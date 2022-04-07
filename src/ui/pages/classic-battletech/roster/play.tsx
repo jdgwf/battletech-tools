@@ -350,7 +350,6 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
     onChange = (nv: BattleMech ): void => {
       let currentBM: BattleMech | null = this._getCurrentBM();
       if( this.props.appGlobals.currentCBTForce && currentBM ) {
-        console.log("onChange called")
         currentBM = nv;
         this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
       }
