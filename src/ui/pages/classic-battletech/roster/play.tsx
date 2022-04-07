@@ -341,9 +341,20 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       if( e && e.preventDefault ) {
         e.preventDefault();
       }
-      this.setState({
-        setMovementMode: nv,
-      })
+      if( nv === "" ) {
+        
+        this.setState({
+          setMovementMode: nv,
+          setMovementNumber: 0,
+          setMovementJumpingMP: 0,  
+        })
+      } else {
+        this.setState({
+          setMovementMode: nv,
+          
+        })
+      }
+
     }
 
     setMovementNumber = (
@@ -428,7 +439,12 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       <thead>
         {this.state.viewGATOR.weaponName ? (
           <tr>
-            <th colSpan={5}>GATOR for {this.state.viewGATOR.weaponName}</th>
+            <th colSpan={7}>
+              GATOR for {this.state.viewGATOR.weaponName}
+              {this.state.viewGATOR.target ? (
+                <>&nbsp;vs {this.state.viewGATOR.target}</>
+              ) : null}
+            </th>
             
           </tr>
         ) : null}
@@ -438,6 +454,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           <th>T</th>
           <th>O</th>
           <th>R</th>
+          <th>&nbsp;</th>
+          <th>To-Hit</th>
         </tr>
       </thead>
       <tbody>
@@ -446,9 +464,45 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           <td>{this.state.viewGATOR.attackerMovementModifier}</td>
           <td>{this.state.viewGATOR.targetMovementModifier}</td>
           <td>{this.state.viewGATOR.otherModifiers}</td>
-          <td>{this.state.viewGATOR.rangeModifier}</td>
+          <td>
+            {this.state.viewGATOR.rangeModifier}
+            {this.state.viewGATOR.rangeExplanation ? (
+              <>
+              <div className="small-text">
+                {this.state.viewGATOR.rangeExplanation}
+              </div>
+              </>
+            ) : null}
+          </td>
+          <td>&nbsp;</td>
+          <td>
+            {this.state.viewGATOR.finalToHit > -1 ? (
+              <>
+                {this.state.viewGATOR.finalToHit}+
+              </>
+            ) : (
+              <>
+                No Shot!
+              </>
+            )}
+            
+          </td>
         </tr>
       </tbody>
+
+            {this.state.viewGATOR.explanation ? (
+              <>
+                <tfoot>
+                  <tr>
+                    <th colSpan={7}>
+                  {this.state.viewGATOR.explanation}
+                  </th>
+                  </tr>
+                </tfoot>
+              </>
+            ) : null
+            }
+
     </table>
   ) : null}
 </StandardModal>

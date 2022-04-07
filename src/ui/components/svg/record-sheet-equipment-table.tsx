@@ -76,7 +76,7 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
                     <React.Fragment key={ eq_count.toString() + "b"}>
                         {this.props.mechData.sortedSeparatedEquipmentList[ eq_count].target ? (
                             <text 
-                                x={ 20 } 
+                                x={ 18 } 
                                 y={weapAndEqpTop + 115 + this.eqLineHeight * eq_count } 
                                 textAnchor="left" 
                                 fontFamily="sans-serif" 
@@ -87,9 +87,15 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
                                 onClick={(e) => this.viewGATOR(targetGATOR)}
                             >
                                 {targetGATOR.finalToHit > 0 ? (
-                                    <>{targetGATOR.finalToHit}+</>
+                                    <>
+                                        {targetGATOR.finalToHit < 13 ? (
+                                            <>{targetGATOR.finalToHit}+</>
+                                        ) : (
+                                            <>n/s</>
+                                        )}
+                                    </>
                                 ) : (
-                                    "n/h"
+                                    <>n/s</>
                                 )}
                             </text>
                         ) : null}

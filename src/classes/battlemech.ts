@@ -166,6 +166,9 @@ export interface ITargetToHit {
 
 export interface IGATOR {
     weaponName?: string;
+    explanation?: string;
+    target?: string;
+    rangeExplanation?: string;
 
     gunnerySkill: number;
     attackerMovementModifier: number;
@@ -425,6 +428,7 @@ export class BattleMech {
         }
         return this.currentToHitMovementModifier;
     }
+
     public setMechType(typeTag: string) {
         for( let lcounter = 0; lcounter < mechTypeOptions.length; lcounter++) {
             if( typeTag === mechTypeOptions[lcounter].tag) {
@@ -4430,6 +4434,8 @@ export class BattleMech {
 
             if( target ) {
 
+
+                gator.target = "Target " + targetLetter.toUpperCase();
                 gator.weaponName = this._equipmentList[index].name;
 
                 // G
@@ -4452,17 +4458,21 @@ export class BattleMech {
                     target.range <= this._equipmentList[index].range.short 
                 ) {
                     // Check minimum range
+                    gator.rangeExplanation = "Short";
                 } else if( 
                     target.range <= this._equipmentList[index].range.medium 
                 ) {
                     gator.finalToHit += 2;
                     gator.rangeModifier = 2;
+                    gator.rangeExplanation = "Medium";
                 } else if( target.range <=this._equipmentList[index].range.long ) {
                     gator.finalToHit += 4;
                     gator.rangeModifier = 4;
+                    gator.rangeExplanation = "Long";
                 } else {
                     // Out of range
                     gator.finalToHit = -1;
+                    gator.explanation = "The target is out of this weapon's range."
                 }
 
 
@@ -4470,6 +4480,36 @@ export class BattleMech {
             
         }
 
+        if( gator.finalToHit > 12 ) {
+            gator.explanation = "Any roll over 12 is an impossible shot."
+        } else if( gator.finalToHit >= 2 ) {
+            let percentageToHit = 0;
+            if( gator.finalToHit === 2 ) {
+                percentageToHit = 100
+            } else if( gator.finalToHit === 3 ) {
+                percentageToHit = 97.22
+            } else if( gator.finalToHit === 4 ) {
+                percentageToHit = 91.66
+            } else if( gator.finalToHit === 5 ) {
+                percentageToHit = 83.33
+            } else if( gator.finalToHit === 6 ) {
+                percentageToHit = 72.22
+            } else if( gator.finalToHit === 7 ) {
+                percentageToHit = 58.33
+            } else if( gator.finalToHit === 8 ) {
+                percentageToHit = 31.66
+            } else if( gator.finalToHit === 9 ) {
+                percentageToHit = 27.77
+            } else if( gator.finalToHit === 10 ) {
+                percentageToHit = 16.66
+            } else if( gator.finalToHit === 11 ) {
+                percentageToHit = 8.33
+            } else if( gator.finalToHit === 12 ) {
+                percentageToHit = 2.77
+            } 
+
+            gator.explanation = "This roll has a " + percentageToHit.toString() + "% chance of success"
+        }
 
         return gator;
     }
