@@ -169,6 +169,7 @@ export interface IGATOR {
     explanation?: string;
     target?: string;
     rangeExplanation?: string;
+    otherModifiersExplanation?: string;
 
     gunnerySkill: number;
     attackerMovementModifier: number;
@@ -4442,16 +4443,48 @@ export class BattleMech {
                 gator.finalToHit = gator.gunnerySkill;
 
                 // A
-                gator.finalToHit += this.getMovementToHitModifier();
-                gator.attackerMovementModifier = this.getMovementToHitModifier();
+                if( this.currentMovementMode === "w") {
+                    gator.finalToHit += 1;
+                    gator.attackerMovementModifier = 1;
+                    gator.rangeExplanation = "Walked";
+                } else if( this.currentMovementMode === "r") {
+                    gator.finalToHit += 2;
+                    gator.attackerMovementModifier = 2;
+                    gator.rangeExplanation = "Ran";
+                } else if( this.currentMovementMode === "j") {
+                    
+                    gator.finalToHit += 3;
+                    gator.attackerMovementModifier = 3;
+                    gator.rangeExplanation = "Jumped";
+                } else {
+                    gator.rangeExplanation = "Stationary";
+                }
+                
         
                 // T
                 gator.finalToHit += target.movement;
                 gator.targetMovementModifier = target.movement;
 
                 // O
+                let otherModifiersExplanation: string[] = [];
                 gator.finalToHit += target.otherMods;
                 gator.otherModifiers = target.otherMods;
+                if( target.otherMods ) {
+                    otherModifiersExplanation.push( "Target Other Modifiers");
+                }
+                if( 
+                    typeof( this._equipmentList[index].accuracyModifier ) !== "undefined"
+                    &&
+                    this._equipmentList[index].accuracyModifier != 0 
+                ) {
+                    //@ts-ignore
+                    gator.finalToHit += this._equipmentList[index].accuracyModifier;
+                    //@ts-ignore
+                    gator.otherModifiers = this._equipmentList[index].accuracyModifier;
+
+                    otherModifiersExplanation.push( "Weapon Accuracy Modifier" );
+                }
+                gator.otherModifiersExplanation = otherModifiersExplanation.join(", ")
         
                 // R
                 if( 

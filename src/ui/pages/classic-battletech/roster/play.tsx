@@ -521,12 +521,22 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           <th style={{width: "14%"}}>To-Hit</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody> 
         <tr>
           <td>{this.state.viewGATOR.gunnerySkill}</td>
           <td>{this.state.viewGATOR.attackerMovementModifier}</td>
           <td>{this.state.viewGATOR.targetMovementModifier}</td>
-          <td>{this.state.viewGATOR.otherModifiers}</td>
+          <td>
+            {this.state.viewGATOR.otherModifiers}
+            
+            {this.state.viewGATOR.otherModifiersExplanation ? (
+              <>
+              <div className="small-text">
+                {this.state.viewGATOR.otherModifiersExplanation}
+              </div>
+              </>
+            ) : null}
+          </td>
           <td>
             {this.state.viewGATOR.rangeModifier}
             {this.state.viewGATOR.rangeExplanation ? (
