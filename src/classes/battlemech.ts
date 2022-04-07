@@ -4457,8 +4457,28 @@ export class BattleMech {
                 if( 
                     target.range <= this._equipmentList[index].range.short 
                 ) {
-                    // Check minimum range
+                    
                     gator.rangeExplanation = "Short";
+
+                    // Check minimum range
+                    if( 
+                        this._equipmentList[index].range.min 
+                        && 
+                        //@ts-ignore
+                        this._equipmentList[index].range.min > 0 
+                    ) {
+                        let minRange: number = 0;
+                        //@ts-ignore
+                        minRange = this._equipmentList[index].range.min;
+                        
+                        if( target.range < minRange ) {
+                            let rangeModifier = minRange - target.range;
+                            gator.finalToHit += rangeModifier;
+                            gator.rangeModifier = rangeModifier;
+                            gator.rangeExplanation = "Minimum Range";
+                        }
+
+                    }
                 } else if( 
                     target.range <= this._equipmentList[index].range.medium 
                 ) {
