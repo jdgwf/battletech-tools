@@ -11,7 +11,7 @@ import { mechInternalStructureTypes } from "../data/mech-internal-structure-type
 import { mechJumpJetTypes } from "../data/mech-jump-jet-types";
 import { mechTypeOptions } from "../data/mech-type-options";
 import { btTechOptions } from "../data/tech-options";
-import { addCommas, generateUUID, getISEquipmentList, getMovementModifier } from "../utils";
+import { addCommas, generateUUID, getHexDistanceFromModifier, getISEquipmentList, getMovementModifier } from "../utils";
 import { AlphaStrikeUnit, IAlphaStrikeDamage, IASMULUnit } from "./alpha-strike-unit";
 
 
@@ -76,6 +76,7 @@ interface IBMEquipmentExport {
     loc: string | undefined;
     rear: boolean | undefined;
     uuid: string | undefined;
+    target: string | undefined;
 }
 export interface IBattleMechExport {
 
@@ -86,6 +87,9 @@ export interface IBattleMechExport {
     currentToHitMovementModifier: number;
     currentTargetModifier: number;
     currentTargetJumpingMP: number;
+    targetAToHit: ITargetToHit;
+    targetBToHit: ITargetToHit;
+    targetCToHit: ITargetToHit;
 
     // basic properties
     introductoryRules?: boolean;
@@ -152,13 +156,17 @@ interface IAlphaStrikeExport {
 }
 
 export interface ITargetToHit {
-    rangeCount: number;
-    movementCount: number;
+    name: string;
+    active: boolean;
+    range: number;
+    movement: number;
     otherMods: number;
     jumped: boolean;
 }
 
 export interface IGATOR {
+    weaponName?: string;
+
     gunnerySkill: number;
     attackerMovementModifier: number;
     targetMovementModifier: number;
@@ -169,9 +177,27 @@ export interface IGATOR {
 
 export class BattleMech {
 
-    private _targetToHit: ITargetToHit = {
-        rangeCount: 0,
-        movementCount: 0,
+    private _targetAToHit: ITargetToHit = {
+        name: "",
+        active: false,
+        range: 0,
+        movement: 0,
+        otherMods: 0,
+        jumped: false,
+    };
+    private _targetBToHit: ITargetToHit = {
+        name: "",
+        active: false,
+        range: 0,
+        movement: 0,
+        otherMods: 0,
+        jumped: false,
+    };
+    private _targetCToHit: ITargetToHit = {
+        name: "",
+        active: false,
+        range: 0,
+        movement: 0,
         otherMods: 0,
         jumped: false,
     };
@@ -262,6 +288,7 @@ export class BattleMech {
 
     private _equipmentList: IEquipmentItem[] = [];
     private _sortedEquipmentList: IEquipmentItem[] = [];
+    private _sortedSeparatedEquipmentList: IEquipmentItem[] = [];
 
     private _criticalAllocationTable: ICriticalSlot[] = [];
 
@@ -382,6 +409,22 @@ export class BattleMech {
         this._uuid = generateUUID();
     }
 
+    public setTargets(
+        a: ITargetToHit,
+        b: ITargetToHit,
+        c: ITargetToHit,
+    ) {
+        this._targetAToHit = a;
+        this._targetBToHit = b;
+        this._targetCToHit = c;
+    }
+
+    public getMovementToHitModifier(): number {
+        if( this.currentMovementMode === "j" ) {
+            return this.currentToHitMovementModifier + 1;
+        }
+        return this.currentToHitMovementModifier;
+    }
     public setMechType(typeTag: string) {
         for( let lcounter = 0; lcounter < mechTypeOptions.length; lcounter++) {
             if( typeTag === mechTypeOptions[lcounter].tag) {
@@ -3566,6 +3609,7 @@ export class BattleMech {
         // this._equipmentList.sort(sortByLocationThenName);
         this._sortInstalledEquipment();
         this._sortedEquipmentList = [];
+        this._sortedSeparatedEquipmentList = [];
 
         for( let countEQ = 0; countEQ < this._equipmentList.length; countEQ++) {
 
@@ -3582,12 +3626,20 @@ export class BattleMech {
                 }
             }
 
+            
             if( !foundIt) {
-                let eqItem = JSON.parse( JSON.stringify(this._equipmentList[countEQ]));
+                let eqItem = JSON.parse( JSON.stringify(this._equipmentList[countEQ]));    
                 eqItem.count = 1;
                 this._sortedEquipmentList.push(eqItem);
             }
+ 
+            let eqItemSeparate = JSON.parse( JSON.stringify(this._equipmentList[countEQ]));
+            eqItemSeparate.count = 1;
+            this._sortedSeparatedEquipmentList.push( eqItemSeparate )
         }
+
+        // this._sortedEquipmentList.sort();
+        // this._sortedSeparatedEquipmentList.sort();
     }
 
     private _calcCriticals() {
@@ -4355,6 +4407,73 @@ export class BattleMech {
         return this._armorType;
     }
 
+    public getTargetToHitFromWeapon(
+        index: number
+    ): IGATOR {
+        let gator: IGATOR = JSON.parse(JSON.stringify(this.getGATOR()));
+        gator.finalToHit = -1;
+        if( 
+            this._equipmentList.length > index 
+            && this._equipmentList[index] 
+            && typeof( this._equipmentList[index].target ) !== "undefined"
+            && this._equipmentList[index].target 
+        ) {
+            
+ 
+            // TS Typechecker is being an idiot here >:(
+            // At this point, it's NOT undefined... how many times do I have to check?
+            //@ts-ignore 
+            let targetLetter: string = this._equipmentList[index].target;
+   
+
+            let target = this.getTarget( targetLetter )
+
+            if( target ) {
+
+                gator.weaponName = this._equipmentList[index].name;
+
+                // G
+                gator.finalToHit = gator.gunnerySkill;
+
+                // A
+                gator.finalToHit += this.getMovementToHitModifier();
+                gator.attackerMovementModifier = this.getMovementToHitModifier();
+        
+                // T
+                gator.finalToHit += target.movement;
+                gator.targetMovementModifier = target.movement;
+
+                // O
+                gator.finalToHit += target.otherMods;
+                gator.otherModifiers = target.otherMods;
+        
+                // R
+                if( 
+                    target.range <= this._equipmentList[index].range.short 
+                ) {
+                    // Check minimum range
+                } else if( 
+                    target.range <= this._equipmentList[index].range.medium 
+                ) {
+                    gator.finalToHit += 2;
+                    gator.rangeModifier = 2;
+                } else if( target.range <=this._equipmentList[index].range.long ) {
+                    gator.finalToHit += 4;
+                    gator.rangeModifier = 4;
+                } else {
+                    // Out of range
+                    gator.finalToHit = -1;
+                }
+
+
+            }
+            
+        }
+
+
+        return gator;
+    }
+
     public setArmorType(armorTag: string) {
         for( let aCount = 0; aCount < mechArmorTypes.length; aCount++) {
             if( mechArmorTypes[aCount].tag === armorTag) {
@@ -4668,12 +4787,33 @@ export class BattleMech {
         return JSON.stringify( this.export() )
     }
 
+    public getTargetSummaryText(
+        target: string
+    ): string {
+        let targetData = this.getTarget(target);
+
+        if( targetData ) {
+            if( targetData.active ) {
+                return "MOVE: " + targetData.movement + " | " + "RANGE: "+ targetData.range + " | " + "OTHER: "+ targetData.otherMods;
+            } else {
+                return "No Active Target";
+            }
+        }
+        return "No Active Target";
+    }
+
     public export():IBattleMechExport {
         // TODO
         this._calc();
         this.calcAlphaStrike();
 
         let exportObject: IBattleMechExport = {
+
+            targetAToHit: this._targetAToHit,
+            targetBToHit: this._targetBToHit,
+            targetCToHit: this._targetCToHit,
+
+
             selectedMech: this.selectedMech,
 
             currentMovementMode: this.currentMovementMode,
@@ -4723,6 +4863,7 @@ export class BattleMech {
                 loc: this._equipmentList[countEQ].location,
                 rear: this._equipmentList[countEQ].rear,
                 uuid: this._equipmentList[countEQ].uuid,
+                target: this._equipmentList[countEQ].target,
             });
         }
 
@@ -4782,6 +4923,72 @@ export class BattleMech {
         }
     }
 
+    public cycleWeaponTarget(
+        weaponIndex: number
+    ) {
+        console.log("cycleWeaponTarget called")
+        if( this._equipmentList.length > weaponIndex ) {
+            if( typeof(this._equipmentList[weaponIndex].target) === "undefined" ) {
+                this._equipmentList[weaponIndex].target = "";
+                console.log("cycleWeaponTarget", "setting initial blank")
+            }
+
+            if( this._equipmentList[weaponIndex].target === "" ) {
+                if( this._targetAToHit && this._targetAToHit.active ) {
+                    this._equipmentList[weaponIndex].target = "a";
+                    console.log("cycleWeaponTarget", "setting a")
+                    return;
+                }
+                if( this._targetBToHit && this._targetBToHit.active ) {
+                    this._equipmentList[weaponIndex].target = "b";
+                    console.log("cycleWeaponTarget", "setting b")
+                    return;
+                }
+                if( this._targetCToHit && this._targetCToHit.active ) {
+                    this._equipmentList[weaponIndex].target = "c";
+                    console.log("cycleWeaponTarget", "setting c")
+                    return;
+                }
+                console.warn("No Active Targets!")
+                return;
+            } 
+
+            if( this._equipmentList[weaponIndex].target === "a" ) {
+                if( this._targetBToHit && this._targetBToHit.active ) {
+                    this._equipmentList[weaponIndex].target = "b";
+                    console.log("cycleWeaponTarget", "setting b")
+                    return;
+                } else if( this._targetCToHit && this._targetCToHit.active ) {
+                    this._equipmentList[weaponIndex].target = "c";
+                    console.log("cycleWeaponTarget", "setting c")
+                    return;
+                } else {
+                    this._equipmentList[weaponIndex].target = "";
+                    console.log("cycleWeaponTarget", "setting blank")
+                    return;
+                }
+            }
+
+            if( this._equipmentList[weaponIndex].target === "b" ) {
+                if( this._targetCToHit && this._targetCToHit.active ) {
+                    this._equipmentList[weaponIndex].target = "c";
+                    console.log("cycleWeaponTarget", "setting c")
+                    return;
+                } else {
+                    this._equipmentList[weaponIndex].target = "";
+                    console.log("cycleWeaponTarget", "setting blank")
+                    return;
+                }
+            }
+
+            if( this._equipmentList[weaponIndex].target === "c" ) {
+                this._equipmentList[weaponIndex].target = "";
+                console.log("cycleWeaponTarget", "setting blank")
+                return;
+            }
+        }
+    }
+
     import(
         importObject: IBattleMechExport,
     ) {
@@ -4790,6 +4997,19 @@ export class BattleMech {
         if( importObject && importObject.selectedMech ) {
             this.selectedMech = true;
         }
+
+
+        if( importObject && importObject.targetAToHit ) {
+            this._targetAToHit = importObject.targetAToHit;
+        }
+        if( importObject && importObject.targetBToHit ) {
+            this._targetBToHit = importObject.targetBToHit;
+        }
+        if( importObject && importObject.targetCToHit ) {
+            this._targetCToHit = importObject.targetCToHit;
+        }
+
+
 
         if( importObject && importObject.currentMovementMode ) {
             this.currentMovementMode = importObject.currentMovementMode;
@@ -4932,6 +5152,7 @@ export class BattleMech {
                         importItem.loc,
                         importItem.rear,
                         importItem.uuid,
+                        importItem.target,
                     );
                 }
             }
@@ -5116,6 +5337,7 @@ export class BattleMech {
         location: string | undefined,
         rear: boolean = false,
         uuid: string | undefined | null,
+        target: string = "",
     ) {
         if( !uuid ) {
             uuid = generateUUID()
@@ -5134,6 +5356,7 @@ export class BattleMech {
                     equipmentItem.location = location;
                 equipmentItem.rear = rear;
                 equipmentItem.uuid = uuid;
+                equipmentItem.target = target;
                 this._equipmentList.push(equipmentItem);
 
                 this._sortInstalledEquipment();
@@ -6276,6 +6499,10 @@ export class BattleMech {
         return this._sortedEquipmentList;
     }
 
+    public get sortedSeparatedEquipmentList(): IEquipmentItem[] {
+        return this._sortedSeparatedEquipmentList;
+    }
+
     public get calcLogCBill(): string {
         return this._calcLogCBill;
     }
@@ -6292,6 +6519,47 @@ export class BattleMech {
 
     public get uuid(): string {
         return this._uuid;
+    }
+
+    public getTarget(
+        targetLetter: string 
+    ) {
+        if( targetLetter === "b" ) {
+            return this._targetBToHit
+        }
+        if( targetLetter === "c" ) {
+            return this._targetCToHit
+        }
+        return this._targetAToHit;
+    }
+    
+    public getMovementText(): string {
+        if( this.currentMovementMode ) {
+            if( this.currentMovementMode === "w") {
+                return "Walked " + getHexDistanceFromModifier(this.currentToHitMovementModifier) + " hexes";
+            } else if( this.currentMovementMode === "r") {
+                return "Ran " + getHexDistanceFromModifier(this.currentToHitMovementModifier) + " hexes";
+            } else {
+                return "Jumped " + getHexDistanceFromModifier(this.currentToHitMovementModifier) + " hexes";
+            }  
+        } else {
+            return "Remained Stationary";
+        }
+
+    }
+    public getMovementToHitText(): string {
+        if( this.currentMovementMode ) {
+            if( this.currentMovementMode === "w") {
+                return "+1 to attack, -" + this.getMovementToHitModifier() + " to be hit";
+            } else if( this.currentMovementMode === "r") {
+                return "+2 to attack, -" + this.getMovementToHitModifier() + " to be hit";
+            } else {
+                return "+3 to attack, -" + this.getMovementToHitModifier() + " to be hit";
+            }  
+        } else {
+            return "-" + this.getMovementToHitModifier() + " to be hit";
+        }
+
     }
 }
 
@@ -6322,6 +6590,7 @@ function sortByBVThenRearThenHeat(  a: IEquipmentItem, b: IEquipmentItem  ) {
         return -1;
     return 0;
 }
+
 
 function sortByLocationThenName( a: IEquipmentItem, b: IEquipmentItem ) {
     if( a.location && b.location && a.location > b.location )

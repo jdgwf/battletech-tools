@@ -1,9 +1,10 @@
 import React from 'react';
 import { FaArrowCircleLeft } from "react-icons/fa";
 import { Link } from 'react-router-dom';
-import { BattleMech } from "../../../../classes/battlemech";
+import { BattleMech, IGATOR, ITargetToHit } from "../../../../classes/battlemech";
 import { IAppGlobals } from '../../../app-router';
 import BattleTechLogo from '../../../components/battletech-logo';
+import InputCheckbox from '../../../components/form_elements/input_checkbox';
 import InputNumeric from '../../../components/form_elements/input_numeric';
 import StandardModal from '../../../components/standard-modal';
 import StatBar from "../../../components/stat-bar";
@@ -30,11 +31,148 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
 
             setTargetDialog: false,
+            targetData: null,
+            viewGATOR: null,
         };
 
         this.props.appGlobals.makeDocumentTitle("Playing CBT Force");
     }
 
+    
+
+    updateTargetActive = (
+      e: React.FormEvent<HTMLInputElement>,
+      target: string
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+      let targetData = this.state.targetData;
+      if( targetData ) {
+        if( target === "a" ) {
+          targetData.a.active = e.currentTarget.checked;
+        } else if( target === "b" ) {
+          targetData.b.active = e.currentTarget.checked;
+        } else if( target === "c" ) {
+          targetData.c.active = e.currentTarget.checked;
+        } 
+      }
+
+      this.setState({
+        targetData: targetData,
+      })
+    }
+
+    viewGATOR = ( 
+      gator: IGATOR,
+    ) => {
+      this.setState({
+        viewGATOR: gator,
+      })
+    }
+
+    closeGATOR = (
+      e: React.FormEvent<HTMLButtonElement>
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+      this.setState({
+        viewGATOR: null,
+      })
+    }
+
+    updateTargetJumped = (
+      e: React.FormEvent<HTMLInputElement>,
+      target: string
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+      let targetData = this.state.targetData;
+      if( targetData ) {
+        if( target === "a" ) {
+          targetData.a.jumped = e.currentTarget.checked;
+        } else if( target === "b" ) {
+          targetData.b.jumped = e.currentTarget.checked;
+        } else if( target === "c" ) {
+          targetData.c.jumped = e.currentTarget.checked;
+        } 
+      }
+
+      this.setState({
+        targetData: targetData,
+      })
+    }
+
+    updateTargetRange = (
+      e: React.FormEvent<HTMLInputElement>,
+      target: string
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+      let targetData = this.state.targetData;
+      if( targetData ) {
+        if( target === "a" ) {
+          targetData.a.range = +e.currentTarget.value;
+        } else if( target === "b" ) {
+          targetData.b.range = +e.currentTarget.value;
+        } else if( target === "c" ) {
+          targetData.c.range = +e.currentTarget.value;
+        } 
+      }
+
+      this.setState({
+        targetData: targetData,
+      })
+    }
+
+    updateTargetOtherMods = (
+      e: React.FormEvent<HTMLInputElement>,
+      target: string
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+      let targetData = this.state.targetData;
+      if( targetData ) {
+        if( target === "a" ) {
+          targetData.a.otherMods = +e.currentTarget.value;
+        } else if( target === "b" ) {
+          targetData.b.otherMods = +e.currentTarget.value;
+        } else if( target === "c" ) {
+          targetData.c.otherMods = +e.currentTarget.value;
+        } 
+      }
+
+      this.setState({
+        targetData: targetData,
+      })
+    }
+
+    updateTargetMovement = (
+      e: React.FormEvent<HTMLInputElement>,
+      target: string
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+      let targetData = this.state.targetData;
+      if( targetData ) {
+        if( target === "a" ) {
+          targetData.a.movement = +e.currentTarget.value;
+        } else if( target === "b" ) {
+          targetData.b.movement = +e.currentTarget.value;
+        } else if( target === "c" ) {
+          targetData.c.movement = +e.currentTarget.value;
+        } 
+      }
+
+      this.setState({
+        targetData: targetData,
+      })
+    }
 
     selectMech = (
       e: React.FormEvent<HTMLButtonElement>,
@@ -52,11 +190,21 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
     }
 
     openSetTarget = () => {
-      this.setState({
-        setTargetDialog: true,
-        setMovementDialog: false,
-        takeDamageDialog: false,
-      })
+      let currentBM: BattleMech | null = this._getCurrentBM();
+      if( this.props.appGlobals.currentCBTForce && currentBM ) {
+        let targetData = {
+          a: JSON.parse(JSON.stringify(currentBM.getTarget("a"))),
+          b: JSON.parse(JSON.stringify(currentBM.getTarget("b"))),
+          c: JSON.parse(JSON.stringify(currentBM.getTarget("c"))),
+        }
+        this.setState({
+          setTargetDialog: true,
+          setMovementDialog: false,
+          takeDamageDialog: false,
+          targetData: targetData,
+        })  
+      }
+      
     }
     closeSetTarget  = ( 
       e: React.FormEvent<HTMLButtonElement>
@@ -67,6 +215,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
       this.setState({
         setTargetDialog: false,
+        targetData: null,
       })
     }
     setTarget = ( 
@@ -76,8 +225,20 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         e.preventDefault();
       }
 
+      let currentBM: BattleMech | null = this._getCurrentBM();
+      if( this.props.appGlobals.currentCBTForce && currentBM && this.state.targetData ) {
+        currentBM.setTargets( 
+          this.state.targetData.a, 
+          this.state.targetData.b,
+          this.state.targetData.c,
+        );
+
+        this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
+      }
+
       this.setState({
         setTargetDialog: false,
+        targetData: null,
       })
     }
 
@@ -116,6 +277,15 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           return this.props.appGlobals.currentCBTForce.getSelectedMech();
       }
       return null;
+    }
+
+    onChange = (nv: BattleMech ): void => {
+      let currentBM: BattleMech | null = this._getCurrentBM();
+      if( this.props.appGlobals.currentCBTForce && currentBM ) {
+        console.log("onChange called")
+        currentBM = nv;
+        this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
+      }
     }
 
     openSetMovement = () => {
@@ -232,6 +402,15 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       })
     }
 
+
+    closeTargetDialog = (
+      e: React.FormEvent<HTMLButtonElement>,
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+    }
+
     render = (): React.ReactFragment => {
       if(!this.props.appGlobals.currentCBTForce) {
         return <></>;
@@ -239,6 +418,40 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       let selectedMech: BattleMech | null = this.props.appGlobals.currentCBTForce.getSelectedMech();
       return (
         <>
+
+<StandardModal
+  show={this.state.viewGATOR ? true : false}
+  onClose={this.closeGATOR}
+>
+  {this.state.viewGATOR ? (
+    <table className="table text-center">
+      <thead>
+        {this.state.viewGATOR.weaponName ? (
+          <tr>
+            <th colSpan={5}>GATOR for {this.state.viewGATOR.weaponName}</th>
+            
+          </tr>
+        ) : null}
+        <tr>
+          <th>G</th>
+          <th>A</th>
+          <th>T</th>
+          <th>O</th>
+          <th>R</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{this.state.viewGATOR.gunnerySkill}</td>
+          <td>{this.state.viewGATOR.attackerMovementModifier}</td>
+          <td>{this.state.viewGATOR.targetMovementModifier}</td>
+          <td>{this.state.viewGATOR.otherModifiers}</td>
+          <td>{this.state.viewGATOR.rangeModifier}</td>
+        </tr>
+      </tbody>
+    </table>
+  ) : null}
+</StandardModal>
 <StandardModal
   show={this.state.setMovementDialog}
   onClose={this.closeSetMovement}
@@ -422,7 +635,157 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
   onClose={this.closeSetTarget}
   onSave={this.setTarget}
 >
-    Set Target Dialog
+  {this.state.targetData ? (
+    <>
+      <fieldset className="fieldset">
+        <legend>Target A</legend>
+        <div className="row">
+          <div className="col">
+            <InputCheckbox
+              label="Active"
+              checked={this.state.targetData.a.active}
+              description='Whether this target slot is active. Unchecking will keep it from being cycled in the Equipment button'
+              onChange={(e) => this.updateTargetActive(e, "a")}
+            />
+          </div>
+          <div className="col">
+
+          <InputNumeric
+          label="Movement Mod"
+          description='Your opponent will tell you this'
+          value={this.state.targetData.a.movement}
+          onChange={(e) => this.updateTargetMovement(e, "a")}
+          step={1}
+          min={0}
+          max={50}
+          inline={true}
+        />
+
+        <InputNumeric
+          label="Other Mods"
+          description='Trees, Water, other cover, etc'
+          value={this.state.targetData.a.otherMods}
+          onChange={(e) => this.updateTargetOtherMods(e, "a")}
+          step={1}
+          inline={true}
+          min={0}
+          max={50}
+        />
+        <InputNumeric
+          label="Range"
+          description='The number of hexes between your target'
+          value={this.state.targetData.a.range}
+          onChange={(e) => this.updateTargetRange(e, "a")}
+          step={1}
+          inline={true}
+          min={0}
+          max={50}
+        />
+          </div>
+        </div>
+
+      </fieldset>
+      <fieldset className="fieldset">
+        <legend>Target B</legend>
+        <div className="row">
+          <div className="col">
+            <InputCheckbox
+              label="Active"
+              description='Whether this target slot is active. Unchecking will keep it from being cycled in the Equipment button'
+              checked={this.state.targetData.b.active}
+              onChange={(e) => this.updateTargetActive(e, "b")}
+            />
+          </div>
+          <div className="col">
+
+          <InputNumeric
+          label="Movement Mod"
+          description='Your opponent will tell you this'
+          value={this.state.targetData.b.movement}
+          onChange={(e) => this.updateTargetMovement(e, "b")}
+          step={1}
+          min={0}
+          max={50}
+          inline={true}
+        />
+
+        <InputNumeric
+          label="Other Mods"
+          description='Trees, Water, other cover, etc'
+
+          value={this.state.targetData.b.otherMods}
+          onChange={(e) => this.updateTargetOtherMods(e, "b")}
+          step={1}
+          inline={true}
+          min={0}
+          max={50}
+        />
+        <InputNumeric
+          label="Range"
+          description='The number of hexes between your target'
+          value={this.state.targetData.b.range}
+          onChange={(e) => this.updateTargetRange(e, "b")}
+          step={1}
+          inline={true}
+          min={0}
+          max={50}
+        />
+          </div>
+        </div>
+
+      </fieldset>
+      <fieldset className="fieldset">
+        <legend>Target C</legend>
+        <div className="row">
+          <div className="col">
+            <InputCheckbox
+              label="Active"
+              description='Whether this target slot is active. Unchecking will keep it from being cycled in the Equipment button'
+              checked={this.state.targetData.c.active}
+              onChange={(e) => this.updateTargetActive(e, "c")}
+            />
+          </div>
+          <div className="col">
+
+          <InputNumeric
+          label="Movement Mod"
+          description='Your opponent will tell you this'
+          value={this.state.targetData.c.movement}
+          onChange={(e) => this.updateTargetMovement(e, "c")}
+          step={1}
+          min={0}
+          max={50}
+          inline={true}
+        />
+
+        <InputNumeric
+          label="Other Mods"
+          description='Trees, Water, other cover, etc'
+
+          value={this.state.targetData.c.otherMods}
+          onChange={(e) => this.updateTargetOtherMods(e, "c")}
+          step={1}
+          inline={true}
+          min={0}
+          max={50}
+        />
+        <InputNumeric
+          label="Range"
+          description='The number of hexes between your target'
+          value={this.state.targetData.c.range}
+          onChange={(e) => this.updateTargetRange(e, "c")}
+          step={1}
+          inline={true}
+          min={0}
+          max={50}
+        />
+          </div>
+        </div>
+
+      </fieldset>
+    </>
+  ) : null}
+
 </StandardModal>
 <StandardModal
   show={this.state.takeDamageDialog}
@@ -571,6 +934,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                 openSetTarget={this.openSetTarget}
                 openTakeDamage={this.openTakeDamage}
                 openSetMovement={this.openSetMovement}
+                onChange={this.onChange}
+                viewGATOR={this.viewGATOR}
               />
           ) : (
             <div className="text-center">
@@ -605,4 +970,13 @@ interface IPlayState {
 
 
   setTargetDialog: boolean;
+
+  targetData: ICombinedTargetData | null;
+  viewGATOR: IGATOR | null;
+}
+
+interface ICombinedTargetData {
+  a: ITargetToHit;
+  b: ITargetToHit;
+  c: ITargetToHit;
 }

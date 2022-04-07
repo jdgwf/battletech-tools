@@ -355,3 +355,40 @@ export function sortEquipment (
     }
 
 }
+
+export function getTargetColor(
+    targetLetter: string | undefined,
+): string {
+
+    if( targetLetter && targetLetter.toLowerCase() === "a" ) {
+        return "red";
+    }
+    if( targetLetter && targetLetter.toLowerCase() === "b" ) {
+        return "blue";
+    }
+    if( targetLetter && targetLetter.toLowerCase() === "c" ) {
+        return "orange";
+    }
+    return "#cccccc";
+}
+
+export function getHexDistanceFromModifier(
+    mod: number
+): string {
+    if( mod > 5 ) {
+        return "25+"
+    } else if( mod > 4 ) {
+        return "18-24"
+    } else if( mod > 3 ) {
+        return "10-17"
+    } else if( mod > 2 ) {
+        return "7-9"
+    } else if( mod > 1 ) {
+        return "5-6"
+    } else if( mod > 0 ) {
+        return "3-4"
+    } else {
+        return "0-2"
+    }
+
+}

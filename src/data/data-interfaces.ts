@@ -88,6 +88,7 @@ export interface IEquipmentItem {
     uuid?: string;
     count?: number;
     notes?: string;
+    target?: string;
     name: string;
     isEquipment?: boolean;
     isAmmo?: boolean;

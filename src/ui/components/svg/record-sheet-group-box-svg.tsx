@@ -72,6 +72,8 @@ export default class RecordSheetGroupBoxSVG extends React.Component<IRecordSheet
             width={this.theWidth}
             height={this.theHeight}
             fill={this.strokeColor}
+            onClick={this.props.onClick}
+            className={this.props.onClick ? "cursor-pointer" : ""}
         />
         <rect
             rx={this.borderRadius}
@@ -81,6 +83,7 @@ export default class RecordSheetGroupBoxSVG extends React.Component<IRecordSheet
             width={this.theWidth - this.borderWidth * 2}
             height={this.theHeight - this.borderWidth * 2}
             fill={this.bgColor}
+            onClick={this.props.onClick}
         />
 
 	{this.title ? (
@@ -93,6 +96,8 @@ export default class RecordSheetGroupBoxSVG extends React.Component<IRecordSheet
                 width={this.theWidth - this.labelLeft * 2}
                 height={this.textSize + 5}
                 fill={this.strokeColor}
+                onClick={this.props.onClick}
+                className={this.props.onClick ? "cursor-pointer" : ""}
             />
             <text
                 rx={this.borderRadius}
@@ -103,8 +108,13 @@ export default class RecordSheetGroupBoxSVG extends React.Component<IRecordSheet
                 fill={this.bgColor}
                 textAnchor="middle"
                 fontSize={this.textSize}
+                onClick={this.props.onClick}
+                className={this.props.onClick ? "cursor-pointer" : ""}
             >
                 {this.title.toUpperCase()}
+                {this.props.subTitle && this.props.subTitle.trim() ? (
+                    <>&nbsp;{this.props.subTitle}</>
+                ) : null}
             </text>
         </>
     ) : (
@@ -129,6 +139,8 @@ interface IRecordSheetGroupBoxSVGProps {
     yLoc: number;
 
     title?: string;
+    subTitle?: string;
+    onClick?(): void;
 }
 
 interface IRecordSheetGroupBoxSVGState {

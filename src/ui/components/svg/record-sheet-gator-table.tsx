@@ -22,26 +22,7 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
 
     render = (): React.ReactFragment => {
 
-        let currentMoveColor = "white";
-        let currentMoveBackground = "#009";
-        let movePips = 0;
-        if( this.props.mechData.currentMovementMode === "w" ) {
-            currentMoveColor = "black";
-            currentMoveBackground = "white";
-            movePips = 1;
-        }
 
-        if( this.props.mechData.currentMovementMode === "r" ) {
-            currentMoveColor = "white";
-            currentMoveBackground = "black";
-            movePips = 2;
-        }
-
-        if( this.props.mechData.currentMovementMode === "j" ) {
-            currentMoveColor = "white";
-            currentMoveBackground = "red";
-            movePips = 3;
-        }
 
         return (
             <RecordSheetGroupBoxSVG
@@ -116,49 +97,7 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
                     style={{fontWeight: 700}}
                     fontSize={50}
                 >A</text>
-                {this.props.inPlay && this.props.openSetMovement ? (
-                    <svg onClick={this.props.openSetMovement}>
-                    {this.props.mechData.currentMovementMode ? (
-                        <DieSVG
-                            posX={this.props.xLoc + 260 }
-                            posY={this.props.yLoc + 45}
-                            width={60}
-                            className="cursor-pointer"
-                            bgColor={currentMoveBackground}
-                            pipColor={currentMoveColor}
-                            numberPips={movePips}
-                            numericPips={true}
-                            // title="Click here to change the Attacker's Move Modifier"
-                        />
-                    ) : (
-                        <DieSVG
-                            posX={this.props.xLoc + 260 }
-                            posY={this.props.yLoc + 45}
-                            width={60}
-                            className="cursor-pointer"
-                            bgColor={"#009"}
-                            pipColor={"#fff"}
-                            numberPips={0}
-                            numericPips={true}
-                            // title="Click here to change the Attacker's Move Modifier"
-                        />
-                    )}
-                                {/*  */}
-
-
-                    </svg>
-                ) : (
-                    <>
-                <line
-                    x1={this.props.xLoc + 250 }
-                    x2={this.props.xLoc + 350 }
-                    y1={this.props.yLoc + 110}
-                    y2={this.props.yLoc + 110}
-                    strokeWidth={2}
-                    stroke={this.strokeColor}
-                />
-                </>
-                )}
+                
                 <text
                     x={this.props.xLoc + 350 }
                     y={this.props.yLoc + 100}

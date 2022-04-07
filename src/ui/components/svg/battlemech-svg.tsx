@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { BattleMech } from '../../../classes/battlemech';
+import { BattleMech, IGATOR } from '../../../classes/battlemech';
 import BattleTechLogo from '../battletech-logo';
 import BattleMechHeatEffectsBoxSVG from './battlemech-heat-effects-box-svg';
 import BipedArmorCircles from './biped-armor-circles';
@@ -23,6 +23,8 @@ import QuadRearArmorDiagramSVG from './quad-rear-armor-diagram-svg';
 import RecordSheetEquipmentTable from './record-sheet-equipment-table';
 import RecordSheetGATORTable from './record-sheet-gator-table';
 import RecordSheetGroupBoxSVG from './record-sheet-group-box-svg';
+import SVGGroupBox from './svg-group-options';
+import TargetSelectSVG from './target-select-svg';
 
 export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, IBattleMechSVGState> {
     bgColor = "rgb(255,255,255)";
@@ -109,6 +111,23 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         let critCol1Start = 125;
         let critCol2Start = 513;
         let critCol3Start = 925;
+
+        let currentMoveColor = "white";
+        let currentMoveBackground = "#009";
+        if( this.props.mechData.currentMovementMode === "w" ) {
+            currentMoveColor = "black";
+            currentMoveBackground = "white";
+        }
+
+        if( this.props.mechData.currentMovementMode === "r" ) {
+            currentMoveColor = "white";
+            currentMoveBackground = "black";
+        }
+
+        if( this.props.mechData.currentMovementMode === "j" ) {
+            currentMoveColor = "white";
+            currentMoveBackground = "red";
+        }
 
         return (
         <>
@@ -378,7 +397,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 </text>
 	            {/* // BV */}
                 <text
-                    x={generalDataBoxX + 300}
+                    x={generalDataBoxX + 270}
                     y={generalDataBoxY + 350}
                     textAnchor="start"
                     fontFamily="sans-serif"
@@ -391,7 +410,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
 
             <text
-                x={generalDataBoxX + 300}
+                x={generalDataBoxX + 270}
                 y={generalDataBoxY + 380}
                 textAnchor="start"
                 fontFamily="sans-serif"
@@ -499,19 +518,166 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         xLoc={10}
         yLoc={440}
         mechData={this.props.mechData}
-    />
-
-    <RecordSheetGATORTable
-        width={1215}
-        height={99}
-        xLoc={10}
-        yLoc={1113}
-        mechData={this.props.mechData}
         inPlay={this.props.inPlay}
-        openSetMovement={this.props.openSetMovement}
+        onChange={this.props.onChange}
+        viewGATOR={this.props.viewGATOR}
     />
 
+    {this.props.inPlay ? (
+        <>
+        <RecordSheetGroupBoxSVG
+            title="Movement"
 
+            width={400}
+            height={99}
+            xLoc={10}
+            yLoc={1113}
+            onClick={this.props.openSetMovement}
+            strokeColor={"#009"}
+        >
+            <svg 
+                x={10}
+                y={1150}
+                width={400}
+                height={80}
+                onClick={this.props.openSetMovement}
+            >
+                {this.props.inPlay && this.props.openSetMovement ? (
+                    <svg onClick={this.props.openSetMovement}>
+                    {this.props.mechData.currentMovementMode ? (
+                        <DieSVG
+                            posX={ 10 }
+                            posY={ 10}
+                            width={60}
+                            className="cursor-pointer"
+                            bgColor={currentMoveBackground}
+                            pipColor={currentMoveColor}
+                            numberPips={this.props.mechData.getMovementToHitModifier()}
+                            numericPips={true}
+                            // onClick={this.props.openSetMovement}
+                            // title="Click here to change the Attacker's Move Modifier"
+                        />
+                    ) : (
+                        <DieSVG
+                            posX={ 10 }
+                            posY={ 10}
+                            width={60}
+                            className="cursor-pointer"
+                            bgColor={"#009"}
+                            pipColor={"#fff"}
+                            numberPips={0}
+                            numericPips={true} 
+                            // onClick={this.props.openSetMovement}
+                            // title="Click here to change the Attacker's Move Modifier"
+                        />
+                    )}
+
+                        <text
+                            x={ 80 }
+                            y={ 35 }
+                            width={60}
+                            fontSize={30}
+                            onClick={this.props.openSetMovement}
+                        >
+                            {this.props.mechData.getMovementText()}
+                        </text>
+                        <text
+                            x={ 80 }
+                            y={ 65 }
+                            width={60}
+                            fontSize={20}
+                            onClick={this.props.openSetMovement}
+                        >
+                            {this.props.mechData.getMovementToHitText()}
+                        </text>
+                                {/*  */}
+
+
+                    </svg>
+                ) : (
+                    <>
+                <line
+                    x1={ 250 }
+                    x2={ 350 }
+                    y1={ 110}
+                    y2={ 110}
+                    strokeWidth={2}
+                    stroke={this.strokeColor}
+                />
+                </>
+                )}
+            </svg>
+        </RecordSheetGroupBoxSVG>
+        <RecordSheetGroupBoxSVG
+            title="Target Selection"
+
+            width={800}
+            height={99}
+            xLoc={425}
+            yLoc={1113}
+            onClick={this.props.openSetTarget}
+            strokeColor={"#009"}
+        >
+            <svg 
+                x={425}
+                y={1150}
+                width={800}
+                height={80}
+                onClick={this.props.openSetTarget}
+            >
+                <TargetSelectSVG
+                    x={0}
+                    y={0}
+                    width={800}
+                    height={75}
+                    mechData={this.props.mechData}
+                    target={"a"}
+                    onClick={this.props.openSetTarget}
+                />
+                <TargetSelectSVG
+                    x={0}
+                    y={40}
+                    width={800}
+                    height={75}
+                    mechData={this.props.mechData}
+                    target={"b"}
+                    onClick={this.props.openSetTarget}
+                />
+                <TargetSelectSVG
+                    x={400}
+                    y={0}
+                    width={800}
+                    height={75}
+                    mechData={this.props.mechData}
+                    target={"c"}
+                    onClick={this.props.openSetTarget}
+                />
+                <text
+                    x={600}
+                    y={78}
+                    textAnchor="middle"
+                    fontSize="15"
+                    onClick={this.props.openSetTarget}
+                >
+                    Click to bring up target selection
+                </text>
+            </svg>
+        </RecordSheetGroupBoxSVG>
+        </>
+    ) : (
+        <RecordSheetGATORTable
+            width={1215}
+            height={99}
+            xLoc={10}
+            yLoc={1113}
+            mechData={this.props.mechData}
+            inPlay={this.props.inPlay}
+            openSetMovement={this.props.openSetMovement}
+        />
+
+    )
+    }
+ 
     <RecordSheetGroupBoxSVG
         width={this.armorBoxWidth}
         height={1200}
@@ -1531,7 +1697,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         yLoc={1260}
     />
 
-    {this.props.inPlay ? (
+    {/* {this.props.inPlay ? (
         <>
             <rect
                 x={300}
@@ -1555,7 +1721,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             TODO: IN-PLAY CONTROLS
             </text> 
         </>
-    ): null}
+    ): null} */}
 
 	{/* // Classic BattleTech Logo on bottom. */}
     <rect
@@ -1652,9 +1818,12 @@ interface IBattleMechSVGProps {
     mechData: BattleMech;
     inPlay?: boolean;
 
+    onChange?( mech: BattleMech ): void;
+
     openSetTarget?(): void;
     openTakeDamage?(): void;
     openSetMovement?(): void;
+    viewGATOR?( gator: IGATOR): void;
     // landscape?: boolean;
     // itemIDField
 }
