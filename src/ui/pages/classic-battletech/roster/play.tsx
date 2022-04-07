@@ -1,5 +1,7 @@
 import React from 'react';
-import { FaArrowCircleLeft } from "react-icons/fa";
+import { HotSurface } from 'react-game-icons';
+import { FaArrowCircleLeft, FaDice, FaGift, FaShoePrints } from "react-icons/fa";
+import { GiBattleAxe, GiMissileSwarm } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
 import { BattleMech, IGATOR, ITargetToHit } from "../../../../classes/battlemech";
 import { IAppGlobals } from '../../../app-router';
@@ -38,7 +40,56 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         this.props.appGlobals.makeDocumentTitle("Playing CBT Force");
     }
 
+    setTurn = (
+      e: React.FormEvent<HTMLInputElement>,
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+
+      if(this.props.appGlobals.currentCBTForce) {
+        let currentCBTForce = this.props.appGlobals.currentCBTForce;
+        currentCBTForce.turn = +e.currentTarget.value;
+
+        this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
+      }
+    }
     
+    setPhase = (
+      e: React.FormEvent<HTMLButtonElement>,
+      nv: number
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+
+      if(this.props.appGlobals.currentCBTForce) {
+        let currentCBTForce = this.props.appGlobals.currentCBTForce;
+        currentCBTForce.phase = nv;
+
+        this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
+      }
+
+
+    }
+
+    nextTurn = (
+      e: React.FormEvent<HTMLButtonElement>,
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+
+      if(this.props.appGlobals.currentCBTForce) {
+        let currentCBTForce = this.props.appGlobals.currentCBTForce;
+        currentCBTForce.phase = 0;
+        currentCBTForce.turn++;
+
+        this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
+      }
+
+
+    }
 
     updateTargetActive = (
       e: React.FormEvent<HTMLInputElement>,
@@ -433,29 +484,24 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 <StandardModal
   show={this.state.viewGATOR ? true : false}
   onClose={this.closeGATOR}
+  title={(this.state.viewGATOR &&
+    this.state.viewGATOR.weaponName) ? (
+      "" + this.state.viewGATOR.weaponName + ( this.state.viewGATOR?.target ? " vs " + this.state.viewGATOR.target : "")
+    ) : (
+      "GATOR Calculations"
+    )}
 >
   {this.state.viewGATOR ? (
     <table className="table text-center">
       <thead>
-        {this.state.viewGATOR.weaponName ? (
-          <tr>
-            <th colSpan={7}>
-              GATOR for {this.state.viewGATOR.weaponName}
-              {this.state.viewGATOR.target ? (
-                <>&nbsp;vs {this.state.viewGATOR.target}</>
-              ) : null}
-            </th>
-            
-          </tr>
-        ) : null}
         <tr>
-          <th>G</th>
-          <th>A</th>
-          <th>T</th>
-          <th>O</th>
-          <th>R</th>
-          <th>&nbsp;</th>
-          <th>To-Hit</th>
+          <th style={{width: "14%"}}>G</th>
+          <th style={{width: "14%"}}>A</th>
+          <th style={{width: "14%"}}>T</th>
+          <th style={{width: "14%"}}>O</th>
+          <th style={{width: "14%"}}>R</th>
+          <th style={{width: "14%"}}>&nbsp;</th>
+          <th style={{width: "14%"}}>To-Hit</th>
         </tr>
       </thead>
       <tbody>
@@ -510,6 +556,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
   show={this.state.setMovementDialog}
   onClose={this.closeSetMovement}
   onSave={this.setMovement}
+  title="Movement Information"
 >
 
     <div className="row">
@@ -605,6 +652,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             <tr>
               <th colSpan={2}>
                 Movement Modifier Table
+                <div className="small-text">Click a line below to select</div>
               </th>
             </tr>
 
@@ -688,6 +736,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
   show={this.state.setTargetDialog}
   onClose={this.closeSetTarget}
   onSave={this.setTarget}
+  title="Target Selection Information"
 >
   {this.state.targetData ? (
     <>
@@ -845,6 +894,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
   show={this.state.takeDamageDialog}
   onClose={this.closeTakeDamage}
   onSave={this.takeDamage}
+  title="Take Damage"
 >
         Take Damage Dialog
 </StandardModal>
@@ -858,13 +908,12 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                     <FaBars />
                   </span>
                 </li> */}
-                                <li className="small-text text-center">
+                                {/* <li className="small-text text-center">
                                 <br />
-                    No, nothing works here yet (except current selection).<br />
-                    This is basically a big mockup using your current force.
+                   
                   
                       
-                </li>
+                </li> */}
                 <li className="logo">
                     <a
                         href="https://battletech.com"
@@ -878,7 +927,156 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             </ul>
 
           </header>
+<div 
+  className="alert alert-warning small-text"
+  style={{width: "83vw"}}
+>
+  This is still far from ready to be used live. That said, much progress has been made on Target, per weapon GATOR, and movement.
+  <br />Next up: Taking Damage, After that, turn progress (or vice/versa)
+</div>
+<div 
+style={{width: "83vw"}}
+>
+<TextSection
+  
+>
+  <div className="turn-counter">
+      <div>
+        <InputNumeric
+          step={1}
+          min={1}
+          max={100}
+          value={this.props.appGlobals.currentCBTForce.turn}
+          inline={true}
+          title="Turn #"
+          label="Turn #"
+          onChange={this.setTurn}
+        />
+      </div>
+      <div>
+        <button
+          className={this.props.appGlobals.currentCBTForce.phase === 0 ? "btn btn-primary btn-sm" : "btn btn-secondary btn-sm"}
+          onClick={(e) => this.setPhase(e, 0)}
+          title={this.props.appGlobals.currentCBTForce.getPhaseName(0)}
+        >
+          <FaDice />
+        </button>
+      </div>
+      <div>
+        <button
+          className={this.props.appGlobals.currentCBTForce.phase === 1 ? "btn btn-primary btn-sm" : "btn btn-secondary btn-sm"}
+          onClick={(e) => this.setPhase(e, 1)}
+          title={this.props.appGlobals.currentCBTForce.getPhaseName(1)}
+        >
+          <FaShoePrints />
+        </button>
+      </div>
+      <div>
+        <button
+          className={this.props.appGlobals.currentCBTForce.phase === 2 ? "btn btn-primary btn-sm" : "btn btn-secondary btn-sm"}
+          onClick={(e) => this.setPhase(e, 2)}
+          title={this.props.appGlobals.currentCBTForce.getPhaseName(2)}
+          
+        >
+          <GiMissileSwarm />
+        </button>
+      </div>
+      <div>
+        <button
+          className={this.props.appGlobals.currentCBTForce.phase === 3 ? "btn btn-primary btn-sm" : "btn btn-secondary btn-sm"}
+          onClick={(e) => this.setPhase(e, 3)}
+          title={this.props.appGlobals.currentCBTForce.getPhaseName(3)}
+        >
+          <GiBattleAxe />
+        </button>
+      </div>
+      <div>
+        <button
+          className={this.props.appGlobals.currentCBTForce.phase === 4 ? "btn btn-primary btn-sm" : "btn btn-secondary btn-sm"}
+          onClick={(e) => this.setPhase(e, 4)}
+          title={this.props.appGlobals.currentCBTForce.getPhaseName(4)}
+        >
+          <HotSurface />
+        </button>
+      </div>
+      <div>
+        <button
+          className={this.props.appGlobals.currentCBTForce.phase === 5 ? "btn btn-primary btn-sm" : "btn btn-secondary btn-sm"}
+          onClick={(e) => this.setPhase(e, 5)}
+          title={this.props.appGlobals.currentCBTForce.getPhaseName(5)}
+        >
+          <FaGift />
+        </button>
+      </div>
+      <div className="grow">
+        {this.props.appGlobals.currentCBTForce.getPhaseName(this.props.appGlobals.currentCBTForce.phase)}
+      </div>
 
+      {this.props.appGlobals.currentCBTForce.phase === 4 ? (
+        <div>
+          <button
+            className="btn btn-sm btn-primary"
+          >
+            Apply Heat
+          </button>
+        </div>
+      ) : null}
+      {this.props.appGlobals.currentCBTForce.phase === 5 ? (
+        <div>
+          <button
+            className="btn btn-sm btn-primary"
+            onClick={this.nextTurn}
+          >
+            Next Turn
+          </button>
+        </div>
+      ) : null}
+      {this.props.appGlobals.currentCBTForce.phase === 2 ? (
+        <div>
+          <button
+            className="btn btn-sm btn-primary"
+          >
+            Resolve Weapons Fire
+          </button>
+        </div>
+      ) : null}
+</div>
+<div className="text-center">
+  {this.props.appGlobals.currentCBTForce.phase === 0 ? (
+      <div className="small-text">
+          One player from each side rolls 2D6 and adds the results
+together to determine their side’s Initiative. The side with the higher
+result wins Initiative for that turn. Re-roll all ties.
+      </div>
+    ) : null}
+    {this.props.appGlobals.currentCBTForce.phase === 1 ? (
+      <div className="small-text">
+        Move your mechs as per standard rules. Click on the Blue Movement section below Weapons and Equipent for each moving 'mech. Set the Movement mode, and the to-hit modifier for each unit.
+      </div>
+    ) : null}
+    {this.props.appGlobals.currentCBTForce.phase === 2 ? (
+      <div className="small-text">
+        Declare all of your Weapon Attacks by setting a Target and then cycling through each weapon to be an "A", "B", or "C" a blank circle means the weapon will not be fired. Once all declarations are done, click on the "Resolve Weapons Fire" button above. A list of 'mech weapons, attacks, targets, damage, and to-hit roll needed will pop up.
+      </div>
+    ) : null}
+    {this.props.appGlobals.currentCBTForce.phase === 3 ? (
+      <div className="small-text">
+        Make physical attacks as per the rule book.
+      </div>
+    ) : null}
+    {this.props.appGlobals.currentCBTForce.phase === 4 ? (
+      <div className="small-text">
+        Click on the "Apply Heat" button above to add heat from movement, damage, etc and then subtract heat via heat sinks.
+      </div>
+    ) : null}
+    {this.props.appGlobals.currentCBTForce.phase === 5 ? (
+      <div className="small-text">
+        This turn's a wrap! Click on "Next Turn" above
+      </div>
+    ) : null}
+</div>
+</TextSection>
+</div>
 <div className="postion-relative">
 
   <div className={this.state.mechSelectorExpanded ? "mech-selector" : "mech-selector expanded"}>

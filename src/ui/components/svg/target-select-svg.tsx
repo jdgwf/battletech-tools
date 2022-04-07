@@ -4,11 +4,6 @@ import { getTargetColor } from '../../../utils';
 
 export default class TargetSelectSVG extends React.Component<ITargetSelectSVGProps, ITargetSelectSVGState> {
   
-
-    constructor(props: ITargetSelectSVGProps) {
-        super( props );
-    }
-
     render = (): React.ReactFragment => {
         return (
             <svg 

@@ -24,7 +24,7 @@ export default class TextSection extends React.Component<ITextSectionProps, ITex
                 </h2>
               ) : null}
 
-                <div className="section-content">
+                <div className={this.props.contentClassName ? this.props.contentClassName + " section-content" : "section-content"}>
                 {this.props.children}
             </div>
             </div>
@@ -37,6 +37,7 @@ interface ITextSectionProps {
     label?: string;
     labelButton?: React.ReactFragment;
     className?: string;
+    contentClassName?: string;
 }
 
 

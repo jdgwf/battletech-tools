@@ -7,6 +7,9 @@ export interface IASForceExport {
     groups: IASGroupExport[];
 	uuid: string;
 	lastUpdated: Date;
+
+    turn: number;
+    phase: number;
 }
 
 export default class AlphaStrikeForce {
@@ -20,6 +23,9 @@ export default class AlphaStrikeForce {
 	public activeMembers: number = 0;
 	public forcePoints: number = 0;
     public membersLabel: string = "";
+
+    public turn: number = 1;
+    public phase: number = 0;
 
     constructor(importObj: IASForceExport | null = null ) {
         if( importObj ) {
@@ -145,6 +151,8 @@ export default class AlphaStrikeForce {
             groups: [],
             uuid: this._uuid,
             lastUpdated: new Date(),
+            turn: this.turn,
+            phase: this.phase,
         }
 
         for( let group of this.groups) {
@@ -162,6 +170,10 @@ export default class AlphaStrikeForce {
             this._uuid = importObj.uuid;
         }
 
+        if( typeof(importObj.phase) != "undefined" ) {
+            this.phase = importObj.phase;
+        }
+        
         if( importObj.lastUpdated ) {
             this._lastUpdated = new Date(importObj.lastUpdated);
         }

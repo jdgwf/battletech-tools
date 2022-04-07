@@ -44,6 +44,9 @@ export class BattleMechGroup {
 
 	public setNew() {
 		this.uuid = generateUUID();
+		for( let mech of this.members ) {
+			mech.newUUID();
+		}
 		this.lastUpdated = new Date();
 	}
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { BattleMech } from "../../../classes/battlemech";
-import DieSVG from './die-svg';
 import RecordSheetGroupBoxSVG from './record-sheet-group-box-svg';
 
 export default class RecordSheetGATORTable extends React.Component<IRecordSheetGATORTableProps, IRecordSheetGATORTableState> {

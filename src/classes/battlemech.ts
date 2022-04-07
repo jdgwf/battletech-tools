@@ -4854,7 +4854,7 @@ export class BattleMech {
 
         if( targetData ) {
             if( targetData.active ) {
-                return "MOVE: " + targetData.movement + " | " + "RANGE: "+ targetData.range + " | " + "OTHER: "+ targetData.otherMods;
+                return "MOVE: " + targetData.movement + " | RANGE: "+ targetData.range + " | OTHER: " + targetData.otherMods;
             } else {
                 return "No Active Target";
             }

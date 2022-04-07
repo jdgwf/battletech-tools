@@ -133,6 +133,7 @@ a {
   }
 }
 
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -517,6 +518,21 @@ body {
     background-color: $primaryBG;
     border-color: $primaryBG;
     color: $primaryTextColor;
+    > svg {
+      stroke: $primaryTextColor !important;
+      color: $primaryTextColor !important;
+      fill: $primaryTextColor !important;
+    }
+    &:active {
+      background-color: $primaryBG !important;
+      border-color: $primaryBG !important;
+      color: $primaryTextColor !important;
+    }
+    &:focus {
+      background-color: $primaryBG !important;
+      border-color: $primaryBG !important;
+      color: $primaryTextColor !important;
+    }
     &:hover {
       background-color: $primaryBGHover;
       border-color: $primaryBGHover;
@@ -529,7 +545,44 @@ body {
     }
 
   }
+  .btn-sm {
+    > svg {
+      height: 1em;
+      width: 1em;
+    }
+  }
 
+
+  .btn-secondary {
+    background-color: $secondaryBG;
+    border-color: $secondaryBG;
+    color: $primaryTextColor;
+    > svg {
+      stroke: $primaryTextColor !important;
+      color: $primaryTextColor !important;
+      fill: $primaryTextColor !important;
+    }
+    &:active {
+      background-color: $secondaryBG !important;
+      border-color: $secondaryBG !important;
+      color: $primaryTextColor !important;
+    }
+    &:focus {
+      background-color: $secondaryBG !important;
+      border-color: $secondaryBG !important;
+      color: $primaryTextColor !important;
+    }
+    &:hover {
+      background-color: $secondaryBGHover;
+      border-color: $secondaryBGHover;
+      color: $primaryTextColor;
+    }
+    &:disabled {
+      background-color: #222;
+      border-color: #000;
+      color: 0;
+    }
+  }
   .no-margins {
     margin: 0 !important;
   }
@@ -543,22 +596,6 @@ body {
       padding: 0;
     }
   }
-  .btn-secondary {
-    background-color: $secondaryBG;
-    border-color: $secondaryBG;
-    color: $primaryTextColor;
-    &:hover {
-      background-color: $secondaryBGHover;
-      border-color: $secondaryBGHover;
-      color: $primaryTextColor;
-    }
-    &:disabled {
-      background-color: #222;
-      border-color: #000;
-      color: 0;
-    }
-  }
-
   .modal-dialog {
     .modal-footer {
       background: $headerFooterBackground;
@@ -916,6 +953,7 @@ body.desaturated {
     //   color: 0;
     // }
   }
+
 
   .modal-dialog {
     // .modal-footer {

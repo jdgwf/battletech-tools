@@ -23,7 +23,6 @@ import QuadRearArmorDiagramSVG from './quad-rear-armor-diagram-svg';
 import RecordSheetEquipmentTable from './record-sheet-equipment-table';
 import RecordSheetGATORTable from './record-sheet-gator-table';
 import RecordSheetGroupBoxSVG from './record-sheet-group-box-svg';
-import SVGGroupBox from './svg-group-options';
 import TargetSelectSVG from './target-select-svg';
 
 export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, IBattleMechSVGState> {
@@ -541,34 +540,33 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 width={400}
                 height={80}
                 onClick={this.props.openSetMovement}
+                className="cursor-pointer"
             >
                 {this.props.inPlay && this.props.openSetMovement ? (
-                    <svg onClick={this.props.openSetMovement}>
+                    <svg 
+                        onClick={this.props.openSetMovement}
+                        className="cursor-pointer"
+                    >
                     {this.props.mechData.currentMovementMode ? (
                         <DieSVG
                             posX={ 10 }
                             posY={ 10}
                             width={60}
-                            className="cursor-pointer"
                             bgColor={currentMoveBackground}
                             pipColor={currentMoveColor}
                             numberPips={this.props.mechData.getMovementToHitModifier()}
                             numericPips={true}
-                            // onClick={this.props.openSetMovement}
-                            // title="Click here to change the Attacker's Move Modifier"
                         />
                     ) : (
                         <DieSVG
                             posX={ 10 }
                             posY={ 10}
                             width={60}
-                            className="cursor-pointer"
                             bgColor={"#009"}
                             pipColor={"#fff"}
                             numberPips={0}
                             numericPips={true} 
-                            // onClick={this.props.openSetMovement}
-                            // title="Click here to change the Attacker's Move Modifier"
+
                         />
                     )}
 
@@ -577,6 +575,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                             y={ 35 }
                             width={60}
                             fontSize={30}
+                            className="cursor-pointer"
                             onClick={this.props.openSetMovement}
                         >
                             {this.props.mechData.getMovementText()}
@@ -586,12 +585,12 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                             y={ 65 }
                             width={60}
                             fontSize={20}
+                            className="cursor-pointer"
+
                             onClick={this.props.openSetMovement}
                         >
                             {this.props.mechData.getMovementToHitText()}
                         </text>
-                                {/*  */}
-
 
                     </svg>
                 ) : (

@@ -84,6 +84,7 @@ export default class RecordSheetGroupBoxSVG extends React.Component<IRecordSheet
             height={this.theHeight - this.borderWidth * 2}
             fill={this.bgColor}
             onClick={this.props.onClick}
+            className={this.props.onClick ? "cursor-pointer" : ""}
         />
 
 	{this.title ? (
@@ -141,6 +142,7 @@ interface IRecordSheetGroupBoxSVGProps {
     title?: string;
     subTitle?: string;
     onClick?(): void;
+
 }
 
 interface IRecordSheetGroupBoxSVGState {

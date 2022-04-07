@@ -6,6 +6,9 @@ export interface ICBTForceExport {
     groups: ICBTGroupExport[];
 	uuid: string;
 	lastUpdated: Date;
+
+    turn: number;
+    phase: number;
 }
 
 export class BattleMechForce {
@@ -20,6 +23,9 @@ export class BattleMechForce {
 	public customName : string= "";
     
     public groups: BattleMechGroup[] = [];
+
+    public turn: number = 1;
+    public phase: number = 0;
 
     constructor(importObj: ICBTForceExport | null = null ) {
         if( importObj ) {
@@ -81,6 +87,8 @@ export class BattleMechForce {
             groups: [],
             uuid: this._uuid,
             lastUpdated: new Date(),
+            turn: this.turn,
+            phase: this.phase,
         }
 
         for( let group of this.groups) {
@@ -90,12 +98,40 @@ export class BattleMechForce {
         return returnValue;
     }
 
+    public getPhaseName(
+        num: number
+    ): string {
+        if( num === 0 ) {
+            return "Initiative Phase"
+        } else if( num === 1 ) {
+            return "Movement Phase"
+        } else if( num === 2 ) {
+            return "Weapon Attack Phase"
+        } else if( num === 3 ) {
+            return "Physical Attack Phase"
+        } else if( num === 4 ) {
+            return "Heat Phase"
+        } else if( num === 5 ) {
+            return "End Phase"
+        } 
+
+
+        return "???"
+    }
+
     public import(importObj: ICBTForceExport) {
         for( let group of importObj.groups ) {
             this.groups.push( new BattleMechGroup( group) );
         }
         if( importObj.uuid ) {
             this._uuid = importObj.uuid;
+        }
+
+        if( typeof(importObj.turn) != "undefined" ) {
+            this.turn = importObj.turn;
+        }
+        if( typeof(importObj.phase) != "undefined" ) {
+            this.phase = importObj.phase;
         }
 
         if( importObj.lastUpdated ) {

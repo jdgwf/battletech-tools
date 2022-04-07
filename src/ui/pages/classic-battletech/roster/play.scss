@@ -57,11 +57,20 @@ body {
 
     }
     .selected-mech {
-        max-width: 84vw;
+        max-width: 83vw;
         .text-section {
             max-width: 50%;
             margin: 10rem auto 0 auto;
             padding: 3rem 0;
+        }
+    }
+    .turn-counter{
+        max-width: 83vw;
+        display: flex;
+        flex-direction: row;
+        .grow {
+            text-align: center;
+            flex-grow: 1;
         }
     }
     .table {
