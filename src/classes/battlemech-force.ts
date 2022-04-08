@@ -22,7 +22,7 @@ export class BattleMechForce {
 	private _lastUpdated: Date = new Date();
 
 	public customName : string= "";
-    
+
     public groups: BattleMechGroup[] = [];
 
     public turn: number = 1;
@@ -40,7 +40,7 @@ export class BattleMechForce {
         }
     }
 
-    setSelectedMech( 
+    setSelectedMech(
         uuid: string
     ) {
         for( let group of this.groups ) {
@@ -102,6 +102,32 @@ export class BattleMechForce {
         return returnValue;
     }
 
+    getUnitViaUUID(
+        uuid: string
+    ): BattleMech | null {
+        for( let group of this.groups ) {
+            for( let unit of group.members ) {
+                if( unit.uuid === uuid )
+                    return unit;
+            }
+        }
+        return null;
+    }
+
+    updateUnitViaUUID(
+        nv: BattleMech
+    ): boolean {
+        for( let group of this.groups ) {
+            for( let unit of group.members ) {
+                if( unit.uuid === nv.uuid ) {
+                    unit = nv;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public getPhaseName(
         num: number
     ): string {
@@ -117,7 +143,7 @@ export class BattleMechForce {
             return "Heat Phase"
         } else if( num === 5 ) {
             return "End Phase"
-        } 
+        }
 
 
         return "???"

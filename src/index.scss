@@ -139,14 +139,20 @@ code {
     monospace;
 }
 
-// .flex {
-//   display: flex;
-//   flex-flow: row;
-//   .text-section {
-//     width: 100%;
-//     margin: .5rem;
-//   }
-// }
+.flex {
+  display: flex;
+  flex-flow: row;
+  .grow {
+    flex-grow: 1;
+  }
+  .grow-1 {
+    flex-grow: 1;
+  }
+  .grow-2 {
+    flex-grow: 2;
+  }
+}
+
 select, input, label, textarea {
   width: 100%;
   display: block;
@@ -549,6 +555,12 @@ body {
     > svg {
       height: 1em;
       width: 1em;
+    }
+  }
+  .btn-xs {
+    > svg {
+      height: .7em;
+      width: .7em;
     }
   }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { HotSurface } from 'react-game-icons';
+import { CrosshairArrow, HotSurface } from 'react-game-icons';
 import { FaArrowCircleLeft, FaDice, FaGift, FaQuestionCircle, FaShoePrints } from "react-icons/fa";
 import { GiBattleAxe, GiMissileSwarm } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
@@ -23,16 +23,16 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             updated: false,
             mechSelectorExpanded: false,
 
-            setMovementDialog: false,
+            setMovementDialog: null,
             setMovementMode: "",
             setMovementNumber: 0,
             setMovementCanJump: false,
             setMovementJumpingMP: 0,
 
-            takeDamageDialog: false,
+            takeDamageDialog: null,
 
 
-            setTargetDialog: false,
+            setTargetDialog: null,
             targetData: null,
             viewGATOR: null,
         };
@@ -54,7 +54,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
       }
     }
-    
+
     setPhase = (
       e: React.FormEvent<HTMLButtonElement>,
       nv: number
@@ -123,7 +123,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           targetData.b.active = e.currentTarget.checked;
         } else if( target === "c" ) {
           targetData.c.active = e.currentTarget.checked;
-        } 
+        }
       }
 
       this.setState({
@@ -131,7 +131,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       })
     }
 
-    viewGATOR = ( 
+    viewGATOR = (
       gator: IGATOR,
     ) => {
       this.setState({
@@ -165,7 +165,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           targetData.b.jumped = e.currentTarget.checked;
         } else if( target === "c" ) {
           targetData.c.jumped = e.currentTarget.checked;
-        } 
+        }
       }
 
       this.setState({
@@ -188,7 +188,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           targetData.b.range = +e.currentTarget.value;
         } else if( target === "c" ) {
           targetData.c.range = +e.currentTarget.value;
-        } 
+        }
       }
 
       this.setState({
@@ -211,7 +211,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           targetData.b.otherMods = +e.currentTarget.value;
         } else if( target === "c" ) {
           targetData.c.otherMods = +e.currentTarget.value;
-        } 
+        }
       }
 
       this.setState({
@@ -234,7 +234,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           targetData.b.movement = +e.currentTarget.value;
         } else if( target === "c" ) {
           targetData.c.movement = +e.currentTarget.value;
-        } 
+        }
       }
 
       this.setState({
@@ -257,24 +257,29 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
     }
 
-    openSetTarget = () => {
-      let currentBM: BattleMech | null = this._getCurrentBM();
+    openSetTarget = (
+      currentBM: BattleMech,
+    ) => {
+
       if( this.props.appGlobals.currentCBTForce && currentBM ) {
         let targetData = {
           a: JSON.parse(JSON.stringify(currentBM.getTarget("a"))),
           b: JSON.parse(JSON.stringify(currentBM.getTarget("b"))),
           c: JSON.parse(JSON.stringify(currentBM.getTarget("c"))),
         }
+
+
         this.setState({
-          setTargetDialog: true,
-          setMovementDialog: false,
-          takeDamageDialog: false,
+          setTargetDialog: currentBM,
+          setMovementDialog: null,
+          takeDamageDialog: null,
           targetData: targetData,
-        })  
+        })
       }
-      
+
     }
-    closeSetTarget  = ( 
+
+    closeSetTarget  = (
       e: React.FormEvent<HTMLButtonElement>
     ) => {
       if( e && e.preventDefault ) {
@@ -282,42 +287,48 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
 
       this.setState({
-        setTargetDialog: false,
+        setTargetDialog: null,
         targetData: null,
       })
     }
-    setTarget = ( 
+
+    setTarget = (
       e: React.FormEvent<HTMLButtonElement>
     ) => {
       if( e && e.preventDefault ) {
         e.preventDefault();
       }
 
-      let currentBM: BattleMech | null = this._getCurrentBM();
+      let currentBM: BattleMech | null = this.state.setTargetDialog;
       if( this.props.appGlobals.currentCBTForce && currentBM && this.state.targetData ) {
-        currentBM.setTargets( 
-          this.state.targetData.a, 
+        currentBM.setTargets(
+          this.state.targetData.a,
           this.state.targetData.b,
           this.state.targetData.c,
         );
+
+        this.props.appGlobals.currentCBTForce.updateUnitViaUUID( currentBM )
 
         this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
       }
 
       this.setState({
-        setTargetDialog: false,
+        setTargetDialog: null,
         targetData: null,
       })
     }
 
-    openTakeDamage = () => {
+    openTakeDamage = (
+      currentBM: BattleMech
+    ) => {
+
       this.setState({
-        takeDamageDialog: true,
-        setMovementDialog: false,
-        setTargetDialog: false,
+        takeDamageDialog: currentBM,
+        setMovementDialog: null,
+        setTargetDialog: null,
       })
     }
-    closeTakeDamage  = ( 
+    closeTakeDamage  = (
       e: React.FormEvent<HTMLButtonElement>
     ) => {
       if( e && e.preventDefault ) {
@@ -325,10 +336,10 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
 
       this.setState({
-        takeDamageDialog: false,
+        takeDamageDialog: null,
       })
     }
-    takeDamage = ( 
+    takeDamage = (
       e: React.FormEvent<HTMLButtonElement>
     ) => {
       if( e && e.preventDefault ) {
@@ -336,7 +347,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
 
       this.setState({
-        takeDamageDialog: false,
+        takeDamageDialog: null,
       })
     }
 
@@ -348,26 +359,30 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
     }
 
     onChange = (nv: BattleMech ): void => {
-      let currentBM: BattleMech | null = this._getCurrentBM();
-      if( this.props.appGlobals.currentCBTForce && currentBM ) {
-        currentBM = nv;
-        this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
+
+      if( this.props.appGlobals.currentCBTForce ) {
+        let currentBM: BattleMech | null = this.props.appGlobals.currentCBTForce.getSelectedMech();
+        if( currentBM ) {
+          currentBM = nv;
+          this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
+        }
       }
     }
 
-    openSetMovement = () => {
+    openSetMovement = (
+      currentBM: BattleMech
+    ) => {
 
-      let currentBM: BattleMech | null = this._getCurrentBM();
       this.setState({
-        setMovementDialog: true,
+        setMovementDialog: currentBM,
         setMovementMode: currentBM ? currentBM.currentMovementMode : "",
         setMovementNumber: currentBM ? currentBM.currentToHitMovementModifier : 0,
         setMovementCanJump: currentBM && currentBM.getJumpSpeed() > 0 ? true : false,
-        setTargetDialog: false,
-        takeDamageDialog: false,
+        setTargetDialog: null,
+        takeDamageDialog: null,
       })
     }
-    closeSetMovement  = ( 
+    closeSetMovement  = (
       e: React.FormEvent<HTMLButtonElement>
     ) => {
       if( e && e.preventDefault ) {
@@ -375,50 +390,57 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
 
       this.setState({
-        setMovementDialog: false,
+        setMovementDialog: null,
       })
     }
-    setMovement = ( 
+    setMovement = (
       e: React.FormEvent<HTMLButtonElement>
     ) => {
       if( e && e.preventDefault ) {
         e.preventDefault();
       }
 
-      let currentBM: BattleMech | null = this._getCurrentBM();
-      if( this.props.appGlobals.currentCBTForce && currentBM ) {
-        currentBM.currentMovementMode = this.state.setMovementMode;
-        currentBM.currentToHitMovementModifier = this.state.setMovementNumber;
-        if( currentBM.currentMovementMode === "j")
-          currentBM.currentTargetJumpingMP = this.state.setMovementJumpingMP;
-        else 
-          currentBM.currentTargetJumpingMP = 0
-        this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
+
+      if( this.props.appGlobals.currentCBTForce ) {
+
+        // let currentBM: BattleMech | null = this.props.appGlobals.currentCBTForce.getUnitViaUUID( this.state.setMovementDialog?.uuid );
+        if( this.state.setMovementDialog ) {
+          let currentBM = this.state.setMovementDialog;
+          currentBM.currentMovementMode = this.state.setMovementMode;
+          currentBM.currentToHitMovementModifier = this.state.setMovementNumber;
+          if( currentBM.currentMovementMode === "j")
+            currentBM.currentTargetJumpingMP = this.state.setMovementJumpingMP;
+          else
+            currentBM.currentTargetJumpingMP = 0
+          this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
+        } else {
+          console.error("setMovement Can't find UUID ", this.state.setMovementDialog)
+        }
       }
 
       this.setState({
-        setMovementDialog: false,
+        setMovementDialog: null,
       })
     }
 
     setMovementMode = (
       e: React.FormEvent<HTMLButtonElement>,
-      nv: string 
+      nv: string
     ) => {
       if( e && e.preventDefault ) {
         e.preventDefault();
       }
       if( nv === "" ) {
-        
+
         this.setState({
           setMovementMode: nv,
           setMovementNumber: 0,
-          setMovementJumpingMP: 0,  
+          setMovementJumpingMP: 0,
         })
       } else {
         this.setState({
           setMovementMode: nv,
-          
+
         })
       }
 
@@ -426,7 +448,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
     setMovementNumber = (
       e: React.FormEvent<any>,
-      nv: number 
+      nv: number
     ) => {
       if( e && e.preventDefault ) {
         e.preventDefault();
@@ -520,14 +542,14 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           <th style={{width: "14%"}}>To-Hit</th>
         </tr>
       </thead>
-      <tbody> 
+      <tbody>
         <tr>
           <td>{this.state.viewGATOR.gunnerySkill}</td>
           <td>{this.state.viewGATOR.attackerMovementModifier}</td>
           <td>{this.state.viewGATOR.targetMovementModifier}</td>
           <td>
             {this.state.viewGATOR.otherModifiers}
-            
+
             {this.state.viewGATOR.otherModifiersExplanation ? (
               <>
               <div className="small-text">
@@ -557,7 +579,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                 No Shot!
               </>
             )}
-            
+
           </td>
         </tr>
       </tbody>
@@ -578,15 +600,16 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
     </table>
   ) : null}
 </StandardModal>
+{this.state.setMovementDialog ? (
 <StandardModal
-  show={this.state.setMovementDialog}
+  show={true}
   onClose={this.closeSetMovement}
   onSave={this.setMovement}
-  title="Movement Information"
+  title={this.state.setMovementDialog.getName() + " Movement Info"}
 >
 
-    <div className="row">
-      <div className="col text-center">
+    <div className="flex">
+      <div className="text-center">
       <button
         className={this.state.setMovementMode === "" ? "btn btn-primary" : "btn"}
         onClick={(e) => this.setMovementMode(e, "")}
@@ -670,9 +693,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       </button>
       </>
     ) : null}
-    
+
       </div>
-      <div className="col">
+      <div className="grow">
         <table className="table text-center">
           <thead>
             <tr>
@@ -740,9 +763,13 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           ) : null}
         </table>
       </div>
-      {this.state.setMovementMode === "j" ? (
+
+
+
+  </div>
+  {this.state.setMovementMode === "j" ? (
         <div className="text-center">
-        <InputNumeric 
+        <InputNumeric
           label="Jumping MP Used (for heat calculation)"
           value={this.state.setMovementJumpingMP}
           onChange={this.updateMovementJumpingMP}
@@ -753,16 +780,15 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           step={1}
         />
         </div>
-      ) : null}
-      
-      
-  </div>
+  ) : null}
 </StandardModal>
+      ) : null}
+{this.state.setTargetDialog ? (
 <StandardModal
-  show={this.state.setTargetDialog}
+  show={true}
   onClose={this.closeSetTarget}
   onSave={this.setTarget}
-  title="Target Selection Information"
+  title={this.state.setTargetDialog.getName() + " Target Selection"}
 >
   {this.state.targetData ? (
     <>
@@ -916,8 +942,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
   ) : null}
 
 </StandardModal>
+) : null}
 <StandardModal
-  show={this.state.takeDamageDialog}
+  show={this.state.takeDamageDialog !== null}
   onClose={this.closeTakeDamage}
   onSave={this.takeDamage}
   title="Take Damage"
@@ -929,16 +956,16 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                 <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/classic-battletech/roster`}><FaArrowCircleLeft /></Link></li>
                 {/* <li>
                   <span
-                    
+
                   >
                     <FaBars />
                   </span>
                 </li> */}
                                 {/* <li className="small-text text-center">
                                 <br />
-                   
-                  
-                      
+
+
+
                 </li> */}
                 <li className="logo">
                     <a
@@ -955,15 +982,15 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           </header>
 <div className="page-container">
 <div className="record-sheet-column">
-<div 
-  className="alert alert-warning small-text"
+<div
+  className="alert alert-danger"
 >
-  This is still far from ready to be used live. That said, much progress has been made on Target, per weapon GATOR, and movement.
+ Although improving, this area <strong>DOES NOT WORK!</strong> However, much progress has been made on Target, per weapon GATOR, and movement.
   <br />Next up: Taking Damage, After that, turn progress (or vice/versa)
 </div>
 <div>
 <TextSection
-  
+
 >
   <div className="turn-counter">
       <div>
@@ -972,7 +999,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           onClick={this.toggleHelp}
           title="Click here to toggle the help text below"
         >
-          {this.props.appGlobals.currentCBTForce.hideHelp ? 
+          {this.props.appGlobals.currentCBTForce.hideHelp ?
           <FaQuestionCircle /> : <FaQuestionCircle /> }
         </button>
       </div>
@@ -1011,7 +1038,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           className={this.props.appGlobals.currentCBTForce.phase === 2 ? "btn btn-primary btn-sm" : "btn btn-secondary btn-sm"}
           onClick={(e) => this.setPhase(e, 2)}
           title={this.props.appGlobals.currentCBTForce.getPhaseName(2)}
-          
+
         >
           <GiMissileSwarm />
         </button>
@@ -1068,7 +1095,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       ) : null}
       {this.props.appGlobals.currentCBTForce.phase === 2 ? (
         <div className="grow-1">
-          <button 
+          <button
             className="btn btn-sm btn-primary"
           >
             Resolve Fire
@@ -1121,9 +1148,12 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               <BattleMechSVG
                 mechData={selectedMech}
                 inPlay={true}
-                openSetTarget={this.openSetTarget}
-                openTakeDamage={this.openTakeDamage}
-                openSetMovement={this.openSetMovement}
+                //@ts-ignore
+                openSetTarget={() => this.openSetTarget(selectedMech)}
+                //@ts-ignore
+                openTakeDamage={() => this.openTakeDamage(selectedMech)}
+                //@ts-ignore
+                openSetMovement={() => this.openSetMovement(selectedMech)}
                 onChange={this.onChange}
                 viewGATOR={this.viewGATOR}
               />
@@ -1178,14 +1208,14 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                             {unit.getName()}
 
                             <div className="stats">
-                              <div 
+                              <div
                                 className="move"
                                 title="This is the mech's movement status, the color indicates the last movement method, the number is the to-hit movement modifiers as a target including the +1 jump modifier if the 'mech jumped."
                               >
                                 <svg
                                   height={20}
                                   width={20}
-                                  
+
                                 >
                                   <DieSVG
                                     posX={0}
@@ -1197,24 +1227,24 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                                     numericPips={true}
                                   />
                                 </svg>
-                               
+
                               </div>
                               <div className="bars">
-                                <StatBar 
+                                <StatBar
                                   color="black"
                                   background="#aaa"
                                   currentPercentage={30}
                                   height={8}
                                   title="Current Armor Status"
                                 />
-                                <StatBar 
+                                <StatBar
                                   color="white"
                                   background="#aaa"
                                   currentPercentage={50}
                                   height={8}
                                   title="Current Internal Structure Status"
                                 />
-                                <StatBar 
+                                <StatBar
                                   color="red"
                                   background="#aaa"
                                   currentPercentage={80}
@@ -1225,6 +1255,24 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                             </div>
 
                           </button>
+                          <div className="flex">
+                            <div className="grow">
+                            <button
+                              className={this.props.appGlobals.currentCBTForce?.phase === 1 ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
+                              onClick={(e) => this.openSetMovement(unit)}
+                            >
+                              <FaShoePrints />
+                            </button>
+                            </div>
+                            <div className="grow">
+                              <button
+                                className={this.props.appGlobals.currentCBTForce?.phase === 2 ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
+                                onClick={(e) => this.openSetTarget(unit)}
+                              >
+                                <CrosshairArrow />
+                              </button>
+                            </div>
+                          </div>
                         </li>
                     )
                   })}
@@ -1237,10 +1285,10 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
             </React.Fragment>
             )
-          })} 
+          })}
     </div>
     </div>
-            </div>            
+            </div>
         </>
       );
     }
@@ -1255,16 +1303,16 @@ interface IPlayState {
   updated: boolean;
   mechSelectorExpanded: boolean;
 
-  setMovementDialog: boolean;
+  setMovementDialog: BattleMech | null;
   setMovementMode: string;
   setMovementNumber: number;
   setMovementCanJump: boolean;
   setMovementJumpingMP: number;
 
-  takeDamageDialog: boolean;
+  takeDamageDialog: BattleMech | null;
 
 
-  setTargetDialog: boolean;
+  setTargetDialog: BattleMech | null;
 
   targetData: ICombinedTargetData | null;
   viewGATOR: IGATOR | null;
