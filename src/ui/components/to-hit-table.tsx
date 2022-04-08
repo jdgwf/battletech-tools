@@ -116,8 +116,8 @@ export default class ToHitTable extends React.Component<IToHitTableProps, IToHit
       </tbody>
       <tfoot>
         <tr>
-          <th colSpan={4} className="small-text">
-            *A result of 2 may inflict a critical hit. Apply damage to the armor in that section in the normal manner, but the attacking player also rolls once on the Determining Critical Hits Table, p. 46.
+          <th colSpan={4} className="small-text text-left">
+            *A result of 2 may inflict a critical hit.<br />Apply damage to the armor in that section in the normal manner,<br />but the attacking player also rolls once on the Determining Critical Hits Table, p. 46.
           </th>
         </tr>
       </tfoot>

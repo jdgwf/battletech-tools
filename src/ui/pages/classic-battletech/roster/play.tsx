@@ -836,7 +836,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             </table>
           </div>
           <div>
-            <ToHitTable className="small-text" onClick={(loc, crit) => this.addDamageCluster( loc, crit, this.state.damagePerClusterUnit, this.state.damagePerClusterEQIndex)} />
+            <ToHitTable onClick={(loc, crit) => this.addDamageCluster( loc, crit, this.state.damagePerClusterUnit, this.state.damagePerClusterEQIndex)} />
           </div>
         </div>
       </>
@@ -931,17 +931,24 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
 
                               <td className="min-width no-wrap">
-                                {clusterChartButton ? (
-                                  <button
-                                    className="btn btn-primary btn-sm"
-                                    title="Click here to open the Cluster Damage Chart"
-                                    onClick={(e) => this.openClusterDamageChart(e, attackGATOR, attack.damageClusters, attack.damagePerCluster, unit, attackIndex)}
-                                  >
-                                    <FaTable />
-                                  </button>
-                                ) : null}
-                                {attackDamage}<br />
-                                {attackDamageSecondLine}
+                                <div className="flex">
+                                  {clusterChartButton ? (
+
+                                    <div className="text-center">
+                                    <button
+                                      className="btn btn-primary btn-sm"
+                                      title="Click here to open the Cluster Damage Chart"
+                                      onClick={(e) => this.openClusterDamageChart(e, attackGATOR, attack.damageClusters, attack.damagePerCluster, unit, attackIndex)}
+                                    >
+                                      <GiMissileSwarm />
+                                    </button>
+                                    </div>
+                                  ) : null}
+                                  <div className={clusterChartButton ? "grow text-left" : "grow text-center"}>
+                                    {attackDamage}<br />
+                                    {attackDamageSecondLine}
+                                  </div>
+                                </div>
                               </td>
 
                               <td className="min-width no-wrap">

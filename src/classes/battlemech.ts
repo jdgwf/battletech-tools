@@ -7210,6 +7210,7 @@ export class BattleMech {
         this.currentToHitMovementModifier = -1;
         for( let item of this._equipmentList ) {
             item.resolved = false;
+            item.damageClusterHits = [];
         }
     }
 
