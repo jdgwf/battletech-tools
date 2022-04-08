@@ -306,11 +306,25 @@ input[type=number] {
     border-top: none !important;
   }
 
+  tbody:nth-child(odd) {
+    tr {
+      background: #444;
+ 
+    }
+  }
+
   thead, tbody, tfoot {
     tr {
       td, th {
         color: $textSectionFG;
 
+      }
+      td.alt-bg {
+        background: rgba(0,0,0,.4);
+      }
+
+      td.selected-cell {
+        background: rgba(0,0,0,.4);
       }
 
       &.disabled {
@@ -320,7 +334,11 @@ input[type=number] {
         }
       }
     }
+    
   }
+
+  
+  
   &.tighter-padding {
     tbody, thead, tfooter {
       tr {

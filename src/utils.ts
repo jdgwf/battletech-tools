@@ -392,3 +392,99 @@ export function getHexDistanceFromModifier(
     }
 
 }
+
+const clusterHitsTable = [
+    [   // roll of 2, array index 0
+        1,1,1,1,2,2,3,3,3,4,4,4,5,5,5,5,6,6,6,7,7,7,8,8,9,9,9,10,10,12,
+    ],
+    [ // roll of 3, array index 1
+        1,1,2,2,2,2,3,3,3,4,4,4,5,5,5,5,6,6,6,7,7,7,8,8,9,9,9, 10, 10, 12,
+    ],
+    [// roll of 4, array index 2
+        1,1,2,2,3,3,4,4,4,5,5,5,6,6,7,7,8,8,9,9,9, 10, 10, 10, 11, 11, 11, 12, 12, 18,
+    ],
+    [ // roll of 5, array index 3
+        1,2,2,3,3,4,4,5,6,7,8,8,9,9, 10, 10, 11, 11, 12, 13, 14, 15, 16, 16, 17, 17, 17, 18, 18, 24,
+    ],
+    [ // roll of 6, array index 4
+        1,2,2,3,4,4,5,5,6,7,8,8,9,9, 10, 10, 11, 11, 12, 13, 14, 15, 16, 16, 17, 17, 17, 18, 18, 24,
+    ],
+    [ // roll of 7, array index 5
+        1,2,3,3,4,4,5,5,6,7,8,8,9,9, 10, 10, 11, 11, 12, 13, 14, 15, 16, 16, 17, 17, 17, 18, 18, 24,
+    ],
+    [ // roll of 8, array index 6
+        2,2,3,3,4,4,5,5,6,7,8,8,9,9, 10, 10, 11, 11, 12, 13, 14, 15, 16, 16, 17, 17, 17, 18, 18, 24,
+    ],
+    [ // roll of 9, array index 7
+        2,2,3,4,5,6,6,7,8,9, 10, 11, 11, 12, 13, 14, 14, 15, 16, 17, 18, 19, 20, 21, 21, 22, 23, 23, 24, 32,
+    ],
+    [ // roll of 10, array index 8
+        2,3,3,4,5,6,6,7,8,9, 10, 11, 11, 12, 13, 14, 14, 15, 16, 17, 18, 19, 20, 21, 21, 22, 23, 23, 24, 32,
+    ],
+    [ // roll of 11, array index 9
+        2,3,4,5,6,7,8,9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 40,
+    ],
+    [ // roll of 12, array index 10
+        2,3,4,5,6,7,8,9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 40,
+    ],
+]
+
+export function getClusterHitsPerRoll(
+    roll: number,
+    numberCluster: number,
+): number {
+
+    if( clusterHitsTable[ roll - 2 ] && clusterHitsTable[ roll - 2][ numberCluster - 2] ) {
+        return clusterHitsTable[ roll - 2][ numberCluster - 2];
+    }
+
+    return -1;
+}
+
+export function getLocationName(
+    abbr: string,
+    forQuad: boolean,
+): string {
+    switch( abbr ) {
+        case "hd": {
+            return "Head"
+        }
+
+        case "ct": {
+            return "Center Torso"
+        }
+        case "rt": {
+            return "Right Torso"
+        }
+        case "lt": {
+            return "Left Torso"
+        }
+
+        case "ctr": {
+            return "Center Torso (Rear)"
+        }
+        case "rtr": {
+            return "Right Torso (Rear)"
+        }
+        case "ltr": {
+            return "Left Torso (Rear)"
+        }
+
+        case "ra": {
+            return "Right Arm"
+        }
+        case "la": {
+            return "Left Arm"
+        }
+
+        case "rl": {
+            return "Right Leg"
+        }
+        case "ll": {
+            return "Left Leg"
+        }
+    }
+
+
+    return "???"
+}

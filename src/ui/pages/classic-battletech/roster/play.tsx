@@ -1,9 +1,10 @@
 import React from 'react';
 import { CrosshairArrow, HotSurface } from 'react-game-icons';
-import { FaArrowCircleLeft, FaCheckSquare, FaDice, FaGift, FaQuestionCircle, FaShoePrints, FaSquare } from "react-icons/fa";
+import { FaArrowCircleDown, FaArrowCircleLeft, FaArrowCircleRight, FaCheckSquare, FaDice, FaGift, FaQuestionCircle, FaShoePrints, FaSquare, FaTable } from "react-icons/fa";
 import { GiBattleAxe, GiMissileSwarm } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
 import { BattleMech, IGATOR, ITargetToHit } from "../../../../classes/battlemech";
+import { getClusterHitsPerRoll, getLocationName } from '../../../../utils';
 import { IAppGlobals } from '../../../app-router';
 import BattleTechLogo from '../../../components/battletech-logo';
 import InputCheckbox from '../../../components/form_elements/input_checkbox';
@@ -14,6 +15,7 @@ import StatBar from "../../../components/stat-bar";
 import BattleMechSVG from "../../../components/svg/battlemech-svg";
 import DieSVG from "../../../components/svg/die-svg";
 import TextSection from "../../../components/text-section";
+import ToHitTable from '../../../components/to-hit-table';
 import './play.scss';
 
 export default class ClassicBattleTechRosterPlay extends React.Component<IPlayProps, IPlayState> {
@@ -33,6 +35,15 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             takeDamageDialog: null,
             resolveFireDialog: false,
 
+            damageClusters: -1,
+            damagePerCluster: -1,
+            damagePerClusterGATOR: null,
+            damageRolledClusters: -1,
+            damagePerClusterUnit: null,
+            damagePerClusterEQIndex: -1,
+
+            hitLocationChartDialog: false,
+
 
             setTargetDialog: null,
             targetData: null,
@@ -40,6 +51,113 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         };
 
         this.props.appGlobals.makeDocumentTitle("Playing CBT Force");
+    }
+
+    addDamageCluster = (
+      loc: string,
+      critical: boolean,
+      unit: BattleMech | null,
+      eq_index: number,
+    ) => {
+      if( unit ) {
+        let damageClusterHits = unit.sortedEquipmentList[eq_index].damageClusterHits;
+
+        if(!damageClusterHits) {
+          damageClusterHits = [];
+        }
+        damageClusterHits.push( {
+          location: loc,
+          damage: this.state.damagePerCluster,
+          critical: critical,
+        })
+
+
+        if(this.props.appGlobals.currentCBTForce) {
+          let currentCBTForce = this.props.appGlobals.currentCBTForce;
+
+
+          unit.setDamageClusterHits( eq_index, damageClusterHits );
+          this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
+        }
+
+        this.setState({
+          updated: true,
+        })
+      }
+    }
+
+    setNumberRolledClusters = (
+      e: React.FormEvent<HTMLTableCellElement>,
+      nv: number,
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+
+      this.setState({
+        damageRolledClusters: nv
+      })
+    }
+
+    openClusterDamageChart = (
+      e: React.FormEvent<HTMLButtonElement>,
+      damagePerClusterGATOR: IGATOR,
+      damageClusters: number | undefined,
+      damagePerCluster: number | undefined,
+      damagePerClusterUnit: BattleMech,
+      damagePerClusterEQIndex: number,
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+
+      this.setState({
+        damagePerClusterGATOR: damagePerClusterGATOR,
+        damagePerCluster: damagePerCluster ? damagePerCluster : 0,
+        damageClusters: damageClusters ? damageClusters : 0,
+        damagePerClusterUnit: damagePerClusterUnit,
+        damagePerClusterEQIndex: damagePerClusterEQIndex,
+      })
+    }
+
+    closeHitLocationChartDialog = (
+      e: React.FormEvent<HTMLButtonElement>,
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+
+      this.setState({
+        hitLocationChartDialog: false
+      })
+    }
+
+    openHitLocationChartDialog = (
+      e: React.FormEvent<HTMLButtonElement>,
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+
+      this.setState({
+        hitLocationChartDialog: true
+      })
+    }
+
+    closeClusterDamageChart = (
+      e: React.FormEvent<HTMLButtonElement>,
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+
+      this.setState({
+        damagePerClusterGATOR: null,
+        damagePerCluster: -1,
+        damageClusters: -1,
+        damagePerClusterUnit: null,
+        damagePerClusterEQIndex: -1,
+      })
     }
 
     toggleResolved = (
@@ -601,6 +719,132 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       return (
         <>
 
+
+  <StandardModal
+  show={this.state.hitLocationChartDialog}
+  className="modal even-modaler"
+  onClose={this.closeHitLocationChartDialog}
+  title={"Hit Location Chart"}
+>
+    <ToHitTable />
+</StandardModal>
+{this.state.damagePerClusterGATOR && this.state.damageClusters > -1 && this.state.damagePerCluster > -1 ? (
+  <StandardModal
+  show={true}
+  className="modal modal-xl even-modaler"
+  onClose={this.closeClusterDamageChart}
+  title={"Damage Cluster for " + this.state.damagePerClusterGATOR.weaponName}
+>
+    <h4>Step 1: Click on the Roll or # of hits:</h4>
+    <table className="table text-center">
+      <thead>
+        <tr>
+          <th>
+            <div className="small-text">
+              Roll <FaArrowCircleRight />
+            </div>
+            <div className="small-text">
+              <FaArrowCircleDown /> # Shots
+            </div>
+          </th>
+          <th>2</th>
+          <th>3</th>
+          <th>4</th>
+          <th>5</th>
+          <th>6</th>
+          <th>7</th>
+          <th>8</th>
+          <th>9</th>
+          <th>10</th>
+          <th>11</th>
+          <th>12</th>
+        </tr>
+      </thead>
+        <tbody>
+          <tr>
+            <td>#{this.state.damageClusters}</td>
+            <td className={this.state.damageRolledClusters === getClusterHitsPerRoll(2, this.state.damageClusters) ? "selected-cell cursor-pointer" : "cursor-pointer"} onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(2, this.state.damageClusters))}>{getClusterHitsPerRoll(2, this.state.damageClusters)}</td> {/* 2 */}
+            <td className={this.state.damageRolledClusters === getClusterHitsPerRoll(3, this.state.damageClusters) ? "selected-cell cursor-pointer" : "cursor-pointer"} onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(3, this.state.damageClusters))}>{getClusterHitsPerRoll(3, this.state.damageClusters)}</td> {/* 3 */}
+            <td className={this.state.damageRolledClusters === getClusterHitsPerRoll(4, this.state.damageClusters) ? "selected-cell cursor-pointer" : "cursor-pointer"} onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(4, this.state.damageClusters))}>{getClusterHitsPerRoll(4, this.state.damageClusters)}</td> {/* 4 */}
+            <td className={this.state.damageRolledClusters === getClusterHitsPerRoll(5, this.state.damageClusters) ? "selected-cell cursor-pointer" : "cursor-pointer"} onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(5, this.state.damageClusters))}>{getClusterHitsPerRoll(5, this.state.damageClusters)}</td> {/* 5 */}
+            <td className={this.state.damageRolledClusters === getClusterHitsPerRoll(6, this.state.damageClusters) ? "selected-cell cursor-pointer" : "cursor-pointer"} onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(6, this.state.damageClusters))}>{getClusterHitsPerRoll(6, this.state.damageClusters)}</td> {/* 6 */}
+            <td className={this.state.damageRolledClusters === getClusterHitsPerRoll(7, this.state.damageClusters) ? "selected-cell cursor-pointer" : "cursor-pointer"} onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(7, this.state.damageClusters))}>{getClusterHitsPerRoll(7, this.state.damageClusters)}</td> {/* 7 */}
+            <td className={this.state.damageRolledClusters === getClusterHitsPerRoll(8, this.state.damageClusters) ? "selected-cell cursor-pointer" : "cursor-pointer"} onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(8, this.state.damageClusters))}>{getClusterHitsPerRoll(8, this.state.damageClusters)}</td> {/* 8 */}
+            <td className={this.state.damageRolledClusters === getClusterHitsPerRoll(9, this.state.damageClusters) ? "selected-cell cursor-pointer" : "cursor-pointer"} onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(9, this.state.damageClusters))}>{getClusterHitsPerRoll(9, this.state.damageClusters)}</td> {/* 9 */}
+            <td className={this.state.damageRolledClusters === getClusterHitsPerRoll(10, this.state.damageClusters) ? "selected-cell cursor-pointer" : "cursor-pointer"} onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(10, this.state.damageClusters))}>{getClusterHitsPerRoll(10, this.state.damageClusters)}</td> {/* 10 */}
+            <td className={this.state.damageRolledClusters === getClusterHitsPerRoll(11, this.state.damageClusters) ? "selected-cell cursor-pointer" : "cursor-pointer"} onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(11, this.state.damageClusters))}>{getClusterHitsPerRoll(11, this.state.damageClusters)}</td> {/* 11 */}
+            <td className={this.state.damageRolledClusters === getClusterHitsPerRoll(12, this.state.damageClusters) ? "selected-cell cursor-pointer" : "cursor-pointer"} onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(12, this.state.damageClusters))}>{getClusterHitsPerRoll(12, this.state.damageClusters)}</td> {/* 12 */}
+          </tr>
+        </tbody>
+
+    </table>
+    
+    {this.state.damagePerClusterUnit && this.state.damageRolledClusters > 0 ? (
+      <>
+        <h4>Step 2: Walk through each cluster hit and assign damage.</h4>
+        <p>Click on a location to assign damage</p>
+        <div className="flex">
+          <div className="grow">
+            <table className="table text-center">
+              <thead>
+                <tr>
+                  <th colSpan={3}>Cluster Log ({this.state.damageRolledClusters} Hits)</th>
+                </tr>
+                <tr>
+                  <th>Hit #</th>
+                  <th>Location</th>
+                  <th>Damage</th>
+                </tr>
+              </thead>
+              {this.state.damagePerClusterUnit.sortedEquipmentList[this.state.damagePerClusterEQIndex].damageClusterHits ? (
+                <>
+                 {//@ts-ignore
+                 this.state.damagePerClusterUnit.sortedEquipmentList[this.state.damagePerClusterEQIndex].damageClusterHits.map( (hit, hitIndex) => {
+                  return (
+                  <tbody key={hitIndex}>
+                    <tr>
+                      <td>{hitIndex +1}</td>
+                      <td>{getLocationName(hit.location, false)}</td>
+                      <td>{hit.damage}</td>
+                    </tr>
+                  </tbody>
+                  )
+                })}
+                {//@ts-ignore
+                 this.state.damagePerClusterUnit.sortedEquipmentList[this.state.damagePerClusterEQIndex].damageClusterHits.length === 0 ? (
+                  <tbody>
+                    <tr>
+                      <td colSpan={3}>
+                        Click on a location on the table to the right to assign a cluster hit
+                      </td>
+                    </tr>
+                  </tbody>                
+                ): null}
+                {//@ts-ignore
+                 this.state.damagePerClusterUnit.sortedEquipmentList[this.state.damagePerClusterEQIndex].damageClusterHits.length >= this.state.damageRolledClusters ? (
+                  <tfoot>
+                    <tr>
+                      <th colSpan={3} className="color-green">
+                        You're Done! :)
+                      </th>
+                    </tr>
+                  </tfoot>
+                ) : null}
+                </>
+              ) : null}
+             
+            </table>
+          </div>
+          <div>
+            <ToHitTable className="small-text" onClick={(loc, crit) => this.addDamageCluster( loc, crit, this.state.damagePerClusterUnit, this.state.damagePerClusterEQIndex)} />
+          </div>
+        </div>
+      </>
+    ) : null}
+
+    {/* <h4>Step 3: ???</h4> */}
+  </StandardModal>
+) : null}
 {this.state.resolveFireDialog && this.props.appGlobals.currentCBTForce ? (
   <StandardModal
     show={true}
@@ -660,7 +904,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                           attackDamage += "/shot";
                         }
 
+                        let clusterChartButton = false;
                         if( attack.damageClusters ) {
+                          clusterChartButton = true;
                           attackDamage += attack.damageClusters.toString() + " clusters";
                           if( attack.damagePerCluster )
                             attackDamageSecondLine = attack.damagePerCluster.toString() + " damage/hit";
@@ -685,11 +931,29 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
 
                               <td className="min-width no-wrap">
+                                {clusterChartButton ? (
+                                  <button
+                                    className="btn btn-primary btn-sm"
+                                    title="Click here to open the Cluster Damage Chart"
+                                    onClick={(e) => this.openClusterDamageChart(e, attackGATOR, attack.damageClusters, attack.damagePerCluster, unit, attackIndex)}
+                                  >
+                                    <FaTable />
+                                  </button>
+                                ) : null}
                                 {attackDamage}<br />
                                 {attackDamageSecondLine}
                               </td>
 
                               <td className="min-width no-wrap">
+                              
+                                <button
+                                  className={"btn btn-primary btn-sm"}
+                                  onClick={this.openHitLocationChartDialog}
+                                  title="Click to open the Hit Location Table"
+                                >
+
+                                  <FaTable />
+                                </button>
                                 <button
                                   className={attack.resolved ? "btn btn-success btn-sm" : "btn btn-warning btn-sm"}
                                   onClick={(e) => this.toggleResolved(e, unit, attackIndex)}
@@ -705,6 +969,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                             </tr>
                           </tbody>
                         )
+                      } else {
+                        return <React.Fragment key={attackIndex} />
                       }
                     })}
                   </>
@@ -1546,7 +1812,20 @@ interface IPlayState {
 
   targetData: ICombinedTargetData | null;
   viewGATOR: IGATOR | null;
+
+
+  hitLocationChartDialog: boolean;
+
+
+  damageClusters: number;
+  damagePerCluster: number;
+  damageRolledClusters: number;
+  damagePerClusterGATOR: IGATOR | null;
+  damagePerClusterEQIndex: number;
+  damagePerClusterUnit: BattleMech | null;
 }
+
+
 
 interface ICombinedTargetData {
   a: ITargetToHit;

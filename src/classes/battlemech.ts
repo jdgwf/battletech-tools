@@ -78,6 +78,7 @@ interface IBMEquipmentExport {
     uuid: string | undefined;
     target: string | undefined;
     resolved: boolean | undefined;
+    damageClusterHits: IClusterHit[] | undefined;
 }
 export interface IBattleMechExport {
 
@@ -5179,6 +5180,7 @@ export class BattleMech {
                 uuid: this._equipmentList[countEQ].uuid,
                 target: this._equipmentList[countEQ].target,
                 resolved: this._equipmentList[countEQ].resolved,
+                damageClusterHits: this._equipmentList[countEQ].damageClusterHits,
             });
         }
 
@@ -5656,6 +5658,7 @@ export class BattleMech {
         uuid: string | undefined | null,
         target: string = "",
         resolved: boolean = false,
+        damageClusterHits: IClusterHit[] = [],
     ) {
         if( !uuid ) {
             uuid = generateUUID()
@@ -5676,8 +5679,12 @@ export class BattleMech {
                 equipmentItem.uuid = uuid;
                 equipmentItem.target = target;
                 equipmentItem.resolved = false;
+                equipmentItem.damageClusterHits = []
                 if( resolved ) {
                     equipmentItem.resolved = true;
+                }
+                if( damageClusterHits ) {
+                    equipmentItem.damageClusterHits = damageClusterHits;
                 }
                 this._equipmentList.push(equipmentItem);
 
@@ -7213,9 +7220,21 @@ export class BattleMech {
             this._equipmentList[eq_index].resolved = !this._equipmentList[eq_index].resolved;
         }
     }
+    public setDamageClusterHits(
+        eq_index: number,
+        nv: IClusterHit[]
+    ) {
+        if( this._equipmentList.length > eq_index ) {
+            this._equipmentList[eq_index].damageClusterHits = nv;
+        }
+    }
 }
 
-
+export interface IClusterHit {
+    location: string;
+    damage: number;
+    critical: boolean;
+  }
 
 function sortByBVThenRearThenHeat(  a: IEquipmentItem, b: IEquipmentItem  ) {
     if( a.rear )

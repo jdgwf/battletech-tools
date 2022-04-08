@@ -1,4 +1,5 @@
 import { string } from "prop-types";
+import { IClusterHit } from "../classes/battlemech";
 
 export interface IArmorType {
 	tag: string;
@@ -87,6 +88,7 @@ export interface IRangeNumbers {
 export interface IEquipmentItem {
     uuid?: string;
     resolved?: boolean;
+    damageClusterHits?: IClusterHit[];
     count?: number;
     notes?: string;
     target?: string;
