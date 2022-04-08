@@ -77,6 +77,7 @@ interface IBMEquipmentExport {
     rear: boolean | undefined;
     uuid: string | undefined;
     target: string | undefined;
+    resolved: boolean | undefined;
 }
 export interface IBattleMechExport {
 
@@ -169,6 +170,7 @@ export interface ITargetToHit {
 
 export interface IGATOR {
     weaponName?: string;
+    targetName?: string;
     explanation?: string;
     target?: string;
     rangeExplanation?: string;
@@ -4143,6 +4145,7 @@ export class BattleMech {
                 rearTag = " (rear)";
                 isRear = true;
             }
+
             this._unallocatedCriticals.push({
                 uuid: generateUUID(),
                 name: this._equipmentList[elc].name + rearTag,
@@ -4648,6 +4651,7 @@ export class BattleMech {
 
             if( target ) {
 
+                gator.targetName = target.name;
 
                 gator.target = "Target " + targetLetter.toUpperCase();
                 gator.weaponName = this._equipmentList[index].name;
@@ -5174,6 +5178,7 @@ export class BattleMech {
                 rear: this._equipmentList[countEQ].rear,
                 uuid: this._equipmentList[countEQ].uuid,
                 target: this._equipmentList[countEQ].target,
+                resolved: this._equipmentList[countEQ].resolved,
             });
         }
 
@@ -5457,6 +5462,7 @@ export class BattleMech {
                         importItem.rear,
                         importItem.uuid,
                         importItem.target,
+                        importItem.resolved,
                     );
                 }
             }
@@ -5649,6 +5655,7 @@ export class BattleMech {
         rear: boolean = false,
         uuid: string | undefined | null,
         target: string = "",
+        resolved: boolean = false,
     ) {
         if( !uuid ) {
             uuid = generateUUID()
@@ -5668,6 +5675,10 @@ export class BattleMech {
                 equipmentItem.rear = rear;
                 equipmentItem.uuid = uuid;
                 equipmentItem.target = target;
+                equipmentItem.resolved = false;
+                if( resolved ) {
+                    equipmentItem.resolved = true;
+                }
                 this._equipmentList.push(equipmentItem);
 
                 this._sortInstalledEquipment();
@@ -7190,8 +7201,21 @@ export class BattleMech {
     public turnReset() {
         this.currentMovementMode = "n"
         this.currentToHitMovementModifier = -1;
+        for( let item of this._equipmentList ) {
+            item.resolved = false;
+        }
+    }
+
+    public toggleResolved( 
+        eq_index: number 
+    ) {
+        if( this._equipmentList.length > eq_index ) {
+            this._equipmentList[eq_index].resolved = !this._equipmentList[eq_index].resolved;
+        }
     }
 }
+
+
 
 function sortByBVThenRearThenHeat(  a: IEquipmentItem, b: IEquipmentItem  ) {
     if( a.rear )

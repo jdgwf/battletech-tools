@@ -65,6 +65,7 @@ export default class StandardModal extends React.Component<IStandardModalProps, 
                 onClick={this.props.onSave}
                 className={addClass}
                 title={labelSave}
+                disabled={this.props.saveDisabled}
             >
 
                 <FaSave />
@@ -79,6 +80,7 @@ export default class StandardModal extends React.Component<IStandardModalProps, 
                 onClick={this.props.onAdd}
                 className={addClass}
                 title={labelAdd}
+                disabled={this.props.saveDisabled}
             >
 
                 <FaSave />
@@ -100,6 +102,7 @@ export default class StandardModal extends React.Component<IStandardModalProps, 
             <button
                 onClick={this.props.onSaveAsNew}
                 className="btn btn-primary pull-left"
+                disabled={this.props.saveDisabled}
             >
                 {labelSaveAsNew}
             </button>
@@ -126,6 +129,7 @@ export default class StandardModal extends React.Component<IStandardModalProps, 
             <button
                 onClick={this.props.onSave}
                 className={addClass}
+                disabled={this.props.saveDisabled}
             >
                 {labelSave}
             </button>
@@ -138,6 +142,7 @@ export default class StandardModal extends React.Component<IStandardModalProps, 
             <button
                 onClick={this.props.onAdd}
                 className={addClass}
+                disabled={this.props.saveDisabled}
             >
                 {labelAdd}
             </button>
@@ -171,6 +176,8 @@ interface IStandardModalProps {
         e: React.FormEvent<HTMLInputElement>,
     ): void;
     topButton?: React.ReactFragment;
+
+    saveDisabled?: boolean;
 }
 
 interface IStandardModalState {

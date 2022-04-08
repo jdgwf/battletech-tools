@@ -86,6 +86,7 @@ export interface IRangeNumbers {
 
 export interface IEquipmentItem {
     uuid?: string;
+    resolved?: boolean;
     count?: number;
     notes?: string;
     target?: string;

@@ -1,12 +1,13 @@
 import React from 'react';
 import { CrosshairArrow, HotSurface } from 'react-game-icons';
-import { FaArrowCircleLeft, FaDice, FaGift, FaQuestionCircle, FaShoePrints } from "react-icons/fa";
+import { FaArrowCircleLeft, FaCheckSquare, FaDice, FaGift, FaQuestionCircle, FaShoePrints, FaSquare } from "react-icons/fa";
 import { GiBattleAxe, GiMissileSwarm } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
 import { BattleMech, IGATOR, ITargetToHit } from "../../../../classes/battlemech";
 import { IAppGlobals } from '../../../app-router';
 import BattleTechLogo from '../../../components/battletech-logo';
 import InputCheckbox from '../../../components/form_elements/input_checkbox';
+import InputField from '../../../components/form_elements/input_field';
 import InputNumeric from '../../../components/form_elements/input_numeric';
 import StandardModal from '../../../components/standard-modal';
 import StatBar from "../../../components/stat-bar";
@@ -30,6 +31,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             setMovementJumpingMP: 0,
 
             takeDamageDialog: null,
+            resolveFireDialog: false,
 
 
             setTargetDialog: null,
@@ -38,6 +40,23 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         };
 
         this.props.appGlobals.makeDocumentTitle("Playing CBT Force");
+    }
+
+    toggleResolved = (
+      e: React.FormEvent<HTMLButtonElement>,
+      bm: BattleMech,
+      eq_index: number
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+
+      if(this.props.appGlobals.currentCBTForce) {
+        let currentCBTForce = this.props.appGlobals.currentCBTForce;
+
+        bm.toggleResolved( eq_index );
+        this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
+      }
     }
 
     setTurn = (
@@ -97,6 +116,30 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
     }
 
+    openResolveFireDialog = (
+      e: React.FormEvent<HTMLButtonElement>,
+      ) => {
+        if( e && e.preventDefault ) {
+          e.preventDefault();
+        }
+
+      this.setState({
+        resolveFireDialog: true,
+      })
+    }
+
+    closeResolveFireDialog = (
+      e: React.FormEvent<HTMLButtonElement>,
+      ) => {
+        if( e && e.preventDefault ) {
+          e.preventDefault();
+        }
+
+      this.setState({
+        resolveFireDialog: false,
+      })
+    }
+
     nextTurn = (
       e: React.FormEvent<HTMLButtonElement>,
     ) => {
@@ -140,6 +183,29 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           targetData.b.active = e.currentTarget.checked;
         } else if( target === "c" ) {
           targetData.c.active = e.currentTarget.checked;
+        }
+      }
+
+      this.setState({
+        targetData: targetData,
+      })
+    }
+
+    updateTargetName = (
+      e: React.FormEvent<HTMLInputElement>,
+      target: string
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+      let targetData = this.state.targetData;
+      if( targetData ) {
+        if( target === "a" ) {
+          targetData.a.name = e.currentTarget.value;
+        } else if( target === "b" ) {
+          targetData.b.name = e.currentTarget.value;
+        } else if( target === "c" ) {
+          targetData.c.name = e.currentTarget.value;
         }
       }
 
@@ -535,6 +601,122 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       return (
         <>
 
+{this.state.resolveFireDialog && this.props.appGlobals.currentCBTForce ? (
+  <StandardModal
+    show={true}
+    className="modal-xl"
+    onClose={this.closeResolveFireDialog}
+    title={"Resolving Attacks for Turn #" + this.props.appGlobals.currentCBTForce.turn}
+  >
+    {this.props.appGlobals.currentCBTForce.groups.map( (group, groupIndex) => {
+      return (
+        <div key={groupIndex}>
+          <h2>{group.getName(groupIndex)}</h2>
+          {group.members.map( (unit, unitIndex) => {
+            let numberOfAttacks = 0;
+            for( let attack of unit.sortedSeparatedEquipmentList ) {
+              if( attack.target ) {
+                numberOfAttacks++;
+              }
+            }
+            return <fieldset className="fieldset" key={unitIndex}>
+              <legend>{unit.getName()}</legend>
+              <table className="table text-center">
+                <thead>
+                  <tr>
+                    <th>Weapon</th>
+                    <th>Target</th>
+                    <th className="min-width">G</th>
+                    <th className="min-width">A</th>
+                    <th className="min-width">T</th>
+                    <th className="min-width">O</th>
+                    <th className="min-width">R</th>
+                    <th className="min-width no-wrap">To-Hit</th>
+                    <th className="min-width no-wrap">Damage</th>
+                    <th className="min-width no-wrap"></th>
+                  </tr>
+   
+                </thead>
+                {numberOfAttacks === 0 ? (
+                  <tbody>
+                    <tr>
+                      <td colSpan={9}>
+                        This unit has no attacks declared
+                      </td>
+                    </tr>
+
+                  </tbody>
+                ) : (
+                  <>
+                    {unit.sortedSeparatedEquipmentList.map( (attack, attackIndex) => {
+                      let attackGATOR = unit.getTargetToHitFromWeapon(
+                          attackIndex,
+                      )
+                      if( !attack.isAmmo && !attack.isEquipment && attackGATOR.target ) {
+
+                        let attackDamage = attack.damage ? attack.damage.toString() : "";
+                        let attackDamageSecondLine = "";
+                        if( attack.damagePerShot ) {
+                          attackDamage += "/shot";
+                        }
+
+                        if( attack.damageClusters ) {
+                          attackDamage += attack.damageClusters.toString() + " clusters";
+                          if( attack.damagePerCluster )
+                            attackDamageSecondLine = attack.damagePerCluster.toString() + " damage/hit";
+                        }
+                        
+                        return (
+                          <tbody key={attackIndex}>
+                            <tr>
+                              <td>{attackGATOR.weaponName}</td>
+                              <td>{attackGATOR.targetName ? (
+                                <>{attackGATOR.targetName}<div className="small-text">{attackGATOR.target}</div></>
+                              ) : (
+                                <>{attackGATOR.target}</>
+                              )}</td>
+
+                              <td>{attackGATOR.gunnerySkill}</td>
+                              <td>{attackGATOR.attackerMovementModifier}</td>
+                              <td>{attackGATOR.targetMovementModifier}</td>
+                              <td>{attackGATOR.otherModifiers}</td>
+                              <td>{attackGATOR.rangeModifier}</td>
+                              <td><strong>{attackGATOR.finalToHit}+</strong></td>
+
+
+                              <td className="min-width no-wrap">
+                                {attackDamage}<br />
+                                {attackDamageSecondLine}
+                              </td>
+
+                              <td className="min-width no-wrap">
+                                <button
+                                  className={attack.resolved ? "btn btn-success btn-sm" : "btn btn-warning btn-sm"}
+                                  onClick={(e) => this.toggleResolved(e, unit, attackIndex)}
+                                  title="Click here to make this attack as resolved"
+                                >
+                                  {attack.resolved ? 
+                                  <FaCheckSquare />
+                                  :
+                                  <FaSquare /> }
+                                </button>
+                              </td>
+                              
+                            </tr>
+                          </tbody>
+                        )
+                      }
+                    })}
+                  </>
+                )}
+              </table>
+            </fieldset>
+          })}
+        </div>
+      )
+    })}
+  </StandardModal>
+) : null}
 <StandardModal
   show={this.state.viewGATOR ? true : false}
   onClose={this.closeGATOR}
@@ -621,8 +803,10 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
   show={true}
   onClose={this.closeSetMovement}
   onSave={this.setMovement}
+  saveDisabled={this.state.setMovementMode === "n" || this.state.setMovementNumber < 0}
   title={this.state.setMovementDialog.getName() + " Movement Info"}
 >
+
 
     <div className="flex">
       <div className="text-center">
@@ -663,7 +847,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         numberPips={1}
       />
       </svg><br />
-      Walk
+      Walk: {this.state.setMovementDialog.getWalkSpeed()}
       </button>
       <br />
     <button
@@ -683,7 +867,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         numberPips={2}
       />
       </svg><br />
-      Run
+      Run:  {this.state.setMovementDialog.getRunSpeed()}
       </button>
       <br />
     {this.state.setMovementCanJump ? (
@@ -705,7 +889,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         numberPips={3}
       />
       </svg><br />
-      Jump
+      Jump:  {this.state.setMovementDialog.getJumpSpeed()}
       </button>
       </>
     ) : null}
@@ -818,6 +1002,12 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               description='Whether this target slot is active. Unchecking will keep it from being cycled in the Equipment button'
               onChange={(e) => this.updateTargetActive(e, "a")}
             />
+            <InputField
+              label="Label"
+              description='Just a casual name for the target, or the make, something to help remind you which is A, B, or C'
+              value={this.state.targetData.a.name}
+              onChange={(e) => this.updateTargetName(e, "a")}
+            />
           </div>
           <div className="col">
 
@@ -865,6 +1055,12 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               description='Whether this target slot is active. Unchecking will keep it from being cycled in the Equipment button'
               checked={this.state.targetData.b.active}
               onChange={(e) => this.updateTargetActive(e, "b")}
+            />
+            <InputField
+              label="Label"
+              description='Just a casual name for the target, or the make, something to help remind you which is A, B, or C'
+              value={this.state.targetData.b.name}
+              onChange={(e) => this.updateTargetName(e, "b")}
             />
           </div>
           <div className="col">
@@ -914,6 +1110,12 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               description='Whether this target slot is active. Unchecking will keep it from being cycled in the Equipment button'
               checked={this.state.targetData.c.active}
               onChange={(e) => this.updateTargetActive(e, "c")}
+            />
+            <InputField
+              label="Label"
+              description='Just a casual name for the target, or the make, something to help remind you which is A, B, or C'
+              value={this.state.targetData.c.name}
+              onChange={(e) => this.updateTargetName(e, "c")}
             />
           </div>
           <div className="col">
@@ -1113,6 +1315,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         <div className="grow-1">
           <button
             className="btn btn-sm btn-primary"
+            onClick={this.openResolveFireDialog}
           >
             Resolve Fire
           </button>
@@ -1281,7 +1484,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                           <div className="flex">
                             <div className="grow">
                             <button
-                              className={this.props.appGlobals.currentCBTForce?.phase === 1 ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
+                              className={this.props.appGlobals.currentCBTForce?.phase === 1 ? unit.currentMovementMode === "n" ? "btn btn-sm btn-success full-width" : "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
                               onClick={(e) => this.openSetMovement(unit)}
                               title={"Open the Movement Dialog for " + unit.getName()}
                             >
@@ -1333,6 +1536,8 @@ interface IPlayState {
   setMovementNumber: number;
   setMovementCanJump: boolean;
   setMovementJumpingMP: number;
+
+  resolveFireDialog: boolean;
 
   takeDamageDialog: BattleMech | null;
 
