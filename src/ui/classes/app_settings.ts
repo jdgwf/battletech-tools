@@ -24,46 +24,46 @@ export class AppSettings {
 
     import( io: IAppSettingsExport | null ) {
         if( io ) {
-            if ( typeof( io.uiTheme ) != "undefined" ) {
+            if ( typeof( io.uiTheme ) !== "undefined" ) {
                 this.uiTheme = io.uiTheme;
             }
 
-            if ( typeof( io.developerMenu ) != "undefined" ) {
+            if ( typeof( io.developerMenu ) !== "undefined" ) {
                 this.developerMenu = io.developerMenu;
             }
-            if ( typeof( io.equipmentFilter ) != "undefined" ) {
+            if ( typeof( io.equipmentFilter ) !== "undefined" ) {
                 this.equipmentFilter = io.equipmentFilter;
             }
 
-            if ( typeof( io.installEquipCategory ) != "undefined" ) {
+            if ( typeof( io.installEquipCategory ) !== "undefined" ) {
                 this.installEquipCategory = io.installEquipCategory;
             }
 
-            if ( typeof( io.alphasStrikeCachedSearchResults ) != "undefined" ) {
+            if ( typeof( io.alphasStrikeCachedSearchResults ) !== "undefined" ) {
                 this.alphasStrikeCachedSearchResults = io.alphasStrikeCachedSearchResults;
             }
 
-            if ( typeof( io.alphaStrikeSearchRules ) != "undefined" ) {
+            if ( typeof( io.alphaStrikeSearchRules ) !== "undefined" ) {
                 this.alphaStrikeSearchRules = io.alphaStrikeSearchRules;
             }
 
-            if ( typeof( io.alphaStrikeSearchTerm ) != "undefined" ) {
+            if ( typeof( io.alphaStrikeSearchTerm ) !== "undefined" ) {
                 this.alphaStrikeSearchTerm = io.alphaStrikeSearchTerm;
             }
 
-            if ( typeof( io.alphaStrikeInPlayCardMode ) != "undefined" ) {
+            if ( typeof( io.alphaStrikeInPlayCardMode ) !== "undefined" ) {
                 this.alphaStrikeInPlayCardMode = io.alphaStrikeInPlayCardMode;
             }
 
-            if ( typeof( io.equipmentEditorFile ) != "undefined" ) {
+            if ( typeof( io.equipmentEditorFile ) !== "undefined" ) {
                 this.equipmentEditorFile = io.equipmentEditorFile;
             }
 
-            if ( typeof( io.alphaStrikeSearchEra ) != "undefined" ) {
+            if ( typeof( io.alphaStrikeSearchEra ) !== "undefined" ) {
                 this.alphaStrikeSearchEra = io.alphaStrikeSearchEra;
             }
 
-            if ( typeof( io.alphaStrikeSearchTech ) != "undefined" ) {
+            if ( typeof( io.alphaStrikeSearchTech ) !== "undefined" ) {
                 this.alphaStrikeSearchTech = io.alphaStrikeSearchTech;
             }
         }

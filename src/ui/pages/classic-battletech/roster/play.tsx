@@ -53,6 +53,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
         this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
       }
+      this.setState({
+        updated: true,
+      })
     }
 
     setPhase = (
@@ -69,6 +72,10 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
         this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
       }
+
+      this.setState({
+        updated: true,
+      })
 
 
     }
@@ -102,7 +109,17 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         currentCBTForce.phase = 0;
         currentCBTForce.turn++;
 
+        for( let group of currentCBTForce.groups ) {
+          for( let unit of group.members ) {
+            unit.turnReset();
+          }
+        }
+
         this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
+
+        this.setState({
+          updated: true,
+        })
       }
 
 
@@ -267,7 +284,6 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           b: JSON.parse(JSON.stringify(currentBM.getTarget("b"))),
           c: JSON.parse(JSON.stringify(currentBM.getTarget("c"))),
         }
-
 
         this.setState({
           setTargetDialog: currentBM,
@@ -1135,7 +1151,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       ) : null}
       {this.props.appGlobals.currentCBTForce.phase === 5 ? (
         <div>
-          This turn's a wrap! Click on "Next Turn" above
+          This turn's a wrap! Click on "Next Turn" above and we'll clear out the Movement for all 'mechs, increment the turn counter, and start a new turn.
         </div>
       ) : null}
   </div>
@@ -1156,6 +1172,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                 openSetMovement={() => this.openSetMovement(selectedMech)}
                 onChange={this.onChange}
                 viewGATOR={this.viewGATOR}
+                currentPhase={this.props.appGlobals.currentCBTForce.phase}
               />
           ) : (
             <div className="text-center">
@@ -1185,6 +1202,11 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                     let dieFG = "white";
                     let diePips = unit.currentToHitMovementModifier;
 
+                    if( unit.currentMovementMode === "n" ) {
+                      dieBG = "green";
+                      dieFG = "white";
+                    }
+
                     if( unit.currentMovementMode === "w" ) {
                       dieBG = "white";
                       dieFG = "black";
@@ -1204,6 +1226,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                           <button
                             onClick={(e) => this.selectMech(e, unit.uuid)}
                             className={selectedMech && selectedMech.uuid === unit.uuid ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
+                            title={"Select " + unit.getName()}
                           >
                             {unit.getName()}
 
@@ -1233,21 +1256,21 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                                 <StatBar
                                   color="black"
                                   background="#aaa"
-                                  currentPercentage={30}
+                                  currentPercentage={unit.getArmorPercentage()}
                                   height={8}
                                   title="Current Armor Status"
                                 />
                                 <StatBar
                                   color="white"
                                   background="#aaa"
-                                  currentPercentage={50}
+                                  currentPercentage={unit.getStructurePercentage()}
                                   height={8}
                                   title="Current Internal Structure Status"
                                 />
                                 <StatBar
                                   color="red"
                                   background="#aaa"
-                                  currentPercentage={80}
+                                  currentPercentage={unit.getHeatPercentage()}
                                   height={8}
                                   title="Current Heat Status"
                                 />
@@ -1260,6 +1283,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                             <button
                               className={this.props.appGlobals.currentCBTForce?.phase === 1 ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
                               onClick={(e) => this.openSetMovement(unit)}
+                              title={"Open the Movement Dialog for " + unit.getName()}
                             >
                               <FaShoePrints />
                             </button>
@@ -1268,6 +1292,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                               <button
                                 className={this.props.appGlobals.currentCBTForce?.phase === 2 ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
                                 onClick={(e) => this.openSetTarget(unit)}
+                                title={"Open the Target Dialog for " + unit.getName()}
                               >
                                 <CrosshairArrow />
                               </button>

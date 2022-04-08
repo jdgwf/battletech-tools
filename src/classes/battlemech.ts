@@ -90,6 +90,9 @@ export interface IBattleMechExport {
     targetAToHit: ITargetToHit;
     targetBToHit: ITargetToHit;
     targetCToHit: ITargetToHit;
+    currentHeat: number;
+    structureBubbles: IMechDamageAllocation;
+    armorBubbles: IMechDamageAllocation;
 
     // basic properties
     introductoryRules?: boolean;
@@ -206,17 +209,18 @@ export class BattleMech {
         jumped: false,
     };
 
+
     private _introductoryRules: boolean = false;
 
     // in play variables
     public selectedMech: boolean = false;
 
-    public currentMovementMode: string = "";
+    public currentMovementMode: string = "n";
     public currentToHitMovementModifier: number = 0;
     public currentTargetModifier: number = 0;
     public currentTargetJumpingMP: number = 0;
+    public currentHeat: number = 0;
 
-        
 
 
     // basic properties
@@ -254,6 +258,36 @@ export class BattleMech {
         leftLeg: 0,
         rightLeg: 0
     };
+
+    private _armorBubbles: IMechDamageAllocation = {
+        head: [],
+        centerTorso: [],
+        rightTorso: [],
+        leftTorso: [],
+        leftArm: [],
+        rightArm: [],
+        leftLeg: [],
+        rightLeg: [],
+
+        rightTorsoRear: [],
+        leftTorsoRear: [],
+        centerTorsoRear: [],
+    }
+    private _structureBubbles: IMechDamageAllocation = {
+        head: [],
+        centerTorso: [],
+        rightTorso: [],
+        leftTorso: [],
+        leftArm: [],
+        rightArm: [],
+        leftLeg: [],
+        rightLeg: [],
+
+        // unused for IS
+        rightTorsoRear: [],
+        leftTorsoRear: [],
+        centerTorsoRear: [],
+    }
 
     private _no_right_arm_hand_actuator: boolean = false;
     private _no_right_arm_lower_actuator: boolean = false;
@@ -3426,6 +3460,7 @@ export class BattleMech {
             this._tonnage = 20;
         }
 
+
         this._maxMoveHeat = 2;
         this._heatDissipation = 0;
 
@@ -3631,20 +3666,198 @@ export class BattleMech {
                 }
             }
 
-            
+
             if( !foundIt) {
-                let eqItem = JSON.parse( JSON.stringify(this._equipmentList[countEQ]));    
+                let eqItem = JSON.parse( JSON.stringify(this._equipmentList[countEQ]));
                 eqItem.count = 1;
                 this._sortedEquipmentList.push(eqItem);
             }
- 
+
             let eqItemSeparate = JSON.parse( JSON.stringify(this._equipmentList[countEQ]));
             eqItemSeparate.count = 1;
             this._sortedSeparatedEquipmentList.push( eqItemSeparate )
         }
 
+
+        this._calcArmorStructureBubbles();
+
         // this._sortedEquipmentList.sort();
         // this._sortedSeparatedEquipmentList.sort();
+    }
+
+    private _calcArmorStructureBubbles() {
+
+        if(!this._armorBubbles.head) {
+            
+            this._armorBubbles.head = [];
+        }
+
+        while( this._armorBubbles.head.length < this._armorAllocation.head ) {
+            this._armorBubbles.head.push( true )
+        }
+
+        if( this._armorBubbles.head.length > this._armorAllocation.head ) {
+            this._armorBubbles.head = this._armorBubbles.head.splice( 0, this._armorAllocation.head)
+        }
+
+        if(!this._armorBubbles.centerTorso)
+            this._armorBubbles.centerTorso = [];
+        while( this._armorBubbles.centerTorso.length < this._armorAllocation.centerTorso ) {
+            this._armorBubbles.centerTorso.push( true )
+        }
+        if( this._armorBubbles.centerTorso.length > this._armorAllocation.centerTorso ) {
+            this._armorBubbles.centerTorso = this._armorBubbles.centerTorso.splice( 0, this._armorAllocation.centerTorso)
+        }
+
+        if(!this._armorBubbles.rightTorso)
+            this._armorBubbles.rightTorso = [];
+        while( this._armorBubbles.rightTorso.length < this._armorAllocation.rightTorso ) {
+            this._armorBubbles.rightTorso.push( true )
+        }
+        if( this._armorBubbles.rightTorso.length > this._armorAllocation.rightTorso ) {
+            this._armorBubbles.rightTorso = this._armorBubbles.rightTorso.splice( 0, this._armorAllocation.rightTorso)
+        }
+        if(!this._armorBubbles.leftTorso)
+            this._armorBubbles.leftTorso = [];
+        while( this._armorBubbles.leftTorso.length < this._armorAllocation.leftTorso ) {
+            this._armorBubbles.leftTorso.push( true )
+        }
+        if( this._armorBubbles.leftTorso.length > this._armorAllocation.leftTorso ) {
+            this._armorBubbles.leftTorso = this._armorBubbles.leftTorso.splice( 0, this._armorAllocation.leftTorso)
+        }
+
+        if(!this._armorBubbles.centerTorsoRear)
+            this._armorBubbles.centerTorsoRear = [];
+        while( this._armorBubbles.centerTorsoRear.length < this._armorAllocation.centerTorsoRear ) {
+            this._armorBubbles.centerTorsoRear.push( true )
+        }
+        if( this._armorBubbles.centerTorsoRear.length > this._armorAllocation.centerTorsoRear ) {
+            this._armorBubbles.centerTorsoRear = this._armorBubbles.centerTorsoRear.splice( 0, this._armorAllocation.centerTorsoRear)
+        }
+        if(!this._armorBubbles.rightTorsoRear)
+            this._armorBubbles.rightTorsoRear = [];
+        while( this._armorBubbles.rightTorsoRear.length < this._armorAllocation.rightTorsoRear ) {
+            this._armorBubbles.rightTorsoRear.push( true )
+        }
+        if( this._armorBubbles.rightTorsoRear.length > this._armorAllocation.rightTorsoRear ) {
+            this._armorBubbles.rightTorsoRear = this._armorBubbles.rightTorsoRear.splice( 0, this._armorAllocation.rightTorsoRear)
+        }
+        if(!this._armorBubbles.leftTorsoRear)
+            this._armorBubbles.leftTorsoRear = [];
+        while( this._armorBubbles.leftTorsoRear.length < this._armorAllocation.leftTorsoRear ) {
+            this._armorBubbles.leftTorsoRear.push( true )
+        }
+        if( this._armorBubbles.leftTorsoRear.length > this._armorAllocation.leftTorsoRear ) {
+            this._armorBubbles.leftTorsoRear = this._armorBubbles.leftTorsoRear.splice( 0, this._armorAllocation.leftTorsoRear)
+        }
+
+        if(!this._armorBubbles.leftArm)
+            this._armorBubbles.leftArm = [];
+        while( this._armorBubbles.leftArm.length < this._armorAllocation.leftArm ) {
+            this._armorBubbles.leftArm.push( true )
+        }
+        if( this._armorBubbles.leftArm.length > this._armorAllocation.leftArm ) {
+            this._armorBubbles.leftArm = this._armorBubbles.leftArm.splice( 0, this._armorAllocation.leftArm)
+        }
+        if(!this._armorBubbles.rightArm)
+            this._armorBubbles.rightArm = [];
+        while( this._armorBubbles.rightArm.length < this._armorAllocation.rightArm ) {
+            this._armorBubbles.rightArm.push( true )
+        }
+        if( this._armorBubbles.rightArm.length > this._armorAllocation.rightArm ) {
+            this._armorBubbles.rightArm = this._armorBubbles.head.splice( 0, this._armorAllocation.rightArm)
+        }
+
+        if(!this._armorBubbles.rightLeg)
+            this._armorBubbles.rightLeg = [];
+        while( this._armorBubbles.rightLeg.length < this._armorAllocation.rightLeg ) {
+            this._armorBubbles.rightLeg.push( true )
+        }
+        if( this._armorBubbles.rightLeg.length > this._armorAllocation.rightLeg ) {
+            this._armorBubbles.rightLeg = this._armorBubbles.rightLeg.splice( 0, this._armorAllocation.rightLeg)
+        }
+        if(!this._armorBubbles.leftLeg)
+            this._armorBubbles.leftLeg = [];
+        while( this._armorBubbles.leftLeg.length < this._armorAllocation.leftLeg ) {
+            this._armorBubbles.leftLeg.push( true )
+        }
+        if( this._armorBubbles.leftLeg.length > this._armorAllocation.leftLeg ) {
+            this._armorBubbles.leftLeg = this._armorBubbles.head.splice( 0, this._armorAllocation.leftLeg)
+        }
+
+
+
+        if(!this._structureBubbles.head)
+            this._structureBubbles.head = [];
+        while( this._structureBubbles.head.length < this._internalStructure.head ) {
+            this._structureBubbles.head.push( true )
+        }
+        if( this._structureBubbles.head.length > this._internalStructure.head ) {
+            this._structureBubbles.head = this._structureBubbles.head.splice( 0, this._internalStructure.head)
+        }
+
+        if(!this._structureBubbles.centerTorso)
+            this._structureBubbles.centerTorso = [];
+        while( this._structureBubbles.centerTorso.length < this._internalStructure.centerTorso ) {
+            this._structureBubbles.centerTorso.push( true )
+        }
+        if( this._structureBubbles.centerTorso.length > this._internalStructure.centerTorso ) {
+            this._structureBubbles.centerTorso = this._structureBubbles.centerTorso.splice( 0, this._internalStructure.centerTorso)
+        }
+        if(!this._structureBubbles.rightTorso)
+            this._structureBubbles.rightTorso = [];
+        while( this._structureBubbles.rightTorso.length < this._internalStructure.rightTorso ) {
+            this._structureBubbles.rightTorso.push( true )
+        }
+        if( this._structureBubbles.rightTorso.length > this._internalStructure.rightTorso ) {
+            this._structureBubbles.rightTorso = this._structureBubbles.rightTorso.splice( 0, this._internalStructure.rightTorso)
+        }
+        if(!this._structureBubbles.leftTorso)
+            this._structureBubbles.leftTorso = [];
+        while( this._structureBubbles.leftTorso.length < this._internalStructure.leftTorso ) {
+            this._structureBubbles.leftTorso.push( true )
+        }
+        if( this._structureBubbles.leftTorso.length > this._internalStructure.leftTorso ) {
+            this._structureBubbles.leftTorso = this._structureBubbles.leftTorso.splice( 0, this._internalStructure.leftTorso)
+        }
+        this._structureBubbles.leftTorsoRear = [];
+        this._structureBubbles.centerTorsoRear = [];
+        this._structureBubbles.rightTorsoRear = [];
+
+        if(!this._structureBubbles.leftArm)
+            this._structureBubbles.leftArm = [];
+        while( this._structureBubbles.leftArm.length < this._internalStructure.leftArm ) {
+            this._structureBubbles.leftArm.push( true )
+        }
+        if( this._structureBubbles.leftArm.length > this._internalStructure.leftArm ) {
+            this._structureBubbles.leftArm = this._structureBubbles.leftArm.splice( 0, this._internalStructure.leftArm)
+        }
+        if(!this._structureBubbles.rightArm)
+            this._structureBubbles.rightArm = [];
+        while( this._structureBubbles.rightArm.length < this._internalStructure.rightArm ) {
+            this._structureBubbles.rightArm.push( true )
+        }
+        if( this._structureBubbles.rightArm.length > this._internalStructure.rightArm ) {
+            this._structureBubbles.rightArm = this._structureBubbles.rightArm.splice( 0, this._internalStructure.rightArm)
+        }
+
+        if(!this._structureBubbles.rightLeg)
+            this._structureBubbles.rightLeg = [];
+        while( this._structureBubbles.rightLeg.length < this._internalStructure.rightLeg ) {
+            this._structureBubbles.rightLeg.push( true )
+        }
+        if( this._structureBubbles.rightLeg.length > this._internalStructure.rightLeg ) {
+            this._structureBubbles.rightLeg = this._structureBubbles.rightLeg.splice( 0, this._internalStructure.rightLeg)
+        }
+        if(!this._structureBubbles.leftLeg)
+            this._structureBubbles.leftLeg = [];
+        while( this._structureBubbles.leftLeg.length < this._internalStructure.leftLeg ) {
+            this._structureBubbles.leftLeg.push( true )
+        }
+        if( this._structureBubbles.leftLeg.length > this._internalStructure.leftLeg ) {
+            this._structureBubbles.leftLeg = this._structureBubbles.leftLeg.splice( 0, this._internalStructure.leftLeg)
+        }
+
     }
 
     private _calcCriticals() {
@@ -4417,19 +4630,19 @@ export class BattleMech {
     ): IGATOR {
         let gator: IGATOR = JSON.parse(JSON.stringify(this.getGATOR()));
         gator.finalToHit = -1;
-        if( 
-            this._equipmentList.length > index 
-            && this._equipmentList[index] 
+        if(
+            this._equipmentList.length > index
+            && this._equipmentList[index]
             && typeof( this._equipmentList[index].target ) !== "undefined"
-            && this._equipmentList[index].target 
+            && this._equipmentList[index].target
         ) {
-            
- 
+
+
             // TS Typechecker is being an idiot here >:(
             // At this point, it's NOT undefined... how many times do I have to check?
-            //@ts-ignore 
+            //@ts-ignore
             let targetLetter: string = this._equipmentList[index].target;
-   
+
 
             let target = this.getTarget( targetLetter )
 
@@ -4452,15 +4665,15 @@ export class BattleMech {
                     gator.attackerMovementModifier = 2;
                     gator.rangeExplanation = "Ran";
                 } else if( this.currentMovementMode === "j") {
-                    
+
                     gator.finalToHit += 3;
                     gator.attackerMovementModifier = 3;
                     gator.rangeExplanation = "Jumped";
                 } else {
                     gator.rangeExplanation = "Stationary";
                 }
-                
-        
+
+
                 // T
                 gator.finalToHit += target.movement;
                 gator.targetMovementModifier = target.movement;
@@ -4472,10 +4685,10 @@ export class BattleMech {
                 if( target.otherMods ) {
                     otherModifiersExplanation.push( "Target Other Modifiers");
                 }
-                if( 
+                if(
                     typeof( this._equipmentList[index].accuracyModifier ) !== "undefined"
                     &&
-                    this._equipmentList[index].accuracyModifier != 0 
+                    this._equipmentList[index].accuracyModifier !== 0
                 ) {
                     //@ts-ignore
                     gator.finalToHit += this._equipmentList[index].accuracyModifier;
@@ -4485,25 +4698,25 @@ export class BattleMech {
                     otherModifiersExplanation.push( "Weapon Accuracy Modifier" );
                 }
                 gator.otherModifiersExplanation = otherModifiersExplanation.join(", ")
-        
+
                 // R
-                if( 
-                    target.range <= this._equipmentList[index].range.short 
+                if(
+                    target.range <= this._equipmentList[index].range.short
                 ) {
-                    
+
                     gator.rangeExplanation = "Short";
 
                     // Check minimum range
-                    if( 
-                        this._equipmentList[index].range.min 
-                        && 
+                    if(
+                        this._equipmentList[index].range.min
+                        &&
                         //@ts-ignore
-                        this._equipmentList[index].range.min > 0 
+                        this._equipmentList[index].range.min > 0
                     ) {
                         let minRange: number = 0;
                         //@ts-ignore
                         minRange = this._equipmentList[index].range.min;
-                        
+
                         if( target.range < minRange ) {
                             let rangeModifier = minRange - target.range;
                             gator.finalToHit += rangeModifier;
@@ -4512,8 +4725,8 @@ export class BattleMech {
                         }
 
                     }
-                } else if( 
-                    target.range <= this._equipmentList[index].range.medium 
+                } else if(
+                    target.range <= this._equipmentList[index].range.medium
                 ) {
                     gator.finalToHit += 2;
                     gator.rangeModifier = 2;
@@ -4530,7 +4743,7 @@ export class BattleMech {
 
 
             }
-            
+
         }
 
         if( gator.finalToHit > 12 ) {
@@ -4559,7 +4772,7 @@ export class BattleMech {
                 percentageToHit = 8.33
             } else if( gator.finalToHit === 12 ) {
                 percentageToHit = 2.77
-            } 
+            }
 
             gator.explanation = "This roll has a " + percentageToHit.toString() + "% chance of success"
         }
@@ -4896,15 +5109,19 @@ export class BattleMech {
     }
 
     public export():IBattleMechExport {
-        // TODO
         this._calc();
         this.calcAlphaStrike();
 
         let exportObject: IBattleMechExport = {
 
+            currentHeat: this.currentHeat,
+
             targetAToHit: this._targetAToHit,
             targetBToHit: this._targetBToHit,
             targetCToHit: this._targetCToHit,
+
+            armorBubbles: this._armorBubbles,
+            structureBubbles: this._structureBubbles,
 
 
             selectedMech: this.selectedMech,
@@ -5039,7 +5256,7 @@ export class BattleMech {
                 }
                 console.warn("cycleWeaponTarget No Active Targets!")
                 return;
-            } 
+            }
 
             if( this._equipmentList[weaponIndex].target === "a" ) {
                 if( this._targetBToHit && this._targetBToHit.active ) {
@@ -5080,6 +5297,11 @@ export class BattleMech {
             this.selectedMech = true;
         }
 
+        if( importObject && importObject.currentHeat ) {
+            this.currentHeat = importObject.currentHeat;
+        }
+
+
 
         if( importObject && importObject.targetAToHit ) {
             this._targetAToHit = importObject.targetAToHit;
@@ -5104,11 +5326,11 @@ export class BattleMech {
         if( importObject && importObject.currentToHitMovementModifier ) {
             this.currentToHitMovementModifier = importObject.currentToHitMovementModifier;
         }
-        
+
         if( importObject && importObject.currentTargetJumpingMP ) {
             this.currentTargetJumpingMP = importObject.currentTargetJumpingMP;
         }
-        
+
 
         if( importObject && importObject.mechType  ) {
             if( importObject.name )
@@ -5251,6 +5473,13 @@ export class BattleMech {
                         this._criticalAllocationTable[countEQ].rear = false;
                 }
             }
+            if( importObject && importObject.structureBubbles ) {
+                this._structureBubbles = importObject.structureBubbles;
+            }
+            if( importObject && importObject.armorBubbles ) {
+                this._armorBubbles = importObject.armorBubbles;
+            }
+    
 
             this._calc();
             return true;
@@ -6127,13 +6356,175 @@ export class BattleMech {
     }
 
     public toggleISBubble( clickLocation: string, clickIndex: number ): void {
-        // TODO
-        console.log("TODO mechOject togglISBubble", clickLocation, clickIndex);
+        switch( clickLocation ) {
+            case "hd": {
+                this._structureBubbles.head[clickIndex] = !this._structureBubbles.head[clickIndex];
+                break;
+            }
+
+            case "rt": {
+                this._structureBubbles.rightTorso[clickIndex] = !this._structureBubbles.rightTorso[clickIndex];
+                break;
+            }
+            case "ct": {
+                this._structureBubbles.centerTorso[clickIndex] = !this._structureBubbles.centerTorso[clickIndex];
+                break;
+            }
+            case "lt": {
+                this._structureBubbles.leftTorso[clickIndex] = !this._structureBubbles.leftTorso[clickIndex];
+                break;
+            }
+
+            case "ra": {
+                this._structureBubbles.rightArm[clickIndex] = !this._structureBubbles.rightArm[clickIndex];
+                break;
+            }
+            case "la": {
+                this._structureBubbles.leftArm[clickIndex] = !this._structureBubbles.leftArm[clickIndex];
+                break;
+            }
+
+            case "rl": {
+                this._structureBubbles.rightLeg[clickIndex] = !this._structureBubbles.rightLeg[clickIndex];
+                break;
+            }
+            case "ll": {
+                this._structureBubbles.leftLeg[clickIndex] = !this._structureBubbles.leftLeg[clickIndex];
+                break;
+            }
+        }
+    }
+
+
+    public structureDamaged( clickLocation: string, clickIndex: number ): boolean {
+        switch( clickLocation ) {
+            case "hd": {
+                return !this._structureBubbles.head[clickIndex];
+            }
+
+            case "rt": {
+                return !this._structureBubbles.rightTorso[clickIndex];
+            }
+            case "ct": {
+                return !this._structureBubbles.centerTorso[clickIndex];
+            }
+            case "lt": {
+                return !this._structureBubbles.leftTorso[clickIndex];
+            }
+
+            case "ra": {
+                return !this._structureBubbles.rightArm[clickIndex];
+            }
+            case "la": {
+                return !this._structureBubbles.leftArm[clickIndex];
+            }
+
+            case "rl": {
+                return !this._structureBubbles.rightLeg[clickIndex];
+            }
+            case "ll": {
+                return !this._structureBubbles.leftLeg[clickIndex];
+            }
+
+ 
+        }
+        return false;
+    }
+
+    public armorDamaged( clickLocation: string, clickIndex: number ): boolean {
+        switch( clickLocation ) {
+            case "hd": {
+                return !this._armorBubbles.head[clickIndex];
+            }
+
+            case "rt": {
+                return !this._armorBubbles.rightTorso[clickIndex];
+            }
+            case "ct": {
+                return !this._armorBubbles.centerTorso[clickIndex];
+            }
+            case "lt": {
+                return !this._armorBubbles.leftTorso[clickIndex];
+            }
+
+            case "ra": {
+                return !this._armorBubbles.rightArm[clickIndex];
+            }
+            case "la": {
+                return !this._armorBubbles.leftArm[clickIndex];
+            }
+
+            case "rl": {
+                return !this._armorBubbles.rightLeg[clickIndex];
+            }
+            case "ll": {
+                return !this._armorBubbles.leftLeg[clickIndex];
+            }
+
+            case "rtr": {
+                return !this._armorBubbles.rightTorsoRear[clickIndex];
+            }
+            case "ctr": {
+                return !this._armorBubbles.centerTorsoRear[clickIndex];
+            }
+            case "ltr": {
+                return !this._armorBubbles.leftTorsoRear[clickIndex];
+            }
+        }
+        return false;
     }
 
     public toggleArmorBubble( clickLocation: string, clickIndex: number ): void {
-        // TODO
-        console.log("TODO mechOject togglArmorBubble", clickLocation, clickIndex);
+        switch( clickLocation ) {
+            case "hd": {
+                this._armorBubbles.head[clickIndex] = !this._armorBubbles.head[clickIndex];
+                break;
+            }
+
+            case "rt": {
+                this._armorBubbles.rightTorso[clickIndex] = !this._armorBubbles.rightTorso[clickIndex];
+                break;
+            }
+            case "ct": {
+                this._armorBubbles.centerTorso[clickIndex] = !this._armorBubbles.centerTorso[clickIndex];
+                break;
+            }
+            case "lt": {
+                this._armorBubbles.leftTorso[clickIndex] = !this._armorBubbles.leftTorso[clickIndex];
+                break;
+            }
+
+            case "ra": {
+                this._armorBubbles.rightArm[clickIndex] = !this._armorBubbles.rightArm[clickIndex];
+                break;
+            }
+            case "la": {
+                this._armorBubbles.leftArm[clickIndex] = !this._armorBubbles.leftArm[clickIndex];
+                break;
+            }
+
+            case "rl": {
+                this._armorBubbles.rightLeg[clickIndex] = !this._armorBubbles.rightLeg[clickIndex];
+                break;
+            }
+            case "ll": {
+                this._armorBubbles.leftLeg[clickIndex] = !this._armorBubbles.leftLeg[clickIndex];
+                break;
+            }
+
+            case "rtr": {
+                this._armorBubbles.rightTorsoRear[clickIndex] = !this._armorBubbles.rightTorsoRear[clickIndex];
+                break;
+            }
+            case "ctr": {
+                this._armorBubbles.centerTorsoRear[clickIndex] = !this._armorBubbles.centerTorsoRear[clickIndex];
+                break;
+            }
+            case "ltr": {
+                this._armorBubbles.leftTorsoRear[clickIndex] = !this._armorBubbles.leftTorsoRear[clickIndex];
+                break;
+            }
+        }
     }
 
     public heatSinkIsFilled( hsIndex: number): boolean {
@@ -6604,7 +6995,7 @@ export class BattleMech {
     }
 
     public getTarget(
-        targetLetter: string 
+        targetLetter: string
     ) {
         if( targetLetter === "b" ) {
             return this._targetBToHit
@@ -6614,16 +7005,18 @@ export class BattleMech {
         }
         return this._targetAToHit;
     }
-    
+
     public getMovementText(): string {
         if( this.currentMovementMode ) {
-            if( this.currentMovementMode === "w") {
+            if( this.currentMovementMode === "n") { 
+                return "Has not moved";
+            } else if( this.currentMovementMode === "w") {
                 return "Walked " + getHexDistanceFromModifier(this.currentToHitMovementModifier) + " hexes";
             } else if( this.currentMovementMode === "r") {
                 return "Ran " + getHexDistanceFromModifier(this.currentToHitMovementModifier) + " hexes";
             } else {
                 return "Jumped " + getHexDistanceFromModifier(this.currentToHitMovementModifier) + " hexes";
-            }  
+            }
         } else {
             return "Remained Stationary";
         }
@@ -6631,17 +7024,172 @@ export class BattleMech {
     }
     public getMovementToHitText(): string {
         if( this.currentMovementMode ) {
-            if( this.currentMovementMode === "w") {
+            if( this.currentMovementMode === "n") { 
+                return "Click here to set move for the turn";
+            } else if( this.currentMovementMode === "w") {
                 return "+1 to attack, -" + this.getMovementToHitModifier() + " to be hit";
             } else if( this.currentMovementMode === "r") {
                 return "+2 to attack, -" + this.getMovementToHitModifier() + " to be hit";
             } else {
                 return "+3 to attack, -" + this.getMovementToHitModifier() + " to be hit";
-            }  
+            }
         } else {
             return "-" + this.getMovementToHitModifier() + " to be hit";
         }
 
+    }
+
+    public getArmorPercentage(): number {
+        return this.getCurrentArmor() / this.getTotalArmor() * 100;
+    }
+    public getStructurePercentage(): number {
+ 
+        return this.getCurrentStructure() / this.getTotalStructure() * 100;
+    }
+    public getHeatPercentage(): number {
+        return this.currentHeat / 30 * 100;
+    }
+
+    public getCurrentArmor(): number {
+        let rv = 0;
+
+
+        for( let count = 0; count < this._armorBubbles.head.length; count ++  ) {
+            if( this._armorBubbles.head[count] ) {
+                rv++
+            }
+        }
+
+        for( let count = 0; count < this._armorBubbles.leftTorso.length; count ++  ) {
+            if( this._armorBubbles.leftTorso[count] ) {
+                rv++
+            }
+        }
+        for( let count = 0; count < this._armorBubbles.centerTorso.length; count ++  ) {
+            if( this._armorBubbles.centerTorso[count] ) {
+                rv++
+            }
+        }
+        for( let count = 0; count < this._armorBubbles.rightTorso.length; count ++  ) {
+            if( this._armorBubbles.rightTorso[count] ) {
+                rv++
+            }
+        }
+
+
+        for( let count = 0; count < this._armorBubbles.leftTorsoRear.length; count ++  ) {
+            if( this._armorBubbles.leftTorsoRear[count] ) {
+                rv++
+            }
+        }
+        for( let count = 0; count < this._armorBubbles.centerTorsoRear.length; count ++  ) {
+            if( this._armorBubbles.centerTorsoRear[count] ) {
+                rv++
+            }
+        }
+        for( let count = 0; count < this._armorBubbles.rightTorsoRear.length; count ++  ) {
+            if( this._armorBubbles.rightTorsoRear[count] ) {
+                rv++
+            }
+        }
+
+        for( let count = 0; count < this._armorBubbles.rightLeg.length; count ++  ) {
+            if( this._armorBubbles.rightLeg[count] ) {
+                rv++
+            }
+        }
+        for( let count = 0; count < this._armorBubbles.rightArm.length; count ++  ) {
+            if( this._armorBubbles.rightArm[count] ) {
+                rv++
+            }
+        }
+
+        for( let count = 0; count < this._armorBubbles.leftLeg.length; count ++  ) {
+            if( this._armorBubbles.leftLeg[count] ) {
+                rv++
+            }
+        }
+        for( let count = 0; count < this._armorBubbles.leftArm.length; count ++  ) {
+            if( this._armorBubbles.leftArm[count] ) {
+                rv++
+            }
+        }
+
+
+        return rv;
+    }
+
+    public getCurrentStructure(): number {
+        let rv = 0;
+
+        for( let count = 0; count < this._structureBubbles.head.length; count ++  ) {
+            if( this._structureBubbles.head[count] ) {
+                rv++
+            }
+        }
+
+        for( let count = 0; count < this._structureBubbles.leftTorso.length; count ++  ) {
+            if( this._structureBubbles.leftTorso[count] ) {
+                rv++
+            }
+        }
+        for( let count = 0; count < this._structureBubbles.centerTorso.length; count ++  ) {
+            if( this._structureBubbles.centerTorso[count] ) {
+                rv++
+            }
+        }
+        for( let count = 0; count < this._structureBubbles.rightTorso.length; count ++  ) {
+            if( this._structureBubbles.rightTorso[count] ) {
+                rv++
+            }
+        }
+
+        for( let count = 0; count < this._structureBubbles.rightLeg.length; count ++  ) {
+            if( this._structureBubbles.rightLeg[count] ) {
+                rv++
+            }
+        }
+        for( let count = 0; count < this._structureBubbles.rightArm.length; count ++  ) {
+            if( this._structureBubbles.rightArm[count] ) {
+                rv++
+            }
+        }
+
+        for( let count = 0; count < this._structureBubbles.leftLeg.length; count ++  ) {
+            if( this._structureBubbles.leftLeg[count] ) {
+                rv++
+            }
+        }
+        for( let count = 0; count < this._structureBubbles.leftArm.length; count ++  ) {
+            if( this._structureBubbles.leftArm[count] ) {
+                rv++
+            }
+        }
+
+        return rv;
+    }
+
+    public getTotalStructure(): number {
+        let rv = 0;
+
+        rv += this._internalStructure.head;
+
+        rv += this._internalStructure.leftTorso;
+        rv += this._internalStructure.centerTorso;
+        rv += this._internalStructure.rightTorso;
+
+        rv += this._internalStructure.leftArm;
+        rv += this._internalStructure.rightArm;
+
+        rv += this._internalStructure.leftLeg;
+        rv += this._internalStructure.rightLeg;
+
+        return rv;
+    }
+
+    public turnReset() {
+        this.currentMovementMode = "n"
+        this.currentToHitMovementModifier = -1;
     }
 }
 
@@ -6684,4 +7232,19 @@ function sortByLocationThenName( a: IEquipmentItem, b: IEquipmentItem ) {
     if( a.name < b.name )
         return -1;
     return 0;
+}
+
+export interface IMechDamageAllocation {
+    head: boolean[],
+    centerTorso: boolean[],
+    rightTorso: boolean[],
+    leftTorso: boolean[],
+    leftArm: boolean[],
+    rightArm: boolean[],
+    leftLeg: boolean[],
+    rightLeg: boolean[],
+
+    rightTorsoRear: boolean[],
+    centerTorsoRear: boolean[],
+    leftTorsoRear: boolean[],
 }

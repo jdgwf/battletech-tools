@@ -67,21 +67,21 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
                 equipmentList.push( <rect key={ eq_count.toString() + "a"}x={wacCol1 - 5 } y={weapAndEqpTop + 93 + this.eqLineHeight * eq_count} width={1180} height={this.eqLineHeight + 4} fill={this.colorVeryLightGray} /> );
 
             if( this.props.inPlay ) {
-                
+
                 let targetColor = getTargetColor( this.props.mechData.sortedSeparatedEquipmentList[ eq_count].target );
                 let targetGATOR = this.props.mechData.getTargetToHitFromWeapon(
                     eq_count,
                 );
-                equipmentList.push( 
+                equipmentList.push(
                     <React.Fragment key={ eq_count.toString() + "b"}>
                         {this.props.mechData.sortedSeparatedEquipmentList[ eq_count].target ? (
-                            <text 
-                                x={ 18 } 
-                                y={weapAndEqpTop + 115 + this.eqLineHeight * eq_count } 
-                                textAnchor="left" 
-                                fontFamily="sans-serif" 
-                                fill={"black"} 
-                                style={{fontWeight: 500}} 
+                            <text
+                                x={ 18 }
+                                y={weapAndEqpTop + 115 + this.eqLineHeight * eq_count }
+                                textAnchor="left"
+                                fontFamily="sans-serif"
+                                fill={"black"}
+                                style={{fontWeight: 500}}
                                 fontSize={20}
                                 className="cursor-pointer"
                                 onClick={(e) => this.viewGATOR(targetGATOR)}
@@ -103,19 +103,19 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
                             stroke={"#009"}
                             strokeWidth="3"
                             fill={targetColor}
-                            cx={wacCol1 + 50 } 
-                            cy={weapAndEqpTop + 110 + this.eqLineHeight * eq_count } 
+                            cx={wacCol1 + 50 }
+                            cy={weapAndEqpTop + 110 + this.eqLineHeight * eq_count }
                             r={15}
                             className="cursor-pointer"
                             onClick={(e) => this.cycleTarget( e, eq_count)}
                         />
-                        <text 
-                            x={wacCol1 + 49 } 
-                            y={weapAndEqpTop + 115 + this.eqLineHeight * eq_count } 
-                            textAnchor="middle" 
-                            fontFamily="sans-serif" 
-                            fill={"white"} 
-                            style={{fontWeight: 700}} 
+                        <text
+                            x={wacCol1 + 49 }
+                            y={weapAndEqpTop + 115 + this.eqLineHeight * eq_count }
+                            textAnchor="middle"
+                            fontFamily="sans-serif"
+                            fill={"white"}
+                            style={{fontWeight: 700}}
                             fontSize={25}
                             className="cursor-pointer"
                             onClick={(e) => this.cycleTarget( e, eq_count)}
@@ -128,7 +128,7 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
                 equipmentList.push( <text key={ eq_count.toString() + "b"} x={wacCol1 + 30 } y={weapAndEqpTop + 120 + this.eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.sortedSeparatedEquipmentList[eq_count].count}</text> );
             }
 
-            
+
 
             rearDesignation = "";
             if(  this.props.mechData.sortedSeparatedEquipmentList[ eq_count].rear )
@@ -188,6 +188,7 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
         }
 
         return (
+
             <RecordSheetGroupBoxSVG
                 width={this.props.width}
                 height={this.props.height}
@@ -195,14 +196,14 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
                 yLoc={this.props.yLoc}
                 title="Weapons And Equipment"
                 bgColor={this.bgColor}
-                strokeColor={this.strokeColor}
+                strokeColor={this.props.boxStrokeColor}
             >
-                {this.props.inPlay ? 
+                {this.props.inPlay ?
                     <text x={wacCol1 } y={weapAndEqpTop + 80} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={35}></text>
-                : 
+                :
                     <text x={wacCol1 } y={weapAndEqpTop + 80} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={35}>Qty</text>
                 }
-	            
+
 	            <text x={wacCol2 } y={weapAndEqpTop + 80} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={35}>Type</text>
 	            <text x={wacCol3 } y={weapAndEqpTop + 80} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={35}>Loc</text>
 	            <text x={wacCol4 } y={weapAndEqpTop + 80} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={35}>Heat</text>
@@ -221,6 +222,7 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
 interface IRecordSheetEquipmentTableProps {
     bgColor?: string;
     strokeColor?: string;
+    boxStrokeColor?: string;
     mechData: BattleMech;
     inPlay?: boolean;
     xLoc: number;

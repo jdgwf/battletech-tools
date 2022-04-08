@@ -14,7 +14,7 @@ export interface ICBTForceExport {
 
 export class BattleMechForce {
 
-	public members: BattleMechGroup[] = [];
+	// public members: BattleMechGroup[] = [];
 
 	public groupLabel: string = "Lance";
 
@@ -157,14 +157,14 @@ export class BattleMechForce {
             this._uuid = importObj.uuid;
         }
 
-        if( typeof(importObj.turn) != "undefined" ) {
+        if( typeof(importObj.turn) !== "undefined" ) {
             this.turn = importObj.turn;
         }
-        if( typeof(importObj.phase) != "undefined" ) {
+        if( typeof(importObj.phase) !== "undefined" ) {
             this.phase = importObj.phase;
         }
 
-        if( typeof(importObj.hideHelp) != "undefined" ) {
+        if( typeof(importObj.hideHelp) !== "undefined" ) {
             this.hideHelp = importObj.hideHelp;
         }
 

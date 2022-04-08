@@ -29,7 +29,7 @@ export function callAnalytics(
         let host: string = window.location.hostname;
         let url: string = window.location.pathname;
 
-        if( typeof(fetch) != "undefined" ) {
+        if( typeof(fetch) !== "undefined" ) {
             fetch('https://analytics.jdgwf.com/analytics/', {
                 method: 'POST',
                 headers: new Headers({

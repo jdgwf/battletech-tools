@@ -170,10 +170,10 @@ export default class AlphaStrikeForce {
             this._uuid = importObj.uuid;
         }
 
-        if( typeof(importObj.phase) != "undefined" ) {
+        if( typeof(importObj.phase) !== "undefined" ) {
             this.phase = importObj.phase;
         }
-        
+
         if( importObj.lastUpdated ) {
             this._lastUpdated = new Date(importObj.lastUpdated);
         }

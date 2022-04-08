@@ -105,6 +105,22 @@ body {
 
 }
 
+@media (min-width: 744px) {
+
+    body {
+        .page-container {
+            .record-sheet-column {
+                width: 75vw;
+
+            }
+
+            .sidebar {
+                width: 25vw;
+            }
+        }
+    }
+}
+
 @media (min-width: 768px) {
 
     body {

@@ -2,117 +2,99 @@
 import React from 'react';
 
 export default class RecordSheetGroupBoxSVG extends React.Component<IRecordSheetGroupBoxSVGProps, IRecordSheetGroupBoxSVGState> {
-    bgColor = "rgb(255,255,255)";
-    strokeColor = "rgb(0,0,0)";
-    theWidth = 100;
-    theHeight = 100;
-    xLoc = 0;
-    yLoc = 0;
-    borderRadius = 15;
-	borderWidth = 2;
-	textSize = 35;
-    labelLeft = 35;
-    title = "";
-    constructor(props: IRecordSheetGroupBoxSVGProps) {
-        super(props);
+
+    render = (): React.ReactFragment => {
+        let bgColor = "rgb(255,255,255)";
+        let strokeColor = "rgb(0,0,0)";
+        let theWidth = 100;
+        let theHeight = 100;
+        let xLoc = 0;
+        let yLoc = 0;
+        let borderRadius = 15;
+        let borderWidth = 2;
+        let textSize = 35;
+        let labelLeft = 35;
+        let title = "";
 
 
-        this.state = {
-        }
         if( this.props.bgColor ) {
-            this.bgColor = this.props.bgColor;
+            bgColor = this.props.bgColor;
         }
         if( this.props.strokeColor ) {
-            this.strokeColor = this.props.strokeColor;
+            strokeColor = this.props.strokeColor;
         }
 
         if( this.props.width ) {
-            this.theWidth = this.props.width;
+            theWidth = this.props.width;
         }
 
         if( this.props.height ) {
-            this.theHeight = this.props.height;
+            theHeight = this.props.height;
         }
 
         if( this.props.xLoc  ) {
-            this.xLoc = this.props.xLoc;
+            xLoc = this.props.xLoc;
         }
 
         if( this.props.yLoc ) {
-            this.yLoc = this.props.yLoc;
+            yLoc = this.props.yLoc;
         }
 
         if( this.props.title ) {
-            this.title = this.props.title;
+            title = this.props.title;
         }
-    }
 
-    render = (): React.ReactFragment => {
-
-        // let children: React.ReactFragment[] = [];
-        // let thisObject = this;
-        // if( this.props.children ) {
-        //     // @ts-ignore
-        //     children = this.props.children.map(
-        //         (item: SVGElement) => {
-        //             // @ts-ignore
-        //             // @ts-
-        //             item.x = thisObject.xLoc;
-        //             // @ts-ignore
-        //             item.y = thisObject.yLoc;
-        //     });
-        // }
         return (
             <svg>
         <rect
-            rx={this.borderRadius}
-            ry={this.borderRadius}
-            x={this.xLoc}
-            y={this.yLoc + ( this.textSize + 5 ) / 2}
-            width={this.theWidth}
-            height={this.theHeight}
-            fill={this.strokeColor}
+            rx={borderRadius}
+            ry={borderRadius}
+            x={xLoc}
+            y={yLoc + ( textSize + 5 ) / 2}
+            width={theWidth}
+            height={theHeight}
+            fill={strokeColor}
             onClick={this.props.onClick}
             className={this.props.onClick ? "cursor-pointer" : ""}
         />
         <rect
-            rx={this.borderRadius}
-            ry={this.borderRadius}
-            x={this.xLoc + this.borderWidth}
-            y={this.yLoc + ( this.textSize + 5 ) / 2 + this.borderWidth}
-            width={this.theWidth - this.borderWidth * 2}
-            height={this.theHeight - this.borderWidth * 2}
-            fill={this.bgColor}
+            rx={borderRadius}
+            ry={borderRadius}
+            x={xLoc + borderWidth}
+            y={yLoc + ( textSize + 5 ) / 2 + borderWidth}
+            width={theWidth - borderWidth * 2}
+            height={theHeight - borderWidth * 2}
+            fill={bgColor}
             onClick={this.props.onClick}
             className={this.props.onClick ? "cursor-pointer" : ""}
         />
 
-	{this.title ? (
+	{title ? (
         <>
             <rect
-                rx={this.borderRadius}
-                ry={this.borderRadius}
-                x={this.labelLeft + this.xLoc}
-                y={this.yLoc}
-                width={this.theWidth - this.labelLeft * 2}
-                height={this.textSize + 5}
-                fill={this.strokeColor}
+                rx={borderRadius}
+                ry={borderRadius}
+                x={labelLeft + xLoc}
+                y={yLoc}
+                width={theWidth - labelLeft * 2}
+                height={textSize + 5}
+                fill={strokeColor}
                 onClick={this.props.onClick}
                 className={this.props.onClick ? "cursor-pointer" : ""}
             />
             <text
-                rx={this.borderRadius}
-                ry={this.borderRadius}
-                x={this.xLoc +  this.theWidth / 2}
-                y={this.yLoc + this.textSize - 3}
+                rx={borderRadius}
+                ry={borderRadius}
+                x={xLoc +  theWidth / 2}
+                y={yLoc + textSize - 3}
                 fontFamily="sans-serif"
-                fill={this.bgColor}
+                fill={bgColor}
                 textAnchor="middle"
-                fontSize={this.textSize}
+                fontSize={textSize}
                 onClick={this.props.onClick}
                 className={this.props.onClick ? "cursor-pointer" : ""}
             >
-                {this.title.toUpperCase()}
+                {title.toUpperCase()}
                 {this.props.subTitle && this.props.subTitle.trim() ? (
                     <>&nbsp;{this.props.subTitle}</>
                 ) : null}

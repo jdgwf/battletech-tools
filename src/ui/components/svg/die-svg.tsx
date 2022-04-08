@@ -1,6 +1,7 @@
 
 
 import React from 'react';
+import { FaWalking } from 'react-icons/fa';
 
 export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> {
 
@@ -248,6 +249,12 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
 
                 break;
             }
+            case 0: {
+                break;
+            }
+            case -1: {
+                break;
+            }
             default: {
                 // Left Top
                 pips.push (
@@ -346,7 +353,12 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
                     style={{fontWeight: 700}}
                     fontSize={this.props.width - 5}
                 >
-                    {this.props.numberPips}
+                    {this.props.numberPips === -1 ? (
+                        <>#</>
+                    ) : (
+                        <>{this.props.numberPips}</>
+                    )}
+                    
                 </text>
                 </>
             ) : (

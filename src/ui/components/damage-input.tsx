@@ -154,7 +154,7 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
             e.preventDefault();
         }
         let item = this.props.editingItem;
-        if( typeof(item.damage) != "undefined" && typeof(item.damage) != "number") {
+        if( typeof(item.damage) !== "undefined" && typeof(item.damage) !== "number") {
             item.damage.short = +e.currentTarget.value;
         }
 
@@ -168,7 +168,7 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
             e.preventDefault();
         }
         let item = this.props.editingItem;
-        if( typeof(item.damage) != "undefined" && typeof(item.damage) != "number") {
+        if( typeof(item.damage) !== "undefined" && typeof(item.damage) !== "number") {
             item.damage.medium = +e.currentTarget.value;
         }
 
@@ -182,7 +182,7 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
             e.preventDefault();
         }
         let item = this.props.editingItem;
-        if( typeof(item.damage) != "undefined" && typeof(item.damage) != "number") {
+        if( typeof(item.damage) !== "undefined" && typeof(item.damage) !== "number") {
             item.damage.long = +e.currentTarget.value;
         }
 
@@ -196,7 +196,7 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
             e.preventDefault();
         }
         let item = this.props.editingItem;
-        if( typeof(item.damage) != "undefined" && typeof(item.damage) != "number") {
+        if( typeof(item.damage) !== "undefined" && typeof(item.damage) !== "number") {
             item.damage.aeroShort = +e.currentTarget.value;
         }
 
@@ -210,7 +210,7 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
             e.preventDefault();
         }
         let item = this.props.editingItem;
-        if( typeof(item.damage) != "undefined" && typeof(item.damage) != "number") {
+        if( typeof(item.damage) !== "undefined" && typeof(item.damage) !== "number") {
             item.damage.aeroMedium = +e.currentTarget.value;
         }
 
@@ -224,7 +224,7 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
             e.preventDefault();
         }
         let item = this.props.editingItem;
-        if( typeof(item.damage) != "undefined" && typeof(item.damage) != "number") {
+        if( typeof(item.damage) !== "undefined" && typeof(item.damage) !== "number") {
             item.damage.aeroLong = +e.currentTarget.value;
         }
 
