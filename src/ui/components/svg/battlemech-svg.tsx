@@ -628,7 +628,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             height={99}
             xLoc={425}
             yLoc={1113}
-            onClick={this.props.openSetTarget}
+            onClick={() => { if( this.props.openSetTargetDialog ) {this.props.openSetTargetDialog( this.props.mechData) }  } }
             strokeColor={this.props.currentPhase === 2 ? currentPhaseGroupColor : undefined}
         >
             <svg
@@ -636,7 +636,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 y={1150}
                 width={800}
                 height={80}
-                onClick={this.props.openSetTarget}
+                onClick={() => { if( this.props.openSetTargetDialog ) {this.props.openSetTargetDialog( this.props.mechData) }  } }
             >
                 <TargetSelectSVG
                     x={0}
@@ -645,7 +645,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     height={75}
                     mechData={this.props.mechData}
                     target={"a"}
-                    onClick={this.props.openSetTarget}
+                    onClick={this.props.openSetTargetDialog }
                 />
                 <TargetSelectSVG
                     x={0}
@@ -654,7 +654,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     height={75}
                     mechData={this.props.mechData}
                     target={"b"}
-                    onClick={this.props.openSetTarget}
+                    onClick={this.props.openSetTargetDialog }
                 />
                 <TargetSelectSVG
                     x={400}
@@ -663,14 +663,14 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     height={75}
                     mechData={this.props.mechData}
                     target={"c"}
-                    onClick={this.props.openSetTarget}
+                    onClick={this.props.openSetTargetDialog }
                 />
                 <text
                     x={600}
                     y={78}
                     textAnchor="middle"
                     fontSize="15"
-                    onClick={this.props.openSetTarget}
+                    onClick={() => { if( this.props.openSetTargetDialog ) {this.props.openSetTargetDialog( this.props.mechData) }  } }
                 >
                     Click to bring up target selection
                 </text>
@@ -1836,7 +1836,7 @@ interface IBattleMechSVGProps {
 
     onChange?( mech: BattleMech ): void;
 
-    openSetTarget?(): void;
+    // openSetTarget?(): void;
     openTakeDamageDialog?(): void;
     openSetMovementDialog?(): void;
     viewGATOR?( gator: IGATOR): void;

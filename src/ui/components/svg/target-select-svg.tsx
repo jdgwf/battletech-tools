@@ -3,24 +3,29 @@ import { BattleMech } from "../../../classes/battlemech";
 import { getTargetColor } from '../../../utils';
 
 export default class TargetSelectSVG extends React.Component<ITargetSelectSVGProps, ITargetSelectSVGState> {
-  
+
+    onClick = () => {
+        if( this.props.onClick) {
+            this.props.onClick( this.props.mechData );
+        }
+    }
     render = (): React.ReactFragment => {
         return (
-            <svg 
+            <svg
                 x={this.props.x}
                 y={this.props.y}
                 width={this.props.width}
                 height={this.props.height}
-                onClick={this.props.onClick}
+                onClick={this.onClick}
                 className={this.props.onClick ? "cursor-pointer" : ""}
             >
                 <text
                     x={10}
                     y={30}
-                    
+
                     textAnchor="start"
 
-                    onClick={this.props.onClick}
+                    onClick={this.onClick}
                     className={this.props.onClick ? "cursor-pointer" : ""}
                 >
                     <tspan
@@ -32,7 +37,7 @@ export default class TargetSelectSVG extends React.Component<ITargetSelectSVGPro
                     </tspan>
                 {this.props.mechData.getTargetSummaryText(this.props.target)}
                 </text>
-                
+
             </svg>
         )
     }
@@ -45,7 +50,9 @@ interface ITargetSelectSVGProps {
     height: number;
     target: string;
     mechData: BattleMech;
-    onClick?(): void;
+    onClick?(
+        currentBM: BattleMech,
+    ): void
     // landscape?: boolean;
     // itemIDField
 }
