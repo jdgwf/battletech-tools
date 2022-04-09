@@ -1840,7 +1840,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                     if( unit.currentMovementMode === "j" ) {
                       dieBG = "red";
                       dieFG = "white";
-                      diePips++;
+                      // diePips++;
                     }
 
                     return (
@@ -1855,7 +1855,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                             <div className="stats">
                               <div
                                 className="move"
-                                title="This is the mech's movement status, the color indicates the last movement method, the number is the to-hit movement modifiers as a target including the +1 jump modifier if the 'mech jumped."
+                                title="This is the mech's movement status, the color indicates the last movement method, the number is the to-hit movement modifiers as a target NOT including the +1 jump modifier if the 'mech jumped. This parallels the die indicator one would place next to the 'mech during the game as per Total Warfare p51 and/or the BattleTech Manual page 13"
                               >
                                 <svg
                                   height={20}
@@ -1869,7 +1869,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                                     bgColor={dieBG}
                                     pipColor={dieFG}
                                     numberPips={diePips}
-                                    numericPips={true}
+                                    // numericPips={true}
                                   />
                                 </svg>
 
