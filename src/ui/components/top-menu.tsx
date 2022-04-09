@@ -33,7 +33,7 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
         },
     ];
 
-    if( this.props.appGlobals.appSettings.developerMenu ) {
+    if( !this.props.appGlobals.appSettings.developerMenu ) {
         menuStructure.push({
             label: "Classic BattleTech",
             url: "/classic-battletech",
@@ -79,14 +79,47 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
         });
     } else {
         menuStructure.push({
-            label: "'Mech Creator",
-            url: "/classic-battletech/mech-creator",
-            tag: "classic-battletech-mech-creator",
+            label: "Classic BattleTech",
+            url: "/classic-battletech",
+            tag: "classic-battletech-home",
+            startsWithTag: "classic-battletech",
+            subMenu: [
+                {
+                    label: "Home",
+                    url: "/classic-battletech/",
+                    tag: "classic-battletech-home",
+                },
+                {
+                    label: "'Mech Creator",
+                    url: "/classic-battletech/mech-creator",
+                    tag: "classic-battletech-mech-creator",
+                },
+                {
+                    label: "Roster",
+                    url: "/classic-battletech/roster",
+                    tag: "classic-battletech-roster",
+                }
+            ]
         });
+
         menuStructure.push({
-            label: "Alpha Strike Roster",
-            url: "/alpha-strike/roster",
-            tag: "alpha-strike-roster",
+            label: "Alpha Strike",
+            url: "/alpha-strike",
+            tag: "alpha-strike-home",
+            startsWithTag: "alpha-strike",
+            subMenu: [
+                {
+                    label: "Home",
+                    url: "/alpha-strike/",
+                    tag: "alpha-strike-home",
+                },
+                {
+                    label: "Roster",
+                    url: "/alpha-strike/roster",
+                    tag: "alpha-strike-roster",
+                }
+            ]
+
         });
     }
 

@@ -19,11 +19,12 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
         <UIPage current="dev-status" appGlobals={this.props.appGlobals}>
             <h2>Development Status</h2>
 
-            <p><strong>Current Focus:</strong> 'Mech Creator Class and Data conversions</p>
-            <div className="row">
-              <div className="col-lg-4">
+            <p><strong>Current Focus:</strong> Classic BattleTech Roster</p>
+            <div className="flex">
+
               <TextSection
             label="General App"
+            className="grow with-margins large-max-width-50"
           >
                     <h4>Completed</h4>
                     <ul>
@@ -34,22 +35,22 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                       <li><del>(S)CSS</del></li>
                     </ul>
 
-                    <h4>TO DO</h4>
+                    <h4>Possible Future</h4>
+                    <p>Although I'm encountering resistance with being hosted on GitHub, I'm not ruling out the possibility of syncing via these services. That said, the backup/restore functionality of the app seems to work quite well.</p>
                     <ul>
                       <li>Google Drive Sign in/Sync</li>
-                      <li>Office 365/ OneDrive Sign in/Sync<sup>*</sup></li>
-                      <li>Dropbox Sign in/Sync<sup>*</sup></li>
-                      <li>Apple iCloud Drive Sign in/Sync<sup>*</sup></li>
-                      <li>Nextcloud Sign in/Sync<sup>*</sup></li>
+                      <li>Office 365/ OneDrive Sign in/Sync</li>
+                      <li>Dropbox Sign in/Sync</li>
+                      <li>Apple iCloud Drive Sign in/Sync</li>
+                      <li>NextCloud Sign in/Sync</li>
                     </ul>
-                    <div className="small-pt-text">
-                      <sup>*</sup> unknown if technically possible with PWA/Pure web apis. I do know that I can sync with GoogleDrive, for I have another web project which does this.
-                    </div>
+
                   </TextSection>
-              </div>
-              <div className="col-lg-4">
+
+
               <TextSection
                 label="Alpha Strike Roster"
+                className="grow with-margins large-max-width-50"
               >
 
                     <div className="alert alert-success">This section should be pretty feature complete, although there are some UI annoyances.</div>
@@ -64,17 +65,17 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                       <li><del>Rename Units</del></li>
                       <li><del>Rename Groups</del></li>
                       <li><del>Unit Skills</del></li>
-                      <li><del>Group Favoites</del></li>
+                      <li><del>Group Favorites</del></li>
                       <li><del>Printable AS Rosters</del></li>
                     </ul>
 
 
 
                   </TextSection>
-              </div>
-              <div className="col-lg-4">
+
               <TextSection
             label="'Mech Creator'"
+            className="grow with-margins large-max-width-50"
           >
                     <h4>Completed</h4>
                     <ul>
@@ -103,26 +104,32 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                     </ul>
                     <h4>TO DO (short list)</h4>
                     <ul>
-
                       <li>
-                        <h4 className="text-left no-margins color-blue">Current Focus</h4>
-                        Load/Save/Export
+                        Remaining IS Equipment
                       </li>
-
                       <li>
                         Add remaining Clan Equipment,
-                        <h4 className="text-left no-margins color-blue">Current Focus</h4>
-                        IS SRM/LRMs to Data
                       </li>
-                      <li>In-Play Sheet</li>
-                      <li>Lances/Stars</li>
-                      <li>Companies/Binaries/Trinaries</li>
-
 
                     </ul>
 
                   </TextSection>
-              </div>
+
+
+
+              <TextSection
+            label="Classic BattleTech Roster"
+            className="grow with-margins large-max-width-50"
+          >
+              <h3>Currents TODOs</h3>
+              <ul>
+                <li>Apply Heat, and manual adjustments</li>
+                <li>Take Damage Dialog</li>
+                <li>Critical Hit Management</li>
+                <li>MechWarrior hits</li>
+              </ul>
+            </TextSection>
+
             </div>
           </UIPage>
       );

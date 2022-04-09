@@ -142,6 +142,8 @@ code {
 .flex {
   display: flex;
   flex-flow: row;
+  flex-wrap: wrap;
+  align-items: stretch;
   .grow {
     flex-grow: 1;
   }
@@ -151,7 +153,21 @@ code {
   .grow-2 {
     flex-grow: 2;
   }
+  .with-margins {
+    margin: .5rem;
+  }
 }
+
+@media (min-width: 768px) {
+  body {
+    .flex {
+      .large-max-width-50 {
+        max-width: 45%;
+      }
+    }
+  }
+}
+
 
 select, input, label, textarea {
   width: 100%;
@@ -309,7 +325,7 @@ input[type=number] {
   tbody:nth-child(odd) {
     tr {
       background: #444;
- 
+
     }
   }
 
@@ -334,11 +350,11 @@ input[type=number] {
         }
       }
     }
-    
+
   }
 
-  
-  
+
+
   &.tighter-padding {
     tbody, thead, tfooter {
       tr {
