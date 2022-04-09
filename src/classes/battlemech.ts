@@ -4576,7 +4576,59 @@ export class BattleMech {
         return this._maxWeaponHeat;
     }
 
-    public getHeatDissipation() {
+    public getActiveWeaponHeat(
+        equipmentList: IEquipmentItem[] |  null = null
+    ): number {
+        if( equipmentList === null ) {
+            equipmentList = this.equipmentList
+        }
+        let rv = 0;
+
+        for( let eq of equipmentList) {
+            console.log("eq", eq);
+            if( eq.target ) {
+                rv += eq.heat;
+            }
+        }
+        return rv;
+    }
+
+    public getTurnHeatDifference(
+        equipmentList: IEquipmentItem[] |  null = null
+    ): number {
+        if( equipmentList === null ) {
+            equipmentList = this.equipmentList
+        }
+        let rv = this.getActiveMoveHeat();
+        rv += this.getActiveWeaponHeat(equipmentList);
+        rv -= this.getActiveHeatDissipation();
+
+        return rv;
+    }
+
+    public getActiveMoveHeat(): number {
+        // TODO check if heat sinks are broken
+        if( this.currentMovementMode == "w" ) {
+            return 1;
+        }
+        if( this.currentMovementMode == "r" ) {
+            return 2;
+        }
+        if( this.currentMovementMode == "j" ) {
+            if( this.currentTargetJumpingMP > 3 ) {
+                return this.currentTargetJumpingMP
+            }
+            return 3;
+        }
+        return 0;
+    }
+
+    public getActiveHeatDissipation(): number {
+        // TODO check if heat sinks are broken
+        return this._heatDissipation;
+    }
+
+    public getHeatDissipation(): number {
         return this._heatDissipation;
     }
 
@@ -4585,7 +4637,7 @@ export class BattleMech {
         return this.getMoveHeat() + this.getWeaponHeat() - this.getHeatDissipation()
     }
 
-    public getWalkSpeed() {
+    public getWalkSpeed(): number {
         return this._walkSpeed;
     }
 

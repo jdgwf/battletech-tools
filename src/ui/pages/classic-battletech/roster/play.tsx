@@ -1574,6 +1574,48 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             })}
           </table>
         </fieldset>
+        <fieldset
+          className="fieldset"
+        >
+          <legend>Heat Summary</legend>
+          <table className="table text-center">
+            <thead>
+              <tr>
+                <th>
+                  Movement
+                </th>
+                <th>
+                  Weapons
+                </th>
+                <th>
+                  Heat Sinks
+                </th>
+                <th>
+                  Difference
+                </th>
+              </tr>
+            </thead>
+            {this.state.setTargetDialog ? (
+              <tbody>
+                <tr>
+                  <td>
+                    {this.state.setTargetDialog.getActiveMoveHeat()}
+                  </td>
+                  <td>
+                    {this.state.setTargetDialog.getActiveWeaponHeat(this.state.targetWeaponSelection)}
+                  </td>
+                  <td>
+                    {this.state.setTargetDialog.getActiveHeatDissipation()}
+                  </td>
+                  <td>
+                    {this.state.setTargetDialog.getTurnHeatDifference(this.state.targetWeaponSelection)} heat
+                  </td>
+                </tr>
+              </tbody>
+            ) : null}
+
+          </table>
+        </fieldset>
       </div>
     </div>
   ) : null}
