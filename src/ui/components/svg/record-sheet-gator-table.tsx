@@ -96,7 +96,7 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
                     style={{fontWeight: 700}}
                     fontSize={50}
                 >A</text>
-                
+
                 <text
                     x={this.props.xLoc + 350 }
                     y={this.props.yLoc + 100}
@@ -178,7 +178,7 @@ interface IRecordSheetGATORTableProps {
     yLoc: number;
     width: number;
     height: number;
-    openSetMovement?(): void;
+    openSetMovementDialog?(): void;
 
     // landscape?: boolean;
     // itemIDField

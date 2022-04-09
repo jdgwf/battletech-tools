@@ -533,6 +533,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         onChange={this.props.onChange}
         viewGATOR={this.props.viewGATOR}
         boxStrokeColor={this.props.currentPhase === 2 ? currentPhaseGroupColor : undefined}
+        openSetTargetDialog={this.props.openSetTargetDialog}
     />
 
     {this.props.inPlay ? (
@@ -544,7 +545,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             height={99}
             xLoc={10}
             yLoc={1113}
-            onClick={this.props.openSetMovement}
+            onClick={this.props.openSetMovementDialog}
             strokeColor={this.props.currentPhase === 1 ? currentPhaseGroupColor : undefined}
         >
             <svg
@@ -552,12 +553,12 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 y={1150}
                 width={400}
                 height={80}
-                onClick={this.props.openSetMovement}
+                onClick={this.props.openSetMovementDialog}
                 className="cursor-pointer"
             >
-                {this.props.inPlay && this.props.openSetMovement ? (
+                {this.props.inPlay && this.props.openSetMovementDialog ? (
                     <svg
-                        onClick={this.props.openSetMovement}
+                        onClick={this.props.openSetMovementDialog}
                         className="cursor-pointer"
                     >
                     {this.props.mechData.currentMovementMode ? (
@@ -589,7 +590,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                             width={60}
                             fontSize={30}
                             className="cursor-pointer"
-                            onClick={this.props.openSetMovement}
+                            onClick={this.props.openSetMovementDialog}
                         >
                             {this.props.mechData.getMovementText()}
                         </text>
@@ -600,7 +601,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                             fontSize={20}
                             className="cursor-pointer"
 
-                            onClick={this.props.openSetMovement}
+                            onClick={this.props.openSetMovementDialog}
                         >
                             {this.props.mechData.getMovementToHitText()}
                         </text>
@@ -684,7 +685,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             yLoc={1113}
             mechData={this.props.mechData}
             inPlay={this.props.inPlay}
-            openSetMovement={this.props.openSetMovement}
+            openSetMovementDialog={this.props.openSetMovementDialog}
         />
 
     )
@@ -1836,9 +1837,12 @@ interface IBattleMechSVGProps {
     onChange?( mech: BattleMech ): void;
 
     openSetTarget?(): void;
-    openTakeDamage?(): void;
-    openSetMovement?(): void;
+    openTakeDamageDialog?(): void;
+    openSetMovementDialog?(): void;
     viewGATOR?( gator: IGATOR): void;
+    openSetTargetDialog?(
+        currentBM: BattleMech,
+    ): void;
     // landscape?: boolean;
     // itemIDField
 }

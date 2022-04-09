@@ -28,6 +28,13 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
             label="News"
           >
                   <ul className="news">
+                  <li>
+                      <p><strong>2022 April 8</strong> - The CBT Roster In-Play Section is coming along, albeit slower than I'd like, but there are a lot more moving parts compared to the Alpha Strike Roster.</p>
+                      <p>Right now what works: Movement, Target Selection, Weapon Target Assignments (along with GATOR calculations), and Fire Control Resolving marks (as well as cluster hit tracking)</p>
+                      <p>Coming Soon (hopefully this weekend, health dependent?): Heat Allocation at end of turn, Damage Entry box (which will assign each damage per location auto-magically, and let you know the crits as you enter the damage, and Critical Damage tracking.</p>
+                      <p>Right now you should be able to technically play without all the premium functions (keeping track of heat on your own, and clicking each damage box)</p>
+                      <p>This is the very start of this in-play sheet. I'm sure once I get going there'll be more Quality of Life features coming (such as Ammo Explosion calculations)</p>
+                    </li>
                     <li>
                       <p><strong>2022 April 3</strong> - Work on the <Link to="classic-battletech/roster">CBT Roster</Link> has started. If you want to see it in the menu, go to <Link to="settings">Settings</Link> then click on "Show Developer/Work In Progress Menu"</p>
                       <p>The basic rostering functions should work, but the Print and Play buttons don't have a URL endpoint yet. I'll have the Print completed first, but the Play button will likely take me the better part of a week to code as I'll need to code the Electronic Character Sheet functions both into the SVG Record Sheet and in the BattleMech class object </p>

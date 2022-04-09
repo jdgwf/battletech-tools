@@ -329,7 +329,7 @@ export class BattleMech {
 
     private _equipmentList: IEquipmentItem[] = [];
     private _sortedEquipmentList: IEquipmentItem[] = [];
-    private _sortedSeparatedEquipmentList: IEquipmentItem[] = [];
+    // private _sortedSeparatedEquipmentList: IEquipmentItem[] = [];
 
     private _criticalAllocationTable: ICriticalSlot[] = [];
 
@@ -3652,7 +3652,7 @@ export class BattleMech {
         // this._equipmentList.sort(sortByLocationThenName);
         this._sortInstalledEquipment();
         this._sortedEquipmentList = [];
-        this._sortedSeparatedEquipmentList = [];
+        // this._sortedSeparatedEquipmentList = [];
 
         for( let countEQ = 0; countEQ < this._equipmentList.length; countEQ++) {
 
@@ -3678,20 +3678,20 @@ export class BattleMech {
 
             let eqItemSeparate = JSON.parse( JSON.stringify(this._equipmentList[countEQ]));
             eqItemSeparate.count = 1;
-            this._sortedSeparatedEquipmentList.push( eqItemSeparate )
+            // this._sortedSeparatedEquipmentList.push( eqItemSeparate )
         }
 
 
         this._calcArmorStructureBubbles();
 
-        // this._sortedEquipmentList.sort();
+        this._sortedEquipmentList.sort();
         // this._sortedSeparatedEquipmentList.sort();
     }
 
     private _calcArmorStructureBubbles() {
 
         if(!this._armorBubbles.head) {
-            
+
             this._armorBubbles.head = [];
         }
 
@@ -4629,161 +4629,6 @@ export class BattleMech {
         return this._armorType;
     }
 
-    public getTargetToHitFromWeapon(
-        index: number
-    ): IGATOR {
-        let gator: IGATOR = JSON.parse(JSON.stringify(this.getGATOR()));
-        gator.finalToHit = -1;
-        if(
-            this._equipmentList.length > index
-            && this._equipmentList[index]
-            && typeof( this._equipmentList[index].target ) !== "undefined"
-            && this._equipmentList[index].target
-        ) {
-
-
-            // TS Typechecker is being an idiot here >:(
-            // At this point, it's NOT undefined... how many times do I have to check?
-            //@ts-ignore
-            let targetLetter: string = this._equipmentList[index].target;
-
-
-            let target = this.getTarget( targetLetter )
-
-            if( target ) {
-
-                gator.targetName = target.name;
-
-                gator.target = "Target " + targetLetter.toUpperCase();
-                gator.weaponName = this._equipmentList[index].name;
-
-                // G
-                gator.finalToHit = gator.gunnerySkill;
-
-                // A
-                if( this.currentMovementMode === "w") {
-                    gator.finalToHit += 1;
-                    gator.attackerMovementModifier = 1;
-                    gator.rangeExplanation = "Walked";
-                } else if( this.currentMovementMode === "r") {
-                    gator.finalToHit += 2;
-                    gator.attackerMovementModifier = 2;
-                    gator.rangeExplanation = "Ran";
-                } else if( this.currentMovementMode === "j") {
-
-                    gator.finalToHit += 3;
-                    gator.attackerMovementModifier = 3;
-                    gator.rangeExplanation = "Jumped";
-                } else {
-                    gator.rangeExplanation = "Stationary";
-                }
-
-
-                // T
-                gator.finalToHit += target.movement;
-                gator.targetMovementModifier = target.movement;
-
-                // O
-                let otherModifiersExplanation: string[] = [];
-                gator.finalToHit += target.otherMods;
-                gator.otherModifiers = target.otherMods;
-                if( target.otherMods ) {
-                    otherModifiersExplanation.push( "Target Other Modifiers");
-                }
-                if(
-                    typeof( this._equipmentList[index].accuracyModifier ) !== "undefined"
-                    &&
-                    this._equipmentList[index].accuracyModifier !== 0
-                ) {
-                    //@ts-ignore
-                    gator.finalToHit += this._equipmentList[index].accuracyModifier;
-                    //@ts-ignore
-                    gator.otherModifiers = this._equipmentList[index].accuracyModifier;
-
-                    otherModifiersExplanation.push( "Weapon Accuracy Modifier" );
-                }
-                gator.otherModifiersExplanation = otherModifiersExplanation.join(", ")
-
-                // R
-                if(
-                    target.range <= this._equipmentList[index].range.short
-                ) {
-
-                    gator.rangeExplanation = "Short";
-
-                    // Check minimum range
-                    if(
-                        this._equipmentList[index].range.min
-                        &&
-                        //@ts-ignore
-                        this._equipmentList[index].range.min > 0
-                    ) {
-                        let minRange: number = 0;
-                        //@ts-ignore
-                        minRange = this._equipmentList[index].range.min;
-
-                        if( target.range < minRange ) {
-                            let rangeModifier = minRange - target.range;
-                            gator.finalToHit += rangeModifier;
-                            gator.rangeModifier = rangeModifier;
-                            gator.rangeExplanation = "Minimum Range";
-                        }
-
-                    }
-                } else if(
-                    target.range <= this._equipmentList[index].range.medium
-                ) {
-                    gator.finalToHit += 2;
-                    gator.rangeModifier = 2;
-                    gator.rangeExplanation = "Medium";
-                } else if( target.range <=this._equipmentList[index].range.long ) {
-                    gator.finalToHit += 4;
-                    gator.rangeModifier = 4;
-                    gator.rangeExplanation = "Long";
-                } else {
-                    // Out of range
-                    gator.finalToHit = -1;
-                    gator.explanation = "The target is out of this weapon's range."
-                }
-
-
-            }
-
-        }
-
-        if( gator.finalToHit > 12 ) {
-            gator.explanation = "Any roll over 12 is an impossible shot."
-        } else if( gator.finalToHit >= 2 ) {
-            let percentageToHit = 0;
-            if( gator.finalToHit === 2 ) {
-                percentageToHit = 100
-            } else if( gator.finalToHit === 3 ) {
-                percentageToHit = 97.22
-            } else if( gator.finalToHit === 4 ) {
-                percentageToHit = 91.66
-            } else if( gator.finalToHit === 5 ) {
-                percentageToHit = 83.33
-            } else if( gator.finalToHit === 6 ) {
-                percentageToHit = 72.22
-            } else if( gator.finalToHit === 7 ) {
-                percentageToHit = 58.33
-            } else if( gator.finalToHit === 8 ) {
-                percentageToHit = 31.66
-            } else if( gator.finalToHit === 9 ) {
-                percentageToHit = 27.77
-            } else if( gator.finalToHit === 10 ) {
-                percentageToHit = 16.66
-            } else if( gator.finalToHit === 11 ) {
-                percentageToHit = 8.33
-            } else if( gator.finalToHit === 12 ) {
-                percentageToHit = 2.77
-            }
-
-            gator.explanation = "This roll has a " + percentageToHit.toString() + "% chance of success"
-        }
-
-        return gator;
-    }
 
     public setArmorType(armorTag: string) {
         for( let aCount = 0; aCount < mechArmorTypes.length; aCount++) {
@@ -5487,7 +5332,7 @@ export class BattleMech {
             if( importObject && importObject.armorBubbles ) {
                 this._armorBubbles = importObject.armorBubbles;
             }
-    
+
 
             this._calc();
             return true;
@@ -6444,7 +6289,7 @@ export class BattleMech {
                 return !this._structureBubbles.leftLeg[clickIndex];
             }
 
- 
+
         }
         return false;
     }
@@ -6986,13 +6831,19 @@ export class BattleMech {
         return this._criticals;
     }
 
-    public get sortedEquipmentList(): IEquipmentItem[] {
-        return this._sortedEquipmentList;
+    public set equipmentList(
+        nv: IEquipmentItem[],
+    ) {
+        this._equipmentList = nv;
     }
 
-    public get sortedSeparatedEquipmentList(): IEquipmentItem[] {
-        return this._sortedSeparatedEquipmentList;
+    public get equipmentList(): IEquipmentItem[] {
+        return this._equipmentList;
     }
+
+    // public get sortedSeparatedEquipmentList(): IEquipmentItem[] {
+    //     return this._sortedSeparatedEquipmentList;
+    // }
 
     public get calcLogCBill(): string {
         return this._calcLogCBill;
@@ -7026,7 +6877,7 @@ export class BattleMech {
 
     public getMovementText(): string {
         if( this.currentMovementMode ) {
-            if( this.currentMovementMode === "n") { 
+            if( this.currentMovementMode === "n") {
                 return "Has not moved";
             } else if( this.currentMovementMode === "w") {
                 return "Walked " + getHexDistanceFromModifier(this.currentToHitMovementModifier) + " hexes";
@@ -7042,7 +6893,7 @@ export class BattleMech {
     }
     public getMovementToHitText(): string {
         if( this.currentMovementMode ) {
-            if( this.currentMovementMode === "n") { 
+            if( this.currentMovementMode === "n") {
                 return "Click here to set move for the turn";
             } else if( this.currentMovementMode === "w") {
                 return "+1 to attack, -" + this.getMovementToHitModifier() + " to be hit";
@@ -7061,7 +6912,7 @@ export class BattleMech {
         return this.getCurrentArmor() / this.getTotalArmor() * 100;
     }
     public getStructurePercentage(): number {
- 
+
         return this.getCurrentStructure() / this.getTotalStructure() * 100;
     }
     public getHeatPercentage(): number {
@@ -7214,8 +7065,8 @@ export class BattleMech {
         }
     }
 
-    public toggleResolved( 
-        eq_index: number 
+    public toggleResolved(
+        eq_index: number
     ) {
         if( this._equipmentList.length > eq_index ) {
             this._equipmentList[eq_index].resolved = !this._equipmentList[eq_index].resolved;

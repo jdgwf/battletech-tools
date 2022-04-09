@@ -4,7 +4,8 @@ import { FaArrowCircleDown, FaArrowCircleLeft, FaArrowCircleRight, FaCheckSquare
 import { GiBattleAxe, GiMissileSwarm } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
 import { BattleMech, IGATOR, ITargetToHit } from "../../../../classes/battlemech";
-import { getClusterHitsPerRoll, getLocationName } from '../../../../utils';
+import { IEquipmentItem } from '../../../../data/data-interfaces';
+import { getClusterHitsPerRoll, getLocationName, getTargetToHitFromWeapon } from '../../../../utils';
 import { IAppGlobals } from '../../../app-router';
 import BattleTechLogo from '../../../components/battletech-logo';
 import InputCheckbox from '../../../components/form_elements/input_checkbox';
@@ -41,6 +42,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             damageRolledClusters: -1,
             damagePerClusterUnit: null,
             damagePerClusterEQIndex: -1,
+            targetWeaponSelection: [],
 
             hitLocationChartDialog: false,
 
@@ -60,7 +62,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       eq_index: number,
     ) => {
       if( unit ) {
-        let damageClusterHits = unit.sortedEquipmentList[eq_index].damageClusterHits;
+        let damageClusterHits = unit.equipmentList[eq_index].damageClusterHits;
 
         if(!damageClusterHits) {
           damageClusterHits = [];
@@ -286,6 +288,25 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
     }
 
+    updateSetEquipmentTarget = (
+      e: React.FormEvent<HTMLSelectElement>,
+      eq_index: number,
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+      let targetWeaponSelection = this.state.targetWeaponSelection;
+
+      if( targetWeaponSelection.length > eq_index && targetWeaponSelection[eq_index]) {
+        targetWeaponSelection[eq_index].target = e.currentTarget.value;
+      }
+
+      this.setState({
+        targetWeaponSelection: targetWeaponSelection,
+        updated: true,
+      })
+    }
+
     updateTargetActive = (
       e: React.FormEvent<HTMLInputElement>,
       target: string
@@ -294,18 +315,39 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         e.preventDefault();
       }
       let targetData = this.state.targetData;
+      let targetWeaponSelection = this.state.targetWeaponSelection;
+      let removeTarget = "";
       if( targetData ) {
         if( target === "a" ) {
           targetData.a.active = e.currentTarget.checked;
+          if( e.currentTarget.checked === false ) {
+            removeTarget = "a";
+          }
         } else if( target === "b" ) {
           targetData.b.active = e.currentTarget.checked;
+          if( e.currentTarget.checked === false ) {
+            removeTarget = "b";
+          }
         } else if( target === "c" ) {
           targetData.c.active = e.currentTarget.checked;
+          if( e.currentTarget.checked === false ) {
+            removeTarget = "c";
+          }
         }
       }
 
+      if( removeTarget !== "") {
+        for( let item of targetWeaponSelection ) {
+          if( item.target === removeTarget ) {
+            item.target = "";
+          }
+        }
+      }
+
+
       this.setState({
         targetData: targetData,
+        targetWeaponSelection: targetWeaponSelection,
       })
     }
 
@@ -458,7 +500,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
     }
 
-    openSetTarget = (
+    openSetTargetDialog = (
       currentBM: BattleMech,
     ) => {
 
@@ -471,6 +513,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
         this.setState({
           setTargetDialog: currentBM,
+          targetWeaponSelection: JSON.parse(JSON.stringify(currentBM.equipmentList)),
           setMovementDialog: null,
           takeDamageDialog: null,
           targetData: targetData,
@@ -489,6 +532,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       this.setState({
         setTargetDialog: null,
         targetData: null,
+        targetWeaponSelection: [],
       })
     }
 
@@ -506,6 +550,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           this.state.targetData.b,
           this.state.targetData.c,
         );
+        currentBM.equipmentList = this.state.targetWeaponSelection;
 
         this.props.appGlobals.currentCBTForce.updateUnitViaUUID( currentBM )
 
@@ -518,7 +563,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       })
     }
 
-    openTakeDamage = (
+    openTakeDamageDialog = (
       currentBM: BattleMech
     ) => {
 
@@ -569,7 +614,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
     }
 
-    openSetMovement = (
+    openSetMovementDialog = (
       currentBM: BattleMech
     ) => {
 
@@ -778,7 +823,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         </tbody>
 
     </table>
-    
+
     {this.state.damagePerClusterUnit && this.state.damageRolledClusters > 0 ? (
       <>
         <h4>Step 2: Walk through each cluster hit and assign damage.</h4>
@@ -796,10 +841,10 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                   <th>Damage</th>
                 </tr>
               </thead>
-              {this.state.damagePerClusterUnit.sortedEquipmentList[this.state.damagePerClusterEQIndex].damageClusterHits ? (
+              {this.state.damagePerClusterUnit.equipmentList[this.state.damagePerClusterEQIndex].damageClusterHits ? (
                 <>
                  {//@ts-ignore
-                 this.state.damagePerClusterUnit.sortedEquipmentList[this.state.damagePerClusterEQIndex].damageClusterHits.map( (hit, hitIndex) => {
+                 this.state.damagePerClusterUnit.equipmentList[this.state.damagePerClusterEQIndex].damageClusterHits.map( (hit, hitIndex) => {
                   return (
                   <tbody key={hitIndex}>
                     <tr>
@@ -811,17 +856,17 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                   )
                 })}
                 {//@ts-ignore
-                 this.state.damagePerClusterUnit.sortedEquipmentList[this.state.damagePerClusterEQIndex].damageClusterHits.length === 0 ? (
+                 this.state.damagePerClusterUnit.equipmentList[this.state.damagePerClusterEQIndex].damageClusterHits.length === 0 ? (
                   <tbody>
                     <tr>
                       <td colSpan={3}>
                         Click on a location on the table to the right to assign a cluster hit
                       </td>
                     </tr>
-                  </tbody>                
+                  </tbody>
                 ): null}
                 {//@ts-ignore
-                 this.state.damagePerClusterUnit.sortedEquipmentList[this.state.damagePerClusterEQIndex].damageClusterHits.length >= this.state.damageRolledClusters ? (
+                 this.state.damagePerClusterUnit.equipmentList[this.state.damagePerClusterEQIndex].damageClusterHits.length >= this.state.damageRolledClusters ? (
                   <tfoot>
                     <tr>
                       <th colSpan={3} className="color-green">
@@ -832,7 +877,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                 ) : null}
                 </>
               ) : null}
-             
+
             </table>
           </div>
           <div>
@@ -858,7 +903,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           <h2>{group.getName(groupIndex)}</h2>
           {group.members.map( (unit, unitIndex) => {
             let numberOfAttacks = 0;
-            for( let attack of unit.sortedSeparatedEquipmentList ) {
+            for( let attack of unit.equipmentList ) {
               if( attack.target ) {
                 numberOfAttacks++;
               }
@@ -879,7 +924,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                     <th className="min-width no-wrap">Damage</th>
                     <th className="min-width no-wrap"></th>
                   </tr>
-   
+
                 </thead>
                 {numberOfAttacks === 0 ? (
                   <tbody>
@@ -892,8 +937,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                   </tbody>
                 ) : (
                   <>
-                    {unit.sortedSeparatedEquipmentList.map( (attack, attackIndex) => {
-                      let attackGATOR = unit.getTargetToHitFromWeapon(
+                    {unit.equipmentList.map( (attack, attackIndex) => {
+                      let attackGATOR = getTargetToHitFromWeapon(
+                          unit,
                           attackIndex,
                       )
                       if( !attack.isAmmo && !attack.isEquipment && attackGATOR.target ) {
@@ -911,7 +957,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                           if( attack.damagePerCluster )
                             attackDamageSecondLine = attack.damagePerCluster.toString() + " damage/hit";
                         }
-                        
+
                         return (
                           <tbody key={attackIndex}>
                             <tr>
@@ -952,7 +998,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                               </td>
 
                               <td className="min-width no-wrap">
-                              
+
                                 <button
                                   className={"btn btn-primary btn-sm"}
                                   onClick={this.openHitLocationChartDialog}
@@ -966,13 +1012,13 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                                   onClick={(e) => this.toggleResolved(e, unit, attackIndex)}
                                   title="Click here to make this attack as resolved"
                                 >
-                                  {attack.resolved ? 
+                                  {attack.resolved ?
                                   <FaCheckSquare />
                                   :
                                   <FaSquare /> }
                                 </button>
                               </td>
-                              
+
                             </tr>
                           </tbody>
                         )
@@ -1261,10 +1307,12 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
   show={true}
   onClose={this.closeSetTarget}
   onSave={this.setTarget}
+  className="modal-xl"
   title={this.state.setTargetDialog.getName() + " Target Selection"}
 >
   {this.state.targetData ? (
-    <>
+    <div className="row">
+      <div className="col-md">
       <fieldset className="fieldset">
         <legend>Target A</legend>
         <div className="row">
@@ -1429,7 +1477,105 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         </div>
 
       </fieldset>
-    </>
+      </div>
+      <div className="col-md">
+        <fieldset className="fieldset">
+          <legend>Weapon Selection</legend>
+          <table className="table">
+            <thead>
+              <tr>
+                  <th className="text-center" rowSpan={2}>Target</th>
+                  <th className="text-center" rowSpan={2}>Weapon</th>
+                  <th className="text-center" rowSpan={2}>Heat</th>
+                  <th className="text-center" rowSpan={2}>Dmg</th>
+                  <th className="text-center" colSpan={3}>Range</th>
+
+                </tr>
+              <tr>
+
+
+
+
+                <th className="text-center">S</th>
+                <th className="text-center">M</th>
+                <th className="text-center">L</th>
+              </tr>
+            </thead>
+            {this.state.targetWeaponSelection.map( (item, itemIndex) => {
+                if( item.isEquipment || item.isAmmo ) {
+                  return <React.Fragment key={itemIndex}></React.Fragment>
+                } else {
+
+                let itemDamage = "";
+                if( typeof(item.damage) != "undefined")
+                  itemDamage = item.damage.toString();
+                if(item.damagePerCluster)
+                  itemDamage = item.damagePerCluster.toString() + "/hit" ;
+                if(item.damagePerShot)
+                  itemDamage = item.damagePerShot.toString() + "/shot";
+
+                let targetGATOR: IGATOR | null = null;
+                let targetData: ITargetToHit | null = null;
+                if( item.target && this.state.targetData  ) {
+                  if( item.target === "a" ) {
+                    targetData = this.state.targetData.a;
+                  } else if( item.target === "b" ) {
+                    targetData = this.state.targetData.b;
+                  } else if( item.target === "c" ) {
+                    targetData = this.state.targetData.c;
+                  }
+                }
+
+                if( this.state.setTargetDialog ) {
+                  targetGATOR = getTargetToHitFromWeapon(
+                    this.state.setTargetDialog,
+                    itemIndex,
+                    targetData,
+                    this.state.targetWeaponSelection,
+                );
+                }
+
+                return (
+                  <tbody key={itemIndex}>
+                    <tr>
+                      <td>
+                        <select
+                          value={item.target}
+                          onChange={(e) => this.updateSetEquipmentTarget( e, itemIndex)}
+                        >
+                          <option value="">-none-</option>
+                          {this.state.targetData && this.state.targetData.a && this.state.targetData.a.active ? (
+                            <option value="a">{this.state.targetData.a.name? this.state.targetData.a.name  + " (A)": "Target A"}</option>
+                          ) : null}
+                          {this.state.targetData && this.state.targetData.b && this.state.targetData.b.active ? (
+                            <option value="b">{this.state.targetData.b.name ? this.state.targetData.b.name  + " (B)" : "Target B"}</option>
+                          ) : null}
+                          {this.state.targetData && this.state.targetData.c && this.state.targetData.c.active ? (
+                            <option value="c">{this.state.targetData.c.name ? this.state.targetData.c.name + " (C)" : "Target C"}</option>
+                          ) : null}
+                        </select>
+                        {targetGATOR && targetGATOR.finalToHit > 0 ? (
+                          <>
+                          To Hit: {targetGATOR.finalToHit}+
+                          </>
+                        ) : null}
+                      </td>
+                      <td>{item.name}</td>
+                      <td className=" min-width no-wrap text-center">{item.heat}</td>
+                      <td className=" min-width no-wrap text-center">{itemDamage}</td>
+                      <td className=" min-width no-wrap text-center">{item.range.short}</td>
+                      <td className=" min-width no-wrap text-center">{item.range.medium}</td>
+                      <td className=" min-width no-wrap text-center">{item.range.long}</td>
+                    </tr>
+                  </tbody>
+                )
+              }
+
+            })}
+          </table>
+        </fieldset>
+      </div>
+    </div>
   ) : null}
 
 </StandardModal>
@@ -1641,11 +1787,11 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                 mechData={selectedMech}
                 inPlay={true}
                 //@ts-ignore
-                openSetTarget={() => this.openSetTarget(selectedMech)}
+                openSetTargetDialog={() => this.openSetTargetDialog(selectedMech)}
                 //@ts-ignore
-                openTakeDamage={() => this.openTakeDamage(selectedMech)}
+                openTakeDamageDialog={() => this.openTakeDamageDialog(selectedMech)}
                 //@ts-ignore
-                openSetMovement={() => this.openSetMovement(selectedMech)}
+                openSetMovementDialog={() => this.openSetMovementDialog(selectedMech)}
                 onChange={this.onChange}
                 viewGATOR={this.viewGATOR}
                 currentPhase={this.props.appGlobals.currentCBTForce.phase}
@@ -1758,7 +1904,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                             <div className="grow">
                             <button
                               className={this.props.appGlobals.currentCBTForce?.phase === 1 ? unit.currentMovementMode === "n" ? "btn btn-sm btn-success full-width" : "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
-                              onClick={(e) => this.openSetMovement(unit)}
+                              onClick={(e) => this.openSetMovementDialog(unit)}
                               title={"Open the Movement Dialog for " + unit.getName()}
                             >
                               <FaShoePrints />
@@ -1767,7 +1913,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                             <div className="grow">
                               <button
                                 className={this.props.appGlobals.currentCBTForce?.phase === 2 ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
-                                onClick={(e) => this.openSetTarget(unit)}
+                                onClick={(e) => this.openSetTargetDialog(unit)}
                                 title={"Open the Target Dialog for " + unit.getName()}
                               >
                                 <CrosshairArrow />
@@ -1818,6 +1964,7 @@ interface IPlayState {
   setTargetDialog: BattleMech | null;
 
   targetData: ICombinedTargetData | null;
+  targetWeaponSelection: IEquipmentItem[];
   viewGATOR: IGATOR | null;
 
 

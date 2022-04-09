@@ -1,4 +1,5 @@
 import { IASMULUnit } from "./classes/alpha-strike-unit";
+import { BattleMech, IGATOR, ITargetToHit } from "./classes/battlemech";
 import { IEquipmentItem } from "./data/data-interfaces";
 import { mechClanEquipmentEnergy } from "./data/mech-clan-equipment-weapons-energy";
 import { mechISEquipmentBallistic } from "./data/mech-is-equipment-weapons-ballistic";
@@ -22,9 +23,9 @@ export function generateUUID(): string {
 
 export function getISEquipmentList(): IEquipmentItem[] {
     return mechISEquipmentBallistic
-        .concat( 
-            mechISEquipmentEnergy, 
-            mechISEquipmentMissiles, 
+        .concat(
+            mechISEquipmentEnergy,
+            mechISEquipmentMissiles,
             mechISEquipmentMisc
         );
 }
@@ -487,4 +488,170 @@ export function getLocationName(
 
 
     return "???"
+}
+
+export function getTargetToHitFromWeapon(
+    mech: BattleMech,
+    index: number,
+    target: ITargetToHit | null = null,
+    equipmentList: IEquipmentItem[] | null = null,
+
+): IGATOR {
+    let gator: IGATOR = JSON.parse(JSON.stringify(mech.getGATOR()));
+
+    if( equipmentList === null ) {
+        equipmentList = mech.equipmentList;
+    }
+    gator.finalToHit = -1;
+    if(
+        equipmentList.length > index
+        && equipmentList[index]
+        && typeof( equipmentList[index].target ) !== "undefined"
+        && equipmentList[index].target
+    ) {
+
+
+        // TS Typechecker is being an idiot here >:(
+        // At this point, it's NOT undefined... how many times do I have to check?
+        //@ts-ignore
+        let targetLetter: string = equipmentList[index].target;
+
+
+        if( target === null && mech ) {
+            target = mech.getTarget( targetLetter )
+        }
+
+        if( target ) {
+
+            gator.targetName = target.name;
+
+            gator.target = "Target " + targetLetter.toUpperCase();
+            gator.weaponName = equipmentList[index].name;
+
+            // G
+            gator.finalToHit = gator.gunnerySkill;
+
+            // A
+            if( mech.currentMovementMode === "w") {
+                gator.finalToHit += 1;
+                gator.attackerMovementModifier = 1;
+                gator.rangeExplanation = "Walked";
+            } else if( mech.currentMovementMode === "r") {
+                gator.finalToHit += 2;
+                gator.attackerMovementModifier = 2;
+                gator.rangeExplanation = "Ran";
+            } else if( mech.currentMovementMode === "j") {
+
+                gator.finalToHit += 3;
+                gator.attackerMovementModifier = 3;
+                gator.rangeExplanation = "Jumped";
+            } else {
+                gator.rangeExplanation = "Stationary";
+            }
+
+
+            // T
+            gator.finalToHit += target.movement;
+            gator.targetMovementModifier = target.movement;
+
+            // O
+            let otherModifiersExplanation: string[] = [];
+            gator.finalToHit += target.otherMods;
+            gator.otherModifiers = target.otherMods;
+            if( target.otherMods ) {
+                otherModifiersExplanation.push( "Target Other Modifiers");
+            }
+            if(
+                typeof( equipmentList[index].accuracyModifier ) !== "undefined"
+                &&
+                equipmentList[index].accuracyModifier !== 0
+            ) {
+                //@ts-ignore
+                gator.finalToHit += equipmentList[index].accuracyModifier;
+                //@ts-ignore
+                gator.otherModifiers = equipmentList[index].accuracyModifier;
+
+                otherModifiersExplanation.push( "Weapon Accuracy Modifier" );
+            }
+            gator.otherModifiersExplanation = otherModifiersExplanation.join(", ")
+
+            // R
+            if(
+                target.range <= equipmentList[index].range.short
+            ) {
+
+                gator.rangeExplanation = "Short";
+
+                // Check minimum range
+                if(
+                    equipmentList[index].range.min
+                    &&
+                    //@ts-ignore
+                    equipmentList[index].range.min > 0
+                ) {
+                    let minRange: number = 0;
+                    //@ts-ignore
+                    minRange = equipmentList[index].range.min;
+
+                    if( target.range < minRange ) {
+                        let rangeModifier = minRange - target.range;
+                        gator.finalToHit += rangeModifier;
+                        gator.rangeModifier = rangeModifier;
+                        gator.rangeExplanation = "Minimum Range";
+                    }
+
+                }
+            } else if(
+                target.range <= equipmentList[index].range.medium
+            ) {
+                gator.finalToHit += 2;
+                gator.rangeModifier = 2;
+                gator.rangeExplanation = "Medium";
+            } else if( target.range <=equipmentList[index].range.long ) {
+                gator.finalToHit += 4;
+                gator.rangeModifier = 4;
+                gator.rangeExplanation = "Long";
+            } else {
+                // Out of range
+                gator.finalToHit = -1;
+                gator.explanation = "The target is out of this weapon's range."
+            }
+
+
+        }
+
+    }
+
+    if( gator.finalToHit > 12 ) {
+        gator.explanation = "Any roll over 12 is an impossible shot."
+    } else if( gator.finalToHit >= 2 ) {
+        let percentageToHit = 0;
+        if( gator.finalToHit === 2 ) {
+            percentageToHit = 100
+        } else if( gator.finalToHit === 3 ) {
+            percentageToHit = 97.22
+        } else if( gator.finalToHit === 4 ) {
+            percentageToHit = 91.66
+        } else if( gator.finalToHit === 5 ) {
+            percentageToHit = 83.33
+        } else if( gator.finalToHit === 6 ) {
+            percentageToHit = 72.22
+        } else if( gator.finalToHit === 7 ) {
+            percentageToHit = 58.33
+        } else if( gator.finalToHit === 8 ) {
+            percentageToHit = 31.66
+        } else if( gator.finalToHit === 9 ) {
+            percentageToHit = 27.77
+        } else if( gator.finalToHit === 10 ) {
+            percentageToHit = 16.66
+        } else if( gator.finalToHit === 11 ) {
+            percentageToHit = 8.33
+        } else if( gator.finalToHit === 12 ) {
+            percentageToHit = 2.77
+        }
+
+        gator.explanation = "This roll has a " + percentageToHit.toString() + "% chance of success"
+    }
+
+    return gator;
 }
