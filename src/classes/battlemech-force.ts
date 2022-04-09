@@ -85,7 +85,9 @@ export class BattleMechForce {
     }
 
 
-    public export(): ICBTForceExport {
+    public export(
+        noInPlayVariabless: boolean = false,
+    ): ICBTForceExport {
         let returnValue: ICBTForceExport = {
             groups: [],
             uuid: this._uuid,
@@ -96,7 +98,7 @@ export class BattleMechForce {
         }
 
         for( let group of this.groups) {
-            returnValue.groups.push( group.export() );
+            returnValue.groups.push( group.export(noInPlayVariabless) );
         }
 
         return returnValue;

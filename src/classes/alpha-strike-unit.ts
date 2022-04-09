@@ -745,7 +745,7 @@ export class AlphaStrikeUnit {
                     this.move[moveC].currentMove -= moveHit;
                     if( this.move[moveC].currentMove < 0 ) {
                         this.move[moveC].currentMove = 0;
-                    }   
+                    }
                 }
             }
 
@@ -862,7 +862,7 @@ export class AlphaStrikeUnit {
                     // this.move[moveC].currentMove -= moveHit;
                     // if( this.move[moveC].currentMove < 0 ) {
                     //     this.move[moveC].currentMove = 0;
-                    // }   
+                    // }
                 // }
             }
 
@@ -999,19 +999,40 @@ export class AlphaStrikeUnit {
     //     return createSVGAlphaStrike( this, inPlay, itemIDField );
     // }
 
-    export(): IASMULUnit | null {
+    export(
+        noInPlayVariables: boolean = false,
+    ): IASMULUnit | null {
+        // In Play Variables
+
+        let _currentArmor: boolean[] = [];
+        let _currentStructure: boolean[] = [];
+        let _engineHits: boolean[] = [];
+        let _fireControlHits: boolean[] = [];
+        let _mpControlHits: boolean[] = [];
+        let _weaponHits: boolean[] = [];
+
+        if( !noInPlayVariables ) {
+            _currentArmor = this.currentArmor;
+            _currentStructure = this.currentStructure;
+            _engineHits = this.engineHits;
+            _fireControlHits = this.fireControlHits;
+            _mpControlHits = this.mpControlHits;
+            _weaponHits = this.weaponHits;
+        }
+
         if( this.originalStats ) {
             let returnValue: IASMULUnit = this.originalStats;
             returnValue.customName = this.customName;
             returnValue.mechCreatorUUID = this.mechCreatorUUID;
             returnValue.currentSkill = this.currentSkill;
 
-            returnValue.currentArmor = this.currentArmor;
-            returnValue.currentStructure = this.currentStructure;
-            returnValue.engineHits = this.engineHits;
-            returnValue.fireControlHits = this.fireControlHits;
-            returnValue.mpControlHits = this.mpControlHits;
-            returnValue.weaponHits = this.weaponHits;
+            // In Play Variables
+            returnValue.currentArmor = _currentArmor;
+            returnValue.currentStructure = _currentStructure;
+            returnValue.engineHits = _engineHits;
+            returnValue.fireControlHits = _fireControlHits;
+            returnValue.mpControlHits = _mpControlHits;
+            returnValue.weaponHits = _weaponHits;
 
             return returnValue;
         } else {

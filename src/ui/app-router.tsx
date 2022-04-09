@@ -252,7 +252,8 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
     saveASGroupFavorite = ( asGroup: AlphaStrikeGroup ): void => {
         let appGlobals = this.state.appGlobals;
-        appGlobals.favoriteASGroups.push( asGroup );
+        let asGroupThinned = new AlphaStrikeGroup( asGroup.export(true) ); // Don't Save in-play variables for Favorite Groups, this will save localStorage space
+        appGlobals.favoriteASGroups.push( asGroupThinned );
         this.saveFavoriteASGroups( appGlobals.favoriteASGroups );
 
         saveFavoriteASGroupsObjects( appGlobals.appSettings, appGlobals.favoriteASGroups )
@@ -275,6 +276,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         for( let group of asGroups) {
             exportASGroups.push( group.export() );
         }
+        console.log("exportASGroups", exportASGroups)
         let appGlobals = this.state.appGlobals;
         appGlobals.favoriteASGroups = asGroups;
         this.setState({
@@ -288,6 +290,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
         let appGlobals = this.state.appGlobals;
         appGlobals.currentCBTForce = bmForce;
+
         this.setState({
             appGlobals: appGlobals,
         });
@@ -298,7 +301,8 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
     saveCBTGroupFavorite = ( bmGroup: BattleMechGroup ): void => {
         let appGlobals = this.state.appGlobals;
-        appGlobals.favoriteCBTGroups.push( bmGroup );
+        let bmGroupThinned = new BattleMechGroup( bmGroup.export(true)); // Don't Save in-play variables for Favorite Groups, this will save localStorage space
+        appGlobals.favoriteCBTGroups.push( bmGroupThinned );
         this.saveFavoriteCBTGroups( appGlobals.favoriteCBTGroups );
         saveFavoriteCBTGroupsObjects( appGlobals.appSettings, appGlobals.favoriteCBTGroups )
     }

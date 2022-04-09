@@ -89,12 +89,12 @@ export interface IBattleMechExport {
     currentToHitMovementModifier: number;
     currentTargetModifier: number;
     currentTargetJumpingMP: number;
-    targetAToHit: ITargetToHit;
-    targetBToHit: ITargetToHit;
-    targetCToHit: ITargetToHit;
+    targetAToHit: ITargetToHit | null;
+    targetBToHit: ITargetToHit | null;
+    targetCToHit: ITargetToHit | null;
     currentHeat: number;
-    structureBubbles: IMechDamageAllocation;
-    armorBubbles: IMechDamageAllocation;
+    structureBubbles: IMechDamageAllocation | null;
+    armorBubbles: IMechDamageAllocation | null;
 
     // basic properties
     introductoryRules?: boolean;
@@ -4958,29 +4958,68 @@ export class BattleMech {
         return "No Active Target";
     }
 
-    public export():IBattleMechExport {
+    public export(
+        noInPlayVariables: boolean = false,
+    ):IBattleMechExport {
         this._calc();
         this.calcAlphaStrike();
 
+
+        // In Play Variables
+        let _currentHeat = 0;
+
+        let _targetAToHit: ITargetToHit | null = null;
+        let _targetBToHit: ITargetToHit | null = null;
+        let _targetCToHit: ITargetToHit | null = null;
+
+        let _armorBubbles: IMechDamageAllocation | null = null;
+        let _structureBubbles: IMechDamageAllocation | null = null;
+
+        let _selectedMech = false;
+
+        let _currentMovementMode = "";
+        let _currentToHitMovementModifier = 0;
+        let _currentTargetModifier = 0;
+        let _currentTargetJumpingMP = 0;
+
+        if( !noInPlayVariables ) {
+            _currentHeat = this.currentHeat;
+
+            _targetAToHit = this._targetAToHit;
+            _targetBToHit = this._targetBToHit;
+            _targetCToHit = this._targetCToHit;
+
+            _armorBubbles = this._armorBubbles;
+            _structureBubbles = this._structureBubbles;
+            _selectedMech = this.selectedMech;
+
+            _currentMovementMode = this.currentMovementMode;
+            _currentToHitMovementModifier = this.currentToHitMovementModifier;
+            _currentTargetModifier = this.currentTargetModifier;
+            _currentTargetJumpingMP = this.currentTargetJumpingMP;
+        }
+
+
         let exportObject: IBattleMechExport = {
 
-            currentHeat: this.currentHeat,
+            currentHeat: _currentHeat,
 
-            targetAToHit: this._targetAToHit,
-            targetBToHit: this._targetBToHit,
-            targetCToHit: this._targetCToHit,
+            targetAToHit: _targetAToHit,
+            targetBToHit: _targetBToHit,
+            targetCToHit: _targetCToHit,
 
-            armorBubbles: this._armorBubbles,
-            structureBubbles: this._structureBubbles,
+            armorBubbles: _armorBubbles,
+            structureBubbles: _structureBubbles,
 
 
-            selectedMech: this.selectedMech,
+            selectedMech: _selectedMech,
 
-            currentMovementMode: this.currentMovementMode,
-            currentToHitMovementModifier: this.currentToHitMovementModifier,
-            currentTargetModifier: this.currentTargetModifier,
-            currentTargetJumpingMP: this.currentTargetJumpingMP,
+            currentMovementMode: _currentMovementMode,
+            currentToHitMovementModifier: _currentToHitMovementModifier,
+            currentTargetModifier: _currentTargetModifier,
+            currentTargetJumpingMP: _currentTargetJumpingMP,
 
+            // Non In-Play Variables
             introductoryRules: this._introductoryRules,
             make: this._make,
             nickname: this._nickname,

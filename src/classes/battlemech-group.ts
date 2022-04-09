@@ -108,7 +108,9 @@ export class BattleMechGroup {
 
     }
 
-    public export(): ICBTGroupExport {
+    public export(
+		noInPlayVariabless: boolean = false,
+	): ICBTGroupExport {
         let returnValue: ICBTGroupExport = {
 			name: this.customName,
 			units: [],
@@ -118,7 +120,7 @@ export class BattleMechGroup {
 		}
 
 		for( let unit of this.members ) {
-			let exportUnit = unit.export();
+			let exportUnit = unit.export(noInPlayVariabless);
 			if( exportUnit ) {
 				returnValue.units.push( exportUnit );
 			}

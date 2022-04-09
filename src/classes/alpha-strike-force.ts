@@ -146,7 +146,9 @@ export default class AlphaStrikeForce {
         return returnValue;
     }
 
-    public export(): IASForceExport {
+    public export(
+        noInPlayVariables: boolean = false,
+    ): IASForceExport {
         let returnValue: IASForceExport = {
             groups: [],
             uuid: this._uuid,
@@ -156,7 +158,7 @@ export default class AlphaStrikeForce {
         }
 
         for( let group of this.groups) {
-            returnValue.groups.push( group.export() );
+            returnValue.groups.push( group.export(noInPlayVariables) );
         }
 
         return returnValue;

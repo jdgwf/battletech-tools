@@ -113,18 +113,21 @@ export default class AlphaStrikeGroup {
 	}
 
 
-    public export(): IASGroupExport {
+    public export(
+		noInPlayVariables: boolean = false,
+	): IASGroupExport {
         let returnValue: IASGroupExport = {
 			name: this.customName,
 			units: [],
             uuid: this.uuid,
 			lastUpdated: new Date(),
-			formationBonus: this.formationBonus?this.formationBonus.Name:"None",
+			formationBonus: this.formationBonus ? this.formationBonus.Name : "None",
 			groupLabel: this.groupLabel,
 		}
 
 		for( let unit of this.members ) {
-			let exportUnit = unit.export();
+			let exportUnit = unit.export(noInPlayVariables);
+
 			if( exportUnit ) {
 				returnValue.units.push( exportUnit );
 			}
