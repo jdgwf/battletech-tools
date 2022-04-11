@@ -2,6 +2,7 @@
 import React from 'react';
 import { BattleMech } from '../../../classes/battlemech';
 import DamageCircleSVG from './damage-circle-svg';
+import TakeDamageButtonSVG from './take-damage-button';
 
 export default class QuadArmorCircles extends React.Component<IQuadArmorCirclesProps, IQuadArmorCirclesState> {
     armorBoxTop = 0;
@@ -27,6 +28,14 @@ export default class QuadArmorCircles extends React.Component<IQuadArmorCirclesP
     render = (): React.ReactFragment => {
         return (
             <>
+
+        <TakeDamageButtonSVG
+            x={this.armorBoxLeft + 25}
+            y={this.armorBoxTop + 325}
+            height={125}
+            width={125}
+            onClick={this.props.openTakeDamageDialog}
+        />
 
         {/* Head Armor */}
         {this.props.mechData.getArmorAllocation().head > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("hd", 0)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 35} yLoc={this.armorBoxTop + 200} radius={15} inPlay={this.props.inPlay} clickLocation="hd" clickIndex={0} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
@@ -570,6 +579,7 @@ interface IQuadArmorCirclesProps {
     armorBoxLeft: number;
     armorBoxWidth: number;
     onChange?( mech: BattleMech ): void;
+    openTakeDamageDialog?(): void;
 }
 
 interface IQuadArmorCirclesState {

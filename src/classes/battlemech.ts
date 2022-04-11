@@ -4606,15 +4606,23 @@ export class BattleMech {
         return rv;
     }
 
+    public applyHeat() {
+        this.currentHeat += this.getTurnHeatDifference();
+
+        if( this.currentHeat < 0 ) {
+            this.currentHeat = 0;
+        }
+    }
+
     public getActiveMoveHeat(): number {
         // TODO check if heat sinks are broken
-        if( this.currentMovementMode == "w" ) {
+        if( this.currentMovementMode === "w" ) {
             return 1;
         }
-        if( this.currentMovementMode == "r" ) {
+        if( this.currentMovementMode === "r" ) {
             return 2;
         }
-        if( this.currentMovementMode == "j" ) {
+        if( this.currentMovementMode === "j" ) {
             if( this.currentTargetJumpingMP > 3 ) {
                 return this.currentTargetJumpingMP
             }
@@ -7233,4 +7241,14 @@ export interface IMechDamageAllocation {
     rightTorsoRear: boolean[],
     centerTorsoRear: boolean[],
     leftTorsoRear: boolean[],
+}
+
+export interface IMechDamageLog {
+    turn: number;
+    location: string;
+    rear: boolean;
+    amount: number;
+    critical: number;
+    criticalRoll: number;
+    criticalEffects: string[];
 }

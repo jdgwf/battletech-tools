@@ -3,9 +3,10 @@ import { CrosshairArrow, HotSurface } from 'react-game-icons';
 import { FaArrowCircleDown, FaArrowCircleLeft, FaArrowCircleRight, FaCheckSquare, FaDice, FaGift, FaQuestionCircle, FaShoePrints, FaSquare, FaTable } from "react-icons/fa";
 import { GiBattleAxe, GiMissileSwarm } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
-import { BattleMech, IGATOR, ITargetToHit } from "../../../../classes/battlemech";
+import { BattleMech, IGATOR, IMechDamageLog, ITargetToHit } from "../../../../classes/battlemech";
 import { IEquipmentItem } from '../../../../data/data-interfaces';
-import { getClusterHitsPerRoll, getLocationName, getTargetToHitFromWeapon } from '../../../../utils';
+import { getClusterHitsPerRoll, getLocationName, getTargetToHitFromWeapon, makeRange } from '../../../../utils';
+import { chunkRange } from '../../../../utils/chunkRange';
 import { IAppGlobals } from '../../../app-router';
 import BattleTechLogo from '../../../components/battletech-logo';
 import InputCheckbox from '../../../components/form_elements/input_checkbox';
@@ -33,7 +34,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             setMovementCanJump: false,
             setMovementJumpingMP: 0,
 
-            takeDamageDialog: null,
+            
             resolveFireDialog: false,
 
             damageClusters: -1,
@@ -50,9 +51,92 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             setTargetDialog: null,
             targetData: null,
             viewGATOR: null,
+
+            takeDamageDialog: null,
+            takeDamageAmount: -1,
+            takeDamageLocationRoll: -1,
+            takeDamageLocationSide: "",
+            takeDamageLocationRear: false,
+            takeDamageLocationLog: [],
+            takeDamageLocation: "",
+            takeDamageCritical: false,
         };
 
         this.props.appGlobals.makeDocumentTitle("Playing CBT Force");
+    }
+
+    takeDamageAmount =(
+      e: React.FormEvent<HTMLButtonElement>,
+      amount: number,
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+
+      this._takeDamageIfBothFieldsAre(
+        amount,
+        null,
+        null,
+        null,
+        null,
+        null,
+      );
+    }
+
+    takeDamageLocationClick = ( 
+      location: string, 
+      critical: boolean, 
+      rear: boolean,
+      currentSide: string,
+      currentRoll: number,
+    ): void => {
+
+      this._takeDamageIfBothFieldsAre(
+        null,
+        location,
+        critical,
+        rear,
+        currentSide,
+        currentRoll,
+      )
+
+    }
+
+    _takeDamageIfBothFieldsAre = ( 
+      damage: number | null = null,
+      location: string | null = null, 
+      critical: boolean | null = null, 
+      rear: boolean | null = null,
+      currentSide: string | null = null,
+      currentRoll: number | null = null,
+    ) => {
+
+      if( damage === null )  
+        damage = this.state.takeDamageAmount;
+
+      if( location === null )  
+      location = this.state.takeDamageLocation;
+
+      if( critical === null )  
+        critical = this.state.takeDamageCritical;
+
+      if( rear === null )  
+        rear = this.state.takeDamageLocationRear;
+
+      if( currentSide === null )  
+        currentSide = this.state.takeDamageLocationSide;
+      
+      if( currentRoll === null )  
+        currentRoll = this.state.takeDamageLocationRoll;
+      
+      this.setState({
+        takeDamageAmount: damage,
+        takeDamageLocation: location,
+        takeDamageCritical: critical,
+        takeDamageLocationRoll: currentRoll,
+        takeDamageLocationSide: currentSide,
+        takeDamageLocationRear: rear,
+      })
     }
 
     addDamageCluster = (
@@ -60,6 +144,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       critical: boolean,
       unit: BattleMech | null,
       eq_index: number,
+
     ) => {
       if( unit ) {
         let damageClusterHits = unit.equipmentList[eq_index].damageClusterHits;
@@ -260,6 +345,27 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       })
     }
 
+    applyHeat = (
+      e: React.FormEvent<HTMLButtonElement>,
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+
+      if(this.props.appGlobals.currentCBTForce) {
+        let currentCBTForce = this.props.appGlobals.currentCBTForce;
+        currentCBTForce.applyHeat();
+
+        this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
+      }
+
+
+
+      this.setState({
+        updated: true,
+      })
+    }
+
     nextTurn = (
       e: React.FormEvent<HTMLButtonElement>,
     ) => {
@@ -271,6 +377,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         let currentCBTForce = this.props.appGlobals.currentCBTForce;
         currentCBTForce.phase = 0;
         currentCBTForce.turn++;
+        currentCBTForce.heatApplied = false;
 
         for( let group of currentCBTForce.groups ) {
           for( let unit of group.members ) {
@@ -881,7 +988,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             </table>
           </div>
           <div>
-            <ToHitTable onClick={(loc, crit) => this.addDamageCluster( loc, crit, this.state.damagePerClusterUnit, this.state.damagePerClusterEQIndex)} />
+            <ToHitTable 
+              onClick={(loc, crit) => this.addDamageCluster( loc, crit, this.state.damagePerClusterUnit, this.state.damagePerClusterEQIndex)} 
+            />
           </div>
         </div>
       </>
@@ -1627,25 +1736,89 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
   onClose={this.closeTakeDamage}
   onSave={this.takeDamage}
   title="Take Damage"
+  className="modal-xl"
 >
-        Take Damage Dialog
+  <div className="alert alert-sm alert-danger text-center">
+    This doesn't quite work yet, but you can see how it will work!
+  </div>
+  {this.state.takeDamageDialog ? (
+    <div className="flex">
+    <fieldset className="fieldset with-margins">
+        <legend>How Much Damage?</legend>
+        <br />
+        {chunkRange( makeRange(1, 50) , 5).map( (section, sectionIndex) => {
+
+          return (
+            <React.Fragment key={sectionIndex}>
+              {section.map( (number) => {
+                
+                let numberText = <>{number.toString()}</>;
+                if( number < 10 ) {
+                  numberText = <>&nbsp;{number.toString()}</>;
+                }
+                return (
+                  <React.Fragment key={number}>
+                    <button
+                      className={this.state.takeDamageAmount === number ? "btn btn-sm btn-primary" : "btn btn-sm btn-secondary"}
+                      onClick={(e) => this.takeDamageAmount(e, number)}
+                    >
+                      {numberText}
+                    </button>
+
+
+                  </React.Fragment>
+                )
+              })}
+              <br />
+              {(sectionIndex + 1) % 2 === 0 ? (
+                <br />
+              ) : null}
+            </React.Fragment>
+          )
+
+        })}
+      
+
+    </fieldset>
+    <fieldset className="fieldset with-margins">
+      <legend>Where did it hurt?</legend>
+      <ToHitTable 
+        forQuad={this.state.takeDamageDialog.isQuad()}
+        showRear={true}
+        onClick={this.takeDamageLocationClick}
+        currentSide={this.state.takeDamageLocationSide}
+        currentRoll={this.state.takeDamageLocationRoll}
+        currentRear={this.state.takeDamageLocationRear}
+      />
+    </fieldset>
+    <fieldset className="fieldset grow with-margins">
+      <legend>Damage Log</legend>
+      <br />
+      <button
+        className="btn btn-danger full-width"
+        disabled={this.state.takeDamageAmount < 1 || this.state.takeDamageLocation === ""}
+      >
+        Take Damage
+      </button>
+      {this.state.takeDamageAmount < 1 || this.state.takeDamageLocation === "" ? (
+        <div className="small-text text-center">
+          Click on a damage amount and location to activate this button
+        </div>
+      ) : <div className="small-text text-center">
+          &nbsp;
+        </div>}
+      <br />
+      
+      This will be the damage log for this round.
+    </fieldset>
+    </div>
+  ) : null}
+ 
 </StandardModal>
           <header className="topmenu">
             <ul className="main-menu">
                 <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/classic-battletech/roster`}><FaArrowCircleLeft /></Link></li>
-                {/* <li>
-                  <span
 
-                  >
-                    <FaBars />
-                  </span>
-                </li> */}
-                                {/* <li className="small-text text-center">
-                                <br />
-
-
-
-                </li> */}
                 <li className="logo">
                     <a
                         href="https://battletech.com"
@@ -1757,8 +1930,10 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         <div className="grow-1">
           <button
             className="btn btn-sm btn-primary"
+            onClick={this.applyHeat}
+            disabled={this.props.appGlobals.currentCBTForce.heatApplied}
           >
-            Apply Heat
+            {this.props.appGlobals.currentCBTForce.heatApplied ?  "Heat Applied" : "Apply Heat"}
           </button>
         </div>
       ) : null}
@@ -1936,7 +2111,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                                   background="#aaa"
                                   currentPercentage={unit.getHeatPercentage()}
                                   height={8}
-                                  title="Current Heat Status"
+                                  title={"Current Heat Status: " + unit.currentHeat}
                                 />
                               </div>
                             </div>
@@ -2001,7 +2176,13 @@ interface IPlayState {
   resolveFireDialog: boolean;
 
   takeDamageDialog: BattleMech | null;
-
+  takeDamageAmount: number;
+  takeDamageLocationRoll: number;
+  takeDamageLocationSide: string;
+  takeDamageLocationRear: boolean;
+  takeDamageLocationLog: IMechDamageLog[];
+  takeDamageLocation: string;
+  takeDamageCritical: boolean;
 
   setTargetDialog: BattleMech | null;
 

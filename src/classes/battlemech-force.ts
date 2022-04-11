@@ -7,6 +7,7 @@ export interface ICBTForceExport {
 	uuid: string;
 	lastUpdated: Date;
 
+    heatApplied: boolean;
     turn: number;
     phase: number;
     hideHelp: boolean;
@@ -29,6 +30,8 @@ export class BattleMechForce {
     public phase: number = 0;
 
     public hideHelp: boolean = false;
+
+    public heatApplied: boolean = false;
 
     constructor(importObj: ICBTForceExport | null = null ) {
         if( importObj ) {
@@ -95,6 +98,7 @@ export class BattleMechForce {
             turn: this.turn,
             phase: this.phase,
             hideHelp: this.hideHelp,
+            heatApplied: this.heatApplied,
         }
 
         for( let group of this.groups) {
@@ -170,10 +174,23 @@ export class BattleMechForce {
             this.hideHelp = importObj.hideHelp;
         }
 
+        if( typeof(importObj.heatApplied) !== "undefined" ) {
+            this.heatApplied = importObj.heatApplied;
+        }
+
         if( importObj.lastUpdated ) {
             this._lastUpdated = new Date(importObj.lastUpdated);
         }
 
+    }
+
+    public applyHeat() {
+        this.heatApplied = true;
+        for( let group of this.groups ) {
+            for( let unit of group.members ) {
+                unit.applyHeat();
+            }
+        }
     }
 
     public getTotalUnits(): number {

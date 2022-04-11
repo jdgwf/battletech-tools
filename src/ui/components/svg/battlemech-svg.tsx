@@ -23,6 +23,7 @@ import QuadRearArmorDiagramSVG from './quad-rear-armor-diagram-svg';
 import RecordSheetEquipmentTable from './record-sheet-equipment-table';
 import RecordSheetGATORTable from './record-sheet-gator-table';
 import RecordSheetGroupBoxSVG from './record-sheet-group-box-svg';
+import TakeDamageButtonSVG from './take-damage-button';
 import TargetSelectSVG from './target-select-svg';
 
 export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, IBattleMechSVGState> {
@@ -697,6 +698,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         xLoc={this.armorBoxLeft}
         yLoc={this.armorBoxTop}
         title="Armor Diagram"
+        strokeColor={this.props.currentPhase === 2 ? currentPhaseGroupColor : undefined}
     >
     {this.props.mechData.getMechType().tag === "biped" ? (
         <>
@@ -704,6 +706,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 xLoc={1263}
                 yLoc={-10}
                 width={700}
+
             />
 
             <BipedRearArmorDiagramSVG
@@ -754,6 +757,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 inPlay={this.props.inPlay}
                 mechData={this.props.mechData}
                 onChange={this.props.onChange}
+                openTakeDamageDialog={this.props.openTakeDamageDialog}
             />
         </>
     ) : (
@@ -816,6 +820,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 inPlay={this.props.inPlay}
                 mechData={this.props.mechData}
                 onChange={this.props.onChange}
+                openTakeDamageDialog={this.props.openTakeDamageDialog}
             />
         </>
     )}
@@ -828,6 +833,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         xLoc={this.isBoxLeft}
         yLoc={this.isBoxTop}
         title="Internal Structure"
+        strokeColor={this.props.currentPhase === 2 ? currentPhaseGroupColor : undefined}
     >
     {this.props.mechData.getMechType().tag === "biped" ? (
         <>
@@ -863,6 +869,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 		<text x={this.isBoxLeft + this.isBoxWidth / 2 } y={this.isBoxTop + 400} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>CENTER</text>
 		<text x={this.isBoxLeft + this.isBoxWidth / 2 } y={this.isBoxTop + 420} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>TORSO</text>
 		<text x={this.isBoxLeft + this.isBoxWidth / 2 } y={this.isBoxTop + 440} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>[{this.props.mechData.getInternalStructure().centerTorso })</text>
+
 
 
         {/* Head IS */}
@@ -1115,6 +1122,14 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         {this.props.mechData.getInternalStructure().rightLeg > 28 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 28)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 106} yLoc={this.isBoxTop + 545} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={28} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().rightLeg > 29 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 29)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 108} yLoc={this.isBoxTop + 560} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={29} clickFunction={this.toggleISBubble} /></>) : (<></>)}
 
+
+        <TakeDamageButtonSVG
+            x={this.isBoxLeft + this.isBoxWidth / 2 - 50}
+            y={this.isBoxTop + 500}
+            height={100}
+            width={100}
+            onClick={this.props.openTakeDamageDialog}
+        />
 
         </>
     ) : (
@@ -1414,6 +1429,13 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         {this.props.mechData.getInternalStructure().leftTorso > 22 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 22)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 230} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={22} clickFunction={this.toggleISBubble} /></>) : (<></>)}
 
 
+        <TakeDamageButtonSVG
+            x={this.isBoxLeft + 25}
+            y={this.isBoxTop + 250}
+            height={125}
+            width={125}
+            onClick={this.props.openTakeDamageDialog}
+        />
         </>
     )}
     </RecordSheetGroupBoxSVG>
@@ -1425,6 +1447,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         xLoc={critBoxLeft}
         yLoc={critBoxTop}
         title="Critical Hit Table"
+        strokeColor={this.props.currentPhase === 2 ? currentPhaseGroupColor : undefined}
     >
 
 {/* // Left Arm */}

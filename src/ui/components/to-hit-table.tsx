@@ -1,22 +1,30 @@
 import React from 'react';
+import { getLocationName } from '../../utils';
+import { getBattleMechToHitChart } from '../../utils/getBattleMechToHitChart';
 
 export default class ToHitTable extends React.Component<IToHitTableProps, IToHitTableState> {
   
     onClick = (
-        e: React.FormEvent<HTMLTableCellElement>,
+        e: React.FormEvent<HTMLTableCellElement|HTMLDivElement|HTMLButtonElement>,
         loc: string,
-        critical: boolean = false,
+        critical: boolean,
+        rear: boolean,
+        currentSide: string,
+        currentRoll: number,
     ) => {
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
         if( this.props.onClick ) {
-            this.props.onClick( loc, critical );
+            this.props.onClick( loc, critical, rear, currentSide, currentRoll );
         }
     }
     render = (): React.ReactFragment => {
+
+        let toHitTable = getBattleMechToHitChart();
+
         return (
-            <table className={this.props.className ? this.props.className + " table text-center": "table text-center"}>
+            <table style={{maxWidth: "500px"}} className={this.props.className ? this.props.className + " table text-center": "table text-center"}>
       <thead>
         <tr>
           <th>Roll</th>
@@ -25,95 +33,138 @@ export default class ToHitTable extends React.Component<IToHitTableProps, IToHit
           <th>Right side</th>
         </tr>
       </thead>
-      <tbody>
+      {toHitTable.rows.map( (roll, rollIndex: number) => {
+        return (
+          <tbody key={rollIndex}>
         <tr>
-          <td>2*</td>
-          <td className={this.props.onClick ? "cursor-pointer" : ""} onClick={(e) => this.onClick(e, "lt", true)}>Left Torso [critical]</td>
-          <td className={this.props.onClick ? "cursor-pointer alt-bg" : "alt-bg"} onClick={(e) => this.onClick(e, "ct", true)}>Center Torso [critical]</td>
-          <td className={this.props.onClick ? "cursor-pointer" : ""} onClick={(e) => this.onClick(e, "rt", true)}>Right Torso [critical]</td>
-        </tr>
-      </tbody>
-      <tbody>
-        <tr>
-          <td>3</td>
-          <td className={this.props.onClick ? "cursor-pointer" : ""} onClick={(e) => this.onClick(e, "ll")} >Left Leg</td>
-          <td className={this.props.onClick ? "cursor-pointer alt-bg" : "alt-bg"} onClick={(e) => this.onClick(e, "ra")}>Right Arm</td>
-          <td className={this.props.onClick ? "cursor-pointer" : ""} onClick={(e) => this.onClick(e, "rl")} >Right Leg</td>
-        </tr>
-      </tbody>
-      <tbody>
-        <tr>
-          <td>4</td>
-          <td className={this.props.onClick ? "cursor-pointer" : ""} onClick={(e) => this.onClick(e, "la")}>Left Arm</td>
-          <td className={this.props.onClick ? "cursor-pointer alt-bg" : "alt-bg"} onClick={(e) => this.onClick(e, "ra")}>Right Arm</td>
-          <td className={this.props.onClick ? "cursor-pointer" : ""} onClick={(e) => this.onClick(e, "ra")}>Right Arm</td>
-        </tr>
-      </tbody>
-      <tbody>
-        <tr>
-          <td>5</td>
-          <td className={this.props.onClick ? "cursor-pointer" : ""} onClick={(e) => this.onClick(e, "la")}>Left Arm</td>
-          <td className={this.props.onClick ? "cursor-pointer alt-bg" : "alt-bg"} onClick={(e) => this.onClick(e, "rl")}>Right Leg</td>
-          <td className={this.props.onClick ? "cursor-pointer" : ""} onClick={(e) => this.onClick(e, "ra")}>Right Arm</td>
-        </tr>
-      </tbody>
+          <td>{roll.roll}{roll.isCrit ? <sup>*</sup> : null}</td>
+          <td>
+            {this.props.onClick ? (
+              <>
+                <button 
+                  className={this.props.currentRoll === roll.roll && this.props.currentSide === "left" && !this.props.currentRear? "btn btn-sm full-width btn-primary" : "btn btn-sm full-width btn-secondary"}  
+                  onClick={(e) => this.onClick(
+                    e, 
+                    roll.left.location, 
+                    (roll.isCrit || roll.left.isCrit ? true : false), 
+                    false, 
+                    "left", 
+                    roll.roll)
+                  }
+                >
+                  {getLocationName(roll.left.location, this.props.forQuad ? true : false )} {roll.isCrit ? "[critical]" : ""}
+                  
+                </button>
+                {this.props.showRear && roll.left.hasRear ? (
+                  <button 
+                  className={this.props.currentRoll === roll.roll && this.props.currentSide === "left" && this.props.currentRear? "btn btn-sm full-width btn-primary" : "btn btn-sm full-width btn-secondary"}  
+                  onClick={(e) => this.onClick(
+                    e, 
+                    roll.left.location, 
+                    (roll.isCrit || roll.left.isCrit ? true : false), 
+                    true, 
+                    "left", 
+                    roll.roll)
+                  }
+                >
+                  {getLocationName(roll.left.location, this.props.forQuad ? true : false )} {roll.isCrit ? "[critical]" : ""} (Rear)
+                </button>
+                  
+                ) : null}
+              </>
+            ) : (
+              <>
+              {getLocationName(roll.left.location, this.props.forQuad ? true : false )} {roll.isCrit ? "[critical]" : ""}
+              </>
+            )}
+   
+            
+          </td>
+          <td className={"alt-bg"}>
+          
+          {this.props.onClick ? (
+              <>
+                <button 
+                  className={this.props.currentRoll === roll.roll && this.props.currentSide === "front" && !this.props.currentRear? "btn btn-sm full-width btn-primary" : "btn btn-sm full-width btn-secondary"}  
+                  onClick={(e) => this.onClick(
+                    e, 
+                    roll.front.location, 
+                    (roll.isCrit || roll.front.isCrit ? true : false), 
+                    false, 
+                    "front", 
+                    roll.roll)
+                  }
+                >
+                  {getLocationName(roll.front.location, this.props.forQuad ? true : false )} {roll.isCrit ? "[critical]" : ""}
+                </button>
+                {this.props.showRear && roll.front.hasRear ? (
+                  <button 
+                  className={this.props.currentRoll === roll.roll && this.props.currentSide === "front" && this.props.currentRear? "btn btn-sm full-width btn-primary" : "btn btn-sm full-width btn-secondary"}  
+                  onClick={(e) => this.onClick(
+                    e, 
+                    roll.front.location, 
+                    (roll.isCrit || roll.front.isCrit ? true : false), 
+                    true, 
+                    "front", 
+                    roll.roll)
+                  }
+                >
+                  {getLocationName(roll.front.location, this.props.forQuad ? true : false )} {roll.isCrit ? "[critical]" : ""} (Rear)
+                </button>
+                  
+                ) : null}
+              </>
+            ) : (
+              <>
+              {getLocationName(roll.left.location, this.props.forQuad ? true : false )} {roll.isCrit ? "[critical]" : ""}
+              </>
+            )}
+          </td>
+          <td>
+          {this.props.onClick ? (
+              <>
+                <button 
+                  className={this.props.currentRoll === roll.roll && this.props.currentSide === "right" && !this.props.currentRear? "btn btn-sm full-width btn-primary" : "btn btn-sm full-width btn-secondary"}  
+                  onClick={(e) => this.onClick(
+                    e, 
+                    roll.left.location, 
+                    (roll.isCrit || roll.left.isCrit ? true : false), 
+                    false, 
+                    "right", 
+                    roll.roll)
+                  }
+                >
+                  {getLocationName(roll.right.location, this.props.forQuad ? true : false )} {roll.isCrit ? "[critical]" : ""}
+                </button>
+                {this.props.showRear && roll.right.hasRear ? (
+                  <button 
+                  className={this.props.currentRoll === roll.roll && this.props.currentSide === "right" && this.props.currentRear? "btn btn-sm full-width btn-primary" : "btn btn-sm full-width btn-secondary"}  
+                  onClick={(e) => this.onClick(
+                    e, 
+                    roll.right.location, 
+                    (roll.isCrit || roll.right.isCrit ? true : false), 
+                    true, 
+                    "right", 
+                    roll.roll)
+                  }
+                >
+                  {getLocationName(roll.right.location, this.props.forQuad ? true : false )} {roll.isCrit ? "[critical]" : ""} (Rear)
+                </button>
+                  
+                ) : null}
+              </>
+            ) : (
+              <>
+              {getLocationName(roll.left.location, this.props.forQuad ? true : false )} {roll.isCrit ? "[critical]" : ""}
+              </>
+            )}
 
-      <tbody>
-        <tr>
-          <td>6</td>
-          <td className={this.props.onClick ? "cursor-pointer" : ""} onClick={(e) => this.onClick(e, "ll")}>Left Leg</td>
-          <td className={this.props.onClick ? "cursor-pointer alt-bg" : "alt-bg"} onClick={(e) => this.onClick(e, "rt")}>Right Torso</td>
-          <td className={this.props.onClick ? "cursor-pointer" : ""} onClick={(e) => this.onClick(e, "rl")}>Right Leg</td>
+          </td>
         </tr>
       </tbody>
-      <tbody>
-        <tr>
-          <td>7</td>
-          <td className={this.props.onClick ? "cursor-pointer" : ""} onClick={(e) => this.onClick(e, "lt")}>Left Torso</td>
-          <td className={this.props.onClick ? "cursor-pointer alt-bg" : "alt-bg"} onClick={(e) => this.onClick(e, "ct")}>Center Torso</td>
-          <td className={this.props.onClick ? "cursor-pointer" : ""} onClick={(e) => this.onClick(e, "rt")}>Right Torso</td>
-        </tr>
-      </tbody>
-      <tbody>
-        <tr>
-          <th>8</th>
-          <td className={this.props.onClick ? "cursor-pointer" : ""} onClick={(e) => this.onClick(e, "ct")}>Center Torso</td>
-          <td className={this.props.onClick ? "cursor-pointer alt-bg" : "alt-bg"} onClick={(e) => this.onClick(e, "lt")}>Left Torso</td>
-          <td className={this.props.onClick ? "cursor-pointer" : ""} onClick={(e) => this.onClick(e, "ct")}>Center Torso</td>
-        </tr>
-      </tbody>
-      <tbody>
-        <tr>
-          <td>9</td>
-          <td className={this.props.onClick ? "cursor-pointer" : ""} onClick={(e) => this.onClick(e, "rt")}>Right Torso</td>
-          <td className={this.props.onClick ? "cursor-pointer alt-bg" : "alt-bg"} onClick={(e) => this.onClick(e, "ll")}>Left Leg</td>
-          <td className={this.props.onClick ? "cursor-pointer" : ""} onClick={(e) => this.onClick(e, "rt")}>Right Torso</td>
-        </tr>
-      </tbody>
-      <tbody>
-        <tr>
-          <td>10</td>
-          <td className={this.props.onClick ? "cursor-pointer" : ""} onClick={(e) => this.onClick(e, "ra")}>Right Arm</td>
-          <td className={this.props.onClick ? "cursor-pointer alt-bg" : "alt-bg"} onClick={(e) => this.onClick(e, "la")}>Left Arm</td>
-          <td className={this.props.onClick ? "cursor-pointer" : ""} onClick={(e) => this.onClick(e, "la")}>Left Arm</td>
-        </tr>
-      </tbody>
-      <tbody>
-        <tr>
-          <td>11</td>
-          <td className={this.props.onClick ? "cursor-pointer" : ""} onClick={(e) => this.onClick(e, "rl")}>Right Leg</td>
-          <td className={this.props.onClick ? "cursor-pointer alt-bg" : "alt-bg"} onClick={(e) => this.onClick(e, "la")}>Left Arm</td>
-          <td className={this.props.onClick ? "cursor-pointer" : ""} onClick={(e) => this.onClick(e, "ll")}>Left Leg</td>
-        </tr>
-      </tbody>
-      <tbody>
-        <tr>
-          <td>12</td>
-          <td className={this.props.onClick ? "cursor-pointer" : ""} onClick={(e) => this.onClick(e, "hd")}>Head</td>
-          <td className={this.props.onClick ? "cursor-pointer alt-bg" : "alt-bg"} onClick={(e) => this.onClick(e, "hd")}>Head</td>
-          <td className={this.props.onClick ? "cursor-pointer" : ""} onClick={(e) => this.onClick(e, "hd")}>Head</td>
-        </tr>
-      </tbody>
+        )
+      })}
+     
       <tfoot>
         <tr>
           <th colSpan={4} className="small-text text-left">
@@ -127,9 +178,21 @@ export default class ToHitTable extends React.Component<IToHitTableProps, IToHit
 }
 
 interface IToHitTableProps {
-    onClick?( location: string, critical: boolean ): void;
+    onClick?( 
+      location: string, 
+      critical: boolean, 
+      rear: boolean,
+      currentSide: string,
+      currentRoll: number,
+    ): void;
     className?: string;
+    forQuad?: boolean;
+    showRear?: boolean;
+    currentSide?: string;
+    currentRoll?: number;
+    currentRear?: boolean;
 }
 
 interface IToHitTableState {
+
 }

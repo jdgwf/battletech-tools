@@ -10,6 +10,7 @@ export interface IASForceExport {
 
     turn: number;
     phase: number;
+
 }
 
 export default class AlphaStrikeForce {
@@ -26,6 +27,7 @@ export default class AlphaStrikeForce {
 
     public turn: number = 1;
     public phase: number = 0;
+
 
     constructor(importObj: IASForceExport | null = null ) {
         if( importObj ) {
@@ -153,6 +155,7 @@ export default class AlphaStrikeForce {
             groups: [],
             uuid: this._uuid,
             lastUpdated: new Date(),
+
             turn: this.turn,
             phase: this.phase,
         }

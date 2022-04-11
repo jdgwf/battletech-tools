@@ -2,6 +2,7 @@
 import React from 'react';
 import { BattleMech } from '../../../classes/battlemech';
 import DamageCircleSVG from './damage-circle-svg';
+import TakeDamageButtonSVG from './take-damage-button';
 
 export default class BipedArmorCircles extends React.Component<IBipedArmorCirclesProps, IBipedArmorCirclesState> {
     armorBoxTop = 0;
@@ -27,6 +28,14 @@ export default class BipedArmorCircles extends React.Component<IBipedArmorCircle
     render = (): React.ReactFragment => {
         return (
             <>
+
+            <TakeDamageButtonSVG
+                x={this.armorBoxLeft + this.props.armorBoxWidth / 2 - 75}
+                y={this.armorBoxTop + 700}
+                height={150}
+                width={150}
+                onClick={this.props.openTakeDamageDialog}
+            />
 
         {/* Head Armor */}
         {this.props.mechData.getArmorAllocation().head > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("hd", 0)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 35} yLoc={this.armorBoxTop + 140} radius={15} inPlay={this.props.inPlay} clickLocation="hd" clickIndex={0} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
@@ -566,6 +575,7 @@ interface IBipedArmorCirclesProps {
     armorBoxWidth: number;
 
     onChange?( mech: BattleMech ): void;
+    openTakeDamageDialog?(): void;
 }
 
 interface IBipedArmorCirclesState {
