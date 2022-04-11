@@ -95,6 +95,7 @@ export interface IBattleMechExport {
     currentHeat: number;
     structureBubbles: IMechDamageAllocation | null;
     armorBubbles: IMechDamageAllocation | null;
+    damageLog: IMechDamageLog[];
 
     // basic properties
     introductoryRules?: boolean;
@@ -223,7 +224,7 @@ export class BattleMech {
     public currentTargetModifier: number = 0;
     public currentTargetJumpingMP: number = 0;
     public currentHeat: number = 0;
-
+    public damageLog: IMechDamageLog[] = [];
 
 
     // basic properties
@@ -5038,7 +5039,7 @@ export class BattleMech {
         let _selectedMech = false;
 
         let _currentMovementMode = "";
-        let _currentToHitMovementModifier = 0;
+        let _currentToHitMovementModifier = -1;
         let _currentTargetModifier = 0;
         let _currentTargetJumpingMP = 0;
 
@@ -5063,6 +5064,7 @@ export class BattleMech {
         let exportObject: IBattleMechExport = {
 
             currentHeat: _currentHeat,
+            damageLog: this.damageLog,
 
             targetAToHit: _targetAToHit,
             targetBToHit: _targetBToHit,
@@ -5252,6 +5254,9 @@ export class BattleMech {
             this.currentHeat = importObject.currentHeat;
         }
 
+        if( importObject && importObject.damageLog ) {
+            this.damageLog = importObject.damageLog;
+        }
 
 
         if( importObject && importObject.targetAToHit ) {
@@ -7158,6 +7163,7 @@ export class BattleMech {
     public turnReset() {
         this.currentMovementMode = "n"
         this.currentToHitMovementModifier = -1;
+        this.damageLog = [];
         for( let item of this._equipmentList ) {
             item.resolved = false;
             item.damageClusterHits = [];

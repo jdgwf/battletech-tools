@@ -1,6 +1,4 @@
 import React from 'react';
-import { BattleMech } from "../../../classes/battlemech";
-import { getTargetColor } from '../../../utils';
 
 export default class TakeDamageButtonSVG extends React.Component<ITakeDamageButtonSVGProps, ITakeDamageButtonSVGState> {
 
@@ -49,12 +47,10 @@ interface ITakeDamageButtonSVGProps {
     y: number;
     width: number;
     height: number;
-    // target: string;
-    // mechData: BattleMech;
+
     onClick?(
     ): void
-    // landscape?: boolean;
-    // itemIDField
+   
 }
 
 interface ITakeDamageButtonSVGState {

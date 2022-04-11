@@ -57,7 +57,6 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             takeDamageLocationRoll: -1,
             takeDamageLocationSide: "",
             takeDamageLocationRear: false,
-            takeDamageLocationLog: [],
             takeDamageLocation: "",
             takeDamageCritical: false,
         };
@@ -671,14 +670,16 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
     }
 
     openTakeDamageDialog = (
-      currentBM: BattleMech
+      currentBM: BattleMech | null
     ) => {
 
-      this.setState({
-        takeDamageDialog: currentBM,
-        setMovementDialog: null,
-        setTargetDialog: null,
-      })
+      if( currentBM ) {
+        this.setState({
+          takeDamageDialog: currentBM,
+          setMovementDialog: null,
+          setTargetDialog: null,
+        })
+      }
     }
     closeTakeDamage  = (
       e: React.FormEvent<HTMLButtonElement>
@@ -689,6 +690,12 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
       this.setState({
         takeDamageDialog: null,
+        takeDamageAmount: 0,
+        takeDamageLocation: "",
+        takeDamageLocationRear: false,
+        takeDamageCritical: false,
+        takeDamageLocationRoll: 0,
+        takeDamageLocationSide: "",
       })
     }
     takeDamage = (
@@ -698,9 +705,29 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         e.preventDefault();
       }
 
-      this.setState({
-        takeDamageDialog: null,
-      })
+      if(  this.props.appGlobals.currentCBTForce  ) {
+        let currentBM =  this._getCurrentBM();
+        if( currentBM ) {
+          let damageLog = currentBM.damageLog;
+
+          damageLog.push( {
+            turn: this.props.appGlobals.currentCBTForce.turn,
+            amount: this.state.takeDamageAmount,
+            location: this.state.takeDamageLocation,
+            rear: this.state.takeDamageLocationRear,
+            critical: this.state.takeDamageCritical ? 1 : 0,
+            criticalEffects: [],
+            criticalRoll: 0,
+          })
+  
+          this.setState({
+            takeDamageLocation: "",
+            takeDamageDialog: currentBM,
+          });
+          this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
+        }
+
+      }
     }
 
     _getCurrentBM = (): BattleMech | null => {
@@ -1731,17 +1758,18 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
 </StandardModal>
 ) : null}
+{this.state.takeDamageDialog ? (
 <StandardModal
-  show={this.state.takeDamageDialog !== null}
+  show={true}
   onClose={this.closeTakeDamage}
-  onSave={this.takeDamage}
-  title="Take Damage"
+  // onSave={this.takeDamage}
+  title={"Taking Damage on " + this.state.takeDamageDialog.getName()}
   className="modal-xl"
 >
   <div className="alert alert-sm alert-danger text-center">
     This doesn't quite work yet, but you can see how it will work!
   </div>
-  {this.state.takeDamageDialog ? (
+  
     <div className="flex">
     <fieldset className="fieldset with-margins">
         <legend>How Much Damage?</legend>
@@ -1795,26 +1823,69 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       <legend>Damage Log</legend>
       <br />
       <button
-        className="btn btn-danger full-width"
+        className={this.state.takeDamageAmount > 0 && this.state.takeDamageLocation !== ""? "btn btn-danger full-width" : "btn btn-warning full-width" }
         disabled={this.state.takeDamageAmount < 1 || this.state.takeDamageLocation === ""}
+        onClick={this.takeDamage}
       >
-        Take Damage
+        {this.state.takeDamageAmount < 0 && this.state.takeDamageLocation === "" ? (
+          <>
+            Select How Much/Where
+              <div className=" text-center  small-text">
+                Select a damage amount and location
+            </div>
+          </>
+        ) : (
+          <>
+            {this.state.takeDamageAmount < 0 ? (
+              <>
+                Select How Much
+                <div className=" text-center  small-text">
+                  Select a the damage amount
+                </div>
+              </>
+            ) : (
+              <>
+              {this.state.takeDamageLocation === "" ? (
+                <>
+                  Select Where
+                  <div className=" text-center  small-text">
+                    Select the damage location
+                  </div>
+                </>
+              ) : (
+                <>
+                  Take Damage
+                  <div className=" text-center small-text">
+                    Click to assign the damage to this mech.
+                  </div>
+                </>
+              )}
+            </>
+            )}
+          </>
+        )}
+        
+  
       </button>
-      {this.state.takeDamageAmount < 1 || this.state.takeDamageLocation === "" ? (
-        <div className="small-text text-center">
-          Click on a damage amount and location to activate this button
-        </div>
-      ) : <div className="small-text text-center">
-          &nbsp;
-        </div>}
+
       <br />
       
-      This will be the damage log for this round.
+      This will be the damage log for this phase.
+      <ul>
+        {this.state.takeDamageDialog.damageLog.map( (line, lineIndex) => {
+          return (
+            <li key={lineIndex}>
+              {line.amount} on {line.location}
+            </li>
+          )
+        })}
+      </ul>
     </fieldset>
     </div>
-  ) : null}
+
  
 </StandardModal>
+  ) : null}
           <header className="topmenu">
             <ul className="main-menu">
                 <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/classic-battletech/roster`}><FaArrowCircleLeft /></Link></li>
@@ -1954,6 +2025,13 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             onClick={this.openResolveFireDialog}
           >
             Resolve Fire
+          </button>
+          <button
+            className="btn btn-sm btn-primary"
+            onClick={() => this.openTakeDamageDialog( this._getCurrentBM() )}
+            disabled={this._getCurrentBM() === null}
+          >
+            Take Damage
           </button>
         </div>
       ) : null}
@@ -2180,7 +2258,6 @@ interface IPlayState {
   takeDamageLocationRoll: number;
   takeDamageLocationSide: string;
   takeDamageLocationRear: boolean;
-  takeDamageLocationLog: IMechDamageLog[];
   takeDamageLocation: string;
   takeDamageCritical: boolean;
 
