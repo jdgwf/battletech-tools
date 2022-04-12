@@ -19,8 +19,6 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
         this.props.appGlobals.makeDocumentTitle("Step 2 | 'Mech Creator");
     }
 
-
-
     setWalkingMP = ( event: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
@@ -53,8 +51,6 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
       }
     }
 
-
-
     render = (): React.ReactFragment => {
       if(!this.props.appGlobals.currentBattleMech) {
         return <></>
@@ -78,8 +74,6 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                       <TextSection
                         label="Step 2: Install engine and control systems"
                       >
-
-
 
                           <h3>Select Movement</h3>
                           <label>

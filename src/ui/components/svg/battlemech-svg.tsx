@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { BattleMech, IGATOR } from '../../../classes/battlemech';
+import { breakLines } from '../../../utils/breakLines';
 import BattleTechLogo from '../battletech-logo';
 import BattleMechHeatEffectsBoxSVG from './battlemech-heat-effects-box-svg';
 import BipedArmorCircles from './biped-armor-circles';
@@ -33,11 +34,9 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
     colorTan = "#fdfde3";
 
-
     armorBoxLeft = 1240
     armorBoxWidth = 745
     armorBoxTop = 10
-
 
     isBoxLeft = 1250;
     isBoxWidth =655;
@@ -53,8 +52,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             }
 		}
     }
-
-
 
     render = (): React.ReactFragment => {
 
@@ -175,7 +172,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                         Type:
                     </text>
 
-
                     <text
                         x={10 + generalDataBoxX}
                         y={120 + generalDataBoxY}
@@ -187,8 +183,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     >
                         {this.props.mechData.getName()}
                     </text>
-
-
 
                     {/* // Movement */}
                     <text
@@ -301,7 +295,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                         numberPips={3}
                     />
 
-
                 {/* // Tonnage */}
                 <text
                     x={generalDataBoxX + 340}
@@ -377,7 +370,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     fontSize={20}
                 >{eraLine2}</text>
 
-
                 {/* // Cost */}
                 <text
                     x={generalDataBoxX + 15}
@@ -414,7 +406,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     {battleValueLabel}
                 </text>
 
-
             <text
                 x={generalDataBoxX + 270}
                 y={generalDataBoxY + 380}
@@ -428,10 +419,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             </text>
 
                 </RecordSheetGroupBoxSVG>
-
-
-
-
 
     <text
         x={this.docWidth / 2 - 25}
@@ -455,7 +442,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
     >
         Record Sheet
     </text>
-
 
     <RecordSheetGroupBoxSVG
         width={500}
@@ -516,7 +502,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             />
 
     </RecordSheetGroupBoxSVG>
-
 
     <RecordSheetEquipmentTable
         width={1215}
@@ -714,8 +699,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 bgColor={bgColor}
             />
 
-
-
         {/* Main Armor Labels */}
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2} y={this.armorBoxTop + 70} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>HEAD [{this.props.mechData.getArmorAllocation().head }]</text>
 
@@ -724,7 +707,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 55} y={this.armorBoxTop + 95} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>RIGHT TORSO</text>
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 85} y={this.armorBoxTop + 115} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>[{this.props.mechData.getArmorAllocation().rightTorso }]</text>
-
 
 		<text x={this.armorBoxLeft +  20} y={this.armorBoxTop + 620} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>LEFT</text>
 		<text x={this.armorBoxLeft +  20} y={this.armorBoxTop + 640} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>ARM [{this.props.mechData.getArmorAllocation().leftArm }]</text>
@@ -777,7 +759,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 bgColor={bgColor}
             />
 
-
         {/* // Main Armor Labels */}
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 } y={this.armorBoxTop + 125} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>HEAD [{ this.props.mechData.getArmorAllocation().head }]</text>
 
@@ -829,7 +810,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
     )}
     </RecordSheetGroupBoxSVG>
 
-
     <RecordSheetGroupBoxSVG
         width={this.isBoxWidth}
         height={600}
@@ -847,7 +827,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 width={420}
             />
 
-
         {/* // Main Structure Labels */}
 		<text x={this.isBoxLeft + this.isBoxWidth / 2} y={this.isBoxTop + 55} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>HEAD [{this.props.mechData.getInternalStructure().head }]</text>
 
@@ -856,7 +835,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
 		<text x={this.isBoxLeft + this.isBoxWidth / 2 + 65} y={this.isBoxTop + 85} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>RIGHT TORSO</text>
 		<text x={this.isBoxLeft + this.isBoxWidth / 2 + 65} y={this.isBoxTop + 105} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>[{this.props.mechData.getInternalStructure().rightTorso }]</text>
-
 
 		<text x={this.isBoxLeft +  this.isBoxWidth / 2 - 200} y={this.isBoxTop + 310} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>LEFT</text>
 		<text x={this.isBoxLeft +  this.isBoxWidth / 2 - 200} y={this.isBoxTop + 330} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>ARM [{this.props.mechData.getInternalStructure().leftArm }]</text>
@@ -874,13 +852,10 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 		<text x={this.isBoxLeft + this.isBoxWidth / 2 } y={this.isBoxTop + 420} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>TORSO</text>
 		<text x={this.isBoxLeft + this.isBoxWidth / 2 } y={this.isBoxTop + 440} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>[{this.props.mechData.getInternalStructure().centerTorso })</text>
 
-
-
         {/* Head IS */}
         {this.props.mechData.getInternalStructure().head > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("hd", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 15 } yLoc={this.isBoxTop + 120} radius={10} inPlay={this.props.inPlay} clickLocation="hd" clickIndex={0} clickFunction={this.toggleISBubble}/></>) : (<></>)}
         {this.props.mechData.getInternalStructure().head > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("hd", 1)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 15 } yLoc={this.isBoxTop + 120} radius={10} inPlay={this.props.inPlay} clickLocation="hd" clickIndex={1} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().head > 2 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("hd", 2)} xLoc={this.isBoxLeft + this.isBoxWidth / 2} yLoc={this.isBoxTop + 140} radius={10} inPlay={this.props.inPlay} clickLocation="hd" clickIndex={2} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
 
         {/* Left Arm IS */}
         {this.props.mechData.getInternalStructure().leftArm > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 135} yLoc={this.isBoxTop + 150} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
@@ -895,7 +870,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         {this.props.mechData.getInternalStructure().leftArm > 8 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 8)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 150} yLoc={this.isBoxTop + 280} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={8} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().leftArm > 9 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 9)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 151} yLoc={this.isBoxTop + 295} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={9} clickFunction={this.toggleISBubble} /></>) : (<></>)}
 
-
         {this.props.mechData.getInternalStructure().leftArm > 10 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 10)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 152} yLoc={this.isBoxTop + 150} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={10} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().leftArm > 11 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 11)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 155} yLoc={this.isBoxTop + 165} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={11} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().leftArm > 12 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 12)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 158} yLoc={this.isBoxTop + 180} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={12} clickFunction={this.toggleISBubble} /></>) : (<></>)}
@@ -907,8 +881,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         {this.props.mechData.getInternalStructure().leftArm > 17 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 17)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 160} yLoc={this.isBoxTop + 345} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={17} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().leftArm > 18 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 18)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 162} yLoc={this.isBoxTop + 360} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={18} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().leftArm > 19 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 19)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 165} yLoc={this.isBoxTop + 375} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={19} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-
 
         {/* Right Arm IS */}
         {this.props.mechData.getInternalStructure().rightArm > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 135} yLoc={this.isBoxTop + 150} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
@@ -923,7 +895,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         {this.props.mechData.getInternalStructure().rightArm > 8 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 8)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 150} yLoc={this.isBoxTop + 280} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={8} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().rightArm > 9 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 9)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 151} yLoc={this.isBoxTop + 295} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={9} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
 
-
         {this.props.mechData.getInternalStructure().rightArm > 10 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 10)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 152} yLoc={this.isBoxTop + 150} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={10} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().rightArm > 11 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 11)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 155} yLoc={this.isBoxTop + 165} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={11} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().rightArm > 12 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 12)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 158} yLoc={this.isBoxTop + 180} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={12} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
@@ -936,7 +907,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         {this.props.mechData.getInternalStructure().rightArm > 18 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 18)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 162} yLoc={this.isBoxTop + 360} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={18} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().rightArm > 19 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 19)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 165} yLoc={this.isBoxTop + 375} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={19} clickFunction={this.toggleISBubble} /></>) : (<></>)}
 
-
         {/* Center Torso IS */}
         {this.props.mechData.getInternalStructure().centerTorso > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 175} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().centerTorso > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 1)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 190} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={1} clickFunction={this.toggleISBubble} /></>) : (<></>)}
@@ -944,13 +914,11 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         {this.props.mechData.getInternalStructure().centerTorso > 3 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 3)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 220} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={3} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().centerTorso > 4 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 4)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 235} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={4} clickFunction={this.toggleISBubble} /></>) : (<></>)}
 
-
         {this.props.mechData.getInternalStructure().centerTorso > 5 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 5)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 255} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={5} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().centerTorso > 6 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 6)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 270} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={6} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().centerTorso > 7 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 7)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 285} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={7} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().centerTorso > 8 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 8)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 300} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={8} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().centerTorso > 9 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 9)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 315} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={9} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
 
         {this.props.mechData.getInternalStructure().centerTorso > 10 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 10)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 175} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={10} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().centerTorso > 11 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 11)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 190} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={11} clickFunction={this.toggleISBubble} /></>) : (<></>)}
@@ -958,13 +926,11 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         {this.props.mechData.getInternalStructure().centerTorso > 13 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 13)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 220} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={13} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().centerTorso > 14 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 14)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 235} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={14} clickFunction={this.toggleISBubble} /></>) : (<></>)}
 
-
         {this.props.mechData.getInternalStructure().centerTorso > 15 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 15)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 175} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={15} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().centerTorso > 16 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 16)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 190} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={16} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().centerTorso > 17 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 17)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 205} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={17} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().centerTorso > 18 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 18)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 220} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={18} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().centerTorso > 19 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 19)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 235} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={19} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
 
         {this.props.mechData.getInternalStructure().centerTorso > 20 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 20)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 255} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={20} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().centerTorso > 21 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 21)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 270} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={21} clickFunction={this.toggleISBubble} /></>) : (<></>)}
@@ -981,7 +947,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         {this.props.mechData.getInternalStructure().centerTorso > 31 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 31)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 335} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={31} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().centerTorso > 30 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 30)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 0} yLoc={this.isBoxTop + 335} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={30} clickFunction={this.toggleISBubble}/></>) : (<></>)}
         {this.props.mechData.getInternalStructure().centerTorso > 32 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 32)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 335} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={32} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
 
         {/* Left Torso IS */}
         {this.props.mechData.getInternalStructure().leftTorso > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 50} yLoc={this.isBoxTop + 145} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
@@ -1014,7 +979,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         {this.props.mechData.getInternalStructure().leftTorso > 23 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 23)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 325} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={23} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().leftTorso > 24 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 24)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 325} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={24} clickFunction={this.toggleISBubble} /></>) : (<></>)}
 
-
         {/* Right Torso IS */}
         {this.props.mechData.getInternalStructure().rightTorso > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 50} yLoc={this.isBoxTop + 145} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().rightTorso > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 1)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 50} yLoc={this.isBoxTop + 160} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={1} clickFunction={this.toggleISBubble} /></>) : (<></>)}
@@ -1046,9 +1010,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         {this.props.mechData.getInternalStructure().rightTorso > 23 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 23)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 325} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={23} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().rightTorso > 24 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 24)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 325} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={24} clickFunction={this.toggleISBubble} /></>) : (<></>)}
 
-
-
-
         {/* Left Leg IS */}
         {this.props.mechData.getInternalStructure().leftLeg > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 53} yLoc={this.isBoxTop + 340} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().leftLeg > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 1)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 355} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={1} clickFunction={this.toggleISBubble} /></>) : (<></>)}
@@ -1061,7 +1022,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         {this.props.mechData.getInternalStructure().leftLeg > 7 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 7)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 72} yLoc={this.isBoxTop + 450} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={7} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().leftLeg > 8 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 8)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 74} yLoc={this.isBoxTop + 465} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={8} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().leftLeg > 9 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 9)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 76} yLoc={this.isBoxTop + 480} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={9} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
 
         {this.props.mechData.getInternalStructure().leftLeg > 10 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 10)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 73} yLoc={this.isBoxTop + 340} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={10} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().leftLeg > 11 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 11)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 355} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={11} clickFunction={this.toggleISBubble} /></>) : (<></>)}
@@ -1086,8 +1046,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         {this.props.mechData.getInternalStructure().leftLeg > 27 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 27)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 104} yLoc={this.isBoxTop + 530} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={27} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().leftLeg > 28 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 28)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 106} yLoc={this.isBoxTop + 545} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={28} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().leftLeg > 29 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 29)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 108} yLoc={this.isBoxTop + 560} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={29} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-
 
         {/* Right Leg IS */}
         {this.props.mechData.getInternalStructure().rightLeg > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 53} yLoc={this.isBoxTop + 340} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
@@ -1126,7 +1084,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         {this.props.mechData.getInternalStructure().rightLeg > 28 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 28)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 106} yLoc={this.isBoxTop + 545} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={28} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().rightLeg > 29 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 29)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 108} yLoc={this.isBoxTop + 560} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={29} clickFunction={this.toggleISBubble} /></>) : (<></>)}
 
-        {this.props.inPlay ? 
+        {this.props.inPlay ?
             <TakeDamageButtonSVG
                 x={this.isBoxLeft + this.isBoxWidth / 2 - 50}
                 y={this.isBoxTop + 500}
@@ -1172,17 +1130,12 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2  } y={this.isBoxTop + 380} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={13}>TORSO</text>
             <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2  } y={this.isBoxTop + 400} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={13}>[{ this.props.mechData.getInternalStructure().centerTorso })</text>
 
-
             {/* Head IS */}
             {this.props.mechData.getInternalStructure().head > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("hd", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 15 } yLoc={this.isBoxTop + 105} radius={10} inPlay={this.props.inPlay} clickLocation="hd" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
             {this.props.mechData.getInternalStructure().head > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("hd", 1)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 15 } yLoc={this.isBoxTop + 105} radius={10} inPlay={this.props.inPlay} clickLocation="hd" clickIndex={1} clickFunction={this.toggleISBubble} /></>) : (<></>)}
             {this.props.mechData.getInternalStructure().head > 2 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("hd", 2)} xLoc={this.isBoxLeft + this.isBoxWidth / 2} yLoc={this.isBoxTop + 125} radius={10} inPlay={this.props.inPlay} clickLocation="hd" clickIndex={2} clickFunction={this.toggleISBubble} /></>) : (<></>)}
 
-
-
-
         {/* Center Torso IS */}
-
 
         {this.props.mechData.getInternalStructure().centerTorso > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 40} yLoc={this.isBoxTop + 170} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().centerTorso > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 1)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 170} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={1} clickFunction={this.toggleISBubble} /></>) : (<></>)}
@@ -1195,7 +1148,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         {this.props.mechData.getInternalStructure().centerTorso > 7 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 7)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 185} radius={10} inPlay={this.props.inPlay}  clickLocation="ct" clickIndex={7} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().centerTorso > 8 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 8)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 185} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={8} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().centerTorso > 9 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 9)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 40} yLoc={this.isBoxTop + 185} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={9} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
 
         {this.props.mechData.getInternalStructure().centerTorso > 10 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 10)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 40} yLoc={this.isBoxTop + 200} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={10} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().centerTorso > 11 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 11)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 200} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={11} clickFunction={this.toggleISBubble} /></>) : (<></>)}
@@ -1215,7 +1167,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         {this.props.mechData.getInternalStructure().centerTorso > 23 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 23)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 230} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={23} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().centerTorso > 24 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 24)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 40} yLoc={this.isBoxTop + 230} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={24} clickFunction={this.toggleISBubble} /></>) : (<></>)}
 
-
         {this.props.mechData.getInternalStructure().centerTorso > 25 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 25)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 27} yLoc={this.isBoxTop + 250} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={25} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().centerTorso > 26 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 26)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 9} yLoc={this.isBoxTop + 250} radius={10} inPlay={this.props.inPlay}  clickLocation="ct" clickIndex={26} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().centerTorso > 27 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 27)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 9} yLoc={this.isBoxTop + 250} radius={10} inPlay={this.props.inPlay}  clickLocation="ct" clickIndex={27} clickFunction={this.toggleISBubble} /></>) : (<></>)}
@@ -1230,7 +1181,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         {this.props.mechData.getInternalStructure().centerTorso > 34 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 34)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 9} yLoc={this.isBoxTop + 280} radius={10} inPlay={this.props.inPlay}  clickLocation="ct" clickIndex={34} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().centerTorso > 35 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 35)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 9} yLoc={this.isBoxTop + 280} radius={10} inPlay={this.props.inPlay}  clickLocation="ct" clickIndex={35} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().centerTorso > 36 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 36)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 27} yLoc={this.isBoxTop + 280} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={36} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
 
             {/* Right Rear Leg IS */}
             {this.props.mechData.getInternalStructure().rightLeg > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 340} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
@@ -1306,8 +1256,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             {this.props.mechData.getInternalStructure().leftLeg > 28 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 28)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 545} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={28} clickFunction={this.toggleISBubble} /></>) : (<></>)}
             {this.props.mechData.getInternalStructure().leftLeg > 29 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 29)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 560} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={29} clickFunction={this.toggleISBubble} /></>) : (<></>)}
 
-
-
             {/* Right Front Leg IS */}
             {this.props.mechData.getInternalStructure().rightArm > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 115} yLoc={this.isBoxTop + 260} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={0} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
             {this.props.mechData.getInternalStructure().rightArm > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 1)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 115} yLoc={this.isBoxTop + 275} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={1} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
@@ -1338,8 +1286,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             {this.props.mechData.getInternalStructure().rightArm > 22 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 22)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 150} yLoc={this.isBoxTop + 530} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={22} clickFunction={this.toggleISBubble} /></>) : (<></>)}
             {this.props.mechData.getInternalStructure().rightArm > 23 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 23)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 150} yLoc={this.isBoxTop + 515} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={23} clickFunction={this.toggleISBubble} /></>) : (<></>)}
             {this.props.mechData.getInternalStructure().rightArm > 24 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 24)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 150} yLoc={this.isBoxTop + 500} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={24} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-
 
             {/* Left Front Leg IS */}
             {this.props.mechData.getInternalStructure().leftArm > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 115} yLoc={this.isBoxTop + 260} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
@@ -1372,7 +1318,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             {this.props.mechData.getInternalStructure().leftArm > 23 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 23)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 150} yLoc={this.isBoxTop + 515} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={23} clickFunction={this.toggleISBubble} /></>) : (<></>)}
             {this.props.mechData.getInternalStructure().leftArm > 24 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 24)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 150} yLoc={this.isBoxTop + 500} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={24} clickFunction={this.toggleISBubble} /></>) : (<></>)}
 
-
         {/* Right Torso IS */}
         {this.props.mechData.getInternalStructure().rightTorso > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 105} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().rightTorso > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 1)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 120} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={1} clickFunction={this.toggleISBubble} /></>) : (<></>)}
@@ -1401,7 +1346,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         {this.props.mechData.getInternalStructure().rightTorso > 20 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 20)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 200} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={20} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().rightTorso > 21 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 21)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 215} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={21} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().rightTorso > 22 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 22)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 230} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={22} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
 
         {/* Left Torso IS */}
         {this.props.mechData.getInternalStructure().leftTorso > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 105} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
@@ -1432,7 +1376,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         {this.props.mechData.getInternalStructure().leftTorso > 21 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 21)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 215} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={21} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().leftTorso > 22 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 22)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 230} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={22} clickFunction={this.toggleISBubble} /></>) : (<></>)}
 
-{this.props.inPlay ? 
+{this.props.inPlay ?
         <TakeDamageButtonSVG
             x={this.isBoxLeft + 25}
             y={this.isBoxTop + 250}
@@ -1444,7 +1388,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         </>
     )}
     </RecordSheetGroupBoxSVG>
-
 
     <RecordSheetGroupBoxSVG
         width={critBoxWidth}
@@ -1852,8 +1795,25 @@ Neither Topps nor Catalyst Game Labs makes no representation or warranty as to t
 
             {this.props.inPlay && this.props.mechData.isWrecked() ? (
                 <>
-                    <text y={this.docHeight / 2} x={this.docWidth / 2} textAnchor='middle' fontFamily="sans-serif" transform={"rotate( 30, " + this.docWidth / 2 + ", " + this.docHeight / 2 + ")"} fontSize="400" stroke="rgb(255,255,255)" strokeWidth="4" fill="rgb(200,0,0)">WRECKED</text>
-                    <text y={this.docHeight / 2 + 100 } x={this.docWidth / 2} textAnchor='middle' fontFamily="sans-serif" transform={"rotate( 30, " + this.docWidth / 2 + ", " + this.docHeight / 2 + ")"} fontSize="100" stroke="rgb(255,255,255)" strokeWidth="2" fill="rgb(200,0,0)">{this.props.mechData.isWreckedBlurb()}</text>
+                    <rect
+                        x={10}
+                        y={100}
+                        width={800}
+                        height={300}
+                        fill="rgba(200,0,0, .6)"
+                        stroke='rgb(255,255,255)'
+                        strokeWidth={4}
+                        transform={"rotate( 30, " + 350 + ", " + 200 + ")"}
+                    >
+                    </rect>
+                    <text y={250} x={400} textAnchor='middle' fontFamily="sans-serif" transform={"rotate( 30, " + 350 + ", " + 200 + ")"} fontSize="125" stroke="rgb(255,255,255)" strokeWidth="2" fill="rgb(255,255,255)">WRECKED</text>
+                    {breakLines( this.props.mechData.isWreckedBlurb(), 38 ).map( (line, lineIndex) => {
+                        let yLoc = 45 + 35 * lineIndex;
+                        return(
+                            <text key={lineIndex} y={250 + yLoc } x={400} textAnchor='middle' fontFamily="sans-serif" transform={"rotate( 30, " + 350 + ", " + 200 + ")"} fontSize="35" stroke="rgb(255,255,255)" strokeWidth="1" fill="rgb(255,255,255)">{line.toUpperCase()}</text>
+                        )
+                    })}
+
                 </>
             ) : (
                 <></>
@@ -1865,7 +1825,6 @@ Neither Topps nor Catalyst Game Labs makes no representation or warranty as to t
     }
 
 }
-
 
 interface IBattleMechSVGProps {
     bgColor?: string;

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import './stat-bar.scss';
 
-
 export default class StarBar extends React.Component<IStarBarProps, IStarBarState> {
 
     constructor(props: IStarBarProps) {
@@ -11,14 +10,12 @@ export default class StarBar extends React.Component<IStarBarProps, IStarBarStat
         };
     }
 
-
     render = (): React.ReactFragment => {
 
         let statBarCurrentStyle: React.CSSProperties = {
             width: this.props.currentPercentage + "%",
             height: this.props.height + "px",
         }
-
 
         let statBarStyle: React.CSSProperties = {
             height: this.props.height + "px",
@@ -34,12 +31,12 @@ export default class StarBar extends React.Component<IStarBarProps, IStarBarStat
 
         return (
 
-            <div 
+            <div
                 className="stat-bar"
                 style={statBarStyle}
                 title={this.props.title}
             >
-                <div 
+                <div
                     className="stat-bar-current"
                     style={statBarCurrentStyle}
                 ></div>
@@ -56,7 +53,6 @@ interface IStarBarProps {
     height: number;
     title?: string;
 }
-
 
 interface IStarBarState {
 }

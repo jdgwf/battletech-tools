@@ -20,10 +20,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
         this.props.appGlobals.makeDocumentTitle("Playing Alpha Strike");
     }
 
-
-
     toggleCardMode = (): void => {
-
 
       let appSettings = this.props.appGlobals.appSettings;
 
@@ -57,7 +54,6 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
         }
       )
 
-
     }
 
     render = (): React.ReactFragment => {
@@ -76,7 +72,6 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
                   <li title="Switch to showing 2+ cards per row"><span className="current" onClick={this.toggleCardMode}><FaTh /></span></li>
 
                 )}
-
 
                 <li className="logo">
                     <a

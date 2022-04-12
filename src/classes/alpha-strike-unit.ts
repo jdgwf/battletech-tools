@@ -84,7 +84,6 @@ export interface IASMULUnit {
     mpControlHits?: boolean[];
     weaponHits?: boolean[];
 
-
     // Additional Fields we use internally
     classification: string;
     costCR: number;
@@ -848,7 +847,6 @@ export class AlphaStrikeUnit {
                     tmmHit = 1;
                 }
                 tmpTMM -= tmmHit;
-
 
                 if( tmpTMM < 0 ) {
                     tmpTMM = 0;

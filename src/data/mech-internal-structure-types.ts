@@ -164,7 +164,6 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
 			is: 14
 		},
 
-
 		perTon: {
 			20: {
 				tonnage: 1,
@@ -303,7 +302,6 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
 				rlLeg: 21
 			}
 		},
-
 
 		cost: 1600,
 		introduced: 2470,

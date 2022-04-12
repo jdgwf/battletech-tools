@@ -12,7 +12,6 @@ export default class AlphaStrikeRosterRouter extends React.Component<IAlphaStrik
         return(
             <Routes>
 
-
                 <Route path={``} element={
                     <Home
                         appGlobals={this.props.appGlobals}

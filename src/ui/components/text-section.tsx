@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-
 export default class TextSection extends React.Component<ITextSectionProps, ITextSectionState> {
 
     constructor(props: ITextSectionProps) {
@@ -10,9 +9,7 @@ export default class TextSection extends React.Component<ITextSectionProps, ITex
         };
     }
 
-
     render = (): React.ReactFragment => {
-
 
         return (
 
@@ -39,7 +36,6 @@ interface ITextSectionProps {
     className?: string;
     contentClassName?: string;
 }
-
 
 interface ITextSectionState {
     updated: boolean;

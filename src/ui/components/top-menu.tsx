@@ -227,7 +227,6 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
             </ul>
         ) : null}
 
-
           </header>
             <div className="mobile-menu">
                 <ul className="main-menu">
@@ -243,7 +242,6 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                                             <li key={subItemIndex}><Link onClick={this.closeMobile} className={this.props.current === subItem.tag ? "current" : "" } to={`${process.env.PUBLIC_URL}${subItem.url}`}>{subItem.label}</Link></li>
                                         )
                                     })}
-
 
                                 </ul>
                             </li>

@@ -22,7 +22,6 @@ export default class ComponentDamageSVG extends React.Component<IComponentDamage
             this.strokeColor = this.props.strokeColor;
         }
 
-
         let baseWidth = 744.09448819;
         let baseHeight = 1052.3622047;
         if( this.props.width ) {
@@ -50,8 +49,6 @@ export default class ComponentDamageSVG extends React.Component<IComponentDamage
     }
 
     render = (): React.ReactFragment => {
-
-
 
         // var svg = "";
 
@@ -121,7 +118,6 @@ export default class ComponentDamageSVG extends React.Component<IComponentDamage
                 >
                     Gyro Hits
                 </text>
-
 
                 <DamageCircleSVG
                     xLoc={this.props.xLoc + textRightLine + 30}

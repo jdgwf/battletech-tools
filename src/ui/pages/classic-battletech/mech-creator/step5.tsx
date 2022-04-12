@@ -22,11 +22,8 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
             showAddDialog: false,
         }
 
-
         this.props.appGlobals.makeDocumentTitle("Step 5 | 'Mech Creator");
     }
-
-
 
     addEquipment = ( item: IEquipmentItem ): boolean => {
       if( this.props.appGlobals.currentBattleMech ) {
@@ -56,9 +53,9 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
       return false;
     }
 
-    setRear = ( 
-      itemUUID: string | undefined, 
-      isRear: boolean 
+    setRear = (
+      itemUUID: string | undefined,
+      isRear: boolean
     ): boolean => {
       if( this.props.appGlobals.currentBattleMech ) {
         this.props.appGlobals.currentBattleMech.setRear(
@@ -71,8 +68,6 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
       }
       return false;
     }
-
-
 
     openInstallDialog = (): void => {
       this.setState({
@@ -92,12 +87,12 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
       return (
         <>
             <StandardModal
-              show={this.state.showAddDialog} 
+              show={this.state.showAddDialog}
               onClose={this.closeInstallDialog}
               className="modal-xl"
               title="Installing Equipment"
             >
- 
+
               <div className="form">
                   <div>
                       <AvailableEquipment
@@ -127,7 +122,6 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                         label="Step 5: Add weapons, ammunition and other equipment"
                       >
 
-
                           <button
                             className="btn btn-primary pull-right btn-sm"
                             title="Open the add dialog"
@@ -137,7 +131,6 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                           </button>
 
                           <h3 className="text-center">Installed Equipment</h3>
-
 
                           {this.props.appGlobals.currentBattleMech.getInstalledEquipment().length > 0 ? (
 
@@ -213,7 +206,6 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                             </div>
                           </div>
                           </TextSection>
-
 
                     </div>
                     <div className="d-none d-lg-block col-lg-4">

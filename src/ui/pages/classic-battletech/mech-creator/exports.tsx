@@ -19,8 +19,6 @@ export default class MechCreatorExports extends React.Component<IHomeProps, IHom
         this.props.appGlobals.makeDocumentTitle("Exports | 'Mech Creator");
     }
 
-
-
     render = (): React.ReactFragment => {
       if(!this.props.appGlobals.currentBattleMech)
         return <></>
@@ -43,7 +41,6 @@ export default class MechCreatorExports extends React.Component<IHomeProps, IHom
                           <h5>Help wanted</h5>
 
                           <p>If you'd like to make an exporter for your own software send me a PR 😎</p>
-
 
                           <div className="clear-both overflow-hidden">
                             <hr />

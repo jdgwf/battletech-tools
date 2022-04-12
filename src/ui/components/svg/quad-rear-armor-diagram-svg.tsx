@@ -49,8 +49,6 @@ export default class QuadRearArmorDiagramSVG extends React.Component<IQuadRearAr
 
     render = (): React.ReactFragment => {
 
-
-
         // var svg = "";
 
         // if( standAlone ) {

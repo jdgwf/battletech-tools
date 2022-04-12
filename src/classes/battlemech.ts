@@ -14,7 +14,6 @@ import { btTechOptions } from "../data/tech-options";
 import { addCommas, generateUUID, getHexDistanceFromModifier, getISEquipmentList, getMovementModifier } from "../utils";
 import { AlphaStrikeUnit, IAlphaStrikeDamage, IASMULUnit } from "./alpha-strike-unit";
 
-
 interface INumericalHash {
     [index: string]: number;
 }
@@ -213,7 +212,6 @@ export class BattleMech {
         jumped: false,
     };
 
-
     private _introductoryRules: boolean = false;
 
     // in play variables
@@ -225,7 +223,6 @@ export class BattleMech {
     public currentTargetJumpingMP: number = 0;
     public currentHeat: number = 0;
     public damageLog: IMechDamageLog[] = [];
-
 
     // basic properties
     private _nickname = "";
@@ -498,13 +495,11 @@ export class BattleMech {
             rv.gunnerySkill = this._pilot.gunnery;
         }
 
-
         return rv;
     }
 
     private _getHighestDamage(incomingDamageObjects: IAlphaStrikeDamage): number {
         let returnValue = 0;
-
 
        if(
             incomingDamageObjects &&
@@ -1903,9 +1898,7 @@ export class BattleMech {
         //         value: abilityValue
         //     });
 
-
         // }
-
 
         this._calcLogAS = "";
 
@@ -1939,7 +1932,6 @@ export class BattleMech {
         this._calcLogAS += "<strong>Setting Armor to " + this._alphaStrikeForceStats.armor + "</strong><br />\n";
 
         if (this.getTech().tag === "is") {
-
 
             switch (this._engineType.tag) {
                 case "compact":
@@ -2267,7 +2259,6 @@ export class BattleMech {
 
         let indirectFireRating = 0;
 
-
         let shortTotalDamage = 0;
         let mediumTotalDamage = 0;
         let longTotalDamage = 0;
@@ -2406,7 +2397,6 @@ export class BattleMech {
                             mslDamage.extreme += this._equipmentList[weapon_counter].alphaStrike.rangeExtreme;
                         }
 
-
                     }
 
                 }
@@ -2510,8 +2500,6 @@ export class BattleMech {
                 // console.log( "heat_damage_long", heat_damage_long );
                 // console.log( "total_weapon_heat_long", total_weapon_heat_long );
 
-
-
                 if (heat_damage_long > +this._alphaStrikeForceStats.damage.long) {
                     final_long_overheat_value = heat_damage_long - +this._alphaStrikeForceStats.damage.long;
                     this._alphaStrikeForceStats.damage.long = (heat_damage_long - final_long_overheat_value).toString();
@@ -2550,7 +2538,6 @@ export class BattleMech {
 
         // Determine Overheat Values - p116 AS Companion
         // let final_overheat_value = 0;
-
 
         // if( this._alphaStrikeForceStats.damage.medium !== "0*" && before_heat_rangeMedium - this._alphaStrikeForceStats.damage.medium > 0) {
         // final_overheat_value = before_heat_rangeMedium - this._alphaStrikeForceStats.damage.medium;
@@ -2638,7 +2625,6 @@ export class BattleMech {
 
         this._calcLogAS += "Overheat Factor: " + overHeatFactor + "<br />\n";
 
-
         // Offensive Special Ability Factor
         // TODO
 
@@ -2672,8 +2658,6 @@ export class BattleMech {
         } else {
             this._calcLogAS += "Movement Factor: " + movementDefenseValue + " (" + bestMovement + " * .25)<br />\n";
         }
-
-
 
         if (
             +rearDamage.short > 0 ||
@@ -2710,7 +2694,6 @@ export class BattleMech {
 
             }
 
-
             // Replace Flak with Flak X/X/X
             if( this._alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "flak") {
                 flakDamage = this._adjustASDamage(flakDamage);
@@ -2718,14 +2701,12 @@ export class BattleMech {
                 this._calcLogAS += "<strong>Adding</strong> Flak Ability: " + flakDamage.short + "/" + flakDamage.medium + "/" + flakDamage.long + "<br />\n";
             }
 
-
             // Replace AC with AC X/X/X
             if( this._alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "ac") {
                 acDamage = this._adjustASDamage(acDamage);
                 this._alphaStrikeForceStats.abilityCodes[aC] = "AC " + acDamage.short + "/" + acDamage.medium + "/" + acDamage.long;
                 this._calcLogAS += "<strong>Adding</strong> AC Ability: " + acDamage.short + "/" + acDamage.medium + "/" + acDamage.long + "<br />\n";
             }
-
 
             // Replace SRM with SRM X/X/X
             if( this._alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "srm") {
@@ -2862,7 +2843,6 @@ export class BattleMech {
         this._alphaStrikeForceStats.name = this._make;
         this._alphaStrikeForceStats.type = "BM";
 
-
         this._alphaStrikeValue = Math.round(finalValue); // + " (WIP)";
         let asMechData: IASMULUnit = {
             mechCreatorUUID: this._uuid,
@@ -2963,7 +2943,6 @@ export class BattleMech {
         asMechData["BFStructure"] = this._alphaStrikeForceStats.structure;
 
         asMechData["BFOverheat"] = final_overheat_value;
-
 
         asMechData["BFDamageShort"] = +this._alphaStrikeForceStats.damage.short;
         asMechData["BFDamageMedium"] = +this._alphaStrikeForceStats.damage.medium;
@@ -3464,7 +3443,6 @@ export class BattleMech {
             this._tonnage = 20;
         }
 
-
         this._maxMoveHeat = 2;
         this._heatDissipation = 0;
 
@@ -3670,7 +3648,6 @@ export class BattleMech {
                 }
             }
 
-
             if( !foundIt) {
                 let eqItem = JSON.parse( JSON.stringify(this._equipmentList[countEQ]));
                 eqItem.count = 1;
@@ -3681,7 +3658,6 @@ export class BattleMech {
             eqItemSeparate.count = 1;
             // this._sortedSeparatedEquipmentList.push( eqItemSeparate )
         }
-
 
         this._calcArmorStructureBubbles();
 
@@ -3788,8 +3764,6 @@ export class BattleMech {
         if( this._armorBubbles.leftLeg.length > this._armorAllocation.leftLeg ) {
             this._armorBubbles.leftLeg = this._armorBubbles.head.splice( 0, this._armorAllocation.leftLeg)
         }
-
-
 
         if(!this._structureBubbles.head)
             this._structureBubbles.head = [];
@@ -4020,7 +3994,6 @@ export class BattleMech {
                 "ct" // location
             );
         }
-
 
         // Left Leg Components
         this._addCriticalItem("hip", "Hip", 1, "ll", 0);
@@ -4690,7 +4663,6 @@ export class BattleMech {
         return this._armorType;
     }
 
-
     public setArmorType(armorTag: string) {
         for( let aCount = 0; aCount < mechArmorTypes.length; aCount++) {
             if( mechArmorTypes[aCount].tag === armorTag) {
@@ -5027,7 +4999,6 @@ export class BattleMech {
         this._calc();
         this.calcAlphaStrike();
 
-
         // In Play Variables
         let _currentHeat = 0;
 
@@ -5062,7 +5033,6 @@ export class BattleMech {
             _currentTargetJumpingMP = this.currentTargetJumpingMP;
         }
 
-
         let exportObject: IBattleMechExport = {
 
             currentHeat: _currentHeat,
@@ -5074,7 +5044,6 @@ export class BattleMech {
 
             armorBubbles: _armorBubbles,
             structureBubbles: _structureBubbles,
-
 
             selectedMech: _selectedMech,
 
@@ -5260,7 +5229,6 @@ export class BattleMech {
             this.damageLog = importObject.damageLog;
         }
 
-
         if( importObject && importObject.targetAToHit ) {
             this._targetAToHit = importObject.targetAToHit;
         }
@@ -5270,8 +5238,6 @@ export class BattleMech {
         if( importObject && importObject.targetCToHit ) {
             this._targetCToHit = importObject.targetCToHit;
         }
-
-
 
         if( importObject && importObject.currentMovementMode ) {
             this.currentMovementMode = importObject.currentMovementMode;
@@ -5289,7 +5255,6 @@ export class BattleMech {
             this.currentTargetJumpingMP = importObject.currentTargetJumpingMP;
         }
 
-
         if( importObject && importObject.mechType  ) {
             if( importObject.name )
                 this.setMake(importObject.name);
@@ -5300,8 +5265,6 @@ export class BattleMech {
                 this.setMechType(importObject.mechType);
 
             this.setTonnage(importObject.tonnage);
-
-
 
             if( importObject.lastUpdated ) {
                 this._lastUpdated = new Date( importObject.lastUpdated )
@@ -5438,7 +5401,6 @@ export class BattleMech {
             if( importObject && importObject.armorBubbles ) {
                 this._armorBubbles = importObject.armorBubbles;
             }
-
 
             this._calc();
             return true;
@@ -5583,7 +5545,6 @@ export class BattleMech {
 
         if( equipmentList[equipmentIndex]) {
 
-
             let equipmentItem: IEquipmentItem = JSON.parse(JSON.stringify(equipmentList[equipmentIndex]));
 
             if( typeof(location) !== "undefined")
@@ -5665,37 +5626,69 @@ export class BattleMech {
         if( this.isWreckedBlurb() !== "") {
             return true;
         }
-        
+
         return false;
     }
 
-    private _returnRandomString( 
+    private _returnRandomString(
         from: string[]
     ): string {
         return from[ Math.floor(Math.random() * from.length) ]
     }
 
+    public hasXLEngine(): boolean {
+        if(
+            this._engineType && this._engineType.criticals
+            && (
+                (this._engineType.criticals.clan && this._engineType.criticals.clan.lt && this._engineType.criticals.clan.lt > 0)
+                ||
+                (this._engineType.criticals.clan && this._engineType.criticals.clan.rt && this._engineType.criticals.clan.rt > 0)
+                ||
+                (this._engineType.criticals.is && this._engineType.criticals.is.lt && this._engineType.criticals.is.lt > 0)
+                ||
+                (this._engineType.criticals.is && this._engineType.criticals.is.rt && this._engineType.criticals.is.rt > 0)
+            )
+
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
     public isWreckedBlurb(): string {
 
-        if( this._structureInLocation("ct") < 1 ) {
+        if(
+            this._structureInLocation("ct") < 1
+            ||
+            (
+                this.hasXLEngine()
+                &&
+                (
+                    this._structureInLocation("lt") < 1
+                    ||
+                    this._structureInLocation("rt") < 1
+                )
+            )
+        ) {
             let centerTorsoSnarks = [
                 "Massive hole in chest.",
                 "Radiation leak, very dangerous.",
                 "Where oh where did my reactor go?",
-                "No Reactor. The 'mech will finally cool down!", // no snarks longer than this!
+                "No Reactor. The 'mech will finally cool down!",
             ];
             return this._returnRandomString(centerTorsoSnarks);
         }
 
         if( this._structureInLocation("hd") < 1 ) {
             let headSnarks = [
-                "Cockpit became convertible",
+                "Cockpit became a convertible",
                 "Mechwarrior missing",
                 "User error. Replace user.",
             ];
             return this._returnRandomString(headSnarks);
         }
-        
+
         return "";
     }
 
@@ -5713,17 +5706,17 @@ export class BattleMech {
 
         let locationHasArmor = this._locationHasArmor(location);
         let locationHasStructure = this._locationHasStructure(location);
-        while( 
-            !locationHasStructure && 
-            !locationHasArmor && 
-            location !== "ct" && 
-            location !== "ctr" && 
+        while(
+            !locationHasStructure &&
+            !locationHasArmor &&
+            location !== "ct" &&
+            location !== "ctr" &&
             location !== "hd"
         ) {
 
             console.log("takeDamage moveDamageLocationIn from", location, locationHasStructure, locationHasArmor)
             location = this._moveDamageLocationIn( location, rear );
-            
+
             locationHasArmor = this._locationHasArmor(location);
             locationHasStructure = this._locationHasStructure(location);
             console.log("takeDamage moveDamageLocationIn to", location, locationHasStructure, locationHasArmor)
@@ -5735,24 +5728,24 @@ export class BattleMech {
             if( remainderDamage ) {
                 // structureDamage = true;
                 remainderDamage = this._takeStructureDamageAtLocation( location, remainderDamage )
-                while( 
-                    remainderDamage > 0 &&             
-                    location !== "ct" && 
-                    location !== "ctr" && 
+                while(
+                    remainderDamage > 0 &&
+                    location !== "ct" &&
+                    location !== "ctr" &&
                     location !== "hd"
                 ) {
                     location = this._moveDamageLocationIn( location, rear );
                     remainderDamage = this._takeStructureDamageAtLocation( location, remainderDamage )
                 }
-    
+
             }
             console.log("takeDamage armor remainderDamage", amount, location, rear, remainderDamage)
         } else if (locationHasStructure) {
             let remainderDamage = this._takeStructureDamageAtLocation( location, amount )
-            while( 
-                remainderDamage > 0 &&             
-                location !== "ct" && 
-                location !== "ctr" && 
+            while(
+                remainderDamage > 0 &&
+                location !== "ct" &&
+                location !== "ctr" &&
                 location !== "hd"
             ) {
                 location = this._moveDamageLocationIn( location, rear );
@@ -5860,7 +5853,7 @@ export class BattleMech {
             }
             return count;
 
-        } 
+        }
         return -1;
     }
 
@@ -5966,11 +5959,11 @@ export class BattleMech {
             }
             return count;
 
-        } 
+        }
         return -1;
     }
 
-    private _takeArmorDamageAtLocation ( 
+    private _takeArmorDamageAtLocation (
         location: string,
         amount: number,
     ): number {
@@ -6063,12 +6056,12 @@ export class BattleMech {
                 }
             }
 
-        } 
+        }
 
         return amount - damageTaken;
     }
 
-    private _takeStructureDamageAtLocation ( 
+    private _takeStructureDamageAtLocation (
         location: string,
         amount: number,
     ): number {
@@ -6137,12 +6130,12 @@ export class BattleMech {
                 }
             }
 
-        } 
+        }
 
         return amount - damageTaken;
     }
 
-    private _moveDamageLocationIn( 
+    private _moveDamageLocationIn(
         loc: string,
         rear: boolean,
     ): string {
@@ -6185,7 +6178,7 @@ export class BattleMech {
             else
                 return "ct";
         }
- 
+
         if( loc === "rtr" ) {
             if( rear )
                 return "ctr";
@@ -6226,8 +6219,6 @@ export class BattleMech {
                     }
                     break;
 
-
-                    
                 }
             }
 
@@ -6936,7 +6927,6 @@ export class BattleMech {
         }
     }
 
-
     public structureDamaged( clickLocation: string, clickIndex: number ): boolean {
         switch( clickLocation ) {
             case "hd": {
@@ -6966,7 +6956,6 @@ export class BattleMech {
             case "ll": {
                 return !this._structureBubbles.leftLeg[clickIndex];
             }
-
 
         }
         return false;
@@ -7246,9 +7235,7 @@ export class BattleMech {
                     this.setCenterTorsoRearArmor( +line )
                 }
 
-
             }
-
 
             if( line.toLowerCase().startsWith("r/l torso") && line.toLowerCase().indexOf("(rear)") === -1 ) {
                 line = line.replace(/r\/l torso/ig, '').trim();
@@ -7306,10 +7293,6 @@ export class BattleMech {
                 inEquipmentList = true;
             }
 
-
-
-
-
             if( inEquipmentList && equipmentList.length > 0 ) {
 
                 // remove double-spaces
@@ -7361,8 +7344,6 @@ export class BattleMech {
                         equipmentLine.location.trim()
                     ) {
                         // console.log("eq", equipmentLine.name.trim().toLowerCase())
-
-
 
                         if( equipmentLine.name.trim().toLowerCase().startsWith("jump jet") ) {
 
@@ -7463,7 +7444,6 @@ export class BattleMech {
 
         return equipmentList;
     }
-
 
     /* Public Getters */
     public get make(): string {
@@ -7600,7 +7580,6 @@ export class BattleMech {
     public getCurrentArmor(): number {
         let rv = 0;
 
-
         for( let count = 0; count < this._armorBubbles.head.length; count ++  ) {
             if( this._armorBubbles.head[count] ) {
                 rv++
@@ -7622,7 +7601,6 @@ export class BattleMech {
                 rv++
             }
         }
-
 
         for( let count = 0; count < this._armorBubbles.leftTorsoRear.length; count ++  ) {
             if( this._armorBubbles.leftTorsoRear[count] ) {
@@ -7661,7 +7639,6 @@ export class BattleMech {
                 rv++
             }
         }
-
 
         return rv;
     }
@@ -7794,7 +7771,6 @@ function sortByBVThenRearThenHeat(  a: IEquipmentItem, b: IEquipmentItem  ) {
         return -1;
     return 0;
 }
-
 
 function sortByLocationThenName( a: IEquipmentItem, b: IEquipmentItem ) {
     if( a.location && b.location && a.location > b.location )

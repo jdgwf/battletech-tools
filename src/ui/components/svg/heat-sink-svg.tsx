@@ -5,7 +5,6 @@ import RecordSheetGroupBoxSVG from './record-sheet-group-box-svg';
 
 export default class HeatSinksSVG extends React.Component<IHeatSinksSVGProps, IHeatSinksSVGState> {
 
-
     constructor(props: IHeatSinksSVGProps) {
         super( props );
         this.state = {
@@ -234,7 +233,6 @@ export default class HeatSinksSVG extends React.Component<IHeatSinksSVGProps, IH
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 
-
 	hsCounter++;
 	lCounter++;
 	if( numHeatSinks >= 1 + hsCounter + 20 )
@@ -330,6 +328,52 @@ export default class HeatSinksSVG extends React.Component<IHeatSinksSVGProps, IH
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 
+	hsCounter++;
+	lCounter++;
+	if( numHeatSinks >= 1 + hsCounter + 20 )
+
+		heatSinkDots.push(<DamageCircleSVG
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
+			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 4 - distanceFromCenter}
+			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
+			radius={armorBubbleRadius}
+			clickFunction={this.toggleHeatBubble}
+			clickIndex={hsCounter}
+ 			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
+		/>);
+	if( numHeatSinks >= 1 + hsCounter + 0 )
+
+		heatSinkDots.push(<DamageCircleSVG
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
+			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 1.25 - distanceFromCenter}
+			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
+			radius={armorBubbleRadius}
+			clickFunction={this.toggleHeatBubble}
+			clickIndex={hsCounter}
+ 			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
+		/>);
+	if( numHeatSinks >= 1 + hsCounter + 10 )
+
+		heatSinkDots.push(<DamageCircleSVG
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
+			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 1.25 - distanceFromCenter}
+			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
+			radius={armorBubbleRadius}
+			clickFunction={this.toggleHeatBubble}
+			clickIndex={hsCounter}
+ 			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
+		/>);
+	if( numHeatSinks >= 1 + hsCounter + 30 )
+
+		heatSinkDots.push(<DamageCircleSVG
+			key={heatSinkDots.length} inPlay={this.props.inPlay}
+			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 4 - distanceFromCenter}
+			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
+			radius={armorBubbleRadius}
+			clickFunction={this.toggleHeatBubble}
+			clickIndex={hsCounter}
+ 			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
+		/>);
 
 	hsCounter++;
 	lCounter++;
@@ -378,7 +422,6 @@ export default class HeatSinksSVG extends React.Component<IHeatSinksSVGProps, IH
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 
-
 	hsCounter++;
 	lCounter++;
 	if( numHeatSinks >= 1 + hsCounter + 20 )
@@ -426,7 +469,6 @@ export default class HeatSinksSVG extends React.Component<IHeatSinksSVGProps, IH
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
 
-
 	hsCounter++;
 	lCounter++;
 	if( numHeatSinks >= 1 + hsCounter + 20 )
@@ -473,56 +515,6 @@ export default class HeatSinksSVG extends React.Component<IHeatSinksSVGProps, IH
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
-
-
-	hsCounter++;
-	lCounter++;
-	if( numHeatSinks >= 1 + hsCounter + 20 )
-
-		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length} inPlay={this.props.inPlay}
-			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 4 - distanceFromCenter}
-			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
-			radius={armorBubbleRadius}
-			clickFunction={this.toggleHeatBubble}
-			clickIndex={hsCounter}
- 			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
-		/>);
-	if( numHeatSinks >= 1 + hsCounter + 0 )
-
-		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length} inPlay={this.props.inPlay}
-			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 - armorBubbleRadius * 1.25 - distanceFromCenter}
-			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
-			radius={armorBubbleRadius}
-			clickFunction={this.toggleHeatBubble}
-			clickIndex={hsCounter}
- 			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
-		/>);
-	if( numHeatSinks >= 1 + hsCounter + 10 )
-
-		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length} inPlay={this.props.inPlay}
-			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 1.25 - distanceFromCenter}
-			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
-			radius={armorBubbleRadius}
-			clickFunction={this.toggleHeatBubble}
-			clickIndex={hsCounter}
- 			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
-		/>);
-	if( numHeatSinks >= 1 + hsCounter + 30 )
-
-		heatSinkDots.push(<DamageCircleSVG
-			key={heatSinkDots.length} inPlay={this.props.inPlay}
-			xLoc={this.props.xLoc + hsLeft + this.props.width / 2 + armorBubbleRadius * 4 - distanceFromCenter}
-			yLoc={this.props.yLoc + hsTop + armorBubbleRadius * lCounter * 2}
-			radius={armorBubbleRadius}
-			clickFunction={this.toggleHeatBubble}
-			clickIndex={hsCounter}
- 			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
-		/>);
-
-
 
 	lCounter++;
 	lCounter++;
@@ -616,7 +608,6 @@ export default class HeatSinksSVG extends React.Component<IHeatSinksSVGProps, IH
 			clickIndex={hsCounter}
  			isFilled={this.props.mechData.heatSinkIsFilled(hsCounter)}
 		/>);
-
 
         return (
             <RecordSheetGroupBoxSVG

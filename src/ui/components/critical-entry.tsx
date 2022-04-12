@@ -6,8 +6,6 @@ import InputNumeric from './form_elements/input_numeric';
 export default class CriticalEntry extends React.Component<ICriticalEntryProps, ICriticalEntryState> {
     showDialog: boolean = false;
 
-
-
     updateWeightDivisor = (
         e: React.FormEvent<HTMLInputElement>,
     ) => {
@@ -33,7 +31,6 @@ export default class CriticalEntry extends React.Component<ICriticalEntryProps, 
         } else {
             valueCriticalDivisor = 0;
         }
-
 
         this.props.onChangeWeightDivisor( valueCriticalDivisor );
     }

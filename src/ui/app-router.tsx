@@ -23,7 +23,6 @@ import Home from "./pages/home";
 import SettingsRouter from "./pages/settings/_router";
 let pjson = require('../../package.json');
 
-
 export default class AppRouter extends React.Component<IAppRouterProps, IAppRouterState> {
 
     constructor(props: IAppRouterProps) {
@@ -33,10 +32,8 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
         let appSettings = new AppSettings( settingsData );
 
-
         // let uiTheme: string = "";
         // let lsTheme = getData("uiTheme");
-
 
         // Don't worry about tracking individual users here, this UUID resets on every page load or refresh and is NOT tied to a machine or browser...
         // this just helps me see the flow of traffic to help folks find what they need :)
@@ -68,7 +65,6 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             toggleMobile: this.toggleMobile,
             closeMobile: this.closeMobile,
 
-
             saveAppSettings: this.saveAppSettings,
 
             favoriteASGroups: [],
@@ -88,9 +84,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             saveCBTGroupFavorite: this.saveCBTGroupFavorite,
             removeCBTGroupFavorite: this.removeCBTGroupFavorite,
 
-
             saveCurrentBattleMech: this.saveCurrentBattleMech,
-
 
             saveBattleMechSaves: this.saveBattleMechSaves,
         }
@@ -192,14 +186,12 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         appGlobals.favoriteCBTGroups = bmImportedFavorites;
         appGlobals.currentCBTForce = currentCBTForce;
 
-
         this.setState({
             appGlobals: appGlobals,
         })
     }
 
     saveBattleMechSaves = ( newValue: IBattleMechExport[] ): void => {
-
 
         let appGlobals = this.state.appGlobals;
         appGlobals.battleMechSaves = newValue;
@@ -222,7 +214,6 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         }
 
         saveAppSettings( appGlobals.appSettings.export() )
-
 
         this.setState({
             appGlobals: appGlobals,
@@ -285,7 +276,6 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         });
         saveFavoriteASGroupsObjects( appGlobals.appSettings, appGlobals.favoriteASGroups )
     }
-
 
     saveCurrentCBTForce = ( bmForce: BattleMechForce ): void => {
 
@@ -427,8 +417,6 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             appGlobals: appGlobals,
         })
     }
-
-
 
     render = (): React.ReactFragment => {
         return (
@@ -576,7 +564,6 @@ export interface IAppGlobals {
 
     battleMechSaves: IBattleMechExport[];
     saveBattleMechSaves( newValue: IBattleMechExport[]): void;
-
 
     saveCurrentCBTForce( bmForce: BattleMechForce ): void;
 

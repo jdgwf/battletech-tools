@@ -86,7 +86,6 @@ export class AppSettings {
     }
 }
 
-
 export interface IAppSettingsExport {
     uiTheme: string;
     developerMenu: boolean;

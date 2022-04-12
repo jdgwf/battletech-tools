@@ -50,7 +50,6 @@ export default class CriticalAllocationSection extends React.Component<ICritical
                         )
                     }
 
-
                 } else {
                     critItems.push (
                         <li className={"critical-placeholder critical-height-"}>

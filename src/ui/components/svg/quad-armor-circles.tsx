@@ -29,7 +29,7 @@ export default class QuadArmorCircles extends React.Component<IQuadArmorCirclesP
         return (
             <>
 
-{this.props.inPlay ? 
+{this.props.inPlay ?
     <TakeDamageButtonSVG
         x={this.armorBoxLeft + 25}
         y={this.armorBoxTop + 325}
@@ -51,7 +51,6 @@ export default class QuadArmorCircles extends React.Component<IQuadArmorCirclesP
         {this.props.mechData.getArmorAllocation().head > 7 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("hd", 7)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 0} yLoc={this.armorBoxTop + 280} radius={15} inPlay={this.props.inPlay} clickLocation="hd" clickIndex={7} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().head > 8 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("hd", 8)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 35} yLoc={this.armorBoxTop + 280} radius={15} inPlay={this.props.inPlay} clickLocation="hd" clickIndex={8} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
 
-
         {/* Center Torso Armor */}
         {this.props.mechData.getArmorAllocation().centerTorso > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ct", 0)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 65} yLoc={this.armorBoxTop + 325} radius={13} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={0} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().centerTorso > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ct", 1)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 37} yLoc={this.armorBoxTop + 325} radius={13} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={1} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
@@ -59,7 +58,6 @@ export default class QuadArmorCircles extends React.Component<IQuadArmorCirclesP
         {this.props.mechData.getArmorAllocation().centerTorso > 3 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ct", 3)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 13} yLoc={this.armorBoxTop + 325} radius={13} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={3} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().centerTorso > 4 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ct", 4)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 37} yLoc={this.armorBoxTop + 325} radius={13} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={4} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().centerTorso > 5 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ct", 5)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 65} yLoc={this.armorBoxTop + 325} radius={13} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={5} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
-
 
         {this.props.mechData.getArmorAllocation().centerTorso > 6 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ct", 6)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 65} yLoc={this.armorBoxTop + 350} radius={13} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={6} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().centerTorso > 7 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ct", 7)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 37} yLoc={this.armorBoxTop + 350} radius={13} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={7} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
@@ -120,7 +118,6 @@ export default class QuadArmorCircles extends React.Component<IQuadArmorCirclesP
         {this.props.mechData.getArmorAllocation().centerTorso > 54 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ct", 54)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 25} yLoc={this.armorBoxTop + 550} radius={13} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={54} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().centerTorso > 55 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ct", 55)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 50} yLoc={this.armorBoxTop + 550} radius={13} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={55} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
 
-
         {/* Left Torso Armor */}
         {this.props.mechData.getArmorAllocation().leftTorso > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("lt", 0)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 110} yLoc={this.armorBoxTop + 180} radius={13} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={0} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().leftTorso > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("lt", 1)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 135} yLoc={this.armorBoxTop + 180} radius={13} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={1} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
@@ -175,8 +172,6 @@ export default class QuadArmorCircles extends React.Component<IQuadArmorCirclesP
         {this.props.mechData.getArmorAllocation().leftTorso > 43 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("lt", 43)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 160} yLoc={this.armorBoxTop + 355} radius={13} inPlay={this.props.inPlay}  clickLocation="lt" clickIndex={43} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().leftTorso > 44 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("lt", 44)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 185} yLoc={this.armorBoxTop + 355} radius={13} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={44} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().leftTorso > 45 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("lt", 45)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 210} yLoc={this.armorBoxTop + 355} radius={13} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={45} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
-
-
 
         {/* Right Torso Armor */}
         {this.props.mechData.getArmorAllocation().rightTorso > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("rt", 0)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 110} yLoc={this.armorBoxTop + 180} radius={13} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={0} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
@@ -233,8 +228,6 @@ export default class QuadArmorCircles extends React.Component<IQuadArmorCirclesP
         {this.props.mechData.getArmorAllocation().rightTorso > 44 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("rt", 44)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 185} yLoc={this.armorBoxTop + 355} radius={13} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={44} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().rightTorso > 45 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("rt", 45)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 210} yLoc={this.armorBoxTop + 355} radius={13} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={45} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
 
-
-
         {/* Left Front Leg Armor */}
         {this.props.mechData.getArmorAllocation().leftArm > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("la", 0)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 210} yLoc={this.armorBoxTop + 450} radius={13} inPlay={this.props.inPlay} clickLocation="la" clickIndex={0} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().leftArm > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("la", 1)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 212} yLoc={this.armorBoxTop + 475} radius={13} inPlay={this.props.inPlay} clickLocation="la" clickIndex={1} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
@@ -254,7 +247,6 @@ export default class QuadArmorCircles extends React.Component<IQuadArmorCirclesP
         {this.props.mechData.getArmorAllocation().leftArm > 13 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("la", 13)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 236} yLoc={this.armorBoxTop + 795} radius={13} inPlay={this.props.inPlay} clickLocation="la" clickIndex={13} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().leftArm > 14 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("la", 14)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 238} yLoc={this.armorBoxTop + 820} radius={13} inPlay={this.props.inPlay} clickLocation="la" clickIndex={14} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
 
-
         {this.props.mechData.getArmorAllocation().leftArm > 15 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("la", 15)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 185} yLoc={this.armorBoxTop + 450} radius={13} inPlay={this.props.inPlay} clickLocation="la" clickIndex={15} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().leftArm > 16 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("la", 16)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 187} yLoc={this.armorBoxTop + 475} radius={13} inPlay={this.props.inPlay} clickLocation="la" clickIndex={16} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().leftArm > 17 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("la", 17)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 189} yLoc={this.armorBoxTop + 500} radius={13} inPlay={this.props.inPlay} clickLocation="la" clickIndex={17} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
@@ -273,7 +265,6 @@ export default class QuadArmorCircles extends React.Component<IQuadArmorCirclesP
         {this.props.mechData.getArmorAllocation().leftArm > 28 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("la", 28)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 211} yLoc={this.armorBoxTop + 795} radius={13} inPlay={this.props.inPlay} clickLocation="la" clickIndex={28} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().leftArm > 29 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("la", 29)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 213} yLoc={this.armorBoxTop + 820} radius={13} inPlay={this.props.inPlay} clickLocation="la" clickIndex={29} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
 
-
         {this.props.mechData.getArmorAllocation().leftArm > 30 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("la", 30)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 160} yLoc={this.armorBoxTop + 450} radius={13} inPlay={this.props.inPlay} clickLocation="la" clickIndex={30} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().leftArm > 31 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("la", 31)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 162} yLoc={this.armorBoxTop + 475} radius={13} inPlay={this.props.inPlay} clickLocation="la" clickIndex={31} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().leftArm > 32 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("la", 32)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 164} yLoc={this.armorBoxTop + 500} radius={13} inPlay={this.props.inPlay} clickLocation="la" clickIndex={32} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
@@ -291,7 +282,6 @@ export default class QuadArmorCircles extends React.Component<IQuadArmorCirclesP
         {this.props.mechData.getArmorAllocation().leftArm > 42 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("la", 42)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 184} yLoc={this.armorBoxTop + 770} radius={13} inPlay={this.props.inPlay} clickLocation="la" clickIndex={42} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().leftArm > 43 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("la", 43)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 186} yLoc={this.armorBoxTop + 795} radius={13} inPlay={this.props.inPlay} clickLocation="la" clickIndex={43} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().leftArm > 44 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("la", 44)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 188} yLoc={this.armorBoxTop + 820} radius={13} inPlay={this.props.inPlay} clickLocation="la" clickIndex={44} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
-
 
         {/* Right Front Leg Armor */}
         {this.props.mechData.getArmorAllocation().rightArm > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ra", 0)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 210} yLoc={this.armorBoxTop + 450} radius={13} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={0} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
@@ -312,7 +302,6 @@ export default class QuadArmorCircles extends React.Component<IQuadArmorCirclesP
         {this.props.mechData.getArmorAllocation().rightArm > 13 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ra", 13)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 236} yLoc={this.armorBoxTop + 795} radius={13} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={13} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().rightArm > 14 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ra", 14)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 238} yLoc={this.armorBoxTop + 820} radius={13} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={14} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
 
-
         {this.props.mechData.getArmorAllocation().rightArm > 15 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ra", 15)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 185} yLoc={this.armorBoxTop + 450} radius={13} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={15} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().rightArm > 16 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ra", 16)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 187} yLoc={this.armorBoxTop + 475} radius={13} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={16} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().rightArm > 17 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ra", 17)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 189} yLoc={this.armorBoxTop + 500} radius={13} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={17} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
@@ -331,7 +320,6 @@ export default class QuadArmorCircles extends React.Component<IQuadArmorCirclesP
         {this.props.mechData.getArmorAllocation().rightArm > 28 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ra", 28)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 211} yLoc={this.armorBoxTop + 795} radius={13} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={28} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().rightArm > 29 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ra", 29)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 213} yLoc={this.armorBoxTop + 820} radius={13} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={29} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
 
-
         {this.props.mechData.getArmorAllocation().rightArm > 30 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ra", 30)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 160} yLoc={this.armorBoxTop + 450} radius={13} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={30} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().rightArm > 31 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ra", 31)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 162} yLoc={this.armorBoxTop + 475} radius={13} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={31} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().rightArm > 32 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ra", 32)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 164} yLoc={this.armorBoxTop + 500} radius={13} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={32} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
@@ -349,7 +337,6 @@ export default class QuadArmorCircles extends React.Component<IQuadArmorCirclesP
         {this.props.mechData.getArmorAllocation().rightArm > 42 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ra", 42)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 184} yLoc={this.armorBoxTop + 770} radius={13} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={42} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().rightArm > 43 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ra", 43)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 186} yLoc={this.armorBoxTop + 795} radius={13} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={43} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().rightArm > 44 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ra", 44)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 188} yLoc={this.armorBoxTop + 820} radius={13} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={44} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
-
 
         {/* Left Rear Leg Armor */}
         {this.props.mechData.getArmorAllocation().leftLeg > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ll", 0)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 105} yLoc={this.armorBoxTop + 450} radius={13} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={0} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
@@ -394,7 +381,6 @@ export default class QuadArmorCircles extends React.Component<IQuadArmorCirclesP
         {this.props.mechData.getArmorAllocation().leftLeg > 33 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ll", 33)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 74} yLoc={this.armorBoxTop + 790} radius={13} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={33} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().leftLeg > 34 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ll", 34)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 75} yLoc={this.armorBoxTop + 815} radius={13} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={34} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
 
-
         {this.props.mechData.getArmorAllocation().leftLeg > 35 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ll", 35)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 120} yLoc={this.armorBoxTop + 850} radius={13} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={35} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().leftLeg > 36 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ll", 36)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 95} yLoc={this.armorBoxTop + 850} radius={13} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={36} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().leftLeg > 37 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ll", 37)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 70} yLoc={this.armorBoxTop + 850} radius={13} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={37} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
@@ -405,10 +391,8 @@ export default class QuadArmorCircles extends React.Component<IQuadArmorCirclesP
         {this.props.mechData.getArmorAllocation().leftLeg > 41 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ll", 41)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 70} yLoc={this.armorBoxTop + 875} radius={13} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={41} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().leftLeg > 42 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ll", 42)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 45} yLoc={this.armorBoxTop + 875} radius={13} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={42} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
 
-
         {this.props.mechData.getArmorAllocation().leftLeg > 43 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ll", 43)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 95} yLoc={this.armorBoxTop + 900} radius={13} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={43} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().leftLeg > 44 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ll", 44)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 70} yLoc={this.armorBoxTop + 900} radius={13} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={44} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
-
 
         {/* Right Rear Leg Armor */}
         {this.props.mechData.getArmorAllocation().rightLeg > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("rl", 0)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 105} yLoc={this.armorBoxTop + 450} radius={13} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={0} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
@@ -453,7 +437,6 @@ export default class QuadArmorCircles extends React.Component<IQuadArmorCirclesP
         {this.props.mechData.getArmorAllocation().rightLeg > 33 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("rl", 33)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 74} yLoc={this.armorBoxTop + 790} radius={13} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={33} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().rightLeg > 34 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("rl", 34)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 75} yLoc={this.armorBoxTop + 815} radius={13} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={34} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
 
-
         {this.props.mechData.getArmorAllocation().rightLeg > 35 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("rl", 35)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 120} yLoc={this.armorBoxTop + 850} radius={13} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={35} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().rightLeg > 36 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("rl", 36)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 95} yLoc={this.armorBoxTop + 850} radius={13} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={36} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().rightLeg > 37 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("rl", 37)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 70} yLoc={this.armorBoxTop + 850} radius={13} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={37} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
@@ -464,10 +447,8 @@ export default class QuadArmorCircles extends React.Component<IQuadArmorCirclesP
         {this.props.mechData.getArmorAllocation().rightLeg > 41 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("rl", 41)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 70} yLoc={this.armorBoxTop + 875} radius={13} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={41} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().rightLeg > 42 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("rl", 42)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 45} yLoc={this.armorBoxTop + 875} radius={13} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={42} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
 
-
         {this.props.mechData.getArmorAllocation().rightLeg > 43 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("rl", 43)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 95} yLoc={this.armorBoxTop + 900} radius={13} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={43} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().rightLeg > 44 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("rl", 44)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 + 70} yLoc={this.armorBoxTop + 900} radius={13} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={44} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
-
 
         {/* Center Torso Rear Armor */}
         {this.props.mechData.getArmorAllocation().centerTorsoRear > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("ctr", 0)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 35} yLoc={this.armorBoxTop + 1005} radius={13} inPlay={this.props.inPlay} clickLocation="ctr" clickIndex={0} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}

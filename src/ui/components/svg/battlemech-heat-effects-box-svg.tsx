@@ -4,7 +4,6 @@ import RecordSheetGroupBoxSVG from './record-sheet-group-box-svg';
 
 export default class BattleMechHeatEffectsBoxSVG extends React.Component<IBattleMechHeatEffectsBoxSVGProps, IBattleMechHeatEffectsBoxSVGState> {
 
-
     constructor(props: IBattleMechHeatEffectsBoxSVGProps) {
         super( props );
         this.state = {
@@ -16,7 +15,6 @@ export default class BattleMechHeatEffectsBoxSVG extends React.Component<IBattle
 
         let effectsTable: React.ReactFragment[] = [];
 
-
 	// Heat Effects....
 	// let this.props.yLoc = 1885;
 	// let this.props.xLoc = 1240;
@@ -26,7 +24,6 @@ export default class BattleMechHeatEffectsBoxSVG extends React.Component<IBattle
 
 	let hCounter = 0;
 	let lineHeight = 27;
-
 
 	let bgColor = "rgb(255,255,255)";
     let strokeColor = "rgb(0,0,0)";
@@ -95,7 +92,6 @@ export default class BattleMechHeatEffectsBoxSVG extends React.Component<IBattle
 	effectsTable.push(<text key={hCounter.toString() + "a"}  x={this.props.xLoc + col1Loc + 20} y={this.props.yLoc + 75 + lineHeight * hCounter} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 500}} fontSize={lineHeight - 3}>14</text>);
 	effectsTable.push(<text key={hCounter.toString() + "b"}  x={this.props.xLoc + col2Loc + 20} y={this.props.yLoc + 75 + lineHeight * hCounter} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 500}} fontSize={lineHeight - 3}>Shutdown Avoid on 4+</text>);
 
-
 	hCounter++;
 	effectsTable.push(<text key={hCounter.toString() + "a"}  x={this.props.xLoc + col1Loc + 20} y={this.props.yLoc + 75 + lineHeight * hCounter} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 500}} fontSize={lineHeight - 3}>13</text>);
 	effectsTable.push(<text key={hCounter.toString() + "b"}  x={this.props.xLoc + col2Loc + 20} y={this.props.yLoc + 75 + lineHeight * hCounter} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 500}} fontSize={lineHeight - 3}>+2 Modifier to Fire</text>);
@@ -104,7 +100,6 @@ export default class BattleMechHeatEffectsBoxSVG extends React.Component<IBattle
 	effectsTable.push(<text key={hCounter.toString() + "a"}  x={this.props.xLoc + col1Loc + 20} y={this.props.yLoc + 75 + lineHeight * hCounter} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 500}} fontSize={lineHeight - 3}>10</text>);
 	effectsTable.push(<text key={hCounter.toString() + "b"}  x={this.props.xLoc + col2Loc + 20} y={this.props.yLoc + 75 + lineHeight * hCounter} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 500}} fontSize={lineHeight - 3}>-2 Movement Points</text>);
 
-
 	hCounter++;
 	effectsTable.push(<text key={hCounter.toString() + "a"}  x={this.props.xLoc + col1Loc + 20} y={this.props.yLoc + 75 + lineHeight * hCounter} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 500}} fontSize={lineHeight - 3}>8</text>);
 	effectsTable.push(<text key={hCounter.toString() + "b"}  x={this.props.xLoc + col2Loc + 20} y={this.props.yLoc + 75 + lineHeight * hCounter} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 500}} fontSize={lineHeight - 3}>+1 Modifier to Fire</text>);
@@ -112,7 +107,6 @@ export default class BattleMechHeatEffectsBoxSVG extends React.Component<IBattle
 	hCounter++;
 	effectsTable.push(<text key={hCounter.toString() + "a"}  x={this.props.xLoc + col1Loc + 20} y={this.props.yLoc + 75 + lineHeight * hCounter} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 500}} fontSize={lineHeight - 3}>5</text>);
 	effectsTable.push(<text key={hCounter.toString() + "b"}  x={this.props.xLoc + col2Loc + 20} y={this.props.yLoc + 75 + lineHeight * hCounter} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 500}} fontSize={lineHeight - 3}>-1 Movement Points</text>);
-
 
         return (
             <RecordSheetGroupBoxSVG

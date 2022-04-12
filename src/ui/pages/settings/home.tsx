@@ -9,7 +9,6 @@ import UIPage from '../../components/ui-page';
 export default class SettingsHome extends React.Component<ISettingsHomeProps, ISettingsHomeState> {
     // [openPicker, data, authResponse] = useDrivePicker();
 
-
     constructor(props: ISettingsHomeProps) {
         super(props);
         this.state = {
@@ -17,11 +16,8 @@ export default class SettingsHome extends React.Component<ISettingsHomeProps, IS
             selectedStorageTarget: this.props.appGlobals.appSettings.storageLocation,
         }
 
-
-
         this.props.appGlobals.makeDocumentTitle("Settings");
     }
-
 
     setUITheme = ( event: React.FormEvent<HTMLSelectElement>): void => {
       let appSettingsHome = this.props.appGlobals.appSettings;
@@ -61,8 +57,6 @@ export default class SettingsHome extends React.Component<ISettingsHomeProps, IS
                       <option value="retro">Retro</option>
                     </select>
                   </label>
-
-
 
                   <InputCheckbox
                   label='Show Developer/Work In Progress Menu'

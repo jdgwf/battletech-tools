@@ -11,15 +11,12 @@ import UIPage from '../../../components/ui-page';
 import './home.scss';
 import BattleMechTableGroup from './_tableGroup';
 
-
-
 export default class BattleMechRosterHome extends React.Component<IHomeProps, IHomeState> {
 
     fileReader: FileReader | null = null;
 
     constructor(props: IHomeProps) {
         super(props);
-
 
         this.state = {
             updated: false,
@@ -29,7 +26,6 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
         }
 
         this.props.appGlobals.makeDocumentTitle("Alpha Strike Roster");
-
 
     }
 
@@ -158,7 +154,6 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
       }
     }
 
-
     render = (): React.ReactFragment => {
       return (
         <>
@@ -168,8 +163,6 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
   editBMUnit={this.state.editBMUnit}
   closeShowUnitDialog={this.closeShowUnitDialog}
 /> */}
-
-
 
         <UIPage current="classic-battletech-roster" appGlobals={this.props.appGlobals}>
 
@@ -272,14 +265,12 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
                         </div>
                     </div>
 
-
                     <BattleMechTableGroup
                       appGlobals={this.props.appGlobals}
                       bmGroupIndex={bmGroupIndex}
                       showAdd={true}
                       showEdit={true}
                     />
-
 
                       </fieldset>
                     )
@@ -455,14 +446,8 @@ interface IHomeProps {
 interface IHomeState {
   updated: boolean;
 
-
   // searchText: string;
   showBMUnit: BattleMech | null;
   editBMUnit: boolean;
-
-
-
-
-
 
 }

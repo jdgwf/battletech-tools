@@ -74,7 +74,6 @@ export default class DamageCircleSVG extends React.Component<IDamageCircleSVGPro
     }
 }
 
-
 interface IDamageCircleSVGProps {
     bgColor?: string;
     isFilled?: boolean;
@@ -92,7 +91,4 @@ interface IDamageCircleSVGProps {
 
 interface IDamageCircleSVGState {
 }
-
-
-
 

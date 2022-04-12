@@ -21,8 +21,6 @@ export default class QuadArmorDiagramSVG extends React.Component<IQuadArmorDiagr
             this.strokeColor = this.props.strokeColor;
         }
 
-
-
         if( this.props.width ) {
             this.theWidth = this.props.width;
             this.theHeight = Math.round( this.props.width / this.baseWidth * this.baseHeight );
@@ -48,8 +46,6 @@ export default class QuadArmorDiagramSVG extends React.Component<IQuadArmorDiagr
     }
 
     render = (): React.ReactFragment => {
-
-
 
         // var svg = "";
 

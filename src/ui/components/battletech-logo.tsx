@@ -2,8 +2,6 @@ import React from 'react';
 
 export default class BattleTechLogo extends React.Component<IBattleTechLogoProps, IBattleTechLogoState> {
 
-
-
     render = (): React.ReactFragment => {
         let width = 210;
         let height = 28;
@@ -12,7 +10,6 @@ export default class BattleTechLogo extends React.Component<IBattleTechLogoProps
         let baseColor: string = "rgb(253,253,227)";
         let altColor: string = "rgb(223,171,45)";
         let bottomAltColor: string = "rgb(223,171,45)";
-
 
         var baseWidth = 210;
         var baseHeight = 28;
@@ -46,7 +43,6 @@ export default class BattleTechLogo extends React.Component<IBattleTechLogoProps
         if( this.props.bottomAltColor ) {
             bottomAltColor = this.props.bottomAltColor;
         }
-        
 
         return (
             <svg

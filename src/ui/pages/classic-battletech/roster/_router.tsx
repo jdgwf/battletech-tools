@@ -12,7 +12,6 @@ export default class BattleMechRosterRouter extends React.Component<IBattleMechR
         return(
             <Routes>
 
-
                 <Route path={``} element={
                     <Home
                         appGlobals={this.props.appGlobals}
@@ -24,7 +23,7 @@ export default class BattleMechRosterRouter extends React.Component<IBattleMechR
                         appGlobals={this.props.appGlobals}
                     />
                 }/>
-               
+
                 <Route path={`/print`} element={
                     <PrintSheet
                         appGlobals={this.props.appGlobals}

@@ -46,7 +46,6 @@ export default class SVGGroupBox extends React.Component<ISVGGroupBoxProps, ISVG
 
 }
 
-
 interface ISVGGroupBoxProps {
     bgColor?: string;
     strokeColor?: string;

@@ -21,11 +21,8 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
             updated: false,
         }
 
-
         this.props.appGlobals.makeDocumentTitle("Step 4 | 'Mech Creator");
     }
-
-
 
     allocateSanely = (): void => {
       if( this.props.appGlobals.currentBattleMech ) {
@@ -34,7 +31,6 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
     }
-
 
     allocateMax = (): void => {
       if( this.props.appGlobals.currentBattleMech ) {
@@ -134,9 +130,6 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
       }
     }
 
-
-
-
     render = (): React.ReactFragment => {
       if(!this.props.appGlobals.currentBattleMech) {
         return <></>
@@ -164,8 +157,6 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                       <TextSection
                         label="Step 4: Add armor"
                       >
-
-
 
                           <div className="row">
                             <div className="col-xs-12 col-md-6">
@@ -289,7 +280,6 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
     </select>
   </label>
 
-
   <label className="armor-select-dropdown lt">
     <div className="title">LT</div>
     <select
@@ -320,7 +310,6 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
     </select>
   </label>
 
-
   <label className="armor-select-dropdown ctr">
       <div className="title">CT (R)</div>
     <select
@@ -336,7 +325,6 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
       })}
     </select>
   </label>
-
 
   <label className="armor-select-dropdown ltr">
     <div className="title">LT (R)</div>
@@ -367,7 +355,6 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
       })}
     </select>
   </label>
-
 
   <label className="armor-select-dropdown la">
     <div className="title">LA</div>
@@ -447,7 +434,6 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
       strokeColor="rgb(100,100,100)"
     />
 
-
 <label className="armor-select-dropdown hd">
     <div className="title">HD</div>
     <select
@@ -479,7 +465,6 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
     </select>
   </label>
 
-
   <label className="armor-select-dropdown lt">
     <div className="title">LT</div>
     <select
@@ -510,7 +495,6 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
     </select>
   </label>
 
-
   <label className="armor-select-dropdown ctr">
       <div className="title">CT (R)</div>
     <select
@@ -526,7 +510,6 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
       })}
     </select>
   </label>
-
 
   <label className="armor-select-dropdown ltr">
     <div className="title">LT (R)</div>
@@ -558,7 +541,6 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
     </select>
   </label>
 
-
   <label className="armor-select-dropdown lfl">
     <div className="title">LFL</div>
     <select
@@ -588,7 +570,6 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
       })}
     </select>
   </label>
-
 
     <label className="armor-select-dropdown lrl">
     <div className="title">LRL</div>
@@ -628,7 +609,6 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
   </>
 )}
 
-
                           </fieldset>
 
                           <div className="clear-both overflow-hidden">
@@ -654,7 +634,6 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
               </div>
 
             </div>
-
 
           </UIPage>
         </>

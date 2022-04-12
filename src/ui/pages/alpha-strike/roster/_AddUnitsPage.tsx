@@ -20,8 +20,6 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         this.updateSearchResults();
     }
 
-
-
     toggleContextMenuSearch = ( searchIndex: number ): void => {
         let newIndex: number = -1;
         if( this.state.contextMenuSearch !== searchIndex) {
@@ -33,7 +31,6 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
         })
       }
-
 
     updateSearch = ( event: React.FormEvent<HTMLInputElement> ): void => {
 
@@ -52,10 +49,8 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       appSettings.alphaStrikeSearchRules = event.currentTarget.value;
       this.props.appGlobals.saveAppSettings( appSettings );
 
-
       this.updateSearchResults();
     }
-
 
     updateTech = ( event: React.FormEvent<HTMLSelectElement> ): void => {
 
@@ -63,8 +58,6 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
       appSettings.alphaStrikeSearchTech = event.currentTarget.value;
       this.props.appGlobals.saveAppSettings( appSettings );
-
-
 
       this.updateSearchResults();
     }
@@ -118,7 +111,6 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       if(!this.props.appGlobals.currentASForce) {
         return <></>
       }
-
 
         return(
             <>
@@ -218,7 +210,6 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                         <th>&nbsp;</th>
                         <th colSpan={6}>Notes</th>
 
-
                       </tr>
                     </thead>
 
@@ -230,7 +221,6 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                             <tbody key={unitIndex}>
                             <tr>
                               <td className="text-left min-width no-wrap">
-
 
 {this.props.appGlobals.currentASForce && this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
   (
@@ -304,7 +294,6 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                                   </>
                                 ) : null}
 
-
                               </td>
                             </tr>
                             </tbody>
@@ -332,7 +321,6 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                       )}
                       </>
                     )}
-
 
                   </table>
     </>
@@ -364,7 +352,6 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                         <th>&nbsp;</th>
                         <th colSpan={3}>Notes</th>
 
-
                       </tr>
                     </thead>
 
@@ -378,7 +365,6 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                 <tbody key={unitIndex}>
                 <tr>
                   <td className="text-left min-width no-wrap">
-
 
 {this.props.appGlobals.currentASForce && this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
 (
@@ -452,7 +438,6 @@ title="View this unit's Alpha Strike Card"
                       </>
                     ) : null}
 
-
                   </td>
                 </tr>
                 </tbody>
@@ -467,7 +452,6 @@ title="View this unit's Alpha Strike Card"
         )
     }
 }
-
 
 interface IAlphaStrikeAddUnitsViewProps {
     appGlobals: IAppGlobals;

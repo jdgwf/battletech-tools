@@ -17,7 +17,6 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
         this.props.appGlobals.makeDocumentTitle("Printing CBT Force");
     }
 
-
     render = (): React.ReactFragment => {
       if(!this.props.appGlobals.currentCBTForce) {
         return <></>;
@@ -173,11 +172,7 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                     )
                   })}
 
-
-
-
               </div>
-
 
             </React.Fragment>
             )
@@ -191,7 +186,6 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
               <p>MechWarrior, BattleMech, ‘Mech and AeroTech are registered trademarks of The Topps Company, Inc. All Rights Reserved.</p>
             </footer> */}
             {/* <header className="print-header">&nbsp;</header> */}
-
 
         </>
       );

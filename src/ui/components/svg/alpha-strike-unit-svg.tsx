@@ -227,7 +227,6 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     <></>
                 )}
 
-
                 <text x="540" y="140" fontFamily="sans-serif" textAnchor="end" fontSize="25">MV: {this.props.asUnit.currentMove.toUpperCase()}</text>
                 <text x="30" y="180" fontFamily="sans-serif" fontSize="25">ROLE: {this.props.asUnit.role.toUpperCase()}</text>
                 <text x="540" y="180" fontFamily="sans-serif" textAnchor="end" fontSize="25">SKILL: {this.props.asUnit.currentSkill}</text>
@@ -384,10 +383,8 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 <rect className="cursor-pointer" onClick={() => this.takeDamage(2)} x="140" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
                 <text className="cursor-pointer" onClick={() => this.takeDamage(2)} x="153" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>2</text>
 
-
                 <rect className="cursor-pointer" onClick={() => this.takeDamage(3)} x="190" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
                 <text className="cursor-pointer" onClick={() => this.takeDamage(3)} x="203" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>3</text>
-
 
                 <rect className="cursor-pointer" onClick={() => this.takeDamage(4)} x="240" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
                 <text className="cursor-pointer" onClick={() => this.takeDamage(4)} x="253" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>4</text>
@@ -466,8 +463,6 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 <text x="785" y="275" textAnchor="middle" fontFamily="sans-serif" fontSize="25">CRITICAL HITS</text>
                 {/* End Outline Box and Title */}
 
-
-
                 {this.props.asUnit.type.toLowerCase() !== "pm" ? (
 
                     <>
@@ -499,7 +494,6 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                                 </React.Fragment>
                             )
                         })}
-
 
                         <text x="750" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">+1 Heat/Firing Weapons</text>
                         {critLineStart += this.critLineHeight}
@@ -537,7 +531,6 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 })}
                 <text x="750" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">+2 To Hit Each</text>
                 {critLineStart += this.critLineHeight}
-
 
                 {this.props.asUnit.type.toLowerCase() === 'bm' || this.props.asUnit.type.toLowerCase() === 'pm' ? (
                     <>
@@ -639,7 +632,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
                 {this.props.asUnit.isWrecked() ? (
                     <>
-                    <text x="50" y="100" fontFamily="sans-serif" transform="rotate( 30, 50, 100)" fontSize="150" stroke="rgb(255,255,255)" strokeWidth="4" fill="rgb(200,0,0)">WRECKED</text>
+                    <text x="50" y="100" fontFamily="sans-serif" transform="rotate( 30, 50, 100)" fontSize="150" stroke="rgb(0,0,0)" strokeWidth="4" fill="rgb(200,0,0)">WRECKED</text>
                     </>
                 ) : (
                     <></>

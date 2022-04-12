@@ -47,8 +47,6 @@ export default class BipedRearArmorDiagramSVG extends React.Component<IBipedRear
 
     render = (): React.ReactFragment => {
 
-
-
         // var svg = "";
 
         // if( standAlone ) {

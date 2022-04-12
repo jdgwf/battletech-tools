@@ -4,7 +4,6 @@ import InputCheckbox from './form_elements/input_checkbox';
 import InputNumeric from './form_elements/input_numeric';
 import TextAreaField from './form_elements/textarea_field';
 
-
 export default class AlphaStrikeEquipmentEntry extends React.Component<IAlphaStrikeEquipmentEntryProps, IAlphaStrikeEquipmentEntryState> {
     showDialog: boolean = false;
 

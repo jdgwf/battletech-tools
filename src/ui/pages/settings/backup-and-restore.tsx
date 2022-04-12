@@ -108,7 +108,6 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
       })
     }
 
-
     selectFile = async (e: React.FormEvent<HTMLInputElement>): Promise<void> => {
       e.preventDefault();
       if( e.currentTarget.files && e.currentTarget.files.length > 0 ) {
@@ -126,7 +125,6 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
     handleFileRead = (e: any) => {
       if( this.fileReader ) {
         let content = this.fileReader.result;
-
 
         try {
           if( content ) {
@@ -159,7 +157,6 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
               })
             }
 
-
             return;
             // let btData = this.props.appGlobals.battleMechSaves;
             // for( let item of data ) {
@@ -182,9 +179,7 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
       }
     }
 
-
     render = (): React.ReactFragment => {
-
 
       let restoreFileName = this.restoreFileName + "-" + (new Date()).toLocaleString() + ".json";
       return (

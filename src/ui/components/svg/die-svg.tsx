@@ -4,7 +4,6 @@ import React from 'react';
 
 export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> {
 
-
     constructor(props: IDieSVGProps) {
         super(props);
 
@@ -49,7 +48,7 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
         if( this.props.pipColor ) {
             pipColor = this.props.pipColor;
         }
-        
+
         let pipRadius = width / 7;
 
         let pips: React.ReactFragment[] = [];
@@ -130,8 +129,6 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
                         className={this.props.className}
                     />
                 )
-
-
 
                 break;
             }
@@ -357,20 +354,19 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
                     ) : (
                         <>{this.props.numberPips}</>
                     )}
-                    
+
                 </text>
                 </>
             ) : (
                 <>{pips}</>
             )}
-            
+
         </>
         )
 
     }
 
 }
-
 
 interface IDieSVGProps {
     bgColor?: string;
@@ -386,7 +382,4 @@ interface IDieSVGProps {
 
 interface IDieSVGState {
 }
-
-
-
 

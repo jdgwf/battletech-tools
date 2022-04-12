@@ -16,7 +16,6 @@ export default class RecordSheetGroupBoxSVG extends React.Component<IRecordSheet
         let labelLeft = 35;
         let title = "";
 
-
         if( this.props.bgColor ) {
             bgColor = this.props.bgColor;
         }
@@ -109,7 +108,6 @@ export default class RecordSheetGroupBoxSVG extends React.Component<IRecordSheet
     }
 
 }
-
 
 interface IRecordSheetGroupBoxSVGProps {
     bgColor?: string;

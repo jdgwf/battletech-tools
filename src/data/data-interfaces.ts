@@ -21,7 +21,6 @@ export interface IArmorType {
     available?: boolean;
 }
 
-
 export interface IEngineOption {
 	name: string;
 	rating: number;
@@ -54,7 +53,7 @@ export interface IEngineType {
 	introduced: number;
 	extinct: number;
 	reintroduced: number;
-    criticals?: {
+    criticals: {
         [key: string]: ICritialLocations;
     },
     rating: number;
@@ -83,7 +82,6 @@ export interface IRangeNumbers {
     long: number;
     extreme?: number;
 }
-
 
 export interface IEquipmentItem {
     uuid?: string;

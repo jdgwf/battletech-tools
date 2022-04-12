@@ -24,7 +24,6 @@ export default class MechCreatorStatusBar extends React.Component<IMechCreatorSt
                 <><span className="no-wrap inline-block"><strong>Heat Summary</strong>: <span className="color-red">{this.props.appGlobals.currentBattleMech.getHeatSummary()}</span></span></>
             )}
 
-
           </div>
       );
     }

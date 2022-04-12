@@ -19,7 +19,6 @@ export default class QuadDamageTransferDiagramSVG extends React.Component<IQuadD
             this.strokeColor = this.props.strokeColor;
         }
 
-
         let baseWidth = 744.09448819;
         let baseHeight = 1052.3622047;
         if( this.props.width ) {
@@ -47,8 +46,6 @@ export default class QuadDamageTransferDiagramSVG extends React.Component<IQuadD
     }
 
     render = (): React.ReactFragment => {
-
-
 
         // var svg = "";
 

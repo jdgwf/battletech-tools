@@ -11,9 +11,6 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
         this.props.appGlobals.makeDocumentTitle("Development Status");
     }
 
-
-
-
     render = (): React.ReactFragment => {
       return (
         <UIPage current="dev-status" appGlobals={this.props.appGlobals}>
@@ -47,7 +44,6 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
 
                   </TextSection>
 
-
               <TextSection
                 label="Alpha Strike Roster"
                 className="grow with-margins large-max-width-50"
@@ -68,8 +64,6 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                       <li><del>Group Favorites</del></li>
                       <li><del>Printable AS Rosters</del></li>
                     </ul>
-
-
 
                   </TextSection>
 
@@ -114,8 +108,6 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                     </ul>
 
                   </TextSection>
-
-
 
               <TextSection
             label="Classic BattleTech Roster"

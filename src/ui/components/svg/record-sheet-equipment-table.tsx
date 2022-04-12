@@ -159,12 +159,9 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
                 equipmentList.push( <text key={ eq_count.toString() + "b"} x={wacCol1 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].count}</text> );
             }
 
-
-
             rearDesignation = "";
             if(  this.props.mechData.equipmentList[ eq_count].rear )
                 rearDesignation = " [R]"
-
 
             if( ammoPerTon && isAmmo )
                 equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "c"} x={wacCol2 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].name + rearDesignation} {this.props.mechData.equipmentList[ eq_count].ammoPerTon}</text> );
@@ -200,7 +197,6 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
 
             } else {
 
-
                 if(!isAmmo && !isEquipment) {
 
                     if(this.props.mechData.equipmentList[eq_count].range.min === 0)
@@ -211,7 +207,6 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
                     equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "m"} x={wacCol8 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].range.medium}</text> );
                     equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "n"} x={wacCol9 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].range.long}</text> );
                 }
-
 
             }
         }

@@ -28,7 +28,6 @@ export default class AlphaStrikeForce {
     public turn: number = 1;
     public phase: number = 0;
 
-
     constructor(importObj: IASForceExport | null = null ) {
         if( importObj ) {
             this.import(importObj);
@@ -125,7 +124,6 @@ export default class AlphaStrikeForce {
         return this.groups.length;
     }
 
-
     public getTotalUnits(): number {
         let returnValue: number = 0;
 
@@ -135,8 +133,6 @@ export default class AlphaStrikeForce {
 
         return returnValue;
     }
-
-
 
     public getTotalPoints(): number {
         let returnValue: number = 0;

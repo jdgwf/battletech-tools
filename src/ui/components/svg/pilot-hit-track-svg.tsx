@@ -20,7 +20,6 @@ export default class PilotHitTrackSVG extends React.Component<IPilotHitTrackSVGP
             this.strokeColor = this.props.strokeColor;
         }
 
-
         let baseWidth = 744.09448819;
         let baseHeight = 1052.3622047;
         if( this.props.width ) {
@@ -40,7 +39,6 @@ export default class PilotHitTrackSVG extends React.Component<IPilotHitTrackSVGP
     }
 
     render = (): React.ReactFragment => {
-
 
         let damageTrack: React.ReactFragment[] = [];
 
@@ -175,10 +173,7 @@ interface IPilotHitTrackSVGProps {
 
     width?: number;
 
-
     height: number;
-
-
 
     pilot: IPilot;
 }

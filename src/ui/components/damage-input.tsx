@@ -31,7 +31,6 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
         }
         let item = this.props.editingItem;
 
-
         if(
             ( !this.props.editingItem.damageClusters || this.props.editingItem.damageClusters === 0 )
             &&
@@ -44,7 +43,6 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
             this.props.editingItem.damageClusters = 0;
             this.props.editingItem.damagePerCluster = 0;
         }
-
 
         this.props.onChange( item );
     }
@@ -69,7 +67,6 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
         } else {
             item.damage = 0;
         }
-
 
         this.props.onChange( item );
     }
@@ -109,7 +106,6 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
 
         this.props.onChange( item );
     }
-
 
     updateDamageClusters = (
         e: React.FormEvent<HTMLInputElement>,

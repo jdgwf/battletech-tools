@@ -47,8 +47,6 @@ export default class QuadInternalStructureDiagramSVG extends React.Component<IQu
 
     render = (): React.ReactFragment => {
 
-
-
         // var svg = "";
 
         // if( standAlone ) {

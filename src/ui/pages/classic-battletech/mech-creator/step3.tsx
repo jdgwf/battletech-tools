@@ -21,8 +21,6 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
 
     }
 
-
-
     setAdditionalHeatSinks = ( event: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
@@ -38,8 +36,6 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
     }
-
-
 
     render = (): React.ReactFragment => {
       if(!this.props.appGlobals.currentBattleMech)
@@ -66,8 +62,6 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
                       <TextSection
                         label="Step 3: Add additional heat sinks"
                       >
-
-
 
                           <p className="text-center">Your BattleMech includes 10 heat sinks.</p>
 
@@ -108,7 +102,6 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
                               ) : (
                                 <p className="text-center">No additional critical slots are required for your engine class and selected heat sinks</p>
                               )}
-
 
                           <div className="clear-both overflow-hidden">
                             <hr />

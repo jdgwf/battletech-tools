@@ -7,7 +7,6 @@ import './available-equipment.scss';
 
 export default class AvailableEquipment extends React.Component<IAvailableEquipmentProps, IAvailableEquipmentState> {
 
-
     constructor( props: IAvailableEquipmentProps ) {
         super(props);
         this.state = {
@@ -22,7 +21,6 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
 
         appSettings.equipmentFilter = e.currentTarget.value;
         this.props.appGlobals.saveAppSettings( appSettings );
-
 
     }
 

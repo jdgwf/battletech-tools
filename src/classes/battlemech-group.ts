@@ -88,7 +88,6 @@ export class BattleMechGroup {
 
     public import(importObj: ICBTGroupExport) {
 
-
 		this.customName = importObj.name;
 		for( let unit of importObj.units) {
 			let theUnit = new BattleMech( JSON.stringify(unit) );

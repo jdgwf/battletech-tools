@@ -81,7 +81,6 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                   <p>Each of these software packages are amazing tools! However what they lack is complete cross-platform compatibility and ease of tablet use. Sure, <a href="https://battletech.rpg.hu/mechfactory_frame.php">Mech Factory</a> comes close, but it can't be used offline.</p>
                   <p>I created this app originally for just an electronic Alpha Strike roster sheet, but it's grown slowly (quickly as of 2022) into more.</p>
 
-
                   <h3>What's next? What are your plans?</h3>
                   <p>Although I'm not the best at updating the <Link to="dev-status">Development Status Page</Link>, this will be the place where I place my development intentions and what I'm currently working on.</p>
                 </TextSection>
@@ -133,7 +132,6 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
               </TextSection>
             </div>
           </div>
-
 
         </UIPage>
       );

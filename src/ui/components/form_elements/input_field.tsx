@@ -189,8 +189,6 @@ export default class InputField extends React.Component<IInputFieldProps, IInput
                 ):
                 null}
 
-
-
                 {this.props.children && !this.props.childrenAfter ? (
                     <div className="small-text">
                         {this.props.children}

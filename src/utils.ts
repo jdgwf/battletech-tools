@@ -7,7 +7,6 @@ import { mechISEquipmentEnergy } from "./data/mech-is-equipment-weapons-energy";
 import { mechISEquipmentMisc } from "./data/mech-is-equipment-weapons-misc";
 import { mechISEquipmentMissiles } from "./data/mech-is-equipment-weapons-missiles";
 
-
 export function addCommas( numericalValue: number ): string {
     return (numericalValue + "").replace(/\b(\d+)((\.\d+)*)\b/g, function(a, b, c) {
         return (b.charAt(0) > 0 && !(c || ".").lastIndexOf(".") ? b.replace(/(\d)(?=(\d{3})+$)/g, "$1,") : b) + c;
@@ -33,7 +32,6 @@ export function getISEquipmentList(): IEquipmentItem[] {
 export function getClanEquipmentList(): IEquipmentItem[] {
     return mechClanEquipmentEnergy;
 }
-
 
 // export function getOfflineMULResults(
 //     searchTerm: string,
@@ -85,7 +83,6 @@ export function getClanEquipmentList(): IEquipmentItem[] {
 //             }
 //         }
 //     }
-
 
 //     return returnUnits;
 // }
@@ -175,7 +172,6 @@ export async function getMULASSearchResults(
                         // }
                     }
 
-
                 }
 
             })
@@ -189,7 +185,6 @@ export async function getMULASSearchResults(
                 // )
             })
         }
-
 
     } else {
         // returnUnits = getOfflineMULResults(
@@ -224,12 +219,9 @@ export function getMovementModifier( moveScore: number ): number {
 export function makeRange( start: number, end: number, steps: number = 1): number[] {
     let returnValue: number[] = [];
 
-
     for( let count = start; count <= end; count = count + steps ) {
         returnValue.push( count );
     }
-
-
 
     return returnValue;
 }
@@ -255,7 +247,6 @@ export function makeURLSlug( str: string ): string {
         false,
         true);
 }
-
 
 export function replaceAll(
     haystack: string,
@@ -325,7 +316,6 @@ export function replaceAll(
             }
 
         }
-
 
     }
 }
@@ -495,7 +485,6 @@ export function getLocationName(
         }
     }
 
-
     return "???"
 }
 
@@ -519,12 +508,10 @@ export function getTargetToHitFromWeapon(
         && equipmentList[index].target
     ) {
 
-
         // TS Typechecker is being an idiot here >:(
         // At this point, it's NOT undefined... how many times do I have to check?
         //@ts-ignore
         let targetLetter: string = equipmentList[index].target;
-
 
         if( target === null && mech ) {
             target = mech.getTarget( targetLetter )
@@ -557,7 +544,6 @@ export function getTargetToHitFromWeapon(
             } else {
                 gator.rangeExplanation = "Stationary";
             }
-
 
             // T
             gator.finalToHit += target.movement;
@@ -625,7 +611,6 @@ export function getTargetToHitFromWeapon(
                 gator.finalToHit = -1;
                 gator.explanation = "The target is out of this weapon's range."
             }
-
 
         }
 

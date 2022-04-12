@@ -112,8 +112,6 @@ export default class BattleMechAddMechDialog extends React.Component<IBattleMech
     </StandardModal>
 ) : (
 
-
-
             <div className="row">
       <div className="col">
           <fieldset className="fieldset">
@@ -161,7 +159,6 @@ export default class BattleMechAddMechDialog extends React.Component<IBattleMech
                             </tbody>
                         )
                     })}
-
 
                 </table>
               )}

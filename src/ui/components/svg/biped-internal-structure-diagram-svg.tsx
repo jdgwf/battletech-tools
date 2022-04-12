@@ -21,8 +21,6 @@ export default class BipedInternalStructureDiagramSVG extends React.Component<IB
             this.strokeColor = this.props.strokeColor;
         }
 
-
-
         if( this.props.width ) {
             this.theWidth = this.props.width;
             this.theHeight = Math.round( this.props.width / this.baseWidth * this.baseHeight );
@@ -48,8 +46,6 @@ export default class BipedInternalStructureDiagramSVG extends React.Component<IB
     }
 
     render = (): React.ReactFragment => {
-
-
 
         // var svg = "";
 

@@ -76,7 +76,6 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
         }
       }
 
-
     renameGroup = ( newName: string, groupIndex: number ): void => {
       if( this.props.appGlobals.currentASForce) {
         this.props.appGlobals.currentASForce.renameGroup( newName, groupIndex );
@@ -97,8 +96,6 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
       }
     }
 
-
-
     newGroup = (): void => {
       if( this.props.appGlobals.currentASForce) {
         this.props.appGlobals.currentASForce.newGroup();
@@ -114,7 +111,6 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
         this.props.openEditUnit( showASUnit )
     }
 
-
     render = (): React.ReactFragment => {
       if(!this.props.appGlobals.currentASForce) {
         return <></>
@@ -129,7 +125,6 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
             <FaPlus />&nbsp;Add Units
             </button>
         }
-
 
         return (
 <TextSection
@@ -193,7 +188,6 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                             </label>
                         </div>
                     </div>
-
 
                     <table className="table">
                       <thead>
@@ -260,7 +254,6 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                                   </>
                                 )}
 
-
                                 <button
                                   className="btn-sm btn btn-danger no-right-margin"
                                   onClick={() => this.removeUnitFromGroup(asGroupIndex, asUnitIndex)}
@@ -318,8 +311,6 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                                   </>
                                 ) : null}
 
-
-
                               </td>
                             </tr>
                             </tbody>
@@ -329,7 +320,6 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                       ) : (
                         <tbody><tr><td colSpan={3} className="text-center">No Units</td></tr></tbody>
                       )}
-
 
                       <tfoot key="footer">
                         <tr key="groupsum">
@@ -384,7 +374,6 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
         )
     }
 }
-
 
 interface ICurrentForceListProps {
     appGlobals: IAppGlobals;

@@ -26,10 +26,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
         this.props.appGlobals.makeDocumentTitle("'Mech Creator");
     }
 
-
-
     updateTRO = (e: React.FormEvent<HTMLTextAreaElement>) => {
-
 
       let parsed: BattleMech | null = null;
       if( e.currentTarget.value && e.currentTarget.value.trim() ) {
@@ -178,7 +175,6 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
         currentBattleMech.import( this.state.ParsedTRO.export() )
         this.props.appGlobals.saveCurrentBattleMech( currentBattleMech )
 
-
       }
       this.setState({
         TRO: "",
@@ -266,7 +262,6 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                         label="Welcome"
                       >
 
-
                           <p>Welcome to the BattleTech 'mech builder.</p>
 
                           <p>This tool attempts to <em>closely</em> follow the steps in the BattleTech TechManual and the steps in that book should be referenced during 'mech creation</p>
@@ -288,7 +283,6 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                           </div>
                     </TextSection>
 
-
 <TextSection
   label={"Your Saved 'Mechs"}
   labelButton={<button
@@ -299,8 +293,6 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
     <FaSave />&nbsp;Save as New
   </button>}
 >
-
-
 
                     <table className="table">
                       <thead>

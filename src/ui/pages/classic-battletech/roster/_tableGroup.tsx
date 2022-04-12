@@ -69,7 +69,6 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
 
     }
 
-
     closeAddingUnits = (
         e: React.FormEvent<HTMLButtonElement>
     ) => {
@@ -172,7 +171,6 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
             }
           }
       )
-
 
     }
 
@@ -370,8 +368,6 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
     </StandardModal>
 ) : (
 
-
-
     <table className="table">
     <thead>
       <tr>
@@ -459,7 +455,6 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
 <tbody><tr><td colSpan={this.props.showEdit ? 7 : 6} className="text-center">No Units</td></tr></tbody>
 )}
 
-
 <tfoot>
 <tr>
 
@@ -484,7 +479,6 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
 </tfoot>
 
 </table>
-
 
 )}
 </>

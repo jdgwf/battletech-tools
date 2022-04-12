@@ -28,7 +28,6 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
 
         let currentList = this.props.appGlobals.appSettings.equipmentEditorFile;
 
-
         let currentListData: IEquipmentItem[] = [];
 
         if( !currentList || currentList.trim() ) {
@@ -139,7 +138,6 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                 this.props.appGlobals.saveAppSettings( appSettings );
             }
 
-
         }
 
     }
@@ -168,7 +166,6 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
         return "unknown;"
     }
 
-
     _makeJSONText = (): string => {
         let rv = `import { IEquipmentItem } from "./data-interfaces";
 
@@ -178,7 +175,6 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
 `
 
         rv += "export const " + this._getFileVariable( this.state.currentList) + ": IEquipmentItem[] = ";
-
 
         rv += exportCleanJSON(
             this.state.currentListData,
@@ -353,7 +349,6 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
 
             currentListData.push( this.state.editItem );
 
-
             this.setState({
                 currentListData: currentListData,
                 editItem: null,
@@ -377,13 +372,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
 
     }
 
-
-
     render = (): React.ReactFragment => {
-
-
-
-
 
       return (
     <UIPage current="equipment-editor" appGlobals={this.props.appGlobals}>
@@ -409,7 +398,6 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
             readOnly={true}
             value={this._makeJSONText()}
         />
-
 
     </StandardModal>
 ) : null}
@@ -483,7 +471,6 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
 
             <th className="min-width text-center no-wrap">Active</th>
 
-
             <th
                 className="min-width text-right no-wrap"
             >
@@ -546,8 +533,6 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                         </>
                     )}
 
-
-
                 </td>
                 <td className="text-center no-wrap">
                 {item.isAmmo ? (
@@ -599,7 +584,6 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                 <td className="text-center no-wrap ">
                     {addCommas(item.cbills)}<br />
                 </td>
-
 
                 <td className="text-center no-wrap ">
                     {item.introduced}-{item.extinct > 0 ? item.extinct : "current"}<br />

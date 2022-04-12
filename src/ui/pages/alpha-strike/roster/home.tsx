@@ -13,14 +13,12 @@ import AlphaStrikeAddUnitsView from './_AddUnitsPage';
 import CurrentForceList from './_CurrentForceList';
 import AlphaStrikeUnitEditViewModal from './_showAlphaStrikeUnit';
 
-
 export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, IHomeState> {
 
     fileReader: FileReader | null = null;
 
     constructor(props: IHomeProps) {
         super(props);
-
 
         this.state = {
             updated: false,
@@ -31,11 +29,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
         this.props.appGlobals.makeDocumentTitle("Alpha Strike Roster");
 
-
     }
-
-
-
 
     removeFavoriteConfirm = ( asFavGroupIndex: number ): void => {
 
@@ -58,8 +52,6 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       }
     }
 
-
-
     openViewUnit = ( theUnit: AlphaStrikeUnit ): void => {
       let showASUnit = theUnit;
 
@@ -78,15 +70,11 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       })
     }
 
-
     closeShowUnitDialog = (): void => {
       this.setState({
         showASUnit: null,
       })
     }
-
-
-
 
     selectFile = async (e: React.FormEvent<HTMLInputElement>): Promise<void> => {
       e.preventDefault();
@@ -173,8 +161,6 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
         />
 </StandardModal>
 
-
-
         <UIPage current="alpha-strike-roster" appGlobals={this.props.appGlobals}>
 
           {this.props.appGlobals.currentASForce && this.props.appGlobals.currentASForce.getTotalUnits() > 0 ? (
@@ -218,7 +204,6 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 <TextSection
   label="Favorite Alpha Strike Groups"
 >
-
 
 {this.props.appGlobals.favoriteASGroups.map( (asFavGroup, asFavGroupIndex) => {
   return (<fieldset key={asFavGroupIndex} className="fieldset">
@@ -336,14 +321,9 @@ interface IHomeProps {
 interface IHomeState {
   updated: boolean;
 
-
   // searchText: string;
   showASUnit: AlphaStrikeUnit | null;
   editASUnit: boolean;
-
-
-
-
 
   addingUnitsModal: boolean;
 }

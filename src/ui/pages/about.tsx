@@ -13,7 +13,6 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
     this.props.appGlobals.makeDocumentTitle("About Jeff's BattleTech Tools");
   }
 
-
     render = (): React.ReactFragment => {
       return (
     <UIPage current="about" appGlobals={this.props.appGlobals}>
@@ -35,16 +34,14 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
               &nbsp;and <a target="_blank" rel="noopener noreferrer" href="https://jdgwf.github.io/tournament-tracker/">Tournament Tracker</a>
               &nbsp;are all created and updated in his spare time while juggling work, family, and writing a handful of novels.</p>
 
-
               <hr />
               <h4><a href="https://github.com/MoonSword22" rel="noopener noreferrer" target="_blank">MoonSword22</a></h4>
               <p><strong>Data Entry and consulting</strong></p>
 
-
               <hr />
               <h4><a href="https://github.com/cam-smith" rel="noopener noreferrer" target="_blank">cam-smith</a></h4>
               <p><strong>Fixes for formation bonuses and aero damages</strong></p>
-              
+
               </TextSection>
         </div>
         <div className="col-md-6">
@@ -71,7 +68,6 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
             <p>This project is open source (GPLv3) with exceptions to the Data directory, see below.</p>
 
             <p>View the full license here: <a href="https://github.com/jdgwf/battletech-tools/blob/master/LICENSE">at the GitHub repository</a></p>
-
 
             <h4>Exceptions</h4>
             <p>The data in ./src/data/* contains copyrighted material and is not included. Each of the comments header in the file repeats this exception in the above license.</p>

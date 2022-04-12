@@ -9,7 +9,6 @@ import InputNumeric from './form_elements/input_numeric';
 import RangeInput from './range-input';
 import TextSection from './text-section';
 
-
 export default class EquipmentEditForm extends React.Component<IEquipmentEditFormProps, IEquipmentEditFormState> {
 
     constructor(props: IEquipmentEditFormProps) {
@@ -202,7 +201,6 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
             item.heatAero = 0;
         }
 
-
         this.props.onChange( item );
     }
 
@@ -359,7 +357,6 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
 
     render = (): React.ReactFragment => {
 
-
         return (
 <div className="form">
     <div className="row">
@@ -413,7 +410,6 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                     </div>
                 </div>
 
-
                 <br />
             </TextSection>
 
@@ -454,8 +450,6 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                     value={this.props.editingItem.reintroduced}
                     label="Reintroduced"
                 />
-
-
 
             <br />
         </TextSection>
@@ -638,8 +632,6 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         </div>
     </div>
 
-
-
 </div>
         )
     }
@@ -652,7 +644,6 @@ interface IEquipmentEditFormProps {
     category: string;
 
 }
-
 
 interface IEquipmentEditFormState {
     updated: boolean;

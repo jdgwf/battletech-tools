@@ -22,11 +22,8 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
             updated: false,
         }
 
-
         this.props.appGlobals.makeDocumentTitle("Step 1 | 'Mech Creator");
     }
-
-
 
     updateHideNonAvailableEquipment = ( event: React.FormEvent<HTMLInputElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
@@ -76,7 +73,6 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
       }
     }
 
-
     updateEra = ( event: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
@@ -84,8 +80,6 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
     }
-
-
 
     render = (): React.ReactFragment => {
       if(!this.props.appGlobals.currentBattleMech)
@@ -108,7 +102,6 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                       <TextSection
                         label="Step 1: Design the Chassis"
                       >
-
 
                           <label>
                             Mech Model Name (Type):
@@ -161,14 +154,11 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             </select>
                           </label>
 
-                          
                             <InputCheckbox
                               checked={this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment}
                               onChange={this.updateHideNonAvailableEquipment}
                               label="Hide non-available weapons and equipment (will be gray otherwise)"
                             />
-                             
-                          
 
                           <label>
                             Mech Tonnage:

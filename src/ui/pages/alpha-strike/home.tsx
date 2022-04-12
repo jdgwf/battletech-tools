@@ -19,7 +19,6 @@ export default class AlphaStrikeHome extends React.Component<IAlphaStrikeHomePro
       return (
         <UIPage current="alpha-strike-home" appGlobals={this.props.appGlobals}>
 
-
           <TextSection
             label="Alpha Strike"
           >

@@ -57,7 +57,6 @@ export class BattleMechForce {
         }
     }
 
-
     getSelectedMech(): BattleMech | null {
         for( let group of this.groups ) {
             for( let unit of group.members ) {
@@ -86,7 +85,6 @@ export class BattleMechForce {
             this.groups[groupIndex].groupLabel = newName;
         }
     }
-
 
     public export(
         noInPlayVariabless: boolean = false,
@@ -150,7 +148,6 @@ export class BattleMechForce {
         } else if( num === 5 ) {
             return "End Phase"
         }
-
 
         return "???"
     }
@@ -250,7 +247,6 @@ export class BattleMechForce {
     public getTotalGroups(): number {
         return this.groups.length;
     }
-
 
     public getTotaBV2(): number {
         let rv = 0;

@@ -3,7 +3,6 @@ import * as React from 'react';
 import { Modal } from 'react-bootstrap';
 import InputCheckbox from './form_elements/input_checkbox';
 
-
 export default class StandardModal extends React.Component<IStandardModalProps, IStandardModalState> {
 
     render = (): React.ReactFragment => {
@@ -41,7 +40,6 @@ export default class StandardModal extends React.Component<IStandardModalProps, 
                 />
             ) : null}
             {this.props.topButton}
-
 
             <div className="text-right no-wrap">
             {this.props.onClose ? (

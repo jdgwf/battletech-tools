@@ -53,7 +53,6 @@ export default class CritAllocationTableSVG extends React.Component<ICritAllocat
 
                     }
 
-
                     if(
                          ( yStartBox > -1  && lastWasPlaceHolder )
                             ||
@@ -119,7 +118,6 @@ export default class CritAllocationTableSVG extends React.Component<ICritAllocat
 
                     let boxHeight = (this.props.yLoc + lineCount * (this.fontSize + this.lineBuffer) - yStartBox - this.lineBuffer );
 
-
                     if( critC === 5 ) {
                         boxHeight = (this.props.yLoc + (lineCount - 1 ) * (this.fontSize + this.lineBuffer) - yStartBox - this.lineBuffer);
                     }
@@ -135,7 +133,6 @@ export default class CritAllocationTableSVG extends React.Component<ICritAllocat
             critTable.push(<text key={"endb"}  x={this.props.xLoc - 80} y={this.props.yLoc + 9.75 * (this.fontSize + this.lineBuffer)} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={this.fontSize * 1.25}>4-6</text> );
 
         }
-
 
         return (
         <g

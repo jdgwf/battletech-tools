@@ -2,7 +2,6 @@ import { formationBonuses, IFormationBonus } from '../data/formation-bonuses';
 import { generateUUID } from '../utils';
 import { AlphaStrikeUnit, IASMULUnit } from './alpha-strike-unit';
 
-
 export interface IASGroupExport {
 	name: string;
 	units: IASMULUnit[];
@@ -35,7 +34,6 @@ export default class AlphaStrikeGroup {
         if( importObj ) {
             this.import(importObj);
 		}
-
 
 		this.sortUnits();
 		this.availableFormationBonuses= formationBonuses.filter(x=>x.IsValid(this));
@@ -112,7 +110,6 @@ export default class AlphaStrikeGroup {
 		}
 	}
 
-
     public export(
 		noInPlayVariables: boolean = false,
 	): IASGroupExport {
@@ -141,10 +138,7 @@ export default class AlphaStrikeGroup {
 		this.lastUpdated = new Date();
 	}
 
-
-
     public import(importObj: IASGroupExport) {
-
 
 		this.customName = importObj.name;
 		for( let unit of importObj.units) {

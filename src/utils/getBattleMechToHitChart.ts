@@ -15,7 +15,7 @@ export function getBattleMechToHitChart(): IToHitTable {
         front: {
           location: "ct",
           hasRear: true,
-          
+
         },
         right: {
           location: "rt",
@@ -163,7 +163,6 @@ export function getBattleMechToHitChart(): IToHitTable {
         },
       });
 
-
     return toHitTable;
 
 }
@@ -179,7 +178,7 @@ interface IToHitTable {
     right: IToHitTableLocation;
   }
   interface IToHitTableLocation {
-    
+
     location: string;
     hasRear?: boolean;
     isCrit?: boolean;

@@ -8,7 +8,6 @@
   font-style: normal;
 }
 
-
 body {
   #root {
     min-height: 100%;
@@ -141,7 +140,6 @@ a {
   }
 }
 
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -175,7 +173,6 @@ code {
     }
   }
 }
-
 
 select, input, label, textarea {
   width: 100%;
@@ -222,7 +219,6 @@ input[type=number] {
   width: 100%;
   color: $fontColor;
   position: relative;
-
 
   .width-90 {
     width: 90%;
@@ -361,8 +357,6 @@ input[type=number] {
 
   }
 
-
-
   &.tighter-padding {
     tbody, thead, tfooter {
       tr {
@@ -374,8 +368,6 @@ input[type=number] {
     }
   }
 }
-
-
 
 .color-green {
   color: $colorGreen;
@@ -606,7 +598,6 @@ body {
     }
   }
 
-
   .btn-secondary {
     background-color: $secondaryBG;
     border-color: $secondaryBG;
@@ -789,8 +780,6 @@ body {
         }
 
     }
-
-
 
     p {
         color: #333;
@@ -1024,7 +1013,6 @@ body.desaturated {
     // }
   }
 
-
   .modal-dialog {
     // .modal-footer {
     //   background: $headerFooterBackground;
@@ -1099,8 +1087,6 @@ body.retro {
       }
     }
   }
-
-
 
   .fieldset {
     border: dotted 2px $retroPrimaryBG;
@@ -1298,7 +1284,6 @@ body.retro {
       border: solid 2px $retroPrimaryBG;
     }
   }
-
 
 }
 

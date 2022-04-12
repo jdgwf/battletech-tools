@@ -44,7 +44,6 @@ export default class PrintablePage extends React.Component<IPrintablePageProps, 
     }
 }
 
-
 interface IPrintablePageProps {
     appGlobals: IAppGlobals;
     backTo: string;

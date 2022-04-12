@@ -18,7 +18,6 @@ export default class UIPage extends React.Component<IUIPageProps, IUIPageState> 
     }
 }
 
-
 interface IUIPageProps {
     appGlobals: IAppGlobals;
     current?: string;

@@ -20,7 +20,6 @@ export default class ClassicBattleTechHome extends React.Component<IClassicBattl
       return (
         <UIPage current="classic-battletech-home" appGlobals={this.props.appGlobals}>
 
-
           <TextSection
             label="Classic BattleTech"
           >

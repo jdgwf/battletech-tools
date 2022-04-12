@@ -26,8 +26,6 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
         this.props.appGlobals.makeDocumentTitle("Step 6 | 'Mech Creator");
     }
 
-
-
     toggleLowerArmActuator = ( loc: string ): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         this.props.appGlobals.currentBattleMech.toggleLowerArmActuator( loc );
@@ -81,7 +79,6 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
             selectedIndex,
           );
 
-
           if( wasMoved ) {
             // save the mech
             this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
@@ -121,7 +118,6 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
       })
     }
 
-
     render = (): React.ReactFragment => {
       if(!this.props.appGlobals.currentBattleMech)
         return <></>
@@ -143,8 +139,6 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                       <TextSection
                         label="Step 6: Complete the record sheet"
                       >
-
-
 
                           <fieldset className="fieldset">
                             <legend>Instructions</legend>

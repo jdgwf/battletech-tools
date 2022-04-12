@@ -17,7 +17,6 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
         this.props.appGlobals.makeDocumentTitle("Printing Alpha Strike Force");
     }
 
-
     render = (): React.ReactFragment => {
       if(!this.props.appGlobals.currentASForce) {
         return <></>;
@@ -85,7 +84,6 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
                   </div>
               </div>
 
-
             </React.Fragment>
             )
           })}
@@ -99,7 +97,6 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
             </footer>
             {/* <header className="print-header">&nbsp;</header> */}
           </div>
-
 
         </>
       );

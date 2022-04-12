@@ -14,7 +14,6 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
         };
     }
 
-
     updateUnitSkill = (event: React.FormEvent<HTMLSelectElement>): void => {
         if(this.props.showASUnit) {
           this.props.showASUnit.setSkill( +event.currentTarget.value );
@@ -98,7 +97,6 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
         )
     }
 }
-
 
 interface IAlphaStrikeUnitEditViewModalProps {
     appGlobals: IAppGlobals;

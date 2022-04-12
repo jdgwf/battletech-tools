@@ -66,11 +66,8 @@ export function checkFullRestoreData(
     //     return false;
     // }
 
-
     return true;
 }
-
-
 
 export function restoreFullBackup(
     io: IFullBackup,
@@ -305,7 +302,6 @@ export async function getBattleMechSaves(
     return rv;
 }
 
-
 export function saveCurrentCBTForce(
     appSettings: AppSettings,
     newValue: ICBTForceExport,
@@ -362,7 +358,6 @@ export async function getCurrentASForce(
     return rv;
 }
 
-
 export function saveCurrentBattleMech(
     appSettings: AppSettings,
     newValue: string,
@@ -380,7 +375,6 @@ export async function getCurrentBattleMech(
     );
 
 }
-
 
 export function saveFavoriteASGroups(
     appSettings: AppSettings,
@@ -452,7 +446,6 @@ export async function getFavoriteCBTGroups(
 
     return rv;
 }
-
 
 export function saveAppSettings(
     newValue: IAppSettingsExport,
