@@ -27,10 +27,7 @@ import TakeDamageButtonSVG from './take-damage-button';
 import TargetSelectSVG from './target-select-svg';
 
 export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, IBattleMechSVGState> {
-    bgColor = "rgb(255,255,255)";
-    strokeColor = "rgb(0,0,0)";
-    // landscape: boolean = false;
-    inPlay: boolean = false;
+
     docWidth = 2000;
     docHeight = 2600;
 
@@ -48,26 +45,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
     isQuadCenterAdjust = 0;
 
-    constructor(props: IBattleMechSVGProps) {
-        super(props);
-
-        this.state = {
-        }
-        if( this.props.bgColor ) {
-            this.bgColor = this.props.bgColor;
-        }
-        if( this.props.strokeColor ) {
-            this.strokeColor = this.props.strokeColor;
-        }
-        // if( this.props.landscape ) {
-        //     this.landscape = this.props.landscape;
-        // }
-        if( this.props.inPlay ) {
-            this.inPlay = this.props.inPlay;
-        }
-
-    }
-
     toggleISBubble = ( shortLoc: string, indexNumnber: number): void => {
 		if( this.props.inPlay ) {
 			this.props.mechData.toggleISBubble(shortLoc, indexNumnber);
@@ -80,6 +57,23 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
 
     render = (): React.ReactFragment => {
+
+        let bgColor = "rgb(255,255,255)";
+        let strokeColor = "rgb(0,0,0)";
+        // landscape: boolean = false;
+        let inPlay: boolean = false;
+        if( this.props.bgColor ) {
+            bgColor = this.props.bgColor;
+        }
+        if( this.props.strokeColor ) {
+            strokeColor = this.props.strokeColor;
+        }
+        // if( this.props.landscape ) {
+        //     this.landscape = this.props.landscape;
+        // }
+        if( this.props.inPlay ) {
+            inPlay = this.props.inPlay;
+        }
 
         let currentPhaseGroupColor = "#00a";
 
@@ -157,7 +151,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     y={0}
                     width={this.docWidth}
                     height={this.docHeight}
-                    fill={this.bgColor}
+                    fill={bgColor}
                 />
 
                 <RecordSheetGroupBoxSVG
@@ -166,15 +160,15 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     xLoc={generalDataBoxX}
                     yLoc={generalDataBoxY}
                     title="'Mech Data"
-                    bgColor={this.bgColor}
-                    strokeColor={this.strokeColor}
+                    bgColor={bgColor}
+                    strokeColor={strokeColor}
                 >
                     <text
                         x={10 + generalDataBoxX}
                         y={80 + generalDataBoxY}
                         textAnchor="start"
                         fontFamily="sans-serif"
-                        fill={this.strokeColor}
+                        fill={strokeColor}
                         style={{fontWeight: 700}}
                         fontSize={30}
                     >
@@ -187,7 +181,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                         y={120 + generalDataBoxY}
                         textAnchor="start"
                         fontFamily="sans-serif"
-                        fill={this.strokeColor}
+                        fill={strokeColor}
                         style={{fontWeight: 500}}
                         fontSize={35}
                     >
@@ -202,7 +196,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                         y={generalDataBoxY + 160}
                         textAnchor="start"
                         fontFamily="sans-serif"
-                        fill={this.strokeColor}
+                        fill={strokeColor}
                         style={{fontWeight: 700}}
                         fontSize={30}
                     >
@@ -215,7 +209,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                         y={generalDataBoxY + 210}
                         textAnchor="end"
                         fontFamily="sans-serif"
-                        fill={this.strokeColor}
+                        fill={strokeColor}
                         style={{fontWeight: 700}}
                         fontSize={30}
                     >
@@ -225,7 +219,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                         x={generalDataBoxX + 240}
                         y={generalDataBoxY + 210}
                         textAnchor="start" fontFamily="sans-serif"
-                        fill={this.strokeColor}
+                        fill={strokeColor}
                         style={{fontWeight: 500}}
                         fontSize={30}
                     >
@@ -246,7 +240,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                         x={generalDataBoxX + 220}
                         y={generalDataBoxY + 245}
                         textAnchor="end" fontFamily="sans-serif"
-                        fill={this.strokeColor}
+                        fill={strokeColor}
                         style={{fontWeight: 700}}
                         fontSize={30}
                     >
@@ -257,7 +251,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     y={generalDataBoxY + 245}
                     textAnchor="start"
                     fontFamily="sans-serif"
-                    fill={this.strokeColor}
+                    fill={strokeColor}
                     style={{fontWeight: 500}}
                     fontSize={30}
                     >
@@ -279,7 +273,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                         y={generalDataBoxY + 280}
                         textAnchor="end"
                         fontFamily="sans-serif"
-                        fill={this.strokeColor}
+                        fill={strokeColor}
                         style={{fontWeight: 700}}
                         fontSize={30}
                     >
@@ -290,7 +284,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                         y={generalDataBoxY + 280}
                         textAnchor="start"
                         fontFamily="sans-serif"
-                        fill={this.strokeColor}
+                        fill={strokeColor}
                         style={{fontWeight: 500}}
                         fontSize={30}
                     >
@@ -314,7 +308,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     y={generalDataBoxY + 160}
                     textAnchor="start"
                     fontFamily="sans-serif"
-                    fill={this.strokeColor}
+                    fill={strokeColor}
                     style={{fontWeight: 700}}
                     fontSize={25}>
                     Tonnage:
@@ -324,7 +318,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     y={generalDataBoxY + 160}
                     textAnchor="end"
                     fontFamily="sans-serif"
-                    fill={this.strokeColor}
+                    fill={strokeColor}
                     style={{fontWeight: 500}}
                     fontSize={25}
                     >
@@ -336,7 +330,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     x={generalDataBoxX + 340}
                     y={generalDataBoxY + 205}
                     textAnchor="start" fontFamily="sans-serif"
-                    fill={this.strokeColor} style={{fontWeight: 700}}
+                    fill={strokeColor} style={{fontWeight: 700}}
                     fontSize={25}
                 >
                     Tech Base:
@@ -345,7 +339,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     x={generalDataBoxX + 665}
                     y={generalDataBoxY + 225}
                     textAnchor="end" fontFamily="sans-serif"
-                    fill={this.strokeColor} style={{fontWeight: 500}}
+                    fill={strokeColor} style={{fontWeight: 500}}
                     fontSize={25}
                 >
                     {this.props.mechData.getTech().name}
@@ -357,7 +351,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     y={generalDataBoxY + 255}
                     textAnchor="start"
                     fontFamily="sans-serif"
-                    fill={this.strokeColor}
+                    fill={strokeColor}
                     style={{fontWeight: 700}}
                     fontSize={25}
                 >
@@ -369,7 +363,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     y={generalDataBoxY + 280}
                     textAnchor="end"
                     fontFamily="sans-serif"
-                    fill={this.strokeColor}
+                    fill={strokeColor}
                     style={{fontWeight: 500}}
                     fontSize={20}
                 >{eraLine1}</text>
@@ -378,7 +372,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     y={generalDataBoxY + 300}
                     textAnchor="end"
                     fontFamily="sans-serif"
-                    fill={this.strokeColor}
+                    fill={strokeColor}
                     style={{fontWeight: 500}}
                     fontSize={20}
                 >{eraLine2}</text>
@@ -390,7 +384,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     y={generalDataBoxY + 350}
                     textAnchor="start"
                     fontFamily="sans-serif"
-                    fill={this.strokeColor}
+                    fill={strokeColor}
                     style={{fontWeight: 700}}
                     fontSize={30}
                     >
@@ -401,7 +395,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     y={generalDataBoxY + 380}
                     textAnchor="start"
                     fontFamily="sans-serif"
-                    fill={this.strokeColor}
+                    fill={strokeColor}
                     style={{fontWeight: 500}}
                     fontSize={25  }
                 >
@@ -413,7 +407,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     y={generalDataBoxY + 350}
                     textAnchor="start"
                     fontFamily="sans-serif"
-                    fill={this.strokeColor}
+                    fill={strokeColor}
                     style={{fontWeight: 700}}
                     fontSize={30}
                 >
@@ -426,7 +420,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 y={generalDataBoxY + 380}
                 textAnchor="start"
                 fontFamily="sans-serif"
-                fill={this.strokeColor}
+                fill={strokeColor}
                 style={{fontWeight: 500}}
                 fontSize={25}
             >
@@ -444,7 +438,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         y={80}
         textAnchor="middle"
         fontFamily="sans-serif"
-        fill={this.strokeColor}
+        fill={strokeColor}
         style={{fontWeight: 700}}
         fontSize={65}
     >
@@ -455,7 +449,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         y={120}
         textAnchor="middle"
         fontFamily="sans-serif"
-        fill={this.strokeColor}
+        fill={strokeColor}
         style={{fontWeight: 700}}
         fontSize={35}
     >
@@ -469,8 +463,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         xLoc={pilotBoxX}
         yLoc={pilotBoxY}
         title="Warrior Data"
-        bgColor={this.bgColor}
-        strokeColor={this.strokeColor}
+        bgColor={bgColor}
+        strokeColor={strokeColor}
     >
         	{/* // Name/Type */}
             <text
@@ -478,7 +472,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 y={pilotBoxY + 80}
                 textAnchor="start"
                 fontFamily="sans-serif"
-                fill={this.strokeColor}
+                fill={strokeColor}
                 style={{fontWeight: 500}}
                 fontSize={25}
             >
@@ -491,7 +485,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 y={pilotBoxY + 120}
                 textAnchor="end"
                 fontFamily="sans-serif"
-                fill={this.strokeColor}
+                fill={strokeColor}
                 style={{fontWeight: 500}}
                 fontSize={35}
             >
@@ -504,7 +498,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 y={pilotBoxY + 160}
                 textAnchor="end"
                 fontFamily="sans-serif"
-                fill={this.strokeColor}
+                fill={strokeColor}
                 style={{fontWeight: 500}}
                 fontSize={35}
             >
@@ -516,8 +510,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 height={250}
                 xLoc={pilotBoxX + 100}
                 yLoc={pilotBoxY + 200}
-                bgColor={this.bgColor}
-                strokeColor={this.strokeColor}
+                bgColor={bgColor}
+                strokeColor={strokeColor}
                 pilot={this.props.mechData.getPilot()}
             />
 
@@ -529,6 +523,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         height={645}
         xLoc={10}
         yLoc={440}
+        bgColor={bgColor}
         mechData={this.props.mechData}
         inPlay={this.props.inPlay}
         onChange={this.props.onChange}
@@ -545,6 +540,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             width={400}
             height={99}
             xLoc={10}
+            bgColor={bgColor}
             yLoc={1113}
             onClick={this.props.openSetMovementDialog}
             strokeColor={this.props.currentPhase === 1 ? currentPhaseGroupColor : undefined}
@@ -616,7 +612,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     y1={ 110}
                     y2={ 110}
                     strokeWidth={2}
-                    stroke={this.strokeColor}
+                    stroke={strokeColor}
                 />
                 </>
                 )}
@@ -624,7 +620,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         </RecordSheetGroupBoxSVG>
         <RecordSheetGroupBoxSVG
             title="Target Selection"
-
+            bgColor={bgColor}
             width={800}
             height={99}
             xLoc={425}
@@ -698,6 +694,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         xLoc={this.armorBoxLeft}
         yLoc={this.armorBoxTop}
         title="Armor Diagram"
+        bgColor={bgColor}
         strokeColor={this.props.currentPhase === 2 ? currentPhaseGroupColor : undefined}
     >
     {this.props.mechData.getMechType().tag === "biped" ? (
@@ -706,6 +703,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 xLoc={1263}
                 yLoc={-10}
                 width={700}
+                bgColor={bgColor}
 
             />
 
@@ -713,43 +711,44 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 xLoc={1413}
                 yLoc={875}
                 width={400}
+                bgColor={bgColor}
             />
 
 
 
         {/* Main Armor Labels */}
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2} y={this.armorBoxTop + 70} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>HEAD [{this.props.mechData.getArmorAllocation().head }]</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2} y={this.armorBoxTop + 70} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>HEAD [{this.props.mechData.getArmorAllocation().head }]</text>
 
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 - 55} y={this.armorBoxTop + 95} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>LEFT TORSO</text>
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 - 85} y={this.armorBoxTop + 115} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>[{this.props.mechData.getArmorAllocation().leftTorso }]</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 - 55} y={this.armorBoxTop + 95} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>LEFT TORSO</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 - 85} y={this.armorBoxTop + 115} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>[{this.props.mechData.getArmorAllocation().leftTorso }]</text>
 
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 55} y={this.armorBoxTop + 95} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>RIGHT TORSO</text>
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 85} y={this.armorBoxTop + 115} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>[{this.props.mechData.getArmorAllocation().rightTorso }]</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 55} y={this.armorBoxTop + 95} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>RIGHT TORSO</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 85} y={this.armorBoxTop + 115} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>[{this.props.mechData.getArmorAllocation().rightTorso }]</text>
 
 
-		<text x={this.armorBoxLeft +  20} y={this.armorBoxTop + 620} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>LEFT</text>
-		<text x={this.armorBoxLeft +  20} y={this.armorBoxTop + 640} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>ARM [{this.props.mechData.getArmorAllocation().leftArm }]</text>
+		<text x={this.armorBoxLeft +  20} y={this.armorBoxTop + 620} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>LEFT</text>
+		<text x={this.armorBoxLeft +  20} y={this.armorBoxTop + 640} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>ARM [{this.props.mechData.getArmorAllocation().leftArm }]</text>
 
-		<text x={this.armorBoxLeft + this.armorBoxWidth - 40} y={this.armorBoxTop + 620} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>RIGHT</text>
-		<text x={this.armorBoxLeft + this.armorBoxWidth - 40} y={this.armorBoxTop + 640} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>ARM [{this.props.mechData.getArmorAllocation().rightArm }]</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth - 40} y={this.armorBoxTop + 620} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>RIGHT</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth - 40} y={this.armorBoxTop + 640} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>ARM [{this.props.mechData.getArmorAllocation().rightArm }]</text>
 
-		<text x={this.armorBoxLeft +  20} y={this.armorBoxTop + 890} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>LEFT</text>
-		<text x={this.armorBoxLeft +  20} y={this.armorBoxTop + 910} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>LEG [{this.props.mechData.getArmorAllocation().leftLeg }]</text>
+		<text x={this.armorBoxLeft +  20} y={this.armorBoxTop + 890} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>LEFT</text>
+		<text x={this.armorBoxLeft +  20} y={this.armorBoxTop + 910} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>LEG [{this.props.mechData.getArmorAllocation().leftLeg }]</text>
 
-		<text x={this.armorBoxLeft + this.armorBoxWidth - 20} y={this.armorBoxTop + 890} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>RIGHT</text>
-		<text x={this.armorBoxLeft + this.armorBoxWidth - 20} y={this.armorBoxTop + 910} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>LEG [{this.props.mechData.getArmorAllocation().rightLeg }]</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth - 20} y={this.armorBoxTop + 890} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>RIGHT</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth - 20} y={this.armorBoxTop + 910} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>LEG [{this.props.mechData.getArmorAllocation().rightLeg }]</text>
 
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2  } y={this.armorBoxTop + 600} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>CENTER</text>
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 } y={this.armorBoxTop + 620} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>TORSO</text>
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 } y={this.armorBoxTop + 640} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>[{this.props.mechData.getArmorAllocation().centerTorso })</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2  } y={this.armorBoxTop + 600} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>CENTER</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 } y={this.armorBoxTop + 620} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>TORSO</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 } y={this.armorBoxTop + 640} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>[{this.props.mechData.getArmorAllocation().centerTorso })</text>
 
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 } y={this.armorBoxTop + 1215} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>CENTER TORSO (REAR) [{this.props.mechData.getArmorAllocation().centerTorsoRear }]</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 } y={this.armorBoxTop + 1215} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>CENTER TORSO (REAR) [{this.props.mechData.getArmorAllocation().centerTorsoRear }]</text>
 
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 - 190} y={this.armorBoxTop + 1090} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>LEFT TORSO</text>
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 - 190} y={this.armorBoxTop + 1110} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>(REAR) [{this.props.mechData.getArmorAllocation().leftTorsoRear }]</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 - 190} y={this.armorBoxTop + 1090} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>LEFT TORSO</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 - 190} y={this.armorBoxTop + 1110} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>(REAR) [{this.props.mechData.getArmorAllocation().leftTorsoRear }]</text>
 
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 190} y={this.armorBoxTop + 1090} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>RIGHT TORSO</text>
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 190} y={this.armorBoxTop + 1110} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>(REAR) [{this.props.mechData.getArmorAllocation().rightTorsoRear }]</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 190} y={this.armorBoxTop + 1090} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>RIGHT TORSO</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 190} y={this.armorBoxTop + 1110} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>(REAR) [{this.props.mechData.getArmorAllocation().rightTorsoRear }]</text>
             <BipedArmorCircles
                 armorBoxLeft={this.armorBoxLeft}
                 armorBoxWidth={this.armorBoxWidth}
@@ -758,6 +757,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 mechData={this.props.mechData}
                 onChange={this.props.onChange}
                 openTakeDamageDialog={this.props.openTakeDamageDialog}
+                bgColor={bgColor}
             />
         </>
     ) : (
@@ -767,51 +767,53 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 xLoc={this.armorBoxLeft + 55}
                 yLoc={this.armorBoxTop + 50}
                 width={640}
+                bgColor={bgColor}
             />
 
             <QuadRearArmorDiagramSVG
                 xLoc={this.armorBoxLeft + 170}
                 yLoc={this.armorBoxTop + 970}
                 width={400}
+                bgColor={bgColor}
             />
 
 
         {/* // Main Armor Labels */}
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 } y={this.armorBoxTop + 125} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>HEAD [{ this.props.mechData.getArmorAllocation().head }]</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 } y={this.armorBoxTop + 125} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>HEAD [{ this.props.mechData.getArmorAllocation().head }]</text>
 
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 - 95} y={this.armorBoxTop + 105} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>LEFT TORSO</text>
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 - 125 } y={this.armorBoxTop + 125} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>[{ this.props.mechData.getArmorAllocation().leftTorso }]</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 - 95} y={this.armorBoxTop + 105} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>LEFT TORSO</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 - 125 } y={this.armorBoxTop + 125} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>[{ this.props.mechData.getArmorAllocation().leftTorso }]</text>
 
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 95 } y={this.armorBoxTop + 105} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>RIGHT TORSO</text>
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 125 } y={this.armorBoxTop + 125} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>[{ this.props.mechData.getArmorAllocation().rightTorso }]</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 95 } y={this.armorBoxTop + 105} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>RIGHT TORSO</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 125 } y={this.armorBoxTop + 125} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>[{ this.props.mechData.getArmorAllocation().rightTorso }]</text>
 
-		<text x={this.armorBoxLeft +  this.armorBoxWidth / 2 - 280 } y={this.armorBoxTop + 970} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>FRONT</text>
-		<text x={this.armorBoxLeft +  this.armorBoxWidth / 2 - 280 } y={this.armorBoxTop + 990} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>LEFT</text>
-		<text x={this.armorBoxLeft +  this.armorBoxWidth / 2 - 280 } y={this.armorBoxTop + 1010} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>LEG [{ this.props.mechData.getArmorAllocation().leftArm }]</text>
+		<text x={this.armorBoxLeft +  this.armorBoxWidth / 2 - 280 } y={this.armorBoxTop + 970} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>FRONT</text>
+		<text x={this.armorBoxLeft +  this.armorBoxWidth / 2 - 280 } y={this.armorBoxTop + 990} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>LEFT</text>
+		<text x={this.armorBoxLeft +  this.armorBoxWidth / 2 - 280 } y={this.armorBoxTop + 1010} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>LEG [{ this.props.mechData.getArmorAllocation().leftArm }]</text>
 
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 280 } y={this.armorBoxTop + 970} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>FRONT</text>
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 280 } y={this.armorBoxTop + 990} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>RIGHT</text>
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 280 } y={this.armorBoxTop + 1010} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>LEG [{ this.props.mechData.getArmorAllocation().rightArm }]</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 280 } y={this.armorBoxTop + 970} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>FRONT</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 280 } y={this.armorBoxTop + 990} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>RIGHT</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 280 } y={this.armorBoxTop + 1010} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>LEG [{ this.props.mechData.getArmorAllocation().rightArm }]</text>
 
-		<text x={this.armorBoxLeft +  this.armorBoxWidth / 2 - 110 } y={this.armorBoxTop + 935} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>REAR</text>
-		<text x={this.armorBoxLeft +  this.armorBoxWidth / 2 - 110 } y={this.armorBoxTop + 955} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>LEFT</text>
-		<text x={this.armorBoxLeft +  this.armorBoxWidth / 2 - 110 } y={this.armorBoxTop + 975} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>LEG [{ this.props.mechData.getArmorAllocation().leftLeg }]</text>
+		<text x={this.armorBoxLeft +  this.armorBoxWidth / 2 - 110 } y={this.armorBoxTop + 935} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>REAR</text>
+		<text x={this.armorBoxLeft +  this.armorBoxWidth / 2 - 110 } y={this.armorBoxTop + 955} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>LEFT</text>
+		<text x={this.armorBoxLeft +  this.armorBoxWidth / 2 - 110 } y={this.armorBoxTop + 975} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>LEG [{ this.props.mechData.getArmorAllocation().leftLeg }]</text>
 
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 110 } y={this.armorBoxTop + 935} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>REAR</text>
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 110 } y={this.armorBoxTop + 955} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>RIGHT</text>
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 110 } y={this.armorBoxTop + 975} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>LEG [{ this.props.mechData.getArmorAllocation().rightLeg }]</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 110 } y={this.armorBoxTop + 935} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>REAR</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 110 } y={this.armorBoxTop + 955} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>RIGHT</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 110 } y={this.armorBoxTop + 975} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>LEG [{ this.props.mechData.getArmorAllocation().rightLeg }]</text>
 
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 10  } y={this.armorBoxTop + 600} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={17}>CENTER</text>
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 10  } y={this.armorBoxTop + 620} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={17}>TORSO</text>
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 10  } y={this.armorBoxTop + 640} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={17}>[{ this.props.mechData.getArmorAllocation().centerTorso })</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 10  } y={this.armorBoxTop + 600} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={17}>CENTER</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 10  } y={this.armorBoxTop + 620} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={17}>TORSO</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 10  } y={this.armorBoxTop + 640} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={17}>[{ this.props.mechData.getArmorAllocation().centerTorso })</text>
 
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2  } y={this.armorBoxTop + 1210} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>CENTER TORSO (REAR) [{ this.props.mechData.getArmorAllocation().centerTorsoRear }]</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2  } y={this.armorBoxTop + 1210} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>CENTER TORSO (REAR) [{ this.props.mechData.getArmorAllocation().centerTorsoRear }]</text>
 
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 - 190 } y={this.armorBoxTop + 1090} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>LEFT TORSO</text>
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 - 190 } y={this.armorBoxTop + 1110} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>(REAR) [{ this.props.mechData.getArmorAllocation().leftTorsoRear }]</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 - 190 } y={this.armorBoxTop + 1090} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>LEFT TORSO</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 - 190 } y={this.armorBoxTop + 1110} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>(REAR) [{ this.props.mechData.getArmorAllocation().leftTorsoRear }]</text>
 
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 190 } y={this.armorBoxTop + 1090} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>RIGHT TORSO</text>
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 190 } y={this.armorBoxTop + 1110} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={20}>(REAR) [{ this.props.mechData.getArmorAllocation().rightTorsoRear }]</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 190 } y={this.armorBoxTop + 1090} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>RIGHT TORSO</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 190 } y={this.armorBoxTop + 1110} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>(REAR) [{ this.props.mechData.getArmorAllocation().rightTorsoRear }]</text>
 
             <QuadArmorCircles
                 armorBoxLeft={this.armorBoxLeft}
@@ -820,6 +822,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 inPlay={this.props.inPlay}
                 mechData={this.props.mechData}
                 onChange={this.props.onChange}
+                bgColor={bgColor}
                 openTakeDamageDialog={this.props.openTakeDamageDialog}
             />
         </>
@@ -830,6 +833,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
     <RecordSheetGroupBoxSVG
         width={this.isBoxWidth}
         height={600}
+        bgColor={bgColor}
         xLoc={this.isBoxLeft}
         yLoc={this.isBoxTop}
         title="Internal Structure"
@@ -845,30 +849,30 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
 
         {/* // Main Structure Labels */}
-		<text x={this.isBoxLeft + this.isBoxWidth / 2} y={this.isBoxTop + 55} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>HEAD [{this.props.mechData.getInternalStructure().head }]</text>
+		<text x={this.isBoxLeft + this.isBoxWidth / 2} y={this.isBoxTop + 55} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>HEAD [{this.props.mechData.getInternalStructure().head }]</text>
 
-		<text x={this.isBoxLeft + this.isBoxWidth / 2 - 65} y={this.isBoxTop + 85} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>LEFT TORSO</text>
-		<text x={this.isBoxLeft + this.isBoxWidth / 2 - 65} y={this.isBoxTop + 105} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>[{this.props.mechData.getInternalStructure().leftTorso }]</text>
+		<text x={this.isBoxLeft + this.isBoxWidth / 2 - 65} y={this.isBoxTop + 85} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>LEFT TORSO</text>
+		<text x={this.isBoxLeft + this.isBoxWidth / 2 - 65} y={this.isBoxTop + 105} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>[{this.props.mechData.getInternalStructure().leftTorso }]</text>
 
-		<text x={this.isBoxLeft + this.isBoxWidth / 2 + 65} y={this.isBoxTop + 85} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>RIGHT TORSO</text>
-		<text x={this.isBoxLeft + this.isBoxWidth / 2 + 65} y={this.isBoxTop + 105} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>[{this.props.mechData.getInternalStructure().rightTorso }]</text>
+		<text x={this.isBoxLeft + this.isBoxWidth / 2 + 65} y={this.isBoxTop + 85} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>RIGHT TORSO</text>
+		<text x={this.isBoxLeft + this.isBoxWidth / 2 + 65} y={this.isBoxTop + 105} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>[{this.props.mechData.getInternalStructure().rightTorso }]</text>
 
 
-		<text x={this.isBoxLeft +  this.isBoxWidth / 2 - 200} y={this.isBoxTop + 310} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>LEFT</text>
-		<text x={this.isBoxLeft +  this.isBoxWidth / 2 - 200} y={this.isBoxTop + 330} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>ARM [{this.props.mechData.getInternalStructure().leftArm }]</text>
+		<text x={this.isBoxLeft +  this.isBoxWidth / 2 - 200} y={this.isBoxTop + 310} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>LEFT</text>
+		<text x={this.isBoxLeft +  this.isBoxWidth / 2 - 200} y={this.isBoxTop + 330} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>ARM [{this.props.mechData.getInternalStructure().leftArm }]</text>
 
-		<text x={this.isBoxLeft + this.isBoxWidth / 2 + 200} y={this.isBoxTop + 310} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>RIGHT</text>
-		<text x={this.isBoxLeft + this.isBoxWidth / 2 + 200} y={this.isBoxTop + 330} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>ARM [{this.props.mechData.getInternalStructure().rightArm }]</text>
+		<text x={this.isBoxLeft + this.isBoxWidth / 2 + 200} y={this.isBoxTop + 310} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>RIGHT</text>
+		<text x={this.isBoxLeft + this.isBoxWidth / 2 + 200} y={this.isBoxTop + 330} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>ARM [{this.props.mechData.getInternalStructure().rightArm }]</text>
 
-		<text x={this.isBoxLeft +  this.isBoxWidth / 2 - 150} y={this.isBoxTop + 570} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>LEFT</text>
-		<text x={this.isBoxLeft +  this.isBoxWidth / 2 - 150} y={this.isBoxTop + 590} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>LEG [{this.props.mechData.getInternalStructure().leftLeg }]</text>
+		<text x={this.isBoxLeft +  this.isBoxWidth / 2 - 150} y={this.isBoxTop + 570} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>LEFT</text>
+		<text x={this.isBoxLeft +  this.isBoxWidth / 2 - 150} y={this.isBoxTop + 590} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>LEG [{this.props.mechData.getInternalStructure().leftLeg }]</text>
 
-		<text x={this.isBoxLeft + this.isBoxWidth / 2 + 150} y={this.isBoxTop + 570} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>RIGHT</text>
-		<text x={this.isBoxLeft + this.isBoxWidth / 2 + 150} y={this.isBoxTop + 590} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>LEG [{this.props.mechData.getInternalStructure().rightLeg }]</text>
+		<text x={this.isBoxLeft + this.isBoxWidth / 2 + 150} y={this.isBoxTop + 570} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>RIGHT</text>
+		<text x={this.isBoxLeft + this.isBoxWidth / 2 + 150} y={this.isBoxTop + 590} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>LEG [{this.props.mechData.getInternalStructure().rightLeg }]</text>
 
-		<text x={this.isBoxLeft + this.isBoxWidth / 2 } y={this.isBoxTop + 400} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>CENTER</text>
-		<text x={this.isBoxLeft + this.isBoxWidth / 2 } y={this.isBoxTop + 420} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>TORSO</text>
-		<text x={this.isBoxLeft + this.isBoxWidth / 2 } y={this.isBoxTop + 440} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>[{this.props.mechData.getInternalStructure().centerTorso })</text>
+		<text x={this.isBoxLeft + this.isBoxWidth / 2 } y={this.isBoxTop + 400} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>CENTER</text>
+		<text x={this.isBoxLeft + this.isBoxWidth / 2 } y={this.isBoxTop + 420} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>TORSO</text>
+		<text x={this.isBoxLeft + this.isBoxWidth / 2 } y={this.isBoxTop + 440} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>[{this.props.mechData.getInternalStructure().centerTorso })</text>
 
 
 
@@ -1140,33 +1144,33 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 width={380}
             />
 
-            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 } y={this.isBoxTop + 60} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>HEAD [{ this.props.mechData.getInternalStructure().head }]</text>
+            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 } y={this.isBoxTop + 60} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>HEAD [{ this.props.mechData.getInternalStructure().head }]</text>
 
-            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 - 65 - 115} y={this.isBoxTop + 105} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>LEFT TORSO</text>
-            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 - 95 - 115 } y={this.isBoxTop + 125} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>[{ this.props.mechData.getInternalStructure().leftTorso }]</text>
+            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 - 65 - 115} y={this.isBoxTop + 105} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>LEFT TORSO</text>
+            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 - 95 - 115 } y={this.isBoxTop + 125} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>[{ this.props.mechData.getInternalStructure().leftTorso }]</text>
 
-            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 + 65 + 115 } y={this.isBoxTop + 105} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>RIGHT TORSO</text>
-            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 + 95 + 115 } y={this.isBoxTop + 125} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>[{ this.props.mechData.getInternalStructure().rightTorso }]</text>
+            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 + 65 + 115 } y={this.isBoxTop + 105} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>RIGHT TORSO</text>
+            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 + 95 + 115 } y={this.isBoxTop + 125} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>[{ this.props.mechData.getInternalStructure().rightTorso }]</text>
 
-            <text x={ this.isBoxLeft + this.isQuadCenterAdjust +  this.isBoxWidth / 2 - 280 } y={this.isBoxTop + 540} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>FRONT</text>
-            <text x={ this.isBoxLeft + this.isQuadCenterAdjust +  this.isBoxWidth / 2 - 280 } y={this.isBoxTop + 560} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>LEFT</text>
-            <text x={ this.isBoxLeft + this.isQuadCenterAdjust +  this.isBoxWidth / 2 - 280 } y={this.isBoxTop + 580} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>LEG [{ this.props.mechData.getInternalStructure().leftArm }]</text>
+            <text x={ this.isBoxLeft + this.isQuadCenterAdjust +  this.isBoxWidth / 2 - 280 } y={this.isBoxTop + 540} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>FRONT</text>
+            <text x={ this.isBoxLeft + this.isQuadCenterAdjust +  this.isBoxWidth / 2 - 280 } y={this.isBoxTop + 560} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>LEFT</text>
+            <text x={ this.isBoxLeft + this.isQuadCenterAdjust +  this.isBoxWidth / 2 - 280 } y={this.isBoxTop + 580} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>LEG [{ this.props.mechData.getInternalStructure().leftArm }]</text>
 
-            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 + 280 } y={this.isBoxTop + 540} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>FRONT</text>
-            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 + 280 } y={this.isBoxTop + 560} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>RIGHT</text>
-            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 + 280 } y={this.isBoxTop + 580} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>LEG [{ this.props.mechData.getInternalStructure().rightArm }]</text>
+            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 + 280 } y={this.isBoxTop + 540} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>FRONT</text>
+            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 + 280 } y={this.isBoxTop + 560} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>RIGHT</text>
+            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 + 280 } y={this.isBoxTop + 580} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>LEG [{ this.props.mechData.getInternalStructure().rightArm }]</text>
 
-            <text x={ this.isBoxLeft + this.isQuadCenterAdjust +  this.isBoxWidth / 2 - 80 } y={this.isBoxTop + 570} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>REAR</text>
-            <text x={ this.isBoxLeft + this.isQuadCenterAdjust +  this.isBoxWidth / 2 - 80 } y={this.isBoxTop + 590} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>LEFT</text>
-            <text x={ this.isBoxLeft + this.isQuadCenterAdjust +  this.isBoxWidth / 2 - 80 } y={this.isBoxTop + 610} textAnchor="start" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>LEG [{ this.props.mechData.getInternalStructure().leftLeg }]</text>
+            <text x={ this.isBoxLeft + this.isQuadCenterAdjust +  this.isBoxWidth / 2 - 80 } y={this.isBoxTop + 570} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>REAR</text>
+            <text x={ this.isBoxLeft + this.isQuadCenterAdjust +  this.isBoxWidth / 2 - 80 } y={this.isBoxTop + 590} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>LEFT</text>
+            <text x={ this.isBoxLeft + this.isQuadCenterAdjust +  this.isBoxWidth / 2 - 80 } y={this.isBoxTop + 610} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>LEG [{ this.props.mechData.getInternalStructure().leftLeg }]</text>
 
-            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 + 80 } y={this.isBoxTop + 570} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>REAR</text>
-            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 + 80 } y={this.isBoxTop + 590} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>RIGHT</text>
-            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 + 80 } y={this.isBoxTop + 610} textAnchor="end" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={15}>LEG [{ this.props.mechData.getInternalStructure().rightLeg }]</text>
+            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 + 80 } y={this.isBoxTop + 570} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>REAR</text>
+            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 + 80 } y={this.isBoxTop + 590} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>RIGHT</text>
+            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 + 80 } y={this.isBoxTop + 610} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>LEG [{ this.props.mechData.getInternalStructure().rightLeg }]</text>
 
-            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2  } y={this.isBoxTop + 360} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={13}>CENTER</text>
-            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2  } y={this.isBoxTop + 380} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={13}>TORSO</text>
-            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2  } y={this.isBoxTop + 400} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={13}>[{ this.props.mechData.getInternalStructure().centerTorso })</text>
+            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2  } y={this.isBoxTop + 360} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={13}>CENTER</text>
+            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2  } y={this.isBoxTop + 380} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={13}>TORSO</text>
+            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2  } y={this.isBoxTop + 400} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={13}>[{ this.props.mechData.getInternalStructure().centerTorso })</text>
 
 
             {/* Head IS */}
@@ -1447,6 +1451,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         height={1215}
         xLoc={critBoxLeft}
         yLoc={critBoxTop}
+        bgColor={bgColor}
         title="Critical Hit Table"
         strokeColor={this.props.currentPhase === 2 ? currentPhaseGroupColor : undefined}
     >
@@ -1457,7 +1462,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             y={critBoxTop + 100}
             textAnchor="start"
             fontFamily="sans-serif"
-            fill={this.strokeColor}
+            fill={strokeColor}
             style={{fontWeight: 700}}
             fontSize={30}
         >
@@ -1469,9 +1474,9 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         </text>
 
         <CritAllocationTableSVG
-            strokeColor={this.strokeColor}
+            strokeColor={strokeColor}
             critData={this.props.mechData.getCriticals().leftArm}
-            inPlay={this.inPlay}
+            inPlay={inPlay}
             xLoc={critBoxLeft + critCol1Start}
             yLoc={critBoxTop + 140}
         />
@@ -1481,16 +1486,16 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             y={(critBoxTop + 100)}
             textAnchor="start"
             fontFamily="sans-serif"
-            fill={this.strokeColor}
+            fill={strokeColor}
             style={{fontWeight: 700}}
             fontSize={30}
         >
                 HEAD
         </text>
         <CritAllocationTableSVG
-            strokeColor={this.strokeColor}
+            strokeColor={strokeColor}
             critData={this.props.mechData.getCriticals().head}
-            inPlay={this.inPlay}
+            inPlay={inPlay}
             xLoc={critBoxLeft + critCol2Start}
             yLoc={critBoxTop + 140}
         />
@@ -1500,7 +1505,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             y={critBoxTop + 100}
             textAnchor="start"
             fontFamily="sans-serif"
-            fill={this.strokeColor}
+            fill={strokeColor}
             style={{fontWeight: 700}}
             fontSize={30}
         >
@@ -1511,9 +1516,9 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             )}
         </text>
         <CritAllocationTableSVG
-            strokeColor={this.strokeColor}
+            strokeColor={strokeColor}
             critData={this.props.mechData.getCriticals().rightArm}
-            inPlay={this.inPlay}
+            inPlay={inPlay}
             xLoc={critBoxLeft + critCol3Start}
             yLoc={critBoxTop + 140}
         />
@@ -1523,16 +1528,16 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             y={critBoxTop + 550}
             textAnchor="start"
             fontFamily="sans-serif"
-            fill={this.strokeColor}
+            fill={strokeColor}
             style={{fontWeight: 700}}
             fontSize={30
         }>
             LEFT TORSO
         </text>
         <CritAllocationTableSVG
-            strokeColor={this.strokeColor}
+            strokeColor={strokeColor}
             critData={this.props.mechData.getCriticals().leftTorso}
-            inPlay={this.inPlay}
+            inPlay={inPlay}
             xLoc={critBoxLeft + critCol1Start}
             yLoc={critBoxTop + 575}
 
@@ -1544,16 +1549,16 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             y={critBoxTop + 350}
             textAnchor="start"
             fontFamily="sans-serif"
-            fill={this.strokeColor}
+            fill={strokeColor}
             style={{fontWeight: 700}}
             fontSize={30}
         >
             CENTER TORSO
         </text>
         <CritAllocationTableSVG
-            strokeColor={this.strokeColor}
+            strokeColor={strokeColor}
             critData={this.props.mechData.getCriticals().centerTorso}
-            inPlay={this.inPlay}
+            inPlay={inPlay}
             xLoc={critBoxLeft + critCol2Start}
             yLoc={critBoxTop + 375}
 
@@ -1565,7 +1570,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             y={critBoxTop + 550}
             textAnchor="start"
             fontFamily="sans-serif"
-            fill={this.strokeColor}
+            fill={strokeColor}
             style={{fontWeight: 700}}
             fontSize={30}
         >
@@ -1573,9 +1578,9 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         </text>
 
         <CritAllocationTableSVG
-            strokeColor={this.strokeColor}
+            strokeColor={strokeColor}
             critData={this.props.mechData.getCriticals().rightTorso}
-            inPlay={this.inPlay}
+            inPlay={inPlay}
             xLoc={critBoxLeft + critCol3Start}
             yLoc={critBoxTop + 575}
         />
@@ -1586,7 +1591,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             y={critBoxTop + 1010}
             textAnchor="start"
             fontFamily="sans-serif"
-            fill={this.strokeColor}
+            fill={strokeColor}
             style={{fontWeight: 700}}
             fontSize={30}
         >
@@ -1598,9 +1603,9 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         </text>
 
         <CritAllocationTableSVG
-            strokeColor={this.strokeColor}
+            strokeColor={strokeColor}
             critData={this.props.mechData.getCriticals().leftLeg}
-            inPlay={this.inPlay}
+            inPlay={inPlay}
             xLoc={critBoxLeft + critCol1Start}
             yLoc={critBoxTop + 1050}
         />
@@ -1610,7 +1615,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             y={critBoxTop + 1010}
             textAnchor="start"
             fontFamily="sans-serif"
-            fill={this.strokeColor}
+            fill={strokeColor}
             style={{fontWeight: 700}}
             fontSize={30}
         >
@@ -1621,9 +1626,9 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             )}
         </text>
         <CritAllocationTableSVG
-            strokeColor={this.strokeColor}
+            strokeColor={strokeColor}
             critData={this.props.mechData.getCriticals().rightLeg}
-            inPlay={this.inPlay}
+            inPlay={inPlay}
             xLoc={critBoxLeft + critCol3Start}
             yLoc={critBoxTop + 1050}
         />
@@ -1634,7 +1639,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             mechData={this.props.mechData}
             width={critBoxWidth / 3}
             height={190}
-            strokeColor={this.strokeColor}
+            strokeColor={strokeColor}
         />
 
     {this.props.mechData.getMechType().tag === "biped" ? (
@@ -1643,14 +1648,14 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 xLoc={critBoxLeft + critBoxWidth / 2 - damageTransferWidth / 2}
                 yLoc={critBoxTop + 950}
                 width={damageTransferWidth}
-                strokeColor={this.strokeColor}
+                strokeColor={strokeColor}
             />
             <text
                 x={critBoxLeft + critBoxWidth / 2}
                 y={critBoxTop + 1200}
                 textAnchor="middle"
                 fontFamily="sans-serif"
-                fill={this.strokeColor}
+                fill={strokeColor}
                 style={{fontWeight: 700}}
                 fontSize={25}
             >
@@ -1661,7 +1666,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 y={critBoxTop + 1220}
                 textAnchor="middle"
                 fontFamily="sans-serif"
-                fill={this.strokeColor}
+                fill={strokeColor}
                 style={{fontWeight: 700}}
                 fontSize={25}
             >
@@ -1674,14 +1679,14 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 xLoc={critBoxLeft + critBoxWidth / 2 - damageTransferWidth / 2}
                 yLoc={critBoxTop + 950}
                 width={damageTransferWidth}
-                strokeColor={this.strokeColor}
+                strokeColor={strokeColor}
             />
             <text
                 x={critBoxLeft + critBoxWidth / 2}
                 y={critBoxTop + 1200}
                 textAnchor="middle"
                 fontFamily="sans-serif"
-                fill={this.strokeColor}
+                fill={strokeColor}
                 style={{fontWeight: 700}}
                 fontSize={25}
             >
@@ -1692,7 +1697,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 y={critBoxTop + 1220}
                 textAnchor="middle"
                 fontFamily="sans-serif"
-                fill={this.strokeColor}
+                fill={strokeColor}
                 style={{fontWeight: 700}}
                 fontSize={25}
             >
@@ -1707,6 +1712,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         xLoc={1240}
         height={575}
         width={435}
+        bgColor={bgColor}
         mechData={this.props.mechData}
         inPlay={this.props.inPlay}
     >
@@ -1725,6 +1731,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         xLoc={1690}
         height={575}
         width={205}
+        bgColor={bgColor}
         mechData={this.props.mechData}
         inPlay={this.props.inPlay}
     >
@@ -1768,7 +1775,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         y={this.docHeight - 100}
         width={2000}
         height={100}
-        fill={this.strokeColor}
+        fill={strokeColor}
     />
     <BattleTechLogo
         yLoc={this.docHeight - 85}
@@ -1842,6 +1849,14 @@ Neither Topps nor Catalyst Game Labs makes no representation or warranty as to t
     https://jdgwf.github.io/battletech-tools/
     </text>
             </g>
+
+            {this.props.inPlay && this.props.mechData.isWrecked() ? (
+                <>
+                <text x="200" y="400" fontFamily="sans-serif" transform="rotate( 30, 50, 100)" fontSize="400" stroke="rgb(255,255,255)" strokeWidth="4" fill="rgb(200,0,0)">WRECKED</text>
+                </>
+            ) : (
+                <></>
+            )}
         </svg>
         </>
         )

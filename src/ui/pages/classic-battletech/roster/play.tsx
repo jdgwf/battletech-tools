@@ -736,8 +736,6 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         if( currentBM ) {
           let damageLog = currentBM.damageLog;
 
-          let critical = this.state.takeDamageCritical ? 1 : 0;
-
           let takeDamageResult = currentBM.takeDamage(
             this.state.takeDamageAmount,
             this.state.takeDamageLocation,
@@ -2123,6 +2121,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               <BattleMechSVG
                 mechData={selectedMech}
                 inPlay={true}
+                bgColor={selectedMech.isWrecked() ? "#666" : ""}
                 //@ts-ignore
                 openSetTargetDialog={() => this.openSetTargetDialog(selectedMech)}
                 //@ts-ignore
@@ -2193,23 +2192,36 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                                 className="move"
                                 title="This is the mech's movement status, the color indicates the last movement method, the number is the to-hit movement modifiers as a target NOT including the +1 jump modifier if the 'mech jumped. This parallels the die indicator one would place next to the 'mech during the game as per Total Warfare p51 and/or the BattleTech Manual page 13"
                               >
-                                <svg
-                                  height={20}
-                                  width={20}
+{unit.isWrecked() ? (
+<>
+</>
+) : (
+  <svg
+  height={20}
+  width={20}
 
-                                >
-                                  <DieSVG
-                                    posX={0}
-                                    posY={0}
-                                    width={20}
-                                    bgColor={dieBG}
-                                    pipColor={dieFG}
-                                    numberPips={diePips}
-                                    // numericPips={true}
-                                  />
-                                </svg>
+>
+
+
+
+  <DieSVG
+    posX={0}
+    posY={0}
+    width={20}
+    bgColor={dieBG}
+    pipColor={dieFG}
+    numberPips={diePips}
+    // numericPips={true}
+  />
+</svg>
+)}
 
                               </div>
+{unit.isWrecked() ? (
+<h3 className="color-red text-center">
+    WRECKED
+</h3>
+) : (            
                               <div className="bars">
                                 <StatBar
                                   color="black"
@@ -2233,13 +2245,15 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                                   title={"Current Heat Status: " + unit.currentHeat}
                                 />
                               </div>
+)}
                             </div>
 
                           </button>
+                          {unit.isWrecked() === false ? (
                           <div className="flex">
                             <div className="grow">
                             <button
-                              className={this.props.appGlobals.currentCBTForce?.phase === 1 ? unit.currentMovementMode === "n" ? "btn btn-sm btn-success full-width" : "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
+                              className={this.props.appGlobals.currentCBTForce?.phase === 1 ? unit.currentMovementMode === "n" ? "btn btn-sm btn-success full-width no-bottom-margin" : "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width no-bottom-margin"}
                               onClick={(e) => this.openSetMovementDialog(unit)}
                               title={"Open the Movement Dialog for " + unit.getName()}
                             >
@@ -2248,7 +2262,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                             </div>
                             <div className="grow">
                               <button
-                                className={this.props.appGlobals.currentCBTForce?.phase === 2 ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
+                                className={this.props.appGlobals.currentCBTForce?.phase === 2 ? "btn btn-sm btn-primary full-width no-bottom-margin" : "btn btn-sm btn-secondary full-width no-bottom-margin"}
                                 onClick={(e) => this.openSetTargetDialog(unit)}
                                 title={"Open the Target Dialog for " + unit.getName()}
                               >
@@ -2256,6 +2270,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                               </button>
                             </div>
                           </div>
+                          ) : null}
+                          <hr />
                         </li>
                     )
                   })}

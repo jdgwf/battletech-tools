@@ -4,13 +4,7 @@ import DamageCircleSVG from './damage-circle-svg';
 import RecordSheetGroupBoxSVG from './record-sheet-group-box-svg';
 
 export default class HeatSinksSVG extends React.Component<IHeatSinksSVGProps, IHeatSinksSVGState> {
-    bgColor = "rgb(255,255,255)";
-    strokeColor = "rgb(0,0,0)";
-    // landscape: boolean = false;
-    inPlay: boolean = false;
 
-
-    colorTan = "#fdfde3";
 
     constructor(props: IHeatSinksSVGProps) {
         super( props );
@@ -42,6 +36,21 @@ export default class HeatSinksSVG extends React.Component<IHeatSinksSVGProps, IH
 	let hsLeft = 100;
 
 	let distanceFromCenter = 65;
+
+	let bgColor = "rgb(255,255,255)";
+    let strokeColor = "rgb(0,0,0)";
+    // landscape: boolean = false;
+    let inPlay: boolean = false;
+
+	if( this.props.inPlay ) {
+		inPlay = true;
+	}
+	if( this.props.bgColor ) {
+		bgColor = this.props.bgColor;
+	}
+	if( this.props.strokeColor ) {
+		strokeColor = this.props.strokeColor;
+	}
 
 	if( numHeatSinks >= 1 + hsCounter + 20 )
 
@@ -620,12 +629,14 @@ export default class HeatSinksSVG extends React.Component<IHeatSinksSVGProps, IH
             height={this.props.height}
             width={this.props.width}
             title="Sinks"
+			bgColor={bgColor}
+			strokeColor={strokeColor}
         >
 
-		<text x={this.props.xLoc + 205 / 2} y={this.props.yLoc + 75 + lineHeight * 0} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={ lineHeight - 6}>HEAT SINKS</text>\n";
-		<text x={this.props.xLoc + 205 / 2} y={this.props.yLoc + 75 + lineHeight * 2} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 700}} fontSize={ lineHeight * 2}>{this.props.mechData.getHeatSinks()}</text>\n";
+		<text x={this.props.xLoc + 205 / 2} y={this.props.yLoc + 75 + lineHeight * 0} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={ lineHeight - 6}>HEAT SINKS</text>\n";
+		<text x={this.props.xLoc + 205 / 2} y={this.props.yLoc + 75 + lineHeight * 2} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={ lineHeight * 2}>{this.props.mechData.getHeatSinks()}</text>\n";
 
-		<text x={this.props.xLoc + 205 / 2} y={this.props.yLoc + 75 + lineHeight * 3} textAnchor="middle" fontFamily="sans-serif" fill={this.strokeColor} style={{fontWeight: 500}} fontSize={ lineHeight - 6}>{this.props.mechData.getHeatSinksObj().name}</text>\n";
+		<text x={this.props.xLoc + 205 / 2} y={this.props.yLoc + 75 + lineHeight * 3} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 500}} fontSize={ lineHeight - 6}>{this.props.mechData.getHeatSinksObj().name}</text>\n";
 
             {heatSinkDots}
         </RecordSheetGroupBoxSVG>
