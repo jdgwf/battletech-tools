@@ -1852,7 +1852,8 @@ Neither Topps nor Catalyst Game Labs makes no representation or warranty as to t
 
             {this.props.inPlay && this.props.mechData.isWrecked() ? (
                 <>
-                <text x="200" y="400" fontFamily="sans-serif" transform="rotate( 30, 50, 100)" fontSize="400" stroke="rgb(255,255,255)" strokeWidth="4" fill="rgb(200,0,0)">WRECKED</text>
+                    <text y={this.docHeight / 2} x={this.docWidth / 2} textAnchor='middle' fontFamily="sans-serif" transform={"rotate( 30, " + this.docWidth / 2 + ", " + this.docHeight / 2 + ")"} fontSize="400" stroke="rgb(255,255,255)" strokeWidth="4" fill="rgb(200,0,0)">WRECKED</text>
+                    <text y={this.docHeight / 2 + 100 } x={this.docWidth / 2} textAnchor='middle' fontFamily="sans-serif" transform={"rotate( 30, " + this.docWidth / 2 + ", " + this.docHeight / 2 + ")"} fontSize="100" stroke="rgb(255,255,255)" strokeWidth="2" fill="rgb(200,0,0)">{this.props.mechData.isWreckedBlurb()}</text>
                 </>
             ) : (
                 <></>

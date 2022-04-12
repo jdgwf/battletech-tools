@@ -40,11 +40,7 @@ export default class HeatSinksSVG extends React.Component<IHeatSinksSVGProps, IH
 	let bgColor = "rgb(255,255,255)";
     let strokeColor = "rgb(0,0,0)";
     // landscape: boolean = false;
-    let inPlay: boolean = false;
 
-	if( this.props.inPlay ) {
-		inPlay = true;
-	}
 	if( this.props.bgColor ) {
 		bgColor = this.props.bgColor;
 	}

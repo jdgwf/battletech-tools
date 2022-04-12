@@ -5662,15 +5662,41 @@ export class BattleMech {
 
     public isWrecked(): boolean {
 
-        if( this._structureInLocation("ct") < 1 ) {
-            return true;
-        }
-
-        if( this._structureInLocation("hd") < 1 ) {
+        if( this.isWreckedBlurb() !== "") {
             return true;
         }
         
         return false;
+    }
+
+    private _returnRandomString( 
+        from: string[]
+    ): string {
+        return from[ Math.floor(Math.random() * from.length) ]
+    }
+
+    public isWreckedBlurb(): string {
+
+        if( this._structureInLocation("ct") < 1 ) {
+            let centerTorsoSnarks = [
+                "Massive hole in chest.",
+                "Radiation leak, very dangerous.",
+                "Where oh where did my reactor go?",
+                "No Reactor. The 'mech will finally cool down!", // no snarks longer than this!
+            ];
+            return this._returnRandomString(centerTorsoSnarks);
+        }
+
+        if( this._structureInLocation("hd") < 1 ) {
+            let headSnarks = [
+                "Cockpit became convertible",
+                "Mechwarrior missing",
+                "User error. Replace user.",
+            ];
+            return this._returnRandomString(headSnarks);
+        }
+        
+        return "";
     }
 
     public takeDamage(
@@ -5709,7 +5735,12 @@ export class BattleMech {
             if( remainderDamage ) {
                 // structureDamage = true;
                 remainderDamage = this._takeStructureDamageAtLocation( location, remainderDamage )
-                while( remainderDamage > 0 ) {
+                while( 
+                    remainderDamage > 0 &&             
+                    location !== "ct" && 
+                    location !== "ctr" && 
+                    location !== "hd"
+                ) {
                     location = this._moveDamageLocationIn( location, rear );
                     remainderDamage = this._takeStructureDamageAtLocation( location, remainderDamage )
                 }
@@ -5718,7 +5749,12 @@ export class BattleMech {
             console.log("takeDamage armor remainderDamage", amount, location, rear, remainderDamage)
         } else if (locationHasStructure) {
             let remainderDamage = this._takeStructureDamageAtLocation( location, amount )
-            while( remainderDamage > 0 ) {
+            while( 
+                remainderDamage > 0 &&             
+                location !== "ct" && 
+                location !== "ctr" && 
+                location !== "hd"
+            ) {
                 location = this._moveDamageLocationIn( location, rear );
                 remainderDamage = this._takeStructureDamageAtLocation( location, remainderDamage )
             }
