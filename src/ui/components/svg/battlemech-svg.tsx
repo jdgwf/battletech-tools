@@ -1122,15 +1122,15 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         {this.props.mechData.getInternalStructure().rightLeg > 28 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 28)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 106} yLoc={this.isBoxTop + 545} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={28} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().rightLeg > 29 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 29)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 108} yLoc={this.isBoxTop + 560} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={29} clickFunction={this.toggleISBubble} /></>) : (<></>)}
 
-
-        <TakeDamageButtonSVG
-            x={this.isBoxLeft + this.isBoxWidth / 2 - 50}
-            y={this.isBoxTop + 500}
-            height={100}
-            width={100}
-            onClick={this.props.openTakeDamageDialog}
-        />
-
+        {this.props.inPlay ? 
+            <TakeDamageButtonSVG
+                x={this.isBoxLeft + this.isBoxWidth / 2 - 50}
+                y={this.isBoxTop + 500}
+                height={100}
+                width={100}
+                onClick={this.props.openTakeDamageDialog}
+            />
+        : null}
         </>
     ) : (
         <>
@@ -1428,7 +1428,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         {this.props.mechData.getInternalStructure().leftTorso > 21 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 21)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 215} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={21} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().leftTorso > 22 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 22)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 230} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={22} clickFunction={this.toggleISBubble} /></>) : (<></>)}
 
-
+{this.props.inPlay ? 
         <TakeDamageButtonSVG
             x={this.isBoxLeft + 25}
             y={this.isBoxTop + 250}
@@ -1436,6 +1436,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             width={125}
             onClick={this.props.openTakeDamageDialog}
         />
+: null}
         </>
     )}
     </RecordSheetGroupBoxSVG>

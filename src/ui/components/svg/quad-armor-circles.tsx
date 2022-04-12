@@ -29,14 +29,15 @@ export default class QuadArmorCircles extends React.Component<IQuadArmorCirclesP
         return (
             <>
 
-        <TakeDamageButtonSVG
-            x={this.armorBoxLeft + 25}
-            y={this.armorBoxTop + 325}
-            height={125}
-            width={125}
-            onClick={this.props.openTakeDamageDialog}
-        />
-
+{this.props.inPlay ? 
+    <TakeDamageButtonSVG
+        x={this.armorBoxLeft + 25}
+        y={this.armorBoxTop + 325}
+        height={125}
+        width={125}
+        onClick={this.props.openTakeDamageDialog}
+    />
+: null}
         {/* Head Armor */}
         {this.props.mechData.getArmorAllocation().head > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("hd", 0)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 35} yLoc={this.armorBoxTop + 200} radius={15} inPlay={this.props.inPlay} clickLocation="hd" clickIndex={0} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}
         {this.props.mechData.getArmorAllocation().head > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("hd", 1)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 0} yLoc={this.armorBoxTop + 200} radius={15} inPlay={this.props.inPlay} clickLocation="hd" clickIndex={1} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}

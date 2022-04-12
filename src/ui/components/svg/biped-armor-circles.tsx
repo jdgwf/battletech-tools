@@ -28,14 +28,15 @@ export default class BipedArmorCircles extends React.Component<IBipedArmorCircle
     render = (): React.ReactFragment => {
         return (
             <>
-
-            <TakeDamageButtonSVG
-                x={this.armorBoxLeft + this.props.armorBoxWidth / 2 - 75}
-                y={this.armorBoxTop + 700}
-                height={150}
-                width={150}
-                onClick={this.props.openTakeDamageDialog}
-            />
+{this.props.inPlay ? 
+    <TakeDamageButtonSVG
+        x={this.armorBoxLeft + this.props.armorBoxWidth / 2 - 75}
+        y={this.armorBoxTop + 700}
+        height={150}
+        width={150}
+        onClick={this.props.openTakeDamageDialog}
+    />
+: null}
 
         {/* Head Armor */}
         {this.props.mechData.getArmorAllocation().head > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.armorDamaged("hd", 0)} xLoc={this.armorBoxLeft + this.armorBoxWidth / 2 - 35} yLoc={this.armorBoxTop + 140} radius={15} inPlay={this.props.inPlay} clickLocation="hd" clickIndex={0} clickFunction={this.toggleArmorBubble} /></>) : (<></>)}

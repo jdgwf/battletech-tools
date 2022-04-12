@@ -472,16 +472,25 @@ export function getLocationName(
         }
 
         case "ra": {
+            if( forQuad )
+                return "Right Front Leg"
+
             return "Right Arm"
         }
         case "la": {
+            if( forQuad )
+                return "Left Front Leg"
             return "Left Arm"
         }
 
         case "rl": {
+            if( forQuad )
+                return "Right Rear Leg"
             return "Right Leg"
         }
         case "ll": {
+            if( forQuad )
+                return "Left Rear Leg"
             return "Left Leg"
         }
     }
