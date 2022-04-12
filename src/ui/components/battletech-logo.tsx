@@ -7,6 +7,7 @@ export default class BattleTechLogo extends React.Component<IBattleTechLogoProps
     yLoc = 0;
     baseColor: string = "rgb(253,253,227)";
     altColor: string = "rgb(223,171,45)";
+    bottomAltColor: string = "rgb(223,171,45)";
 
     constructor( props: IBattleTechLogoProps ) {
         super(props);
@@ -38,7 +39,12 @@ export default class BattleTechLogo extends React.Component<IBattleTechLogoProps
         }
         if( this.props.altColor ) {
             this.altColor = this.props.altColor;
+            this.bottomAltColor = this.props.altColor;
         }
+        if( this.props.bottomAltColor ) {
+            this.bottomAltColor = this.props.bottomAltColor;
+        }
+        
     }
     render = (): React.ReactFragment => {
         return (
@@ -60,6 +66,10 @@ export default class BattleTechLogo extends React.Component<IBattleTechLogoProps
                     <path
                         style={{fill: this.altColor, fillOpacity:1}}
                         d="m 81.354266,96.997204 c 0.132976,-0.52117 2.748565,-5.40069 5.812408,-10.84338 l 5.570619,-9.89577 26.257817,0 26.25782,0 5.74945,10.15953 c 3.16218,5.58774 5.74943,10.46725 5.74943,10.84337 0,0.40421 -15.46403,0.68383 -37.81966,0.68383 -30.157097,0 -37.770684,-0.19199 -37.577884,-0.94758 z m -1.627755,-27.03083 c 0,-1.33965 39.191139,-70.72527986 39.670909,-70.23501986 0.33538,0.34274 9.36944,16.27127986 20.07565,35.39672986 l 19.46585,34.77357 -13.19042,0.20474 c -7.25473,0.11262 -13.43513,-0.0556 -13.73422,-0.3739 -0.29911,-0.31827 -3.31884,-5.57872 -6.71055,-11.68991 -5.31432,-9.57538 -6.27985,-10.91917 -6.98514,-9.72164 -0.45011,0.76429 -3.34948,5.9326 -6.44302,11.48516 l -5.62462,10.09555 -13.262212,0.20421 c -7.294228,0.11231 -13.262227,0.0496 -13.262227,-0.13949 z"
+                    />
+                    <path
+                        style={{fill: this.bottomAltColor, fillOpacity:1}}
+                        d="m 81.354266,96.997204 c 0.132976,-0.52117 2.748565,-5.40069 5.812408,-10.84338 l 5.570619,-9.89577 26.257817,0 26.25782,0 5.74945,10.15953 c 3.16218,5.58774 5.74943,10.46725 5.74943,10.84337 0,0.40421 -15.46403,0.68383 -37.81966,0.68383 -30.157097,0 -37.770684,-0.19199 -37.577884,-0.94758 z "
                     />
                 </g>
                 <text
@@ -83,6 +93,7 @@ interface IBattleTechLogoProps {
     width?: number;
     baseColor?: string;
     altColor?: string;
+    bottomAltColor?: string;
 }
 
 interface IBattleTechLogoState {
