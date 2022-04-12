@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { BattleMech, IGATOR } from '../../../classes/battlemech';
+import { CONST_HIGHLIGHT_COLOR } from '../../../configVars';
 import { breakLines } from '../../../utils/breakLines';
 import BattleTechLogo from '../battletech-logo';
 import BattleMechHeatEffectsBoxSVG from './battlemech-heat-effects-box-svg';
@@ -113,7 +114,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         let currentMoveBackground = "#009";
 
         if( this.props.mechData.currentMovementMode === "n" ) {
-            currentMoveBackground = "green";
+            currentMoveBackground = CONST_HIGHLIGHT_COLOR;
             currentMoveColor = "white";
           }
 

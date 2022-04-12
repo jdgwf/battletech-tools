@@ -628,6 +628,36 @@ body {
       color: 0;
     }
   }
+  .btn-phase-active {
+    background-color: #0000AA;
+    border-color: #0000AA;
+    color: $primaryTextColor;
+    > svg {
+      stroke: $primaryTextColor !important;
+      color: $primaryTextColor !important;
+      fill: $primaryTextColor !important;
+    }
+    &:active {
+      background-color: #0000AA !important;
+      border-color: #0000AA !important;
+      color: $primaryTextColor !important;
+    }
+    &:focus {
+      background-color: $secondaryBG !important;
+      border-color: #0000AA !important;
+      color: $primaryTextColor !important;
+    }
+    &:hover {
+      background-color: #0000CC;
+      border-color: #0000CC;
+      color: $primaryTextColor;
+    }
+    &:disabled {
+      background-color: #224;
+      border-color: #004;
+      color: 0;
+    }
+  }
   .no-margins {
     margin: 0 !important;
   }
@@ -1203,6 +1233,7 @@ body.retro {
     //   color: 0;
     // }
   }
+
 
   .print-cards {
     .print-section {

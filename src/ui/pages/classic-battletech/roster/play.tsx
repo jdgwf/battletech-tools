@@ -4,6 +4,7 @@ import { FaArrowCircleDown, FaArrowCircleLeft, FaArrowCircleRight, FaCheckSquare
 import { GiBattleAxe, GiMissileSwarm } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
 import { BattleMech, IGATOR, ITargetToHit } from "../../../../classes/battlemech";
+import { CONST_HIGHLIGHT_COLOR } from '../../../../configVars';
 import { IEquipmentItem } from '../../../../data/data-interfaces';
 import { getClusterHitsPerRoll, getLocationName, getTargetToHitFromWeapon, makeRange } from '../../../../utils';
 import { chunkRange } from '../../../../utils/chunkRange';
@@ -1162,7 +1163,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                                   <FaTable />
                                 </button>
                                 <button
-                                  className={attack.resolved ? "btn btn-success btn-sm" : "btn btn-warning btn-sm"}
+                                  className={attack.resolved ? "btn btn-phase-active btn-sm" : "btn btn-warning btn-sm"}
                                   onClick={(e) => this.toggleResolved(e, unit, attackIndex)}
                                   title="Click here to make this attack as resolved"
                                 >
@@ -1956,7 +1957,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       </div>
       <div>
         <button
-          className={this.props.appGlobals.currentCBTForce.phase === 0 ? "btn btn-primary btn-sm" : "btn btn-secondary btn-sm"}
+          className={this.props.appGlobals.currentCBTForce.phase === 0 ? "btn btn-phase-active btn-sm" : "btn btn-secondary btn-sm"}
           onClick={(e) => this.setPhase(e, 0)}
           title={this.props.appGlobals.currentCBTForce.getPhaseName(0)}
         >
@@ -1965,7 +1966,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       </div>
       <div>
         <button
-          className={this.props.appGlobals.currentCBTForce.phase === 1 ? "btn btn-primary btn-sm" : "btn btn-secondary btn-sm"}
+          className={this.props.appGlobals.currentCBTForce.phase === 1 ? "btn btn-phase-active btn-sm" : "btn btn-secondary btn-sm"}
           onClick={(e) => this.setPhase(e, 1)}
           title={this.props.appGlobals.currentCBTForce.getPhaseName(1)}
         >
@@ -1974,7 +1975,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       </div>
       <div>
         <button
-          className={this.props.appGlobals.currentCBTForce.phase === 2 ? "btn btn-primary btn-sm" : "btn btn-secondary btn-sm"}
+          className={this.props.appGlobals.currentCBTForce.phase === 2 ? "btn btn-phase-active btn-sm" : "btn btn-secondary btn-sm"}
           onClick={(e) => this.setPhase(e, 2)}
           title={this.props.appGlobals.currentCBTForce.getPhaseName(2)}
 
@@ -1984,7 +1985,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       </div>
       <div>
         <button
-          className={this.props.appGlobals.currentCBTForce.phase === 3 ? "btn btn-primary btn-sm" : "btn btn-secondary btn-sm"}
+          className={this.props.appGlobals.currentCBTForce.phase === 3 ? "btn btn-phase-active btn-sm" : "btn btn-secondary btn-sm"}
           onClick={(e) => this.setPhase(e, 3)}
           title={this.props.appGlobals.currentCBTForce.getPhaseName(3)}
         >
@@ -1993,7 +1994,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       </div>
       <div>
         <button
-          className={this.props.appGlobals.currentCBTForce.phase === 4 ? "btn btn-primary btn-sm" : "btn btn-secondary btn-sm"}
+          className={this.props.appGlobals.currentCBTForce.phase === 4 ? "btn btn-phase-active btn-sm" : "btn btn-secondary btn-sm"}
           onClick={(e) => this.setPhase(e, 4)}
           title={this.props.appGlobals.currentCBTForce.getPhaseName(4)}
         >
@@ -2002,7 +2003,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       </div>
       <div>
         <button
-          className={this.props.appGlobals.currentCBTForce.phase === 5 ? "btn btn-primary btn-sm" : "btn btn-secondary btn-sm"}
+          className={this.props.appGlobals.currentCBTForce.phase === 5 ? "btn btn-phase-active btn-sm" : "btn btn-secondary btn-sm"}
           onClick={(e) => this.setPhase(e, 5)}
           title={this.props.appGlobals.currentCBTForce.getPhaseName(5)}
         >
@@ -2137,7 +2138,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                     let diePips = unit.currentToHitMovementModifier;
 
                     if( unit.currentMovementMode === "n" ) {
-                      dieBG = "green";
+                      dieBG = CONST_HIGHLIGHT_COLOR;
                       dieFG = "white";
                     }
 
@@ -2227,7 +2228,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                           <div className="flex">
                             <div className="grow">
                             <button
-                              className={this.props.appGlobals.currentCBTForce?.phase === 1 ? unit.currentMovementMode === "n" ? "btn btn-sm btn-success full-width no-bottom-margin" : "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width no-bottom-margin"}
+                              className={this.props.appGlobals.currentCBTForce?.phase === 1 ? unit.currentMovementMode === "n" ? "btn btn-sm btn-phase-active full-width no-bottom-margin" : "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width no-bottom-margin"}
                               onClick={(e) => this.openSetMovementDialog(unit)}
                               title={"Open the Movement Dialog for " + unit.getName()}
                             >
@@ -2236,7 +2237,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                             </div>
                             <div className="grow">
                               <button
-                                className={this.props.appGlobals.currentCBTForce?.phase === 2 ? "btn btn-sm btn-primary full-width no-bottom-margin" : "btn btn-sm btn-secondary full-width no-bottom-margin"}
+                                className={this.props.appGlobals.currentCBTForce?.phase === 2 ? "btn btn-sm btn-phase-active full-width no-bottom-margin" : "btn btn-sm btn-secondary full-width no-bottom-margin"}
                                 onClick={(e) => this.openSetTargetDialog(unit)}
                                 title={"Open the Target Dialog for " + unit.getName()}
                               >
