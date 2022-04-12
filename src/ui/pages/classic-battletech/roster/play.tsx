@@ -674,6 +674,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
     ) => {
 
       if( currentBM ) {
+
         this.setState({
           takeDamageDialog: currentBM,
           setMovementDialog: null,
@@ -698,6 +699,31 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         takeDamageLocationSide: "",
       })
     }
+
+    saveDamage= (
+      e: React.FormEvent<HTMLButtonElement>
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+
+      if(  this.props.appGlobals.currentCBTForce && this.state.takeDamageDialog ) {
+
+        this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
+
+        this.setState({
+          takeDamageDialog: null,
+          takeDamageAmount: 0,
+          takeDamageLocation: "",
+          takeDamageLocationRear: false,
+          takeDamageCritical: false,
+          takeDamageLocationRoll: 0,
+          takeDamageLocationSide: "",
+        })
+        
+      }
+    }
+
     takeDamage = (
       e: React.FormEvent<HTMLButtonElement>
     ) => {
@@ -705,26 +731,35 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         e.preventDefault();
       }
 
-      if(  this.props.appGlobals.currentCBTForce  ) {
-        let currentBM =  this._getCurrentBM();
+      if(  this.state.takeDamageDialog && this.props.appGlobals.currentCBTForce  ) {
+        let currentBM = this.state.takeDamageDialog;
         if( currentBM ) {
           let damageLog = currentBM.damageLog;
+
+          let critical = this.state.takeDamageCritical ? 1 : 0;
+
+          let takeDamageResult = currentBM.takeDamage(
+            this.state.takeDamageAmount,
+            this.state.takeDamageLocation,
+            this.state.takeDamageLocationRear,
+          );
 
           damageLog.push( {
             turn: this.props.appGlobals.currentCBTForce.turn,
             amount: this.state.takeDamageAmount,
-            location: this.state.takeDamageLocation,
             rear: this.state.takeDamageLocationRear,
-            critical: this.state.takeDamageCritical ? 1 : 0,
-            criticalEffects: [],
-            criticalRoll: 0,
+            location: this.state.takeDamageLocation,
+            damageResults: takeDamageResult,
           })
   
           this.setState({
             takeDamageLocation: "",
+            takeDamageLocationRoll: 0,
+            takeDamageLocationSide: "",
+            takeDamageLocationRear: false,
             takeDamageDialog: currentBM,
           });
-          this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
+          
         }
 
       }
@@ -782,7 +817,6 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
       if( this.props.appGlobals.currentCBTForce ) {
 
-        // let currentBM: BattleMech | null = this.props.appGlobals.currentCBTForce.getUnitViaUUID( this.state.setMovementDialog?.uuid );
         if( this.state.setMovementDialog ) {
           let currentBM = this.state.setMovementDialog;
           currentBM.currentMovementMode = this.state.setMovementMode;
@@ -1762,7 +1796,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 <StandardModal
   show={true}
   onClose={this.closeTakeDamage}
-  // onSave={this.takeDamage}
+  onSave={this.saveDamage}
   title={"Taking Damage on " + this.state.takeDamageDialog.getName()}
   className="modal-xl"
 >
@@ -1770,8 +1804,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
     This doesn't quite work yet, but you can see how it will work!
   </div>
   
-    <div className="flex">
-    <fieldset className="fieldset with-margins">
+    <div className="row">
+      <div className="col-md-3 smaller-padding">
+    <fieldset className="fieldset ">
         <legend>How Much Damage?</legend>
         <br />
         {chunkRange( makeRange(1, 50) , 5).map( (section, sectionIndex) => {
@@ -1787,7 +1822,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                 return (
                   <React.Fragment key={number}>
                     <button
-                      className={this.state.takeDamageAmount === number ? "btn btn-sm btn-primary" : "btn btn-sm btn-secondary"}
+                      className={this.state.takeDamageAmount === number ? "btn btn-xs btn-primary" : "btn btn-xs btn-secondary"}
                       onClick={(e) => this.takeDamageAmount(e, number)}
                     >
                       {numberText}
@@ -1805,10 +1840,11 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           )
 
         })}
-      
 
     </fieldset>
-    <fieldset className="fieldset with-margins">
+    </div>
+    <div className="col-md-6 smaller-padding">
+    <fieldset className="fieldset ">
       <legend>Where did it hurt?</legend>
       <ToHitTable 
         forQuad={this.state.takeDamageDialog.isQuad()}
@@ -1819,7 +1855,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         currentRear={this.state.takeDamageLocationRear}
       />
     </fieldset>
-    <fieldset className="fieldset grow with-margins">
+    </div>
+    <div className="col-md-3 smaller-padding">
+    <fieldset className="fieldset grow ">
       <legend>Damage Log</legend>
       <br />
       <button
@@ -1870,17 +1908,21 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
       <br />
       
-      This will be the damage log for this phase.
+      This is your damage log for this phase
       <ul>
+          
         {this.state.takeDamageDialog.damageLog.map( (line, lineIndex) => {
           return (
             <li key={lineIndex}>
-              {line.amount} on {line.location}
+              {line.amount} on {getLocationName( line.location, this.state.takeDamageDialog ? this.state.takeDamageDialog.isQuad() : false) }
             </li>
           )
         })}
       </ul>
+ 
+
     </fieldset>
+    </div>
     </div>
 
  
@@ -2135,7 +2177,6 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                     if( unit.currentMovementMode === "j" ) {
                       dieBG = "red";
                       dieFG = "white";
-                      // diePips++;
                     }
 
                     return (

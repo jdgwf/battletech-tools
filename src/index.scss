@@ -82,6 +82,11 @@ body {
 
 }
 
+.row .smaller-padding {
+  padding-right: calc(var(--bs-gutter-x) * 0.125);
+  padding-left: calc(var(--bs-gutter-x) * 0.125);
+}
+
 .text-center {
   text-align: center;
 }
@@ -1146,7 +1151,7 @@ body.retro {
     // margin-left: .25rem;
     // margin-bottom: .25rem;
     text-decoration: none !important;
-    color: $retroPrimaryTextColor;
+    color: #fff !important;
     &:hover {
       color: $retroPrimaryTextColor;
     }
@@ -1200,7 +1205,7 @@ body.retro {
   .btn-secondary {
     background-color: $retroSecondaryBG !important;
     border-color: $retroSecondaryBG !important;
-    color: $retroPrimaryTextColor !important;
+    color: #fff !important;
     &:hover {
       background-color: $retroSecondaryBGHover !important;
       border-color: $retroSecondaryBGHover !important;

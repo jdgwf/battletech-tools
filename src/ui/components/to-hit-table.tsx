@@ -42,7 +42,7 @@ export default class ToHitTable extends React.Component<IToHitTableProps, IToHit
             {this.props.onClick ? (
               <>
                 <button 
-                  className={this.props.currentRoll === roll.roll && this.props.currentSide === "left" && !this.props.currentRear? "btn btn-sm full-width btn-primary no-rl-margins" : "btn btn-sm full-width btn-secondary no-rl-margins"}  
+                  className={this.props.currentRoll === roll.roll && this.props.currentSide === "left" && !this.props.currentRear? "btn btn-xs full-width btn-primary no-rl-margins" : "btn btn-xs full-width btn-secondary no-rl-margins"}  
                   onClick={(e) => this.onClick(
                     e, 
                     roll.left.location, 
@@ -57,7 +57,7 @@ export default class ToHitTable extends React.Component<IToHitTableProps, IToHit
                 </button>
                 {this.props.showRear && roll.left.hasRear ? (
                   <button 
-                  className={this.props.currentRoll === roll.roll && this.props.currentSide === "left" && this.props.currentRear? "btn btn-sm full-width btn-primary no-rl-margins" : "btn btn-sm full-width btn-secondary no-rl-margins"}  
+                  className={this.props.currentRoll === roll.roll && this.props.currentSide === "left" && this.props.currentRear? "btn btn-xs full-width btn-primary no-rl-margins" : "btn btn-xs full-width btn-secondary no-rl-margins"}  
                   onClick={(e) => this.onClick(
                     e, 
                     roll.left.location, 
@@ -85,7 +85,7 @@ export default class ToHitTable extends React.Component<IToHitTableProps, IToHit
           {this.props.onClick ? (
               <>
                 <button 
-                  className={this.props.currentRoll === roll.roll && this.props.currentSide === "front" && !this.props.currentRear? "btn btn-sm full-width btn-primary no-rl-margins" : "btn btn-sm full-width btn-secondary no-rl-margins"}  
+                  className={this.props.currentRoll === roll.roll && this.props.currentSide === "front" && !this.props.currentRear? "btn btn-xs full-width btn-primary no-rl-margins" : "btn btn-xs full-width btn-secondary no-rl-margins"}  
                   onClick={(e) => this.onClick(
                     e, 
                     roll.front.location, 
@@ -99,7 +99,7 @@ export default class ToHitTable extends React.Component<IToHitTableProps, IToHit
                 </button>
                 {this.props.showRear && roll.front.hasRear ? (
                   <button 
-                  className={this.props.currentRoll === roll.roll && this.props.currentSide === "front" && this.props.currentRear? "btn btn-sm full-width btn-primary no-rl-margins" : "btn btn-sm full-width btn-secondary no-rl-margins"}  
+                  className={this.props.currentRoll === roll.roll && this.props.currentSide === "front" && this.props.currentRear? "btn btn-xs full-width btn-primary no-rl-margins" : "btn btn-xs full-width btn-secondary no-rl-margins"}  
                   onClick={(e) => this.onClick(
                     e, 
                     roll.front.location, 
@@ -124,7 +124,7 @@ export default class ToHitTable extends React.Component<IToHitTableProps, IToHit
           {this.props.onClick ? (
               <>
                 <button 
-                  className={this.props.currentRoll === roll.roll && this.props.currentSide === "right" && !this.props.currentRear? "btn btn-sm full-width btn-primary no-rl-margins" : "btn btn-sm full-width btn-secondary no-rl-margins"}  
+                  className={this.props.currentRoll === roll.roll && this.props.currentSide === "right" && !this.props.currentRear? "btn btn-xs full-width btn-primary no-rl-margins" : "btn btn-xs full-width btn-secondary no-rl-margins"}  
                   onClick={(e) => this.onClick(
                     e, 
                     roll.left.location, 
@@ -138,7 +138,7 @@ export default class ToHitTable extends React.Component<IToHitTableProps, IToHit
                 </button>
                 {this.props.showRear && roll.right.hasRear ? (
                   <button 
-                  className={this.props.currentRoll === roll.roll && this.props.currentSide === "right" && this.props.currentRear? "btn btn-sm full-width btn-primary no-rl-margins" : "btn btn-sm full-width btn-secondary no-rl-margins"}  
+                  className={this.props.currentRoll === roll.roll && this.props.currentSide === "right" && this.props.currentRear? "btn btn-xs full-width btn-primary no-rl-margins" : "btn btn-xs full-width btn-secondary no-rl-margins"}  
                   onClick={(e) => this.onClick(
                     e, 
                     roll.right.location, 

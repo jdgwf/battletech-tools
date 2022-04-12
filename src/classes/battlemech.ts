@@ -5000,8 +5000,10 @@ export class BattleMech {
         }
     }
 
-    public exportJSON(): string {
-        return JSON.stringify( this.export() )
+    public exportJSON(
+        noInPlayVariables: boolean = false,
+    ): string {
+        return JSON.stringify( this.export(noInPlayVariables) )
     }
 
     public getTargetSummaryText(
@@ -5657,6 +5659,515 @@ export class BattleMech {
         }
         return null;
     };
+
+    public isWrecked(): boolean {
+
+        if( this._structureInLocation("ct") < 1 ) {
+            return true;
+        }
+
+        if( this._structureInLocation("hd") < 1 ) {
+            return true;
+        }
+        
+        return false;
+    }
+
+    public takeDamage(
+        amount: number,
+        location: string,
+        rear: boolean,
+    ): IDamageResults[] {
+
+        let rv: IDamageResults[] = [];
+
+        // Check location armor
+        // let armorDamage = true;
+        // let structureDamage = false;
+
+        let locationHasArmor = this._locationHasArmor(location);
+        let locationHasStructure = this._locationHasStructure(location);
+        while( 
+            !locationHasStructure && 
+            !locationHasArmor && 
+            location !== "ct" && 
+            location !== "ctr" && 
+            location !== "hd"
+        ) {
+
+            console.log("takeDamage moveDamageLocationIn from", location, locationHasStructure, locationHasArmor)
+            location = this._moveDamageLocationIn( location, rear );
+            
+            locationHasArmor = this._locationHasArmor(location);
+            locationHasStructure = this._locationHasStructure(location);
+            console.log("takeDamage moveDamageLocationIn to", location, locationHasStructure, locationHasArmor)
+        }
+
+        if( locationHasArmor ) {
+            let remainderDamage = this._takeArmorDamageAtLocation( location, amount );
+
+            if( remainderDamage ) {
+                // structureDamage = true;
+                remainderDamage = this._takeStructureDamageAtLocation( location, remainderDamage )
+                while( remainderDamage > 0 ) {
+                    location = this._moveDamageLocationIn( location, rear );
+                    remainderDamage = this._takeStructureDamageAtLocation( location, remainderDamage )
+                }
+    
+            }
+            console.log("takeDamage armor remainderDamage", amount, location, rear, remainderDamage)
+        } else if (locationHasStructure) {
+            let remainderDamage = this._takeStructureDamageAtLocation( location, amount )
+            while( remainderDamage > 0 ) {
+                location = this._moveDamageLocationIn( location, rear );
+                remainderDamage = this._takeStructureDamageAtLocation( location, remainderDamage )
+            }
+
+            console.log("takeDamage structure remainderDamage", amount, location, rear, remainderDamage)
+        }
+
+        this._calc();
+        return rv;
+
+    }
+
+    private _locationHasArmor(
+        location: string
+    ): boolean {
+        if( this._armorInLocation( location ) > 0 )
+            return true;
+
+        return false;
+    }
+
+    private _locationHasStructure(
+        location: string
+    ): boolean {
+        if( this._structureInLocation( location ) > 0 )
+            return true;
+
+        return false;
+    }
+
+    private _structureInLocation(
+        location: string
+    ): number {
+        if( location === "ct" || location === "ctr" ) {
+            let count = 0;
+            for( let bubbleIndex in this._structureBubbles.centerTorso ) {
+                if( this._structureBubbles.centerTorso[bubbleIndex] ) {
+                    count++;
+                }
+            }
+            return count;
+
+        } else if( location === "lt" ||  location === "ltr"  ) {
+            let count = 0;
+            for( let bubbleIndex in this._structureBubbles.leftTorso ) {
+                if( this._structureBubbles.leftTorso[bubbleIndex] ) {
+                    count++;
+                }
+            }
+            return count;
+
+        } else if( location === "rt" || location === "rtr") {
+            let count = 0;
+            for( let bubbleIndex in this._structureBubbles.rightTorso ) {
+                if( this._structureBubbles.rightTorso[bubbleIndex] ) {
+                    count++;
+                }
+            }
+            return count;
+
+        } else if( location === "ra" ) {
+            let count = 0;
+            for( let bubbleIndex in this._structureBubbles.rightArm ) {
+                if( this._structureBubbles.rightArm[bubbleIndex] ) {
+                    count++;
+                }
+            }
+            return count;
+
+        } else if( location === "la" ) {
+            let count = 0;
+            for( let bubbleIndex in this._structureBubbles.leftArm ) {
+                if( this._structureBubbles.leftArm[bubbleIndex] ) {
+                    count++;
+                }
+            }
+            return count;
+
+        } else if( location === "ll" ) {
+            let count = 0;
+            for( let bubbleIndex in this._structureBubbles.leftLeg ) {
+                if( this._structureBubbles.leftLeg[bubbleIndex] ) {
+                    count++;
+                }
+            }
+            return count;
+
+        } else if( location === "rl" ) {
+            let count = 0;
+            for( let bubbleIndex in this._structureBubbles.rightLeg ) {
+                if( this._structureBubbles.rightLeg[bubbleIndex] ) {
+                    count++;
+                }
+            }
+            return count;
+
+        }  else if( location === "hd" ) {
+            let count = 0;
+            for( let bubbleIndex in this._structureBubbles.head ) {
+                if( this._structureBubbles.head[bubbleIndex] ) {
+                    count++;
+                }
+            }
+            return count;
+
+        } 
+        return -1;
+    }
+
+    private _armorInLocation(
+        location: string
+    ): number {
+        if( location === "ct" ) {
+            let count = 0;
+            for( let bubbleIndex in this._armorBubbles.centerTorso ) {
+                if( this._armorBubbles.centerTorso[bubbleIndex] ) {
+                    count++;
+                }
+            }
+            return count;
+
+        } else if( location === "ctr" ) {
+            let count = 0;
+            for( let bubbleIndex in this._armorBubbles.centerTorsoRear ) {
+                if( this._armorBubbles.centerTorsoRear[bubbleIndex] ) {
+                    count++;
+                }
+            }
+            return count;
+
+        } else if( location === "lt" ) {
+            let count = 0;
+            for( let bubbleIndex in this._armorBubbles.leftTorso ) {
+                if( this._armorBubbles.leftTorso[bubbleIndex] ) {
+                    count++;
+                }
+            }
+            return count;
+
+        } else if( location === "ltr" ) {
+            let count = 0;
+            for( let bubbleIndex in this._armorBubbles.leftTorsoRear ) {
+                if( this._armorBubbles.leftTorsoRear[bubbleIndex] ) {
+                    count++;
+                }
+            }
+            return count;
+
+        } else if( location === "rt" ) {
+            let count = 0;
+            for( let bubbleIndex in this._armorBubbles.rightTorso ) {
+                if( this._armorBubbles.rightTorso[bubbleIndex] ) {
+                    count++;
+                }
+            }
+            return count;
+
+        } else if( location === "rtr" ) {
+            let count = 0;
+            for( let bubbleIndex in this._armorBubbles.rightTorsoRear ) {
+                if( this._armorBubbles.rightTorsoRear[bubbleIndex] ) {
+                    count++;
+                }
+            }
+            return count;
+
+        } else if( location === "ra" ) {
+            let count = 0;
+            for( let bubbleIndex in this._armorBubbles.rightArm ) {
+                if( this._armorBubbles.rightArm[bubbleIndex] ) {
+                    count++;
+                }
+            }
+            return count;
+
+        } else if( location === "la" ) {
+            let count = 0;
+            for( let bubbleIndex in this._armorBubbles.leftArm ) {
+                if( this._armorBubbles.leftArm[bubbleIndex] ) {
+                    count++;
+                }
+            }
+            return count;
+
+        } else if( location === "ll" ) {
+            let count = 0;
+            for( let bubbleIndex in this._armorBubbles.leftLeg ) {
+                if( this._armorBubbles.leftLeg[bubbleIndex] ) {
+                    count++;
+                }
+            }
+            return count;
+
+        } else if( location === "rl" ) {
+            let count = 0;
+            for( let bubbleIndex in this._armorBubbles.rightLeg ) {
+                if( this._armorBubbles.rightLeg[bubbleIndex] ) {
+                    count++;
+                }
+            }
+            return count;
+
+        }  else if( location === "hd" ) {
+            let count = 0;
+            for( let bubbleIndex in this._armorBubbles.head ) {
+                if( this._armorBubbles.head[bubbleIndex] ) {
+                    count++;
+                }
+            }
+            return count;
+
+        } 
+        return -1;
+    }
+
+    private _takeArmorDamageAtLocation ( 
+        location: string,
+        amount: number,
+    ): number {
+        let damageTaken = 0;
+        if( location === "ct" ) {
+            for( let bubbleIndex in this._armorBubbles.centerTorso ) {
+                if( this._armorBubbles.centerTorso[bubbleIndex] && damageTaken < amount ) {
+                    this._armorBubbles.centerTorso[bubbleIndex] = false;
+                    damageTaken++;
+                }
+            }
+
+        } else if( location === "ctr" ) {
+            for( let bubbleIndex in this._armorBubbles.centerTorsoRear ) {
+                if( this._armorBubbles.centerTorsoRear[bubbleIndex] && damageTaken < amount ) {
+                    this._armorBubbles.centerTorsoRear[bubbleIndex] = false;
+                    damageTaken++;
+                }
+            }
+
+        } else if( location === "lt" ) {
+            for( let bubbleIndex in this._armorBubbles.leftTorso ) {
+                if( this._armorBubbles.leftTorso[bubbleIndex] && damageTaken < amount ) {
+                    this._armorBubbles.leftTorso[bubbleIndex] = false;
+                    damageTaken++;
+                }
+            }
+
+        } else if( location === "ltr" ) {
+            for( let bubbleIndex in this._armorBubbles.leftTorsoRear ) {
+                if( this._armorBubbles.leftTorsoRear[bubbleIndex] && damageTaken < amount ) {
+                    this._armorBubbles.leftTorsoRear[bubbleIndex] = false;
+                    damageTaken++;
+                }
+            }
+
+        } else if( location === "rt" ) {
+            for( let bubbleIndex in this._armorBubbles.rightTorso ) {
+                if( this._armorBubbles.rightTorso[bubbleIndex] && damageTaken < amount ) {
+                    this._armorBubbles.rightTorso[bubbleIndex] = false;
+                    damageTaken++;
+                }
+            }
+
+        } else if( location === "rtr" ) {
+            for( let bubbleIndex in this._armorBubbles.rightTorsoRear ) {
+                if( this._armorBubbles.rightTorsoRear[bubbleIndex] && damageTaken < amount ) {
+                    this._armorBubbles.rightTorsoRear[bubbleIndex] = false;
+                    damageTaken++;
+                }
+            }
+
+        } else if( location === "ra" ) {
+            for( let bubbleIndex in this._armorBubbles.rightArm ) {
+                if( this._armorBubbles.rightArm[bubbleIndex] && damageTaken < amount ) {
+                    this._armorBubbles.rightArm[bubbleIndex] = false;
+                    damageTaken++;
+                }
+            }
+
+        } else if( location === "la" ) {
+            for( let bubbleIndex in this._armorBubbles.leftArm ) {
+                if( this._armorBubbles.leftArm[bubbleIndex] && damageTaken < amount ) {
+                    this._armorBubbles.leftArm[bubbleIndex] = false;
+                    damageTaken++;
+                }
+            }
+
+        } else if( location === "ll" ) {
+            for( let bubbleIndex in this._armorBubbles.leftLeg ) {
+                if( this._armorBubbles.leftLeg[bubbleIndex] && damageTaken < amount ) {
+                    this._armorBubbles.leftLeg[bubbleIndex] = false;
+                    damageTaken++;
+                }
+            }
+
+        } else if( location === "rl" ) {
+            for( let bubbleIndex in this._armorBubbles.rightLeg ) {
+                if( this._armorBubbles.rightLeg[bubbleIndex] && damageTaken < amount ) {
+                    this._armorBubbles.rightLeg[bubbleIndex] = false;
+                    damageTaken++;
+                }
+            }
+
+        }  else if( location === "hd" ) {
+            for( let bubbleIndex in this._armorBubbles.head ) {
+                if( this._armorBubbles.head[bubbleIndex] && damageTaken < amount ) {
+                    this._armorBubbles.head[bubbleIndex] = false;
+                    damageTaken++;
+                }
+            }
+
+        } 
+
+        return amount - damageTaken;
+    }
+
+    private _takeStructureDamageAtLocation ( 
+        location: string,
+        amount: number,
+    ): number {
+        let damageTaken = 0;
+        if( location === "ct" || location === "ctr" ) {
+            for( let bubbleIndex in this._structureBubbles.centerTorso ) {
+                if( this._structureBubbles.centerTorso[bubbleIndex] && damageTaken < amount ) {
+                    this._structureBubbles.centerTorso[bubbleIndex] = false;
+                    damageTaken++;
+                }
+            }
+
+        } else if( location === "lt" || location === "ltr"  ) {
+            for( let bubbleIndex in this._structureBubbles.leftTorso ) {
+                if( this._structureBubbles.leftTorso[bubbleIndex] && damageTaken < amount ) {
+                    this._structureBubbles.leftTorso[bubbleIndex] = false;
+                    damageTaken++;
+                }
+            }
+
+        }else if( location === "rt" || location === "rtr" ) {
+            for( let bubbleIndex in this._structureBubbles.rightTorso ) {
+                if( this._structureBubbles.rightTorso[bubbleIndex] && damageTaken < amount ) {
+                    this._structureBubbles.rightTorso[bubbleIndex] = false;
+                    damageTaken++;
+                }
+            }
+
+        } else if( location === "ra" ) {
+            for( let bubbleIndex in this._structureBubbles.rightArm ) {
+                if( this._structureBubbles.rightArm[bubbleIndex] && damageTaken < amount ) {
+                    this._structureBubbles.rightArm[bubbleIndex] = false;
+                    damageTaken++;
+                }
+            }
+
+        } else if( location === "la" ) {
+            for( let bubbleIndex in this._structureBubbles.leftArm ) {
+                if( this._structureBubbles.leftArm[bubbleIndex] && damageTaken < amount ) {
+                    this._structureBubbles.leftArm[bubbleIndex] = false;
+                    damageTaken++;
+                }
+            }
+
+        } else if( location === "ll" ) {
+            for( let bubbleIndex in this._structureBubbles.leftLeg ) {
+                if( this._structureBubbles.leftLeg[bubbleIndex] && damageTaken < amount ) {
+                    this._structureBubbles.leftLeg[bubbleIndex] = false;
+                    damageTaken++;
+                }
+            }
+
+        } else if( location === "rl" ) {
+            for( let bubbleIndex in this._structureBubbles.rightLeg ) {
+                if( this._structureBubbles.rightLeg[bubbleIndex] && damageTaken < amount ) {
+                    this._structureBubbles.rightLeg[bubbleIndex] = false;
+                    damageTaken++;
+                }
+            }
+
+        }  else if( location === "hd" ) {
+            for( let bubbleIndex in this._structureBubbles.head ) {
+                if( this._structureBubbles.head[bubbleIndex] && damageTaken < amount ) {
+                    this._structureBubbles.head[bubbleIndex] = false;
+                    damageTaken++;
+                }
+            }
+
+        } 
+
+        return amount - damageTaken;
+    }
+
+    private _moveDamageLocationIn( 
+        loc: string,
+        rear: boolean,
+    ): string {
+
+        if( loc === "la" ) {
+            if( rear )
+                return "ltr";
+            else
+                return "lt";
+        }
+        if( loc === "ra" ) {
+            if( rear )
+                return "rtr";
+            else
+                return "rt";
+        }
+
+        if( loc === "ll" ) {
+            if( rear )
+                return "ltr";
+            else
+                return "lt";
+        }
+        if( loc === "rl" ) {
+            if( rear )
+                return "rtr";
+            else
+                return "rt";
+        }
+
+        if( loc === "rt" ) {
+            if( rear )
+                return "ctr";
+            else
+                return "ct";
+        }
+        if( loc === "lt" ) {
+            if( rear )
+                return "ctr";
+            else
+                return "ct";
+        }
+ 
+        if( loc === "rtr" ) {
+            if( rear )
+                return "ctr";
+            else
+                return "ctr";
+        }
+        if( loc === "ltr" ) {
+            if( rear )
+                return "ctr";
+            else
+                return "ctr";
+        }
+
+        if( rear )
+            return "ctr"
+        else
+            return "ct"
+    }
 
     public setRear(
         itemUUID: string | undefined,
@@ -7281,7 +7792,13 @@ export interface IMechDamageLog {
     location: string;
     rear: boolean;
     amount: number;
-    critical: number;
+    damageResults: IDamageResults[];
+}
+
+export interface IDamageResults {
+    criticals: number;
     criticalRoll: number;
     criticalEffects: string[];
+    location: string;
+    amount: number;
 }
