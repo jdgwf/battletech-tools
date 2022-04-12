@@ -3,7 +3,7 @@ import { CrosshairArrow, HotSurface } from 'react-game-icons';
 import { FaArrowCircleDown, FaArrowCircleLeft, FaArrowCircleRight, FaCheckSquare, FaDice, FaGift, FaQuestionCircle, FaShoePrints, FaSquare, FaTable } from "react-icons/fa";
 import { GiBattleAxe, GiMissileSwarm } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
-import { BattleMech, IGATOR, IMechDamageLog, ITargetToHit } from "../../../../classes/battlemech";
+import { BattleMech, IGATOR, ITargetToHit } from "../../../../classes/battlemech";
 import { IEquipmentItem } from '../../../../data/data-interfaces';
 import { getClusterHitsPerRoll, getLocationName, getTargetToHitFromWeapon, makeRange } from '../../../../utils';
 import { chunkRange } from '../../../../utils/chunkRange';

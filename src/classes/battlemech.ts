@@ -5645,29 +5645,56 @@ export class BattleMech {
         return null;
     };
 
-    public removeEquipment(equipmentIndex: number) {
-        if( this._equipmentList[equipmentIndex]) {
-            this._equipmentList.splice(equipmentIndex, 1);
-            return 1;
+    public removeEquipment(itemUUID: string | undefined) {
+
+        if( itemUUID ) {
+            for( let equipmentIndex in this._equipmentList ) {
+                if( this._equipmentList[equipmentIndex] && itemUUID === this._equipmentList[equipmentIndex].uuid ) {
+                    this._equipmentList.splice(+equipmentIndex, 1);
+                    return 1;
+                }
+            }
         }
         return null;
     };
 
     public setRear(
-        equipmentIndex: number,
+        itemUUID: string | undefined,
         newValue: boolean
     ) {
 
-        if( this._equipmentList[equipmentIndex]) {
+        if( itemUUID ) {
+            for( let item of this._equipmentList ) {
+                if( item.uuid && item.uuid === itemUUID) {
 
-            this._equipmentList[equipmentIndex].rear = newValue;
-            for( let item of this._criticalAllocationTable ) {
-                if( item.obj && item.obj.uuid === this._equipmentList[equipmentIndex].uuid ) {
                     item.rear = newValue;
-                    item.obj.rear = newValue;
+
+                    for( let critAllItem of this._criticalAllocationTable ) {
+                        if( critAllItem.obj && critAllItem.uuid === itemUUID ) {
+                            critAllItem.rear = newValue;
+                            critAllItem.obj.rear = newValue;
+                            break;
+                        }
+
+                    }
+                    break;
+
+
+                    
                 }
             }
+
         }
+        // if( this._equipmentList[equipmentIndex]) {
+
+        //     this._equipmentList[equipmentIndex].rear = newValue;
+        //     for( let item of this._criticalAllocationTable ) {
+        //         if( item.obj && item.obj.uuid === this._equipmentList[equipmentIndex].uuid ) {
+        //             item.rear = newValue;
+        //             item.obj.rear = newValue;
+        //         }
+        //     }
+        // }
 
         this._calc();
         // return this._equipmentList[equipmentIndex].rear;

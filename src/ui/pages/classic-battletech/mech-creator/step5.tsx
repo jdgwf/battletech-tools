@@ -1,14 +1,15 @@
 import React from 'react';
-import { Modal } from 'react-bootstrap';
 import { FaArrowCircleLeft, FaArrowCircleRight, FaPlus, FaTrash } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { IEquipmentItem } from '../../../../data/data-interfaces';
-import { sortEquipment } from "../../../../utils";
+import { sortEquipment } from '../../../../utils';
 import { IAppGlobals } from '../../../app-router';
 import AvailableEquipment from '../../../components/available-equipment';
+import InputCheckbox from '../../../components/form_elements/input_checkbox';
 import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
 import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
 import SanitizedHTML from '../../../components/sanitized-html';
+import StandardModal from '../../../components/standard-modal';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
@@ -43,10 +44,10 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
       return false;
     }
 
-    removeEquipment = ( itemIndex: number ): boolean => {
+    removeEquipment = ( itemUUID: string | undefined ): boolean => {
       if( this.props.appGlobals.currentBattleMech ) {
         this.props.appGlobals.currentBattleMech.removeEquipment(
-          itemIndex
+          itemUUID
         );
         this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
 
@@ -55,10 +56,13 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
       return false;
     }
 
-    setRear = ( itemIndex: number, isRear: boolean ): boolean => {
+    setRear = ( 
+      itemUUID: string | undefined, 
+      isRear: boolean 
+    ): boolean => {
       if( this.props.appGlobals.currentBattleMech ) {
         this.props.appGlobals.currentBattleMech.setRear(
-          itemIndex,
+          itemUUID,
           isRear,
         );
         this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
@@ -87,33 +91,25 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
         return <></>
       return (
         <>
-            <Modal
-              show={this.state.showAddDialog} onHide={this.closeInstallDialog}
+            <StandardModal
+              show={this.state.showAddDialog} 
+              onClose={this.closeInstallDialog}
               className="modal-xl"
+              title="Installing Equipment"
             >
-                <Modal.Header closeButton>
-                    <Modal.Title>
-                      Installing Equipment
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body className="overflow-scroll-y">
-                    <div className="form">
-                        <div>
-                            <AvailableEquipment
-                              appGlobals={this.props.appGlobals}
-                              equipment={this.props.appGlobals.currentBattleMech.getAvailableEquipment()}
-                              addFunction={this.addEquipment}
-                              hideUnavailable={this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment}
-                            />
-                        </div>
-                    </div>
-                </Modal.Body>
-                <Modal.Footer>
-                    <button className="btn btn-primary" onClick={this.closeInstallDialog}>
-                        Close
-                    </button>
-                </Modal.Footer>
-            </Modal>
+ 
+              <div className="form">
+                  <div>
+                      <AvailableEquipment
+                        appGlobals={this.props.appGlobals}
+                        equipment={this.props.appGlobals.currentBattleMech.getAvailableEquipment()}
+                        addFunction={this.addEquipment}
+                        hideUnavailable={this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment}
+                      />
+                  </div>
+              </div>
+
+            </StandardModal>
             <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  />
           <UIPage current="classic-battletech-mech-creator" appGlobals={this.props.appGlobals}>
 
@@ -156,24 +152,25 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                   </tr>
                                 </thead>
 
-                                {this.props.appGlobals.currentBattleMech.getInstalledEquipment().sort(sortEquipment).map( (item, itemIndex) => {
+                                {this.props.appGlobals.currentBattleMech.getInstalledEquipment().sort( sortEquipment ).map( (item, itemIndex) => {
                                   return (
                                     <tbody key={itemIndex}>
                                     <tr>
-                                      <td>{item.name}</td>
-                                      {/* <td>{item.sort}</td> */}
+                                      <td>
+                                        {item.name}
+                                      </td>
                                       <td>{item.weight}</td>
                                       <td>
-                                        <input
-                                          type="checkbox"
-                                          checked={item.rear}
-                                          onChange={( event: React.FormEvent<HTMLInputElement>) => this.setRear( itemIndex, event.currentTarget.checked)}
+                                        <InputCheckbox
+                                          label=""
+                                          checked={item.rear ? true : false}
+                                          onChange={( event: React.FormEvent<HTMLInputElement>) => this.setRear( item.uuid, event.currentTarget.checked)}
                                         />
                                       </td>
                                       <td className="text-right">
                                         <button
                                           className="btn-sm btn btn-danger"
-                                          onClick={() => this.removeEquipment( itemIndex)}
+                                          onClick={() => this.removeEquipment( item.uuid )}
                                         >
                                           <FaTrash />
                                         </button>
@@ -184,6 +181,13 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                   )
                                 })}
 
+                                <tfoot>
+                                  <tr>
+                                    <th colSpan={5} className="font-weight-normal text-center">
+                                      Don't be surprised if you toggle Rear and the item is moved to the bottom of the sorting list.
+                                    </th>
+                                  </tr>
+                                </tfoot>
                               </table>
                           ) : (
                             <>

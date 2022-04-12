@@ -13,6 +13,7 @@ import SanitizedHTML from '../../../components/sanitized-html';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
+import InputCheckbox from "../../../components/form_elements/input_checkbox";
 
 export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -160,14 +161,14 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             </select>
                           </label>
 
-                          <label>
-                            <input
-                              type="checkbox"
+                          
+                            <InputCheckbox
                               checked={this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment}
                               onChange={this.updateHideNonAvailableEquipment}
-                            />&nbsp;
-                             Hide non-available weapons and equipment (will be gray otherwise)
-                          </label>
+                              label="Hide non-available weapons and equipment (will be gray otherwise)"
+                            />
+                             
+                          
 
                           <label>
                             Mech Tonnage:

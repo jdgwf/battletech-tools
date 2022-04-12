@@ -3,6 +3,7 @@ import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { makeRange } from '../../../../utils';
 import { IAppGlobals } from '../../../app-router';
+import InputCheckbox from '../../../components/form_elements/input_checkbox';
 import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
 import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
 import SanitizedHTML from '../../../components/sanitized-html';
@@ -244,13 +245,12 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                             </div>
                             <div className="row">
                               <div className="col-12 text-center">
-                                <label>
-                                  <input
-                                    type="checkbox"
-                                    onChange={this.toggleMirrorArmorAllocations}
-                                    checked={this.props.appGlobals.currentBattleMech.mirrorArmorAllocations}
-                                  />&nbsp;Mirror Left/Right Allocations
-                                </label>
+
+                                <InputCheckbox
+                                  label="Mirror Left/Right Allocations"
+                                  onChange={this.toggleMirrorArmorAllocations}
+                                  checked={this.props.appGlobals.currentBattleMech.mirrorArmorAllocations}
+                                />
                               </div>
                             </div>
 {this.props.appGlobals.currentBattleMech.getType().tag === "biped" ?

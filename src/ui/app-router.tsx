@@ -226,6 +226,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
         this.setState({
             appGlobals: appGlobals,
+            updated: true,
         });
     }
 

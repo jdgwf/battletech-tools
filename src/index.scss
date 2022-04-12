@@ -85,6 +85,9 @@ body {
 .text-center {
   text-align: center;
 }
+.font-weight-normal {
+  font-weight: normal !important;
+}
 a {
   color: $primaryBG;
   outline: none !important;
@@ -874,6 +877,17 @@ body.desaturated {
         }
       }
     }
+  }
+  svg.color-green {
+    color: #999 !important;
+    stroke: #999 !important;
+  }
+  button.btn-danger {
+    color: #000 !important;
+    stroke: #000 !important;
+    fill: #ccc !important;
+    background-color: #ccc !important;
+    border-color: #ccc !important;
   }
   hr {
     border-color: $desaturatedPrimaryBG;
