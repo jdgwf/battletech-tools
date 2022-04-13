@@ -1987,8 +1987,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
   title={"Taking Damage on " + this.state.takeDamageDialog.getName()}
   className="modal-xl"
 >
-  <div className="alert alert-sm alert-danger text-center">
-    This doesn't quite work yet, but you can see how it will work!
+  <div className="alert alert-sm alert-warning text-center">
+    This <strong>almost</strong> works as intended. I still need to add the Critical notifications to the Damage Log (and opening up the critical modal for applying damage)
   </div>
 
     <div className="row">
