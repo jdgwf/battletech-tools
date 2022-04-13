@@ -11,7 +11,7 @@ import BipedDamageTransferDiagramSVG from './biped-damage-transfer-diagram-svg';
 import BipedInternalStructureDiagramSVG from './biped-internal-structure-diagram-svg';
 import BipedRearArmorDiagramSVG from './biped-rear-armor-diagram-svg';
 import ComponentDamageSVG from './component-damage-svg';
-import CritAllocationTableSVG from './crot-allocation-table-svg';
+import CritAllocationTableSVG from './crit-allocation-table-svg';
 import DamageCircleSVG from './damage-circle-svg';
 import DieSVG from './die-svg';
 import HeatSinksSVG from './heat-sink-svg';
@@ -1421,8 +1421,10 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             strokeColor={strokeColor}
             critData={this.props.mechData.getCriticals().leftArm}
             inPlay={inPlay}
+            mechData={this.props.mechData}
             xLoc={critBoxLeft + critCol1Start}
             yLoc={critBoxTop + 140}
+            location="la"
         />
 	{/* // Head */}
         <text
@@ -1440,8 +1442,10 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             strokeColor={strokeColor}
             critData={this.props.mechData.getCriticals().head}
             inPlay={inPlay}
+            mechData={this.props.mechData}
             xLoc={critBoxLeft + critCol2Start}
             yLoc={critBoxTop + 140}
+            location="hd"
         />
 
         <text
@@ -1461,10 +1465,12 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         </text>
         <CritAllocationTableSVG
             strokeColor={strokeColor}
+            mechData={this.props.mechData}
             critData={this.props.mechData.getCriticals().rightArm}
             inPlay={inPlay}
             xLoc={critBoxLeft + critCol3Start}
             yLoc={critBoxTop + 140}
+            location="ra"
         />
 
         <text
@@ -1480,10 +1486,12 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         </text>
         <CritAllocationTableSVG
             strokeColor={strokeColor}
+            mechData={this.props.mechData}
             critData={this.props.mechData.getCriticals().leftTorso}
             inPlay={inPlay}
             xLoc={critBoxLeft + critCol1Start}
             yLoc={critBoxTop + 575}
+            location="lt"
 
         />
 
@@ -1503,8 +1511,10 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             strokeColor={strokeColor}
             critData={this.props.mechData.getCriticals().centerTorso}
             inPlay={inPlay}
+            mechData={this.props.mechData}
             xLoc={critBoxLeft + critCol2Start}
             yLoc={critBoxTop + 375}
+            location="ct"
 
         />
 
@@ -1525,8 +1535,10 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             strokeColor={strokeColor}
             critData={this.props.mechData.getCriticals().rightTorso}
             inPlay={inPlay}
+            mechData={this.props.mechData}
             xLoc={critBoxLeft + critCol3Start}
             yLoc={critBoxTop + 575}
+            location="rt"
         />
 
 	{/* // Left Leg */}
@@ -1548,10 +1560,12 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
         <CritAllocationTableSVG
             strokeColor={strokeColor}
+            mechData={this.props.mechData}
             critData={this.props.mechData.getCriticals().leftLeg}
             inPlay={inPlay}
             xLoc={critBoxLeft + critCol1Start}
             yLoc={critBoxTop + 1050}
+            location="ll"
         />
         {/* // Right Leg */}
         <text
@@ -1572,9 +1586,11 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         <CritAllocationTableSVG
             strokeColor={strokeColor}
             critData={this.props.mechData.getCriticals().rightLeg}
+            mechData={this.props.mechData}
             inPlay={inPlay}
             xLoc={critBoxLeft + critCol3Start}
             yLoc={critBoxTop + 1050}
+            location="rl"
         />
 
         <ComponentDamageSVG
@@ -1584,6 +1600,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             width={critBoxWidth / 3}
             height={190}
             strokeColor={strokeColor}
+            inPlay={this.props.inPlay}
         />
 
     {this.props.mechData.getMechType().tag === "biped" ? (
@@ -1649,6 +1666,15 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             </text>
         </>
     )}
+    {this.props.inPlay ?
+    <TakeDamageButtonSVG
+        x={critBoxLeft + critBoxWidth / 2 + 100}
+        y={critBoxTop + 970}
+        height={150}
+        width={150}
+        onClick={this.props.openSetCriticalDialog}
+    />
+: null}
     </RecordSheetGroupBoxSVG>
 
     <BattleMechHeatEffectsBoxSVG
@@ -1839,6 +1865,7 @@ interface IBattleMechSVGProps {
     // openSetTarget?(): void;
     openTakeDamageDialog?(): void;
     openSetMovementDialog?(): void;
+    openSetCriticalDialog?(): void;
     viewGATOR?( gator: IGATOR): void;
     openSetTargetDialog?(
         currentBM: BattleMech,

@@ -20,6 +20,7 @@ import DieSVG from "../../../components/svg/die-svg";
 import TextSection from "../../../components/text-section";
 import ToHitTable from '../../../components/to-hit-table';
 import './play.scss';
+import InPlayCriticalHitTable from './_criticalHitTable';
 
 export default class ClassicBattleTechRosterPlay extends React.Component<IPlayProps, IPlayState> {
     constructor(props: IPlayProps) {
@@ -36,6 +37,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             setMovementJumpingMP: 0,
 
             resolveFireDialog: false,
+
+
+            criticalHitDialog: null,
 
             damageClusters: -1,
             damagePerCluster: -1,
@@ -597,6 +601,69 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
     }
 
+
+    openSetCriticalDialog = (
+      currentBM: BattleMech,
+    ) => {
+
+      if( this.props.appGlobals.currentCBTForce && currentBM ) {
+
+        this.setState({
+          criticalHitDialog: new BattleMech( currentBM.exportJSON() ),
+        })
+      }
+
+    }
+
+
+    closeSetCriticalDialog = (
+      e: React.FormEvent<HTMLButtonElement>
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+
+      if( this.props.appGlobals.currentCBTForce && this.state.criticalHitDialog ) {
+
+        this.setState({
+          criticalHitDialog: null,
+        })
+      }
+
+    }
+
+    saveSetCriticalDialog = (
+      e: React.FormEvent<HTMLButtonElement>
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+
+      if( this.props.appGlobals.currentCBTForce && this.state.criticalHitDialog ) {
+
+
+        this.props.appGlobals.currentCBTForce.updateUnitViaUUID( this.state.criticalHitDialog )
+
+        this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
+
+        this.setState({
+          criticalHitDialog: null,
+        })
+      }
+
+    }
+
+    updateCriticalHitDialog = (
+      nv: BattleMech
+    ) => {
+      if( this.props.appGlobals.currentCBTForce && this.state.criticalHitDialog ) {
+
+        this.setState({
+          criticalHitDialog: nv,
+        })
+      }
+    }
+
     openSetTargetDialog = (
       currentBM: BattleMech,
     ) => {
@@ -1114,24 +1181,31 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                             attackDamageSecondLine = attack.damagePerCluster.toString() + " damage/hit";
                         }
 
+                        let attackUUID = "";
+                        if( attack.uuid )
+                          attackUUID = attack.uuid;
+                        let attackLocation = "";
+                        if( attack.location )
+                          attackLocation = attack.location;
+                        let attackDamaged = unit.isEquipmentDamaged( attackUUID, attackLocation );
                         return (
                           <tbody key={attackIndex}>
                             <tr>
-                              <td>{attackGATOR.weaponName}</td>
-                              <td>{attackGATOR.targetName ? (
+                              <td className={attackDamaged ? "bright-red-strike-through" : ""}>{attackGATOR.weaponName}</td>
+                              <td className={attackDamaged ? "bright-red-strike-through" : ""}>{attackGATOR.targetName ? (
                                 <>{attackGATOR.targetName}<div className="small-text">{attackGATOR.target}</div></>
                               ) : (
                                 <>{attackGATOR.target}</>
                               )}</td>
 
-                              <td>{attackGATOR.gunnerySkill}</td>
-                              <td>{attackGATOR.attackerMovementModifier}</td>
-                              <td>{attackGATOR.targetMovementModifier}</td>
-                              <td>{attackGATOR.otherModifiers}</td>
-                              <td>{attackGATOR.rangeModifier}</td>
-                              <td><strong>{attackGATOR.finalToHit}+</strong></td>
+                              <td className={attackDamaged ? "bright-red-strike-through" : ""}>{attackGATOR.gunnerySkill}</td>
+                              <td className={attackDamaged ? "bright-red-strike-through" : ""}>{attackGATOR.attackerMovementModifier}</td>
+                              <td className={attackDamaged ? "bright-red-strike-through" : ""}>{attackGATOR.targetMovementModifier}</td>
+                              <td className={attackDamaged ? "bright-red-strike-through" : ""}>{attackGATOR.otherModifiers}</td>
+                              <td className={attackDamaged ? "bright-red-strike-through" : ""}>{attackGATOR.rangeModifier}</td>
+                              <td className={attackDamaged ? "bright-red-strike-through" : ""}><strong>{attackGATOR.finalToHit}+</strong></td>
 
-                              <td className="min-width no-wrap">
+                              <td className={attackDamaged ? "bright-red-strike-through min-width no-wrap" : "min-width no-wrap"}>
                                 <div className="flex">
                                   {clusterChartButton ? (
 
@@ -1154,24 +1228,31 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
                               <td className="min-width no-wrap">
 
-                                <button
-                                  className={"btn btn-primary btn-sm"}
-                                  onClick={this.openHitLocationChartDialog}
-                                  title="Click to open the Hit Location Table"
-                                >
+                                {attackDamaged ? (
+                                  <div className="color-bright-red">Damaged</div>
+                                ) : (
+                                  <>
+                                   <button
+                                    className={"btn btn-primary btn-sm"}
+                                    onClick={this.openHitLocationChartDialog}
+                                    title="Click to open the Hit Location Table"
+                                  >
 
-                                  <FaTable />
-                                </button>
-                                <button
-                                  className={attack.resolved ? "btn btn-phase-active btn-sm" : "btn btn-warning btn-sm"}
-                                  onClick={(e) => this.toggleResolved(e, unit, attackIndex)}
-                                  title="Click here to make this attack as resolved"
-                                >
-                                  {attack.resolved ?
-                                  <FaCheckSquare />
-                                  :
-                                  <FaSquare /> }
-                                </button>
+                                    <FaTable />
+                                  </button>
+                                  <button
+                                    className={attack.resolved ? "btn btn-phase-active btn-sm" : "btn btn-warning btn-sm"}
+                                    onClick={(e) => this.toggleResolved(e, unit, attackIndex)}
+                                    title="Click here to make this attack as resolved"
+                                  >
+                                    {attack.resolved ?
+                                    <FaCheckSquare />
+                                    :
+                                    <FaSquare /> }
+                                  </button>
+                                  </>
+                                )}
+
                               </td>
 
                             </tr>
@@ -1771,6 +1852,133 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
 </StandardModal>
 ) : null}
+
+{this.state.criticalHitDialog ? (
+  <StandardModal
+  show={true}
+  onClose={this.closeSetCriticalDialog}
+  onSave={this.saveSetCriticalDialog}
+  // onSave={this.saveDamage}
+  title={"Critical Hits on " + this.state.criticalHitDialog.getName()}
+  className="modal-xl"
+>
+    <div className="row">
+      <div className="col">
+
+        <InPlayCriticalHitTable
+          appGlobals={this.props.appGlobals}
+          location="la"
+          mechData={this.state.criticalHitDialog}
+          critData={this.state.criticalHitDialog.getCriticals().leftArm}
+          numberCritSlots={this.state.criticalHitDialog.isQuad() ? 6 : 12}
+          onChange={this.updateCriticalHitDialog}
+        />
+
+        <InPlayCriticalHitTable
+          appGlobals={this.props.appGlobals}
+          location="lt"
+          mechData={this.state.criticalHitDialog}
+          critData={this.state.criticalHitDialog.getCriticals().leftTorso}
+          numberCritSlots={12}
+          onChange={this.updateCriticalHitDialog}
+        />
+        <InPlayCriticalHitTable
+          appGlobals={this.props.appGlobals}
+          location="ll"
+          mechData={this.state.criticalHitDialog}
+          critData={this.state.criticalHitDialog.getCriticals().leftLeg}
+          numberCritSlots={6}
+          onChange={this.updateCriticalHitDialog}
+        />
+
+      </div>
+      <div className="col">
+
+        <InPlayCriticalHitTable
+          appGlobals={this.props.appGlobals}
+          location="hd"
+          mechData={this.state.criticalHitDialog}
+          critData={this.state.criticalHitDialog.getCriticals().head}
+          numberCritSlots={6}
+          onChange={this.updateCriticalHitDialog}
+        />
+        <InPlayCriticalHitTable
+          appGlobals={this.props.appGlobals}
+          location="ct"
+          mechData={this.state.criticalHitDialog}
+          critData={this.state.criticalHitDialog.getCriticals().centerTorso}
+          numberCritSlots={12}
+          onChange={this.updateCriticalHitDialog}
+        />
+
+        <fieldset className="fieldset">
+          <div className="row">
+            <div className="col text-right">
+              Engine Hits
+            </div>
+            <div className="col text-left">
+
+            </div>
+          </div>
+          <div className="row">
+            <div className="col text-right">
+              Gyro Hits
+            </div>
+            <div className="col text-left">
+
+            </div>
+          </div>
+          <div className="row">
+            <div className="col text-right">
+              Sensor Hits
+            </div>
+            <div className="col text-left">
+
+            </div>
+          </div>
+          <div className="row">
+            <div className="col text-right">
+              Life Support
+            </div>
+            <div className="col text-left">
+
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div className="col">
+
+      <InPlayCriticalHitTable
+          appGlobals={this.props.appGlobals}
+          location="ra"
+          mechData={this.state.criticalHitDialog}
+          critData={this.state.criticalHitDialog.getCriticals().rightArm}
+          numberCritSlots={this.state.criticalHitDialog.isQuad() ? 6 : 12}
+          onChange={this.updateCriticalHitDialog}
+        />
+
+        <InPlayCriticalHitTable
+          appGlobals={this.props.appGlobals}
+          location="rt"
+          mechData={this.state.criticalHitDialog}
+          critData={this.state.criticalHitDialog.getCriticals().rightTorso}
+          numberCritSlots={12}
+          onChange={this.updateCriticalHitDialog}
+        />
+        <InPlayCriticalHitTable
+          appGlobals={this.props.appGlobals}
+          location="rl"
+          mechData={this.state.criticalHitDialog}
+          critData={this.state.criticalHitDialog.getCriticals().rightLeg}
+          numberCritSlots={6}
+          onChange={this.updateCriticalHitDialog}
+        />
+      </div>
+    </div>
+  </StandardModal>
+) : null}
+
+
 {this.state.takeDamageDialog ? (
 <StandardModal
   show={true}
@@ -2100,6 +2308,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                 inPlay={true}
                 bgColor={selectedMech.isWrecked() ? "#666" : ""}
                 //@ts-ignore
+                openSetCriticalDialog={() => this.openSetCriticalDialog(selectedMech)}
+                //@ts-ignore
                 openSetTargetDialog={() => this.openSetTargetDialog(selectedMech)}
                 //@ts-ignore
                 openTakeDamageDialog={() => this.openTakeDamageDialog(selectedMech)}
@@ -2289,6 +2499,8 @@ interface IPlayState {
   takeDamageLocationRear: boolean;
   takeDamageLocation: string;
   takeDamageCritical: boolean;
+
+  criticalHitDialog: BattleMech | null;
 
   setTargetDialog: BattleMech | null;
 

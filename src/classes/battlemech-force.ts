@@ -121,10 +121,10 @@ export class BattleMechForce {
     updateUnitViaUUID(
         nv: BattleMech
     ): boolean {
-        for( let group of this.groups ) {
-            for( let unit of group.members ) {
-                if( unit.uuid === nv.uuid ) {
-                    unit = nv;
+        for( let groupIndex in this.groups ) {
+            for( let unitIndex in this.groups[groupIndex].members ) {
+                if( this.groups[groupIndex].members[unitIndex].uuid === nv.uuid ) {
+                    this.groups[groupIndex].members[unitIndex] = nv;
                     return true;
                 }
             }

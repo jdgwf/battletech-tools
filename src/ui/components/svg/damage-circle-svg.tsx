@@ -4,7 +4,7 @@ import React from 'react';
 
 export default class DamageCircleSVG extends React.Component<IDamageCircleSVGProps, IDamageCircleSVGState> {
     bgColor = "rgb(255,255,255)";
-    bgColorFilled = "rgb(200,0,0)";
+    bgColorFilled="rgb(200,0,0)";
     strokeColor = "rgb(0,0,0)";
     xLoc = 0;
     yLoc = 0;

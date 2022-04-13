@@ -43,6 +43,8 @@ export interface ICriticalSlot {
 
     loc?: string;
     slot?: number;
+
+    damaged?: boolean;
 }
 
 interface IMechCriticals {
@@ -61,6 +63,17 @@ interface IArmorAllocation {
     rightArm: number;
     leftLeg: number;
     rightLeg: number;
+}
+
+export interface ICriticalHits {
+    head: boolean[];
+    centerTorso: boolean[];
+    rightTorso: boolean[];
+    leftTorso: boolean[];
+    leftArm: boolean[];
+    rightArm: boolean[];
+    leftLeg: boolean[];
+    rightLeg: boolean[];
 }
 
 export interface IPilot {
@@ -95,6 +108,7 @@ export interface IBattleMechExport {
     structureBubbles: IMechDamageAllocation | null;
     armorBubbles: IMechDamageAllocation | null;
     damageLog: IMechDamageLog[];
+    criticalDamage: Record<string, number[]>;
 
     // basic properties
     introductoryRules?: boolean;
@@ -223,6 +237,8 @@ export class BattleMech {
     public currentTargetJumpingMP: number = 0;
     public currentHeat: number = 0;
     public damageLog: IMechDamageLog[] = [];
+    public criticalDamage: Record<string, number[]> = {};
+    // public criticalHitRollLocations: ICriticalHits = this._normalizeCriticalHits();
 
     // basic properties
     private _nickname = "";
@@ -4122,7 +4138,8 @@ export class BattleMech {
             }
 
             this._unallocatedCriticals.push({
-                uuid: generateUUID(),
+                //@ts-ignore
+                uuid: this._equipmentList[elc].uuid ? this._equipmentList[elc].uuid : "undefined?",
                 name: this._equipmentList[elc].name + rearTag,
                 tag: this._equipmentList[elc].tag,
                 // loc: this._equipmentList[elc].location,
@@ -4559,7 +4576,6 @@ export class BattleMech {
         let rv = 0;
 
         for( let eq of equipmentList) {
-            console.log("eq", eq);
             if( eq.target ) {
                 rv += eq.heat;
             }
@@ -4740,6 +4756,44 @@ export class BattleMech {
     public getCriticals() {
         this._trimCriticals();
         return this._criticals;
+    }
+
+    public toggleCritical(
+        location: string,
+        critSlotIndex: number
+    ) {
+
+        if( typeof( this.criticalDamage ) === "undefined" ) {
+            this.criticalDamage = {};
+        }
+
+        if( typeof( this.criticalDamage[location] ) === "undefined" ) {
+            this.criticalDamage[location] = [];
+        }
+
+        let indexNumber = this.criticalDamage[location].indexOf( critSlotIndex );
+        if( indexNumber === - 1 ) {
+            this.criticalDamage[location].push( critSlotIndex );
+        } else {
+            this.criticalDamage[location].splice( indexNumber, 1);
+        }
+
+        this._calc();
+    }
+
+    public isCriticalDamaged(
+        location: string,
+        critSlotIndex: number
+    ): boolean  {
+        if( typeof( this.criticalDamage[location] ) === "undefined" ) {
+            this.criticalDamage[location] = [];
+        }
+
+        if( this.criticalDamage[location].indexOf( critSlotIndex ) === - 1 ) {
+            return false
+        } else {
+            return true;
+        }
     }
 
     public getUnallocatedCriticals() {
@@ -5038,6 +5092,7 @@ export class BattleMech {
             currentHeat: _currentHeat,
             damageLog: this.damageLog,
 
+            criticalDamage: this.criticalDamage,
             targetAToHit: _targetAToHit,
             targetBToHit: _targetBToHit,
             targetCToHit: _targetCToHit,
@@ -5051,6 +5106,7 @@ export class BattleMech {
             currentToHitMovementModifier: _currentToHitMovementModifier,
             currentTargetModifier: _currentTargetModifier,
             currentTargetJumpingMP: _currentTargetJumpingMP,
+            allocation: this._criticalAllocationTable,
 
             // Non In-Play Variables
             introductoryRules: this._introductoryRules,
@@ -5058,7 +5114,7 @@ export class BattleMech {
             nickname: this._nickname,
             additionalHeatSinks: this._additionalHeatSinks,
             mirrorArmorAllocations: this._mirrorArmorAllocations,
-            allocation: this._criticalAllocationTable,
+
             armor_allocation: this._armorAllocation,
             armor_weight: this._armorWeight,
             as_custom_nickname: this._alphaStrikeForceStats.customName,
@@ -5219,6 +5275,10 @@ export class BattleMech {
         this.selectedMech = false;
         if( importObject && importObject.selectedMech ) {
             this.selectedMech = true;
+        }
+
+        if( importObject && importObject.criticalDamage ) {
+            this.criticalDamage = importObject.criticalDamage;
         }
 
         if( importObject && importObject.currentHeat ) {
@@ -5393,6 +5453,11 @@ export class BattleMech {
                         this._criticalAllocationTable[countEQ].rear = true;
                     else
                         this._criticalAllocationTable[countEQ].rear = false;
+
+                    if( this._criticalAllocationTable[countEQ].damaged)
+                        this._criticalAllocationTable[countEQ].damaged = true;
+                    else
+                        this._criticalAllocationTable[countEQ].damaged = false;
                 }
             }
             if( importObject && importObject.structureBubbles ) {
@@ -5671,22 +5736,51 @@ export class BattleMech {
                 )
             )
         ) {
-            let centerTorsoSnarks = [
+            let damageSnarks: string[] = [
                 "Massive hole in chest.",
                 "Radiation leak, very dangerous.",
                 "Where oh where did my reactor go?",
                 "No Reactor. The 'mech will finally cool down!",
             ];
-            return this._returnRandomString(centerTorsoSnarks);
+            return this._returnRandomString(damageSnarks);
         }
 
         if( this._structureInLocation("hd") < 1 ) {
-            let headSnarks = [
+            let damageSnarks: string[] = [
                 "Cockpit became a convertible",
                 "Mechwarrior missing",
                 "User error. Replace user.",
             ];
-            return this._returnRandomString(headSnarks);
+            return this._returnRandomString(damageSnarks);
+        }
+
+
+        if( this.engineHits() > 2 ) {
+            let damageSnarks: string[] = [
+                "Engine took too many hits",
+                "Some days, even the engine has to take a nap.",
+            ];
+            return this._returnRandomString(damageSnarks);
+        }
+        if( this.gyroHits() > 2 ) {
+            let damageSnarks: string[] = [
+                "Oh man my mech can't keep it's liqueur!",
+                "'mech drunk, can't stand",
+            ];
+            return this._returnRandomString(damageSnarks);
+        }
+        if( this.lifeSupportHits() > 0 ) {
+            let damageSnarks: string[] = [
+                "Mechwarrior can't breathe",
+                "Needed to open a window to catch some air",
+            ];
+            return this._returnRandomString(damageSnarks);
+        }
+        if( this.sensorHits() > 1 ) {
+            let damageSnarks: string[] = [
+                "I can't see!",
+            ];
+            return this._returnRandomString(damageSnarks);
         }
 
         return "";
@@ -5714,12 +5808,10 @@ export class BattleMech {
             location !== "hd"
         ) {
 
-            console.log("takeDamage moveDamageLocationIn from", location, locationHasStructure, locationHasArmor)
             location = this._moveDamageLocationIn( location, rear );
 
             locationHasArmor = this._locationHasArmor(location);
             locationHasStructure = this._locationHasStructure(location);
-            console.log("takeDamage moveDamageLocationIn to", location, locationHasStructure, locationHasArmor)
         }
 
         if( locationHasArmor ) {
@@ -5739,7 +5831,6 @@ export class BattleMech {
                 }
 
             }
-            console.log("takeDamage armor remainderDamage", amount, location, rear, remainderDamage)
         } else if (locationHasStructure) {
             let remainderDamage = this._takeStructureDamageAtLocation( location, amount )
             while(
@@ -5752,7 +5843,6 @@ export class BattleMech {
                 remainderDamage = this._takeStructureDamageAtLocation( location, remainderDamage )
             }
 
-            console.log("takeDamage structure remainderDamage", amount, location, rear, remainderDamage)
         }
 
         this._calc();
@@ -6885,6 +6975,368 @@ export class BattleMech {
     public toggleHeatBubble( clickLocation: string, clickIndex: number ): void {
         // TODO
         console.log("TODO mechOject toggleHeatBubble", clickLocation, clickIndex);
+    }
+
+    public lifeSupportHits(): number {
+        let rv = 0;
+
+        for( let critIndex in this._criticals.head ) {
+            if(
+                this._criticals.head[critIndex]
+                &&
+                this._criticals.head[critIndex].name.toLowerCase().startsWith("life support")
+                &&
+                this.isCriticalDamaged( "hd", +critIndex )
+            ) {
+                rv++;
+            }
+        }
+
+        return rv;
+    }
+
+    public isEquipmentDamaged(
+        uuid: string,
+        loc: string,
+    ): boolean {
+
+        if( loc === "hd" ) {
+
+            for( let critIndex in this._criticals.head ) {
+
+
+                if(
+                    this._criticals.head[critIndex]
+                    &&
+                    this._criticals.head[critIndex].uuid === uuid
+                    &&
+                    this.isCriticalDamaged( loc, +critIndex )
+                ) {
+
+                    return true;
+                }
+            }
+
+        }
+        if( loc === "ct" ) {
+
+            for( let critIndex in this._criticals.centerTorso ) {
+
+
+                if(
+                    this._criticals.centerTorso[critIndex]
+                    &&
+                    this._criticals.centerTorso[critIndex].uuid === uuid
+                    &&
+                    this.isCriticalDamaged( loc, +critIndex )
+                ) {
+
+                    return true;
+                }
+            }
+
+        }
+        if( loc === "lt" ) {
+
+            for( let critIndex in this._criticals.leftTorso ) {
+
+
+                if(
+                    this._criticals.leftTorso[critIndex]
+                    &&
+                    this._criticals.leftTorso[critIndex].uuid === uuid
+                    &&
+                    this.isCriticalDamaged( loc, +critIndex )
+                ) {
+
+                    return true;
+                }
+            }
+
+        }
+        if( loc === "rt" ) {
+
+            for( let critIndex in this._criticals.rightTorso ) {
+
+                if(
+                    this._criticals.rightTorso[critIndex]
+                    &&
+                    this._criticals.rightTorso[critIndex].uuid === uuid
+                    &&
+                    this.isCriticalDamaged( loc, +critIndex )
+                ) {
+
+                    return true;
+                }
+            }
+
+        }
+
+        if( loc === "la" ) {
+
+            for( let critIndex in this._criticals.leftArm ) {
+
+                if(
+                    this._criticals.leftArm[critIndex]
+                    &&
+                    this._criticals.leftArm[critIndex].uuid === uuid
+                    &&
+                    this.isCriticalDamaged( loc, +critIndex )
+                ) {
+                    return true;
+                }
+            }
+
+        }
+        if( loc === "ra" ) {
+
+            for( let critIndex in this._criticals.rightArm ) {
+
+                if(
+                    this._criticals.rightArm[critIndex]
+                    &&
+                    this._criticals.rightArm[critIndex].uuid === uuid
+                    &&
+                    this.isCriticalDamaged( loc, +critIndex )
+                ) {
+
+                    return true;
+                }
+            }
+
+        }
+
+
+        if( loc === "rt" ) {
+
+            for( let critIndex in this._criticals.rightTorso ) {
+
+
+                if(
+                    this._criticals.rightTorso[critIndex]
+                    &&
+                    this._criticals.rightTorso[critIndex].uuid === uuid
+                    &&
+                    this.isCriticalDamaged( loc, +critIndex )
+                ) {
+
+                    return true;
+                }
+            }
+
+        }
+
+        if( loc === "ll" ) {
+
+            for( let critIndex in this._criticals.leftLeg ) {
+
+                if(
+                    this._criticals.leftLeg[critIndex]
+                    &&
+                    this._criticals.leftLeg[critIndex].uuid === uuid
+                    &&
+                    this.isCriticalDamaged( loc, +critIndex )
+                ) {
+
+                    return true;
+                }
+            }
+
+        }
+        if( loc === "rl" ) {
+
+
+            for( let critIndex in this._criticals.rightLeg ) {
+
+                if(
+                    this._criticals.rightLeg[critIndex]
+                    &&
+                    this._criticals.rightLeg[critIndex].uuid === uuid
+                    &&
+                    this.isCriticalDamaged( loc, +critIndex )
+                ) {
+
+                    return true;
+                }
+            }
+
+        }
+
+
+
+        return false;
+
+    }
+
+    public engineHits(): number {
+        let rv = 0;
+
+
+        let lastName = "";
+        for( let critIndex in this._criticals.centerTorso ) {
+
+            if(
+                this._criticals.centerTorso[critIndex]
+                && !this._criticals.centerTorso[critIndex].placeholder
+                && !this._criticals.centerTorso[critIndex].rollAgain
+            ) {
+                lastName = this._criticals.centerTorso[critIndex].name;
+            }
+
+            if(
+                this._criticals.centerTorso[critIndex]
+                &&
+                (
+                    lastName.toLowerCase().indexOf("engine") > -1
+                    ||
+                    lastName.toLowerCase().indexOf("fusion") > -1
+                )
+                &&
+                this.isCriticalDamaged( "ct", +critIndex )
+            ) {
+
+                rv++;
+            }
+        }
+
+        lastName = ""
+        for( let critIndex in this._criticals.leftTorso ) {
+
+            if(
+                this._criticals.leftTorso[critIndex]
+                && !this._criticals.leftTorso[critIndex].placeholder
+                && !this._criticals.leftTorso[critIndex].rollAgain
+            ) {
+                lastName = this._criticals.leftTorso[critIndex].name;
+            }
+
+            if(
+                this._criticals.leftTorso[critIndex]
+                    &&
+                (
+                    lastName.toLowerCase().indexOf("engine") > -1
+                    ||
+                    lastName.toLowerCase().indexOf("fusion") > -1
+                )
+                &&
+                this.isCriticalDamaged( "lt", +critIndex )
+            ) {
+                rv++;
+            }
+        }
+
+        lastName = "";
+        for( let critIndex in this._criticals.rightTorso ) {
+
+            if(
+                this._criticals.rightTorso[critIndex]
+                && !this._criticals.rightTorso[critIndex].placeholder
+                && !this._criticals.rightTorso[critIndex].rollAgain
+            ) {
+                lastName = this._criticals.rightTorso[critIndex].name;
+            }
+
+            if(
+                this._criticals.rightTorso[critIndex]
+                &&
+                (
+                    lastName.toLowerCase().indexOf("engine") > -1
+                    ||
+                    lastName.toLowerCase().indexOf("fusion") > -1
+                )
+                &&
+                this.isCriticalDamaged( "rt", +critIndex )
+            ) {
+                rv++;
+            }
+        }
+
+        return rv;
+    }
+
+    public gyroHits(): number {
+        let rv = 0;
+
+
+        let lastName = "";
+        for( let critIndex in this._criticals.centerTorso ) {
+
+            if(
+                this._criticals.centerTorso[critIndex]
+                && !this._criticals.centerTorso[critIndex].placeholder
+                && !this._criticals.centerTorso[critIndex].rollAgain
+            ) {
+                lastName = this._criticals.centerTorso[critIndex].name;
+            }
+
+            if(
+                this._criticals.centerTorso[critIndex]
+                &&
+                lastName.toLowerCase().indexOf("gyro") > -1
+                    &&
+                this.isCriticalDamaged( "ct", +critIndex )
+            ) {
+                rv++;
+            }
+        }
+        lastName = ""
+        for( let critIndex in this._criticals.leftTorso ) {
+
+            if(
+                this._criticals.leftTorso[critIndex]
+                && !this._criticals.leftTorso[critIndex].placeholder
+                && !this._criticals.leftTorso[critIndex].rollAgain
+            ) {
+                lastName = this._criticals.leftTorso[critIndex].name;
+            }
+            if(
+                this._criticals.leftTorso[critIndex]
+                &&
+                lastName.toLowerCase().indexOf("gyro") > -1
+                    &&
+                this.isCriticalDamaged( "lt", +critIndex )
+            ) {
+                rv++;
+            }
+        }
+        lastName = "";
+        for( let critIndex in this._criticals.rightTorso ) {
+
+            if(
+                this._criticals.rightTorso[critIndex]
+                && !this._criticals.rightTorso[critIndex].placeholder
+                && !this._criticals.rightTorso[critIndex].rollAgain
+            ) {
+                lastName = this._criticals.rightTorso[critIndex].name;
+            }
+            if(
+                this._criticals.rightTorso[critIndex]
+                &&
+                lastName.toLowerCase().indexOf("gyro") > -1
+                    &&
+                this.isCriticalDamaged( "rt", +critIndex )
+            ) {
+                rv++;
+            }
+        }
+
+        return rv;
+    }
+    public sensorHits(): number {
+        let rv = 0;
+
+        for( let critIndex in this._criticals.head ) {
+            if(
+                this._criticals.head[critIndex]
+                &&
+                this._criticals.head[critIndex].name.toLowerCase().startsWith("sensors")
+                &&
+                this.isCriticalDamaged( "hd", +critIndex )
+            ) {
+                rv++;
+            }
+        }
+        return rv;
     }
 
     public toggleISBubble( clickLocation: string, clickIndex: number ): void {

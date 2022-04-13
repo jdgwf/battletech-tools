@@ -268,7 +268,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         for( let group of asGroups) {
             exportASGroups.push( group.export() );
         }
-        console.log("exportASGroups", exportASGroups)
+        // console.log("exportASGroups", exportASGroups)
         let appGlobals = this.state.appGlobals;
         appGlobals.favoriteASGroups = asGroups;
         this.setState({
@@ -287,7 +287,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         });
 
         saveCurrentCBTForce( appGlobals.appSettings, bmForce.export() );
-        saveFavoriteCBTGroupsObjects( appGlobals.appSettings, appGlobals.favoriteCBTGroups )
+        // saveFavoriteCBTGroupsObjects( appGlobals.appSettings, appGlobals.favoriteCBTGroups )
     }
 
     saveCBTGroupFavorite = ( bmGroup: BattleMechGroup ): void => {

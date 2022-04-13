@@ -84,8 +84,10 @@ export default class ComponentDamageSVG extends React.Component<IComponentDamage
                     xLoc={this.props.xLoc + textRightLine + 30}
                     yLoc={this.props.yLoc + 50}
                     radius={20}
-                    // inPlay={this.props.inPlay}
-                    clickLocation="ll" clickIndex={29}
+                    isFilled={this.props.inPlay && this.props.mechData.engineHits() > 0 }
+                    // clickLocation="ll"
+                    bgColorFilled = {"rgb(200,0,0)"}
+                    // clickIndex={29}
                     // clickFunction={this.to}
                 />
 
@@ -94,7 +96,9 @@ export default class ComponentDamageSVG extends React.Component<IComponentDamage
                     yLoc={this.props.yLoc + 50}
                     radius={20}
                     // inPlay={this.props.inPlay}
-                    clickLocation="ll" clickIndex={29}
+                    isFilled={this.props.inPlay && this.props.mechData.engineHits() > 1 }
+                    // clickLocation="ll" clickIndex={29}
+                    // bgColorFilled={"rgb(200,0,0)"}
                     // clickFunction={this.to}
                 />
 
@@ -103,7 +107,9 @@ export default class ComponentDamageSVG extends React.Component<IComponentDamage
                     yLoc={this.props.yLoc + 50}
                     radius={20}
                     // inPlay={this.props.inPlay}
+                    isFilled={this.props.inPlay && this.props.mechData.engineHits() > 2 }
                     clickLocation="ll" clickIndex={29}
+                    bgColorFilled={"rgb(200,0,0)"}
                     // clickFunction={this.to}
                 />
 
@@ -123,8 +129,10 @@ export default class ComponentDamageSVG extends React.Component<IComponentDamage
                     xLoc={this.props.xLoc + textRightLine + 30}
                     yLoc={this.props.yLoc + 90}
                     radius={20}
+                    isFilled={this.props.mechData.gyroHits() > 0}
                     // inPlay={this.props.inPlay}
-                    clickLocation="ll" clickIndex={29}
+                    // clickLocation="ll" clickIndex={29}
+                    bgColorFilled={"rgb(200,0,0)"}
                     // clickFunction={this.to}
                 />
 
@@ -132,8 +140,10 @@ export default class ComponentDamageSVG extends React.Component<IComponentDamage
                     xLoc={this.props.xLoc + textRightLine + 80}
                     yLoc={this.props.yLoc + 90}
                     radius={20}
+                    isFilled={this.props.mechData.gyroHits() > 1}
                     // inPlay={this.props.inPlay}
-                    clickLocation="ll" clickIndex={29}
+                    // clickLocation="ll" clickIndex={29}
+                    bgColorFilled={"rgb(200,0,0)"}
                     // clickFunction={this.to}
                 />
 
@@ -153,8 +163,10 @@ export default class ComponentDamageSVG extends React.Component<IComponentDamage
                     xLoc={this.props.xLoc + textRightLine + 30}
                     yLoc={this.props.yLoc + 130}
                     radius={20}
+                    isFilled={this.props.mechData.sensorHits() > 0}
                     // inPlay={this.props.inPlay}
                     clickLocation="ll" clickIndex={29}
+                    bgColorFilled={"rgb(200,0,0)"}
                     // clickFunction={this.to}
                 />
 
@@ -162,8 +174,10 @@ export default class ComponentDamageSVG extends React.Component<IComponentDamage
                     xLoc={this.props.xLoc + textRightLine + 80}
                     yLoc={this.props.yLoc + 130}
                     radius={20}
+                    isFilled={this.props.mechData.sensorHits() > 1}
                     // inPlay={this.props.inPlay}
-                    clickLocation="ll" clickIndex={29}
+                    // clickLocation="ll" clickIndex={29}
+                    bgColorFilled={"rgb(200,0,0)"}
                     // clickFunction={this.to}
                 />
 
@@ -182,8 +196,10 @@ export default class ComponentDamageSVG extends React.Component<IComponentDamage
                     xLoc={this.props.xLoc + textRightLine + 30}
                     yLoc={this.props.yLoc + 170}
                     radius={20}
+                    isFilled={this.props.mechData.lifeSupportHits() > 0}
                     // inPlay={this.props.inPlay}
-                    clickLocation="ll" clickIndex={29}
+                    // clickLocation="ll" clickIndex={29}
+                    bgColorFilled={"rgb(200,0,0)"}
                     // clickFunction={this.to}
                 />
             </RecordSheetGroupBoxSVG>
@@ -196,6 +212,7 @@ interface IComponentDamageSVGProps {
     bgColor?: string;
     strokeColor?: string;
 
+    inPlay?: boolean;
     yLoc: number;
     xLoc: number;
 
