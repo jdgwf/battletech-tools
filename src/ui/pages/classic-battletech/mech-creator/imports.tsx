@@ -177,6 +177,7 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
 
       if( this.props.appGlobals.currentBattleMech &&  this.state.sswXML && this.state.sswXML.trim() && this.state.sswXML.trim().startsWith("<")) {
         this.props.appGlobals.currentBattleMech.importSSWXML( this.state.sswXML.trim() );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
       }
 
       this.setState({
@@ -210,7 +211,7 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                               <a href="https://github.com/Solaris-Skunk-Werks/SSW-Master" target="ssw">Solaris Skunk Werks Master Data Repo</a>
                             </div>
                             <br />
-                            Right now have I have an Atlas AS7-D preloaded, as the BV and CBill costs are a bit off, not to mention the Alpha Strike Values.
+                            Right now have I have an Atlas AS7-D preloaded, <del>as the BV and CBill costs are a bit off</del> (fixed, was a problem with SRM Ammo cbill cost typo, BV2 is off with TRO, but matches SSW), not to mention the Alpha Strike Values.
                           </div>
                           <TextAreaField
                             label="Import SSW XML"
@@ -224,7 +225,9 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                               onClick={this.doImport}
                             >
                               Do Import
+                              <div className="small-text">This will overwrite your current 'mech. Be sure to have it saved!</div>
                             </button>
+
                           </div>
                           <div className="clear-both overflow-hidden">
                             <hr />

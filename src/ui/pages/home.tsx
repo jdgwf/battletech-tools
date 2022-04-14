@@ -87,12 +87,16 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
             </div>
             <div className="col-md">
             <TextSection
-            label="News"
-          >
+              label="News"
+            >
                   <ul className="news">
                   <li>
-                  <p><strong>2022 April 9</strong> - I've activated the "bigger menu" for folks who haven't checked the "Show Developer/Work In Progress Menu" option in settings. This means that the <Link to="classic-battletech/roster">CBT Roster</Link> is now visible to search engines and normal folk.</p>
-                  <p>I've also added an intro blurb to the home page explaining the purpose of this web app.</p>
+                    <p><strong>2022 April 14</strong> - I've added a tentative <Link to="classic-battletech/mech-creator/imports">importer</Link> for the Solar Skunk Werk's Master File format. I'm having relative good success with Inner Sphere mechs (without jump jets, for now, perhaps tomorrow or Saturday).</p>
+                    <p>The Repo is here: <a href="https://github.com/Solaris-Skunk-Werks/SSW-Master" target="ssw">Solaris Skunk Werks Master Data Repo</a>, and the direct download is here: <a href="https://github.com/Solaris-Skunk-Werks/solarisskunkwerks/releases" target="ssw">SSW-Master.zip is the file you want</a></p>
+                  </li>
+                  <li>
+                    <p><strong>2022 April 9</strong> - I've activated the "bigger menu" for folks who haven't checked the "Show Developer/Work In Progress Menu" option in settings. This means that the <Link to="classic-battletech/roster">CBT Roster</Link> is now visible to search engines and normal folk.</p>
+                    <p>I've also added an intro blurb to the home page explaining the purpose of this web app.</p>
                   </li>
                   <li>
                       <p><strong>2022 April 8</strong> - The CBT Roster In-Play Section is coming along, albeit slower than I'd like, but there are a lot more moving parts compared to the Alpha Strike Roster.</p>
