@@ -79,64 +79,66 @@ interface IBMEquipmentExport {
     loc: string | undefined;
     rear: boolean | undefined;
     uuid: string | undefined;
-    target: string | undefined;
-    resolved: boolean | undefined;
-    damageClusterHits: IClusterHit[] | undefined;
+
+    // in play variables
+    target?: string | undefined;
+    resolved?: boolean | undefined;
+    damageClusterHits?: IClusterHit[] | undefined;
 }
 export interface IBattleMechExport {
 
     // in play variables
 
-    selectedMech: boolean;
-    currentMovementMode: string;
-    currentToHitMovementModifier: number;
-    currentTargetModifier: number;
-    currentTargetJumpingMP: number;
-    targetAToHit: ITargetToHit | null;
-    targetBToHit: ITargetToHit | null;
-    targetCToHit: ITargetToHit | null;
-    currentHeat: number;
-    structureBubbles: IMechDamageAllocation | null;
-    armorBubbles: IMechDamageAllocation | null;
-    damageLog: IMechDamageLog[];
-    criticalDamage: Record<string, number[]>;
+    selectedMech?: boolean;
+    currentMovementMode?: string;
+    currentToHitMovementModifier?: number;
+    currentTargetModifier?: number;
+    currentTargetJumpingMP?: number;
+    targetAToHit?: ITargetToHit | null;
+    targetBToHit?: ITargetToHit | null;
+    targetCToHit?: ITargetToHit | null;
+    currentHeat?: number;
+    structureBubbles?: IMechDamageAllocation | null;
+    armorBubbles?: IMechDamageAllocation | null;
+    damageLog?: IMechDamageLog[];
+    criticalDamage?: Record<string, number[]>;
+    pilot?: IPilot,
+    as_custom_nickname?: string;
+
 
     // basic properties
-    introductoryRules?: boolean;
-    name: string;
-    model: string;
-    nickname: string;
-    mirrorArmorAllocations: boolean;
-    tonnage: number;
-    walkSpeed: number;
-    hideNonAvailableEquipment: boolean;
-    jumpSpeed: number;
-    engineType: string;
-    mechType: string;
-    era: string;
-    tech: string;
-    gyro: string;
-    is_type: string;
     additionalHeatSinks: number;
-    heat_sink_type: string;
-    armor_weight: number;
-    uuid: string;
-    strictEra: boolean;
+    allocation: ICriticalSlot[],
     armor_allocation: IArmorAllocation,
     armor_type: string;
-    equipment: IBMEquipmentExport[],
-    allocation: ICriticalSlot[],
-    features: string[],
-    pilot: IPilot,
+    armor_weight: number;
     as_role: string;
-    as_custom_nickname: string;
-    lastUpdated: Date;
-    location?: string;
-
     as_value: number;   // for easy listing
     battle_value: number;     // for easy listing
     c_bills: string;  // for easy listing
+    engineType: string;
+    equipment: IBMEquipmentExport[],
+    era: string;
+    features: string[],
+    gyro: string;
+    heat_sink_type: string;
+    hideNonAvailableEquipment: boolean;
+    introductoryRules?: boolean;
+    is_type: string;
+    jumpSpeed: number;
+    lastUpdated: Date;
+    location?: string;
+    mechType: string;
+    mirrorArmorAllocations: boolean;
+    model: string;
+    name: string;
+    nickname: string;
+    strictEra: boolean;
+    tech: string;
     tech_label: string;  // for easy listing
+    tonnage: number;
+    uuid: string;
+    walkSpeed: number;
 }
 
 interface IAlphaStrikeExport {
@@ -5122,76 +5124,91 @@ export class BattleMech {
             _currentTargetModifier = this.currentTargetModifier;
             _currentTargetJumpingMP = this.currentTargetJumpingMP;
         }
+        let thinnedAllocations: ICriticalSlot[] = JSON.parse(JSON.stringify(this._criticalAllocationTable));
+
+
+        for( let alloc of thinnedAllocations ) {
+            delete alloc.obj
+            delete alloc.damaged
+        }
 
         let exportObject: IBattleMechExport = {
 
-            currentHeat: _currentHeat,
-            damageLog: this.damageLog,
-
-            criticalDamage: this.criticalDamage,
-            targetAToHit: _targetAToHit,
-            targetBToHit: _targetBToHit,
-            targetCToHit: _targetCToHit,
-
-            armorBubbles: _armorBubbles,
-            structureBubbles: _structureBubbles,
-
-            selectedMech: _selectedMech,
-
-            currentMovementMode: _currentMovementMode,
-            currentToHitMovementModifier: _currentToHitMovementModifier,
-            currentTargetModifier: _currentTargetModifier,
-            currentTargetJumpingMP: _currentTargetJumpingMP,
-            allocation: this._criticalAllocationTable,
 
             // Non In-Play Variables
-            introductoryRules: this._introductoryRules,
+            // important info at the top for easy perusing
             model: this._model,
             name: this._name,
-            nickname: this._nickname,
-            additionalHeatSinks: this._additionalHeatSinks,
-            mirrorArmorAllocations: this._mirrorArmorAllocations,
-
-            armor_allocation: this._armorAllocation,
-            armor_weight: this._armorWeight,
-            as_custom_nickname: this._alphaStrikeForceStats.customName,
+            tech: this._tech.tag,
+            tech_label: this.getTech().name,
+            tonnage: this.getTonnage(),
             as_role: this._alphaStrikeForceStats.role,
+            as_value: this.getAlphaStrikeValue(),
+            battle_value: this.getBattleValue(),
+            c_bills: this.getCBillCost(),
+
+            additionalHeatSinks: this._additionalHeatSinks,
+            allocation: thinnedAllocations,
+            armor_allocation: this._armorAllocation,
+            armor_type: this.getArmorType(),
+            armor_weight: this._armorWeight,
             engineType: this.getEngineType().tag,
             equipment: [],
             era: this._era.tag,
             features: [],
             gyro: this._gyro.tag,
             heat_sink_type: this.getHeatSinksType(),
+            hideNonAvailableEquipment: this._hideNonAvailableEquipment,
+            introductoryRules: this._introductoryRules,
             is_type: this.getInternalStructureType(),
             jumpSpeed: this._jumpSpeed,
+            lastUpdated: new Date(),
             mechType: this._mechType.tag,
-            pilot: this._pilot.export(),
+            mirrorArmorAllocations: this._mirrorArmorAllocations,
+            nickname: this._nickname,
             strictEra: this._strictEra,
-            tech: this._tech.tag,
-            tonnage: this.getTonnage(),
             uuid: this._uuid,
             walkSpeed: this._walkSpeed,
-            armor_type: this.getArmorType(),
-            lastUpdated: new Date(),
-            hideNonAvailableEquipment: this._hideNonAvailableEquipment,
-
-            c_bills: this.getCBillCost(),
-            as_value: this.getAlphaStrikeValue(),
-            battle_value: this.getBattleValue(),
-            tech_label: this.getTech().name,
-
         };
 
+        if( !noInPlayVariables ) {
+            exportObject.as_custom_nickname = this._alphaStrikeForceStats.customName;
+            exportObject.pilot = this._pilot.export();
+            exportObject.armorBubbles = _armorBubbles;
+            exportObject.criticalDamage = this.criticalDamage;
+            exportObject.currentHeat = _currentHeat;
+            exportObject.currentMovementMode =_currentMovementMode;
+            exportObject.currentTargetJumpingMP =_currentTargetJumpingMP;
+            exportObject.currentTargetModifier =_currentTargetModifier;
+            exportObject.currentToHitMovementModifier =_currentToHitMovementModifier;
+            exportObject.damageLog = this.damageLog;
+            exportObject.selectedMech = _selectedMech;
+            exportObject.structureBubbles = _structureBubbles;
+            exportObject.targetAToHit = _targetAToHit;
+            exportObject.targetBToHit = _targetBToHit;
+            exportObject.targetCToHit = _targetCToHit;
+        }
+
         for( let countEQ = 0; countEQ < this._equipmentList.length; countEQ++) {
-            exportObject.equipment.push({
-                tag: this._equipmentList[countEQ].tag,
-                loc: this._equipmentList[countEQ].location,
-                rear: this._equipmentList[countEQ].rear,
-                uuid: this._equipmentList[countEQ].uuid,
-                target: this._equipmentList[countEQ].target,
-                resolved: this._equipmentList[countEQ].resolved,
-                damageClusterHits: this._equipmentList[countEQ].damageClusterHits,
-            });
+            if( noInPlayVariables ) {
+                exportObject.equipment.push({
+                    tag: this._equipmentList[countEQ].tag,
+                    loc: this._equipmentList[countEQ].location,
+                    rear: this._equipmentList[countEQ].rear,
+                    uuid: this._equipmentList[countEQ].uuid,
+                });
+            } else {
+                exportObject.equipment.push({
+                    tag: this._equipmentList[countEQ].tag,
+                    loc: this._equipmentList[countEQ].location,
+                    rear: this._equipmentList[countEQ].rear,
+                    uuid: this._equipmentList[countEQ].uuid,
+                    target: this._equipmentList[countEQ].target,
+                    resolved: this._equipmentList[countEQ].resolved,
+                    damageClusterHits: this._equipmentList[countEQ].damageClusterHits,
+                });
+            }
+
         }
 
         if( !this.hasLowerArmActuator( "la" ))
@@ -5469,6 +5486,18 @@ export class BattleMech {
                     else
                         importItem.rear = false;
 
+                    if( !importItem.target ) {
+                        importItem.target = ""
+                    }
+
+                    if( !importItem.resolved ) {
+                        importItem.resolved = false
+                    }
+
+                    if( !importItem.damageClusterHits ) {
+                        importItem.damageClusterHits = []
+                    }
+
                     this.addEquipmentFromTag(
                         importItem.tag,
                         this.getTech().tag,
@@ -5487,6 +5516,9 @@ export class BattleMech {
                 this._criticalAllocationTable = importObject.allocation;
 
                 for( let countEQ = 0; countEQ < this._criticalAllocationTable.length; countEQ++) {
+
+                    this._criticalAllocationTable[countEQ].obj = this.getEquipmentByUUID( this._criticalAllocationTable[countEQ].uuid )
+
                     if( this._criticalAllocationTable[countEQ].rear)
                         this._criticalAllocationTable[countEQ].rear = true;
                     else
@@ -5511,6 +5543,17 @@ export class BattleMech {
             return false;
         }
 
+    }
+
+    getEquipmentByUUID(
+        uuid: string,
+    ): IEquipmentItem | null {
+        for( let eq of this._equipmentList ) {
+            if( eq.uuid === uuid ) {
+                return eq;
+            }
+        }
+        return null;
     }
 
     public getWeightBreakdown() {

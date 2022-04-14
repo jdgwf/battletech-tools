@@ -84,7 +84,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
       if( !battleMechSaves )
         battleMechSaves = [];
       battleMechSaves.push(
-        this.props.appGlobals.currentBattleMech.export()
+        this.props.appGlobals.currentBattleMech.export(true)
       )
       this.props.appGlobals.saveBattleMechSaves( battleMechSaves );
       }
@@ -383,7 +383,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                               className="btn btn-primary btn-sm"
                               title="Export your current list to a JSON format to transfer between devices"
                               href={`data:text/json;charset=utf-8,${encodeURIComponent(
-                                JSON.stringify(this.props.appGlobals.battleMechSaves)
+                                JSON.stringify(this.props.appGlobals.battleMechSaves, null, 2)
                               )}`}
                               download="battlmech-exports.json"
                             >
