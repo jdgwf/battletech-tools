@@ -95,7 +95,7 @@ export default class BattleMechAddMechDialog extends React.Component<IBattleMech
         className="modal-xl"
     >
 
-        <h3 className="text-center">Viewing {this.state.viewingUnit.make}</h3>
+        <h3 className="text-center">Viewing {this.state.viewingUnit.model}</h3>
         <div className="row">
             <div className='col'>
                 <SanitizedHTML
@@ -136,7 +136,7 @@ export default class BattleMechAddMechDialog extends React.Component<IBattleMech
                         return (
                             <tbody key={bmIndex}>
                                 <tr>
-                                    <td>{bmObj.make}</td>
+                                    <td>{bmObj.model}</td>
                                     <td className="min-width no-wrap text-left">{bmObj.getTech().name}</td>
                                     <td className="min-width no-wrap text-center">{bmObj.getTonnage()}</td>
                                     <td className="min-width no-wrap text-center">{bmObj.getBattleValue()}</td>

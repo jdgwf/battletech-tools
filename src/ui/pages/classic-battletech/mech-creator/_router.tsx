@@ -4,6 +4,7 @@ import { IAppGlobals } from '../../../app-router';
 import Error404 from "../../error404";
 import MechCreatorExports from './exports';
 import Home from './home';
+import MechCreatorImports from './imports';
 import MechCreatorPrintRS from './print-rs';
 import MechCreatorStep1 from './step1';
 import MechCreatorStep2 from './step2';
@@ -64,6 +65,12 @@ export default class MechCreatorRouter extends React.Component<IMechCreatorRoute
 
                 <Route path={`exports`} element={
                     <MechCreatorExports
+                        appGlobals={this.props.appGlobals}
+                    />
+                }/>
+
+                <Route path={`imports`} element={
+                    <MechCreatorImports
                         appGlobals={this.props.appGlobals}
                     />
                 }/>

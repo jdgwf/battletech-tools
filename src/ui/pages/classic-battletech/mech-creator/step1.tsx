@@ -36,7 +36,7 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
     updateMake = ( event: React.FormEvent<HTMLInputElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
-        currentMech.setMake( event.currentTarget.value);
+        currentMech.setModel( event.currentTarget.value);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
     }
@@ -107,7 +107,7 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             Mech Model Name (Type):
                             <input
                               type="text"
-                              value={this.props.appGlobals.currentBattleMech.make}
+                              value={this.props.appGlobals.currentBattleMech.model}
                               onChange={this.updateMake}
                             />
                           </label>

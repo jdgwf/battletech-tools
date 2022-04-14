@@ -196,7 +196,8 @@ export class AlphaStrikeUnit {
         name: "",
         piloting: 5,
         gunnery: 4,
-        wounds: 0
+        wounds: 0,
+        alphaStrikeAbilities: [],
     });
 
     public customName: string = "";
@@ -312,7 +313,7 @@ export class AlphaStrikeUnit {
 
             }
 
-            
+
 
             this.currentHeat = 0;
             this.currentPoints = this.basePoints / 1;
@@ -376,7 +377,7 @@ export class AlphaStrikeUnit {
 
                 this.basePoints = incomingMechData.basePoints / 1;
 
-                            
+
                 if( incomingMechData.pilot)
                     this._pilot.import(incomingMechData.pilot);
 
@@ -410,10 +411,10 @@ export class AlphaStrikeUnit {
             if( incomingMechData.customName )
                 this.customName = incomingMechData.customName;
 
-            
+
             if( incomingMechData.pilot)
                 this._pilot.import(incomingMechData.pilot);
-            
+
         }
         this.calcCurrentVals();
     }
@@ -1043,7 +1044,7 @@ export class AlphaStrikeUnit {
             _mpControlHits = this.mpControlHits;
             _weaponHits = this.weaponHits;
 
-            
+
         }
 
         if( this.originalStats ) {

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { IPilot } from '../../../classes/battlemech';
+import { IPilot } from '../../../classes/pilot';
 
 export default class PilotHitTrackSVG extends React.Component<IPilotHitTrackSVGProps, IPilotHitTrackSVGState> {
     bgColor = "rgb(255,255,255)";

@@ -49,6 +49,7 @@ export interface ICritialLocations {
 export interface IEngineType {
 	tag: string;
 	name: string;
+    alternateName?: string;
 	costMultiplier: number;
 	introduced: number;
 	extinct: number;
@@ -88,6 +89,8 @@ export interface IEquipmentItem {
     resolved?: boolean;
     damageClusterHits?: IClusterHit[];
     count?: number;
+    allocationIndex?: number;
+    allocatedLocation?: string;
     notes?: string;
     target?: string;
     name: string;

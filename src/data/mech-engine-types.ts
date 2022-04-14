@@ -7,6 +7,7 @@ import { IEngineType } from "./data-interfaces";
 export const mechEngineTypes: IEngineType[] = [
 	{
 		name: "Standard Fusion",
+		alternateName: "Fusion Engine",
 		tag: "standard",
 		criticals: {
 			is: {

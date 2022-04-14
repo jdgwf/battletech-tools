@@ -160,7 +160,7 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
 
       this.props.appGlobals.openConfirmDialog(
           "Deletion Confirmation",
-          "Are you sure you want to remove '" + removeUnit.make + "' from this group?",
+          "Are you sure you want to remove '" + removeUnit.model + "' from this group?",
           "Yes",
           "No, thank you",
           () => {
@@ -240,7 +240,7 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
     <StandardModal
         show={true}
         onClose={this.closeEditDialog}
-        title={"Editing " + this.state.editingUnit.make}
+        title={"Editing " + this.state.editingUnit.model}
         onSave={this.saveUnit}
     >
         <div className="small-text">Here you may edit the Mech Nickname, Mechwarrior name, and skills. Skill changes Will display both base amd adjusted BV2.</div>
@@ -351,7 +351,7 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
         className="modal-xl"
     >
 
-        <h3 className="text-center">Viewing {this.state.viewingUnit.make}</h3>
+        <h3 className="text-center">Viewing {this.state.viewingUnit.model}</h3>
         <div className="row">
             <div className='col'>
                 <SanitizedHTML

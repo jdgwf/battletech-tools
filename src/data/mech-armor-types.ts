@@ -58,7 +58,7 @@ export const mechArmorTypes: IArmorType[] = [
 
 	{
 		name: "Heavy Ferro Fibrous",
-		tag: "light-ferro-fibrous",
+		tag: "heavy-ferro-fibrous",
 		armorMultiplier: {
 			clan: 0,
 			is: 16 * 1.24,
