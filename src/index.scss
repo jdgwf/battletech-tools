@@ -180,6 +180,12 @@ code {
   }
 }
 
+textarea.taller {
+  height: 500px;
+}
+label.taller textarea {
+  height: 500px;
+}
 select, input, label, textarea {
   width: 100%;
   display: block;

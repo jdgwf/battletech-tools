@@ -159,12 +159,12 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
         sswXML: e.currentTarget.value,
       })
 
-      if( this.props.appGlobals.currentBattleMech && e.currentTarget.value && e.currentTarget.value.trim() && e.currentTarget.value.trim().startsWith("<")) {
-        this.props.appGlobals.currentBattleMech.importSSWXML( e.currentTarget.value.trim() );
-      }
-      this.setState({
-        updated: true,
-      })
+      // if( this.props.appGlobals.currentBattleMech && e.currentTarget.value && e.currentTarget.value.trim() && e.currentTarget.value.trim().startsWith("<")) {
+      //   this.props.appGlobals.currentBattleMech.importSSWXML( e.currentTarget.value.trim() );
+      // }
+      // this.setState({
+      //   updated: true,
+      // })
     }
 
     doImport = (
@@ -193,7 +193,7 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
               <div className="d-none d-md-block col-md-3 col-lg-2">
                 <MechCreatorSideMenu
                   appGlobals={this.props.appGlobals}
-                  current="exports"
+                  current="imports"
                 />
               </div>
               <div className="col-md-9 col-lg-10">
@@ -202,23 +202,35 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                       <TextSection
                         label="Imports"
                       >
+                          <div className="alert alert-danger">
+                            This is brand new as of April 14.
+                            Feel free to visit the Solaris Skunk Werks Data repository to copy and paste the contents of their .ssw files (which are .xml files).<br /><br />
 
+                            <div className="text-center">
+                              <a href="https://github.com/Solaris-Skunk-Werks/SSW-Master" target="ssw">Solaris Skunk Werks Master Data Repo</a>
+                            </div>
+                            <br />
+                            Right now have I have an Atlas AS7-D preloaded, as the BV and CBill costs are a bit off, not to mention the Alpha Strike Values.
+                          </div>
                           <TextAreaField
                             label="Import SSW XML"
                             value={this.state.sswXML}
                             onChange={this.updateSSWXML}
+                            className="taller"
                           />
-                          <button
-                            className="btn btn-primary"
-                            onClick={this.doImport}
-                          >
-                            Do Import
-                          </button>
+                          <div className="text-right">
+                            <button
+                              className="btn btn-primary"
+                              onClick={this.doImport}
+                            >
+                              Do Import
+                            </button>
+                          </div>
                           <div className="clear-both overflow-hidden">
                             <hr />
 
                               <div className="text-left inline-block">
-                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/summary`} className="btn btn-primary btn-sm"><FaArrowCircleLeft /> Summary</Link>
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/exports`} className="btn btn-primary btn-sm"><FaArrowCircleLeft /> Exports</Link>
                             </div>
                           </div>
                         </TextSection>

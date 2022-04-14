@@ -1,5 +1,5 @@
 
-import { FaArrowCircleLeft } from "react-icons/fa";
+import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { IAppGlobals } from '../../../app-router';
@@ -45,7 +45,9 @@ export default class MechCreatorExports extends React.Component<IHomeProps, IHom
                           <div className="clear-both overflow-hidden">
                             <hr />
 
-                              <div className="text-left inline-block">
+                              <div className="text-left">
+                              {/* <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/summary`} className="btn btn-primary btn-sm"><FaArrowCircleLeft /> Summary</Link> */}
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/imports`} className="btn btn-primary pull-right btn-sm">Imports <FaArrowCircleRight /></Link>
                               <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/summary`} className="btn btn-primary btn-sm"><FaArrowCircleLeft /> Summary</Link>
                             </div>
                           </div>

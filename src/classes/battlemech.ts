@@ -8448,7 +8448,7 @@ export class BattleMech {
 
 
                         if( itemName ) {
-                            console.log("Adding Equipment", itemName, listTag, location, rear, generateUUID() )
+
                             let newItem = this.addEquipmentByName( itemName, listTag, location, rear, generateUUID() );
 
                             if( !newItem ) {
@@ -8523,6 +8523,7 @@ export class BattleMech {
             // this._updateCriticalAllocationTable();
             // console.log("this._criticals 1", this._criticals);
             this._calc();
+            this.calcAlphaStrike();
             // console.log("this._criticals 2", this._criticals);
         }
     }
