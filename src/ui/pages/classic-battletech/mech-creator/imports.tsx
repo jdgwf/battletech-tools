@@ -178,11 +178,12 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
       if( this.props.appGlobals.currentBattleMech &&  this.state.sswXML && this.state.sswXML.trim() && this.state.sswXML.trim().startsWith("<")) {
         this.props.appGlobals.currentBattleMech.importSSWXML( this.state.sswXML.trim() );
         this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+
+        this.setState({
+          updated: true,
+        })
       }
 
-      this.setState({
-        updated: true,
-      })
     }
 
     render = (): React.ReactFragment => {

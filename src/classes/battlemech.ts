@@ -1186,8 +1186,8 @@ export class BattleMech {
             }
         }
 
-        if( this._calcLogBV.substr(this._calcLogBV.length - 3) === " + " ) {
-            this._calcLogBV = this._calcLogBV.substr(0, this._calcLogBV.length - 3)
+        if( this._calcLogBV.substring(0, this._calcLogBV.length - 3) === " + " ) {
+            this._calcLogBV = this._calcLogBV.substring(0, this._calcLogBV.length - 3)
         }
 
         this._calcLogBV += " = " + totalWeaponHeat;
@@ -1240,7 +1240,7 @@ export class BattleMech {
                     // console.log( "r,m", runningHeat + " > "   + mechHeatEfficiency );
                     if( runningHeat >= mechHeatEfficiency && this._equipmentList[weaponC].heat > 0 && inHalfCost === false) {
                         inHalfCost = true;
-                        this._calcLogBV += " (weapon is last heat efficient)";
+                        this._calcLogBV += " (weapon is last heat efficient, rest will be half cost)";
                     }
 
                     this._calcLogBV += "<br />";
@@ -1801,7 +1801,7 @@ export class BattleMech {
     }
 
     public getCBillCost( withAMMO: boolean = false) {
-        if( withAMMO ) 
+        if( withAMMO )
             return this._cbillCostWithAmmo;
         else
             return this._cbillCost;
@@ -4512,6 +4512,7 @@ export class BattleMech {
     public setHeatSinksType(
         newValue: string,
     ) {
+
         for( let heatSink of mechHeatSinkTypes ) {
             if( heatSink.tag === newValue)
                 this._heatSinkType = heatSink;
@@ -8494,7 +8495,11 @@ export class BattleMech {
 
                 }
                 if( jObj.mech.baseloadout.heatsinks ) {
-                    this.setHeatSinksType( jObj.mech.baseloadout.heatsinks["type"].toLowerCase() )
+
+                    if( jObj.mech.baseloadout.heatsinks["type"].toLowerCase().indexOf("single") > -1)
+                        this.setHeatSinksType( "single" )
+                    else
+                        this.setHeatSinksType( "double" )
 
                     this.setAdditionalHeatSinks( (+ jObj.mech.baseloadout.heatsinks["@_number"] ) - 10 );
 
