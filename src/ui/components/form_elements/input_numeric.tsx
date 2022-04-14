@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { makeRange } from '../../../utils';
+import { makeRange } from '../../../utils/makeRange';
 
 export default class InputNumeric extends React.Component<IInputNumericProps, IInputNumericState> {
 

@@ -1,7 +1,6 @@
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { makeRange } from '../../../../utils';
 import { IAppGlobals } from '../../../app-router';
 import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
 import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
@@ -9,6 +8,7 @@ import SanitizedHTML from '../../../components/sanitized-html';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
+import { makeRange } from "../../../../utils/makeRange";
 
 export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {

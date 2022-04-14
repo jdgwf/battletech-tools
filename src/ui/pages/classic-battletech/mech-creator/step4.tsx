@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import { Link } from 'react-router-dom';
-import { makeRange } from '../../../../utils';
+import { makeRange } from '../../../../utils/makeRange';
 import { IAppGlobals } from '../../../app-router';
 import InputCheckbox from '../../../components/form_elements/input_checkbox';
 import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';

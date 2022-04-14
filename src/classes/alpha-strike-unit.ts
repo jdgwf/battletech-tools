@@ -1,3 +1,4 @@
+import Pilot, { IPilot } from "./pilot";
 
 export interface IAlphaStrikeDamage {
     short: number | string;
@@ -97,6 +98,7 @@ export interface IASMULUnit {
     tro: string;
     role: string;
     threshold: number;
+    pilot: IPilot;
 
     move: IMoveNumber[];
     jumpMove: number;
@@ -136,7 +138,6 @@ export class AlphaStrikeUnit {
 
     public tonnage: number = 0;
 
-    public currentSkill: number = 4;
     public type: string = "BattleMech";
     public size: number = 0;
     public tmm: number = 0;
@@ -191,9 +192,17 @@ export class AlphaStrikeUnit {
     public mpControlHits: boolean[] = [];
     public weaponHits: boolean[] = [];
 
+    private _pilot: Pilot = new Pilot( {
+        name: "",
+        piloting: 5,
+        gunnery: 4,
+        wounds: 0
+    });
+
     public customName: string = "";
 
     constructor( incomingMechData: IASMULUnit ) {
+        this._pilot = new Pilot();
         if( typeof(incomingMechData) !== "undefined" && incomingMechData !== null ) {
             this.originalStats = incomingMechData;
 
@@ -210,6 +219,7 @@ export class AlphaStrikeUnit {
             if( incomingMechData.mechCreatorUUID ) {
                 this.mechCreatorUUID = incomingMechData.mechCreatorUUID;
             }
+
 
             this.tro = incomingMechData.TRO;
 
@@ -302,13 +312,15 @@ export class AlphaStrikeUnit {
 
             }
 
-            this.currentSkill = 4;
+            
 
             this.currentHeat = 0;
             this.currentPoints = this.basePoints / 1;
 
-                if( incomingMechData.currentSkill )
-                    this.currentSkill = incomingMechData.currentSkill;
+            if( incomingMechData.currentSkill ) {
+                this._pilot.gunnery = incomingMechData.currentSkill;
+                this._pilot.piloting = incomingMechData.currentSkill + 1;
+            }
 
             } else {
                 // Internally Processed Data
@@ -364,10 +376,13 @@ export class AlphaStrikeUnit {
 
                 this.basePoints = incomingMechData.basePoints / 1;
 
+                            
+                if( incomingMechData.pilot)
+                    this._pilot.import(incomingMechData.pilot);
+
                 if( incomingMechData.currentSkill && incomingMechData.currentSkill > 0  )
-                    this.currentSkill = incomingMechData.currentSkill;
-                else
-                    this.currentSkill = 4;
+                    this._pilot.gunnery = incomingMechData.currentSkill;
+
 
                 this.currentPoints = this.basePoints;
             }
@@ -393,9 +408,18 @@ export class AlphaStrikeUnit {
             this.weaponHits = incomingMechData.weaponHits;
 
             if( incomingMechData.customName )
-            this.customName = incomingMechData.customName;
+                this.customName = incomingMechData.customName;
+
+            
+            if( incomingMechData.pilot)
+                this._pilot.import(incomingMechData.pilot);
+            
         }
         this.calcCurrentVals();
+    }
+
+    public get currentSkill(): number {
+        return this._pilot.gunnery;
     }
 
     public getRawNumber( incomingString: string ): number {
@@ -419,7 +443,8 @@ export class AlphaStrikeUnit {
     }
 
     public setSkill( newSkillValue: number ) {
-        this.currentSkill = newSkillValue ;
+        this._pilot.gunnery = newSkillValue;
+        // this._pilot.piloting = newSkillValue + 1;
         this.calcCurrentVals();
     }
 
@@ -607,7 +632,7 @@ export class AlphaStrikeUnit {
             }
             this.currentPoints = this.basePoints - ( pvDifference * ( this.currentSkill - 4) );
         } else {
-            this.currentSkill = 4;
+            // this.currentSkill = 4;
             this.currentPoints = this.basePoints;
         }
 
@@ -1009,6 +1034,7 @@ export class AlphaStrikeUnit {
         let _mpControlHits: boolean[] = [];
         let _weaponHits: boolean[] = [];
 
+
         if( !noInPlayVariables ) {
             _currentArmor = this.currentArmor;
             _currentStructure = this.currentStructure;
@@ -1016,6 +1042,8 @@ export class AlphaStrikeUnit {
             _fireControlHits = this.fireControlHits;
             _mpControlHits = this.mpControlHits;
             _weaponHits = this.weaponHits;
+
+            
         }
 
         if( this.originalStats ) {
@@ -1023,6 +1051,7 @@ export class AlphaStrikeUnit {
             returnValue.customName = this.customName;
             returnValue.mechCreatorUUID = this.mechCreatorUUID;
             returnValue.currentSkill = this.currentSkill;
+            returnValue.pilot = this._pilot.export();
 
             // In Play Variables
             returnValue.currentArmor = _currentArmor;

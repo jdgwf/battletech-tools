@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { BattleMech } from "../../../../classes/battlemech";
 import { BattleMechGroup, ICBTGroupExport } from '../../../../classes/battlemech-group';
 import { unitGroupNames } from '../../../../data/group-names';
-import { makeURLSlug } from '../../../../utils';
+import { makeURLSlug } from '../../../../utils/makeURLSlug';
 import { IAppGlobals } from '../../../app-router';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';

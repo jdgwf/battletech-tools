@@ -2,7 +2,8 @@ import * as React from 'react';
 import { FaCheckSquare } from 'react-icons/fa';
 import { MdDangerous } from 'react-icons/md';
 import { BattleMech, ICriticalSlot } from '../../../../classes/battlemech';
-import { getLocationName, makeRange } from '../../../../utils';
+import { getLocationName } from '../../../../utils';
+import { makeRange } from '../../../../utils/makeRange';
 import { IAppGlobals } from '../../../app-router';
 
 export default class InPlayCriticalHitTable extends React.Component<IInPlayCriticalHitTableProps, IInPlayCriticalHitTableState> {

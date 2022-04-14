@@ -1,5 +1,5 @@
 import { formationBonuses } from '../data/formation-bonuses';
-import { generateUUID } from '../utils';
+import { generateUUID } from '../utils/generateUUID';
 import AlphaStrikeGroup, { IASGroupExport } from './alpha-strike-group';
 import { AlphaStrikeUnit } from './alpha-strike-unit';
 

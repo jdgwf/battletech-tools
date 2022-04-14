@@ -11,19 +11,16 @@ import { mechInternalStructureTypes } from "../data/mech-internal-structure-type
 import { mechJumpJetTypes } from "../data/mech-jump-jet-types";
 import { mechTypeOptions } from "../data/mech-type-options";
 import { btTechOptions } from "../data/tech-options";
-import { addCommas, generateUUID, getHexDistanceFromModifier, getISEquipmentList, getMovementModifier } from "../utils";
+import { getHexDistanceFromModifier, getISEquipmentList, getMovementModifier } from "../utils";
+import { addCommas } from "../utils/addCommas";
+import { generateUUID } from "../utils/generateUUID";
 import { AlphaStrikeUnit, IAlphaStrikeDamage, IASMULUnit } from "./alpha-strike-unit";
+import Pilot, { IPilot } from "./pilot";
 
 interface INumericalHash {
     [index: string]: number;
 }
 
-export interface IPilot {
-    name: string;
-    piloting: number;
-    gunnery: number;
-    wounds: number;
-}
 
 interface IWeights {
     name: string;
@@ -76,12 +73,6 @@ export interface ICriticalHits {
     rightLeg: boolean[];
 }
 
-export interface IPilot {
-    name: string;
-    piloting: number;
-    gunnery: number;
-    wounds: number;
-}
 
 interface IBMEquipmentExport {
     tag: string;
@@ -412,12 +403,12 @@ export class BattleMech {
         },
     ];
 
-    private _pilot: IPilot = {
+    private _pilot: Pilot = new Pilot( {
         name: "",
         piloting: 5,
         gunnery: 4,
         wounds: 0
-    }
+    });
 
     private _alphaStrikeForceStats: IAlphaStrikeExport = {
         mechCreatorUUID: "",
@@ -2946,6 +2937,7 @@ export class BattleMech {
             overheat: 0,
             basePoints: 0,
             currentSkill: 0,
+            pilot: this._pilot.export(),
         };
         asMechData["BFPointValue"] = Math.round(finalValue);
 
@@ -5128,7 +5120,7 @@ export class BattleMech {
             is_type: this.getInternalStructureType(),
             jumpSpeed: this._jumpSpeed,
             mechType: this._mechType.tag,
-            pilot: this._pilot,
+            pilot: this._pilot.export(),
             strictEra: this._strictEra,
             tech: this._tech.tag,
             tonnage: this.getTonnage(),
@@ -5348,7 +5340,7 @@ export class BattleMech {
                 this.setTech(importObject.tech);
 
             if( importObject.pilot)
-                this._pilot = importObject.pilot;
+                this._pilot = new Pilot(importObject.pilot);
 
             if( importObject.as_role)
                 this.setASRole(importObject.as_role);

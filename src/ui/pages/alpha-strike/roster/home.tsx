@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import AlphaStrikeGroup, { IASGroupExport } from '../../../../classes/alpha-strike-group';
 import { AlphaStrikeUnit } from '../../../../classes/alpha-strike-unit';
-import { makeURLSlug } from '../../../../utils';
+import { makeURLSlug } from '../../../../utils/makeURLSlug';
 import { IAppGlobals } from '../../../app-router';
 import StandardModal from '../../../components/standard-modal';
 import TextSection from '../../../components/text-section';

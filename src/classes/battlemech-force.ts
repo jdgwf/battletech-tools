@@ -1,4 +1,4 @@
-import { generateUUID } from "../utils";
+import { generateUUID } from "../utils/generateUUID";
 import { BattleMech } from "./battlemech";
 import { BattleMechGroup, ICBTGroupExport } from "./battlemech-group";
 

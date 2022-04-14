@@ -7,18 +7,9 @@ import { mechISEquipmentEnergy } from "./data/mech-is-equipment-weapons-energy";
 import { mechISEquipmentMisc } from "./data/mech-is-equipment-weapons-misc";
 import { mechISEquipmentMissiles } from "./data/mech-is-equipment-weapons-missiles";
 
-export function addCommas( numericalValue: number ): string {
-    return (numericalValue + "").replace(/\b(\d+)((\.\d+)*)\b/g, function(a, b, c) {
-        return (b.charAt(0) > 0 && !(c || ".").lastIndexOf(".") ? b.replace(/(\d)(?=(\d{3})+$)/g, "$1,") : b) + c;
-    });
-}
 
-export function generateUUID(): string {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & (0x3 | 0x8 ) );
-        return v.toString(16);
-      });
-}
+
+
 
 export function getISEquipmentList(): IEquipmentItem[] {
     return mechISEquipmentBallistic
@@ -32,60 +23,6 @@ export function getISEquipmentList(): IEquipmentItem[] {
 export function getClanEquipmentList(): IEquipmentItem[] {
     return mechClanEquipmentEnergy;
 }
-
-// export function getOfflineMULResults(
-//     searchTerm: string,
-//     mechRules: string,
-//     techFilter: string,
-//     eraFilter: string,
-// ): IASMULUnit[] {
-//     let returnUnits: IASMULUnit[] = [];
-
-//     console.log(
-//         "getOfflineMULResults called!",
-//         searchTerm,
-//         mechRules,
-//         techFilter,
-//         eraFilter,
-//     );
-
-//     searchTerm = searchTerm.toLowerCase().trim()
-//     mechRules = mechRules.toLowerCase().trim()
-//     techFilter = techFilter.toLowerCase().trim()
-//     eraFilter = eraFilter.toLowerCase().trim()
-//     let numberEraFilter = eraFilter ? +eraFilter : 0;
-
-//     if( searchTerm.length >= 3) {
-//         for( let unit of mulListItems) {
-
-//             if(
-//                 unit.Name.toLowerCase().trim().indexOf(searchTerm ) > -1
-//                 &&
-//                 (
-//                     mechRules === ""
-//                     ||
-//                     unit.Rules.toLowerCase().trim().indexOf( mechRules ) > -1
-//                 )
-//                 &&
-//                 (
-//                     techFilter === ""
-//                     ||
-//                     unit.Technology.Name.toLowerCase().trim().indexOf( techFilter ) > -1
-//                 )
-//                 &&
-//                 (
-//                     numberEraFilter === 0
-//                         ||
-//                     unit.EraStart > numberEraFilter
-//                 )
-//             ) {
-//                 returnUnits.push( unit );
-//             }
-//         }
-//     }
-
-//     return returnUnits;
-// }
 
 export async function getMULASSearchResults(
     searchTerm: string,
@@ -197,6 +134,7 @@ export async function getMULASSearchResults(
     }
     return returnUnits;
 }
+
 export function getMovementModifier( moveScore: number ): number {
 	if( moveScore >= 25 ) {
 		return 6;
@@ -214,110 +152,6 @@ export function getMovementModifier( moveScore: number ): number {
 
 	return 0;
 
-}
-
-export function makeRange( start: number, end: number, steps: number = 1): number[] {
-    let returnValue: number[] = [];
-
-    for( let count = start; count <= end; count = count + steps ) {
-        returnValue.push( count );
-    }
-
-    return returnValue;
-}
-
-export function exportCleanJSON(obj: any) {
-    var cleaned = JSON.stringify(obj, null, 4);
-
-    // return cleaned.replace(/^[\t ]*"[^:\n\r]+(?<!\\)":/gm, function (match) {
-    //     return match.replace(/"/g, "");
-    // });
-    return cleaned.replace(/"([^"]+)":/g, '$1:');;
-}
-
-export function makeURLSlug( str: string ): string {
-
-    return replaceAll(
-        str.trim().toLowerCase()
-        .replace(/ /g, '-')
-        .replace(/[^\w-]+/g, ''),
-        "--",
-        "-",
-        false,
-        false,
-        true);
-}
-
-export function replaceAll(
-    haystack: string,
-    needle: string,
-    replace: string,
-    caseSensitive: boolean = true,
-    wholeWordOnly: boolean = false,
-    noRegex: boolean = false,
-): string {
-
-    if(!haystack)
-        return haystack;
-    if(!needle)
-        return haystack;
-    if(!replace)
-        return haystack;
-    if( typeof(haystack) !== "string") {
-        //@ts-ignore
-        haystack = haystack.join("\n")
-    }
-    if( noRegex ) {
-        if( wholeWordOnly ) {
-            needle = " " + needle;
-            replace = " " + replace;
-        }
-        let iterations = 0
-        let maxIterations = 1000;
-        while( haystack.indexOf( needle ) > -1 ) {
-            if( maxIterations < iterations ) {
-                console.error("replaceAll - max Iterations reached!")
-                break;
-            }
-
-            try {
-                haystack = haystack.replace(needle, replace);
-            }
-            catch(e: any) {
-                console.error("replaceAll err", haystack, e)
-            }
-
-            iterations++;
-        }
-
-        return haystack;
-    } else {
-        needle = needle.replace("(", "\\(");
-        needle = needle.replace("_", "\\_");
-        needle = needle.replace(")", "\\)");
-        if( wholeWordOnly ) {
-
-            if( caseSensitive ) {
-                let re = new RegExp("\\b" + needle + "\\b","g");
-                return haystack.replace(re, replace);
-            } else {
-                let re = new RegExp("\\b" + needle + "\\b","gi");
-                return haystack.replace(re, replace);
-            }
-
-        } else {
-
-            if( caseSensitive ) {
-                let re = new RegExp(needle,"gi");
-                return haystack.replace(re, replace);
-            }else {
-                let re = new RegExp(needle,"g");
-                return haystack.replace(re, replace);
-            }
-
-        }
-
-    }
 }
 
 export function getAeroRangeLabel( aeroAbbr: string): string {

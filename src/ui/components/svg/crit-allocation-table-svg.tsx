@@ -14,13 +14,13 @@ export default class CritAllocationTableSVG extends React.Component<ICritAllocat
 
     render = (): React.ReactFragment => {
 
-        let bgColor = "rgb(255,255,255)";
+        // let bgColor = "rgb(255,255,255)";
         let strokeColor = "rgb(0,0,0)";
         // let landscape: boolean = false;
-        let inPlay: boolean = false;
+        // let inPlay: boolean = false;
         let colorMediumGray = "rgb(150, 150, 150)";
         let colorVeryLightGray = "rgb(200, 200, 200)";
-        let colorTan = "#fdfde3";
+        // let colorTan = "#fdfde3";
         let fontSize = 25;
         let boxWidth = 275;
         let lineBuffer = 6;

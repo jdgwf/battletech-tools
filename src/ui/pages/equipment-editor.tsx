@@ -7,12 +7,14 @@ import { mechISEquipmentEnergy } from "../../data/mech-is-equipment-weapons-ener
 import { mechISEquipmentMissiles } from '../../data/mech-is-equipment-weapons-missiles';
 import { mechISEquipmentMisc } from '../../data/mech-is-equipment-weapons-misc';
 
-import { addCommas, exportCleanJSON, getAeroRangeLabel, sortEquipment } from '../../utils';
+import { getAeroRangeLabel, sortEquipment } from '../../utils';
 import { IAppGlobals } from '../app-router';
 import StandardModal from '../components/standard-modal';
 import UIPage from '../components/ui-page';
 import './equipment-editor.scss';
 import EquipmentEditForm from '../components/equipment-edit-form';
+import { addCommas } from "../../utils/addCommas";
+import { exportCleanJSON } from "../../utils/exportCleanJSON";
 
 export default class EquipmentEditor extends React.Component<IEquipmentEditorProps, IEquipmentEditorState> {
     fileDataList: Record<string, IEquipmentItem[]> = {

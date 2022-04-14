@@ -9,7 +9,7 @@ import { BattleMechGroup, ICBTGroupExport } from "../classes/battlemech-group";
 import { CONFIGSiteTitle } from '../configVars';
 import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getCurrentCBTForce, getFavoriteASGroups, getFavoriteCBTGroups, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveCurrentCBTForce, saveFavoriteASGroups, saveFavoriteASGroupsObjects, saveFavoriteCBTGroupsObjects } from "../dataSaves";
 import { callAnalytics } from "../jdgAnalytics";
-import { generateUUID } from "../utils";
+import { generateUUID } from "../utils/generateUUID";
 import Alerts from './classes/alerts';
 import { AppSettings } from "./classes/app_settings";
 import SanitizedHTML from './components/sanitized-html';
