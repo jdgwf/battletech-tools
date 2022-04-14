@@ -5,7 +5,7 @@ export interface IPilot {
     piloting: number;
     gunnery: number;
     wounds: number;
-    abilities: number[];
+    alphaStrikeAbilities: number[];
 }
 
 export default class Pilot {
@@ -13,7 +13,7 @@ export default class Pilot {
     piloting: number = 5;
     gunnery: number = 4;
     wounds: number = 0;
-    abilities: number[] = [];
+    alphaStrikeAbilities: number[] = [];
 
     constructor(importObj: IPilot | null = null ) {
         if( importObj ) {
@@ -36,8 +36,8 @@ export default class Pilot {
             if( importObj.piloting ) {
                 this.piloting = importObj.piloting;
             }
-            if( importObj.abilities ) {
-                this.abilities = importObj.abilities;
+            if( importObj.alphaStrikeAbilities ) {
+                this.alphaStrikeAbilities = importObj.alphaStrikeAbilities;
             }
         }
     }
@@ -45,7 +45,7 @@ export default class Pilot {
     getASAbilities(): IASPilotAbility[] {
         let rv: IASPilotAbility[] = [];
 
-        for( let id of this.abilities ) {
+        for( let id of this.alphaStrikeAbilities ) {
             for( let abi of CONST_AS_PILOT_ABILITIES) {
                 if( abi.id === id ) {
                     rv.push( abi );
@@ -66,7 +66,7 @@ export default class Pilot {
             piloting: this.piloting,
             gunnery: this.gunnery,
             wounds: this.wounds,
-            abilities: this.abilities,
+            alphaStrikeAbilities: this.alphaStrikeAbilities,
         }
 
         return rv;
