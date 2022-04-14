@@ -18,26 +18,10 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
         super(props);
         this.state = {
             updated: false,
-            TRO: "",
-            ParsedTRO: null,
-            importTROModal: false,
+
         }
 
         this.props.appGlobals.makeDocumentTitle("'Mech Creator");
-    }
-
-    updateTRO = (e: React.FormEvent<HTMLTextAreaElement>) => {
-
-      let parsed: BattleMech | null = null;
-      if( e.currentTarget.value && e.currentTarget.value.trim() ) {
-        parsed = new BattleMech();
-        parsed.importTRO( e.currentTarget.value );
-      }
-
-      this.setState({
-        TRO: e.currentTarget.value,
-        ParsedTRO: parsed,
-      })
     }
 
     handleFileRead = (e: any) => {
@@ -149,53 +133,6 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
       }
     }
 
-    closeTROModal = (
-      e:React.FormEvent<HTMLButtonElement>,
-    ) => {
-      if( e && e.preventDefault ) {
-        e.preventDefault()
-      }
-
-      this.setState({
-        importTROModal: false,
-      })
-    }
-
-    importTRO = (
-      e:React.FormEvent<HTMLButtonElement>,
-    ) => {
-      if( e && e.preventDefault ) {
-        e.preventDefault()
-      }
-
-      if( this.state.ParsedTRO ) {
-        let currentBattleMech = this.props.appGlobals.currentBattleMech;
-
-        currentBattleMech = new BattleMech();
-        currentBattleMech.import( this.state.ParsedTRO.export() )
-        this.props.appGlobals.saveCurrentBattleMech( currentBattleMech )
-
-      }
-      this.setState({
-        TRO: "",
-        ParsedTRO: null,
-        importTROModal: false,
-      })
-    }
-
-    openTROModal = (
-      e:React.FormEvent<HTMLButtonElement>,
-    ) => {
-      if( e && e.preventDefault ) {
-        e.preventDefault()
-      }
-
-      this.setState({
-        importTROModal: true,
-        TRO: "",
-        ParsedTRO: null,
-      })
-    }
 
     render = (): React.ReactFragment => {
       if(!this.props.appGlobals.currentBattleMech) {
@@ -204,50 +141,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
       return (
         <>
           <UIPage current="classic-battletech-mech-creator" appGlobals={this.props.appGlobals}>
-            <StandardModal
-              title="Experimental TRO importer!"
-              show={this.state.importTROModal}
-              onClose={this.closeTROModal}
-              onAdd={this.state.ParsedTRO ? this.importTRO : undefined }
-              labelAdd="Import and Replace"
-              className="modal-xl"
-            >
-<div className="row">
-                          <div className="col">
-                          <strong>Import Copy/Paste TRO</strong>
-                            <div className="small-text">Because of formatting of copy/paste in Apple Preview, etc, it seems that Adobe Reader is required for ease of use. You could use another, but the copy/paste of Preview and other PDF viewer apps can be erratic with page formatting.</div>
-                            </div>
-                            <div className="col">
-                            <strong>Parsed TRO</strong>
-                            <div className="small-text">What will never work: The standard PDF TROs don't let you know what actuators are missing and where to set the Heat Sink criticals, so you'll have to edit that yourself. That said, this should save you a lot of time!</div>
-                            </div>
-</div>
-<div className="row">
-                          <div className="col">
 
-                            <textarea
-                              onChange={this.updateTRO}
-                              value={this.state.TRO}
-                              className="full-width tall"
-                            >
-
-                            </textarea>
-                          </div>
-                          <div className="col">
-
-                            {this.state.ParsedTRO ? (
-                                <SanitizedHTML html={this.state.ParsedTRO.makeTROHTML()} raw={true} />
-                            ) :
-                            (
-                              <div className="text-center">
-                              <br />
-                                <p>Paste something, and we'll see what we can do!</p>
-                                <p>Remember: It seems that only Adobe Acrobat does a good job at copying all the text in an orderly fashion.</p>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-            </StandardModal>
           <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  />
             <div className="row">
               <div className="d-none d-md-block col-md-3 col-lg-2">
@@ -391,17 +285,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                             </a>
                           </th>
                         </tr>
-                        <tr>
-                          <th colSpan={7} className="text-center">
-                            Feeling Lucky? Want to try something new and dangerous?
-                            <button
-                              className="btn btn-primary btn-xs"
-                              onClick={this.openTROModal}
-                            >
-                              Try the TRO text importer!
-                            </button>
-                          </th>
-                        </tr>
+
                       </tfoot>
                     </table>
               </TextSection>
@@ -433,7 +317,5 @@ interface IHomeProps {
 
 interface IHomeState {
     updated: boolean;
-    TRO: string;
-    ParsedTRO: BattleMech | null,
-    importTROModal: boolean;
+
 }

@@ -9,11 +9,16 @@ import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
 import TextAreaField from "../../../components/form_elements/textarea_field";
+import { BattleMech } from "../../../../classes/battlemech";
+import StandardModal from "../../../components/standard-modal";
 
 export default class MechCreatorImports extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
         super(props);
         this.state = {
+            TRO: "",
+            ParsedTRO: null,
+            importTROModal: false,
             updated: false,
             sswXML: `<?xml version="1.0" encoding ="UTF-8"?>
             <mech name="Atlas" model="AS7-D" tons="100" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="../Images/No_Image.png">
@@ -148,6 +153,69 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
         this.props.appGlobals.makeDocumentTitle("Imports | 'Mech Creator");
     }
 
+
+    updateTRO = (e: React.FormEvent<HTMLTextAreaElement>) => {
+
+      let parsed: BattleMech | null = null;
+      if( e.currentTarget.value && e.currentTarget.value.trim() ) {
+        parsed = new BattleMech();
+        parsed.importTRO( e.currentTarget.value );
+      }
+
+      this.setState({
+        TRO: e.currentTarget.value,
+        ParsedTRO: parsed,
+      })
+    }
+
+    closeTROModal = (
+      e:React.FormEvent<HTMLButtonElement>,
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault()
+      }
+
+      this.setState({
+        importTROModal: false,
+      })
+    }
+
+    importTRO = (
+      e:React.FormEvent<HTMLButtonElement>,
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault()
+      }
+
+      if( this.state.ParsedTRO ) {
+        let currentBattleMech = this.props.appGlobals.currentBattleMech;
+
+        currentBattleMech = new BattleMech();
+        currentBattleMech.import( this.state.ParsedTRO.export() )
+        this.props.appGlobals.saveCurrentBattleMech( currentBattleMech )
+
+      }
+      this.setState({
+        TRO: "",
+        ParsedTRO: null,
+        importTROModal: false,
+      })
+    }
+
+    openTROModal = (
+      e:React.FormEvent<HTMLButtonElement>,
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault()
+      }
+
+      this.setState({
+        importTROModal: true,
+        TRO: "",
+        ParsedTRO: null,
+      })
+    }
+
     updateSSWXML = (
       e: React.FormEvent<HTMLTextAreaElement>,
     ) => {
@@ -191,6 +259,51 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
         return <></>
       return (
         <UIPage current="classic-battletech-mech-creator" appGlobals={this.props.appGlobals}>
+                      <StandardModal
+              title="Experimental TRO importer!"
+              show={this.state.importTROModal}
+              onClose={this.closeTROModal}
+              onAdd={this.state.ParsedTRO ? this.importTRO : undefined }
+              labelAdd="Import and Replace"
+              className="modal-xl"
+            >
+<div className="row">
+                          <div className="col">
+                          <strong>Import Copy/Paste TRO</strong>
+                            <p>Because of formatting of copy/paste in Apple Preview, etc, it seems that Adobe Reader is required for ease of use. You could use another, but the copy/paste of Preview and other PDF viewer apps can be erratic with page formatting.</p>
+                            </div>
+
+                            <div className="col">
+                            <strong>Parsed TRO</strong>
+                            <p>What will never work: The standard PDF TROs don't let you know what actuators are missing and where to set the Heat Sink criticals, so you'll have to edit that yourself. That said, this should save you a lot of time!</p>
+                          </div>
+</div>
+<div className="row">
+                          <div className="col">
+
+                            <textarea
+                              onChange={this.updateTRO}
+                              value={this.state.TRO}
+                              className="full-width tall"
+                            >
+
+                            </textarea>
+                          </div>
+                          <div className="col">
+
+                            {this.state.ParsedTRO ? (
+                                <SanitizedHTML html={this.state.ParsedTRO.makeTROHTML()} raw={true} />
+                            ) :
+                            (
+                              <div className="text-center">
+                              <br />
+                                <p>Paste something, and we'll see what we can do!</p>
+                                <p>Remember: It seems that only Adobe Acrobat does a good job at copying all the text in an orderly fashion.</p>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+            </StandardModal>
             <div className="row">
               <div className="d-none d-md-block col-md-3 col-lg-2">
                 <MechCreatorSideMenu
@@ -202,7 +315,7 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                   <div className="row">
                     <div className="col-md-12 col-lg-8">
                       <TextSection
-                        label="Imports"
+                        label="Imports Skunkwerks .ssw XML"
                       >
                           <div className="alert alert-danger">
                             This is brand new as of April 14.
@@ -239,6 +352,17 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                           </div>
                         </TextSection>
 
+                        <TextSection
+                          label="Import TRO Text"
+                        >
+                            Feeling Lucky? Want to try something new and dangerous?
+                            <button
+                              className="btn btn-primary btn-xs"
+                              onClick={this.openTROModal}
+                            >
+                              Try the TRO text importer!
+                            </button>
+                        </TextSection>
                     </div>
                     <div className="d-none d-lg-block col-lg-4">
                     <TextSection
@@ -266,6 +390,9 @@ interface IHomeProps {
 }
 
 interface IHomeState {
-    updated: boolean;
+  updated: boolean;
   sswXML: string;
+  TRO: string;
+  ParsedTRO: BattleMech | null,
+  importTROModal: boolean;
 }
