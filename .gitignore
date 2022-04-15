@@ -20,12 +20,12 @@ work/*
 work*
 work
 
-bin/*
-bin
+/cli-tools/*
+/cli-tools
 
 .DS_Store
 package-lock.json
 .gitlab-ci.yml
 
-SSW-Master
-SSW-Master/*
+/SSW-Master
+/SSW-Master/*

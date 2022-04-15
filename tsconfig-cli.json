@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
     "lib": [
       "dom",
       "dom.iterable",
@@ -12,22 +12,24 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
+    "noEmit": false,
     "jsx": "react-jsx",
     "noFallthroughCasesInSwitch": true,
-    "outDir": "bin"
+    "outDir": "./cli-tools/",
+
   },
 
-  "files": [
-    "src/bin/convert-ssw-to-bttools.ts",
-  ],
 
-  "include": [
-    "src/bin"
+  "files": [
+    "./src/bin/convert-ssw-to-bttools.ts",
   ]
+
+  // "./include": [
+  //   "src/"
+  // ]
 
 }

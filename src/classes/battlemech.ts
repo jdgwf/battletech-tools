@@ -1802,11 +1802,18 @@ export class BattleMech {
         return this._alphaStrikeValue;
     }
 
-    public getCBillCost( withAMMO: boolean = false) {
+    public getCBillCost( withAMMO: boolean = false): string {
         if( withAMMO )
             return this._cbillCostWithAmmo;
         else
             return this._cbillCost;
+    }
+
+    public getCBillCostNumeric( withAMMO: boolean = false): number {
+        if( withAMMO )
+            return parseInt(this._cbillCostWithAmmo.replace(/\,/g, ''), 10);
+        else
+            return parseInt(this._cbillCost.replace(/\,/g, ''), 10);
     }
 
     public getEngineWeight() {
@@ -8333,9 +8340,12 @@ export class BattleMech {
         let jObj = parser.parse(ssw_xml);
 
         console.log( "battlemech.importSSWXML() jObj", jObj)
-        if( jObj && jObj.mech ) {
+        if( jObj && jObj.mech && jObj.mech.mech_type === "BattleMech") {
             this.reset();
 
+            if( jObj.mech.motive_type && jObj.mech.motive_type === "Quad" ) {
+                this.setMechType("quad");
+            }
             if( jObj.mech["@_model" ] ) {
                 this.setModel( jObj.mech["@_model"] );
             }
@@ -8442,15 +8452,23 @@ export class BattleMech {
                 if( jObj.mech.baseloadout.actuators ) {
                     if( jObj.mech.baseloadout.actuators["@_lh"] && jObj.mech.baseloadout.actuators["@_lh"].toLowerCase().trim() !== "true" ) {
                         this.removeHandActuator( "la" );
+                    } else {
+                        this.addHandActuator( "la" );
                     }
                     if( jObj.mech.baseloadout.actuators["@_lla"] && jObj.mech.baseloadout.actuators["@_lla"].toLowerCase().trim() !== "true" ) {
                         this.removeLowerArmActuator( "la" );
+                    } else {
+                        this.addLowerArmActuator( "la" );
                     }
                     if( jObj.mech.baseloadout.actuators["@_rh"] && jObj.mech.baseloadout.actuators["@_rh"].toLowerCase().trim() !== "true" ) {
                         this.removeHandActuator( "ra" );
+                    } else {
+                        this.addHandActuator( "ra" );
                     }
                     if( jObj.mech.baseloadout.actuators["@_rla"] && jObj.mech.baseloadout.actuators["@_rla"].toLowerCase().trim() !== "true" ) {
                         this.removeLowerArmActuator( "ra" );
+                    } else {
+                        this.addLowerArmActuator( "ra" );
                     }
                 }
 

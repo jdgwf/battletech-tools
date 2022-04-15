@@ -248,3 +248,10 @@ export interface IEras {
     yearStart: number;
     yearEnd: number;
 }
+
+export interface IRulesLevelOption {
+    id: number;
+    sswid: number;
+    tag: string;
+    name: string;
+}

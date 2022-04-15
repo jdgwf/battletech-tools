@@ -1,5 +1,5 @@
 
-import { FaArrowCircleLeft } from "react-icons/fa";
+import { FaArrowCircleLeft, FaCheckCircle, FaFileImport, FaTimesCircle } from "react-icons/fa";
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { IAppGlobals } from '../../../app-router';
@@ -11,6 +11,9 @@ import './home.scss';
 import TextAreaField from "../../../components/form_elements/textarea_field";
 import { BattleMech } from "../../../../classes/battlemech";
 import StandardModal from "../../../components/standard-modal";
+import { sswMechs } from "../../../../data/ssw/sswMechs";
+import { getSSWXMLBasicInfo } from "../../../../utils/getSSWXMLBasicInfo";
+import { replaceAll } from "../../../../utils/replaceAll";
 
 export default class MechCreatorImports extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -20,134 +23,13 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
             ParsedTRO: null,
             importTROModal: false,
             updated: false,
-            sswXML: `<?xml version="1.0" encoding ="UTF-8"?>
-            <mech name="Atlas" model="AS7-D" tons="100" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="../Images/No_Image.png">
-                <ssw_savefile_version>3</ssw_savefile_version>
-                <battle_value>1897</battle_value>
-                <cost>9519000.0</cost>
-                <rules_level>0</rules_level>
-                <era>0</era>
-                <productionera>1</productionera>
-                <mech_type>BattleMech</mech_type>
-                <techbase manufacturer="Unknown" location="Unknown">Inner Sphere</techbase>
-                <year restricted="FALSE">2755</year>
-                <motive_type>Biped</motive_type>
-                <structure manufacturer="Unknown" techbase="2">
-                    <type>Standard Structure</type>
-                </structure>
-                <engine rating="300" manufacturer="Unknown" lsstart="-1" rsstart="-1" techbase="2">Fusion Engine</engine>
-                <gyro techbase="2">Standard Gyro</gyro>
-                <cockpit>
-                    <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
-                </cockpit>
-                <armor manufacturer="Unknown" techbase="2">
-                    <type>Standard Armor</type>
-                    <hd>9</hd>
-                    <ct>47</ct>
-                    <ctr>14</ctr>
-                    <lt>32</lt>
-                    <ltr>10</ltr>
-                    <rt>32</rt>
-                    <rtr>10</rtr>
-                    <la>34</la>
-                    <ra>34</ra>
-                    <ll>41</ll>
-                    <rl>41</rl>
-                </armor>
-                <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
-                    <source>RS3039u</source>
-                    <info>Atlas AS7-D 100t, 3/5/0, Std FE, Std; 19.0T/99% Armor; 20 SHS; 4 ML, 1 SRM6, 1 AC20, 1 LRM20</info>
-                    <battleforce pv="19" wt="4" mv="3" s="5" m="5" l="2" e="0" ov="0" armor="10" internal="8" abilities="SRCH, ES, SEAL, SOA, AC 2/2/0, LRM 1/1/1, IF 1" />
-                    <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
-                    <clancase>FALSE</clancase>
-                    <heatsinks number="20" techbase="2">
-                        <type>Single Heat Sink</type>
-
-                        <location index="5">RL</location>
-                        <location index="4">RL</location>
-                        <location index="4">LL</location>
-                        <location index="5">LL</location>
-                        <location index="4">LA</location>
-                        <location index="0">LT</location>
-                        <location index="3">HD</location>
-                        <location index="4">RA</location>
-                    </heatsinks>
-                    <equipment>
-                        <name manufacturer="">(IS) Autocannon/20</name>
-                        <type>ballistic</type>
-                        <location index="0">RT</location>
-                    </equipment>
-                    <equipment>
-                        <name manufacturer="">(IS) Medium Laser</name>
-                        <type>energy</type>
-                        <location index="5">LA</location>
-                    </equipment>
-                    <equipment>
-                        <name manufacturer="">(IS) Medium Laser</name>
-                        <type>energy</type>
-                        <location index="5">RA</location>
-                    </equipment>
-                    <equipment>
-                        <name manufacturer="">(R) (IS) Medium Laser</name>
-                        <type>energy</type>
-                        <location index="10">CT</location>
-                    </equipment>
-                    <equipment>
-                        <name manufacturer="">(R) (IS) Medium Laser</name>
-                        <type>energy</type>
-                        <location index="11">CT</location>
-                    </equipment>
-                    <equipment>
-                        <name manufacturer="">(IS) LRM-20</name>
-                        <type>missile</type>
-                        <location index="1">LT</location>
-                    </equipment>
-                    <equipment>
-                        <name manufacturer="">(IS) SRM-6</name>
-                        <type>missile</type>
-                        <location index="6">LT</location>
-                    </equipment>
-                    <equipment>
-                        <name manufacturer="Unknown">@ SRM-6</name>
-                        <type>ammunition</type>
-                        <location index="10">LT</location>
-                    </equipment>
-                    <equipment>
-                        <name manufacturer="Unknown">(IS) @ LRM-20</name>
-                        <type>ammunition</type>
-                        <location index="8">LT</location>
-                    </equipment>
-                    <equipment>
-                        <name manufacturer="Unknown">(IS) @ LRM-20</name>
-                        <type>ammunition</type>
-                        <location index="9">LT</location>
-                    </equipment>
-                    <equipment>
-                        <name manufacturer="Unknown">(IS) @ AC/20</name>
-                        <type>ammunition</type>
-                        <location index="10">RT</location>
-                    </equipment>
-                    <equipment>
-                        <name manufacturer="Unknown">(IS) @ AC/20</name>
-                        <type>ammunition</type>
-                        <location index="11">RT</location>
-                    </equipment>
-                </baseloadout>
-                <fluff>
-                    <overview></overview>
-                    <capabilities></capabilities>
-                    <battlehistory></battlehistory>
-                    <deployment></deployment>
-                    <variants></variants>
-                    <notables></notables>
-                    <additional></additional>
-                    <jumpjet_model>None</jumpjet_model>
-                    <commsystem>Unknown</commsystem>
-                    <tandtsystem>Unknown</tandtsystem>
-                </fluff>
-            </mech>
-
-            `,
+            sswXML: ``,
+            sswCBill: -1,
+            sswBV2: -1,
+            sswBF: -1,
+            mechCBill: -1,
+            mechBV2: -1,
+            mechBF: -1,
         }
 
         this.props.appGlobals.makeDocumentTitle("Imports | 'Mech Creator");
@@ -237,19 +119,49 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
     }
 
     doImport = (
-      e: React.FormEvent<HTMLButtonElement>
+      e: React.FormEvent<HTMLButtonElement>,
+      mechData: string | null = null,
     ) => {
       if( e && e.preventDefault ) {
         e.preventDefault();
       }
 
+      if( mechData === null ) {
+        mechData = this.state.sswXML
+      }
 
-      if( this.props.appGlobals.currentBattleMech &&  this.state.sswXML && this.state.sswXML.trim() && this.state.sswXML.trim().startsWith("<")) {
-        this.props.appGlobals.currentBattleMech.importSSWXML( this.state.sswXML.trim() );
+      if( this.props.appGlobals.currentBattleMech &&  mechData && mechData.trim() && mechData.trim().startsWith("<")) {
+        this.props.appGlobals.currentBattleMech.importSSWXML( mechData.trim() );
         this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+        let basicMechData = getSSWXMLBasicInfo( mechData.trim() );
+
+        let sswCBill = -1;
+        let mechCBill = -1;
+
+        let sswBV2 = -1;
+        let mechBV2 = -1;
+
+        let sswBF = -1;
+        let mechBF = -1;
+
+        if( basicMechData && this.props.appGlobals.currentBattleMech )  {
+          sswCBill = basicMechData.cbill_cost;
+          sswBV2 = basicMechData.bv2;
+          sswBF = basicMechData.bfvalue;
+          mechCBill = this.props.appGlobals.currentBattleMech.getCBillCostNumeric(true);
+          mechBV2 = this.props.appGlobals.currentBattleMech.getBattleValue();
+          mechBF = this.props.appGlobals.currentBattleMech.getAlphaStrikeValue();
+        }
 
         this.setState({
           updated: true,
+          sswXML: mechData,
+          sswCBill: sswCBill,
+          sswBV2: sswBV2,
+          sswBF: sswBF,
+          mechCBill: mechCBill,
+          mechBV2: mechBV2,
+          mechBF: mechBF,
         })
       }
 
@@ -328,12 +240,76 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                             <br />
                             Right now have I have an Atlas AS7-D preloaded, <del>as the BV and CBill costs are a bit off</del> (fixed, was a problem with SRM Ammo cbill cost typo, BV2 is off with TRO, but matches SSW), not to mention the Alpha Strike Values.
                           </div>
-                          <TextAreaField
-                            label="Import SSW XML"
-                            value={this.state.sswXML}
-                            onChange={this.updateSSWXML}
-                            className="taller"
-                          />
+                          <div className="row">
+                            <div className="col-md-6">
+                              <h4>SSW Intro 3039 Mechs</h4>
+                              <div style={{overflow: "scroll", height: "600px"}}>
+                              <ul className="styleless">
+                            {sswMechs.map( (mechData, mechIndex) => {
+                              let basicData = getSSWXMLBasicInfo( mechData );
+                              if( basicData && basicData.rules_level_ssw === 0) {
+                                return (
+                                  <li key={mechIndex}>
+                                    <button
+                                      onClick={(e) => this.doImport(e, mechData )}
+                                      className="btn btn-primary btn-xs"
+                                    >
+                                      <FaFileImport />
+                                    </button>&nbsp;{basicData.model} {basicData.name}
+                                  </li>
+                                )
+                              }
+                            })}
+                            </ul>
+                            </div>
+                            </div>
+                            <div className="col-md-6">
+                            <TextAreaField
+                              label="Import SSW XML"
+                              value={this.state.sswXML}
+                              onChange={this.updateSSWXML}
+                              className="taller"
+                            />
+                            <h3>Import Checks</h3>
+                            {this.state.sswXML ? (
+                              <>
+                              {this.state.sswCBill !== this.state.mechCBill ? (
+                              <div>
+                                <FaTimesCircle className="color-red" />&nbsp;CBill Costs don't match:
+                                  SSW: {this.state.sswCBill} != JBT: {this.state.mechCBill}
+                              </div>
+                            ) : (
+                              <div>
+                                <FaCheckCircle className="color-green" />&nbsp;CBill Costs match: {this.state.mechCBill}
+                              </div>
+                            )}
+                            {/* {this.state.sswBF !== this.state.mechBF ? (
+                              <div>
+                                <FaTimesCircle className="color-red" />&nbsp;BF (Alpha Strike) Point Costs don't match:
+                                  SSW: {this.state.sswBF} != JBT: {this.state.mechBF}
+                              </div>
+                            ) : (
+                              <div>
+                                <FaCheckCircle className="color-green" />&nbsp;BF (Alpha Strike) Point Costs match: {this.state.mechBF}
+                              </div>
+                            )} */}
+                            {this.state.sswBV2 !== this.state.mechBV2 ? (
+                              <div>
+                                <FaTimesCircle className="color-red" />&nbsp;BV2 don't match:
+                                  SSW: {this.state.sswBV2} != JBT: {this.state.mechBV2}
+                              </div>
+                            ) : (
+                              <div>
+                                <FaCheckCircle className="color-green" />&nbsp;BV2 matches: {this.state.mechBV2}
+                              </div>
+                            )}
+                              </>
+                            ) : null}
+
+
+                            </div>
+                          </div>
+
                           <div className="text-right">
                             <button
                               className="btn btn-primary"
@@ -396,4 +372,11 @@ interface IHomeState {
   TRO: string;
   ParsedTRO: BattleMech | null,
   importTROModal: boolean;
+
+  sswCBill: number;
+  sswBV2: number;
+  sswBF: number;
+  mechCBill: number;
+  mechBV2: number;
+  mechBF: number;
 }
