@@ -8357,6 +8357,13 @@ export class BattleMech {
             if( jObj.mech["@_tons"] ) {
                 this.setTonnage( +jObj.mech["@_tons"] )
             }
+            if( jObj.mech.techbase && jObj.mech.techbase["#text"] ) {
+                if( jObj.mech.techbase["#text"].toLowerCase().indexOf("inner")) {
+                    this.setTech("is");
+                } else if( jObj.mech.techbase["#text"].toLowerCase().indexOf("clan")) {
+                    this.setTech("clan");
+                }
+            }
             if( jObj.mech.armor ) {
                 let totalArmor = 0;
                 // It sure would be nice for SSW to have the armor weight in XML file 🙄
@@ -8374,7 +8381,7 @@ export class BattleMech {
                 }
                 if( jObj.mech.armor.la ) {
                     this._armorAllocation.leftArm = jObj.mech.armor.la;
-                    totalArmor += this._armorAllocation.centerTorso;
+                    totalArmor += this._armorAllocation.leftArm;
                 }
                 if( jObj.mech.armor.ll ) {
                     this._armorAllocation.leftLeg = jObj.mech.armor.ll;
@@ -8421,6 +8428,8 @@ export class BattleMech {
                     if( jObj.mech.armor.type.indexOf( "Stealth" )  > -1) {
                         this.setArmorType( "stealth" )
                     }
+
+                    console.log("totalArmor", totalArmor)
                     this.setArmorCount( totalArmor );
                 }
             }
@@ -8549,8 +8558,35 @@ export class BattleMech {
                     if( typeof(  jObj.mech.baseloadout.heatsinks.location ) === "object" ) {
                         this._calcCriticals();
 
-                        for( let loc of jObj.mech.baseloadout.heatsinks.location ) {
+                        try {
+                            for( let loc of jObj.mech.baseloadout.heatsinks.location ) {
+                                let foundIndex = -1;
+
+
+                                    for( let critItemIndex in this._unallocatedCriticals ) {
+                                        if( this._unallocatedCriticals[critItemIndex] && this._unallocatedCriticals[critItemIndex].tag === "heat-sink" ) {
+                                            foundIndex = +critItemIndex;
+                                            break;
+                                        }
+                                    }
+
+
+                                if( foundIndex > -1 ) {
+                                    this.moveCritical(
+                                        "un",
+                                        foundIndex,
+                                        loc["#text"] ? loc["#text"].toLowerCase().trim() : "un",
+                                        loc["@_index"] ? +loc["@_index"] : -1,
+                                    );
+                                }
+
+                            }
+                        }
+
+                        catch {
                             let foundIndex = -1;
+
+
                             for( let critItemIndex in this._unallocatedCriticals ) {
                                 if( this._unallocatedCriticals[critItemIndex] && this._unallocatedCriticals[critItemIndex].tag === "heat-sink" ) {
                                     foundIndex = +critItemIndex;
@@ -8558,15 +8594,15 @@ export class BattleMech {
                                 }
                             }
 
+
                             if( foundIndex > -1 ) {
                                 this.moveCritical(
                                     "un",
                                     foundIndex,
-                                    loc["#text"] ? loc["#text"].toLowerCase().trim() : "un",
-                                    loc["@_index"] ? +loc["@_index"] : -1,
+                                    jObj.mech.baseloadout.heatsinks.location["#text"] ? jObj.mech.baseloadout.heatsinks.location["#text"].toLowerCase().trim() : "un",
+                                    jObj.mech.baseloadout.heatsinks.location["@_index"] ? +jObj.mech.baseloadout.heatsinks.location["@_index"] : -1,
                                 );
                             }
-
                         }
                     }
 

@@ -91,7 +91,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
             >
                   <ul className="news">
                   <li>
-                    <p><strong>2022 April 14</strong> - I've added a tentative <Link to="classic-battletech/mech-creator/imports">importer</Link> for the Solar Skunk Werk's Master File format. I'm having relative good success with Inner Sphere mechs (without jump jets, for now, perhaps tomorrow or Saturday).</p>
+                    <p><strong>2022 April 14</strong> - I've added a tentative <Link to="classic-battletech/mech-creator/imports">importer</Link> for the Solar Skunk Werk's Master File format. I'm having relative good success with Inner Sphere mechs (<del>without jump jets, for now, perhaps tomorrow or Saturday</del> nah, already added it: Stingers, Phoenix Hawks, and Wasps all work perfectly!).</p>
                     <p>The Repo is here: <a href="https://github.com/Solaris-Skunk-Werks/SSW-Master" target="ssw">Solaris Skunk Werks Master Data Repo</a>, and the direct download is here: <a href="https://github.com/Solaris-Skunk-Werks/solarisskunkwerks/releases" target="ssw">SSW-Master.zip is the file you want</a></p>
                   </li>
                   <li>

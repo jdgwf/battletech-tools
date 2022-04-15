@@ -193,13 +193,14 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
         currentBattleMech = new BattleMech();
         currentBattleMech.import( this.state.ParsedTRO.export() )
         this.props.appGlobals.saveCurrentBattleMech( currentBattleMech )
-
+        this.setState({
+          TRO: "",
+          ParsedTRO: null,
+          importTROModal: false,
+          updated: true,
+        })
       }
-      this.setState({
-        TRO: "",
-        ParsedTRO: null,
-        importTROModal: false,
-      })
+
     }
 
     openTROModal = (
