@@ -106,6 +106,7 @@ export interface IBattleMechExport {
     as_custom_nickname?: string;
 
 
+
     // basic properties
     additionalHeatSinks: number;
     allocation: ICriticalSlot[],
@@ -218,6 +219,8 @@ export class BattleMech {
         otherMods: 0,
         jumped: false,
     };
+
+    private _sswImportErrors: string[] = [];
 
     private _introductoryRules: boolean = false;
 
@@ -8337,6 +8340,7 @@ export class BattleMech {
         // var result = convertXML.xml2json(ssw_xml, {compact: true, spaces: 4});
 
         // console.log( result );
+        this._sswImportErrors = [];
 
         const options = {
             ignoreAttributes : false
@@ -8508,6 +8512,13 @@ export class BattleMech {
                             rear = true;
                         }
 
+
+                        let halfTon = false;
+                        if( itemName.indexOf(" (1/2)") > -1 ) {
+                            itemName = itemName.replace( " (1/2)", "" )
+                            halfTon = true;
+                        }
+
                         if( item.location && item.location["#text"]) {
                             location = item.location["#text"].toLowerCase().trim();
 
@@ -8539,7 +8550,11 @@ export class BattleMech {
 
                             if( !newItem ) {
                                 console.warn( "Cannot find any equipment named: '" + itemName + "'" );
+                                this._sswImportErrors.push( "Cannot find any equipment named: '" + itemName + "'" )
                             } else {
+                                if( halfTon ) {
+                                    newItem.weight = .5;
+                                }
                                 newItem.allocationIndex = allocationIndex;
                                 newItem.allocatedLocation = location;
                                 newItem.location = "un";
@@ -8679,6 +8694,10 @@ export class BattleMech {
             this.calcAlphaStrike();
             // console.log("this._criticals 2", this._criticals);
         }
+    }
+
+    public get sswImportErrors(): string[] {
+        return this._sswImportErrors;
     }
 }
 

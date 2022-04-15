@@ -31,6 +31,8 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
             mechCBill: -1,
             mechBV2: -1,
             mechBF: -1,
+            importMechName: "",
+            importErrors: [],
         }
 
         this.props.appGlobals.makeDocumentTitle("Imports | 'Mech Creator");
@@ -101,40 +103,18 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
     }
 
     updateSSWXML = (
-      e: React.FormEvent<HTMLTextAreaElement>,
-    ) => {
-      if( e && e.preventDefault ) {
-        e.preventDefault();
-      }
-
-      this.setState({
-        sswXML: e.currentTarget.value,
-      })
-
-      // if( this.props.appGlobals.currentBattleMech && e.currentTarget.value && e.currentTarget.value.trim() && e.currentTarget.value.trim().startsWith("<")) {
-      //   this.props.appGlobals.currentBattleMech.importSSWXML( e.currentTarget.value.trim() );
-      // }
-      // this.setState({
-      //   updated: true,
-      // })
-    }
-
-    doImport = (
-      e: React.FormEvent<HTMLButtonElement>,
-      mechData: string | null = null,
+      e: React.FormEvent<HTMLTextAreaElement | HTMLButtonElement>,
+            mechData: string | null = null,
     ) => {
       if( e && e.preventDefault ) {
         e.preventDefault();
       }
 
       if( mechData === null ) {
-        mechData = this.state.sswXML
+        mechData = e.currentTarget.value
       }
 
-      if( this.props.appGlobals.currentBattleMech &&  mechData && mechData.trim() && mechData.trim().startsWith("<")) {
-        this.props.appGlobals.currentBattleMech.importSSWXML( mechData.trim() );
-        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
-        let basicMechData = getSSWXMLBasicInfo( mechData.trim() );
+      let basicMechData = getSSWXMLBasicInfo( mechData.trim() );
 
         let sswCBill = -1;
         let mechCBill = -1;
@@ -144,14 +124,22 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
 
         let sswBF = -1;
         let mechBF = -1;
+        let importMechName = "";
 
-        if( basicMechData && this.props.appGlobals.currentBattleMech )  {
+        let tempBM = new BattleMech();
+        let importErrors: string[] = [];
+
+        tempBM.importSSWXML( mechData.trim() );
+
+        if( basicMechData && tempBM )  {
           sswCBill = basicMechData.cbill_cost;
           sswBV2 = basicMechData.bv2;
           sswBF = basicMechData.bfvalue;
-          mechCBill = this.props.appGlobals.currentBattleMech.getCBillCostNumeric(true);
-          mechBV2 = this.props.appGlobals.currentBattleMech.getBattleValue();
-          mechBF = this.props.appGlobals.currentBattleMech.getAlphaStrikeValue();
+          mechCBill = tempBM.getCBillCostNumeric(true);
+          mechBV2 = tempBM.getBattleValue();
+          mechBF = tempBM.getAlphaStrikeValue();
+          importMechName = basicMechData.model + " " + basicMechData.name;
+          importErrors = tempBM.sswImportErrors;
         }
 
         this.setState({
@@ -163,7 +151,39 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
           mechCBill: mechCBill,
           mechBV2: mechBV2,
           mechBF: mechBF,
+          importMechName: importMechName,
+          importErrors: importErrors,
         })
+
+
+
+      // if( this.props.appGlobals.currentBattleMech && e.currentTarget.value && e.currentTarget.value.trim() && e.currentTarget.value.trim().startsWith("<")) {
+      //   this.props.appGlobals.currentBattleMech.importSSWXML( e.currentTarget.value.trim() );
+      // }
+      // this.setState({
+      //   updated: true,
+      // })
+    }
+
+    doImport = (
+      e: React.FormEvent<HTMLButtonElement>,
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+
+      let mechData = this.state.sswXML;
+
+      if( this.props.appGlobals.currentBattleMech &&  mechData && mechData.trim() && mechData.trim().startsWith("<")) {
+        this.props.appGlobals.currentBattleMech.importSSWXML( mechData.trim() );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+
+
+
+        this.setState({
+          updated: true,
+          sswXML: "",
+         })
       }
 
     }
@@ -253,7 +273,7 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                                 return (
                                   <li key={mechIndex}>
                                     <button
-                                      onClick={(e) => this.doImport(e, mechData )}
+                                      onClick={(e) => this.updateSSWXML(e, mechData )}
                                       className="btn btn-primary btn-xs"
                                     >
                                       <FaFileImport />
@@ -272,9 +292,10 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                               onChange={this.updateSSWXML}
                               className="taller"
                             />
-                            <h3>Import Checks</h3>
+
                             {this.state.sswXML ? (
                               <>
+                              <h3>Import Checks for {this.state.importMechName}</h3>
                               {this.state.sswCBill !== this.state.mechCBill ? (
                               <div>
                                 <FaTimesCircle className="color-red" />&nbsp;CBill Costs don't match:
@@ -311,7 +332,20 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                             )}
                               </>
                             ) : null}
-
+                            {this.state.importErrors.length > 0 ? (
+                              <>
+                              <h4>Import Errors</h4>
+                              <ul>
+                                {this.state.importErrors.map ( (line, lineIndex) => {
+                                  return (
+                                    <li key={lineIndex}>
+                                      {line}
+                                    </li>
+                                  )
+                                })}
+                              </ul>
+                              </>
+                            ) : null}
 
                             </div>
                           </div>
@@ -378,6 +412,8 @@ interface IHomeState {
   TRO: string;
   ParsedTRO: BattleMech | null,
   importTROModal: boolean;
+  importMechName: string;
+  importErrors: string[];
 
   sswCBill: number;
   sswBV2: number;
