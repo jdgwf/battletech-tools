@@ -21,6 +21,7 @@ import EquipmentEditor from "./pages/equipment-editor";
 import Error404 from "./pages/error404";
 import Home from "./pages/home";
 import SettingsRouter from "./pages/settings/_router";
+import SSWSanityCheck from "./pages/ssw-sanity-check";
 let pjson = require('../../package.json');
 
 export default class AppRouter extends React.Component<IAppRouterProps, IAppRouterState> {
@@ -462,6 +463,12 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                 </Route> */}
                 <Route path={`${process.env.PUBLIC_URL}/equipment-editor`}   element={
                     <EquipmentEditor
+                        appGlobals={this.state.appGlobals}
+                    />
+                }/>
+
+                <Route path={`${process.env.PUBLIC_URL}/ssw-sanity-check`}   element={
+                    <SSWSanityCheck
                         appGlobals={this.state.appGlobals}
                     />
                 }/>

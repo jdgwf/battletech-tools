@@ -1784,7 +1784,7 @@ export class BattleMech {
         this._calcLogCBill += "<tr><td class=\"text-right\"><strong>Final Loaded Cost</strong>:</td><td>" + addCommas( Math.ceil( ( cbillDryTotal ) * ( 1 + this.getTonnage() / 100 ) ) + cbillAmmoTotal ) + "</td></tr>\n";
 
         // cbillDryTotal = Math.floor(cbillDryTotal)
-        cbillDryTotal = Math.ceil( cbillDryTotal * (1 + this.getTonnage() / 100) );
+        cbillDryTotal = Math.round( cbillDryTotal * (1 + this.getTonnage() / 100) );
 
         this._calcLogCBill += "</tbody></table>";
         this._cbillCost = addCommas(cbillDryTotal);

@@ -167,6 +167,16 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                 tag: "equipment-editor",
             },
         );
+
+        menuStructure.push(
+            {
+                label: "SSW Sanity Check",
+                url: "/ssw-sanity-check",
+                tag: "ssw-sanity-check",
+            },
+        );
+
+
     }
 
     let currentSubmenu: IMenuDef[] = [];
