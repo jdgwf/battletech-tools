@@ -1,4 +1,3 @@
-import { stringify } from "querystring";
 import { IRulesLevelOption } from "../data/data-interfaces";
 
 const { XMLParser } = require( "fast-xml-parser" );

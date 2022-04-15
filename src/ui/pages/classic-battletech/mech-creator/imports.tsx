@@ -1,20 +1,19 @@
 
-import { FaArrowCircleLeft, FaCheckCircle, FaFileImport, FaTimesCircle } from "react-icons/fa";
 import React from 'react';
+import { FaArrowCircleLeft, FaCheckCircle, FaFileImport, FaTimesCircle } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import { BattleMech } from "../../../../classes/battlemech";
+import { sswMechs } from "../../../../data/ssw/sswMechs";
+import { addCommas } from "../../../../utils/addCommas";
+import { getSSWXMLBasicInfo } from "../../../../utils/getSSWXMLBasicInfo";
 import { IAppGlobals } from '../../../app-router';
+import TextAreaField from "../../../components/form_elements/textarea_field";
 import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
 import SanitizedHTML from '../../../components/sanitized-html';
+import StandardModal from "../../../components/standard-modal";
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
-import TextAreaField from "../../../components/form_elements/textarea_field";
-import { BattleMech } from "../../../../classes/battlemech";
-import StandardModal from "../../../components/standard-modal";
-import { sswMechs } from "../../../../data/ssw/sswMechs";
-import { getSSWXMLBasicInfo } from "../../../../utils/getSSWXMLBasicInfo";
-import { replaceAll } from "../../../../utils/replaceAll";
-import { addCommas } from "../../../../utils/addCommas";
 
 export default class MechCreatorImports extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -280,6 +279,8 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                                     </button>&nbsp;{basicData.model} {basicData.name}
                                   </li>
                                 )
+                              }  else {
+                                return <React.Fragment key={mechIndex}></React.Fragment>
                               }
                             })}
                             </ul>

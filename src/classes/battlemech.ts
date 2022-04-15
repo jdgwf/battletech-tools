@@ -1816,9 +1816,9 @@ export class BattleMech {
 
     public getCBillCostNumeric( withAMMO: boolean = false): number {
         if( withAMMO )
-            return parseInt(this._cbillCostWithAmmo.replace(/\,/g, ''), 10);
+            return parseInt(this._cbillCostWithAmmo.replace(/,/g, ''), 10);
         else
-            return parseInt(this._cbillCost.replace(/\,/g, ''), 10);
+            return parseInt(this._cbillCost.replace(/,/g, ''), 10);
     }
 
     public getEngineWeight() {
@@ -3587,7 +3587,7 @@ export class BattleMech {
             name: "Armor",
             weight: this._armorWeight
         });
-        this._totalArmor = this._totalArmor;
+
         this._totalArmor += this._armorAllocation.head;
 
         this._totalArmor += this._armorAllocation.centerTorso;

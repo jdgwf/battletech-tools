@@ -1,30 +1,52 @@
 import React from 'react';
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import { BattleMech } from "../../classes/battlemech";
-import { IEquipmentItem } from "../../data/data-interfaces";
-import { mechClanEquipmentEnergy } from '../../data/mech-clan-equipment-weapons-energy';
-import { mechISEquipmentBallistic } from '../../data/mech-is-equipment-weapons-ballistic';
-import { mechISEquipmentEnergy } from "../../data/mech-is-equipment-weapons-energy";
-import { mechISEquipmentMisc } from '../../data/mech-is-equipment-weapons-misc';
-import { mechISEquipmentMissiles } from '../../data/mech-is-equipment-weapons-missiles';
 import { sswMechs } from "../../data/ssw/sswMechs";
 import { addCommas } from "../../utils/addCommas";
 import { getSSWXMLBasicInfo } from "../../utils/getSSWXMLBasicInfo";
 import { IAppGlobals } from '../app-router';
+import SanitizedHTML from '../components/sanitized-html';
+import StandardModal from '../components/standard-modal';
 import UIPage from '../components/ui-page';
 import './ssw-sanity-check.scss';
 
 
 export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps, ISSWSanityCheckState> {
-    fileDataList: Record<string, IEquipmentItem[]> = {
-        "mech-is-equipment-weapons-ballistic": mechISEquipmentBallistic,
-        "mech-is-equipment-weapons-energy": mechISEquipmentEnergy,
-        "mech-is-equipment-weapons-missiles": mechISEquipmentMissiles,
-        "mech-is-equipment-weapons-misc": mechISEquipmentMisc,
-        "mech-clan-equipment-weapons-energy": mechClanEquipmentEnergy,
-    };
 
 
+    constructor(props: ISSWSanityCheckProps) {
+        super(props);
+        this.state = {
+            viewHTML: "",
+        }
+
+        this.props.appGlobals.makeDocumentTitle("Imports | 'Mech Creator");
+    }
+
+
+    viewHTML = (
+        e: React.FormEvent<HTMLButtonElement>,
+        html: string
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        this.setState({
+            viewHTML: html,
+        })
+    }
+
+    closeHTML = (
+        e: React.FormEvent<HTMLButtonElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+
+        this.setState({
+            viewHTML: "",
+        })
+    }
 
     render = (): React.ReactFragment => {
 
@@ -34,6 +56,16 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
 
       return (
     <UIPage current="ssw-sanity-check" appGlobals={this.props.appGlobals}>
+{this.state.viewHTML ? (
+    <StandardModal
+        show={true}
+        className="modal-xl"
+        title="Viewing Calculation Summary"
+        onClose={this.closeHTML}
+    >
+        <SanitizedHTML raw={true} html={this.state.viewHTML} />
+    </StandardModal>
+) : null}
        <table className="table">
            <thead>
                <tr>
@@ -79,6 +111,13 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                                         {Math.abs(SSWCbills - tempMechCBills ) < 3 ? (
                                             <div className="color-green">..but it's close - rounding error?</div>
                                         ) : null}
+
+                                        <button
+                                            className="btn btn-primary full-width btn-xs"
+                                            onClick={(e) => this.viewHTML( e, tempMech.calcLogCBill)}
+                                        >
+                                            View Summary
+                                        </button>
                                     </div>
                                     ) : (
                                     <div>
@@ -93,6 +132,12 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                                 <div>
                                     <FaTimesCircle className="color-red" />&nbsp;BV2 don't match:
                                     SSW: {addCommas(SSWBV2)} != JBT: {addCommas(tempMechBV2)}
+                                    <button
+                                        className="btn btn-primary full-width btn-xs"
+                                        onClick={(e) => this.viewHTML( e, tempMech.calcLogBV)}
+                                    >
+                                        View Summary
+                                    </button>
                                 </div>
                                 ) : (
                                 <div>
@@ -119,7 +164,9 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                             </tr>
                         </tbody>
                 )
-                }
+                } else {
+                    return <React.Fragment key={mechIndex}></React.Fragment>
+                  }
            })}
            <tfoot>
                <tr>
@@ -147,6 +194,6 @@ interface ISSWSanityCheckProps {
 }
 
 interface ISSWSanityCheckState {
-
+    viewHTML: string;
 }
 
