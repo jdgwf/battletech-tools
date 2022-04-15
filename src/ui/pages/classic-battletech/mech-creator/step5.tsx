@@ -33,6 +33,10 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
           "",
           false,
           null,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
         );
         this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
 
@@ -61,6 +65,22 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
         this.props.appGlobals.currentBattleMech.setRear(
           itemUUID,
           isRear,
+        );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+
+        return true;
+      }
+      return false;
+    }
+
+    setWeight = (
+      itemUUID: string | undefined,
+      weight: number,
+    ): boolean => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.setweight(
+          itemUUID,
+          weight,
         );
         this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
 
@@ -152,7 +172,20 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                       <td>
                                         {item.name}
                                       </td>
-                                      <td>{item.weight}</td>
+                                      <td>
+                                        {item.minAmmoTons && item.isAmmo && item.minAmmoTons < 1 ? (
+                                          <select
+                                            value={item.weight}
+                                            onChange={( event: React.FormEvent<HTMLSelectElement>) => this.setWeight( item.uuid, +event.currentTarget.value)}
+                                            className="width-auto"
+                                          >
+                                            <option value={.5}>½</option>
+                                            <option value={1}>1</option>
+                                          </select>
+                                        ) : (
+                                          <>{item.weight}</>
+                                        )}
+                                        </td>
                                       <td>
                                         <InputCheckbox
                                           label=""

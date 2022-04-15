@@ -298,7 +298,7 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                               <h3>Import Checks for {this.state.importMechName}</h3>
                               {this.state.sswCBill !== this.state.mechCBill ? (
                               <div>
-                                <FaTimesCircle className="color-red" />&nbsp;CBill Costs don't match:
+                                <FaTimesCircle className="color-red" />&nbsp;CBill Costs don't match:<br />
                                   SSW: {addCommas(this.state.sswCBill)} != JBT: {addCommas(this.state.mechCBill)}
 
                                   {Math.abs(this.state.sswCBill - this.state.mechCBill ) < 3 ? (

@@ -79,7 +79,7 @@ interface IBMEquipmentExport {
     loc: string | undefined;
     rear: boolean | undefined;
     uuid: string | undefined;
-
+    weight: number | undefined;
     // in play variables
     target?: string | undefined;
     resolved?: boolean | undefined;
@@ -1306,8 +1306,8 @@ export class BattleMech {
             this._calcLogBV += "Small Cockpit, multiply total by .95 and round final BV: " + finalBattleValue.toFixed(2) + "<br />";
         }
 
-        this._calcLogBV += "<strong>Final Battle Value</strong>: " + finalBattleValue.toFixed(2) + " rounded to " + Math.round(finalBattleValue) + "<br />";
-        this._battleValue = Math.round(finalBattleValue);
+        this._calcLogBV += "<strong>Final Battle Value</strong>: " + finalBattleValue.toFixed(2) + " rounded off " + Math.floor(finalBattleValue) + "<br />";
+        this._battleValue = Math.floor(finalBattleValue);
 
         this._setPilotAdjustedBattleValue();
     }
@@ -1767,9 +1767,8 @@ export class BattleMech {
                 this._calcLogCBill += "<tr><td><strong>" + this._equipmentList[eqC].name + "</strong></td><td>" + addCommas(this._equipmentList[eqC].cbills) + "</td></tr>\n";
                 cbillDryTotal += this._equipmentList[eqC].cbills;
             } else {
-                this._calcLogCBill += "<tr><td><strong>" + this._equipmentList[eqC].name + "</strong></td><td class=\"text-right\">" + addCommas(this._equipmentList[eqC].cbills) + "<div class=\"smaller-text\">(not included in dry cost)</div></td></tr>\n";
-                cbillAmmoTotal += this._equipmentList[eqC].cbills;
-
+                this._calcLogCBill += "<tr><td><strong>" + this._equipmentList[eqC].name + "</strong></td><td class=\"text-right\">" + addCommas(this._equipmentList[eqC].cbills * this._equipmentList[eqC].weight) + "<div class=\"smaller-text\">(not included in dry cost)</div></td></tr>\n";
+                cbillAmmoTotal += this._equipmentList[eqC].cbills * this._equipmentList[eqC].weight;
             }
         }
 
@@ -5211,12 +5210,14 @@ export class BattleMech {
                     loc: this._equipmentList[countEQ].location,
                     rear: this._equipmentList[countEQ].rear,
                     uuid: this._equipmentList[countEQ].uuid,
+                    weight: this._equipmentList[countEQ].weight,
                 });
             } else {
                 exportObject.equipment.push({
                     tag: this._equipmentList[countEQ].tag,
                     loc: this._equipmentList[countEQ].location,
                     rear: this._equipmentList[countEQ].rear,
+                    weight: this._equipmentList[countEQ].weight,
                     uuid: this._equipmentList[countEQ].uuid,
                     target: this._equipmentList[countEQ].target,
                     resolved: this._equipmentList[countEQ].resolved,
@@ -5521,6 +5522,8 @@ export class BattleMech {
                         importItem.uuid,
                         importItem.target,
                         importItem.resolved,
+                        undefined,
+                        importItem.weight,
                     );
                 }
             }
@@ -5697,6 +5700,7 @@ export class BattleMech {
         location: string,
         rear: boolean = false,
         uuid: string | undefined | null,
+        weight: number | undefined,
     ) {
         if( !uuid ) {
             uuid = generateUUID()
@@ -5710,6 +5714,9 @@ export class BattleMech {
 
             if( typeof(location) !== "undefined" )
                 equipmentItem.location = location;
+
+            if( typeof(weight) !== "undefined" )
+                equipmentItem.weight = weight;
 
             equipmentItem.rear = rear;
             equipmentItem.uuid = uuid;
@@ -5730,6 +5737,7 @@ export class BattleMech {
         location: string,
         rear: boolean = false,
         uuid: string | undefined | null,
+        weight: number | undefined,
     ): IEquipmentItem | null {
         if( !uuid ) {
             uuid = generateUUID()
@@ -5749,6 +5757,8 @@ export class BattleMech {
                 if( typeof(location) !== "undefined" )
                     equipmentItem.location = location;
 
+                if( typeof(weight) !== "undefined" )
+                    equipmentItem.weight = weight;
                 equipmentItem.rear = rear;
                 equipmentItem.uuid = uuid;
 
@@ -5771,6 +5781,7 @@ export class BattleMech {
         target: string = "",
         resolved: boolean = false,
         damageClusterHits: IClusterHit[] = [],
+        weight: number | undefined,
     ): IEquipmentItem | null {
         if( !uuid ) {
             uuid = generateUUID()
@@ -5791,6 +5802,8 @@ export class BattleMech {
                 equipmentItem.uuid = uuid;
                 equipmentItem.target = target;
                 equipmentItem.resolved = false;
+                if( typeof(weight) !== "undefined" )
+                    equipmentItem.weight = weight;
                 equipmentItem.damageClusterHits = []
                 if( resolved ) {
                     equipmentItem.resolved = true;
@@ -6421,6 +6434,36 @@ export class BattleMech {
             return "ctr"
         else
             return "ct"
+    }
+
+    public setweight (
+        itemUUID: string | undefined,
+        weight: number,
+    ) {
+
+        if( itemUUID ) {
+            for( let item of this._equipmentList ) {
+                if( item.uuid && item.uuid === itemUUID) {
+
+                    item.weight = weight;
+                    break;
+
+                }
+            }
+
+        }
+        // if( this._equipmentList[equipmentIndex]) {
+
+        //     this._equipmentList[equipmentIndex].rear = newValue;
+        //     for( let item of this._criticalAllocationTable ) {
+        //         if( item.obj && item.obj.uuid === this._equipmentList[equipmentIndex].uuid ) {
+        //             item.rear = newValue;
+        //             item.obj.rear = newValue;
+        //         }
+        //     }
+        // }
+
+        this._calc();
     }
 
     public setRear(
@@ -7986,6 +8029,7 @@ export class BattleMech {
                                             equipmentLine.location.trim().toLowerCase(),
                                             false,
                                             null,
+                                            equipmentLine.weight,
                                         )
 
                                         this._calcCriticals();
@@ -8546,7 +8590,14 @@ export class BattleMech {
 
                         if( itemName ) {
 
-                            let newItem = this.addEquipmentByName( itemName, listTag, location, rear, generateUUID() );
+                            let newItem = this.addEquipmentByName(
+                                itemName,
+                                listTag,
+                                location,
+                                rear,
+                                generateUUID(),
+                                undefined,
+                            );
 
                             if( !newItem ) {
                                 console.warn( "Cannot find any equipment named: '" + itemName + "'" );
