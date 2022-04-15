@@ -1,3 +1,7 @@
+/*
+    The data here is/may be copyrighted and NOT included in the GPLv3 license.
+    This data is blatantly and lovingly copied from the Solaris Skunk Werks project at https://github.com/Solaris-Skunk-Werks/SSW-Master
+*/
 export const sswMechs: string[] = [
     `<?xml version="1.0" encoding ="UTF-8"?>
 <mech name="Archer" model="ARC-2K" tons="70" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="../Images/No_Image.png">

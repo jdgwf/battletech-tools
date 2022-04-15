@@ -7,7 +7,14 @@ export async function createSSWDataFile(
     dataFileName: string,
 ) {
 
-    let fileContents = "export const " + constVariableName + ": string[] = [\n";
+    let fileContents = `/*
+    The data here is/may be copyrighted and NOT included in the GPLv3 license.
+    This data is blatantly and lovingly copied from the Solaris Skunk Werks project at https://github.com/Solaris-Skunk-Werks/SSW-Master
+*/
+`
+
+
+    fileContents += "export const " + constVariableName + ": string[] = [\n";
 
     for( let item of data ) {
         fileContents += "    `" + item + "`,\n"
