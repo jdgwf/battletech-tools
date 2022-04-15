@@ -14,6 +14,7 @@ import StandardModal from "../../../components/standard-modal";
 import { sswMechs } from "../../../../data/ssw/sswMechs";
 import { getSSWXMLBasicInfo } from "../../../../utils/getSSWXMLBasicInfo";
 import { replaceAll } from "../../../../utils/replaceAll";
+import { addCommas } from "../../../../utils/addCommas";
 
 export default class MechCreatorImports extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -276,11 +277,15 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                               {this.state.sswCBill !== this.state.mechCBill ? (
                               <div>
                                 <FaTimesCircle className="color-red" />&nbsp;CBill Costs don't match:
-                                  SSW: {this.state.sswCBill} != JBT: {this.state.mechCBill}
+                                  SSW: {addCommas(this.state.sswCBill)} != JBT: {addCommas(this.state.mechCBill)}
+
+                                  {Math.abs(this.state.sswCBill - this.state.mechCBill ) < 3 ? (
+                                    <div className="color-green">..but it's close - rounding error?</div>
+                                  ) : null}
                               </div>
                             ) : (
                               <div>
-                                <FaCheckCircle className="color-green" />&nbsp;CBill Costs match: {this.state.mechCBill}
+                                <FaCheckCircle className="color-green" />&nbsp;CBill Costs match: {addCommas(this.state.mechCBill)}
                               </div>
                             )}
                             {/* {this.state.sswBF !== this.state.mechBF ? (
@@ -296,11 +301,11 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                             {this.state.sswBV2 !== this.state.mechBV2 ? (
                               <div>
                                 <FaTimesCircle className="color-red" />&nbsp;BV2 don't match:
-                                  SSW: {this.state.sswBV2} != JBT: {this.state.mechBV2}
+                                  SSW: {addCommas(this.state.sswBV2)} != JBT: {addCommas(this.state.mechBV2)}
                               </div>
                             ) : (
                               <div>
-                                <FaCheckCircle className="color-green" />&nbsp;BV2 matches: {this.state.mechBV2}
+                                <FaCheckCircle className="color-green" />&nbsp;BV2 matches: {addCommas(this.state.mechBV2)}
                               </div>
                             )}
                               </>

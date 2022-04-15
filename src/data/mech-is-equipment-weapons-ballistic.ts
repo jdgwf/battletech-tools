@@ -3092,6 +3092,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     {
         isAmmo: true,
         name: "Ammo (MG)",
+        alternameName: "Ammo (Machine Gun)",
         tag: "ammo-machine-gun",
         sort: "ammo, machine gun",
         category: "Ammunition",

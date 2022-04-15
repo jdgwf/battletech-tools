@@ -1706,8 +1706,9 @@ export class BattleMech {
         let engineName = this.getEngineType().name;
         let engineRating  = this.getEngineRating();
         let enginecostMultiplier = this.getEngineType().costMultiplier;
-        this._calcLogCBill += "<tr><td><strong>Engine: " + engineName  + "</strong><br /><span class=\"smaller-text\">" +  addCommas( enginecostMultiplier ) + " x Engine Rating  [" + engineRating + "] x Unit Tonnage [" + this.getTonnage() + "] / 75</span></td><td>" +  addCommas( enginecostMultiplier * engineRating * this.getTonnage() / 75 ) + "</td></tr>\n";
-        cbillDryTotal += enginecostMultiplier * engineRating * this.getTonnage() / 75;
+        let engineCost =  Math.round( enginecostMultiplier * engineRating * this.getTonnage() / 75 * 100) / 100; ;
+        this._calcLogCBill += "<tr><td><strong>Engine: " + engineName  + "</strong><br /><span class=\"smaller-text\">" +  addCommas( enginecostMultiplier ) + " x Engine Rating  [" + engineRating + "] x Unit Tonnage [" + this.getTonnage() + "] / 75</span></td><td>" +  addCommas( engineCost ) + "</td></tr>\n";
+        cbillDryTotal += engineCost;
 
         // Gyro
         let gyroName = this.getGyroName();
@@ -1779,6 +1780,8 @@ export class BattleMech {
         this._calcLogCBill += "<tr><td colSpan=\"2\">Cost Multiplier:<div class=\"smaller-text\">Sub Total [" + addCommas(cbillDryTotal) + "] x (1 + Unit Tonnage [" + this.getTonnage() + "] / 100) - rounded up</div></td><td>" + (1 + this.getTonnage() / 100 ) + "</td></tr>";
         this._calcLogCBill += "<tr><td class=\"text-right\"><strong>Final Dry Cost</strong>:</td><td>" + addCommas( Math.ceil(cbillDryTotal * ( 1 + this.getTonnage() / 100 ) ) ) + "</td></tr>\n";
         this._calcLogCBill += "<tr><td class=\"text-right\"><strong>Final Loaded Cost</strong>:</td><td>" + addCommas( Math.ceil( ( cbillDryTotal ) * ( 1 + this.getTonnage() / 100 ) ) + cbillAmmoTotal ) + "</td></tr>\n";
+
+        // cbillDryTotal = Math.floor(cbillDryTotal)
         cbillDryTotal = Math.ceil( cbillDryTotal * (1 + this.getTonnage() / 100) );
 
         this._calcLogCBill += "</tbody></table>";
@@ -4698,9 +4701,11 @@ export class BattleMech {
         // break;
         // }
         if( this.getTech().tag === "clan" ) {
-            this._armorWeight = Math.floor(this._totalArmor / this.getArmorObj().armorMultiplier.clan);
+            console.log("AW clan: ", this._totalArmor, this.getArmorObj().armorMultiplier.is, this._totalArmor / this.getArmorObj().armorMultiplier.clan, this.getArmorObj().name )
+            this._armorWeight = this._totalArmor / this.getArmorObj().armorMultiplier.clan;
         } else {
-            this._armorWeight = Math.floor(this._totalArmor / this.getArmorObj().armorMultiplier.is);
+            console.log("AW is: ", this._totalArmor, this.getArmorObj().armorMultiplier.is, this._totalArmor / this.getArmorObj().armorMultiplier.is, this.getArmorObj().name )
+            this._armorWeight = this._totalArmor / this.getArmorObj().armorMultiplier.is;
         }
     }
 
@@ -8368,9 +8373,9 @@ export class BattleMech {
                 this.setTonnage( +jObj.mech["@_tons"] )
             }
             if( jObj.mech.techbase && jObj.mech.techbase["#text"] ) {
-                if( jObj.mech.techbase["#text"].toLowerCase().indexOf("inner")) {
+                if( jObj.mech.techbase["#text"].toLowerCase().indexOf("inner") > -1) {
                     this.setTech("is");
-                } else if( jObj.mech.techbase["#text"].toLowerCase().indexOf("clan")) {
+                } else if( jObj.mech.techbase["#text"].toLowerCase().indexOf("clan") > -1) {
                     this.setTech("clan");
                 }
             }
