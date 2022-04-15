@@ -3566,7 +3566,7 @@ export class BattleMech {
             });
         }
 
-        this._totalArmor = this._armorWeight * 16;
+        this._totalArmor = 0;
 
         // switch( this.getArmorType() ) {
 
@@ -3575,9 +3575,9 @@ export class BattleMech {
         // break;
         // }
         if( this.getTech().tag === "clan" ) {
-            this._totalArmor = Math.floor(this._armorWeight * this.getArmorObj().armorMultiplier.clan);
+            this._maxArmor = Math.floor(this._armorWeight * this.getArmorObj().armorMultiplier.clan);
         } else {
-            this._totalArmor = Math.floor(this._armorWeight * this.getArmorObj().armorMultiplier.is);
+            this._maxArmor = Math.floor(this._armorWeight * this.getArmorObj().armorMultiplier.is);
         }
 
         if( this._totalArmor > this._maxArmor)
@@ -3587,22 +3587,24 @@ export class BattleMech {
             name: "Armor",
             weight: this._armorWeight
         });
-        this._unallocatedArmor = this._totalArmor;
-        this._unallocatedArmor -= this._armorAllocation.head;
+        this._totalArmor = this._totalArmor;
+        this._totalArmor += this._armorAllocation.head;
 
-        this._unallocatedArmor -= this._armorAllocation.centerTorso;
-        this._unallocatedArmor -= this._armorAllocation.leftTorso;
-        this._unallocatedArmor -= this._armorAllocation.rightTorso;
+        this._totalArmor += this._armorAllocation.centerTorso;
+        this._totalArmor += this._armorAllocation.leftTorso;
+        this._totalArmor += this._armorAllocation.rightTorso;
 
-        this._unallocatedArmor -= this._armorAllocation.centerTorsoRear;
-        this._unallocatedArmor -= this._armorAllocation.leftTorsoRear;
-        this._unallocatedArmor -= this._armorAllocation.rightTorsoRear;
+        this._totalArmor += this._armorAllocation.centerTorsoRear;
+        this._totalArmor += this._armorAllocation.leftTorsoRear;
+        this._totalArmor += this._armorAllocation.rightTorsoRear;
 
-        this._unallocatedArmor -= this._armorAllocation.rightArm;
-        this._unallocatedArmor -= this._armorAllocation.leftArm;
+        this._totalArmor += this._armorAllocation.rightArm;
+        this._totalArmor += this._armorAllocation.leftArm;
 
-        this._unallocatedArmor -= this._armorAllocation.rightLeg;
-        this._unallocatedArmor -= this._armorAllocation.leftLeg;
+        this._totalArmor += this._armorAllocation.rightLeg;
+        this._totalArmor += this._armorAllocation.leftLeg;
+
+        this._unallocatedArmor = this._maxArmor - this._totalArmor;
 
         this._maxWeaponHeat = 0;
 
@@ -4693,6 +4695,7 @@ export class BattleMech {
 
     public setArmorCount( armorCount: number ) {
 
+        console.log("setArmorCount", armorCount)
         this._totalArmor = armorCount; // ;
         this._armorWeight = armorCount / 16
 
@@ -4708,7 +4711,21 @@ export class BattleMech {
         } else {
             console.log("AW is: ", this._totalArmor, this.getArmorObj().armorMultiplier.is, this._totalArmor / this.getArmorObj().armorMultiplier.is, this.getArmorObj().name )
             this._armorWeight = this._totalArmor / this.getArmorObj().armorMultiplier.is;
+
         }
+        if( this._armorWeight % .5 !== 0  ) {
+            // and odd weight, likely wasted armor
+            console.log("AW is an odd weight, likely wasted armor: ", this._armorWeight, this._totalArmor )
+            this._armorWeight = Math.ceil(this._armorWeight*2)/2;
+            if( this.getTech().tag === "clan" ) {
+                // this._totalArmor = this._armorWeight * this.getArmorObj().armorMultiplier.clan;
+                this._maxArmor = this._armorWeight * this.getArmorObj().armorMultiplier.clan;
+            } else {
+                this._maxArmor = this._armorWeight * this.getArmorObj().armorMultiplier.is;
+            }
+            console.log("Asjusted weight/max armor/current armor: ", this._armorWeight, this._maxArmor, this._totalArmor )
+        }
+
     }
 
     public getTotalArmor() {

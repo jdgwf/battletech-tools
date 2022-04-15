@@ -179,7 +179,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                             onChange={( event: React.FormEvent<HTMLSelectElement>) => this.setWeight( item.uuid, +event.currentTarget.value)}
                                             className="width-auto"
                                           >
-                                            <option value={.5}>½</option>
+                                            <option value={.5}>0.5</option>
                                             <option value={1}>1</option>
                                           </select>
                                         ) : (
