@@ -243,7 +243,8 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                           </div>
                           <div className="row">
                             <div className="col-md-6">
-                              <h4>SSW Intro 3039 Mechs</h4>
+                              <h4 className="text-center">SSW Intro 3039 Mechs</h4>
+                              <div className="small-text">These 'mechs are the raw XML files from the Solaris Skunk Werks projects.</div>
                               <div style={{overflow: "scroll", height: "600px"}}>
                               <ul className="styleless">
                             {sswMechs.map( (mechData, mechIndex) => {

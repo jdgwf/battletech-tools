@@ -4559,12 +4559,12 @@ export class BattleMech {
 
     }
 
-    public  getMoveHeat() {
-        return this._maxMoveHeat;
+    public  getMoveHeat(): number {
+        return +this._maxMoveHeat;
     }
 
-    public getWeaponHeat() {
-        return this._maxWeaponHeat;
+    public getWeaponHeat(): number {
+        return +this._maxWeaponHeat;
     }
 
     public getActiveWeaponHeat(
@@ -4577,7 +4577,7 @@ export class BattleMech {
 
         for( let eq of equipmentList) {
             if( eq.target ) {
-                rv += eq.heat;
+                rv += +eq.heat;
             }
         }
         return rv;
