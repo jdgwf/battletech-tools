@@ -8558,16 +8558,53 @@ export class BattleMech {
                                 }
                             }
 
+                            if( foundIndex > -1 ) {
+                                let success = this.moveCritical(
+                                    "un",
+                                    foundIndex,
+                                    loc["#text"] ? loc["#text"].toLowerCase().trim() : "un",
+                                    loc["@_index"] ? +loc["@_index"] : -1,
+                                );
+                            }
+
+                        }
+                    }
+
+                }
+
+
+                if( jObj.mech.baseloadout.jumpjets ) {
+
+                    console.log("jObj.mech.baseloadout.jumpjets ", jObj.mech.baseloadout.jumpjets )
+                    let jumpJetNumber = jObj.mech.baseloadout.jumpjets["@_number"];
+                    this.setJumpSpeed(jumpJetNumber);
+                    this._calcCriticals();
+
+                    let jjType = "jj-standard";
+                    console.log("jObj.mech.baseloadout.jumpjets.type",jObj.mech.baseloadout.jumpjets.type)
+                    if( jObj.mech.baseloadout.jumpjets.type && jObj.mech.baseloadout.jumpjets.type.toLowerCase().indexOf("advanced") > -1 ) {
+                        jjType = "jj-advanced";
+                    }
+                    for( let loc of jObj.mech.baseloadout.jumpjets.location ) {
+                        let foundIndex = -1;
+                        console.log("this._unallocatedCriticals", this._unallocatedCriticals);
+                        for( let critItemIndex in this._unallocatedCriticals ) {
+                            if( this._unallocatedCriticals[critItemIndex] && this._unallocatedCriticals[critItemIndex].tag === jjType ) {
+                                foundIndex = +critItemIndex;
+                                break;
+                            }
+                        }
+
+                        if( foundIndex > -1 ) {
                             let success = this.moveCritical(
                                 "un",
                                 foundIndex,
                                 loc["#text"] ? loc["#text"].toLowerCase().trim() : "un",
                                 loc["@_index"] ? +loc["@_index"] : -1,
                             );
-
                         }
-                    }
 
+                    }
                 }
 
                 if( jObj.mech.baseloadout.info ) {
