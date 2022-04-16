@@ -13,9 +13,7 @@ function convertSSWToJeffBattleTechTools(
     return bm.export();
 }
 
-
-async function goThroughDirectories() {
-    let dir = "./SSW-Master/RS 3039u/"
+async function importDirectory( dir: string ): Promise<string[]> {
     if( await fs.existsSync(dir) ) {
         let files = await fs.readdirSync(dir)
 
@@ -39,18 +37,29 @@ async function goThroughDirectories() {
                 console.error("No Such file", dir + file);
             }
         }
-        if( dataFiles.length > 0 ) {
-            await createSSWDataFile(
-                dataFiles,
-                "sswMechs",
-                "./src/data/ssw/",
-                "sswMechs.ts",
-            );
-        }
-        console.log("dataFiles", dataFiles.length)
+
+        return dataFiles;
+
     } else {
         console.error("No Such directory", dir)
+        return [];
     }
+}
+
+async function goThroughDirectories() {
+    let dataFiles: string[] = [];
+    dataFiles = dataFiles.concat( await importDirectory("./SSW-Master/RS 3039u/") );
+    dataFiles = dataFiles.concat( await importDirectory("./SSW-Master/RS 3050U/Inner Sphere/") );
+
+    if( dataFiles.length > 0 ) {
+        await createSSWDataFile(
+            dataFiles,
+            "sswMechs",
+            "./src/data/ssw/",
+            "sswMechs.ts",
+        );
+    }
+    console.log("dataFiles", dataFiles.length)
 
     process.exit();
 }

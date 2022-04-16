@@ -78,6 +78,8 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
            <thead>
                <tr>
                    <th>Model &amp; Name</th>
+                   <th>Source</th>
+                   {/* <th>SSW Rules Level</th> */}
                    <th>Cbills</th>
                    <th>BV2</th>
                    <th>Import Errors</th>
@@ -97,6 +99,9 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
 
                 totalMechs++;
 
+                let troSource = sswData.source;
+
+
                 if( SSWCbills !== tempMechCBills ) {
                     cbillDiscrpancies++;
                 }
@@ -115,6 +120,12 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                                 <td>
                                     {modelName}
                                 </td>
+                                <td>
+                                    {troSource}
+                                </td>
+                                {/* <td>
+                                    {sswData.rules_level_ssw}
+                                </td> */}
                                 <td>
                                 {SSWCbills !== tempMechCBills ? (
                                     <div>

@@ -21023,5 +21023,925 @@ export const sswMechs: string[] = [
     </fluff>
 </mech>
 `,
+    `<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Annihilator" model="ANH-1A" tons="100" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>1434</battle_value>
+    <cost>7672666.666666666</cost>
+    <rules_level>0</rules_level>
+    <era>1</era>
+    <productionera>3</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Unknown" location="Unknown">Inner Sphere</techbase>
+    <year restricted="FALSE">3009</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Unknown" techbase="2">
+        <type>Standard Structure</type>
+    </structure>
+    <engine rating="200" manufacturer="Unknown" lsstart="-1" rsstart="-1" techbase="2">Fusion Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Unknown" techbase="2">
+        <type>Standard Armor</type>
+        <hd>9</hd>
+        <ct>25</ct>
+        <ctr>10</ctr>
+        <lt>21</lt>
+        <ltr>9</ltr>
+        <rt>21</rt>
+        <rtr>9</rtr>
+        <la>24</la>
+        <ra>24</ra>
+        <ll>24</ll>
+        <rl>24</rl>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RS3050Uu-I</source>
+        <info>Annihilator ANH-1A 100t, 2/3/0, Std FE, Std; 12.5T/65% Armor; 18 SHS; 4 ML, 4 AC10</info>
+        <battleforce pv="14" wt="4" mv="2" s="5" m="5" l="0" e="0" ov="0" armor="7" internal="8" abilities="SRCH, ES, SEAL, SOA, AC 3/3/0" />
+        <actuators lla="TRUE" lh="FALSE" rla="TRUE" rh="FALSE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="18" techbase="2">
+            <type>Single Heat Sink</type>
+
+            <location index="4">RL</location>
+            <location index="5">RL</location>
+            <location index="4">LL</location>
+            <location index="5">LL</location>
+            <location index="1">LT</location>
+            <location index="0">LT</location>
+            <location index="2">LT</location>
+            <location index="0">RT</location>
+            <location index="2">RT</location>
+            <location index="1">RT</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="11">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="10">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="10">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="10">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Autocannon/10</name>
+            <type>ballistic</type>
+            <location index="3">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Autocannon/10</name>
+            <type>ballistic</type>
+            <location index="3">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Autocannon/10</name>
+            <type>ballistic</type>
+            <location index="3">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Autocannon/10</name>
+            <type>ballistic</type>
+            <location index="3">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ AC/10</name>
+            <type>ammunition</type>
+            <location index="10">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ AC/10</name>
+            <type>ammunition</type>
+            <location index="11">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ AC/10</name>
+            <type>ammunition</type>
+            <location index="10">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ AC/10</name>
+            <type>ammunition</type>
+            <location index="11">RT</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional></additional>
+        <jumpjet_model>None</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>
+`,
+    `<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Cataphract" model="CTF-4X" tons="70" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="../Images/No_Image.png">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>1216</battle_value>
+    <cost>5216000.000000001</cost>
+    <rules_level>0</rules_level>
+    <era>1</era>
+    <productionera>3</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Unknown" location="Unknown">Inner Sphere</techbase>
+    <year restricted="FALSE">3029</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Unknown" techbase="2">
+        <type>Standard Structure</type>
+    </structure>
+    <engine rating="210" manufacturer="Unknown" lsstart="-1" rsstart="-1" techbase="2">Fusion Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Unknown" techbase="2">
+        <type>Standard Armor</type>
+        <hd>9</hd>
+        <ct>33</ct>
+        <ctr>11</ctr>
+        <lt>22</lt>
+        <ltr>8</ltr>
+        <rt>22</rt>
+        <rtr>8</rtr>
+        <la>22</la>
+        <ra>22</ra>
+        <ll>30</ll>
+        <rl>30</rl>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RS3050Uu-I</source>
+        <info>Cataphract CTF-4X 70t, 3/5/0, Std FE, Std; 14.0T/100% Armor; 16 SHS; 1 LRM5, 2 AC5, 1 LL</info>
+        <battleforce pv="12" wt="3" mv="3" s="2" m="3" l="2" e="0" ov="0" armor="7" internal="6" abilities="SRCH, ES, SEAL, SOA, AC 1/1/1" />
+        <actuators lla="TRUE" lh="FALSE" rla="TRUE" rh="FALSE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="16" techbase="2">
+            <type>Single Heat Sink</type>
+
+            <location index="1">RT</location>
+            <location index="0">RT</location>
+            <location index="0">LT</location>
+            <location index="1">LT</location>
+            <location index="4">RL</location>
+            <location index="5">RL</location>
+            <location index="5">LL</location>
+            <location index="4">LL</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(IS) Autocannon/5</name>
+            <type>ballistic</type>
+            <location index="3">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Autocannon/5</name>
+            <type>ballistic</type>
+            <location index="3">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Large Laser</name>
+            <type>energy</type>
+            <location index="10">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) LRM-5</name>
+            <type>missile</type>
+            <location index="3">HD</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ AC/5</name>
+            <type>ammunition</type>
+            <location index="3">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ AC/5</name>
+            <type>ammunition</type>
+            <location index="3">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ AC/5</name>
+            <type>ammunition</type>
+            <location index="2">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ AC/5</name>
+            <type>ammunition</type>
+            <location index="2">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ LRM-5</name>
+            <type>ammunition</type>
+            <location index="4">RT</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional></additional>
+        <jumpjet_model>None</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>
+`,
+    `<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Commando" model="COM-1B" tons="25" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="../Images/No_Image.png">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>616</battle_value>
+    <cost>1813250.0</cost>
+    <rules_level>0</rules_level>
+    <era>1</era>
+    <productionera>3</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Unknown" location="Unknown">Inner Sphere</techbase>
+    <year restricted="FALSE">3015</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Unknown" techbase="2">
+        <type>Standard Structure</type>
+    </structure>
+    <engine rating="150" manufacturer="Unknown" lsstart="-1" rsstart="-1" techbase="2">Fusion Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Unknown" techbase="2">
+        <type>Standard Armor</type>
+        <hd>6</hd>
+        <ct>8</ct>
+        <ctr>4</ctr>
+        <lt>6</lt>
+        <ltr>3</ltr>
+        <rt>6</rt>
+        <rtr>3</rtr>
+        <la>6</la>
+        <ra>6</ra>
+        <ll>8</ll>
+        <rl>8</rl>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RS3050Uu-I</source>
+        <info>Commando COM-1B 25t, 6/9/0, Std FE, Std; 4.0T/72% Armor; 10 SHS; 1 ML, 1 LL, 1 SRM2</info>
+        <battleforce pv="6" wt="1" mv="6" s="2" m="2" l="0" e="0" ov="0" armor="2" internal="2" abilities="SRCH, ES, SEAL, SOA" />
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="10" techbase="2">
+            <type>Single Heat Sink</type>
+
+            <location index="1">LT</location>
+            <location index="0">LT</location>
+            <location index="0">RT</location>
+            <location index="1">RT</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="4">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Large Laser</name>
+            <type>energy</type>
+            <location index="4">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) SRM-2</name>
+            <type>missile</type>
+            <location index="10">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">@ SRM-2</name>
+            <type>ammunition</type>
+            <location index="2">LT</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional></additional>
+        <jumpjet_model>None</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>
+`,
+    `<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Commando" model="COM-1C" tons="25" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="../Images/No_Image.png">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>458</battle_value>
+    <cost>1743500.0</cost>
+    <rules_level>0</rules_level>
+    <era>1</era>
+    <productionera>3</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Unknown" location="Unknown">Inner Sphere</techbase>
+    <year restricted="FALSE">3020</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Unknown" techbase="2">
+        <type>Standard Structure</type>
+    </structure>
+    <engine rating="150" manufacturer="Unknown" lsstart="-1" rsstart="-1" techbase="2">Fusion Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Unknown" techbase="2">
+        <type>Standard Armor</type>
+        <hd>6</hd>
+        <ct>8</ct>
+        <ctr>4</ctr>
+        <lt>6</lt>
+        <ltr>3</ltr>
+        <rt>6</rt>
+        <rtr>3</rtr>
+        <la>6</la>
+        <ra>6</ra>
+        <ll>8</ll>
+        <rl>8</rl>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RS3050Uu-I</source>
+        <info>Commando COM-1C 25t, 6/9/0, Std FE, Std; 4.0T/72% Armor; 10 SHS; 1 ML, 1 AC2</info>
+        <battleforce pv="5" wt="1" mv="6" s="1" m="1" l="1" e="0" ov="0" armor="2" internal="2" abilities="SRCH, ES, SEAL, SOA" />
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="10" techbase="2">
+            <type>Single Heat Sink</type>
+
+            <location index="1">LT</location>
+            <location index="0">LT</location>
+            <location index="0">RT</location>
+            <location index="1">RT</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="4">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Autocannon/2</name>
+            <type>ballistic</type>
+            <location index="4">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ AC/2</name>
+            <type>ammunition</type>
+            <location index="2">RT</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional></additional>
+        <jumpjet_model>None</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>
+`,
+    `<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Firefly" model="FFL-4A" tons="30" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="../Images/No_Image.png">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>831</battle_value>
+    <cost>2194500.0</cost>
+    <rules_level>0</rules_level>
+    <era>1</era>
+    <productionera>2</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Unknown" location="Unknown">Inner Sphere</techbase>
+    <year restricted="FALSE">2801</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Unknown" techbase="2">
+        <type>Standard Structure</type>
+    </structure>
+    <engine rating="150" manufacturer="Unknown" lsstart="-1" rsstart="-1" techbase="2">Fusion Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Unknown" techbase="2">
+        <type>Standard Armor</type>
+        <hd>8</hd>
+        <ct>15</ct>
+        <ctr>5</ctr>
+        <lt>11</lt>
+        <ltr>3</ltr>
+        <rt>11</rt>
+        <rtr>3</rtr>
+        <la>10</la>
+        <ra>10</ra>
+        <ll>14</ll>
+        <rl>14</rl>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RS3050Uu-I</source>
+        <info>Firefly FFL-4A 30t, 5/8/4, Std FE, Std; 6.5T/99% Armor; 10 SHS; 3 ML, 4 SL, 1 LRM5</info>
+        <battleforce pv="8" wt="1" mv="5/3j" s="2" m="2" l="1" e="0" ov="0" armor="3" internal="3" abilities="SRCH, ES, SEAL, SOA" />
+        <actuators lla="FALSE" lh="FALSE" rla="FALSE" rh="FALSE"/>
+        <clancase>FALSE</clancase>
+        <jumpjets number="4">
+            <type>Standard Jump Jet</type>
+            <location index="4">RL</location>
+            <location index="5">LL</location>
+            <location index="4">LL</location>
+            <location index="5">RL</location>
+        </jumpjets>
+        <heatsinks number="10" techbase="2">
+            <type>Single Heat Sink</type>
+
+            <location index="1">LT</location>
+            <location index="0">RT</location>
+            <location index="1">RT</location>
+            <location index="0">LT</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="2">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="2">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="10">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Small Laser</name>
+            <type>energy</type>
+            <location index="11">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Small Laser</name>
+            <type>energy</type>
+            <location index="2">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Small Laser</name>
+            <type>energy</type>
+            <location index="2">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Small Laser</name>
+            <type>energy</type>
+            <location index="3">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) LRM-5</name>
+            <type>missile</type>
+            <location index="3">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ LRM-5</name>
+            <type>ammunition</type>
+            <location index="4">RT</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional></additional>
+        <jumpjet_model>Unknown</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>
+`,
+    `<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Grasshopper" model="GHR-5N" tons="70" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="../Images/No_Image.png">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>1511</battle_value>
+    <cost>6160573.333333335</cost>
+    <rules_level>0</rules_level>
+    <era>1</era>
+    <productionera>3</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Unknown" location="Unknown">Inner Sphere</techbase>
+    <year restricted="FALSE">3040</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Unknown" techbase="2">
+        <type>Standard Structure</type>
+    </structure>
+    <engine rating="280" manufacturer="Unknown" lsstart="-1" rsstart="-1" techbase="2">Fusion Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Unknown" techbase="2">
+        <type>Standard Armor</type>
+        <hd>9</hd>
+        <ct>30</ct>
+        <ctr>13</ctr>
+        <lt>20</lt>
+        <ltr>10</ltr>
+        <rt>20</rt>
+        <rtr>10</rtr>
+        <la>22</la>
+        <ra>22</ra>
+        <ll>26</ll>
+        <rl>26</rl>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RS3050Uu-I</source>
+        <info>Grasshopper GHR-5N 70t, 4/6/4, Std FE, Std; 13.0T/96% Armor; 22 SHS; 5 ML, 1 PPC</info>
+        <battleforce pv="15" wt="3" mv="4j" s="3" m="4" l="1" e="0" ov="0" armor="7" internal="6" abilities="ENE, SRCH, ES, SEAL, SOA" />
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>FALSE</clancase>
+        <jumpjets number="4">
+            <type>Standard Jump Jet</type>
+            <location index="5">RL</location>
+            <location index="4">LL</location>
+            <location index="4">RL</location>
+            <location index="5">LL</location>
+        </jumpjets>
+        <heatsinks number="22" techbase="2">
+            <type>Single Heat Sink</type>
+
+            <location index="0">RT</location>
+            <location index="4">RA</location>
+            <location index="1">RT</location>
+            <location index="11">CT</location>
+            <location index="10">CT</location>
+            <location index="4">LA</location>
+            <location index="4">LT</location>
+            <location index="0">LT</location>
+            <location index="1">LT</location>
+            <location index="2">LT</location>
+            <location index="3">LT</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="5">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="5">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="5">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="5">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="3">HD</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) PPC</name>
+            <type>energy</type>
+            <location index="2">RT</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional></additional>
+        <jumpjet_model>Unknown</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>
+`,
+    `<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Hoplite" model="HOP-4B" tons="55" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>1162</battle_value>
+    <cost>4322758.333333333</cost>
+    <rules_level>0</rules_level>
+    <era>0</era>
+    <productionera>1</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Unknown" location="Unknown">Inner Sphere</techbase>
+    <year restricted="FALSE">2682</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Unknown" techbase="2">
+        <type>Standard Structure</type>
+    </structure>
+    <engine rating="220" manufacturer="Unknown" lsstart="-1" rsstart="-1" techbase="2">Fusion Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Unknown" techbase="2">
+        <type>Standard Armor</type>
+        <hd>9</hd>
+        <ct>26</ct>
+        <ctr>9</ctr>
+        <lt>18</lt>
+        <ltr>8</ltr>
+        <rt>18</rt>
+        <rtr>8</rtr>
+        <la>18</la>
+        <ra>18</ra>
+        <ll>26</ll>
+        <rl>26</rl>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RS3050Uu-I</source>
+        <info>Hoplite HOP-4B 55t, 4/6/0, Std FE, Std; 11.5T/99% Armor; 16 SHS; 1 LRM15, 1 PPC</info>
+        <battleforce pv="12" wt="2" mv="4" s="2" m="2" l="2" e="0" ov="0" armor="6" internal="5" abilities="SRCH, ES, SEAL, SOA, IF 1" />
+        <actuators lla="FALSE" lh="FALSE" rla="FALSE" rh="FALSE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="16" techbase="2">
+            <type>Single Heat Sink</type>
+
+            <location index="4">RL</location>
+            <location index="5">RL</location>
+            <location index="5">LL</location>
+            <location index="4">LL</location>
+            <location index="0">LT</location>
+            <location index="3">LT</location>
+            <location index="1">LT</location>
+            <location index="2">LT</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(IS) PPC</name>
+            <type>energy</type>
+            <location index="2">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) LRM-15</name>
+            <type>missile</type>
+            <location index="2">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ LRM-15</name>
+            <type>ammunition</type>
+            <location index="10">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ LRM-15</name>
+            <type>ammunition</type>
+            <location index="11">CT</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional></additional>
+        <jumpjet_model>None</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>
+`,
+    `<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Hoplite" model="HOP-4C" tons="55" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>986</battle_value>
+    <cost>4074008.333333333</cost>
+    <rules_level>0</rules_level>
+    <era>0</era>
+    <productionera>1</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Unknown" location="Unknown">Inner Sphere</techbase>
+    <year restricted="FALSE">2584</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Unknown" techbase="2">
+        <type>Standard Structure</type>
+    </structure>
+    <engine rating="220" manufacturer="Unknown" lsstart="-1" rsstart="-1" techbase="2">Fusion Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Unknown" techbase="2">
+        <type>Standard Armor</type>
+        <hd>9</hd>
+        <ct>26</ct>
+        <ctr>9</ctr>
+        <lt>18</lt>
+        <ltr>8</ltr>
+        <rt>18</rt>
+        <rtr>8</rtr>
+        <la>18</la>
+        <ra>18</ra>
+        <ll>26</ll>
+        <rl>26</rl>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RS3050Uu-I</source>
+        <info>Hoplite HOP-4C 55t, 4/6/0, Std FE, Std; 11.5T/99% Armor; 16 SHS; 1 AC10, 1 LRM5</info>
+        <battleforce pv="10" wt="2" mv="4" s="2" m="2" l="1" e="0" ov="0" armor="6" internal="5" abilities="SRCH, ES, SEAL, SOA, AC 1/1/0" />
+        <actuators lla="FALSE" lh="FALSE" rla="FALSE" rh="FALSE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="16" techbase="2">
+            <type>Single Heat Sink</type>
+
+            <location index="5">LL</location>
+            <location index="4">LL</location>
+            <location index="5">RL</location>
+            <location index="4">RL</location>
+            <location index="1">LT</location>
+            <location index="2">LT</location>
+            <location index="0">LT</location>
+            <location index="3">LT</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(IS) Autocannon/10</name>
+            <type>ballistic</type>
+            <location index="0">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) LRM-5</name>
+            <type>missile</type>
+            <location index="4">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ AC/10</name>
+            <type>ammunition</type>
+            <location index="11">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ LRM-5</name>
+            <type>ammunition</type>
+            <location index="10">CT</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional></additional>
+        <jumpjet_model>None</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>
+`,
+    `<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Imp" model="IMP-2E" tons="100" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>1969</battle_value>
+    <cost>9390000.0</cost>
+    <rules_level>0</rules_level>
+    <era>1</era>
+    <productionera>3</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Unknown" location="Unknown">Inner Sphere</techbase>
+    <year restricted="FALSE">3005</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Unknown" techbase="2">
+        <type>Standard Structure</type>
+    </structure>
+    <engine rating="300" manufacturer="Unknown" lsstart="-1" rsstart="-1" techbase="2">Fusion Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Unknown" techbase="2">
+        <type>Standard Armor</type>
+        <hd>9</hd>
+        <ct>40</ct>
+        <ctr>21</ctr>
+        <lt>30</lt>
+        <ltr>12</ltr>
+        <rt>30</rt>
+        <rtr>12</rtr>
+        <la>25</la>
+        <ra>25</ra>
+        <ll>42</ll>
+        <rl>42</rl>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RS3050Uu-I</source>
+        <info>Imp IMP-2E 100t, 3/5/0, Std FE, Std; 18.0T/94% Armor; 30 SHS; 5 ML, 1 LRM15, 2 PPC</info>
+        <battleforce pv="20" wt="4" mv="3" s="4" m="5" l="3" e="0" ov="1" armor="10" internal="8" abilities="SRCH, ES, SEAL, SOA, IF 1" />
+        <actuators lla="FALSE" lh="FALSE" rla="TRUE" rh="FALSE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="30" techbase="2">
+            <type>Single Heat Sink</type>
+
+            <location index="1">LT</location>
+            <location index="0">LT</location>
+            <location index="5">LT</location>
+            <location index="3">LT</location>
+            <location index="4">LT</location>
+            <location index="4">LL</location>
+            <location index="5">LL</location>
+            <location index="5">RL</location>
+            <location index="4">RL</location>
+            <location index="2">LT</location>
+            <location index="3">HD</location>
+            <location index="3">RT</location>
+            <location index="4">RT</location>
+            <location index="0">RT</location>
+            <location index="1">RT</location>
+            <location index="5">RT</location>
+            <location index="6">RT</location>
+            <location index="2">RT</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(IS) PPC</name>
+            <type>energy</type>
+            <location index="7">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) PPC</name>
+            <type>energy</type>
+            <location index="6">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="9">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="2">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="10">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="10">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="11">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) LRM-15</name>
+            <type>missile</type>
+            <location index="3">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ LRM-15</name>
+            <type>ammunition</type>
+            <location index="10">LT</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional></additional>
+        <jumpjet_model>None</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>
+`,
 
 ];

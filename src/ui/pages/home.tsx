@@ -95,6 +95,9 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                       <strong>2022 April 16</strong> - Solaris Skunk Werks data for 3039TRO should be 100% good to go.  My internal <Link to="ssw-sanity-check">Sanity Test</Link> page has all the calculations for c-bills and bv2 matching 100% for all 213 mechs for the 3039 TRO. This wasn't easy, but it sure helped clean up my BV2 calculator. On slower computers or phones, this may take a few of seconds to load as it imports each of the SSW files, calculates the BV2 and C-Bill cost, then compares it to the XML file's stated BV2 and C-Bill costs.
                     </p>
                     <p>Needless to say this is a huge step in the direction of accuracy for this app.</p>
+
+                    <h5>Addendum</h5>
+                    <p>The handful of 3050U Inner Sphere 'mechs have been imported, and are also matching their SSW values</p>
                   </li>
                   <li>
                     <p><strong>2022 April 14</strong> - I've added a tentative <Link to="classic-battletech/mech-creator/imports">importer</Link> for the Solar Skunk Werk's Master File format. I'm having relative good success with Inner Sphere mechs (<del>without jump jets, for now, perhaps tomorrow or Saturday</del> nah, already added it: Stingers, Phoenix Hawks, and Wasps all work perfectly!).</p>
