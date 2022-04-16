@@ -188,6 +188,8 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
     }
 
     render = (): React.ReactFragment => {
+
+      let sswMechCount = 0;
       if(!this.props.appGlobals.currentBattleMech)
         return <></>
       return (
@@ -250,25 +252,27 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                       <TextSection
                         label="Imports Skunkwerks .ssw XML"
                       >
-                          <div className="alert alert-danger">
-                            This is brand new as of April 14.
-                            Feel free to visit the Solaris Skunk Werks Data repository to copy and paste the contents of their .ssw files (which are .xml files).<br /><br />
+                          <div className="alert alert-info">
+
+                            <p>This is now working perfectly in a limited fashion!</p>
+
+                            <p>Since we're still short on base equipment for Clans, right now only the TRO3039 is loadable. Don't worry we'll get it taken care of as this app develops. TRO 3050/3055 is the next target!</p>
 
                             <div className="text-center">
                               <a href="https://github.com/Solaris-Skunk-Werks/SSW-Master" target="ssw">Solaris Skunk Werks Master Data Repo</a>
                             </div>
-                            <br />
-                            Right now have I have an Atlas AS7-D preloaded, <del>as the BV and CBill costs are a bit off</del> (fixed, was a problem with SRM Ammo cbill cost typo, BV2 is off with TRO, but matches SSW), not to mention the Alpha Strike Values.
+
                           </div>
                           <div className="row">
                             <div className="col-md-6">
-                              <h4 className="text-center">SSW Intro 3039 Mechs</h4>
+                              <h4 className="text-center">SSW 3039 Mechs</h4>
                               <div className="small-text">These 'mechs are the raw XML files from the Solaris Skunk Werks projects.</div>
                               <div style={{overflow: "scroll", height: "600px"}}>
                               <ul className="styleless">
                             {sswMechs.map( (mechData, mechIndex) => {
                               let basicData = getSSWXMLBasicInfo( mechData );
-                              if( basicData && basicData.rules_level_ssw === 0) {
+                              if( basicData ) {
+                                sswMechCount++;
                                 return (
                                   <li key={mechIndex}>
                                     <button
@@ -284,6 +288,12 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                               }
                             })}
                             </ul>
+
+                            </div>
+                            <hr />
+                            <div className="text-center">
+                            {sswMechCount} SSW 'Mechs Available<br />
+                            See the <Link to="ssw-sanity-check">Sanity Test</Link> page for compatibility
                             </div>
                             </div>
                             <div className="col-md-6">
