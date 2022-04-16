@@ -18,6 +18,8 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
         super(props);
         this.state = {
             viewHTML: "",
+            mechName: "",
+            tableName: "",
         }
 
         this.props.appGlobals.makeDocumentTitle("Imports | 'Mech Creator");
@@ -26,13 +28,17 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
 
     viewHTML = (
         e: React.FormEvent<HTMLButtonElement>,
-        html: string
+        html: string,
+        mechName: string,
+        tableName: string,
     ) => {
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
         this.setState({
             viewHTML: html,
+            mechName: mechName,
+            tableName: tableName,
         })
     }
 
@@ -45,6 +51,8 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
 
         this.setState({
             viewHTML: "",
+            tableName: "",
+            mechName: "",
         })
     }
 
@@ -60,7 +68,7 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
     <StandardModal
         show={true}
         className="modal-xl"
-        title="Viewing Calculation Summary"
+        title={"Viewing " + this.state.tableName + " Calculation Summary for " + this.state.mechName}
         onClose={this.closeHTML}
     >
         <SanitizedHTML raw={true} html={this.state.viewHTML} />
@@ -96,16 +104,21 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                     bv2Discrpancies++;
                 }
 
+                let modelName = "";
+                if( sswData ) {
+                    modelName = sswData.model + " " + sswData.name
+                }
+
                 return (
                         <tbody key={mechIndex}>
                             <tr>
                                 <td>
-                                    {sswData.model} {sswData.name}
+                                    {modelName}
                                 </td>
                                 <td>
                                 {SSWCbills !== tempMechCBills ? (
                                     <div>
-                                        <FaTimesCircle className="color-red" />&nbsp;CBill Costs don't match:<br />
+                                        <FaTimesCircle className="color-red" />&nbsp;CBill Costs doesn't match:<br />
                                         SSW: {addCommas(SSWCbills)} != JBT: {addCommas(tempMechCBills)}
 
                                         {Math.abs(SSWCbills - tempMechCBills ) < 3 ? (
@@ -114,7 +127,7 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
 
                                         <button
                                             className="btn btn-primary full-width btn-xs"
-                                            onClick={(e) => this.viewHTML( e, tempMech.calcLogCBill)}
+                                            onClick={(e) => this.viewHTML( e, tempMech.calcLogCBill, modelName, "C-Bills")}
                                         >
                                             View Summary
                                         </button>
@@ -130,11 +143,11 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                             <td>
                                     {SSWBV2 !== tempMechBV2 ? (
                                 <div>
-                                    <FaTimesCircle className="color-red" />&nbsp;BV2 don't match:
+                                    <FaTimesCircle className="color-red" />&nbsp;BV2 doesn't match:
                                     SSW: {addCommas(SSWBV2)} != JBT: {addCommas(tempMechBV2)}
                                     <button
                                         className="btn btn-primary full-width btn-xs"
-                                        onClick={(e) => this.viewHTML( e, tempMech.calcLogBV)}
+                                        onClick={(e) => this.viewHTML( e, tempMech.calcLogBV, modelName, "BV2")}
                                     >
                                         View Summary
                                     </button>
@@ -177,10 +190,10 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                        Total Mechs Here: {totalMechs}
                    </th>
                    <th>
-                       CBill Erors: {cbillDiscrpancies} ({Math.round( cbillDiscrpancies / totalMechs * 10000) / 100 } %)
+                       CBill Errors: {cbillDiscrpancies} ({Math.round( cbillDiscrpancies / totalMechs * 10000) / 100 } %)
                    </th>
                    <th>
-                       BV2 Erors: {bv2Discrpancies} ({Math.round( bv2Discrpancies / totalMechs * 10000 ) / 100} %)
+                       BV2 Errors: {bv2Discrpancies} ({Math.round( bv2Discrpancies / totalMechs * 10000 ) / 100} %)
                    </th>
                     <th>
                     </th>
@@ -199,5 +212,7 @@ interface ISSWSanityCheckProps {
 
 interface ISSWSanityCheckState {
     viewHTML: string;
+    mechName: string;
+    tableName: string;
 }
 

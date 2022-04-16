@@ -85,6 +85,9 @@ export interface IRangeNumbers {
 }
 
 export interface IEquipmentItem {
+    isRotary?: boolean;
+    isStreak?: boolean;
+    isUltra?: boolean;
     uuid?: string;
     resolved?: boolean;
     damageClusterHits?: IClusterHit[];
@@ -100,11 +103,13 @@ export interface IEquipmentItem {
     tag: string;
     sort: string;
     category: string;
+    bvHeat?: number;
     damage?: number | IDamagePerRange;
     damagePerShot?: boolean;
     rangeAero?: string;
     heatPerShot?: boolean;
     damageAero?: number;
+    isOneShot?: boolean;
     damagePerCluster?: number;
     damageClusters?: number;
     accuracyModifier?: number | IAccuracyModifier;

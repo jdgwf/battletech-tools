@@ -230,6 +230,45 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         this.props.onChange( item );
     }
 
+    updateIsStreak = (
+        e: React.FormEvent<HTMLInputElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item = this.props.editingItem;
+
+        item.isStreak = e.currentTarget.checked;
+
+        this.props.onChange( item );
+    }
+
+    updateIsUltra = (
+        e: React.FormEvent<HTMLInputElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item = this.props.editingItem;
+
+        item.isUltra = e.currentTarget.checked;
+
+        this.props.onChange( item );
+    }
+
+    updateIsRotary = (
+        e: React.FormEvent<HTMLInputElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item = this.props.editingItem;
+
+        item.isRotary = e.currentTarget.checked;
+
+        this.props.onChange( item );
+    }
+
     updateHeatAero  = (
         e: React.FormEvent<HTMLInputElement>,
     ) => {
@@ -541,6 +580,23 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                                 editingItem={this.props.editingItem}
                                 onChange={this.props.onChange}
                             />
+
+                            <InputCheckbox
+                                label='Is Ultra AC'
+                                onChange={this.updateIsUltra}
+                                checked={this.props.editingItem.isUltra ? true : false}
+                            />
+                            <InputCheckbox
+                                label='Is Rotary AC'
+                                onChange={this.updateIsRotary}
+                                checked={this.props.editingItem.isRotary ? true : false}
+                            />
+                            <InputCheckbox
+                                label='Is Streak SRM'
+                                onChange={this.updateIsStreak}
+                                checked={this.props.editingItem.isStreak ? true : false}
+                            />
+
                             </>
                         ) : null}
 

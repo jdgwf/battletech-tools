@@ -299,7 +299,7 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                               <h3>Import Checks for {this.state.importMechName}</h3>
                               {this.state.sswCBill !== this.state.mechCBill ? (
                               <div>
-                                <FaTimesCircle className="color-red" />&nbsp;CBill Costs don't match:<br />
+                                <FaTimesCircle className="color-red" />&nbsp;CBill Costs doesn't match:<br />
                                   SSW: {addCommas(this.state.sswCBill)} != JBT: {addCommas(this.state.mechCBill)}
 
                                   {Math.abs(this.state.sswCBill - this.state.mechCBill ) < 3 ? (
@@ -313,7 +313,7 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                             )}
                             {/* {this.state.sswBF !== this.state.mechBF ? (
                               <div>
-                                <FaTimesCircle className="color-red" />&nbsp;BF (Alpha Strike) Point Costs don't match:
+                                <FaTimesCircle className="color-red" />&nbsp;BF (Alpha Strike) Point Costs doesn't match:
                                   SSW: {this.state.sswBF} != JBT: {this.state.mechBF}
                               </div>
                             ) : (
@@ -323,7 +323,7 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                             )} */}
                             {this.state.sswBV2 !== this.state.mechBV2 ? (
                               <div>
-                                <FaTimesCircle className="color-red" />&nbsp;BV2 don't match:
+                                <FaTimesCircle className="color-red" />&nbsp;BV2 doesn't match:
                                   SSW: {addCommas(this.state.sswBV2)} != JBT: {addCommas(this.state.mechBV2)}
                               </div>
                             ) : (

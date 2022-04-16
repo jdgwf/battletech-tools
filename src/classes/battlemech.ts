@@ -1168,10 +1168,15 @@ export class BattleMech {
         this._calcLogBV += "<strong>Total Weapon Heat</strong> ";
         let totalWeaponHeat = 0;
 
-        this._equipmentList.sort(sortByBVThenRearThenHeat);
+
+
+        this._equipmentList.sort( (a, b) => sortByAdjustedBVThenHeat( a, b, this ) );
 
         for( let eqC = 0; eqC < this._equipmentList.length; eqC++) {
             let currentItem = this._equipmentList[eqC];
+
+            currentItem.bvHeat = currentItem.heat;
+
             if( currentItem.tag.indexOf( "ammo-" ) === -1) {
                 if( !weaponBV[currentItem.tag])
                     weaponBV[currentItem.tag] = 0;
@@ -1181,12 +1186,32 @@ export class BattleMech {
                 this._calcLogBV += this._equipmentList[eqC].heat + " + ";
 
                 // TODO modify per weapon type
-                // one shot this._equipmentList[ eqC ].heat = this._equipmentList[ eqC ].heat / 4
-                // streak SRM this._equipmentList[ eqC ].heat = this._equipmentList[ eqC ].heat / 2
-                // ULTRA AC this._equipmentList[ eqC ].heat = this._equipmentList[ eqC ].heat * 2
-                // Rotary AC this._equipmentList[ eqC ].heat = this._equipmentList[ eqC ].heat * 6
+                // one shot this._equipmentList[ eqC ].bvHeat = this._equipmentList[ eqC ].bvHeat / 4
 
-                totalWeaponHeat += this._equipmentList[eqC].heat;
+                if( this._equipmentList[eqC].isOneShot ) {
+                    // set above, never undefined, thanks TS
+                    //@ts-ignore
+                    this._equipmentList[ eqC ].bvHeat = this._equipmentList[ eqC ].bvHeat / 4;
+                }
+                if( this._equipmentList[eqC].isUltra ) {
+                    // set above, never undefined, thanks TS
+                    //@ts-ignore
+                    this._equipmentList[ eqC ].bvHeat = this._equipmentList[ eqC ].bvHeat * 2;
+                }
+                if( this._equipmentList[eqC].isStreak ) {
+                    // set above, never undefined, thanks TS
+                    //@ts-ignore
+                    this._equipmentList[ eqC ].bvHeat = this._equipmentList[ eqC ].bvHeat / 2;
+                }
+                if( this._equipmentList[eqC].isRotary ) {
+                    // set above, never undefined, thanks TS
+                    //@ts-ignore
+                    this._equipmentList[ eqC ].bvHeat = this._equipmentList[ eqC ].bvHeat * 6;
+                }
+
+                // set above, never undefined, thanks TS
+                //@ts-ignore
+                totalWeaponHeat += this._equipmentList[eqC].bvHeat;
 
             }
         }
@@ -1209,17 +1234,34 @@ export class BattleMech {
             for( let weaponC = 0; weaponC < this._equipmentList.length; weaponC++) {
                 if( this._equipmentList[weaponC].tag.indexOf( "ammo-" ) === -1) {
 
-                    if( inHalfCost === true && this._equipmentList[weaponC].heat > 0) {
+                    // set above, never undefined, thanks TS
+                    //@ts-ignore
+                    if( inHalfCost === true && this._equipmentList[weaponC].bvHeat > 0) {
                         // half efficiency
                         let currentItem = this._equipmentList[weaponC];
                         if( currentItem && currentItem.rear ) {
-                            if( currentItem.battleValue) {
-                                this._calcLogBV += "+ Adding Heat Inefficient Rear Weapon " + currentItem.name + " - " + currentItem.battleValue + " / 4 = " + (currentItem.battleValue / 4);
-                                runningTotal += currentItem.battleValue / 4;
+                            if( this.getTotalBVFrontWeapons() < this.getTotalBVRearWeapons() || this.isNotOnTorsoHeadOrLegs(currentItem.location)  ) {
+
+                                if( currentItem.battleValue) {
+                                    this._calcLogBV += "+ Adding Heat Inefficient Rear Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  - " + currentItem.battleValue + " / 4 = " + (currentItem.battleValue / 4);
+                                    runningTotal += currentItem.battleValue / 2;
+                                }
+                            } else {
+                                if( this.getTotalBVFrontWeapons() < this.getTotalBVRearWeapons() || this.isNotOnTorsoHeadOrLegs(currentItem.location)  ) {
+                                    if( currentItem.battleValue) {
+                                        this._calcLogBV += "+ Adding Heat Inefficient Rear Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  - " + currentItem.battleValue + " / 4 = " + (currentItem.battleValue / 4);
+                                        runningTotal += currentItem.battleValue / 2;
+                                    }
+                                } else {
+                                    if( currentItem.battleValue) {
+                                        this._calcLogBV += "+ Adding Heat Inefficient Rear Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  - " + currentItem.battleValue + " / 4 = " + (currentItem.battleValue / 4);
+                                        runningTotal += currentItem.battleValue / 4;
+                                    }
+                                }
                             }
                         } else {
                             if( currentItem.battleValue ) {
-                                this._calcLogBV += "+ Adding Heat Inefficient Weapon " + currentItem.name + " - " + currentItem.battleValue + " / 2 = " + (currentItem.battleValue / 2);
+                                this._calcLogBV += "+ Adding Heat Inefficient Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  - " + currentItem.battleValue + " / 2 = " + (currentItem.battleValue / 2);
                                 runningTotal += currentItem.battleValue / 2;
                             }
                         }
@@ -1230,20 +1272,42 @@ export class BattleMech {
                         let currentItem = this._equipmentList[weaponC];
                         if( currentItem.rear ) {
                             if( currentItem.battleValue) {
-                                this._calcLogBV += "+ Adding Rear Weapon " + currentItem.name + " - " + (currentItem.battleValue / 2 ) + "<br />";
-                                runningTotal += (currentItem.battleValue / 2);
+                                if( this.getTotalBVFrontWeapons() < this.getTotalBVRearWeapons() || this.isNotOnTorsoHeadOrLegs(currentItem.location)  ) {
+                                    this._calcLogBV += "+ Adding Rear Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  -  bv " + (currentItem.battleValue  ) + " (not halved due to less front weapons bv), heat " + currentItem.bvHeat + "<br />";
+                                    runningTotal += (currentItem.battleValue );
+                                } else {
+
+                                    this._calcLogBV += "+ Adding Rear Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  -  bv " + (currentItem.battleValue / 2 ) + " (half of " + currentItem.battleValue + "), heat " + currentItem.bvHeat + "<br />";
+                                    runningTotal += (currentItem.battleValue / 2);
+
+                                }
+
                             }
                         } else {
                             if( currentItem.battleValue) {
-                                this._calcLogBV += "+ Adding Weapon " + currentItem.name + " - " + currentItem.battleValue;
-                                runningTotal += currentItem.battleValue;
+                                // this._calcLogBV += "+ Adding Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ") - bv " + currentItem.battleValue + ", heat " + currentItem.bvHeat;
+                                // runningTotal += currentItem.battleValue;
+                                if( this.getTotalBVFrontWeapons() >= this.getTotalBVRearWeapons() || this.isNotOnTorsoHeadOrLegs(currentItem.location)  ) {
+                                    this._calcLogBV += "+ Adding Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  -  bv " + (currentItem.battleValue  ) + " (not halved due to less front weapons bv), heat " + currentItem.bvHeat + "<br />";
+                                    runningTotal += (currentItem.battleValue );
+                                } else {
+
+                                    this._calcLogBV += "+ Adding Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  -  bv " + (currentItem.battleValue / 2 ) + " (half of " + currentItem.battleValue + "), heat " + currentItem.bvHeat + "<br />";
+                                    runningTotal += (currentItem.battleValue / 2);
+
+                                }
                             }
                         }
                     }
 
-                    runningHeat += this._equipmentList[weaponC].heat;
-                    // console.log( "r,m", runningHeat + " > "   + mechHeatEfficiency );
-                    if( runningHeat >= mechHeatEfficiency && this._equipmentList[weaponC].heat > 0 && inHalfCost === false) {
+                    // set above, never undefined, thanks TS
+                    //@ts-ignore
+                    runningHeat += this._equipmentList[weaponC].bvHeat;
+
+
+                    // set above, never undefined, thanks TS
+                    //@ts-ignore
+                    if( runningHeat >= mechHeatEfficiency && this._equipmentList[weaponC].bvHeat > 0 && inHalfCost === false) {
                         inHalfCost = true;
                         this._calcLogBV += " (weapon is last heat efficient, rest will be half cost)";
                     }
@@ -1260,16 +1324,28 @@ export class BattleMech {
             for( let weaponC = 0; weaponC < this._equipmentList.length; weaponC++) {
                 let currentItem = this._equipmentList[weaponC];
                 if( currentItem.tag.indexOf( "ammo-" ) === -1) {
-                    if( currentItem.rear ) {
+                    if( currentItem.rear  ) {
                         if( currentItem.battleValue ) {
-                            this._calcLogBV += "+ Adding Rear Weapon " + currentItem.name + " - " + (currentItem.battleValue / 2 ) + "<br />";
+                            if( this.getTotalBVFrontWeapons() < this.getTotalBVRearWeapons() || this.isNotOnTorsoHeadOrLegs(currentItem.location) ) {
+                                this._calcLogBV += "+ Adding Rear Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  -  bv " + (currentItem.battleValue  ) + " (not halved due to less front weapons bv), heat " + currentItem.bvHeat + "<br />";
+                                runningTotal += (currentItem.battleValue );
+                            } else {
+                                this._calcLogBV += "+ Adding Rear Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  - " + (currentItem.battleValue / 2 ) + " (half of " + currentItem.battleValue + ")<br />";
 
-                            runningTotal += (currentItem.battleValue / 2);
+                                runningTotal += (currentItem.battleValue / 2);
+                            }
                         }
                     } else {
                         if( currentItem.battleValue ) {
-                            this._calcLogBV += "+ Adding Weapon " + currentItem.name + " - " + currentItem.battleValue + "<br />";
-                            runningTotal += currentItem.battleValue;
+                            if( this.getTotalBVFrontWeapons() >= this.getTotalBVRearWeapons() || this.isNotOnTorsoHeadOrLegs(currentItem.location)  ) {
+                                this._calcLogBV += "+ Adding Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  - " + currentItem.battleValue + "<br />";
+                                runningTotal += (currentItem.battleValue );
+                            } else {
+                                this._calcLogBV += "+ Adding Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  - " + (currentItem.battleValue / 2 ) + " (half of " + currentItem.battleValue + ")<br />";
+
+                                runningTotal += currentItem.battleValue / 2;
+
+                            }
                         }
                     }
                 }
@@ -8781,6 +8857,92 @@ export class BattleMech {
     public get sswImportErrors(): string[] {
         return this._sswImportErrors;
     }
+
+
+
+    public getTotalBVFrontWeapons(): number {
+
+
+        let rv = 0;
+        for( let eq of this._equipmentList ) {
+            if(
+                eq.location &&
+                (
+                    eq.location === "ct"
+                    ||
+                    eq.location === "lt"
+                    ||
+                    eq.location === "rt"
+                    ||
+                    eq.location === "rl"
+                    ||
+                    eq.location === "ll"
+                    ||
+                    eq.location === "hd"
+                )
+                &&
+                !eq.rear
+            ) {
+                rv += eq.battleValue ? eq.battleValue : 0
+            }
+        }
+
+        return rv;
+    }
+
+    public isNotOnTorsoHeadOrLegs(
+        loc: string | undefined
+    ): boolean {
+
+        if(
+            loc
+            &&
+            (
+                loc === "ct"
+                ||
+                loc === "lt"
+                ||
+                loc === "rt"
+                ||
+                loc === "rl"
+                ||
+                loc === "ll"
+                ||
+                loc === "hd"
+            )
+        ) {
+            return false
+        }
+        return true;
+    }
+    public getTotalBVRearWeapons(): number {
+
+        let rv = 0;
+        for( let eq of this._equipmentList ) {
+            if(
+                eq.location
+                &&
+                (
+                    eq.location === "ct"
+                    ||
+                    eq.location === "lt"
+                    ||
+                    eq.location === "rt"
+                    ||
+                    eq.location === "rl"
+                    ||
+                    eq.location === "ll"
+                    ||
+                    eq.location === "hd"
+                )
+                && eq.rear
+            ) {
+                rv += eq.battleValue ? eq.battleValue : 0
+            }
+        }
+
+        return rv;
+    }
 }
 
 export interface IClusterHit {
@@ -8789,34 +8951,49 @@ export interface IClusterHit {
     critical: boolean;
   }
 
-function sortByBVThenRearThenHeat(  a: IEquipmentItem, b: IEquipmentItem  ) {
-    if( a.rear )
-        a.rear = true;
-    else
-        a.rear = false;
 
-    if( b.rear )
-        b.rear = true;
-    else
-        b.rear = false;
 
-    if(  a.battleValue && b.battleValue && a.battleValue < b.battleValue )
+  function sortByAdjustedBVThenHeat(
+      a: IEquipmentItem,
+      b: IEquipmentItem,
+      mech: BattleMech,
+) {
+
+    let aBattleValue = a.battleValue ? a.battleValue : 0;
+    let bBattleValue = b.battleValue ? b.battleValue : 0;
+
+    if( mech && a.rear && mech.getTotalBVFrontWeapons() >= mech.getTotalBVRearWeapons()) {
+        aBattleValue = aBattleValue / 2;
+    } else if( mech && !a.rear && mech.getTotalBVFrontWeapons() < mech.getTotalBVRearWeapons()) {
+        aBattleValue = aBattleValue / 2;
+    }
+
+    if( mech && b.rear && mech.getTotalBVFrontWeapons() >= mech.getTotalBVRearWeapons() ) {
+        bBattleValue = bBattleValue / 2;
+    } else if( mech && !b.rear && mech.getTotalBVFrontWeapons() < mech.getTotalBVRearWeapons()) {
+        bBattleValue = bBattleValue / 2;
+    }
+
+    if(  aBattleValue < bBattleValue )
         return 1;
-    if(  a.battleValue && b.battleValue && a.battleValue > b.battleValue )
+    if(  aBattleValue > bBattleValue )
         return -1;
 
-    if( a.rear < b.rear )
-        return -1;
-    if( a.rear > b.rear )
-        return 1;
+
 
     if( a.heat < b.heat )
         return 1;
     if( a.heat > b.heat )
         return -1;
+
+
+    // if( a.rear < b.rear )
+    //     return -1;
+    // if( a.rear > b.rear )
+    //     return 1;
+
     return 0;
 }
-
 function sortByLocationThenName( a: IEquipmentItem, b: IEquipmentItem ) {
     if( a.location && b.location && a.location > b.location )
         return 1;
