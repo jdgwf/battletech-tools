@@ -6687,6 +6687,32 @@ export class BattleMech {
         toIndex: number,
     ) {
 
+        if( fromLocation === "rrl" ) {
+            fromLocation = "rl"
+        }
+        if( fromLocation === "frl" ) {
+            fromLocation = "ra"
+        }
+        if( fromLocation === "fll" ) {
+            fromLocation = "la"
+        }
+        if( fromLocation === "rll" ) {
+            fromLocation = "ll"
+        }
+
+
+        if( toLocation === "rrl" ) {
+            toLocation = "rl"
+        }
+        if( toLocation === "frl" ) {
+            toLocation = "ra"
+        }
+        if( toLocation === "fll" ) {
+            toLocation = "la"
+        }
+        if( toLocation === "rll" ) {
+            toLocation = "ll"
+        }
         // console.log( " moveCritical",
         //     fromLocation,
         //     fromIndex,

@@ -14,7 +14,6 @@ import './ssw-sanity-check.scss';
 
 export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps, ISSWSanityCheckState> {
 
-
     constructor(props: ISSWSanityCheckProps) {
         super(props);
 
