@@ -3092,7 +3092,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     {
         isAmmo: true,
         name: "Ammo (MG)",
-        alternameName: "Ammo (Machine Gun)",
+        alternateName: "Ammo (Machine Gun)",
         tag: "ammo-machine-gun",
         sort: "ammo, machine gun",
         category: "Ammunition",
@@ -3797,7 +3797,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     },
     {
         name: "Autocannon/2",
-        alternameName: "ac/2",
+        alternateName: "ac/2",
         tag: "autocannon-standard-a",
         sort: "Autocannon/a",
         category: "Ballistic Weapons",
@@ -3852,7 +3852,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     },
     {
         name: "Autocannon/5",
-        alternameName: "ac/5",
+        alternateName: "ac/5",
         tag: "autocannon-standard-b",
         sort: "Autocannon/b",
         category: "Ballistic Weapons",
@@ -3907,7 +3907,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     },
     {
         name: "Autocannon/10",
-        alternameName: "ac/10",
+        alternateName: "ac/10",
         tag: "autocannon-standard-c",
         sort: "Autocannon/c",
         category: "Ballistic Weapons",
@@ -3962,7 +3962,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     },
     {
         name: "Autocannon/20",
-        alternameName: "ac/20",
+        alternateName: "ac/20",
         tag: "autocannon-standard-d",
         sort: "Autocannon/d",
         category: "Ballistic Weapons",
@@ -4656,7 +4656,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
         notes: "",
         count: 0,
         name: "Rotary AC/2",
-        alternameName: "",
+        alternateName: "",
         tag: "rotary-ac-2",
         sort: "rotary, autocannon, 2",
         category: "",
@@ -4731,7 +4731,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
         notes: "",
         count: 0,
         name: "Rotary AC/5",
-        alternameName: "",
+        alternateName: "",
         tag: "rotary-ac-5",
         sort: "rotary, autocannon, 5",
         category: "",

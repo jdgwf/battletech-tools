@@ -246,7 +246,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
             notes: "",
             count: 0,
             name: "",
-            alternameName: "",
+            alternateName: "",
             tag: "",
             sort: "",
             category: "",

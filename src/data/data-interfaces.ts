@@ -96,7 +96,7 @@ export interface IEquipmentItem {
     name: string;
     isEquipment?: boolean;
     isAmmo?: boolean;
-    alternameName?: string;
+    alternateName?: string;
     tag: string;
     sort: string;
     category: string;

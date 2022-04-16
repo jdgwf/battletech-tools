@@ -42,9 +42,9 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
                 this.props.appGlobals.appSettings.equipmentFilter.toLowerCase().trim()
             ) > -1
                 || (
-                item.alternameName
+                item.alternateName
                 &&
-                item.alternameName.toLowerCase().trim().indexOf(
+                item.alternateName.toLowerCase().trim().indexOf(
                     this.props.appGlobals.appSettings.equipmentFilter.toLowerCase().trim()
                 ) > -1
             )

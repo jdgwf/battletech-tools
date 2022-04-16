@@ -315,7 +315,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
             e.preventDefault();
         }
         let item = this.props.editingItem;
-        item.alternameName = e.currentTarget.value;
+        item.alternateName = e.currentTarget.value;
 
         this.props.onChange( item );
     }
@@ -372,7 +372,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                 />
                 <InputField
                     onChange={this.updateAlternativeName}
-                    value={this.props.editingItem.alternameName}
+                    value={this.props.editingItem.alternateName}
                     label="Alternative Name"
                 />
                 <InputField

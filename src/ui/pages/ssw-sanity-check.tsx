@@ -159,7 +159,10 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                                 })}
                               </ul>
                               </>
-                            ) : null}
+                            ) :
+                            (
+                                <em>(none?)</em>
+                            )}
                                 </td>
                             </tr>
                         </tbody>
@@ -179,7 +182,8 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                    <th>
                        BV2 Erors: {bv2Discrpancies} ({Math.round( bv2Discrpancies / totalMechs * 10000 ) / 100} %)
                    </th>
-                    <th></th>
+                    <th>
+                    </th>
                </tr>
 
            </tfoot>

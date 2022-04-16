@@ -1108,9 +1108,9 @@ export class BattleMech {
                 if( !ammoBV[currentItem.tag])
                     ammoBV[currentItem.tag] = 0;
                 if( currentItem.battleValue)
-                    ammoBV[currentItem.tag] += currentItem.battleValue;
+                    ammoBV[currentItem.tag] += currentItem.battleValue * currentItem.weight;
 
-                this._calcLogBV += "+ Adding " + currentItem.name + " - " + currentItem.battleValue + "<br />";
+                this._calcLogBV += "+ Adding " + currentItem.name + " - " + ((currentItem.battleValue ? currentItem.battleValue : 0) * currentItem.weight) + "<br />";
 
             } else {
                 if( !weaponBV[currentItem.tag])
@@ -1299,15 +1299,15 @@ export class BattleMech {
 
         this._calcLogBV += "<strong>STEP 3: CALCULATE FINAL BATTLE VALUE - TM p304</strong><br />";
         let finalBattleValue = defensiveBattleRating + offensiveBattleRating;
-        this._calcLogBV += "finalBattleValue = defensiveBattleRating + offensiveBattleRating: " + finalBattleValue.toFixed(2) + " = " + defensiveBattleRating.toFixed(2) +  + offensiveBattleRating.toFixed(2) + "<br />";
+        this._calcLogBV += "finalBattleValue = defensiveBattleRating + offensiveBattleRating: " + finalBattleValue.toFixed(2) + " = " + defensiveBattleRating.toFixed(2) +  " + "  + offensiveBattleRating.toFixed(2) + "<br />";
 
         if( this._smallCockpit) {
             finalBattleValue = Math.round(finalBattleValue * .95);
             this._calcLogBV += "Small Cockpit, multiply total by .95 and round final BV: " + finalBattleValue.toFixed(2) + "<br />";
         }
 
-        this._calcLogBV += "<strong>Final Battle Value</strong>: " + finalBattleValue.toFixed(2) + " rounded off " + Math.floor(finalBattleValue) + "<br />";
-        this._battleValue = Math.floor(finalBattleValue);
+        this._calcLogBV += "<strong>Final Battle Value</strong>: " + finalBattleValue.toFixed(2) + " rounded off " + Math.round(finalBattleValue) + "<br />";
+        this._battleValue = Math.round(finalBattleValue);
 
         this._setPilotAdjustedBattleValue();
     }
@@ -5766,7 +5766,7 @@ export class BattleMech {
             if(
                 item.name.toLowerCase().trim() === equipmentName.toLowerCase().trim()
                 ||
-                (item.alternameName && item.alternameName.toLowerCase().trim() === equipmentName.toLowerCase().trim() )
+                (item.alternateName && item.alternateName.toLowerCase().trim() === equipmentName.toLowerCase().trim() )
             ) {
 
                 let equipmentItem: IEquipmentItem = JSON.parse(JSON.stringify( item ));
@@ -8395,7 +8395,90 @@ export class BattleMech {
         }
     }
 
-     public importSSWXML(
+    private _installSSWEquipment(
+        item: any
+    ) {
+
+
+        let listTag = "is";
+        let itemName = "";
+        let location = "";
+        let allocationIndex = -1;
+        let rear = false;
+        if( item.name &&  item.name["#text"].indexOf( "(IS) " ) > -1) {
+            itemName = item.name["#text"].replace( "(IS) ", "" )
+            listTag = "is";
+        } else if( item.name &&  item.name["#text"].indexOf( "(CLAN) ") > -1 ) {
+                itemName = item.name["#text"].replace( "(CLAN) ", "" )
+                listTag = "clan";
+
+        } else {
+            itemName = item.name["#text"];
+        }
+
+        if( itemName.indexOf("(R) ") > -1 ) {
+            itemName = itemName.replace( "(R) ", "" )
+            rear = true;
+        }
+
+
+        let halfTon = false;
+        if( itemName.indexOf(" (1/2)") > -1 ) {
+            itemName = itemName.replace( " (1/2)", "" )
+            halfTon = true;
+        }
+
+        if( item.location && item.location["#text"]) {
+            location = item.location["#text"].toLowerCase().trim();
+
+            if( typeof( item.location["@_index"]) !== "undefined" ) {
+                allocationIndex =  +item.location["@_index"];
+            }
+
+        }
+        if( itemName.indexOf( "@" ) > -1 )
+            itemName = itemName.replace( "@ ", "Ammo (" ) + ")"
+
+        if( location === "ctr" ) {
+            rear = true;
+            location = "ct";
+        }
+        if( location === "ltr" ) {
+            rear = true;
+            location = "lt";
+        }
+        if( location === "rtr" ) {
+            rear = true;
+            location = "rt";
+        }
+
+
+        if( itemName ) {
+
+            let newItem = this.addEquipmentByName(
+                itemName,
+                listTag,
+                location,
+                rear,
+                generateUUID(),
+                undefined,
+            );
+
+            if( !newItem ) {
+                console.warn( "Cannot find any equipment named: '" + itemName + "'" );
+                this._sswImportErrors.push( "Cannot find any equipment named: '" + itemName + "'" )
+            } else {
+                if( halfTon ) {
+                    newItem.weight = .5;
+                }
+                newItem.allocationIndex = allocationIndex;
+                newItem.allocatedLocation = location;
+                newItem.location = "un";
+                newItem.rear = rear;
+            }
+        }
+    }
+    public importSSWXML(
         ssw_xml: string
     ): void {
         // var result = convertXML.xml2json(ssw_xml, {compact: true, spaces: 4});
@@ -8552,83 +8635,7 @@ export class BattleMech {
                 if( jObj.mech.baseloadout.equipment && jObj.mech.baseloadout.equipment.length > 0 ) {
 
                     for( let item of jObj.mech.baseloadout.equipment ) {
-                        let listTag = "is";
-                        let itemName = "";
-                        let location = "";
-                        let allocationIndex = -1;
-                        let rear = false;
-                        if( item.name &&  item.name["#text"].indexOf( "(IS) " ) > -1) {
-                            itemName = item.name["#text"].replace( "(IS) ", "" )
-                            listTag = "is";
-                        } else if( item.name &&  item.name["#text"].indexOf( "(CLAN) ") > -1 ) {
-                                itemName = item.name["#text"].replace( "(CLAN) ", "" )
-                                listTag = "clan";
-
-                        } else {
-                            itemName = item.name["#text"];
-                        }
-
-                        if( itemName.indexOf("(R) ") > -1 ) {
-                            itemName = itemName.replace( "(R) ", "" )
-                            rear = true;
-                        }
-
-
-                        let halfTon = false;
-                        if( itemName.indexOf(" (1/2)") > -1 ) {
-                            itemName = itemName.replace( " (1/2)", "" )
-                            halfTon = true;
-                        }
-
-                        if( item.location && item.location["#text"]) {
-                            location = item.location["#text"].toLowerCase().trim();
-
-                            if( typeof( item.location["@_index"]) !== "undefined" ) {
-                                allocationIndex =  +item.location["@_index"];
-                            }
-
-                        }
-                        if( itemName.indexOf( "@" ) > -1 )
-                            itemName = itemName.replace( "@ ", "Ammo (" ) + ")"
-
-                        if( location === "ctr" ) {
-                            rear = true;
-                            location = "ct";
-                        }
-                        if( location === "ltr" ) {
-                            rear = true;
-                            location = "lt";
-                        }
-                        if( location === "rtr" ) {
-                            rear = true;
-                            location = "rt";
-                        }
-
-
-                        if( itemName ) {
-
-                            let newItem = this.addEquipmentByName(
-                                itemName,
-                                listTag,
-                                location,
-                                rear,
-                                generateUUID(),
-                                undefined,
-                            );
-
-                            if( !newItem ) {
-                                console.warn( "Cannot find any equipment named: '" + itemName + "'" );
-                                this._sswImportErrors.push( "Cannot find any equipment named: '" + itemName + "'" )
-                            } else {
-                                if( halfTon ) {
-                                    newItem.weight = .5;
-                                }
-                                newItem.allocationIndex = allocationIndex;
-                                newItem.allocatedLocation = location;
-                                newItem.location = "un";
-                                newItem.rear = rear;
-                            }
-                        }
+                        this._installSSWEquipment( item );
 
                     }
 
@@ -8651,7 +8658,14 @@ export class BattleMech {
                         item.location = item.allocatedLocation;
                     }
 
+                } else {
+                    if( jObj.mech.baseloadout.equipment ) {
+                        // a single weapon?!?!
+                        // console.log("jObj.mech.baseloadout.equipment", jObj.mech.baseloadout.equipment)
+                        this._installSSWEquipment( jObj.mech.baseloadout.equipment );
+                    }
                 }
+
                 if( jObj.mech.baseloadout.heatsinks ) {
 
                     if( jObj.mech.baseloadout.heatsinks["type"].toLowerCase().indexOf("single") > -1)
