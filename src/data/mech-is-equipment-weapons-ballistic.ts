@@ -1806,6 +1806,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     {
         isAmmo: true,
         name: "Ammo (LB 2-X)",
+        alternateName: "Ammo (LB 2-X AC (Slug))",
         tag: "ammo-autocannon-lb-x-a",
         sort: "ammo, LB a-X",
         category: "Ammunition",
@@ -1859,6 +1860,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     {
         isAmmo: true,
         name: "Ammo (LB 2-X) Cluster",
+        alternateName: "Ammo (LB 2-X AC (Cluster))",
         tag: "ammo-autocannon-lb-x-a-cluster",
         sort: "ammo, LB a-X, Cluster",
         category: "Ammunition",
@@ -1914,6 +1916,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     {
         isAmmo: true,
         name: "Ammo (LB 5-X)",
+        alternateName: "Ammo (LB 5-X AC (Slug))",
         tag: "ammo-autocannon-lb-x-b",
         sort: "ammo, LB b-X",
         category: "Ammunition",
@@ -1967,6 +1970,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     {
         isAmmo: true,
         name: "Ammo (LB 5-X) Cluster",
+        alternateName: "Ammo (LB 5-X AC (Cluster))",
         tag: "ammo-autocannon-lb-x-b-cluster",
         sort: "ammo, LB b-X, Cluster",
         category: "Ammunition",
@@ -2022,6 +2026,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     {
         isAmmo: true,
         name: "Ammo (LB 10-X)",
+        alternateName: "Ammo (LB 10-X AC (Slug))",
         tag: "ammo-autocannon-lb-x-c",
         sort: "ammo, LB c-X",
         category: "Ammunition",
@@ -2075,6 +2080,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     {
         isAmmo: true,
         name: "Ammo (LB 10-X) Cluster",
+        alternateName: "Ammo (LB 10-X AC (Cluster))",
         tag: "ammo-autocannon-lb-x-c-cluster",
         sort: "ammo, LB c-X, Cluster",
         category: "Ammunition",
@@ -2130,6 +2136,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     {
         isAmmo: true,
         name: "Ammo (LB 20-X)",
+        alternateName: "Ammo (LB 20-X AC (Slug))",
         tag: "ammo-autocannon-lb-x-d",
         sort: "ammo, LB d-X",
         category: "Ammunition",
@@ -2183,6 +2190,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     {
         isAmmo: true,
         name: "Ammo (LB 20-X) Cluster",
+        alternateName: "Ammo (LB 20-X AC (Cluster))",
         tag: "ammo-autocannon-lb-x-d-cluster",
         sort: "ammo, LB d-X, Cluster",
         category: "Ammunition",

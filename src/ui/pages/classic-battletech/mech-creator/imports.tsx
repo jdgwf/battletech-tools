@@ -266,13 +266,14 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                           <div className="row">
                             <div className="col-md-6">
                               <h4 className="text-center">SSW 3039 and 3050 Inner Sphere Mechs</h4>
-                              <div className="small-text">These 'mechs are the raw XML files from the Solaris Skunk Werks projects.</div>
+                              <div className="small-text">These 'mechs are the raw XML files from the Solaris Skunk Werks projects. Right now only the Intro rules level are available; we're working on the others.</div>
                               <div style={{overflow: "scroll", height: "600px"}}>
                               <ul className="styleless">
                             {sswMechs.map( (mechData, mechIndex) => {
                               let basicData = getSSWXMLBasicInfo( mechData );
-                              if( basicData ) {
+                              if( basicData && basicData.rules_level_ssw === 0 ) {
                                 sswMechCount++;
+
                                 return (
                                   <li key={mechIndex}>
                                     <button

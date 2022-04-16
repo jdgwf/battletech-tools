@@ -1,7 +1,7 @@
-import { BattleMech, IBattleMechExport } from "../classes/battlemech";
 import fs from 'fs';
-import { getSSWXMLBasicInfo } from "../utils/getSSWXMLBasicInfo";
+import { BattleMech, IBattleMechExport } from "../classes/battlemech";
 import { createSSWDataFile } from "../utils/createSSWDataFile";
+import { getSSWXMLBasicInfo } from "../utils/getSSWXMLBasicInfo";
 
 
 function convertSSWToJeffBattleTechTools(
@@ -27,8 +27,9 @@ async function importDirectory( dir: string ): Promise<string[]> {
 
                 if( data ) {
 
-                    if( data?.rules_level_ssw === 0 && data.mech_type === "BattleMech") {
+                    if(  data.mech_type === "BattleMech") {
                         // console.log("data", data)
+                        fileContents = fileContents.replace(/\\/g, "\\\\");
                         dataFiles.push( fileContents );
                     }
                 }
@@ -50,6 +51,7 @@ async function goThroughDirectories() {
     let dataFiles: string[] = [];
     dataFiles = dataFiles.concat( await importDirectory("./SSW-Master/RS 3039u/") );
     dataFiles = dataFiles.concat( await importDirectory("./SSW-Master/RS 3050U/Inner Sphere/") );
+    // dataFiles = dataFiles.concat( await importDirectory("./SSW-Master/RS 3050U/Clan Star League/") );
 
     if( dataFiles.length > 0 ) {
         await createSSWDataFile(

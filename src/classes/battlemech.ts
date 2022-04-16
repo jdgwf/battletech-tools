@@ -108,6 +108,7 @@ export interface IBattleMechExport {
 
 
     // basic properties
+    omnimech: boolean;
     additionalHeatSinks: number;
     allocation: ICriticalSlot[],
     armor_allocation: IArmorAllocation,
@@ -259,7 +260,7 @@ export class BattleMech {
     private _selectedInternalStructure = mechInternalStructureTypes[0];
 
     private _hasTripleStrengthMyomer: boolean = false;
-
+    private _omnimech: boolean = false;
     private _remainingTonnage: number = 0;
 
     private _internalStructure = {
@@ -638,6 +639,19 @@ export class BattleMech {
         return incomingDamageObjects;
     }
 
+    public hasCASE(
+        loc: string
+    ): boolean {
+        for( let crit of this._criticalAllocationTable ) {
+            if( crit.loc === loc ) {
+                if( crit.tag === "case" ) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     private _calcBattleValue() {
 
         let hasCamo = false;
@@ -839,27 +853,32 @@ export class BattleMech {
 
             // check lt
             for( let lCrit = 0; lCrit < this._criticals.leftTorso.length; lCrit++) {
-                let item = this._criticals.leftTorso[lCrit];
-                if( item && item.obj && item.obj.explosive) {
-                    this._calcLogBV += "Explosive Ammo Crit in Left Torso (Clan,-15)<br />";
-                    explosiveAmmoModifiers += 15;
-                }
-                if( item && item.obj && item.obj.gauss) {
-                    this._calcLogBV += "Gauss Crit in Left Torso (Clan, -1)<br />";
-                    explosiveAmmoModifiers += 1;
+
+                if( this.hasXLEngine() ) {
+                    let item = this._criticals.leftTorso[lCrit];
+                    if( item && item.obj && item.obj.explosive) {
+                        this._calcLogBV += "Explosive Ammo Crit in Left Torso (Clan,-15)<br />";
+                        explosiveAmmoModifiers += 15;
+                    }
+                    if( item && item.obj && item.obj.gauss) {
+                        this._calcLogBV += "Gauss Crit in Left Torso (Clan, -1)<br />";
+                        explosiveAmmoModifiers += 1;
+                    }
                 }
             }
 
             // check rt
             for( let lCrit = 0; lCrit < this._criticals.rightTorso.length; lCrit++) {
-                let item = this._criticals.rightTorso[lCrit];
-                if( item && item.obj && item.obj.explosive) {
-                    this._calcLogBV += "Explosive Ammo Crit in Right Torso (Clan,-15)<br />";
-                    explosiveAmmoModifiers += 15;
-                }
-                if( item && item.obj && item.obj.gauss) {
-                    this._calcLogBV += "Gauss Crit in Center Right (Clan, -1)<br />";
-                    explosiveAmmoModifiers += 1;
+                if( this.hasXLEngine() ) {
+                    let item = this._criticals.rightTorso[lCrit];
+                    if( item && item.obj && item.obj.explosive) {
+                        this._calcLogBV += "Explosive Ammo Crit in Right Torso (Clan,-15)<br />";
+                        explosiveAmmoModifiers += 15;
+                    }
+                    if( item && item.obj && item.obj.gauss) {
+                        this._calcLogBV += "Gauss Crit in Center Right (Clan, -1)<br />";
+                        explosiveAmmoModifiers += 1;
+                    }
                 }
             }
 
@@ -916,30 +935,36 @@ export class BattleMech {
 
             // check lt
             for( let lCrit = 0; lCrit < this._criticals.leftTorso.length; lCrit++) {
-                let item = this._criticals.leftTorso[lCrit];
+                if( !this.hasCASE("lt") || this.hasXLEngine()) {
+                    let item = this._criticals.leftTorso[lCrit];
 
-                if( item && item.obj && item.obj.explosive) {
-                    this._calcLogBV += "Explosive Ammo Crit in Left Torso (Inner Sphere,-15)<br />";
-                    explosiveAmmoModifiers += 15;
+                    if( item && item.obj && item.obj.explosive) {
+                        this._calcLogBV += "Explosive Ammo Crit in Left Torso (Inner Sphere,-15)<br />";
+                        explosiveAmmoModifiers += 15;
+                    }
+                    if( item && item.obj && item.obj.gauss) {
+                        this._calcLogBV += "Gauss Crit in Left Torso (Inner Sphere, -1)<br />";
+                        explosiveAmmoModifiers += 1;
+                    }
                 }
-                if( item && item.obj && item.obj.gauss) {
-                    this._calcLogBV += "Gauss Crit in Left Torso (Inner Sphere, -1)<br />";
-                    explosiveAmmoModifiers += 1;
-                }
-
             }
 
             // check rt
+
             for( let lCrit = 0; lCrit < this._criticals.rightTorso.length; lCrit++) {
-                let item = this._criticals.rightTorso[lCrit];
-                if( item && item.obj && item.obj.explosive) {
-                    this._calcLogBV += "Explosive Ammo Crit in Right Torso (Inner Sphere,-15)<br />";
-                    explosiveAmmoModifiers += 15;
+                // if( this.hasXLEngine() ) {
+                if( !this.hasCASE("rt")  || this.hasXLEngine() ) {
+                    let item = this._criticals.rightTorso[lCrit];
+                    if( item && item.obj && item.obj.explosive) {
+                        this._calcLogBV += "Explosive Ammo Crit in Right Torso (Inner Sphere,-15)<br />";
+                        explosiveAmmoModifiers += 15;
+                    }
+                    if( item && item.obj && item.obj.gauss) {
+                        this._calcLogBV += "Gauss Crit in Center Right (Inner Sphere, -1)<br />";
+                        explosiveAmmoModifiers += 1;
+                    }
                 }
-                if( item && item.obj && item.obj.gauss) {
-                    this._calcLogBV += "Gauss Crit in Center Right (Inner Sphere, -1)<br />";
-                    explosiveAmmoModifiers += 1;
-                }
+                // }
 
             }
 
@@ -1110,7 +1135,7 @@ export class BattleMech {
                 if( currentItem.battleValue)
                     ammoBV[currentItem.tag] += currentItem.battleValue * currentItem.weight;
 
-                this._calcLogBV += "+ Adding " + currentItem.name + " - " + ((currentItem.battleValue ? currentItem.battleValue : 0) * currentItem.weight) + "<br />";
+                this._calcLogBV += "+ Adding " + currentItem.name + " - "  + currentItem.location + " - " + ((currentItem.battleValue ? currentItem.battleValue : 0) * currentItem.weight) + "<br />";
 
             } else {
                 if( !weaponBV[currentItem.tag])
@@ -1288,7 +1313,7 @@ export class BattleMech {
                                 // this._calcLogBV += "+ Adding Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ") - bv " + currentItem.battleValue + ", heat " + currentItem.bvHeat;
                                 // runningTotal += currentItem.battleValue;
                                 if( this.getTotalBVFrontWeapons() >= this.getTotalBVRearWeapons() || this.isNotOnTorsoHeadOrLegs(currentItem.location)  ) {
-                                    this._calcLogBV += "+ Adding Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  -  bv " + (currentItem.battleValue  ) + " (not halved due to less front weapons bv), heat " + currentItem.bvHeat + "<br />";
+                                    this._calcLogBV += "+ Adding Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  -  bv " + (currentItem.battleValue  ) + ", heat " + currentItem.bvHeat + "<br />";
                                     runningTotal += (currentItem.battleValue );
                                 } else {
 
@@ -5254,6 +5279,8 @@ export class BattleMech {
             battle_value: this.getBattleValue(),
             c_bills: this.getCBillCost(),
 
+            omnimech: this._omnimech,
+
             additionalHeatSinks: this._additionalHeatSinks,
             allocation: thinnedAllocations,
             armor_allocation: this._armorAllocation,
@@ -5442,6 +5469,10 @@ export class BattleMech {
 
         if( importObject && importObject.criticalDamage ) {
             this.criticalDamage = importObject.criticalDamage;
+        }
+
+        if( importObject && importObject.omnimech ) {
+            this._omnimech = importObject.omnimech;
         }
 
         if( importObject && importObject.currentHeat ) {
@@ -8581,8 +8612,11 @@ export class BattleMech {
             if( jObj.mech["@_name" ] ) {
                 this.setName( jObj.mech["@_name"] );
             }
+            this._omnimech = false;
             if( jObj.mech["@_omnimech"] ) {
-                // this._omnimech = jObj.mech["@_omnimech" ];
+                if( jObj.mech["@_omnimech" ].toLowerCase().trim() === "true")
+                    this._omnimech = true;
+
             }
             if( jObj.mech["@_solaris7id"] ) {
 
@@ -8658,10 +8692,19 @@ export class BattleMech {
                     if( jObj.mech.armor.type === "Ferro Fibrous" ) {
                         this.setArmorType( "ferro-fibrous" )
                     }
+                    if( jObj.mech.armor.type === "Ferro-Fibrous" ) {
+                        this.setArmorType( "ferro-fibrous" )
+                    }
                     if( jObj.mech.armor.type === "Light Ferro Fibrous" ) {
                         this.setArmorType( "light-ferro-fibrous" )
                     }
+                    if( jObj.mech.armor.type === "Light Ferro-Fibrous" ) {
+                        this.setArmorType( "light-ferro-fibrous" )
+                    }
                     if( jObj.mech.armor.type === "Heavy Ferro Fibrous" ) {
+                        this.setArmorType( "heavy-ferro-fibrous" )
+                    }
+                    if( jObj.mech.armor.type === "Heavy Ferro-Fibrous" ) {
                         this.setArmorType( "heavy-ferro-fibrous" )
                     }
                     if( jObj.mech.armor.type.indexOf( "Stealth" )  > -1) {
@@ -8670,6 +8713,58 @@ export class BattleMech {
 
                     console.log("totalArmor", totalArmor)
                     this.setArmorCount( totalArmor );
+
+                    if( typeof(  jObj.mech.armor.location ) === "object" ) {
+                        this._calcCriticals();
+
+                        try {
+                            for( let loc of jObj.mech.armor.location ) {
+                                let foundIndex = -1;
+
+
+                                    for( let critItemIndex in this._unallocatedCriticals ) {
+                                        if( this._unallocatedCriticals[critItemIndex] && this._unallocatedCriticals[critItemIndex].tag === this.getArmorType() ) {
+                                            foundIndex = +critItemIndex;
+                                            break;
+                                        }
+                                    }
+
+
+                                if( foundIndex > -1 ) {
+                                    this.moveCritical(
+                                        "un",
+                                        foundIndex,
+                                        loc["#text"] ? loc["#text"].toLowerCase().trim() : "un",
+                                        loc["@_index"] ? +loc["@_index"] : -1,
+                                    );
+                                }
+
+                            }
+                        }
+
+                        catch {
+                            let foundIndex = -1;
+
+
+                            for( let critItemIndex in this._unallocatedCriticals ) {
+                                if( this._unallocatedCriticals[critItemIndex] && this._unallocatedCriticals[critItemIndex].tag === "heat-sink" ) {
+                                    foundIndex = +critItemIndex;
+                                    break;
+                                }
+                            }
+
+
+                            if( foundIndex > -1 ) {
+                                this.moveCritical(
+                                    "un",
+                                    foundIndex,
+                                    jObj.mech.baseloadout.heatsinks.location["#text"] ? jObj.mech.baseloadout.heatsinks.location["#text"].toLowerCase().trim() : "un",
+                                    jObj.mech.baseloadout.heatsinks.location["@_index"] ? +jObj.mech.baseloadout.heatsinks.location["@_index"] : -1,
+                                );
+                            }
+                        }
+                    }
+
                 }
             }
 
