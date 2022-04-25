@@ -92,6 +92,25 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                   <ul className="news">
                   <li>
                     <p>
+                      <strong>2022 April 25</strong> - Intro 'mechs are nearly 100% matching across the board via SSW imports. Allocating Hatchets are the only import erros. All C-Bill and BV2 costs are correct.
+                    </p>
+
+                    <h5>CBT Mech Creator</h5>
+                    <p>The 'mech creator now has the ability to split criticals.</p>
+                    <ol>
+                      <li>Just select your unallocated 8 or larger critical slot item</li>
+                      <li>press the "Split Criticals" button</li>
+                      <li>You'll then be prompted how many slots for the first allocation.</li>
+                      <li>Place your first item slot.</li>
+                      <li>Then select the spot for the remainder of the slots</li>
+                      </ol>
+
+                      <h5>Alpha Strike</h5>
+                      <p>Alpha Strike Cards can now display measurements in Hexes optionally if you play on hex boards. Just click on the ruler/hex button at the top of the Print or Play pages, or select your preference in the <Link to="settings">Settings</Link> page </p>
+
+                  </li>
+                  <li>
+                    <p>
                       <strong>2022 April 16</strong> - Solaris Skunk Werks data for 3039TRO should be 100% good to go.  My internal <Link to="ssw-sanity-check">Sanity Test</Link> page has all the calculations for c-bills and bv2 matching 100% for all 213 mechs for the 3039 TRO. This wasn't easy, but it sure helped clean up my BV2 calculator. On slower computers or phones, this may take a few of seconds to load as it imports each of the SSW files, calculates the BV2 and C-Bill cost, then compares it to the XML file's stated BV2 and C-Bill costs.
                     </p>
                     <p>Needless to say this is a huge step in the direction of accuracy for this app.</p>

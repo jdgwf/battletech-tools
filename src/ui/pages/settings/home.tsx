@@ -71,7 +71,7 @@ export default class SettingsHome extends React.Component<ISettingsHomeProps, IS
                   />
 
               <InputCheckbox
-                  label='Alpha Strike: Display Measurements in Hexes'
+                  label='Alpha Strike Roster: Display Measurements in Hexes'
                   checked={this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes}
                   onChange={this.setAlphaStrikeMeasurementsInHexes}
                 />
