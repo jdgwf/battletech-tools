@@ -7170,40 +7170,66 @@ export class BattleMech {
         allocationLocation: string,
     ) {
         for( let item of this._equipmentList ) {
-            if( item && item.uuid == uuid ) {
+            if( item && item.uuid === uuid ) {
                 item.allocationIndex = allocationIndex;
                 item.allocationLocation = allocationLocation;
             }
         }
     }
 
-    private _moveItemToArea(
-        fromLocation: ICriticalSlot[] | null[],
-        fromItem: ICriticalSlot,
-        fromIndex: number,
-        toLocation: ICriticalSlot[],
-        toIndex: number,
-        toLocTag: string,
-        toSize: number = -1,
-        removeFrom: boolean = true,
-    ) {
 
-        if( toSize === -1 ) {
-            toSize = fromItem.crits
+    private _getToLocationFromTag(
+        fromLocation: string,
+    ): ICriticalSlot[] {
+
+
+        if( fromLocation === "un" ) {
+            return this._unallocatedCriticals;
+        } else if( fromLocation === "hd" ) {
+
+            return this._criticals.head;
+
+        } else if( fromLocation === "ct" ) {
+            return this._criticals.centerTorso;
+        } else if( fromLocation === "rt" ) {
+            return this._criticals.rightTorso;
+
+        } else if( fromLocation === "ra" ) {
+
+            return this._criticals.rightArm;
+
+        } else if( fromLocation === "rl" ) {
+
+            return this._criticals.rightLeg;
+
+        } else if( fromLocation === "lt" ) {
+
+            return this._criticals.leftTorso;
+
+        } else if( fromLocation === "la" ) {
+
+            return this._criticals.leftArm;
+
+        } else if( fromLocation === "ll" ) {
+
+            return this._criticals.leftLeg;
+
         }
 
-        // Step One check to see if TO has enough slots for item....
-        let placeholder: ICriticalSlot = {
-            uuid: fromItem.uuid,
-            name: "placeholder",
-            placeholder: true,
-            tag: "",
-            crits: 1,
-            rear: false,
-            obj: null,
-        };
+        return this._unallocatedCriticals;
 
+    }
+
+    public criticalCanBePlaced(
+        toLocTag: string,
+        toSize: number,
+        toIndex: number,
+        fromItem: ICriticalSlot | null,
+    ): boolean {
+        // Step One check to see if TO has enough slots for item....
         let hasSpace = true;
+
+        let toLocation = this._getToLocationFromTag( toLocTag );
 
         if( toIndex === -1 ) {
 
@@ -7239,16 +7265,60 @@ export class BattleMech {
         for( let testC = 0; testC < toSize; testC++) {
             if(
                 toLocation[toIndex + testC]
-                    &&
-                fromItem
-                    &&
-                toLocation[toIndex + testC].uuid !== fromItem.uuid
             ) {
-                hasSpace = false;
+                if( fromItem ) {
+                    if( toLocation[toIndex + testC].uuid !== fromItem.uuid ) {
+
+                    } else {
+                        hasSpace = false;
+                    }
+
+                } else {
+                    hasSpace = false;
+                }
+
             }
         }
+        return hasSpace;
+    }
+
+    private _moveItemToArea(
+        fromLocation: ICriticalSlot[] | null[],
+        fromItem: ICriticalSlot,
+        fromIndex: number,
+        toLocation: ICriticalSlot[],
+        toIndex: number,
+        toLocTag: string,
+        toSize: number = -1,
+        removeFrom: boolean = true,
+    ) {
+
+        if( toSize === -1 ) {
+            toSize = fromItem.crits
+        }
+
+        // Step One check to see if TO has enough slots for item....
+
+        let hasSpace = this.criticalCanBePlaced(
+            toLocTag,
+            toSize,
+            toIndex,
+            fromItem
+        )
+
+
+
 
         if( hasSpace) {
+            let placeholder: ICriticalSlot = {
+                uuid: fromItem.uuid,
+                name: "placeholder",
+                placeholder: true,
+                tag: "",
+                crits: 1,
+                rear: false,
+                obj: null,
+            };
 
             // Check to see if it's jump jet and make sure that it's going to be assigned to a leg or torso
             let item = fromLocation[fromIndex];

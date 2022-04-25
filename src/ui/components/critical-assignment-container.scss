@@ -20,7 +20,7 @@
         &.critical-placeholder {
             display: none !important;
         }
-        &.critical-height- {
+        &.critical-empty {
             border: 1px solid $lightBG;
             .card-title {
                 display: block;
@@ -85,6 +85,15 @@
             color: #fff !important;
             background: #333;
             border-color: #333;
+        }
+
+        &.can-be-placed {
+            cursor: move;
+            background: green;
+        }
+        &.cannot-be-placed {
+            cursor: move;
+            background: red;
         }
         &.clickable-item {
             cursor: move;

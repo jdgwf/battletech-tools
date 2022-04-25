@@ -20,7 +20,13 @@ export default class UnallocatedEquipmentList extends React.Component<IUnallocat
                     <li
                         key={critIndex}
                         className={"cursor-pointer critical-height-" + crit.crits + selectedClass}
-                        onClick={() => this.props.selectItemClick( critIndex, "un", crit)}
+                        onClick={() => this.props.selectItemClick(
+                            critIndex,
+                            "un",
+                            crit,
+                            crit.crits,
+                            crit.name,
+                        )}
                         title={crit.uuid}
                     >
                         <div className="pull-right">({crit.crits})</div>
@@ -43,10 +49,13 @@ interface IUnallocatedEquipmentListProps {
     appGlobals: IAppGlobals;
     currentSelectedIndex: number;
     currentSelectedLocation: string;
+
     selectItemClick(
         selectedIndex: number,
         selectedLocation: string,
-        selectedItem: ICriticalSlot | null
+        selectedItem: ICriticalSlot | null,
+        selectedItemSize: number,
+        selectedItemName: string,
     ): void;
 }
 

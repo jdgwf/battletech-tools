@@ -22,6 +22,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
             selectionMessageType: "info",
             selectionMessage: "Select an item to allocate",
             selectedItemIndex: -1,
+            selectedItemSize: -1,
             selectedItemLocation: "",
             selectedItem: null,
             equipmentCanSplit: false,
@@ -29,6 +30,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
             isSplitting: false,
             onSecondClick: false,
             split_criticals: [],
+            selectedItemName: "",
         }
 
         this.props.appGlobals.makeDocumentTitle("Step 6 | 'Mech Creator");
@@ -77,6 +79,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
 
       this.setState({
         splitItemCount: +e.currentTarget.value,
+        selectedItemSize: +e.currentTarget.value,
       })
     }
 
@@ -113,13 +116,21 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
     selectItemClick = (
       selectedIndex: number,
       selectedLocation: string,
-      selectedItem: ICriticalSlot | null
+      selectedItem: ICriticalSlot | null,
+      selectedItemSize: number,
+      selectedItemName: string,
     ): void => {
 
 
+      if( selectedItem ) {
+        selectedItemSize = selectedItem.crits;
+        selectedItemName = selectedItem.name;
+      }
       // console.log("selectItemClick selectedIndex", selectedIndex);
       // console.log("selectItemClick selectedLocation", selectedLocation);
       // console.log("selectItemClick selectedItem.obj.space", selectedItem ? selectedItem.obj.space : null);
+      // console.log("selectItemClick selectedItemSize", selectedItemSize);
+      // console.log("selectItemClick selectedItemName", selectedItemName);
       let selectionMessageType = "info";
       let selectionMessage = "Select an item to allocate";
       this.setState({
@@ -133,6 +144,8 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
         // && !this.state.isSplitting
       ) {
 
+
+
         selectionMessage = "Select a location to place your " + selectedItem.name;
         selectionMessageType = "warning";
         // console.log("selectedItem.obj", selectedLocation, selectedItem.obj)
@@ -142,6 +155,8 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
             selectionMessage: selectionMessage,
             selectionMessageType: selectionMessageType,
             selectedItemIndex: selectedIndex,
+            selectedItemName: selectedItemName,
+            selectedItemSize: selectedItemSize,
             selectedItemLocation: selectedLocation,
             selectedItem: selectedItem,
             split_criticals: [],
@@ -152,6 +167,10 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
 
 
           if( this.state.isSplitting && this.state.selectedItem ) {
+            let selectedItemSize = 1;
+            if( selectedItem && selectedItem.size ) {
+              selectedItemSize = selectedItem.size
+            }
             // console.log("isSplitting")
             let split_criticals = this.state.split_criticals;
             if( this.state.onSecondClick && this.props.appGlobals.currentBattleMech ) {
@@ -170,6 +189,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                 // this.state.selectedItem.rear,
                 this.state.selectedItemLocation,
                 this.state.selectedItemIndex,
+
                 selectedLocation,
                 selectedIndex,
                 // this.state.splitItemCount > 0 ? -1 : this.state.splitItemCount,
@@ -183,6 +203,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                 // save the mech
                 this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
                 selectionMessageType = "success";
+                selectedItemName = "";
                 if( this.state.selectedItem ) {
                   selectionMessage = this.state.selectedItem.name + " was successfully placed!";
                 } else {
@@ -198,9 +219,11 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
               } else {
                 if( this.state.selectedItem ) {
                   selectionMessage = "Cannot place that "  + this.state.selectedItem.name + " there.";
+                  selectedItemName = "";
                   selectionMessageType = "danger";
                 } else {
                   selectionMessage = "Cannot place that item there";
+                  selectedItemName = "";
                   selectionMessageType = "danger";
                 }
               }
@@ -208,11 +231,15 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
 
             selectedIndex = -1;
             selectedLocation = "";
+            selectedItemName = "";
+
 
               this.setState({
                 selectionMessage: selectionMessage,
                 selectionMessageType: selectionMessageType,
                 selectedItemIndex: selectedIndex,
+                selectedItemSize: selectedItemSize,
+                selectedItemName: selectedItemName,
                 selectedItemLocation: selectedLocation,
                 selectedItem: selectedItem,
                 isSplitting: false,
@@ -230,7 +257,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                   size : this.state.splitItemCount,
                   index: selectedIndex,
                 });
-                let selectionMessage = "Select the location to place your the second part of " + this.state.selectedItem?.name + " ( " + (this.state.selectedItem.crits - this.state.splitItemCount) + " slots)";
+                let selectionMessage = "Select the location to place the second part of your" + this.state.selectedItem?.name + " ( " + (this.state.selectedItem.crits - this.state.splitItemCount) + " slots)";
                 let selectionMessageType = "warning";
 
                 // console.log("firstClick split_criticals", split_criticals)
@@ -238,6 +265,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                 this.setState({
                   split_criticals: split_criticals,
                   selectionMessage: selectionMessage,
+                  selectedItemSize: this.state.selectedItem.crits - this.state.splitItemCount,
                   selectionMessageType: selectionMessageType,
                   onSecondClick: true,
                 })
@@ -247,7 +275,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
           } else {
             // console.log("moving?")
             // try to move item to slot
-            if( this.state.selectedItem && this.props.appGlobals.currentBattleMech) {
+            if( this.state.selectedItemLocation && this.state.selectedItemIndex > -1 && this.props.appGlobals.currentBattleMech) {
               let wasMoved = this.props.appGlobals.currentBattleMech.moveCritical(
                 // this.state.selectedItem.tag,
                 // this.state.selectedItem.rear,
@@ -260,10 +288,12 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
 
               if( wasMoved ) {
                 // save the mech
+                selectedItemName = "";
                 this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
                 selectionMessageType = "success";
                 if( this.state.selectedItem ) {
                   selectionMessage = this.state.selectedItem.name + " was successfully placed!";
+
                 } else {
                   selectionMessage = "Item was successfully placed!";
                 }
@@ -278,21 +308,39 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                 if( this.state.selectedItem ) {
                   selectionMessage = "Cannot place that "  + this.state.selectedItem.name + " there.";
                   selectionMessageType = "danger";
+                  selectedItemName = "";
                 } else {
                   selectionMessage = "Cannot place that item there";
+                  selectedItemName = "";
                   selectionMessageType = "danger";
                 }
               }
+
+              selectedIndex = -1;
+              selectedLocation = "";
+            } else {
+              this.setState({
+                selectedItemLocation: selectedLocation,
+                selectedItemIndex: selectedIndex,
+                selectedItemName: selectedItemName,
+                selectionMessage: "Select the location to move your " + selectedItem?.name,
+                selectionMessageType: "warning",
+                selectedItem: selectedItem,
+                selectedItemSize: selectedItem ? selectedItem.crits : 1,
+                isSplitting: false,
+              })
+              return;
             }
 
-            selectedIndex = -1;
-            selectedLocation = "";
+
           }
         }
         this.setState({
           selectionMessage: selectionMessage,
           selectionMessageType: selectionMessageType,
           selectedItemIndex: selectedIndex,
+          selectedItemName: selectedItemName,
+          selectedItemSize: selectedItem ? selectedItem.crits : 1,
           selectedItemLocation: selectedLocation,
           selectedItem: selectedItem,
           isSplitting: false,
@@ -424,20 +472,26 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                     )}
                                     <CriticalAllocationSection
                                       appGlobals={this.props.appGlobals}
+                                      mech={this.props.appGlobals.currentBattleMech}
                                       crits={this.props.appGlobals.currentBattleMech.criticals.leftArm}
                                       sectionAbbr="la"
                                       selectItemClick={this.selectItemClick}
                                       currentSelectedIndex={this.state.selectedItemIndex}
                                       currentSelectedLocation={this.state.selectedItemLocation}
+                                      currentSelectedItemSize={this.state.selectedItemSize}
+                                      currentSelectedItemName={this.state.selectedItemName}
                                     />
                                     <h4 className="text-center">Left Torso</h4>
                                     <CriticalAllocationSection
                                       appGlobals={this.props.appGlobals}
+                                      mech={this.props.appGlobals.currentBattleMech}
                                       crits={this.props.appGlobals.currentBattleMech.criticals.leftTorso}
                                       sectionAbbr="lt"
                                       selectItemClick={this.selectItemClick}
                                       currentSelectedIndex={this.state.selectedItemIndex}
                                       currentSelectedLocation={this.state.selectedItemLocation}
+                                      currentSelectedItemSize={this.state.selectedItemSize}
+                                      currentSelectedItemName={this.state.selectedItemName}
                                     />
                                     {this.props.appGlobals.currentBattleMech.getType().tag === "quad" ? (
                                       <h4 className="text-center">Left Rear Leg</h4>
@@ -449,20 +503,26 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                       appGlobals={this.props.appGlobals}
                                       crits={this.props.appGlobals.currentBattleMech.criticals.leftLeg}
                                       sectionAbbr="ll"
+                                      mech={this.props.appGlobals.currentBattleMech}
                                       selectItemClick={this.selectItemClick}
                                       currentSelectedIndex={this.state.selectedItemIndex}
                                       currentSelectedLocation={this.state.selectedItemLocation}
+                                      currentSelectedItemSize={this.state.selectedItemSize}
+                                      currentSelectedItemName={this.state.selectedItemName}
                                     />
                                   </div>
                                   <div className="col-4">
                                     <h4 className="text-center">Head</h4>
                                     <CriticalAllocationSection
                                       appGlobals={this.props.appGlobals}
+                                      mech={this.props.appGlobals.currentBattleMech}
                                       crits={this.props.appGlobals.currentBattleMech.criticals.head}
                                       sectionAbbr="hd"
                                       selectItemClick={this.selectItemClick}
                                       currentSelectedIndex={this.state.selectedItemIndex}
                                       currentSelectedLocation={this.state.selectedItemLocation}
+                                      currentSelectedItemSize={this.state.selectedItemSize}
+                                      currentSelectedItemName={this.state.selectedItemName}
                                     />
 
                                     <h4 className="text-center">Center Torso</h4>
@@ -470,9 +530,12 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                       appGlobals={this.props.appGlobals}
                                       crits={this.props.appGlobals.currentBattleMech.criticals.centerTorso}
                                       sectionAbbr="ct"
+                                      mech={this.props.appGlobals.currentBattleMech}
                                       selectItemClick={this.selectItemClick}
                                       currentSelectedIndex={this.state.selectedItemIndex}
                                       currentSelectedLocation={this.state.selectedItemLocation}
+                                      currentSelectedItemSize={this.state.selectedItemSize}
+                                      currentSelectedItemName={this.state.selectedItemName}
                                     />
                                   </div>
                                   <div className="col-4">
@@ -501,18 +564,24 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                       appGlobals={this.props.appGlobals}
                                       crits={this.props.appGlobals.currentBattleMech.criticals.rightArm}
                                       sectionAbbr="ra"
+                                      mech={this.props.appGlobals.currentBattleMech}
                                       selectItemClick={this.selectItemClick}
                                       currentSelectedIndex={this.state.selectedItemIndex}
                                       currentSelectedLocation={this.state.selectedItemLocation}
+                                      currentSelectedItemSize={this.state.selectedItemSize}
+                                      currentSelectedItemName={this.state.selectedItemName}
                                     />
                                     <h4 className="text-center">Right Torso</h4>
                                     <CriticalAllocationSection
                                       appGlobals={this.props.appGlobals}
                                       crits={this.props.appGlobals.currentBattleMech.criticals.rightTorso}
                                       sectionAbbr="rt"
+                                      mech={this.props.appGlobals.currentBattleMech}
                                       selectItemClick={this.selectItemClick}
                                       currentSelectedIndex={this.state.selectedItemIndex}
                                       currentSelectedLocation={this.state.selectedItemLocation}
+                                      currentSelectedItemSize={this.state.selectedItemSize}
+                                      currentSelectedItemName={this.state.selectedItemName}
                                     />
                                     {this.props.appGlobals.currentBattleMech.getType().tag === "quad" ? (
                                       <h4 className="text-center">Right Rear Leg</h4>
@@ -524,9 +593,12 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                       appGlobals={this.props.appGlobals}
                                       crits={this.props.appGlobals.currentBattleMech.criticals.rightLeg}
                                       sectionAbbr="rl"
+                                      mech={this.props.appGlobals.currentBattleMech}
                                       selectItemClick={this.selectItemClick}
                                       currentSelectedIndex={this.state.selectedItemIndex}
                                       currentSelectedLocation={this.state.selectedItemLocation}
+                                      currentSelectedItemSize={this.state.selectedItemSize}
+                                      currentSelectedItemName={this.state.selectedItemName}
                                     />
                                   </div>
                                 </div>
@@ -565,6 +637,7 @@ interface IHomeState {
     selectionMessage: string;
     selectedItemLocation: string;
     selectedItemIndex: number;
+    selectedItemSize: number;
     selectionMessageType: string,
     selectedItem: ICriticalSlot | null;
     equipmentCanSplit: boolean;
@@ -572,4 +645,5 @@ interface IHomeState {
     isSplitting: boolean;
     onSecondClick: boolean;
     split_criticals: ISplitLocation[];
+    selectedItemName: string;
 }
