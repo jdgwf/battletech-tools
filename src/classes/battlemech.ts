@@ -486,6 +486,8 @@ export class BattleMech {
 
         this.setInternalStructureType( "standard" );
 
+        this._criticalAllocationTable = [];
+
         this._calc();
 
     }
@@ -3997,6 +3999,23 @@ export class BattleMech {
 
     }
 
+    private _sortCriticalAllocationTableByUUID() {
+        this._criticalAllocationTable.sort(
+            (
+                a: ICriticalSlot,
+                b: ICriticalSlot,
+            ) => {
+                if( a.uuid > b.uuid ) {
+                    return -1;
+                } else if( a.uuid < b.uuid ) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        )
+    }
+
     private _calcCriticals() {
         // WORK IN PROGRESS (Not so much? - JDG Apr 2 2022)
         this._criticals.head = Array(6);
@@ -4280,7 +4299,7 @@ export class BattleMech {
                 isRear = true;
             }
 
-            // if( this._equipmentList[elc].allocationIndex === -1 || this._equipmentList[elc].allocationLocation === '' ) {
+
             this._unallocatedCriticals.push({
                 //@ts-ignore
                 uuid: this._equipmentList[elc].uuid ? this._equipmentList[elc].uuid : "undefined?",
@@ -4293,43 +4312,6 @@ export class BattleMech {
                 movable: true,
 
             });
-            // } else {
-            //     // clear UUID from allocation table
-
-            //     if(
-            //         this._equipmentList[elc]
-            //         &&
-            //         this._equipmentList[elc].split_location
-            //         &&
-            //         //@ts-ignore - Typescript undefined checking is getting WORSE
-            //         this._equipmentList[elc].split_location.length > 0
-            //     ) {
-            //         //@ts-ignore - Typescript undefined checking is getting WORSE
-            //         for( let split of this._equipmentList[elc].split_location ) {
-            //             this._createEquipmentAllocation(
-            //                 this._equipmentList[elc],
-            //                 split.loc,
-            //                 split.index,
-            //                 split.size,
-            //             )
-            //         }
-            //     } else {
-            //         this._createEquipmentAllocation(
-            //             this._equipmentList[elc],
-            //             //@ts-ignore - Typescript undefined checking is getting WORSE
-            //             this._equipmentList[elc].allocationLocation ? this._equipmentList[elc].allocationLocation : "",
-            //             this._equipmentList[elc].allocationIndex,
-            //             this._equipmentList[elc].criticals,
-            //         )
-            //     }
-
-            //     for( let slotIndex = this._unallocatedCriticals.length - 1; slotIndex > -1; slotIndex-- ) {
-            //         if( this._unallocatedCriticals[slotIndex] && this._unallocatedCriticals[slotIndex].uuid === this._equipmentList[elc].uuid ) {
-            //             this._unallocatedCriticals.splice(+slotIndex, 1);
-            //         }
-            //     }
-
-            // }
 
 
         }
@@ -4358,6 +4340,7 @@ export class BattleMech {
         // console.log( "_calc this._criticalAllocationTable", this._criticalAllocationTable);
 
         let criticalTally: Record<string, number> = {};
+        this._sortCriticalAllocationTableByUUID();
         for( let item of this._criticalAllocationTable) {
             let removeFromUnallocated = false;
             // console.log( "criticalAllocationTable item", this.getName(), item.tag, item.loc, item.crits, item.size, item.uuid );
@@ -4373,7 +4356,7 @@ export class BattleMech {
             if( criticalTally[ item.uuid ] >= item.crits )
                 removeFromUnallocated = true;
 
-            // console.log("X", this.getName(), item.tag, item.loc, item.crits, item.size);
+            // console.log("X", this.getName(), item.uuid, item.tag, item.loc, item.crits, item.size);
             this._allocateCritical(
                 item.tag,
                 item.rear,
@@ -4381,173 +4364,22 @@ export class BattleMech {
                 item.slot,
                 removeFromUnallocated,
                 item.size,
+                item.uuid,
             )
         }
 
         // remove location tag for remaining unallocated
-        for( let item of this._unallocatedCriticals) {
-            if( item.obj) {
-                item.obj.location = "";
-                item.obj.allocationLocation = "";
-                item.obj.allocationIndex = -1;
-            }
-        }
+        // for( let item of this._unallocatedCriticals) {
+        //     if( item.obj) {
+        //         item.obj.location = "";
+        //         item.obj.allocationLocation = "";
+        //         item.obj.allocationIndex = -1;
+        //     }
+        // }
 
-        console.log( "this._criticals", this.getName(), this._criticals )
+        // console.log( "this._criticals", this.getName(), this._criticals )
     }
-    // private _hasEnoughSlotsAvailable(
-    //     location: ICriticalSlot[],
-    //     index: number,
-    //     count: number,
-    // ): boolean {
 
-    //     for( let slot_index = index; slot_index < count + index;  slot_index++ ) {
-    //         if( location[slot_index] ) {
-    //             return false;
-    //         }
-    //     }
-
-    //     return true;
-    // }
-
-    // private _createSlot(
-    //     location: ICriticalSlot[],
-    //     locString: string,
-    //     item: IEquipmentItem,
-    //     index: number,
-    //     count: number,
-    // ): boolean {
-
-    //     console.log("item _createSlot", this.getName(), item)
-    //     for( let slot_index = index; slot_index < count + index;  slot_index++ ) {
-    //         if( slot_index === index ) {
-
-    //             location[slot_index] = {
-    //                 uuid: item.uuid ? item.uuid : "",
-    //                 name: item.name,
-    //                 tag: item.tag,
-    //                 rear: item.rear ? true : false,
-    //                 crits: item.space.battlemech ? item.space.battlemech : -1,
-    //                 obj: item,
-    //                 movable: true,
-    //                 placeholder: false,
-
-    //                 size: count,
-
-    //                 loc: locString,
-    //                 slot: index,
-    //             }
-    //         } else {
-    //             location[slot_index] = {
-    //                 uuid: item.uuid ? item.uuid : "",
-    //                 name: item.name,
-    //                 tag: item.tag,
-    //                 rear: item.rear ? true : false,
-    //                 crits: item.space.battlemech ? item.space.battlemech : -1,
-    //                 obj: item,
-    //                 movable: true,
-    //                 placeholder: true,
-
-    //                 size: count,
-
-    //                 loc: locString,
-    //                 slot: index,
-    //             }
-    //         }
-    //     }
-
-    //     return true;
-    // }
-
-    // private _createEquipmentAllocation(
-    //     item: IEquipmentItem,
-    //     location: string,
-    //     index: number,
-    //     slot_size: number,
-    // ): boolean {
-    //     if( this._criticals ) {
-    //         if( location === "hd" ) {
-    //             if( this._hasEnoughSlotsAvailable( this.criticals.head, index, slot_size ) ) {
-    //                 console.log("this._hasEnoughSlotsAvailable head")
-    //             }
-    //             return false;
-
-    //         } else if( location === "ct" ) {
-    //             if( this._hasEnoughSlotsAvailable( this.criticals.centerTorso, index, slot_size ) ) {
-    //                 console.log("this._hasEnoughSlotsAvailable ct")
-    //                 this._createSlot(
-    //                     this.criticals.centerTorso,
-    //                     location,
-    //                     item,
-    //                     index,
-    //                     slot_size,
-    //                 )
-    //             }
-    //             return false;
-
-    //         } else if( location === "rt" ) {
-    //             if( this._hasEnoughSlotsAvailable( this.criticals.rightTorso, index, slot_size ) ) {
-    //                 console.log("this._hasEnoughSlotsAvailable rt")
-    //                 this._createSlot(
-    //                     this.criticals.rightTorso,
-    //                     location,
-    //                     item,
-    //                     index,
-    //                     slot_size,
-    //                 )
-    //             }
-    //             return false;
-
-    //         } else if( location === "lt" ) {
-    //             if( this._hasEnoughSlotsAvailable( this.criticals.leftTorso, index, slot_size ) ) {
-    //                 console.log("this._hasEnoughSlotsAvailable lt")
-    //             }
-    //             return false;
-
-    //         } else if( location === "ra" ) {
-    //             if( this._hasEnoughSlotsAvailable( this.criticals.rightArm, index, slot_size ) ) {
-    //                 console.log("this._hasEnoughSlotsAvailable ra")
-    //                 this._createSlot(
-    //                     this.criticals.rightArm,
-    //                     location,
-    //                     item,
-    //                     index,
-    //                     slot_size,
-    //                 )
-    //             }
-    //             return false;
-
-    //         } else if( location === "la" ) {
-    //             if( this._hasEnoughSlotsAvailable( this.criticals.leftArm, index, slot_size ) ) {
-    //                 console.log("this._hasEnoughSlotsAvailable la")
-    //                 this._createSlot(
-    //                     this.criticals.leftArm,
-    //                     location,
-    //                     item,
-    //                     index,
-    //                     slot_size,
-    //                 )
-    //             }
-    //             return false;
-
-    //         } else if( location === "rl" ) {
-    //             if( this._hasEnoughSlotsAvailable( this.criticals.rightLeg, index, slot_size ) ) {
-    //                 console.log("this._hasEnoughSlotsAvailable rl")
-    //             }
-    //             return false;
-
-    //         } else if( location === "ll" ) {
-    //             if( this._hasEnoughSlotsAvailable( this.criticals.leftLeg, index, slot_size ) ) {
-    //                 console.log("this._hasEnoughSlotsAvailable ll")
-    //             }
-    //             return false;
-
-    //         }
-    //     }
-
-
-    //     return false;
-    // }
     public hasHandActuator(
         location: string,
     ) {
@@ -4771,7 +4603,7 @@ export class BattleMech {
     ) {
 
         newItem = JSON.parse(JSON.stringify(newItem));
-        console.log("_assignItemToArea", this.getName(), newItem, criticalCount, slotNumber);
+        // console.log("_assignItemToArea", this.getName(), newItem, criticalCount, slotNumber);
         let placeholder: ICriticalSlot = {
             uuid: newItem.uuid,
             name: "placeholder",
@@ -5038,7 +4870,7 @@ export class BattleMech {
 
     public setArmorCount( armorCount: number ) {
 
-        console.log("setArmorCount", armorCount)
+        // console.log("setArmorCount", armorCount)
         this._totalArmor = armorCount; // ;
         this._armorWeight = armorCount / 16
 
@@ -5049,16 +4881,16 @@ export class BattleMech {
         // break;
         // }
         if( this.getTech().tag === "clan" ) {
-            console.log("AW clan: ", this._totalArmor, this.getArmorObj().armorMultiplier.is, this._totalArmor / this.getArmorObj().armorMultiplier.clan, this.getArmorObj().name )
+            // console.log("AW clan: ", this._totalArmor, this.getArmorObj().armorMultiplier.is, this._totalArmor / this.getArmorObj().armorMultiplier.clan, this.getArmorObj().name )
             this._armorWeight = this._totalArmor / this.getArmorObj().armorMultiplier.clan;
         } else {
-            console.log("AW is: ", this._totalArmor, this.getArmorObj().armorMultiplier.is, this._totalArmor / this.getArmorObj().armorMultiplier.is, this.getArmorObj().name )
+            // console.log("AW is: ", this._totalArmor, this.getArmorObj().armorMultiplier.is, this._totalArmor / this.getArmorObj().armorMultiplier.is, this.getArmorObj().name )
             this._armorWeight = this._totalArmor / this.getArmorObj().armorMultiplier.is;
 
         }
         if( this._armorWeight % .5 !== 0  ) {
             // and odd weight, likely wasted armor
-            console.log("AW is an odd weight, likely wasted armor: ", this._armorWeight, this._totalArmor )
+            // console.log("AW is an odd weight, likely wasted armor: ", this._armorWeight, this._totalArmor )
             this._armorWeight = Math.ceil(this._armorWeight*2)/2;
             if( this.getTech().tag === "clan" ) {
                 // this._totalArmor = this._armorWeight * this.getArmorObj().armorMultiplier.clan;
@@ -5066,7 +4898,7 @@ export class BattleMech {
             } else {
                 this._maxArmor = this._armorWeight * this.getArmorObj().armorMultiplier.is;
             }
-            console.log("Asjusted weight/max armor/current armor: ", this._armorWeight, this._maxArmor, this._totalArmor )
+            // console.log("Asjusted weight/max armor/current armor: ", this._armorWeight, this._maxArmor, this._totalArmor )
         }
 
     }
@@ -5610,8 +5442,8 @@ export class BattleMech {
         if( this._smallCockpit)
             exportObject.features.push( "sm_cockpit" );
 
-        console.log("exportObject", this.getName(), exportObject);
-        return exportObject;
+
+            return exportObject;
     }
 
     public getInteralStructure() {
@@ -5909,7 +5741,19 @@ export class BattleMech {
 
             if( importObject.allocation) {
 
-                console.log( "importObject.allocation", this.getName(), importObject.allocation);
+                importObject.allocation.sort(
+                    (a, b) => {
+                        if( a.uuid > b.uuid ) {
+                            return -1;
+                        } else if( a.uuid < b.uuid ) {
+                            return 1;
+                        } else {
+                            return 0
+                        }
+                    }
+                )
+
+                // console.log( "importObject.allocation", this.getName(), importObject.allocation);
                 this._criticalAllocationTable = importObject.allocation;
 
                 for( let countEQ = 0; countEQ < this._criticalAllocationTable.length; countEQ++) {
@@ -6943,7 +6787,7 @@ export class BattleMech {
                 }
             }
         }
-        console.log( "updateCriticalAllocationTable this._criticalAllocationTable", this._criticalAllocationTable);
+
         // this._calc();
 
     };
@@ -6966,6 +6810,7 @@ export class BattleMech {
         toIndex: number,
         split_location: ISplitLocation[] = [],
     ) {
+
 
         if( fromLocation === "rrl" ) {
             fromLocation = "rl"
@@ -7347,8 +7192,6 @@ export class BattleMech {
             toSize = fromItem.crits
         }
 
-        // console.log( "_moveItemToArea toSize", this.getName(), toLocTag, fromItem.tag, toSize, removeFrom)
-
         // Step One check to see if TO has enough slots for item....
         let placeholder: ICriticalSlot = {
             uuid: fromItem.uuid,
@@ -7480,9 +7323,8 @@ export class BattleMech {
         slotNumber: number| undefined,
         removeFromUnallocated: boolean,
         critSize: number = -1,
+        equipmentUUID: string,
     ): boolean {
-
-
 
         if( mechLocation && typeof(slotNumber) !== "undefined" ) {
             for( let uaet_c = 0; uaet_c < this._unallocatedCriticals.length; uaet_c++) {
@@ -7567,7 +7409,7 @@ export class BattleMech {
                     }
 
                     if( removeFromUnallocated) {
-                        this._unallocatedCriticals.splice(uaet_c, 1);
+                         this._unallocatedCriticals.splice(uaet_c, 1);
                     }
 
                     return rv;
@@ -9145,8 +8987,6 @@ export class BattleMech {
         item: any
     ) {
 
-        console.log("_installSSWEquipment item",item)
-
         let listTag = "is";
         let itemName = "";
         let location = "";
@@ -9216,6 +9056,9 @@ export class BattleMech {
                 console.warn( "Cannot find any equipment named: '" + itemName + "'" );
                 this._sswImportErrors.push( "Cannot find any equipment named: '" + itemName + "'" )
             } else {
+
+
+
                 if( halfTon ) {
                     newItem.weight = .5;
                 }
@@ -9225,6 +9068,7 @@ export class BattleMech {
                 newItem.location = "un";
                 newItem.rear = rear;
                 newItem.split_location = [];
+
 
                 if( item.splitlocation ) {
                     for( let split of item.splitlocation ) {
@@ -9249,6 +9093,8 @@ export class BattleMech {
 
         // console.log( result );
         this._sswImportErrors = [];
+
+
 
         const options = {
             ignoreAttributes : false
@@ -9463,25 +9309,21 @@ export class BattleMech {
                 if( jObj.mech.baseloadout.equipment && jObj.mech.baseloadout.equipment.length > 0 ) {
 
                     for( let item of jObj.mech.baseloadout.equipment ) {
-
                         this._installSSWEquipment( item );
-
                     }
 
                     this._calcCriticals();
 
                     for( let item of this._equipmentList ) {
                         let foundIndex = -1;
-                        // for( let critItemIndex in this._unallocatedCriticals ) {
-                        //     // console.log("item", item)
-                        //     // console.log("X", this._unallocatedCriticals[critItemIndex].tag, item.tag)
-                        //     if( this._unallocatedCriticals[critItemIndex] && this._unallocatedCriticals[critItemIndex].tag === item.tag ) {
+                        for( let critItemIndex in this._unallocatedCriticals ) {
+                            if( this._unallocatedCriticals[critItemIndex] && this._unallocatedCriticals[critItemIndex].tag === item.tag ) {
 
-                        //         foundIndex = +critItemIndex;
-                        //         // console.log("Found Un", item, foundIndex, this._unallocatedCriticals[critItemIndex].name )
-                        //         break;
-                        //     }
-                        // }
+                                foundIndex = +critItemIndex;
+                                break;
+                            }
+                        }
+
                         this.moveCritical(
                             "un",
                             foundIndex,
@@ -9495,7 +9337,6 @@ export class BattleMech {
                 } else {
                     if( jObj.mech.baseloadout.equipment ) {
                         // a single weapon?!?!
-                        // console.log("jObj.mech.baseloadout.equipment", jObj.mech.baseloadout.equipment)
                         this._installSSWEquipment( jObj.mech.baseloadout.equipment );
 
 
@@ -9509,6 +9350,7 @@ export class BattleMech {
                                     break;
                                 }
                             }
+
                             this.moveCritical(
                                 "un",
                                 foundIndex,
@@ -9516,6 +9358,7 @@ export class BattleMech {
                                 item.allocationIndex ? item.allocationIndex : -1,
                                 item.split_location,
                             );
+
                             item.location = item.allocationLocation;
                         }
                     }
@@ -9547,6 +9390,7 @@ export class BattleMech {
 
 
                                 if( foundIndex > -1 ) {
+
                                     this.moveCritical(
                                         "un",
                                         foundIndex,
