@@ -4017,6 +4017,8 @@ export class BattleMech {
     }
 
     private _calcCriticals() {
+
+        this._calcVariableEquipment();
         // WORK IN PROGRESS (Not so much? - JDG Apr 2 2022)
         this._criticals.head = Array(6);
 
@@ -5990,6 +5992,14 @@ export class BattleMech {
                 equipmentItem.rear = rear;
                 equipmentItem.uuid = uuid;
                 equipmentItem.split_location = split_location;
+
+                if( equipmentItem.criticalsDivisor && equipmentItem.criticalsDivisor > -1 ) {
+                    equipmentItem.criticals = this.getTonnage() / equipmentItem.criticalsDivisor;
+                }
+
+                if(  equipmentItem.weightDivisor && equipmentItem.weightDivisor  > -1) {
+                    equipmentItem.weight = this.getTonnage() / equipmentItem.weightDivisor;
+                }
 
                 this._equipmentList.push(equipmentItem);
                 this._sortInstalledEquipment();
@@ -9324,6 +9334,7 @@ export class BattleMech {
                             }
                         }
 
+                        // console.log("item", item.name, item.tag, foundIndex, this._unallocatedCriticals)
                         this.moveCritical(
                             "un",
                             foundIndex,
