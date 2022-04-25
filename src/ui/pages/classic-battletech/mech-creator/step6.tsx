@@ -2,10 +2,13 @@ import React from 'react';
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { ICriticalSlot } from '../../../../classes/battlemech';
+import { ISplitLocation } from '../../../../data/data-interfaces';
 import { IAppGlobals } from '../../../app-router';
 import CriticalAllocationSection from '../../../components/critical-allocation-section';
+import InputNumeric from '../../../components/form_elements/input_numeric';
 import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
 import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
+import StandardModal from '../../../components/standard-modal';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import UnallocatedEquipmentList from '../../../components/unallocated-equipment-list';
@@ -16,14 +19,65 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
         super(props);
         this.state = {
             updated: false,
-            selectedMessageType: "info",
+            selectionMessageType: "info",
             selectionMessage: "Select an item to allocate",
             selectedItemIndex: -1,
             selectedItemLocation: "",
             selectedItem: null,
+            equipmentCanSplit: false,
+            splitItemCount: -1,
+            isSplitting: false,
+            onSecondClick: false,
+            split_criticals: [],
         }
 
         this.props.appGlobals.makeDocumentTitle("Step 6 | 'Mech Creator");
+    }
+
+    openSplitDialog = (
+      e: React.FormEvent<HTMLButtonElement>
+    ) => {
+      if( e && e.preventDefault ) e.preventDefault();
+
+      this.setState({
+        splitItemCount: 1,
+      })
+    }
+
+    closeSplitDialog = (
+      e: React.FormEvent<HTMLButtonElement>
+    ) => {
+      if( e && e.preventDefault ) e.preventDefault();
+
+      this.setState({
+        splitItemCount: -1,
+        isSplitting: false,
+      })
+    }
+
+    saveSplitDialog = (
+      e: React.FormEvent<HTMLButtonElement>
+    ) => {
+      if( e && e.preventDefault ) e.preventDefault();
+
+      let selectionMessage = "Select a location to place your the first part of " + this.state.selectedItem?.name + " ( " + this.state.splitItemCount + " slots)";
+      let selectionMessageType = "warning";
+
+      this.setState({
+        isSplitting: true,
+        selectionMessage: selectionMessage,
+        selectionMessageType: selectionMessageType,
+      })
+    }
+
+    updateSplitItemCount = (
+      e: React.FormEvent<HTMLInputElement>
+    ) => {
+      if( e && e.preventDefault ) e.preventDefault();
+
+      this.setState({
+        splitItemCount: +e.currentTarget.value,
+      })
     }
 
     toggleLowerArmActuator = ( loc: string ): void => {
@@ -61,61 +115,189 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
       selectedLocation: string,
       selectedItem: ICriticalSlot | null
     ): void => {
-      let selectedMessageType = "info";
-      let selectedMessage = "Select an item to allocate";
-      if( selectedItem ) {
-        selectedMessage = "Select a location to place your " + selectedItem.name;
-        selectedMessageType = "warning";
+
+
+      // console.log("selectItemClick selectedIndex", selectedIndex);
+      // console.log("selectItemClick selectedLocation", selectedLocation);
+      // console.log("selectItemClick selectedItem.obj.space", selectedItem ? selectedItem.obj.space : null);
+      let selectionMessageType = "info";
+      let selectionMessage = "Select an item to allocate";
+      this.setState({
+        equipmentCanSplit: false,
+      })
+      if(
+        selectedItem
+        // && selectedItem.obj
+        // && selectedItem.obj.space
+        && selectedLocation === "un"
+        // && !this.state.isSplitting
+      ) {
+
+        selectionMessage = "Select a location to place your " + selectedItem.name;
+        selectionMessageType = "warning";
+        // console.log("selectedItem.obj", selectedLocation, selectedItem.obj)
+        // if( selectedItem.obj.space && selectedItem.obj.space.battlemech >= 8 && selectedLocation === "un") {
+          this.setState({
+            equipmentCanSplit: true,
+            selectionMessage: selectionMessage,
+            selectionMessageType: selectionMessageType,
+            selectedItemIndex: selectedIndex,
+            selectedItemLocation: selectedLocation,
+            selectedItem: selectedItem,
+            split_criticals: [],
+          })
+          return;
+        // }
       } else {
 
-        // try to move item to slot
-        if( this.state.selectedItem && this.props.appGlobals.currentBattleMech) {
-          let wasMoved = this.props.appGlobals.currentBattleMech.moveCritical(
-            // this.state.selectedItem.tag,
-            // this.state.selectedItem.rear,
-            this.state.selectedItemLocation,
-            this.state.selectedItemIndex,
-            selectedLocation,
-            selectedIndex,
-          );
 
-          if( wasMoved ) {
-            // save the mech
-            this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
-            selectedMessageType = "success";
-            if( this.state.selectedItem ) {
-              selectedMessage = this.state.selectedItem.name + " was successfully placed!";
-            } else {
-              selectedMessage = "Item was successfully placed!";
-            }
-            setTimeout( () => {
+          if( this.state.isSplitting && this.state.selectedItem ) {
+            // console.log("isSplitting")
+            let split_criticals = this.state.split_criticals;
+            if( this.state.onSecondClick && this.props.appGlobals.currentBattleMech ) {
+              // console.log("onSecondClick")
+
+              split_criticals.push({
+                loc: selectedLocation,
+                size : this.state.selectedItem.crits - this.state.splitItemCount,
+                index: selectedIndex,
+              });
+
+              // console.log("split_criticals", split_criticals)
+
+              let wasMoved = this.props.appGlobals.currentBattleMech.moveCritical(
+                // this.state.selectedItem.tag,
+                // this.state.selectedItem.rear,
+                this.state.selectedItemLocation,
+                this.state.selectedItemIndex,
+                selectedLocation,
+                selectedIndex,
+                // this.state.splitItemCount > 0 ? -1 : this.state.splitItemCount,
+                split_criticals
+              );
+
+
+
+
+              if( wasMoved ) {
+                // save the mech
+                this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+                selectionMessageType = "success";
+                if( this.state.selectedItem ) {
+                  selectionMessage = this.state.selectedItem.name + " was successfully placed!";
+                } else {
+                  selectionMessage = "Item was successfully placed!";
+                }
+                setTimeout( () => {
+                  this.setState({
+                    selectionMessageType: "info",
+                    selectionMessage: "Select an item to allocate",
+                  })
+                },
+                1000)
+              } else {
+                if( this.state.selectedItem ) {
+                  selectionMessage = "Cannot place that "  + this.state.selectedItem.name + " there.";
+                  selectionMessageType = "danger";
+                } else {
+                  selectionMessage = "Cannot place that item there";
+                  selectionMessageType = "danger";
+                }
+              }
+
+
+            selectedIndex = -1;
+            selectedLocation = "";
+
               this.setState({
-                selectedMessageType: "info",
-                selectionMessage: "Select an item to allocate",
+                selectionMessage: selectionMessage,
+                selectionMessageType: selectionMessageType,
+                selectedItemIndex: selectedIndex,
+                selectedItemLocation: selectedLocation,
+                selectedItem: selectedItem,
+                isSplitting: false,
+                splitItemCount: 0,
+                onSecondClick: false,
               })
-            },
-            1000)
-          } else {
-            if( this.state.selectedItem ) {
-              selectedMessage = "Cannot place that "  + this.state.selectedItem.name + " there.";
-              selectedMessageType = "danger";
+
+
+              return;
             } else {
-              selectedMessage = "Cannot place that item there";
-              selectedMessageType = "danger";
+              // console.log("firstClick clicked")
+              if( this.state.selectedItem && this.props.appGlobals.currentBattleMech) {
+                split_criticals.push({
+                  loc: selectedLocation,
+                  size : this.state.splitItemCount,
+                  index: selectedIndex,
+                });
+                let selectionMessage = "Select the location to place your the second part of " + this.state.selectedItem?.name + " ( " + (this.state.selectedItem.crits - this.state.splitItemCount) + " slots)";
+                let selectionMessageType = "warning";
+
+                // console.log("firstClick split_criticals", split_criticals)
+
+                this.setState({
+                  split_criticals: split_criticals,
+                  selectionMessage: selectionMessage,
+                  selectionMessageType: selectionMessageType,
+                  onSecondClick: true,
+                })
+                return;
+              }
             }
+          } else {
+            // console.log("moving?")
+            // try to move item to slot
+            if( this.state.selectedItem && this.props.appGlobals.currentBattleMech) {
+              let wasMoved = this.props.appGlobals.currentBattleMech.moveCritical(
+                // this.state.selectedItem.tag,
+                // this.state.selectedItem.rear,
+                this.state.selectedItemLocation,
+                this.state.selectedItemIndex,
+                selectedLocation,
+                selectedIndex,
+                // this.state.splitItemCount > 0 ? -1 : this.state.splitItemCount,
+              );
+
+              if( wasMoved ) {
+                // save the mech
+                this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+                selectionMessageType = "success";
+                if( this.state.selectedItem ) {
+                  selectionMessage = this.state.selectedItem.name + " was successfully placed!";
+                } else {
+                  selectionMessage = "Item was successfully placed!";
+                }
+                setTimeout( () => {
+                  this.setState({
+                    selectionMessageType: "info",
+                    selectionMessage: "Select an item to allocate",
+                  })
+                },
+                1000)
+              } else {
+                if( this.state.selectedItem ) {
+                  selectionMessage = "Cannot place that "  + this.state.selectedItem.name + " there.";
+                  selectionMessageType = "danger";
+                } else {
+                  selectionMessage = "Cannot place that item there";
+                  selectionMessageType = "danger";
+                }
+              }
+            }
+
+            selectedIndex = -1;
+            selectedLocation = "";
           }
         }
+        this.setState({
+          selectionMessage: selectionMessage,
+          selectionMessageType: selectionMessageType,
+          selectedItemIndex: selectedIndex,
+          selectedItemLocation: selectedLocation,
+          selectedItem: selectedItem,
+          isSplitting: false,
+        })
 
-        selectedIndex = -1;
-        selectedLocation = "";
-      }
-      this.setState({
-        selectionMessage: selectedMessage,
-        selectedMessageType: selectedMessageType,
-        selectedItemIndex: selectedIndex,
-        selectedItemLocation: selectedLocation,
-        selectedItem: selectedItem,
-      })
     }
 
     render = (): React.ReactFragment => {
@@ -123,6 +305,23 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
         return <></>
       return (
         <>
+{this.state.splitItemCount > 0 && !this.state.isSplitting ? (
+  <StandardModal
+    show={true}
+    onClose={this.closeSplitDialog}
+    onSave={this.saveSplitDialog}
+    title={"Splitting Criticals For " + this.state.selectedItem?.name}
+  >
+    <InputNumeric
+      label="First Count of Criticals"
+      step={1}
+      min={1}
+      max={this.state.selectedItem ? this.state.selectedItem.crits - 1 : 99}
+      value={this.state.splitItemCount}
+      onChange={this.updateSplitItemCount}
+    />
+  </StandardModal>
+) : null }
           <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  />
           <UIPage current="classic-battletech-mech-creator" appGlobals={this.props.appGlobals}>
 
@@ -145,8 +344,8 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                             <p>To assign equipment to your critical allocation table, just click on an assignable item then click on an unallocated location.</p>
                           </fieldset>
                           <br />
-                          {this.state.selectedMessageType ? (
-                            <div className={"alert alert-" + this.state.selectedMessageType + " text-center"}>
+                          {this.state.selectionMessageType ? (
+                            <div className={"alert alert-" + this.state.selectionMessageType + " text-center"}>
                               {this.state.selectionMessage}
                             </div>
                           ) : (
@@ -154,6 +353,16 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                             {this.state.selectionMessage}
                           </strong></p>
                           )}
+                          {this.state.equipmentCanSplit ? (
+                            <div className="text-center">
+                              <button
+                                className="btn btn-primary"
+                                onClick={this.openSplitDialog}
+                              >
+                                Split Into Two Locations
+                              </button>
+                            </div>
+                          ) : null}
 
                           <div className="row">
                             <div className="col-lg-3">
@@ -161,6 +370,9 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                 <legend>Unallocated</legend>
                                 {this.props.appGlobals.currentBattleMech.unallocatedCriticals.length > 0 ? (
                                   <>
+                                  {/* {this.state.selectedItemIndex}<br />
+                                  {this.state.selectedItemLocation}<br /> */}
+                                  {/* {this.props.appGlobals.currentBattleMech.unallocatedCriticals.length} */}
                                     <UnallocatedEquipmentList
                                         crits={this.props.appGlobals.currentBattleMech.unallocatedCriticals}
                                         appGlobals={this.props.appGlobals}
@@ -353,6 +565,11 @@ interface IHomeState {
     selectionMessage: string;
     selectedItemLocation: string;
     selectedItemIndex: number;
-    selectedMessageType: string,
+    selectionMessageType: string,
     selectedItem: ICriticalSlot | null;
+    equipmentCanSplit: boolean;
+    splitItemCount: number;
+    isSplitting: boolean;
+    onSecondClick: boolean;
+    split_criticals: ISplitLocation[];
 }

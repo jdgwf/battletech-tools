@@ -1,5 +1,5 @@
-import { FaArrowCircleLeft, FaList, FaTh } from "react-icons/fa";
-import { FiRefreshCcw } from "react-icons/fi";
+import { FaArrowCircleLeft, FaList, FaRuler, FaTh } from "react-icons/fa";
+import { FiHexagon, FiRefreshCcw } from "react-icons/fi";
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AlphaStrikeGroup from '../../../../classes/alpha-strike-group';
@@ -7,11 +7,13 @@ import { IAppGlobals } from '../../../app-router';
 import BattleTechLogo from '../../../components/battletech-logo';
 import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
 import './in-play.scss';
+import AlphaStrikeToggleRulerHexes from "./_toggleRulerHexes";
 
 export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProps, IInPlayState> {
 
     constructor(props: IInPlayProps) {
         super(props);
+
 
         this.state = {
             updated: false,
@@ -20,7 +22,12 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
         this.props.appGlobals.makeDocumentTitle("Playing Alpha Strike");
     }
 
-    toggleCardMode = (): void => {
+
+    toggleCardMode = (
+      e: React.FormEvent<HTMLSpanElement>
+    ): void => {
+
+      if( e && e.preventDefault ) e.preventDefault();
 
       let appSettings = this.props.appGlobals.appSettings;
 
@@ -73,6 +80,13 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
 
                 )}
 
+                <li>
+                  <AlphaStrikeToggleRulerHexes
+                    appGlobals={this.props.appGlobals}
+                  />
+
+                </li>
+
                 <li className="logo">
                     <a
                         href="https://battletech.com"
@@ -83,6 +97,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
                         <BattleTechLogo />
                     </a>
                 </li>
+
             </ul>
 
           </header>
@@ -123,6 +138,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
                           inPlay={true}
                           appGlobals={this.props.appGlobals}
                           className="small-margins"
+                          measurementsInHexes={this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes}
                         />
                       </div>
                     </React.Fragment>
@@ -147,4 +163,5 @@ interface IInPlayProps {
 
 interface IInPlayState {
   updated: boolean;
+
 }

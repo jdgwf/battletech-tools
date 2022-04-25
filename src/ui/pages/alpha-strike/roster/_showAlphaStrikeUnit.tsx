@@ -89,6 +89,7 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
                     width="100%"
                     appGlobals={this.props.appGlobals}
                     asUnit={this.props.showASUnit}
+                    measurementsInHexes={this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes}
                     // inPlay={true}
                   />
 </div>

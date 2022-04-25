@@ -145,6 +145,7 @@ export class AlphaStrikeUnit {
     public ImageUrl: string = "";
 
     public currentMove: string = "";
+    public currentMoveHexes: string = "";
     public currentTMM: string = "";
 
     public armor: number = 0;
@@ -832,6 +833,7 @@ export class AlphaStrikeUnit {
 
         this.currentMove = "";
         this.currentTMM = "";
+        this.currentMoveHexes = "";
 
         this.immobile = true;
         for( let moveC = 0; moveC < this.move.length; moveC++ ) {
@@ -846,6 +848,7 @@ export class AlphaStrikeUnit {
             }
 
             this.currentMove += "" + this.move[moveC].currentMove + "\"" + this.move[moveC].type;
+            this.currentMoveHexes += "" + ( this.move[moveC].currentMove / 2) + " hexes" + this.move[moveC].type;
 
             let tmpTMM = 0;
             if( this.move[moveC].move < 5 ) {
@@ -926,6 +929,7 @@ export class AlphaStrikeUnit {
             if( moveC !== this.move.length - 1 ) {
             this.currentTMM += "/";
             this.currentMove += "/";
+            this.currentMoveHexes += "/";
             }
 
         }

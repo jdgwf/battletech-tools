@@ -182,6 +182,7 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
                               <AlphaStrikeUnitSVG
                                 appGlobals={this.props.appGlobals}
                                 asUnit={this.props.appGlobals.currentBattleMech.getAlphaStrikeForceStats()}
+                                measurementsInHexes={this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes}
                               />
                             </div>
                           </div>

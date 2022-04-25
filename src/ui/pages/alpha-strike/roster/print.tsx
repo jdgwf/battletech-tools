@@ -1,10 +1,12 @@
-import { FaArrowCircleLeft, FaPrint } from "react-icons/fa";
+import { FaArrowCircleLeft, FaPrint, FaRuler } from "react-icons/fa";
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { IAppGlobals } from '../../../app-router';
 import BattleTechLogo from '../../../components/battletech-logo';
 import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
 import './print.scss';
+import { FiHexagon } from "react-icons/fi";
+import AlphaStrikeToggleRulerHexes from "./_toggleRulerHexes";
 
 export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps, IPrintState> {
     constructor(props: IPrintProps) {
@@ -17,6 +19,7 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
         this.props.appGlobals.makeDocumentTitle("Printing Alpha Strike Force");
     }
 
+
     render = (): React.ReactFragment => {
       if(!this.props.appGlobals.currentASForce) {
         return <></>;
@@ -27,6 +30,13 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
           <ul className="main-menu">
                 <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/alpha-strike/roster`}><FaArrowCircleLeft /></Link></li>
                 <li><span title="Click here open the Print Dialog" onClick={() => window.print()} className="current" ><FaPrint /></span></li>
+                <li>
+                  <AlphaStrikeToggleRulerHexes
+                    appGlobals={this.props.appGlobals}
+                  />
+
+                </li>
+
                 <li className="logo">
                     <a
                         href="https://battletech.com"
@@ -75,6 +85,7 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
                           inPlay={false}
                           appGlobals={this.props.appGlobals}
                           className="small-margins"
+                          measurementsInHexes={this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes}
                         />
                       </div>
                     </React.Fragment>

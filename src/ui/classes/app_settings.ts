@@ -3,6 +3,7 @@ import { ESaveDataMode } from "../../dataSaves";
 
 export class AppSettings {
     developerMenu: boolean = false;
+    alphaStrikeMeasurementsInHexes: boolean = false;
     uiTheme: string = "";
     equipmentFilter: string = "";
     installEquipCategory: string = "";
@@ -26,6 +27,10 @@ export class AppSettings {
         if( io ) {
             if ( typeof( io.uiTheme ) !== "undefined" ) {
                 this.uiTheme = io.uiTheme;
+            }
+
+            if ( typeof( io.alphaStrikeMeasurementsInHexes ) !== "undefined" ) {
+                this.alphaStrikeMeasurementsInHexes = io.alphaStrikeMeasurementsInHexes;
             }
 
             if ( typeof( io.developerMenu ) !== "undefined" ) {
@@ -82,6 +87,7 @@ export class AppSettings {
             alphaStrikeSearchRules: this.alphaStrikeSearchRules,
             alphaStrikeSearchEra: this.alphaStrikeSearchEra,
             alphaStrikeSearchTech: this.alphaStrikeSearchTech,
+            alphaStrikeMeasurementsInHexes: this.alphaStrikeMeasurementsInHexes,
         }
     }
 }
@@ -98,6 +104,7 @@ export interface IAppSettingsExport {
     alphaStrikeSearchTech: string;
     alphaStrikeSearchEra: string;
     alphaStrikeInPlayCardMode: boolean;
+    alphaStrikeMeasurementsInHexes: boolean;
 
     equipmentEditorFile: string;
 }

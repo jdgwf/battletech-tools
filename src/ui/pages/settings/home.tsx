@@ -31,6 +31,12 @@ export default class SettingsHome extends React.Component<ISettingsHomeProps, IS
       this.props.appGlobals.saveAppSettings( appSettingsHome );
     }
 
+    setAlphaStrikeMeasurementsInHexes = ( event: React.FormEvent<HTMLInputElement>): void => {
+      let appSettingsHome = this.props.appGlobals.appSettings;
+      appSettingsHome.alphaStrikeMeasurementsInHexes = event.currentTarget.checked;
+      this.props.appGlobals.saveAppSettings( appSettingsHome );
+    }
+
     setStorageTarget = ( event: React.FormEvent<HTMLSelectElement>): void => {
       this.setState({
         selectedStorageTarget: +event.currentTarget.value,
@@ -59,10 +65,17 @@ export default class SettingsHome extends React.Component<ISettingsHomeProps, IS
                   </label>
 
                   <InputCheckbox
-                  label='Show Developer/Work In Progress Menu'
-                  checked={this.props.appGlobals.appSettings.developerMenu}
-                  onChange={this.setDeveloperMenu}
+                    label='Show Developer/Work In Progress Menu'
+                    checked={this.props.appGlobals.appSettings.developerMenu}
+                    onChange={this.setDeveloperMenu}
+                  />
+
+              <InputCheckbox
+                  label='Alpha Strike: Display Measurements in Hexes'
+                  checked={this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes}
+                  onChange={this.setAlphaStrikeMeasurementsInHexes}
                 />
+
                 </fieldset>
 
               </div>

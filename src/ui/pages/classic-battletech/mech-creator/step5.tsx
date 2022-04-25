@@ -37,6 +37,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
           undefined,
           undefined,
           undefined,
+          undefined,
         );
         this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
 

@@ -84,7 +84,13 @@ export interface IRangeNumbers {
     extreme?: number;
 }
 
+export interface ISplitLocation {
+    loc: string;
+    index: number;
+    size: number;
+}
 export interface IEquipmentItem {
+    split_location?: ISplitLocation[];
     isRotary?: boolean;
     isStreak?: boolean;
     isUltra?: boolean;
@@ -93,7 +99,7 @@ export interface IEquipmentItem {
     damageClusterHits?: IClusterHit[];
     count?: number;
     allocationIndex?: number;
-    allocatedLocation?: string;
+    allocationLocation?: string;
     notes?: string;
     target?: string;
     name: string;

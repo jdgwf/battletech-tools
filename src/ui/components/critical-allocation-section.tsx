@@ -27,10 +27,16 @@ export default class CriticalAllocationSection extends React.Component<ICritical
                     if( !crit.movable ) {
                         critItems.push(
                             <li
-                                className={"custor-pointer critical-height-" + crit.crits + " unmovable"}
-                                onClick={() => this.props.selectItemClick( critIndex, this.props.sectionAbbr, null)}
+                                className={"critical-height-" + crit.size + " unmovable"}
+                                // onClick={() => this.props.selectItemClick( critIndex, this.props.sectionAbbr, null)}
+                                title={crit.uuid}
                             >
-                                <div className="pull-right">({crit.crits})</div>
+                                {crit.crits !== crit.size ? (
+                                    <div className="pull-right">({crit.size}/{crit.crits})</div>
+                                ) : (
+                                    <div className="pull-right">({crit.crits})</div>
+                                )}
+
                                 <div className="text-left card-title">{crit.name}</div>
                             </li>
 
@@ -38,12 +44,17 @@ export default class CriticalAllocationSection extends React.Component<ICritical
                     } else {
                         critItems.push(
                             <li
-                                className={"custor-pointer critical-height-" + crit.crits + selectedClass}
+                                className={"custom-pointer critical-height-" + crit.size + selectedClass}
                                 // for some reason the linter's not checking that I'm looking for a non-null object above... :/
                                 // @ts-ignore
                                 onClick={() => this.props.selectItemClick( critIndex, this.props.sectionAbbr, crit)}
+                                title={crit.uuid}
                             >
-                                <div className="pull-right">({crit.crits})</div>
+                                {crit.crits !== crit.size ? (
+                                    <div className="pull-right">({crit.size}/{crit.crits})</div>
+                                ) : (
+                                    <div className="pull-right">({crit.crits})</div>
+                                )}
                                 <div className="text-left card-title">{crit.name}</div>
                             </li>
 

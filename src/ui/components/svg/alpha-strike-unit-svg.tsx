@@ -227,7 +227,12 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     <></>
                 )}
 
-                <text x="540" y="140" fontFamily="sans-serif" textAnchor="end" fontSize="25">MV: {this.props.asUnit.currentMove.toUpperCase()}</text>
+                {this.props.measurementsInHexes ? (
+                    <text x="540" y="140" fontFamily="sans-serif" textAnchor="end" fontSize="25">MV: {this.props.asUnit.currentMoveHexes.trim()}</text>
+                ) : (
+                    <text x="540" y="140" fontFamily="sans-serif" textAnchor="end" fontSize="25">MV: {this.props.asUnit.currentMove.trim()}</text>
+                )}
+
                 <text x="30" y="180" fontFamily="sans-serif" fontSize="25">ROLE: {this.props.asUnit.role.toUpperCase()}</text>
                 <text x="540" y="180" fontFamily="sans-serif" textAnchor="end" fontSize="25">SKILL: {this.props.asUnit.currentSkill}</text>
                 <rect x="20" y="210" width="550" height="100" fill="rgb(0,0,0)" rx="18" ry="18"></rect>
@@ -238,7 +243,12 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 ) : (
                     <text x={damageLabelColWidth+(damageColWidth*0)} y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">S (0 | {this.props.asUnit.currentToHitShort}+)</text>
                 )}
-                <text x={damageLabelColWidth+(damageColWidth*0)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">0-6"</text>
+                {this.props.measurementsInHexes ? (
+                    <text x={damageLabelColWidth+(damageColWidth*0)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">0-3 hexes</text>
+                ) : (
+                    <text x={damageLabelColWidth+(damageColWidth*0)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">0-6"</text>
+                )}
+
 
                 <text x={damageLabelColWidth+(damageColWidth*0)} y="280" fontFamily="sans-serif" textAnchor="middle" fontSize={35}>{this.props.asUnit.currentDamage.short}</text>
                 {this.props.forPrint ? (
@@ -246,7 +256,11 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 ) : (
                     <text x={damageLabelColWidth+(damageColWidth*1)} y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">M (+2 | {this.props.asUnit.currentToHitMedium}+)</text>
                 )}
+                {this.props.measurementsInHexes ? (
+                    <text x={damageLabelColWidth+(damageColWidth*1)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">3-12 hexes</text>
+                ) : (
                 <text x={damageLabelColWidth+(damageColWidth*1)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">6"-24"</text>
+                )}
 
                 <text x={damageLabelColWidth+(damageColWidth*1)} y="280" fontFamily="sans-serif" textAnchor="middle" fontSize={35}>{this.props.asUnit.currentDamage.medium}</text>
                 {this.props.forPrint ? (
@@ -255,7 +269,11 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     <text x={damageLabelColWidth+(damageColWidth*2)} y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">L (+4 | {this.props.asUnit.currentToHitLong}+)</text>
                 )}
 
-                <text x={damageLabelColWidth+(damageColWidth*2)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">24"-42"</text>
+                {this.props.measurementsInHexes ? (
+                    <text x={damageLabelColWidth+(damageColWidth*2)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">12-21 hexes</text>
+                ) : (
+                    <text x={damageLabelColWidth+(damageColWidth*2)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">24"-42"</text>
+                )}
                 <text x={damageLabelColWidth+(damageColWidth*2)} y="280" fontFamily="sans-serif" textAnchor="middle" fontSize={35}>{this.props.asUnit.currentDamage.long}</text>
                 {this.props.showExtreme && this.props.asUnit.damage.extreme > 0 ? ( this.props.forPrint ? (
                     <text x={damageLabelColWidth+(damageColWidth*3)} y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">E (+6)</text>
@@ -268,7 +286,13 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 ) : null
                 }
                 {this.props.showExtreme && this.props.asUnit.damage.extreme > 0 ? (
-                <text x={damageLabelColWidth+(damageColWidth*3)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">&gt; 42"</text>
+                    <>
+                    {this.props.measurementsInHexes ? (
+                    <text x={damageLabelColWidth+(damageColWidth*3)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">&gt; 21 hexes</text>
+                ) : (
+                    <text x={damageLabelColWidth+(damageColWidth*3)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">&gt; 42"</text>
+                    )}
+                </>
                 ) : null}
 
                 <rect x="20" y="315" width="550" height="80" fill="rgb(0,0,0)" rx="18" ry="18"></rect>
@@ -439,7 +463,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     {/* Threshold Display */}
                     {this.props.asUnit.threshold!==0 ? (
                         <>
-                        <text x="520" y="445" fontFamily="sans-serif" textAnchor="middle" fontSize="35">TH</text>
+                        <text x="520" y="445" fontFamily="sans-serif" textAnchor="middle" fontSize="35">T hexes</text>
                         <text x="520" y="485" fontFamily="sans-serif" textAnchor="middle" fontSize="35" >{this.props.asUnit.threshold}</text>
                         </>
                     ) : null
@@ -529,7 +553,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                                 </React.Fragment>
                             )
                 })}
-                <text x="750" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">+2 To Hit Each</text>
+                <text x="750" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">+2 To Hit Eac hexes</text>
                 {critLineStart += this.critLineHeight}
 
                 {this.props.asUnit.type.toLowerCase() === 'bm' || this.props.asUnit.type.toLowerCase() === 'pm' ? (
@@ -596,7 +620,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                                 </React.Fragment>
                             )
                 })}
-                <text x="750" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">-1 Damage Each</text>
+                <text x="750" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">-1 Damage Eac hexes</text>
                 {critLineStart += this.critLineHeight}
 
                 {this.props.asUnit.type.toLowerCase() === 'cv' ||  this.props.asUnit.type.toLowerCase() === 'sv'? (
@@ -613,7 +637,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                         <circle className="" cx="934" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
                         <circle className="" cx="934" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill="rgb(255,255,255)"></circle>
                         <text x="775" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">-2 MV</text>
-                        <text x="827" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">½ Move &amp; TMM Each</text>
+                        <text x="827" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">½ Move &amp; TMM Eac hexes</text>
                         <text x="919" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">0 MV</text>
                         {critLineStart += this.critLineHeight}
                     </>
@@ -662,6 +686,7 @@ interface IAlphaStrikeUnitSVGProps {
     className?: string;
     forPrint?: boolean;
     showExtreme?: boolean;
+    measurementsInHexes: boolean;
 }
 
 interface IAlphaStrikeUnitSVGState {
