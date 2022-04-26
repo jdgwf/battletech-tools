@@ -84,6 +84,9 @@ export interface IASMULUnit {
     fireControlHits?: boolean[];
     mpControlHits?: boolean[];
     weaponHits?: boolean[];
+    vehicleMotive910?: boolean[];
+    vehicleMotive11?: boolean[];
+    vehicleMotive12?: boolean;
 
     // Additional Fields we use internally
     classification: string;
@@ -192,6 +195,10 @@ export class AlphaStrikeUnit {
     public fireControlHits: boolean[] = [];
     public mpControlHits: boolean[] = [];
     public weaponHits: boolean[] = [];
+
+    public vehicleMotive910: boolean[] = [];
+    public vehicleMotive11: boolean[] = [];
+    public vehicleMotive12: boolean = false;
 
     private _pilot: Pilot = new Pilot( {
         name: "",
@@ -401,15 +408,25 @@ export class AlphaStrikeUnit {
             this.engineHits = incomingMechData.engineHits;
 
             if( incomingMechData.fireControlHits )
-            this.fireControlHits = incomingMechData.fireControlHits;
+                this.fireControlHits = incomingMechData.fireControlHits;
+
+            if( incomingMechData.vehicleMotive910 ) {
+                this.vehicleMotive910 = incomingMechData.vehicleMotive910;
+            }
+            if( incomingMechData.vehicleMotive11 ) {
+                this.vehicleMotive11 = incomingMechData.vehicleMotive11;
+            }
+            if( incomingMechData.vehicleMotive12 ) {
+                this.vehicleMotive12 = incomingMechData.vehicleMotive12;
+            }
 
             if( incomingMechData.mpControlHits )
             this.mpControlHits = incomingMechData.mpControlHits;
 
             if( incomingMechData.weaponHits )
-            this.weaponHits = incomingMechData.weaponHits;
+                this.weaponHits = incomingMechData.weaponHits;
 
-            if( incomingMechData.customName )
+              if( incomingMechData.customName )
                 this.customName = incomingMechData.customName;
 
 
@@ -475,8 +492,30 @@ export class AlphaStrikeUnit {
             return true;
         }
 
+        if(
+            ( this.type && this.type.trim().toLowerCase() === "sv" )
+                ||
+            ( this.type && this.type.trim().toLowerCase() === "cv" )
+        ) {
+
+            for( let mpHitsCount = 0; mpHitsCount < this.vehicleMotive910.length; mpHitsCount++) {
+                if( this.vehicleMotive910[ mpHitsCount ] ) {
+                    return true;
+                }
+            }
+            for( let mpHitsCount = 0; mpHitsCount < this.vehicleMotive11.length; mpHitsCount++) {
+                if( this.vehicleMotive11[ mpHitsCount ] ) {
+                    return true;
+                }
+            }
+
+            if( this.vehicleMotive12 ) {
+                return true;
+            }
+        }
         return false;
     }
+
 
     public getEngineHits(): number {
         let rv = 0;
@@ -544,6 +583,9 @@ export class AlphaStrikeUnit {
         this.weaponHits = [];
         this.mpControlHits = [];
         this.engineHits = [];
+        this.vehicleMotive910 = [];
+        this.vehicleMotive11 = [];
+        this.vehicleMotive12 = false;
         this.calcCurrentVals();
     }
 
@@ -662,9 +704,42 @@ export class AlphaStrikeUnit {
                 this.fireControlHits.push( false );
         }
 
+        if( typeof(this.vehicleMotive910) === "undefined" || this.vehicleMotive910.length === 0 ) {
+            this.vehicleMotive11 = [];
+            for(let hitCount = 0; hitCount < 2; hitCount++) {
+                this.vehicleMotive910.push( false );
+            }
+        }
+        if( typeof(this.vehicleMotive11) === "undefined" || this.vehicleMotive11.length === 0 ) {
+            this.vehicleMotive11 = [];
+            for(let hitCount = 0; hitCount < 2; hitCount++) {
+                this.vehicleMotive11.push( false );
+            }
+        }
+
+
         if( typeof( this.mpControlHits ) === "undefined"  || this.mpControlHits.length === 0  ) {
             this.mpControlHits = [];
-            for( let mpHitsCount = 0; mpHitsCount < 4; mpHitsCount++)
+            let numberOfHits = 4;
+            if(
+                ( this.type && this.type.toLowerCase() === "bm" )
+                    ||
+                ( this.type && this.type.toLowerCase() === "im" )
+            ) {
+                // mechs have 4 hits
+                numberOfHits = 4;
+            }
+
+            if(
+                ( this.type && this.type.trim().toLowerCase() === "sv" )
+                    ||
+                ( this.type && this.type.trim().toLowerCase() === "cv" )
+            ) {
+                // vehicles have 5 hits
+                numberOfHits = 5;
+            }
+
+            for( let mpHitsCount = 0; mpHitsCount < numberOfHits; mpHitsCount++)
                 this.mpControlHits.push( false );
         }
 
@@ -673,6 +748,10 @@ export class AlphaStrikeUnit {
             for( let weaponHitsCount = 0; weaponHitsCount < 4; weaponHitsCount++)
                 this.weaponHits.push( false );
         }
+
+
+
+
 
         let currentWeaponHits = 0;
         for( let weaponHitsCount = 0; weaponHitsCount < this.weaponHits.length; weaponHitsCount++) {
@@ -775,22 +854,6 @@ export class AlphaStrikeUnit {
                 }
             }
 
-            // for( let mpHitsCount = 0; mpHitsCount < this.mpControlHits.length; mpHitsCount++) {
-            //     if( this.mpControlHits[ mpHitsCount ] ) {
-
-            //         for( let moveC = 0; moveC < this.move.length; moveC++ ) {
-            //             let movePenalty = Math.round( +this.move[moveC].currentMove / 2);
-            //             if( movePenalty < 2 )
-            //                 movePenalty = 2;
-
-            //             this.move[moveC].currentMove = this.move[moveC].currentMove - movePenalty;
-
-            //             if( this.move[moveC].currentMove < 0 )
-            //                 this.move[moveC].currentMove = 0;
-            //         }
-
-            //     }
-            // }
         }
 
         if(
@@ -798,37 +861,42 @@ export class AlphaStrikeUnit {
                 ||
             ( this.type && this.type.trim().toLowerCase() === "cv" )
         ) {
-            let numMPHits = 0;
-            for( let mpHitsCount = 0; mpHitsCount < this.mpControlHits.length; mpHitsCount++) {
-                if( this.mpControlHits[ mpHitsCount ] ) {
-                    numMPHits++;
+            let vehicle11Hits = 0;
+            let vehicle910Hits = 0;
+
+            for( let mpHitsCount = 0; mpHitsCount < this.vehicleMotive910.length; mpHitsCount++) {
+                if( this.vehicleMotive910[ mpHitsCount ] ) {
+                    vehicle910Hits++;
+                }
+            }
+            for( let mpHitsCount = 0; mpHitsCount < this.vehicleMotive11.length; mpHitsCount++) {
+                if( this.vehicleMotive11[ mpHitsCount ] ) {
+                    vehicle11Hits++;
                 }
             }
 
-            if( numMPHits > 0 ) {
-                if( numMPHits < 3 ) {
-                    for( let moveC = 0; moveC < this.move.length; moveC++ ) {
+            for( let moveC = 0; moveC < this.move.length; moveC++ ) {
 
-                        this.move[moveC].currentMove = this.move[moveC].currentMove - 2;
-
-                        if( this.move[moveC].currentMove < 0 )
-                            this.move[moveC].currentMove = 0;
+                for( let count = 0; count < vehicle11Hits; count++) {
+                    let half = Math.floor( this.move[moveC].currentMove / 2 );
+                    if( half < 2 ) {
+                        half = 2;
                     }
-                } else if( numMPHits < 5 ) {
-                    for( let moveC = 0; moveC < this.move.length; moveC++ ) {
+                    this.move[moveC].currentMove -= half;
+                }
 
-                        this.move[moveC].currentMove = Math.round(this.move[moveC].currentMove / 2);
+                for( let count = 0; count < vehicle910Hits; count++) {
+                    this.move[moveC].currentMove -= 2;
+                }
 
-                        if( this.move[moveC].currentMove < 0 )
-                            this.move[moveC].currentMove = 0;
-                    }
-                } else {
-                    for( let moveC = 0; moveC < this.move.length; moveC++ ) {
-                        this.move[moveC].currentMove = 0;
-                    }
+                if( this.move[moveC].currentMove < 0 ) {
+                    this.move[moveC].currentMove = 0;
+                }
+
+                if( this.vehicleMotive12 ) {
+                    this.move[moveC].currentMove = 0;
                 }
             }
-
         }
 
         this.currentMove = "";
@@ -848,7 +916,7 @@ export class AlphaStrikeUnit {
             }
 
             this.currentMove += "" + this.move[moveC].currentMove + "\"" + this.move[moveC].type;
-            this.currentMoveHexes += "" + ( this.move[moveC].currentMove / 2) + " hexes" + this.move[moveC].type;
+            this.currentMoveHexes += "" + ( this.move[moveC].currentMove / 2) + "⬣" + this.move[moveC].type;
 
             let tmpTMM = 0;
             if( this.move[moveC].move < 5 ) {
@@ -865,9 +933,9 @@ export class AlphaStrikeUnit {
                 tmpTMM = 5;
             }
 
-            // if( this.move[moveC].type === "j" ) {
-            //     tmpTMM++;
-            // }
+            if( this.move[moveC].type === "j" ) {
+                tmpTMM++;
+            }
 
             // MP Hits against Move
             for( let count = 0; count < this.getMPHits(); count++ ) {
@@ -891,6 +959,27 @@ export class AlphaStrikeUnit {
                     //     this.move[moveC].currentMove = 0;
                     // }
                 // }
+            }
+            if(
+                ( this.type && this.type.trim().toLowerCase() === "sv" )
+                    ||
+                ( this.type && this.type.trim().toLowerCase() === "cv" )
+            ) {
+
+                for( let mpHitsCount = 0; mpHitsCount < this.vehicleMotive910.length; mpHitsCount++) {
+                    if( this.vehicleMotive910[ mpHitsCount ] ) {
+                        tmpTMM -= 1;
+                    }
+                }
+                for( let mpHitsCount = 0; mpHitsCount < this.vehicleMotive11.length; mpHitsCount++) {
+                    if( this.vehicleMotive11[ mpHitsCount ] ) {
+                        let half = Math.floor(tmpTMM / 2);
+                        if( half < 1 ) {
+                            half = 1;
+                        }
+                        tmpTMM -= half;
+                    }
+                }
             }
 
             if( this.move[moveC].currentMove < 0 ) {
@@ -1039,6 +1128,10 @@ export class AlphaStrikeUnit {
         let _mpControlHits: boolean[] = [];
         let _weaponHits: boolean[] = [];
 
+        let _vehicleMotive910: boolean[] = [];
+        let _vehicleMotive11: boolean[] = [];
+        let _vehicleMotive12: boolean = false;
+
 
         if( !noInPlayVariables ) {
             _currentArmor = this.currentArmor;
@@ -1047,8 +1140,9 @@ export class AlphaStrikeUnit {
             _fireControlHits = this.fireControlHits;
             _mpControlHits = this.mpControlHits;
             _weaponHits = this.weaponHits;
-
-
+            _vehicleMotive910 = this.vehicleMotive910;
+            _vehicleMotive11 = this.vehicleMotive11;
+            _vehicleMotive12 = this.vehicleMotive12;
         }
 
         if( this.originalStats ) {
@@ -1065,6 +1159,10 @@ export class AlphaStrikeUnit {
             returnValue.fireControlHits = _fireControlHits;
             returnValue.mpControlHits = _mpControlHits;
             returnValue.weaponHits = _weaponHits;
+
+            returnValue.vehicleMotive910 = _vehicleMotive910;
+            returnValue.vehicleMotive11 = _vehicleMotive11;
+            returnValue.vehicleMotive12 = _vehicleMotive12;
 
             return returnValue;
         } else {

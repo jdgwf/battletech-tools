@@ -2,8 +2,8 @@ import * as React from 'react';
 import { FaBars, FaEye, FaPlus } from "react-icons/fa";
 import { AlphaStrikeUnit, IASMULUnit } from '../../../../classes/alpha-strike-unit';
 import { BattleMech } from '../../../../classes/battlemech';
+import { btEraOptions } from '../../../../data/era-options';
 import { getMULASSearchResults } from '../../../../utils';
-import { makeRange } from '../../../../utils/makeRange';
 import { IAppGlobals } from '../../../app-router';
 import TextSection from '../../../components/text-section';
 import CurrentForceList from './_CurrentForceList';
@@ -176,7 +176,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                     </label>
                       </div>
                       <div className="col-md-6 text-center">
-                      <label>
+                      {/* <label>
                       Year:<br />
                       <select
                         onChange={this.updateEra}
@@ -186,6 +186,20 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                         {makeRange(3025, 3500, 1).map( (year) => {
                           return (
                             <option key={year} value={year}>{year}</option>
+                          )
+                        })}
+                      </select>
+                    </label> */}
+                      <label>
+                      Era (starting year):<br />
+                      <select
+                        onChange={this.updateEra}
+                        value={this.props.appGlobals.appSettings.alphaStrikeSearchEra}
+                      >
+                        <option value="">All</option>
+                        {btEraOptions.map( (era, eraIndex) => {
+                          return (
+                            <option key={eraIndex} value={era.yearStart}>{era.name}</option>
                           )
                         })}
                       </select>

@@ -8832,11 +8832,11 @@ export class BattleMech {
             if( this.currentMovementMode === "n" ) {
                 return "Has not moved";
             } else if( this.currentMovementMode === "w" ) {
-                return "Walked " + getHexDistanceFromModifier(this.currentToHitMovementModifier) + " hexes";
+                return "Walked " + getHexDistanceFromModifier(this.currentToHitMovementModifier) + "⬣";
             } else if( this.currentMovementMode === "r" ) {
-                return "Ran " + getHexDistanceFromModifier(this.currentToHitMovementModifier) + " hexes";
+                return "Ran " + getHexDistanceFromModifier(this.currentToHitMovementModifier) + "⬣";
             } else {
-                return "Jumped " + getHexDistanceFromModifier(this.currentToHitMovementModifier) + " hexes";
+                return "Jumped " + getHexDistanceFromModifier(this.currentToHitMovementModifier) + "⬣";
             }
         } else {
             return "Remained Stationary";

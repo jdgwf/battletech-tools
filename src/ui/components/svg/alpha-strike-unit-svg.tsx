@@ -1,7 +1,7 @@
 import React from 'react';
 import { AlphaStrikeUnit } from '../../../classes/alpha-strike-unit';
-import BattleTechLogo from '../battletech-logo';
 import { IAppGlobals } from '../../app-router';
+import BattleTechLogo from '../battletech-logo';
 
 export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnitSVGProps, IAlphaStrikeUnitSVGState> {
     height: string = "100%";
@@ -95,6 +95,38 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 this.props.asUnit.calcCurrentVals();
                 this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
             }
+        }
+    }
+
+    toggleVehicle910(indexNumber: number ) {
+        if( this.props.inPlay && this.props.asUnit ) {
+
+            if( this.props.asUnit.vehicleMotive910.length > indexNumber) {
+                this.props.asUnit.vehicleMotive910[indexNumber] = !this.props.asUnit.vehicleMotive910[indexNumber];
+                this.props.asUnit.calcCurrentVals();
+                this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+            }
+        }
+    }
+
+    toggleVehicle11(indexNumber: number ) {
+        if( this.props.inPlay && this.props.asUnit ) {
+
+            if( this.props.asUnit.vehicleMotive11.length > indexNumber) {
+                this.props.asUnit.vehicleMotive11[indexNumber] = !this.props.asUnit.vehicleMotive11[indexNumber];
+                this.props.asUnit.calcCurrentVals();
+                this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+            }
+        }
+    }
+
+    toggleVehicle12() {
+        if( this.props.inPlay && this.props.asUnit ) {
+
+            this.props.asUnit.vehicleMotive12 = !this.props.asUnit.vehicleMotive12;
+            this.props.asUnit.calcCurrentVals();
+            this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+
         }
     }
 
@@ -244,7 +276,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     <text x={damageLabelColWidth+(damageColWidth*0)} y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">S (0 | {this.props.asUnit.currentToHitShort}+)</text>
                 )}
                 {this.props.measurementsInHexes ? (
-                    <text x={damageLabelColWidth+(damageColWidth*0)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">0-3 hexes</text>
+                    <text x={damageLabelColWidth+(damageColWidth*0)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">0-3⬣</text>
                 ) : (
                     <text x={damageLabelColWidth+(damageColWidth*0)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">0-6"</text>
                 )}
@@ -257,7 +289,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     <text x={damageLabelColWidth+(damageColWidth*1)} y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">M (+2 | {this.props.asUnit.currentToHitMedium}+)</text>
                 )}
                 {this.props.measurementsInHexes ? (
-                    <text x={damageLabelColWidth+(damageColWidth*1)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">4-12 hexes</text>
+                    <text x={damageLabelColWidth+(damageColWidth*1)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">4-12⬣</text>
                 ) : (
                 <text x={damageLabelColWidth+(damageColWidth*1)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">6"-24"</text>
                 )}
@@ -270,7 +302,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 )}
 
                 {this.props.measurementsInHexes ? (
-                    <text x={damageLabelColWidth+(damageColWidth*2)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">13-21 hexes</text>
+                    <text x={damageLabelColWidth+(damageColWidth*2)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">13-21⬣</text>
                 ) : (
                     <text x={damageLabelColWidth+(damageColWidth*2)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">24"-42"</text>
                 )}
@@ -288,7 +320,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 {this.props.showExtreme && this.props.asUnit.damage.extreme > 0 ? (
                     <>
                     {this.props.measurementsInHexes ? (
-                    <text x={damageLabelColWidth+(damageColWidth*3)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">22+ hexes</text>
+                    <text x={damageLabelColWidth+(damageColWidth*3)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">22+⬣</text>
                 ) : (
                     <text x={damageLabelColWidth+(damageColWidth*3)} y="300" fontFamily="sans-serif" textAnchor="middle" fontSize="20">&gt; 42"</text>
                     )}
@@ -626,19 +658,19 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 {this.props.asUnit.type.toLowerCase() === 'cv' ||  this.props.asUnit.type.toLowerCase() === 'sv'? (
                     <>
                         <text x="750" y={critLineStart} textAnchor="end" fontFamily="sans-serif" fontSize="20">MOTIVE</text>
-                        <circle className="" cx="770" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
-                        <circle className="" cx="770" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill="rgb(255,255,255)"></circle>
-                        <circle className="" cx="801" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
-                        <circle className="" cx="801" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill="rgb(255,255,255)"></circle>
-                        <circle className="" cx="847" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
-                        <circle className="" cx="847" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill="rgb(255,255,255)"></circle>
-                        <circle className="" cx="878" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
-                        <circle className="" cx="878" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill="rgb(255,255,255)"></circle>
-                        <circle className="" cx="934" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
-                        <circle className="" cx="934" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill="rgb(255,255,255)"></circle>
-                        <text x="775" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">-2 MV</text>
-                        <text x="827" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">½ Move &amp; TMM Each</text>
-                        <text x="919" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">0 MV</text>
+                        <circle onClick={() => this.toggleVehicle910(0)} className="" cx="770" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
+                        <circle onClick={() => this.toggleVehicle910(0)} className="" cx="770" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill={this.props.asUnit.vehicleMotive910[0] ? this.activeDotColor : "rgb(255,255,255)"}></circle>
+                        <circle onClick={() => this.toggleVehicle910(1)} className="" cx="801" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
+                        <circle onClick={() => this.toggleVehicle910(1)} className="" cx="801" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill={this.props.asUnit.vehicleMotive910[1] ? this.activeDotColor : "rgb(255,255,255)"}></circle>
+                        <circle onClick={() => this.toggleVehicle11(0)} className="" cx="847" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
+                        <circle onClick={() => this.toggleVehicle11(0)} className="" cx="847" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill={this.props.asUnit.vehicleMotive11[0] ? this.activeDotColor : "rgb(255,255,255)"}></circle>
+                        <circle onClick={() => this.toggleVehicle11(1)} className="" cx="878" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
+                        <circle onClick={() => this.toggleVehicle11(1)} className="" cx="878" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill={this.props.asUnit.vehicleMotive11[1] ? this.activeDotColor : "rgb(255,255,255)"}></circle>
+                        <circle onClick={() => this.toggleVehicle12()} className="" cx="934" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
+                        <circle onClick={() => this.toggleVehicle12()} className="" cx="934" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill={this.props.asUnit.vehicleMotive12 ? this.activeDotColor : "rgb(255,255,255)"}></circle>
+                        <text x="775" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="8">-2 MV</text>
+                        <text x="827" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="8">½ Move &amp; TMM Each</text>
+                        <text x="919" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="8">0 MV</text>
                         {critLineStart += this.critLineHeight}
                     </>
                 ) : (
