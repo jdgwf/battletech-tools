@@ -7,10 +7,6 @@ import { mechISEquipmentEnergy } from "./data/mech-is-equipment-weapons-energy";
 import { mechISEquipmentMisc } from "./data/mech-is-equipment-weapons-misc";
 import { mechISEquipmentMissiles } from "./data/mech-is-equipment-weapons-missiles";
 
-
-
-
-
 export function getISEquipmentList(): IEquipmentItem[] {
     return mechISEquipmentBallistic
         .concat(
@@ -97,16 +93,7 @@ export async function getMULASSearchResults(
                         if( returnUnits[mechCounter].EraStart > +eraFilter ) {
                             returnUnits.splice( mechCounter, 1 );
                         }
-                        // switch( techFilter.toLowerCase() ) {
-                        //     case "inner sphere":
-                        //         if( returnUnits[mechCounter].Technology.Name.toLowerCase() !== "inner sphere" )
-                        //             returnUnits.splice( mechCounter, 1 );
-                        //         break;
-                        //     case "clan":
-                        //         if( returnUnits[mechCounter].Technology.Name.toLowerCase() !== "clan" )
-                        //             returnUnits.splice( mechCounter, 1 );
-                        //         break;
-                        // }
+
                     }
 
                 }
@@ -114,22 +101,12 @@ export async function getMULASSearchResults(
             })
             .catch(err => {
                 console.error('MUL Fetch Error: ', err);
-                // returnUnits = getOfflineMULResults(
-                //     searchTerm,
-                //     mechRules,
-                //     techFilter,
-                //     eraFilter,
-                // )
+
             })
         }
 
     } else {
-        // returnUnits = getOfflineMULResults(
-        //     searchTerm,
-        //     mechRules,
-        //     techFilter,
-        //     eraFilter,
-        // )
+
         console.warn("Navigator is offline!")
     }
     return returnUnits;

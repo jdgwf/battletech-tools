@@ -5,6 +5,7 @@ import { BattleMech } from '../../../../classes/battlemech';
 import { btEraOptions } from '../../../../data/era-options';
 import { getMULASSearchResults } from '../../../../utils';
 import { IAppGlobals } from '../../../app-router';
+import InputField from '../../../components/form_elements/input_field';
 import TextSection from '../../../components/text-section';
 import CurrentForceList from './_CurrentForceList';
 
@@ -16,6 +17,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         this.state = {
             searchResults: this.props.appGlobals.appSettings.alphasStrikeCachedSearchResults,
             contextMenuSearch: -1,
+            contextMenuSavedBattleMechs: -1,
         }
 
         this.updateSearchResults();
@@ -29,7 +31,19 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
         this.setState({
           contextMenuSearch: newIndex,
+          contextMenuSavedBattleMechs: -1,
+        })
+      }
 
+      toggleContextMenuSavedBattleMechs = ( searchIndex: number ): void => {
+        let newIndex: number = -1;
+        if( this.state.contextMenuSavedBattleMechs !== searchIndex) {
+          newIndex = searchIndex;
+        }
+
+        this.setState({
+          contextMenuSavedBattleMechs: newIndex,
+          contextMenuSearch: -1,
         })
       }
 
@@ -84,7 +98,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         !navigator.onLine,
       );
 
-      // console.log("updateSearchResults data", data);
+      console.log("updateSearchResults data", data);
       this.setState({
         searchResults: data,
         contextMenuSearch: -1,
@@ -136,14 +150,13 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 <fieldset className="fieldset">
                     <div className="row">
                       <div className="col-md-6 text-center">
-                      <label>
-                      Search Name:<br />
-                      <input
-                        type="search"
-                        onChange={this.updateSearch}
-                        value={this.props.appGlobals.appSettings.alphaStrikeSearchTerm}
-                      />
-                    </label>
+
+                    <InputField
+                         type="search"
+                         onChange={this.updateSearch}
+                         value={this.props.appGlobals.appSettings.alphaStrikeSearchTerm}
+                         label="Search Name"
+                    />
                       </div>
                       <div className="col-md-6 text-center">
                       <label>
@@ -387,13 +400,13 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 <button
 
 className="btn btn-primary btn-sm"
-onClick={() => this.toggleContextMenuSearch(unitIndex)}
+onClick={() => this.toggleContextMenuSavedBattleMechs(unitIndex)}
 title="Open the context menu for this unit"
 >
 <FaBars />
 </button>
 <ul
-className={this.state.contextMenuSearch === unitIndex ? "styleless dd-menu active" : "styleless dd-menu"}
+className={this.state.contextMenuSavedBattleMechs === unitIndex ? "styleless dd-menu active" : "styleless dd-menu"}
 >
 {this.props.appGlobals.currentASForce.groups.map( (asGroup, asGroupIndex) => {
 return (
@@ -477,4 +490,5 @@ interface IAlphaStrikeAddUnitsViewProps {
 interface IAlphaStrikeAddUnitsViewState {
     searchResults: IASMULUnit[];
     contextMenuSearch: number;
+    contextMenuSavedBattleMechs: number;
 }

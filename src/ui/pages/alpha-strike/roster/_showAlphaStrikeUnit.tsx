@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { AlphaStrikeUnit } from '../../../../classes/alpha-strike-unit';
 import { IAppGlobals } from '../../../app-router';
+import InputField from '../../../components/form_elements/input_field';
 import StandardModal from '../../../components/standard-modal';
 import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
 
@@ -52,15 +53,14 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
 {this.props.editASUnit && this.props.showASUnit ? (
                       <div className="row">
                         <div className="col-xs-6 col-lg-8 text-left" >
-                          <label>
-                            Custom Unit Name:<br />
-                            <input
+
+                          <InputField
+                              label="Custom Unit Name"
                               type="text"
                               value={this.props.showASUnit.customName}
                               placeholder="Enter your custom mech's name here"
                               onChange={this.renameUnit}
-                            />
-                          </label>
+                          />
                         </div>
                         <div className="col-xs-6 col-lg-4 text-left">
                           <label>

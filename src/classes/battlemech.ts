@@ -2026,7 +2026,7 @@ export class BattleMech {
 
     public calcAlphaStrike(): AlphaStrikeUnit {
 
-        this._alphaStrikeForceStats.name = this._model;
+        this._alphaStrikeForceStats.name = this.getName();
         this._alphaStrikeForceStats.move = this.getWalkSpeed() * 2;
         this._alphaStrikeForceStats.jumpMove = this.getJumpSpeed() * 2;
         this._alphaStrikeForceStats.pv = 0;
@@ -5183,18 +5183,23 @@ export class BattleMech {
     }
 
     getName() {
+
+        let name = "";
+        if( this._name ) {
+            name = " " + this._name;
+        }
         if( this._nickname && this._nickname.trim() ) {
             let rv = this._nickname.trim();
 
             if( this._model && this._model.trim() )
-                rv += " ( " + this._model.trim() + " )";
+                rv += " ( " + this._model.trim() + name + " )";
 
             return rv;
         } else {
             if( this._model && this._model.trim() )
-                return this._model.trim();
+                return this._model.trim() + name;
             else
-                return "";
+                return "" + name;
         }
 
     }
@@ -5206,10 +5211,22 @@ export class BattleMech {
         return this._model;
     }
 
+    public toggleOmni() {
+        this._omnimech = !this._omnimech;
+    }
+
+    public get isOmnimech(): boolean {
+        return this._omnimech;
+    }
+
     public setName(
         newValue: string,
     ): string {
         this._name = newValue;
+        return this._name;
+    }
+
+    public get name(): string {
         return this._name;
     }
 

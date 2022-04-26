@@ -255,14 +255,12 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
                 <legend>Mechwarrior Data</legend>
                 <div className="row">
                     <div className="col-sm-12">
-                    <label>
-                        Handle:<br />
-                        <input
-                        type="string"
+
+                    <InputField
                         value={this.state.editingUnit.getPilot().name}
                         onChange={this.setPilotName}
-                        />
-                    </label>
+                        label="Handle"
+                    />
                     </div>
                 </div>
                 <div className="row">

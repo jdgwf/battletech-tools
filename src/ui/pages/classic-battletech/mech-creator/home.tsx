@@ -203,10 +203,11 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                       {this.props.appGlobals.battleMechSaves && this.props.appGlobals.battleMechSaves.length > 0 ? (
                         <>
                         {this.props.appGlobals.battleMechSaves.map( (mech, mechIndex) => {
+                          let mechObj = new BattleMech(JSON.stringify(mech));
                           return (
                             <tbody key={mechIndex}>
                             <tr>
-                              <td title={"UUD: " + mech.uuid}>{mech.model ? mech.model : mech.name}</td>
+                              <td title={"UUD: " + mech.uuid}>{mechObj.getName()}</td>
                               <td>{mech.tech}</td>
                               <td className="min-width">{mech.tonnage}</td>
                               <td className="min-width">{mech.battle_value}</td>

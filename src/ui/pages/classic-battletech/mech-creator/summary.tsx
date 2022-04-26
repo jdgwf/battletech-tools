@@ -10,6 +10,7 @@ import UIPage from '../../../components/ui-page';
 import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
 import BattleMechSVG from '../../../components/svg/battlemech-svg';
 import TextSection from '../../../components/text-section';
+import InputField from '../../../components/form_elements/input_field';
 
 export default class MechCreatorSummary extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -84,14 +85,11 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
                                 <legend>Mechwarrior Data</legend>
                                 <div className="row">
                                   <div className="col-sm-12">
-                                    <label>
-                                      Handle:<br />
-                                      <input
-                                        type="string"
-                                        value={this.props.appGlobals.currentBattleMech.getPilot().name}
-                                        onChange={this.setPilotName}
-                                      />
-                                    </label>
+                                    <InputField
+                                      label="Handle"
+                                      value={this.props.appGlobals.currentBattleMech.getPilot().name}
+                                      onChange={this.setPilotName}
+                                    />
                                   </div>
                                 </div>
                                 <div className="row">
@@ -144,22 +142,18 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
                             <div className="col-md-6">
                             <fieldset className="fieldset">
                                 <legend>Alpha Strike</legend>
-                                  <label>
-                                    Custom Name:<br />
-                                    <input
-                                      type="string"
+
+                                  <InputField
+                                      label="Custom Name"
                                       value={this.props.appGlobals.currentBattleMech.getASCustomName()}
                                       onChange={this.setASCustomName}
                                     />
-                                  </label>
-                                  <label>
-                                    Alpha Strike Role:<br />
-                                    <input
-                                      type="string"
+
+                                  <InputField
+                                      label="Alpha Strike Role"
                                       value={this.props.appGlobals.currentBattleMech.getASRole()}
                                       onChange={this.setASRole}
                                     />
-                                  </label>
                               </fieldset>
                             </div>
                           </div>

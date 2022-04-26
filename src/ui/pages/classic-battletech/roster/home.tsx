@@ -6,6 +6,7 @@ import { BattleMechGroup, ICBTGroupExport } from '../../../../classes/battlemech
 import { unitGroupNames } from '../../../../data/group-names';
 import { makeURLSlug } from '../../../../utils/makeURLSlug';
 import { IAppGlobals } from '../../../app-router';
+import InputField from '../../../components/form_elements/input_field';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
@@ -253,15 +254,12 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
                             </label>
                         </div>
                         <div className="width-50">
-                            <label>
-                                <input
-                                    title="Here you can name your unit"
-                                    placeholder={"Custom " + bmGroup.groupLabel + " Name"}
-                                    type="text"
-                                    onChange={(event: React.FormEvent<HTMLInputElement>) => this.renameGroup(event.currentTarget.value, bmGroupIndex)}
-                                    value={bmGroup.customName}
-                                />
-                            </label>
+                            <InputField
+                                title="Here you can name your unit"
+                                placeholder={"Custom " + bmGroup.groupLabel + " Name"}
+                                onChange={(event: React.FormEvent<HTMLInputElement>) => this.renameGroup(event.currentTarget.value, bmGroupIndex)}
+                                value={bmGroup.customName}
+                            />
                         </div>
                     </div>
 

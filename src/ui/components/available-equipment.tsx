@@ -4,6 +4,7 @@ import { IEquipmentItem } from '../../data/data-interfaces';
 import { sortEquipment } from '../../utils';
 import { IAppGlobals } from '../app-router';
 import './available-equipment.scss';
+import InputField from './form_elements/input_field';
 
 export default class AvailableEquipment extends React.Component<IAvailableEquipmentProps, IAvailableEquipmentState> {
 
@@ -77,14 +78,15 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
         return (
 <div>
     <h2>
-        <input
+
+        <InputField
             type="search"
             placeholder="Filter Equipment"
             value={this.props.appGlobals.appSettings.equipmentFilter}
             onChange={this.updateEquipmentFilter}
             className="filter-equiment-box"
         />
-        Avail Equip
+        Available Equipment
 
     </h2>
     <table className="table">

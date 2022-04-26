@@ -297,9 +297,9 @@ title="Click here to select a JSON file exported this page"
 >
 Import JSON:&nbsp;
 <input
-type="file"
-style={{width: "auto"}}
-onChange={this.selectFile}
+  type="file"
+  style={{width: "auto"}}
+  onChange={this.selectFile}
 />
 </label>
 <br />

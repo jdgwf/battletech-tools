@@ -14,6 +14,7 @@ import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
 import InputCheckbox from "../../../components/form_elements/input_checkbox";
+import InputField from "../../../components/form_elements/input_field";
 
 export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -25,58 +26,76 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
         this.props.appGlobals.makeDocumentTitle("Step 1 | 'Mech Creator");
     }
 
-    updateHideNonAvailableEquipment = ( event: React.FormEvent<HTMLInputElement>): void => {
+    updateHideNonAvailableEquipment = ( e: React.FormEvent<HTMLInputElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
-        currentMech.hideNonAvailableEquipment = event.currentTarget.checked;
+        currentMech.hideNonAvailableEquipment = e.currentTarget.checked;
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
     }
 
-    updateMake = ( event: React.FormEvent<HTMLInputElement>): void => {
+    updateMake = ( e: React.FormEvent<HTMLInputElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
-        currentMech.setModel( event.currentTarget.value);
+        currentMech.setModel( e.currentTarget.value);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
     }
 
-    updateTech = ( event: React.FormEvent<HTMLSelectElement>): void => {
+    updateName = ( e: React.FormEvent<HTMLInputElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
-        currentMech.setTech( event.currentTarget.value);
+        currentMech.setName( e.currentTarget.value);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
     }
 
-    updateType = ( event: React.FormEvent<HTMLSelectElement>): void => {
+    toggleOmni = ( e: React.FormEvent<HTMLInputElement>): void => {
+      if( e && e.preventDefault ) e.preventDefault();
+
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
-        currentMech.setType( event.currentTarget.value);
+        currentMech.toggleOmni();
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
     }
 
-    updateTonnage = ( event: React.FormEvent<HTMLSelectElement>): void => {
+    updateTech = ( e: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
-        currentMech.setTonnage( +event.currentTarget.value);
+        currentMech.setTech( e.currentTarget.value);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
     }
 
-    updateStructureType = ( event: React.FormEvent<HTMLSelectElement>): void => {
+    updateType = ( e: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
-        currentMech.setInternalStructureType( event.currentTarget.value);
+        currentMech.setType( e.currentTarget.value);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
     }
 
-    updateEra = ( event: React.FormEvent<HTMLSelectElement>): void => {
+    updateTonnage = ( e: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
-        currentMech.setEra( event.currentTarget.value);
+        currentMech.setTonnage( +e.currentTarget.value);
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
+    }
+
+    updateStructureType = ( e: React.FormEvent<HTMLSelectElement>): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setInternalStructureType( e.currentTarget.value);
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
+    }
+
+    updateEra = ( e: React.FormEvent<HTMLSelectElement>): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setEra( e.currentTarget.value);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
     }
@@ -103,14 +122,18 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                         label="Step 1: Design the Chassis"
                       >
 
-                          <label>
-                            Mech Model Name (Type):
-                            <input
-                              type="text"
-                              value={this.props.appGlobals.currentBattleMech.model}
-                              onChange={this.updateMake}
-                            />
-                          </label>
+
+                          <InputField
+                            label="Mech Model # (e.g. WSP-1A, Timber Wolf)"
+                            value={this.props.appGlobals.currentBattleMech.model}
+                            onChange={this.updateMake}
+                          />
+
+                           <InputField
+                            label="Mech Model Name, or Omni Variant (e.g. Wasp, Prime, C )"
+                            value={this.props.appGlobals.currentBattleMech.name}
+                            onChange={this.updateName}
+                          />
 
                           <label>
                             Technology Base:
@@ -139,6 +162,12 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             })}
                             </select>
                           </label>
+
+                          <InputCheckbox
+                            label="Is an Omnimech"
+                            checked={this.props.appGlobals.currentBattleMech.isOmnimech}
+                            onChange={this.toggleOmni}
+                          />
 
                           <label>
                             Mech Era:

@@ -5,6 +5,7 @@ import { AlphaStrikeUnit } from '../../../../classes/alpha-strike-unit';
 import { formationBonuses } from '../../../../data/formation-bonuses';
 import { unitGroupNames } from '../../../../data/group-names';
 import { IAppGlobals } from '../../../app-router';
+import InputField from '../../../components/form_elements/input_field';
 import TextSection from '../../../components/text-section';
 
 export default class CurrentForceList extends React.Component<ICurrentForceListProps, ICurrentForceListState> {
@@ -177,15 +178,14 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                             </label>
                         </div>
                         <div className="width-50">
-                            <label>
-                                <input
-                                    title="Here you can name your unit"
-                                    placeholder={"Custom " + asGroup.groupLabel + " Name"}
-                                    type="text"
-                                    onChange={(event: React.FormEvent<HTMLInputElement>) => this.renameGroup(event.currentTarget.value, asGroupIndex)}
-                                    value={asGroup.customName}
-                                />
-                            </label>
+
+                            <InputField
+                                  title="Here you can name your unit"
+                                  placeholder={"Custom " + asGroup.groupLabel + " Name"}
+                                  type="text"
+                                  onChange={(event: React.FormEvent<HTMLInputElement>) => this.renameGroup(event.currentTarget.value, asGroupIndex)}
+                                  value={asGroup.customName}
+                            />
                         </div>
                     </div>
 

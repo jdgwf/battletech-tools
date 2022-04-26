@@ -5,6 +5,7 @@ import { ICriticalSlot } from '../../../../classes/battlemech';
 import { ISplitLocation } from '../../../../data/data-interfaces';
 import { IAppGlobals } from '../../../app-router';
 import CriticalAllocationSection from '../../../components/critical-allocation-section';
+import InputCheckbox from '../../../components/form_elements/input_checkbox';
 import InputNumeric from '../../../components/form_elements/input_numeric';
 import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
 import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
@@ -455,20 +456,17 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                     ) : (
                                       <>
                                       <h4 className="text-center">Left Arm</h4>
-                                      <label>
-                                        <input
-                                          type="checkbox"
-                                          checked={this.props.appGlobals.currentBattleMech.hasLowerArmActuator("la")}
-                                          onChange={(event: React.FormEvent<HTMLInputElement>) => this.toggleLowerArmActuator("la") }
-                                        />&nbsp;Lower Arm Actuator
-                                      </label>
-                                      <label>
-                                        <input
-                                          type="checkbox"
-                                          checked={this.props.appGlobals.currentBattleMech.hasHandActuator("la")}
-                                          onChange={(event: React.FormEvent<HTMLInputElement>) => this.toggleHandActuator("la") }
-                                        />&nbsp;Hand Actuator
-                                      </label>
+                                      <InputCheckbox
+                                        checked={this.props.appGlobals.currentBattleMech.hasLowerArmActuator("la")}
+                                        onChange={(event: React.FormEvent<HTMLInputElement>) => this.toggleLowerArmActuator("la") }
+                                        label="Lower Arm Actuator"
+                                      />
+
+                                      <InputCheckbox
+                                        checked={this.props.appGlobals.currentBattleMech.hasHandActuator("la")}
+                                        onChange={(event: React.FormEvent<HTMLInputElement>) => this.toggleHandActuator("la") }
+                                        label="Hand Actuator"
+                                      />
 
                                       </>
                                     )}
@@ -546,20 +544,17 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                     ) : (
                                       <>
                                       <h4 className="text-center">Right Arm</h4>
-                                      <label>
-                                        <input
-                                          type="checkbox"
-                                          checked={this.props.appGlobals.currentBattleMech.hasLowerArmActuator("ra")}
-                                          onChange={(event: React.FormEvent<HTMLInputElement>) => this.toggleLowerArmActuator("ra") }
-                                        />&nbsp;Lower Arm Actuator
-                                      </label>
-                                      <label>
-                                        <input
-                                          type="checkbox"
-                                          checked={this.props.appGlobals.currentBattleMech.hasHandActuator("ra")}
-                                          onChange={(event: React.FormEvent<HTMLInputElement>) => this.toggleHandActuator("ra") }
-                                        />&nbsp;Hand Actuator
-                                      </label>
+                                      <InputCheckbox
+                                        checked={this.props.appGlobals.currentBattleMech.hasLowerArmActuator("ra")}
+                                        onChange={(event: React.FormEvent<HTMLInputElement>) => this.toggleLowerArmActuator("ra") }
+                                        label="Lower Arm Actuator"
+                                      />
+
+                                      <InputCheckbox
+                                        checked={this.props.appGlobals.currentBattleMech.hasHandActuator("ra")}
+                                        onChange={(event: React.FormEvent<HTMLInputElement>) => this.toggleHandActuator("ra") }
+                                        label="Hand Actuator"
+                                      />
                                       </>
                                     )}
                                     <CriticalAllocationSection
