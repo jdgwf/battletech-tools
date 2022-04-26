@@ -44,11 +44,11 @@ export const mechArmorTypes: IArmorType[] = [
 		tag: "light-ferro-fibrous",
 		armorMultiplier: {
 			clan: 0,
-			is: 7
+			is: 16 * 1.06,
 		},
 		crits: {
 			clan: 0,
-			is: 16 * 1.06,
+			is: 7
 		},
 		costMultiplier: 15000,
 		introduced: 3067,

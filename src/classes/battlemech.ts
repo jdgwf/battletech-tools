@@ -5267,13 +5267,39 @@ export class BattleMech {
         return this._tonnage;
     }
 
-    // getMaxArmorTonnage() {
-    //     return this._maxArmorTonnage;
-    // }
+    getMaxArmorTonnage() {
+        let rv = 0;
 
-    public getMaxArmor() {
-        return this._maxArmor;
+
+        rv += 9; // head
+
+        rv += this._internalStructure.centerTorso * 2;
+        rv += this._internalStructure.leftTorso * 4;
+        rv += this._internalStructure.rightArm * 4;
+        rv += this._internalStructure.rightLeg * 4;
+
+        rv = Math.ceil(rv / 16);
+
+        return rv;
     }
+
+    getMaxArmor() {
+        let rv = 0;
+
+
+        rv += this._internalStructure.head;
+
+        rv += this._internalStructure.centerTorso * 2;
+        rv += this._internalStructure.leftTorso * 4;
+        rv += this._internalStructure.rightArm * 4;
+        rv += this._internalStructure.rightLeg * 4;
+
+        return rv;
+    }
+
+    // public getMaxArmor() {
+    //     return this._maxArmor;
+    // }
 
     public getType() {
         return this._mechType;
@@ -7638,6 +7664,9 @@ export class BattleMech {
         let centerTorsoArmor = Math.floor(internalStructure.centerTorso * 1.75 * percentage);
         let centerTorsoArmorRear = Math.floor(internalStructure.centerTorso * .25 * percentage);
 
+        // console.log("centerTorsoArmor", centerTorsoArmor)
+        // console.log("totalArmor", totalArmor)
+        // console.log("maximumArmor", maximumArmor)
         if( totalArmor > armArmor) {
             let headArmor = armArmor;
             if( headArmor > 9)
@@ -7695,19 +7724,6 @@ export class BattleMech {
 
         this.setCenterTorsoArmor( centerTorsoArmor ); // everything else goes to center torso! :)
 
-        // this._armorAllocation = {
-        //     head: 0,
-        //     centerTorso: 0,
-        //     rightTorso: 0,
-        //     leftTorso: 0,
-        //     centerTorsoRear: 0,
-        //     rightTorsoRear: 0,
-        //     leftTorsoRear: 0,
-        //     leftArm: 0,
-        //     rightArm: 0,
-        //     leftLeg: 0,
-        //     rightLeg: 0,
-        // }
     }
 
     public allocateArmorMax() {
@@ -9247,31 +9263,22 @@ export class BattleMech {
                 if( jObj.mech.armor.type ) {
                     if( jObj.mech.armor.type === "Standard Armor" ) {
                         this.setArmorType( "standard" )
-
-                    }
-                    if( jObj.mech.armor.type === "Ferro Fibrous" ) {
+                    } else if( jObj.mech.armor.type === "Ferro Fibrous" ) {
                         this.setArmorType( "ferro-fibrous" )
-                    }
-                    if( jObj.mech.armor.type === "Ferro-Fibrous" ) {
+                    } else if( jObj.mech.armor.type === "Ferro-Fibrous" ) {
                         this.setArmorType( "ferro-fibrous" )
-                    }
-                    if( jObj.mech.armor.type === "Light Ferro Fibrous" ) {
+                    } else if( jObj.mech.armor.type === "Light Ferro Fibrous" ) {
                         this.setArmorType( "light-ferro-fibrous" )
-                    }
-                    if( jObj.mech.armor.type === "Light Ferro-Fibrous" ) {
+                    } else if( jObj.mech.armor.type === "Light Ferro-Fibrous" ) {
                         this.setArmorType( "light-ferro-fibrous" )
-                    }
-                    if( jObj.mech.armor.type === "Heavy Ferro Fibrous" ) {
+                    } else if( jObj.mech.armor.type === "Heavy Ferro Fibrous" ) {
                         this.setArmorType( "heavy-ferro-fibrous" )
-                    }
-                    if( jObj.mech.armor.type === "Heavy Ferro-Fibrous" ) {
+                    } else if( jObj.mech.armor.type === "Heavy Ferro-Fibrous" ) {
                         this.setArmorType( "heavy-ferro-fibrous" )
-                    }
-                    if( jObj.mech.armor.type.indexOf( "Stealth" )  > -1) {
+                    } else if( jObj.mech.armor.type.indexOf( "Stealth" )  > -1) {
                         this.setArmorType( "stealth" )
                     }
 
-                    // console.log("totalArmor", totalArmor)
                     this.setArmorCount( totalArmor );
 
                     if( typeof(  jObj.mech.armor.location ) === "object" ) {
@@ -9298,7 +9305,7 @@ export class BattleMech {
                                         loc["@_index"] ? +loc["@_index"] : -1,
                                     );
                                 } else {
-                                    console.log("inport armor", foundIndex, loc,  +loc["@_index"] )
+                                    // console.log("inport armor", foundIndex, loc,  +loc["@_index"] )
                                 }
 
                             }
@@ -9442,7 +9449,7 @@ export class BattleMech {
                                         loc["@_index"] ? +loc["@_index"] : -1,
                                     );
                                 } else {
-                                    console.log("inport hs 1", foundIndex, loc,  +loc["@_index"] )
+                                    // console.log("inport hs 1", foundIndex, loc,  +loc["@_index"] )
                                 }
 
 
@@ -9469,7 +9476,7 @@ export class BattleMech {
                                     jObj.mech.baseloadout.heatsinks.location["@_index"] ? +jObj.mech.baseloadout.heatsinks.location["@_index"] : -1,
                                 );
                             }else {
-                                console.log("inport hs2", foundIndex, jObj.mech.baseloadout.heatsinks.location,  +jObj.mech.baseloadout.heatsinks.location["@_index"] )
+                                // console.log("inport hs2", foundIndex, jObj.mech.baseloadout.heatsinks.location,  +jObj.mech.baseloadout.heatsinks.location["@_index"] )
                             }
 
                         }
