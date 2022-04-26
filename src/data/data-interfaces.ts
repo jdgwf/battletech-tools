@@ -178,6 +178,7 @@ export interface ICriticalSpace {
 
 export interface IGyro {
     name: string;
+    alternateName?: string;
     tag: string;
     weight_multiplier: number;
     criticals: number;

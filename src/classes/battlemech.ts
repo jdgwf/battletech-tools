@@ -5100,16 +5100,38 @@ export class BattleMech {
         return this._engineType;
     }
 
+    public setGyroTypeByName(
+        gyroName: string,
+    ) {
+        for( let gyro of mechGyroTypes) {
+            if(
+                gyroName.toLowerCase().trim() === gyro.name.toLowerCase().trim()
+                ||
+                (
+                    gyro.alternateName &&
+                    gyroName.toLowerCase().trim() === gyro.alternateName.toLowerCase().trim()
+                )
+
+            ) {
+                this._gyro = gyro;
+                this._calc();
+                return this._gyro;
+            }
+        }
+        // default to Military Standard if tag not found.
+        this._engineType = mechEngineTypes[0];
+        return this._engineType;
+    }
     public setEngineTypeByName(
         engineName: string,
     ) {
         for( let engine of mechEngineTypes) {
             if(
-                engineName.toLowerCase().trim() === engine.name
+                engineName.toLowerCase().trim() === engine.name.toLowerCase().trim()
                 ||
                 (
                     engine.alternateName &&
-                    engineName.toLowerCase().trim() === engine.alternateName
+                    engineName.toLowerCase().trim() === engine.alternateName.toLowerCase().trim()
                 )
 
             ) {
@@ -7180,7 +7202,7 @@ export class BattleMech {
         allocationLocation: string,
     ) {
         for( let item of this._equipmentList ) {
-            if( item && item.uuid == uuid ) {
+            if( item && item.uuid === uuid ) {
                 item.allocationIndex = allocationIndex;
                 item.allocationLocation = allocationLocation;
             }
@@ -9150,6 +9172,31 @@ export class BattleMech {
                     this.setTech("clan");
                 }
             }
+            if( jObj.mech.baseloadout ) {
+                if( jObj.mech.baseloadout.actuators ) {
+                    if( jObj.mech.baseloadout.actuators["@_lh"] && jObj.mech.baseloadout.actuators["@_lh"].toLowerCase().trim() !== "true" ) {
+                        this.removeHandActuator( "la" );
+                    } else {
+                        this.addHandActuator( "la" );
+                    }
+                    if( jObj.mech.baseloadout.actuators["@_lla"] && jObj.mech.baseloadout.actuators["@_lla"].toLowerCase().trim() !== "true" ) {
+                        this.removeLowerArmActuator( "la" );
+                    } else {
+                        this.addLowerArmActuator( "la" );
+                    }
+                    if( jObj.mech.baseloadout.actuators["@_rh"] && jObj.mech.baseloadout.actuators["@_rh"].toLowerCase().trim() !== "true" ) {
+                        this.removeHandActuator( "ra" );
+                    } else {
+                        this.addHandActuator( "ra" );
+                    }
+                    if( jObj.mech.baseloadout.actuators["@_rla"] && jObj.mech.baseloadout.actuators["@_rla"].toLowerCase().trim() !== "true" ) {
+                        this.removeLowerArmActuator( "ra" );
+                    } else {
+                        this.addLowerArmActuator( "ra" );
+                    }
+                }
+
+            }
             if( jObj.mech.armor ) {
                 let totalArmor = 0;
                 // It sure would be nice for SSW to have the armor weight in XML file 🙄
@@ -9250,6 +9297,8 @@ export class BattleMech {
                                         loc["#text"] ? loc["#text"].toLowerCase().trim() : "un",
                                         loc["@_index"] ? +loc["@_index"] : -1,
                                     );
+                                } else {
+                                    console.log("inport armor", foundIndex, loc,  +loc["@_index"] )
                                 }
 
                             }
@@ -9285,29 +9334,13 @@ export class BattleMech {
                 this.setWalkSpeed( +jObj.mech.engine["@_rating"] / this._tonnage );
                 this.setEngineTypeByName( jObj.mech.engine["#text"] );
             }
+
+            if( jObj.mech.gyro ) {
+                this.setGyroTypeByName( jObj.mech.gyro["#text"] );
+            }
+
             if( jObj.mech.baseloadout ) {
-                if( jObj.mech.baseloadout.actuators ) {
-                    if( jObj.mech.baseloadout.actuators["@_lh"] && jObj.mech.baseloadout.actuators["@_lh"].toLowerCase().trim() !== "true" ) {
-                        this.removeHandActuator( "la" );
-                    } else {
-                        this.addHandActuator( "la" );
-                    }
-                    if( jObj.mech.baseloadout.actuators["@_lla"] && jObj.mech.baseloadout.actuators["@_lla"].toLowerCase().trim() !== "true" ) {
-                        this.removeLowerArmActuator( "la" );
-                    } else {
-                        this.addLowerArmActuator( "la" );
-                    }
-                    if( jObj.mech.baseloadout.actuators["@_rh"] && jObj.mech.baseloadout.actuators["@_rh"].toLowerCase().trim() !== "true" ) {
-                        this.removeHandActuator( "ra" );
-                    } else {
-                        this.addHandActuator( "ra" );
-                    }
-                    if( jObj.mech.baseloadout.actuators["@_rla"] && jObj.mech.baseloadout.actuators["@_rla"].toLowerCase().trim() !== "true" ) {
-                        this.removeLowerArmActuator( "ra" );
-                    } else {
-                        this.addLowerArmActuator( "ra" );
-                    }
-                }
+
 
                 // if( jObj.mech.baseloadout.battleforce ) {
 
@@ -9408,7 +9441,10 @@ export class BattleMech {
                                         loc["#text"] ? loc["#text"].toLowerCase().trim() : "un",
                                         loc["@_index"] ? +loc["@_index"] : -1,
                                     );
+                                } else {
+                                    console.log("inport hs 1", foundIndex, loc,  +loc["@_index"] )
                                 }
+
 
                             }
                         }
@@ -9432,7 +9468,10 @@ export class BattleMech {
                                     jObj.mech.baseloadout.heatsinks.location["#text"] ? jObj.mech.baseloadout.heatsinks.location["#text"].toLowerCase().trim() : "un",
                                     jObj.mech.baseloadout.heatsinks.location["@_index"] ? +jObj.mech.baseloadout.heatsinks.location["@_index"] : -1,
                                 );
+                            }else {
+                                console.log("inport hs2", foundIndex, jObj.mech.baseloadout.heatsinks.location,  +jObj.mech.baseloadout.heatsinks.location["@_index"] )
                             }
+
                         }
                     }
 

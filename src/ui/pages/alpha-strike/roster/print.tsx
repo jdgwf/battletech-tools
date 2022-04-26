@@ -1,11 +1,10 @@
-import { FaArrowCircleLeft, FaPrint, FaRuler } from "react-icons/fa";
 import React from 'react';
+import { FaArrowCircleLeft, FaPrint } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { IAppGlobals } from '../../../app-router';
 import BattleTechLogo from '../../../components/battletech-logo';
 import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
 import './print.scss';
-import { FiHexagon } from "react-icons/fi";
 import AlphaStrikeToggleRulerHexes from "./_toggleRulerHexes";
 
 export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps, IPrintState> {

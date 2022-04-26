@@ -150,7 +150,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
         selectionMessageType = "warning";
         // console.log("selectedItem.obj", selectedLocation, selectedItem.obj)
         let equipmentCanSplit = false;
-        if( selectedItem.obj.space && selectedItem.obj.space.battlemech >= 8 && selectedLocation === "un")
+        if( selectedItem && selectedItem.obj && selectedItem.obj.space && selectedItem.obj.space.battlemech >= 8 && selectedLocation === "un")
           equipmentCanSplit = true;
           this.setState({
             equipmentCanSplit: equipmentCanSplit,

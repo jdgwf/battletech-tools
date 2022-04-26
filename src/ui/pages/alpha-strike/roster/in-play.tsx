@@ -1,6 +1,6 @@
-import { FaArrowCircleLeft, FaList, FaRuler, FaTh } from "react-icons/fa";
-import { FiHexagon, FiRefreshCcw } from "react-icons/fi";
 import React from 'react';
+import { FaArrowCircleLeft, FaList, FaTh } from "react-icons/fa";
+import { FiRefreshCcw } from "react-icons/fi";
 import { Link } from 'react-router-dom';
 import AlphaStrikeGroup from '../../../../classes/alpha-strike-group';
 import { IAppGlobals } from '../../../app-router';
