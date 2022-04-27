@@ -104,7 +104,7 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
 
         menuStructure.push({
             label: "Alpha Strike",
-            url: "/alpha-strike",
+            url: "/alpha-strike/roster",
             tag: "alpha-strike-home",
             startsWithTag: "alpha-strike",
             subMenu: [

@@ -175,6 +175,10 @@ export class AlphaStrikeUnit {
             medium: 0,
             long: 0,
             extreme: 0,
+            shortMimimum: false,
+            mediumMimimum: false,
+            longMimimum: false,
+            extremeMimimum: false,
         };
 
     public move: IMoveNumber[] = [];
@@ -196,6 +200,10 @@ export class AlphaStrikeUnit {
         medium: 0,
         long: 0,
         extreme: 0,
+        shortMimimum: false,
+        mediumMimimum: false,
+        longMimimum: false,
+        extremeMimimum: false,
     };
 
     public currentArmor: boolean[] = [];
