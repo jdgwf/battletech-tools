@@ -326,21 +326,22 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
         </div>
     </StandardModal>
 ) : null}
-<StandardModal
-  show={this.state.addingUnitsModal}
-  onClose={this.closeAddingUnits}
-  className="modal-xl"
-  title={this.props.appGlobals.currentCBTForce && this.props.appGlobals.currentCBTForce.groups[this.state.addingUnitsGroupIndex] ? "Adding units to '" + this.props.appGlobals.currentCBTForce.groups[this.state.addingUnitsGroupIndex].getName(this.state.addingUnitsGroupIndex) + "'" : "Adding units to Current Force"}
->
-    {this.props.appGlobals.currentCBTForce ? (
-      <BattleMechAddMechDialog
-        appGlobals={this.props.appGlobals}
-        currentForce={this.props.appGlobals.currentCBTForce.groups[this.state.addingUnitsGroupIndex]}
-        currentForceIndex={this.state.addingUnitsGroupIndex}
-        onChange={this.onAddUnitsChange}
-      />
-    ) : null}
-</StandardModal>
+{this.state.addingUnitsModal && this.props.appGlobals.currentCBTForce ? (
+    <StandardModal
+        show={true}
+        onClose={this.closeAddingUnits}
+        className="modal-xl"
+        title={this.props.appGlobals.currentCBTForce && this.props.appGlobals.currentCBTForce.groups[this.state.addingUnitsGroupIndex] ? "Adding units to '" + this.props.appGlobals.currentCBTForce.groups[this.state.addingUnitsGroupIndex].getName(this.state.addingUnitsGroupIndex) + "'" : "Adding units to Current Force"}
+        >
+            <BattleMechAddMechDialog
+                appGlobals={this.props.appGlobals}
+                currentForce={this.props.appGlobals.currentCBTForce.groups[this.state.addingUnitsGroupIndex]}
+                currentForceIndex={this.state.addingUnitsGroupIndex}
+                onChange={this.onAddUnitsChange}
+            />
+        </StandardModal>
+): null}
+
 
 {this.state.viewingUnit ? (
     <StandardModal

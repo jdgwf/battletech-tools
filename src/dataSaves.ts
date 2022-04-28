@@ -170,15 +170,15 @@ export function restoreFullBackup(
             if( item.name ) {
                 itemName = item.name;
             }
-            for( let existingItem of appGlobals.battleMechSaves ) {
+            for( let existingItemIndex in appGlobals.battleMechSaves ) {
 
-                if( existingItem.uuid === item.uuid ) {
-                    foundItem = existingItem;
+                if( appGlobals.battleMechSaves[existingItemIndex].uuid === item.uuid ) {
+                    foundItem = appGlobals.battleMechSaves[existingItemIndex];
 
                     let existingName = "(nameless)";
 
-                    if( existingItem.name ) {
-                        existingName = existingItem.name;
+                    if( appGlobals.battleMechSaves[existingItemIndex].name ) {
+                        existingName = appGlobals.battleMechSaves[existingItemIndex].name;
                     }
 
                     restoreMessages.push({
@@ -187,7 +187,7 @@ export function restoreFullBackup(
                     });
 
                     if( performActions ) {
-                        existingItem = item;
+                        appGlobals.battleMechSaves[existingItemIndex] = item;
                     }
 
                 }

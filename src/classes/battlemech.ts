@@ -14,6 +14,7 @@ import { btTechOptions } from "../data/tech-options";
 import { getHexDistanceFromModifier, getISEquipmentList, getMovementModifier } from "../utils";
 import { addCommas } from "../utils/addCommas";
 import { generateUUID } from "../utils/generateUUID";
+import { ISSWBasicInfo } from "../utils/getSSWXMLBasicInfo";
 import { AlphaStrikeUnit, IAlphaStrikeDamage, IASMULUnit } from "./alpha-strike-unit";
 import Pilot, { IPilot } from "./pilot";
 const { XMLParser } = require( "fast-xml-parser" );
@@ -230,6 +231,8 @@ export class BattleMech {
 
     private _introductoryRules: boolean = false;
 
+    public basicSSWInfo: ISSWBasicInfo | null = null;
+
     // in play variables
     public selectedMech: boolean = false;
 
@@ -434,10 +437,10 @@ export class BattleMech {
         jumpMove: 0,
         pv: 0,
         damage: {
-            short: "0",
-            medium: "0",
-            long: "0",
-            extreme: "0",
+            short: 0,
+            medium: 0,
+            long: 0,
+            extreme: 0,
         },
         armor: 0,
         structure: 0,
@@ -552,8 +555,8 @@ export class BattleMech {
 
        if(
             incomingDamageObjects &&
-            incomingDamageObjects.short !== "-" &&
-            incomingDamageObjects.short !== "0*"
+            incomingDamageObjects.short.toString() !== "-" &&
+            incomingDamageObjects.short.toString() !== "0*"
         ) {
             if( +incomingDamageObjects.short > returnValue) {
                 returnValue = +incomingDamageObjects.short;
@@ -561,8 +564,8 @@ export class BattleMech {
         }
         if(
             incomingDamageObjects &&
-            incomingDamageObjects.medium !== "-" &&
-            incomingDamageObjects.medium !== "0*"
+            incomingDamageObjects.medium.toString() !== "-" &&
+            incomingDamageObjects.medium.toString() !== "0*"
         ) {
             if( +incomingDamageObjects.medium > returnValue) {
                 returnValue = +incomingDamageObjects.medium;
@@ -570,8 +573,8 @@ export class BattleMech {
         }
         if(
             incomingDamageObjects &&
-            incomingDamageObjects.long !== "-" &&
-            incomingDamageObjects.long !== "0*"
+            incomingDamageObjects.long.toString() !== "-" &&
+            incomingDamageObjects.long.toString() !== "0*"
         ) {
             if( +incomingDamageObjects.long > returnValue) {
                 returnValue = +incomingDamageObjects.long;
@@ -580,8 +583,8 @@ export class BattleMech {
 
         if(
             incomingDamageObjects &&
-            incomingDamageObjects.extreme !== "-" &&
-            incomingDamageObjects.extreme !== "0*"
+            incomingDamageObjects.extreme.toString() !== "-" &&
+            incomingDamageObjects.extreme.toString() !== "0*"
         ) {
             if( +incomingDamageObjects.extreme > returnValue) {
                 returnValue = +incomingDamageObjects.extreme;
@@ -596,51 +599,52 @@ export class BattleMech {
         useZeros: boolean = false,
     ) {
 
-        if( incomingDamageObjects.short === "0" ) {
+        if( incomingDamageObjects.short.toString() === "0" ) {
             if( useZeros)
-                incomingDamageObjects.short = "0";
+                incomingDamageObjects.short = 0;
             else
-                incomingDamageObjects.short = "-";
+                incomingDamageObjects.short = 0;
         } else if( +incomingDamageObjects.short < .5) {
-
-            incomingDamageObjects.short = "0*";
+            incomingDamageObjects.shortMimimum = true;
+            incomingDamageObjects.short= 0;
         } else {
-            incomingDamageObjects.short = Math.round(+incomingDamageObjects.short).toString();
+            incomingDamageObjects.short = Math.round(+incomingDamageObjects.short);
         }
 
-        if( incomingDamageObjects.medium === "0" ) {
+        if( incomingDamageObjects.medium.toString() === "0" ) {
             if( useZeros)
-                incomingDamageObjects.medium = "0";
+                incomingDamageObjects.medium = 0;
             else
-                incomingDamageObjects.medium = "-";
+                incomingDamageObjects.medium = 0;
         } else if( +incomingDamageObjects.medium < .5) {
-
-            incomingDamageObjects.medium = "0*";
+            incomingDamageObjects.mediumMimimum = true;
+            incomingDamageObjects.medium = 0;
         } else {
-            incomingDamageObjects.medium = Math.round(+incomingDamageObjects.medium).toString();
+            incomingDamageObjects.medium = Math.round(+incomingDamageObjects.medium);
         }
 
-        if( incomingDamageObjects.long === "0" ) {
+        if( incomingDamageObjects.long.toString() === "0" ) {
             if( useZeros)
-                incomingDamageObjects.long = "0";
+                incomingDamageObjects.long = 0;
             else
-                incomingDamageObjects.long = "-";
+                incomingDamageObjects.long = 0;
         } else if( +incomingDamageObjects.long < .5) {
-
-            incomingDamageObjects.long = "0*";
+            incomingDamageObjects.long = 0;
+            incomingDamageObjects.longMimimum = true;
         } else {
-            incomingDamageObjects.long = Math.round(+incomingDamageObjects.long).toString();
+            incomingDamageObjects.long = Math.round(+incomingDamageObjects.long);
         }
 
-        if( incomingDamageObjects.extreme === "0" ) {
+        if( incomingDamageObjects.extreme.toString() === "0" ) {
             if( useZeros)
-                incomingDamageObjects.extreme = "0";
+                incomingDamageObjects.extreme = 0;
             else
-                incomingDamageObjects.extreme = "-";
+                incomingDamageObjects.extreme = 0;
         } else if( +incomingDamageObjects.extreme < .5) {
-            incomingDamageObjects.extreme = "0*";
+            incomingDamageObjects.extreme = 0;
+            incomingDamageObjects.extremeMimimum= true;
         } else {
-            incomingDamageObjects.extreme = Math.round(+incomingDamageObjects.extreme).toString();
+            incomingDamageObjects.extreme = Math.round(+incomingDamageObjects.extreme);
         }
 
         return incomingDamageObjects;
@@ -2030,10 +2034,14 @@ export class BattleMech {
         this._alphaStrikeForceStats.move = this.getWalkSpeed() * 2;
         this._alphaStrikeForceStats.jumpMove = this.getJumpSpeed() * 2;
         this._alphaStrikeForceStats.pv = 0;
-        this._alphaStrikeForceStats.damage.short = "0";
-        this._alphaStrikeForceStats.damage.medium = "0";
-        this._alphaStrikeForceStats.damage.long = "0";
-        this._alphaStrikeForceStats.damage.extreme = "0";
+        this._alphaStrikeForceStats.damage.short = 0;
+        this._alphaStrikeForceStats.damage.medium = 0;
+        this._alphaStrikeForceStats.damage.long = 0;
+        this._alphaStrikeForceStats.damage.extreme = 0;
+        this._alphaStrikeForceStats.damage.shortMimimum = false;
+        this._alphaStrikeForceStats.damage.mediumMimimum = false
+        this._alphaStrikeForceStats.damage.longMimimum = false
+        this._alphaStrikeForceStats.damage.extremeMimimum = false
         this._alphaStrikeForceStats.armor = 0;
         this._alphaStrikeForceStats.structure = 0;
         this._alphaStrikeForceStats.skill = 4;
@@ -2374,53 +2382,53 @@ export class BattleMech {
         let has_explosive = false;
 
         let lrmDamage: IAlphaStrikeDamage = {
-            short: "0",
-            medium: "0",
-            long: "0",
-            extreme: "0"
+            short: 0,
+            medium: 0,
+            long: 0,
+            extreme: 0
 
         }
 
         let heatDamage: IAlphaStrikeDamage = {
-            short: "0",
-            medium: "0",
-            long: "0",
-            extreme: "0"
+            short:0,
+            medium: 0,
+            long: 0,
+            extreme: 0
         }
 
         let flakDamage: IAlphaStrikeDamage = {
-            short: "0",
-            medium: "0",
-            long: "0",
-            extreme: "0"
+            short: 0,
+            medium: 0,
+            long: 0,
+            extreme: 0
         }
 
         let acDamage: IAlphaStrikeDamage = {
-            short: "0",
-            medium: "0",
-            long: "0",
-            extreme: "0"
+            short: 0,
+            medium: 0,
+            long: 0,
+            extreme: 0
         }
 
         let srmDamage: IAlphaStrikeDamage = {
-            short: "0",
-            medium: "0",
-            long: "0",
-            extreme: "0"
+            short: 0,
+            medium: 0,
+            long: 0,
+            extreme: 0
         }
 
         let mslDamage: IAlphaStrikeDamage = {
-            short: "0",
-            medium: "0",
-            long: "0",
-            extreme: "0"
+            short: 0,
+            medium: 0,
+            long: 0,
+            extreme: 0
         }
 
         let rearDamage: IAlphaStrikeDamage = {
-            short: "0",
-            medium: "0",
-            long: "0",
-            extreme: "0"
+            short: 0,
+            medium: 0,
+            long: 0,
+            extreme: 0
         }
 
         let indirectFireRating = 0;
@@ -2471,15 +2479,15 @@ export class BattleMech {
 
                 }
 
-                this._alphaStrikeForceStats.damage.short = shortTotalDamage.toString();
-                this._alphaStrikeForceStats.damage.medium = mediumTotalDamage.toString()
-                this._alphaStrikeForceStats.damage.long = longTotalDamage.toString()
-                this._alphaStrikeForceStats.damage.extreme = extremeTotalDamage.toString()
+                this._alphaStrikeForceStats.damage.short = shortTotalDamage;
+                this._alphaStrikeForceStats.damage.medium = mediumTotalDamage;
+                this._alphaStrikeForceStats.damage.long = longTotalDamage;
+                this._alphaStrikeForceStats.damage.extreme = extremeTotalDamage;
 
-                rearDamage.short = shortTotalDamageRear.toString();
-                rearDamage.medium = mediumTotalDamageRear.toString()
-                rearDamage.long = longTotalDamageRear.toString()
-                rearDamage.extreme = extremeTotalDamageRear.toString()
+                rearDamage.short = shortTotalDamageRear;
+                rearDamage.medium = mediumTotalDamageRear;
+                rearDamage.long = longTotalDamageRear;
+                rearDamage.extreme = extremeTotalDamageRear;
 
                 if ( this._equipmentList[weapon_counter].alphaStrike.notes && this._equipmentList[weapon_counter].alphaStrike.notes.length && this._equipmentList[weapon_counter].alphaStrike.notes.length > 0) {
                     for (let nC = 0; nC < this._equipmentList[weapon_counter].alphaStrike.notes.length; nC++) {
@@ -2504,40 +2512,40 @@ export class BattleMech {
 
                         if (this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "lrm" ) {
                             //@ts-ignore
-                            lrmDamage.short += this._equipmentList[weapon_counter].alphaStrike.rangeShort;
+                            lrmDamage.short += +this._equipmentList[weapon_counter].alphaStrike.rangeShort;
                             //@ts-ignore
-                            lrmDamage.medium += this._equipmentList[weapon_counter].alphaStrike.rangeMedium;
+                            lrmDamage.medium += +this._equipmentList[weapon_counter].alphaStrike.rangeMedium;
                             //@ts-ignore
-                            lrmDamage.long += this._equipmentList[weapon_counter].alphaStrike.rangeLong;
+                            lrmDamage.long += +this._equipmentList[weapon_counter].alphaStrike.rangeLong;
                             //@ts-ignore
-                            lrmDamage.extreme += this._equipmentList[weapon_counter].alphaStrike.rangeExtreme;
+                            lrmDamage.extreme += +this._equipmentList[weapon_counter].alphaStrike.rangeExtreme;
                         }
 
                         if (this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "ac" ) {
                             //@ts-ignore
-                            acDamage.short += this._equipmentList[weapon_counter].alphaStrike.rangeShort;
+                            acDamage.short += +this._equipmentList[weapon_counter].alphaStrike.rangeShort;
                             //@ts-ignore
-                            acDamage.medium += this._equipmentList[weapon_counter].alphaStrike.rangeMedium;
+                            acDamage.medium += +this._equipmentList[weapon_counter].alphaStrike.rangeMedium;
                             //@ts-ignore
-                            acDamage.long += this._equipmentList[weapon_counter].alphaStrike.rangeLong;
+                            acDamage.long += +this._equipmentList[weapon_counter].alphaStrike.rangeLong;
                             //@ts-ignore
-                            acDamage.extreme += this._equipmentList[weapon_counter].alphaStrike.rangeExtreme;
+                            acDamage.extreme += +this._equipmentList[weapon_counter].alphaStrike.rangeExtreme;
                         }
 
                         if (this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "flak" ) {
                             //@ts-ignore
-                            flakDamage.short += this._equipmentList[weapon_counter].alphaStrike.rangeShort;
+                            flakDamage.short += +this._equipmentList[weapon_counter].alphaStrike.rangeShort;
                             //@ts-ignore
-                            flakDamage.medium += this._equipmentList[weapon_counter].alphaStrike.rangeMedium;
+                            flakDamage.medium += +this._equipmentList[weapon_counter].alphaStrike.rangeMedium;
                             //@ts-ignore
-                            flakDamage.long += this._equipmentList[weapon_counter].alphaStrike.rangeLong;
+                            flakDamage.long += +this._equipmentList[weapon_counter].alphaStrike.rangeLong;
                             //@ts-ignore
-                            flakDamage.extreme += this._equipmentList[weapon_counter].alphaStrike.rangeExtreme;
+                            flakDamage.extreme += +this._equipmentList[weapon_counter].alphaStrike.rangeExtreme;
                         }
 
                         if (this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "srm" ) {
                             //@ts-ignore
-                            indirectFireRating += this._equipmentList[weapon_counter].alphaStrike.rangeLong;
+                            indirectFireRating += +this._equipmentList[weapon_counter].alphaStrike.rangeLong;
 
                         }
 
@@ -2622,9 +2630,9 @@ export class BattleMech {
                 heat_damage_medium = Math.ceil((+this._alphaStrikeForceStats.damage.medium * heatDissipation) / (max_heat_output - 4));
 
             if( this._alphaStrikeForceStats.damage.short.toString() !== "0*" )
-                this._alphaStrikeForceStats.damage.short = Math.ceil(+this._alphaStrikeForceStats.damage.short).toString();
+                this._alphaStrikeForceStats.damage.short = Math.ceil(+this._alphaStrikeForceStats.damage.short);
             if( this._alphaStrikeForceStats.damage.medium.toString() !== "0*" )
-                this._alphaStrikeForceStats.damage.medium = Math.ceil(+this._alphaStrikeForceStats.damage.medium).toString();
+                this._alphaStrikeForceStats.damage.medium = Math.ceil(+this._alphaStrikeForceStats.damage.medium);
             // if( this._alphaStrikeForceStats.damage.short !== "0*" )
             // this._alphaStrikeForceStats.damage.long = Math.ceil( this._alphaStrikeForceStats.damage.long );
             // if( this._alphaStrikeForceStats.damage.medium !== "0*" )
@@ -2637,15 +2645,15 @@ export class BattleMech {
 
             if( this._alphaStrikeForceStats.damage.medium.toString() !== "0*" && heat_damage_medium < +this._alphaStrikeForceStats.damage.medium) {
                 final_overheat_value = (+this._alphaStrikeForceStats.damage.medium - heat_damage_medium);
-                this._alphaStrikeForceStats.damage.medium = (+this._alphaStrikeForceStats.damage.medium - final_overheat_value).toString();
-                this._alphaStrikeForceStats.damage.short = (+this._alphaStrikeForceStats.damage.short - final_overheat_value).toString();
+                this._alphaStrikeForceStats.damage.medium = (+this._alphaStrikeForceStats.damage.medium - final_overheat_value);
+                this._alphaStrikeForceStats.damage.short = (+this._alphaStrikeForceStats.damage.short - final_overheat_value);
             }
 
         } else {
             if( this._alphaStrikeForceStats.damage.short.toString() !== "0*" )
-                this._alphaStrikeForceStats.damage.short = Math.ceil(+this._alphaStrikeForceStats.damage.short).toString();
+                this._alphaStrikeForceStats.damage.short = Math.ceil(+this._alphaStrikeForceStats.damage.short);
             if( this._alphaStrikeForceStats.damage.medium.toString() !== "0*" )
-                this._alphaStrikeForceStats.damage.medium = Math.ceil(+this._alphaStrikeForceStats.damage.medium).toString();
+                this._alphaStrikeForceStats.damage.medium = Math.ceil(+this._alphaStrikeForceStats.damage.medium);
         }
 
         let final_long_overheat_value = 0;
@@ -2658,8 +2666,8 @@ export class BattleMech {
                 heat_damage_long = +this._alphaStrikeForceStats.damage.long;
                 heat_damage_extreme = +this._alphaStrikeForceStats.damage.extreme;
 
-                this._alphaStrikeForceStats.damage.long = Math.ceil((+this._alphaStrikeForceStats.damage.long * heatDissipation) / (total_weapon_heat_long - 4)).toString();
-                this._alphaStrikeForceStats.damage.extreme = Math.ceil((+this._alphaStrikeForceStats.damage.long * heatDissipation) / (total_weapon_heat_long - 4)).toString();
+                this._alphaStrikeForceStats.damage.long = Math.ceil((+this._alphaStrikeForceStats.damage.long * heatDissipation) / (total_weapon_heat_long - 4));
+                this._alphaStrikeForceStats.damage.extreme = Math.ceil((+this._alphaStrikeForceStats.damage.long * heatDissipation) / (total_weapon_heat_long - 4));
 
                 // console.log( "damage.long", this._alphaStrikeForceStats.damage.long );
                 // console.log( "heatDissipation", heatDissipation );
@@ -2668,8 +2676,8 @@ export class BattleMech {
 
                 if (heat_damage_long > +this._alphaStrikeForceStats.damage.long) {
                     final_long_overheat_value = heat_damage_long - +this._alphaStrikeForceStats.damage.long;
-                    this._alphaStrikeForceStats.damage.long = (heat_damage_long - final_long_overheat_value).toString();
-                    this._alphaStrikeForceStats.damage.extreme = (heat_damage_extreme - final_long_overheat_value).toString();
+                    this._alphaStrikeForceStats.damage.long = (heat_damage_long - final_long_overheat_value);
+                    this._alphaStrikeForceStats.damage.extreme = (heat_damage_extreme - final_long_overheat_value);
                 }
 
                 // console.log( "final_long_overheat_value", final_long_overheat_value );
@@ -2682,9 +2690,9 @@ export class BattleMech {
             // if( this._alphaStrikeForceStats.damage.medium !== "0*" )
             // this._alphaStrikeForceStats.damage.medium =  Math.ceil( this._alphaStrikeForceStats.damage.medium );
             if( this._alphaStrikeForceStats.damage.short.toString() !== "0*" )
-                this._alphaStrikeForceStats.damage.long = Math.ceil(+this._alphaStrikeForceStats.damage.long).toString();
+                this._alphaStrikeForceStats.damage.long = Math.ceil(+this._alphaStrikeForceStats.damage.long);
             if( this._alphaStrikeForceStats.damage.medium.toString() !== "0*" )
-                this._alphaStrikeForceStats.damage.extreme = Math.ceil(+this._alphaStrikeForceStats.damage.extreme).toString();
+                this._alphaStrikeForceStats.damage.extreme = Math.ceil(+this._alphaStrikeForceStats.damage.extreme);
 
         }
 
@@ -2761,13 +2769,13 @@ export class BattleMech {
         this._calcLogAS += "<strong>Step 1: Determine Unit’s Offensive Value ASC - p138</strong><br />\n";
         let offensive_value = 0;
         // Attack Damage Factor
-        if( this._alphaStrikeForceStats.damage.short !== "0*" && this._alphaStrikeForceStats.damage.short !== "-" )
+        if( this._alphaStrikeForceStats.damage.short.toString() !== "0*" && this._alphaStrikeForceStats.damage.short.toString() !== "-" )
             offensive_value += +this._alphaStrikeForceStats.damage.short;
-        if( this._alphaStrikeForceStats.damage.medium !== "0*" && this._alphaStrikeForceStats.damage.medium !== "-" )
+        if( this._alphaStrikeForceStats.damage.medium.toString() !== "0*" && this._alphaStrikeForceStats.damage.medium.toString() !== "-" )
             offensive_value += +this._alphaStrikeForceStats.damage.medium;
-        if( this._alphaStrikeForceStats.damage.long !== "0*" && this._alphaStrikeForceStats.damage.long !== "-" )
+        if( this._alphaStrikeForceStats.damage.long.toString() !== "0*" && this._alphaStrikeForceStats.damage.long.toString() !== "-" )
             offensive_value += +this._alphaStrikeForceStats.damage.long;
-        if( this._alphaStrikeForceStats.damage.extreme !== "0*" && this._alphaStrikeForceStats.damage.extreme !== "-" )
+        if( this._alphaStrikeForceStats.damage.extreme.toString() !== "0*" && this._alphaStrikeForceStats.damage.extreme.toString() !== "-" )
             offensive_value += +this._alphaStrikeForceStats.damage.extreme;
 
         this._calcLogAS += "Attack Damage Factor: " + offensive_value + " ( " + this._alphaStrikeForceStats.damage.short + " + " + this._alphaStrikeForceStats.damage.medium + " + " + this._alphaStrikeForceStats.damage.long + " + " + this._alphaStrikeForceStats.damage.extreme + " )<br />\n";
@@ -2843,12 +2851,12 @@ export class BattleMech {
                 this._alphaStrikeForceStats.abilityCodes[aC] = "Heat " + heatDamage.short + "/" + heatDamage.medium + "/" + heatDamage.long;
                 highestDamage = this._getHighestDamage(heatDamage);
                 offensive_value += highestDamage;
-                if (heatDamage.medium !== "-" && +heatDamage.medium > 0)
+                if (heatDamage.medium.toString() !== "-" && +heatDamage.medium > 0)
                     offensive_value += .5;
 
                 this._calcLogAS += "<strong>Adding</strong> Heat Ability: " + heatDamage.short + "/" + heatDamage.medium + "/" + heatDamage.long + "<br />\n";
                 this._calcLogAS += "Adding Heat Damage Factor to PV: " + highestDamage + "<br />\n";
-                if (heatDamage.medium !== "-" && +heatDamage.medium > 0)
+                if (heatDamage.medium.toString() !== "-" && +heatDamage.medium > 0)
                     this._calcLogAS += "Adding Heat Medium Damage Bonus to PV: 0,5<br />\n";
             }
 
@@ -9296,7 +9304,7 @@ export class BattleMech {
         const parser = new XMLParser(options);
         let jObj = parser.parse(ssw_xml);
 
-        console.log( "battlemech.importSSWXML() jObj", jObj)
+        // console.log( "battlemech.importSSWXML() jObj", jObj)
         if( jObj && jObj.mech && jObj.mech.mech_type === "BattleMech") {
             this.reset();
 

@@ -2,8 +2,8 @@ import * as React from 'react';
 import { FaBars, FaEye, FaPlus } from "react-icons/fa";
 import { AlphaStrikeUnit, IASMULUnit } from '../../../../classes/alpha-strike-unit';
 import { BattleMech } from '../../../../classes/battlemech';
-import { btEraOptions } from '../../../../data/era-options';
 import { getMULASSearchResults } from '../../../../utils';
+import { getMULEraIDs, getMULEraLabel } from '../../../../utils/mulUtilities';
 import { IAppGlobals } from '../../../app-router';
 import InputField from '../../../components/form_elements/input_field';
 import TextSection from '../../../components/text-section';
@@ -81,7 +81,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
       let appSettings = this.props.appGlobals.appSettings;
 
-      appSettings.alphaStrikeSearchEra = event.currentTarget.value;
+      appSettings.alphaStrikeSearchEra = +event.currentTarget.value;
       this.props.appGlobals.saveAppSettings( appSettings );
 
       this.updateSearchResults();
@@ -95,6 +95,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         this.props.appGlobals.appSettings.alphaStrikeSearchRules,
         this.props.appGlobals.appSettings.alphaStrikeSearchTech,
         this.props.appGlobals.appSettings.alphaStrikeSearchEra,
+        "", // Type Filter
         !navigator.onLine,
       );
 
@@ -204,17 +205,20 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                       </select>
                     </label> */}
                       <label>
-                      Era (starting year):<br />
+                      Era:<br />
                       <select
                         onChange={this.updateEra}
                         value={this.props.appGlobals.appSettings.alphaStrikeSearchEra}
                       >
                         <option value="">All</option>
-                        {btEraOptions.map( (era, eraIndex) => {
+                        {getMULEraIDs().map( (eraID ) => {
+                          return <option key={eraID} value={eraID}>{getMULEraLabel( eraID )}</option>
+                        })}
+                        {/* {btEraOptions.map( (era, eraIndex) => {
                           return (
                             <option key={eraIndex} value={era.yearStart}>{era.name}</option>
                           )
-                        })}
+                        })} */}
                       </select>
                     </label>
                       </div>
@@ -300,7 +304,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
                               <td>{asUnit.Rules}</td>
                               <td>{asUnit.Technology.Name}</td>
-                              <td>{asUnit.EraStart}</td>
+                              <td>{getMULEraLabel(asUnit.EraId)}</td>
                               <td>{asUnit.BFType}</td>
                               <td>{asUnit.BFPointValue}</td>
 

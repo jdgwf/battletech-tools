@@ -2092,14 +2092,14 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
           return (
             <React.Fragment key={sectionIndex}>
-              {section.map( (number) => {
+              {section.map( (number, numberIndex) => {
 
                 let numberText = <>{number.toString()}</>;
                 if( number < 10 ) {
                   numberText = <>&nbsp;{number.toString()}</>;
                 }
                 return (
-                  <React.Fragment key={number}>
+                  <React.Fragment key={numberIndex}>
                     <button
                       className={this.state.takeDamageAmount === number ? "btn btn-xs btn-primary" : "btn btn-xs btn-secondary"}
                       onClick={(e) => this.takeDamageAmount(e, number)}
@@ -2435,7 +2435,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
   <div className={this.state.mechSelectorExpanded ? "mech-selector" : "mech-selector expanded"}>
           {this.props.appGlobals.currentCBTForce.groups.map( (group, groupIndex) => {
             if( group.members.length === 0) {
-              return (<></>);
+              return (<React.Fragment key={groupIndex}></React.Fragment>);
             }
             return (
               <React.Fragment key={groupIndex}>

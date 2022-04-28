@@ -7,9 +7,11 @@ import { BattleMech, IBattleMechExport } from "../classes/battlemech";
 import { BattleMechForce, ICBTForceExport } from "../classes/battlemech-force";
 import { BattleMechGroup, ICBTGroupExport } from "../classes/battlemech-group";
 import { CONFIGSiteTitle } from '../configVars';
+import { sswMechs } from "../data/ssw/sswMechs";
 import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getCurrentCBTForce, getFavoriteASGroups, getFavoriteCBTGroups, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveCurrentCBTForce, saveFavoriteASGroups, saveFavoriteASGroupsObjects, saveFavoriteCBTGroupsObjects } from "../dataSaves";
 import { callAnalytics } from "../jdgAnalytics";
 import { generateUUID } from "../utils/generateUUID";
+import { getSSWXMLBasicInfo } from "../utils/getSSWXMLBasicInfo";
 import Alerts from './classes/alerts';
 import { AppSettings } from "./classes/app_settings";
 import SanitizedHTML from './components/sanitized-html';
@@ -68,6 +70,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
             saveAppSettings: this.saveAppSettings,
 
+            sswMechObjects: [],
             favoriteASGroups: [],
             currentASForce: null,
             currentBattleMech: null,
@@ -187,9 +190,38 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         appGlobals.favoriteCBTGroups = bmImportedFavorites;
         appGlobals.currentCBTForce = currentCBTForce;
 
+
+        // console.log("initial appGlobals loaded")
+
         this.setState({
             appGlobals: appGlobals,
         })
+
+
+        setTimeout(
+            () => {
+                // console.log("starting SSW import");
+                for( let sswXML of sswMechs ) {
+                    let basicSSWInfo = getSSWXMLBasicInfo( sswXML );
+
+                    if( basicSSWInfo && basicSSWInfo.rules_level_ssw === 0 ) {
+                        let bmObj = new BattleMech();
+                        bmObj.importSSWXML( sswXML );
+                        bmObj.basicSSWInfo = basicSSWInfo;
+
+                        appGlobals.sswMechObjects.push(bmObj);
+                    }
+                }
+                // console.log("SSW import complete")
+                this.setState({
+                    appGlobals: appGlobals,
+                })
+            },
+            500
+        );
+
+
+
     }
 
     saveBattleMechSaves = ( newValue: IBattleMechExport[] ): void => {
@@ -530,6 +562,7 @@ interface IAppRouterState {
 }
 
 export interface IAppGlobals {
+    sswMechObjects: BattleMech[];
     sessionUUID: string;
     currentPageTitle: string;
     siteAlerts: Alerts;

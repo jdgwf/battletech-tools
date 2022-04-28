@@ -27,7 +27,7 @@ export default class StandardModal extends React.Component<IStandardModalProps, 
         }
 
         return (
-<Modal show={this.props.show} className={this.props.className ? this.props.className + " form" : "form"}>
+<Modal show={this.props.show} className={this.props.className}>
     <Modal.Header>
             <Modal.Title>{this.props.title}</Modal.Title>
 

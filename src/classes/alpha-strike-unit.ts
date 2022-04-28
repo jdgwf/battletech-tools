@@ -1,10 +1,10 @@
 import Pilot, { IPilot } from "./pilot";
 
 export interface IAlphaStrikeDamage {
-    short: number | string;
-    medium: number | string;
-    long: number | string;
-    extreme: number | string;
+    short: number;
+    medium: number;
+    long: number;
+    extreme: number;
     shortMimimum?: boolean;
     mediumMimimum?: boolean;
     longMimimum?: boolean;
@@ -815,45 +815,45 @@ export class AlphaStrikeUnit {
         let longDamage = this.damage.long;
         let extremeDamage = this.damage.extreme;
 
-        if( shortDamage !== "0*") {
-            shortDamage = (+shortDamage - currentWeaponHits).toString();
+        if( shortDamage.toString().toString() !== "0*") {
+            shortDamage = (+shortDamage - currentWeaponHits);
         } else {
             if( currentWeaponHits )
-                shortDamage = "0";
+                shortDamage = 0;
         }
 
-        if( mediumDamage !== "0*") {
-            mediumDamage = (+mediumDamage - currentWeaponHits).toString();
+        if( mediumDamage.toString() !== "0*") {
+            mediumDamage = (+mediumDamage - currentWeaponHits)
         } else {
             if( currentWeaponHits )
-                mediumDamage = "0";
+                mediumDamage =0;
         }
 
-        if( longDamage !== "0*") {
-            longDamage = (+longDamage - currentWeaponHits).toString();
+        if( longDamage.toString() !== "0*") {
+            longDamage = (+longDamage - currentWeaponHits)
         } else {
             if( currentWeaponHits )
-                longDamage = "0";
+                longDamage = 0;
         }
 
-        if( extremeDamage !== "0*") {
-            extremeDamage = (+extremeDamage - currentWeaponHits).toString();
+        if( extremeDamage.toString() !== "0*") {
+            extremeDamage = (+extremeDamage - currentWeaponHits)
         } else {
             if( currentWeaponHits )
-                extremeDamage = "0";
+                extremeDamage = 0;
         }
 
         if( +shortDamage < 0 )
-            shortDamage = "0";
+            shortDamage = 0;
 
         if( +mediumDamage < 0 )
-            mediumDamage = "0";
+            mediumDamage = 0;
 
         if( +longDamage < 0 )
-            longDamage = "0";
+            longDamage = 0;
 
         if( +extremeDamage < 0 )
-            extremeDamage = "0";
+            extremeDamage = 0;
 
         this.currentDamage = {
             short: shortDamage,

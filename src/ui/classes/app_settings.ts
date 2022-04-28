@@ -15,9 +15,10 @@ export class AppSettings {
     alphaStrikeInPlayCardMode: boolean = false;
     alphaStrikeSearchRules: string = "";
     alphaStrikeSearchTech: string = "";
-    alphaStrikeSearchEra: string = "";
+    alphaStrikeSearchEra: number = 0;
 
     equipmentEditorFile: string = "";
+    asValues: Record<string, number> = {};
 
     constructor( io: IAppSettingsExport | null ) {
         this.import(io);
@@ -64,12 +65,15 @@ export class AppSettings {
                 this.equipmentEditorFile = io.equipmentEditorFile;
             }
 
-            if ( typeof( io.alphaStrikeSearchEra ) !== "undefined" ) {
-                this.alphaStrikeSearchEra = io.alphaStrikeSearchEra;
+            if ( typeof( io.alphaStrikeSearchEra ) !== "undefined" && !isNaN(io.alphaStrikeSearchEra) ) {
+                this.alphaStrikeSearchEra = +io.alphaStrikeSearchEra;
             }
 
             if ( typeof( io.alphaStrikeSearchTech ) !== "undefined" ) {
                 this.alphaStrikeSearchTech = io.alphaStrikeSearchTech;
+            }
+            if ( typeof( io.asValues ) !== "undefined" ) {
+                this.asValues = io.asValues;
             }
         }
     }
@@ -88,6 +92,7 @@ export class AppSettings {
             alphaStrikeSearchEra: this.alphaStrikeSearchEra,
             alphaStrikeSearchTech: this.alphaStrikeSearchTech,
             alphaStrikeMeasurementsInHexes: this.alphaStrikeMeasurementsInHexes,
+            asValues: this.asValues,
         }
     }
 }
@@ -102,9 +107,10 @@ export interface IAppSettingsExport {
     alphaStrikeSearchTerm: string;
     alphaStrikeSearchRules: string;
     alphaStrikeSearchTech: string;
-    alphaStrikeSearchEra: string;
+    alphaStrikeSearchEra: number;
     alphaStrikeInPlayCardMode: boolean;
     alphaStrikeMeasurementsInHexes: boolean;
 
     equipmentEditorFile: string;
+    asValues: Record<string, number>;
 }

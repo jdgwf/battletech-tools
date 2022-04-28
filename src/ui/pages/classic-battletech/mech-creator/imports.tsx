@@ -1,16 +1,13 @@
 
 import React from 'react';
-import { FaArrowCircleLeft, FaCheckCircle, FaFileImport, FaTimesCircle } from "react-icons/fa";
+import { FaArrowCircleLeft, FaCheckCircle, FaEye, FaPlusCircle, FaTimesCircle } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { BattleMech } from "../../../../classes/battlemech";
-import { sswMechs } from "../../../../data/ssw/sswMechs";
-import { addCommas } from "../../../../utils/addCommas";
-import { getSSWXMLBasicInfo } from "../../../../utils/getSSWXMLBasicInfo";
 import { IAppGlobals } from '../../../app-router';
-import TextAreaField from "../../../components/form_elements/textarea_field";
 import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
 import SanitizedHTML from '../../../components/sanitized-html';
 import StandardModal from "../../../components/standard-modal";
+import BattleMechSVG from '../../../components/svg/battlemech-svg';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
@@ -32,11 +29,23 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
             mechBF: -1,
             importMechName: "",
             importErrors: [],
+            viewingUnit: null,
         }
 
         this.props.appGlobals.makeDocumentTitle("Imports | 'Mech Creator");
     }
 
+    importUnit = (
+      e:React.FormEvent<HTMLButtonElement>,
+      unit: BattleMech,
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault()
+      }
+      if( unit ) {
+        this.props.appGlobals.saveCurrentBattleMech( unit );
+      }
+    }
 
     updateTRO = (e: React.FormEvent<HTMLTextAreaElement>) => {
 
@@ -101,107 +110,85 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
       })
     }
 
-    updateSSWXML = (
-      e: React.FormEvent<HTMLTextAreaElement | HTMLButtonElement>,
-            mechData: string | null = null,
-    ) => {
-      if( e && e.preventDefault ) {
-        e.preventDefault();
-      }
 
-      if( mechData === null ) {
-        mechData = e.currentTarget.value
-      }
-
-      let basicMechData = getSSWXMLBasicInfo( mechData.trim() );
-
-        let sswCBill = -1;
-        let mechCBill = -1;
-
-        let sswBV2 = -1;
-        let mechBV2 = -1;
-
-        let sswBF = -1;
-        let mechBF = -1;
-        let importMechName = "";
-
-        let tempBM = new BattleMech();
-        let importErrors: string[] = [];
-
-        tempBM.importSSWXML( mechData.trim() );
-
-        if( basicMechData && tempBM )  {
-          sswCBill = basicMechData.cbill_cost;
-          sswBV2 = basicMechData.bv2;
-          sswBF = basicMechData.bfvalue;
-          mechCBill = tempBM.getCBillCostNumeric(true);
-          mechBV2 = tempBM.getBattleValue();
-          mechBF = tempBM.getAlphaStrikeValue();
-          importMechName = basicMechData.model + " " + basicMechData.name;
-          importErrors = tempBM.sswImportErrors;
-        }
-
-        this.setState({
-          updated: true,
-          sswXML: mechData,
-          sswCBill: sswCBill,
-          sswBV2: sswBV2,
-          sswBF: sswBF,
-          mechCBill: mechCBill,
-          mechBV2: mechBV2,
-          mechBF: mechBF,
-          importMechName: importMechName,
-          importErrors: importErrors,
-        })
-
-
-
-      // if( this.props.appGlobals.currentBattleMech && e.currentTarget.value && e.currentTarget.value.trim() && e.currentTarget.value.trim().startsWith("<")) {
-      //   this.props.appGlobals.currentBattleMech.importSSWXML( e.currentTarget.value.trim() );
-      // }
-      // this.setState({
-      //   updated: true,
-      // })
-    }
-
-    doImport = (
+    viewUnit = (
       e: React.FormEvent<HTMLButtonElement>,
+      bm: BattleMech,
     ) => {
       if( e && e.preventDefault ) {
         e.preventDefault();
       }
+      console.log("viewUnit", bm.getName() )
+      this.setState({
+        viewingUnit: bm,
+      })
+    }
 
-      let mechData = this.state.sswXML;
+  closeViewUnit = (
+      e: React.FormEvent<HTMLButtonElement> | null,
+  ) => {
+      if( e && e.preventDefault ) {
+          e.preventDefault();
+      }
+      this.setState({
+          viewingUnit: null,
+      })
+  }
 
-      if( this.props.appGlobals.currentBattleMech &&  mechData && mechData.trim() && mechData.trim().startsWith("<")) {
-        this.props.appGlobals.currentBattleMech.importSSWXML( mechData.trim() );
-        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
-
-
-
-        this.setState({
-          updated: true,
-          sswXML: "",
-         })
+  importViewedUnit = (
+    e: React.FormEvent<HTMLButtonElement> | null,
+  ) => {
+      if( e && e.preventDefault ) {
+          e.preventDefault();
+      }
+      if( this.state.viewingUnit ) {
+        this.props.appGlobals.saveCurrentBattleMech( this.state.viewingUnit );
       }
 
-    }
+  }
 
     render = (): React.ReactFragment => {
 
-      let sswMechCount = 0;
       if(!this.props.appGlobals.currentBattleMech)
         return <></>
       return (
         <UIPage current="classic-battletech-mech-creator" appGlobals={this.props.appGlobals}>
-                      <StandardModal
-              title="Experimental TRO importer!"
-              show={this.state.importTROModal}
-              onClose={this.closeTROModal}
-              onAdd={this.state.ParsedTRO ? this.importTRO : undefined }
-              labelAdd="Import and Replace"
-              className="modal-xl"
-            >
+  <StandardModal
+        show={this.state.viewingUnit ? true : false}
+        onClose={this.closeViewUnit}
+        onAdd={this.importViewedUnit}
+        labelAdd={"Import This Unit"}
+        className="modal modal-xl"
+    >
+      {this.state.viewingUnit ? (
+        <>
+        <h3 className="text-center">Viewing {this.state.viewingUnit.model}</h3>
+        <div className="row">
+            <div className='col'>
+                <SanitizedHTML
+                    raw={true}
+                    html={this.state.viewingUnit.makeTROHTML()}
+                />
+            </div>
+            <div className='col'>
+                <BattleMechSVG
+                    mechData={this.state.viewingUnit}
+                />
+            </div>
+        </div>
+        </>
+        ) : null}
+</StandardModal>
+
+<StandardModal
+  title="Experimental TRO importer!"
+  show={this.state.importTROModal}
+  onClose={this.closeTROModal}
+  onAdd={this.state.ParsedTRO ? this.importTRO : undefined }
+  labelAdd="Import and Replace"
+  className="modal-xl"
+>
+
 <div className="row">
                           <div className="col">
                           <strong>Import Copy/Paste TRO</strong>
@@ -246,11 +233,10 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                   current="imports"
                 />
               </div>
-              <div className="col-md-9 col-lg-10">
-                  <div className="row">
-                    <div className="col-md-12 col-lg-8">
+              <div className="col-md-9 col-lg-6">
+
                       <TextSection
-                        label="Imports Skunkwerks .ssw XML"
+                        label="Imports From Skunkwerks"
                       >
                           <div className="alert alert-info">
 
@@ -263,115 +249,86 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                             </div>
 
                           </div>
-                          <div className="row">
-                            <div className="col-md-6">
-                              <h4 className="text-center">SSW 3039 and 3050 Inner Sphere Mechs</h4>
-                              <div className="small-text">These 'mechs are the raw XML files from the Solaris Skunk Werks projects. Right now only the Intro rules level are available; we're working on the others.</div>
-                              <div style={{overflow: "scroll", height: "600px"}}>
-                              <ul className="styleless">
-                            {sswMechs.map( (mechData, mechIndex) => {
-                              let basicData = getSSWXMLBasicInfo( mechData );
-                              if( basicData && basicData.rules_level_ssw === 0 ) {
-                                sswMechCount++;
 
-                                return (
-                                  <li key={mechIndex}>
-                                    <button
-                                      onClick={(e) => this.updateSSWXML(e, mechData )}
-                                      className="btn btn-primary btn-xs"
-                                    >
-                                      <FaFileImport />
-                                    </button>&nbsp;{basicData.model} {basicData.name}
-                                  </li>
-                                )
-                              }  else {
-                                return <React.Fragment key={mechIndex}></React.Fragment>
-                              }
-                            })}
-                            </ul>
 
-                            </div>
-                            <hr />
-                            <div className="text-center">
-                            {sswMechCount} SSW 'Mechs Available<br />
+            <table className="table">
+                    <thead>
+                        <tr>
+                            <th>Make</th>
+                            <th className="min-width no-wrap text-left">Tech</th>
+                            <th className="min-width no-wrap text-center">Tonnage</th>
+                            <th className="min-width no-wrap text-center">BV2</th>
+                            <th className="min-width no-wrap text-center">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    {this.props.appGlobals.sswMechObjects.length === 0 ? (
+                        <tbody>
+                            <tr>
+                                <td className="text-center" colSpan={5}>
+                                    <br />No 'mechs found for import. This should not be!
+                                    <br />
+                                    <br />
+                                </td>
+                            </tr>
+                        </tbody>
+                    ) : null}
+                    {this.props.appGlobals.sswMechObjects.map( (bmObj, bmIndex) => {
+
+
+                        let perfectImport = true;
+                        let problems: string[] = [];
+                        if( bmObj.basicSSWInfo && bmObj.basicSSWInfo.bv2 !== bmObj.getBattleValue()) {
+                            perfectImport = false;
+                            problems.push( "BV2 doesn't match! SSW " + bmObj.basicSSWInfo.bv2 + " vs calculated " + bmObj.getBattleValue() )
+                        }
+                        if( bmObj.basicSSWInfo && bmObj.basicSSWInfo.cbill_cost !== bmObj.getCBillCostNumeric(true)) {
+                            perfectImport = false;
+                            problems.push( "Cbill Cost doesn't match! SSW " + bmObj.basicSSWInfo.cbill_cost + " vs calculated " + bmObj.getCBillCost(true) )
+                        }
+                        if( bmObj.sswImportErrors.length > 0 ) {
+                            perfectImport = false;
+                            problems.push( bmObj.sswImportErrors.length + " import errors!" );
+                        }
+
+                        return (
+                            <tbody key={bmIndex}>
+                                <tr>
+                                    <td>
+                                        {bmObj.getName()}&nbsp;
+                                        {perfectImport ? (
+                                            <FaCheckCircle title="This import looks good to add!" className="color-green" />
+                                        ) : (
+                                            <FaTimesCircle title={"Not an accurate import, not reccomended for adding to your force. " + problems.join("; ")} className="color-red" />
+                                        )}
+                                    </td>
+                                    <td className="min-width no-wrap text-left">{bmObj.getTech().name}</td>
+                                    <td className="min-width no-wrap text-center">{bmObj.getTonnage()}</td>
+                                    <td className="min-width no-wrap text-center">{bmObj.getBattleValue()}</td>
+                                    <td className="min-width no-wrap text-center">
+                                        <button
+                                            className='btn btn-sm btn-primary'
+                                            onClick={e => this.viewUnit(e, bmObj )}
+                                        >
+                                            <FaEye />
+                                        </button>
+
+                                        <button
+                                            className='btn btn-sm btn-primary'
+                                            onClick={e => this.importUnit(e, bmObj )}
+                                        >
+                                            <FaPlusCircle />
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        )
+                    })}
+
+                </table>
+
                             See the <Link to="ssw-sanity-check">Sanity Test</Link> page for compatibility
-                            </div>
-                            </div>
-                            <div className="col-md-6">
-                            <TextAreaField
-                              label="Import SSW XML"
-                              value={this.state.sswXML}
-                              onChange={this.updateSSWXML}
-                              className="taller"
-                            />
 
-                            {this.state.sswXML ? (
-                              <>
-                              <h3>Import Checks for {this.state.importMechName}</h3>
-                              {this.state.sswCBill !== this.state.mechCBill ? (
-                              <div>
-                                <FaTimesCircle className="color-red" />&nbsp;CBill Costs doesn't match:<br />
-                                  SSW: {addCommas(this.state.sswCBill)} != JBT: {addCommas(this.state.mechCBill)}
 
-                                  {Math.abs(this.state.sswCBill - this.state.mechCBill ) < 3 ? (
-                                    <div className="color-green">..but it's close - rounding error?</div>
-                                  ) : null}
-                              </div>
-                            ) : (
-                              <div>
-                                <FaCheckCircle className="color-green" />&nbsp;CBill Costs match: {addCommas(this.state.mechCBill)}
-                              </div>
-                            )}
-                            {/* {this.state.sswBF !== this.state.mechBF ? (
-                              <div>
-                                <FaTimesCircle className="color-red" />&nbsp;BF (Alpha Strike) Point Costs doesn't match:
-                                  SSW: {this.state.sswBF} != JBT: {this.state.mechBF}
-                              </div>
-                            ) : (
-                              <div>
-                                <FaCheckCircle className="color-green" />&nbsp;BF (Alpha Strike) Point Costs match: {this.state.mechBF}
-                              </div>
-                            )} */}
-                            {this.state.sswBV2 !== this.state.mechBV2 ? (
-                              <div>
-                                <FaTimesCircle className="color-red" />&nbsp;BV2 doesn't match:
-                                  SSW: {addCommas(this.state.sswBV2)} != JBT: {addCommas(this.state.mechBV2)}
-                              </div>
-                            ) : (
-                              <div>
-                                <FaCheckCircle className="color-green" />&nbsp;BV2 matches: {addCommas(this.state.mechBV2)}
-                              </div>
-                            )}
-                              </>
-                            ) : null}
-                            {this.state.importErrors.length > 0 ? (
-                              <>
-                              <h4>Import Errors</h4>
-                              <ul>
-                                {this.state.importErrors.map ( (line, lineIndex) => {
-                                  return (
-                                    <li key={lineIndex}>
-                                      {line}
-                                    </li>
-                                  )
-                                })}
-                              </ul>
-                              </>
-                            ) : null}
-
-                            </div>
-                          </div>
-
-                          <div className="text-right">
-                            <button
-                              className="btn btn-primary"
-                              onClick={this.doImport}
-                            >
-                              Do Import
-                              <div className="small-text">This will overwrite your current 'mech. Be sure to have it saved!</div>
-                            </button>
-
-                          </div>
                           <div className="clear-both overflow-hidden">
                             <hr />
 
@@ -392,7 +349,9 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                               Try the TRO text importer!
                             </button>
                         </TextSection>
+
                     </div>
+
                     <div className="d-none d-lg-block col-lg-4">
                     <TextSection
 
@@ -402,11 +361,9 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                       </div>
                     </TextSection>
 
+
                     </div>
                   </div>
-              </div>
-
-            </div>
 
           </UIPage>
 
@@ -433,4 +390,6 @@ interface IHomeState {
   mechCBill: number;
   mechBV2: number;
   mechBF: number;
+
+  viewingUnit: BattleMech | null;
 }

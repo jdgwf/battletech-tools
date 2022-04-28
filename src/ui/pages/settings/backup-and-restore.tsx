@@ -296,7 +296,7 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
   <label
     title="Click here to select a JSON file exported by the button to the right"
   >
-    Restore SettingsBackupAndRestore:&nbsp;
+    Restore Settings:&nbsp;
     <input
       type="file"
       onChange={this.selectFile}

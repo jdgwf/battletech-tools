@@ -6,6 +6,7 @@ import { mechISEquipmentBallistic } from "./data/mech-is-equipment-weapons-balli
 import { mechISEquipmentEnergy } from "./data/mech-is-equipment-weapons-energy";
 import { mechISEquipmentMisc } from "./data/mech-is-equipment-weapons-misc";
 import { mechISEquipmentMissiles } from "./data/mech-is-equipment-weapons-missiles";
+import { replaceAll } from "./utils/replaceAll";
 
 export function getISEquipmentList(): IEquipmentItem[] {
     return mechISEquipmentBallistic
@@ -24,16 +25,94 @@ export async function getMULASSearchResults(
     searchTerm: string,
     mechRules: string,
     techFilter: string,
-    eraFilter: string,
+    eraFilter: number,
+    typeFilter: string,
     offLine: boolean,
+    overrideSearchLimitLength: boolean = false,
 ): Promise<IASMULUnit[]> {
 
     let returnUnits: IASMULUnit[] = [];
 
-    if( offLine === false ) {
-        let url = "https://masterunitlist.azurewebsites.net/Unit/QuickList?MinPV=1&MaxPV=999&Name=" + searchTerm;
+    let rulesNumbersURI: string[] = [];
 
-        if( searchTerm.length >= 3 ) {
+    console.log("mechRules", mechRules, searchTerm)
+
+
+    if( mechRules.toLowerCase() === "introductory" ) {
+        rulesNumbersURI.push( "&Rules=55" );
+    }
+    if( mechRules.toLowerCase().indexOf("standard") > -1 ) {
+        rulesNumbersURI.push( "&Rules=4" );
+    }
+    if( mechRules.toLowerCase() === "advanced" ) {
+        rulesNumbersURI.push( "&Rules=5" );
+    }
+    if( mechRules.toLowerCase() === "experimental" ) {
+        rulesNumbersURI.push( "&Rules=6" );
+    }
+    if( mechRules.toLowerCase() === "era specific" ) {
+        rulesNumbersURI.push( "&Rules=56" );
+    }
+    if( mechRules.toLowerCase() === "experimental" ) {
+        rulesNumbersURI.push( "&Rules=78" );
+    }
+
+    let techFilterURI: string[] = [];
+    if( techFilter.toLowerCase() === "inner sphere" ) {
+        techFilterURI.push( "&Technologies=1" );
+    }
+    if( techFilter.toLowerCase() === "clan" ) {
+        techFilterURI.push( "&Technologies=2" );
+    }
+    if( techFilter.toLowerCase() === "mixed" ) {
+        techFilterURI.push( "&Technologies=3" );
+    }
+    if( techFilter.toLowerCase() === "primitive" ) {
+        techFilterURI.push( "&Technologies=57" );
+    }
+
+    let typesFilterURI: string[] = [];
+    if( typeFilter.toLowerCase() === "bm" ) {
+        typesFilterURI.push( "&Types=18" );
+    }
+    if( typeFilter.toLowerCase() === "cv" ) {
+        typesFilterURI.push( "&Types=19" );
+    }
+    if( typeFilter.toLowerCase() === "as" ) {
+        typesFilterURI.push( "&Types=17" );
+    }
+    if( typeFilter.toLowerCase() === "in" ) {
+        typesFilterURI.push( "&Types=20" );
+    }
+    if( typeFilter.toLowerCase() === "pr" ) {
+        typesFilterURI.push( "&Types=23" );
+    }
+    if( typeFilter.toLowerCase() === "sv" ) {
+        typesFilterURI.push( "&Types=24" );
+    }
+
+
+
+    if( offLine === false ) {
+        // let url = "https://masterunitlist.azurewebsites.net/Unit/QuickList?MinPV=1&MaxPV=999";
+        let url = "https://masterunitlist.azurewebsites.net/Unit/QuickList?MinPV=1&MaxPV=999"
+
+
+        if( eraFilter && eraFilter > 0 ) {
+            url += "&Eras=" + eraFilter.toString();
+        }
+
+
+        url += rulesNumbersURI.join();
+        url += typesFilterURI.join();
+        url += techFilterURI.join();
+
+        if( searchTerm && searchTerm.trim() ) {
+            url += "&Name=" + replaceAll(searchTerm, " ", "%20", false, false, true);
+        }
+        console.log("url", url)
+
+        if( searchTerm.length >= 3 || overrideSearchLimitLength ) {
             await fetch(url)
             .then(async res => {
                 let returnData = await res.json();
@@ -46,56 +125,6 @@ export async function getMULASSearchResults(
 
                 if( !returnUnits ) {
                     return [];
-                }
-
-                for( let mechCounter = returnUnits.length - 1; mechCounter > -1; mechCounter--) {
-                    if( mechRules && returnUnits[mechCounter]) {
-                        switch( mechRules.toLowerCase() ) {
-                            case "introductory":
-                                if( returnUnits[mechCounter].Rules.toLowerCase() !== "introductory" )
-                                    returnUnits.splice( mechCounter, 1 );
-                                break;
-                            case "standard":
-                                if(
-                                    returnUnits[mechCounter].Rules.toLowerCase() !== "introductory"
-                                        &&
-                                    returnUnits[mechCounter].Rules.toLowerCase() !== "standard"
-                                )
-                                    returnUnits.splice( mechCounter, 1 );
-                                break;
-                            case "advanced":
-                                if(
-                                    returnUnits[mechCounter].Rules.toLowerCase() !== "introductory"
-                                        &&
-                                    returnUnits[mechCounter].Rules.toLowerCase() !== "standard"
-                                        &&
-                                    returnUnits[mechCounter].Rules.toLowerCase() !== "advanced"
-                                )
-                                    returnUnits.splice( mechCounter, 1 );
-                                break;
-                        }
-                    }
-
-                    if( techFilter && returnUnits[mechCounter]) {
-                        switch( techFilter.toLowerCase() ) {
-                            case "inner sphere":
-                                if( returnUnits[mechCounter].Technology.Name.toLowerCase() !== "inner sphere" )
-                                    returnUnits.splice( mechCounter, 1 );
-                                break;
-                            case "clan":
-                                if( returnUnits[mechCounter].Technology.Name.toLowerCase() !== "clan" )
-                                    returnUnits.splice( mechCounter, 1 );
-                                break;
-                        }
-                    }
-
-                    if( eraFilter && +eraFilter > 0 && returnUnits[mechCounter]) {
-                        if( returnUnits[mechCounter].EraStart > +eraFilter ) {
-                            returnUnits.splice( mechCounter, 1 );
-                        }
-
-                    }
-
                 }
 
             })

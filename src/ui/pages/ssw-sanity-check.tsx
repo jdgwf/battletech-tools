@@ -1,10 +1,9 @@
 import React from 'react';
-import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
-import { BattleMech } from "../../classes/battlemech";
-import { sswMechs } from "../../data/ssw/sswMechs";
+import { FaCheckCircle, FaSync, FaTimesCircle } from "react-icons/fa";
+import { IASMULUnit } from '../../classes/alpha-strike-unit';
+import { getMULASSearchResults } from '../../utils';
 import { addCommas } from "../../utils/addCommas";
-import { getSSWXMLBasicInfo } from "../../utils/getSSWXMLBasicInfo";
-import { getSSWRulesLevelLabel } from '../../utils/sswUtils';
+import { getSSWRulesLevelLabel, isSSWRulesLevel } from '../../utils/sswUtils';
 import { IAppGlobals } from '../app-router';
 import SanitizedHTML from '../components/sanitized-html';
 import StandardModal from '../components/standard-modal';
@@ -14,14 +13,20 @@ import './ssw-sanity-check.scss';
 
 export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps, ISSWSanityCheckState> {
 
+
+    needsASValue: string[] = [];
+    isFetchingMUL: boolean = false;
     constructor(props: ISSWSanityCheckProps) {
         super(props);
 
-        let sswRulesFilter = 0;
+        let sswRulesFilter = "introductory";
 
         let lsSSWRulesFilter = localStorage.getItem( "sanity-rules-filter");
         if( lsSSWRulesFilter !== null ) {
-            sswRulesFilter = +lsSSWRulesFilter;
+            sswRulesFilter = lsSSWRulesFilter;
+            if( !isNaN( +sswRulesFilter ) ) {
+                sswRulesFilter = "introductory"
+            }
         }
 
         this.state = {
@@ -29,10 +34,47 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
             mechName: "",
             tableName: "",
             sswRulesFilter: sswRulesFilter,
+            updated: false,
         }
 
         this.props.appGlobals.makeDocumentTitle("Imports | 'Mech Creator");
+
+        // console.log("appSettings.asValues", this.props.appGlobals.appSettings.asValues)
     }
+
+    clearMULCache = (
+        e: React.FormEvent<HTMLButtonElement>
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        console.log("clearMULCache clicked" )
+        let appSettings = this.props.appGlobals.appSettings;
+
+        appSettings.asValues = {}
+        this.props.appGlobals.saveAppSettings( appSettings );
+        // this._getAlphaStrikeValues();
+        this.setState({
+            updated: true,
+        })
+        console.log("clearMULCache complete" )
+    }
+
+    fetchMULData = (
+        e: React.FormEvent<HTMLButtonElement>
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        console.log("fetchMULData clicked" )
+
+        this._getAlphaStrikeValues();
+        this.setState({
+            updated: true,
+        })
+        console.log("fetchMULData complete" )
+    }
+
 
     updateSSWRulesFilter = (
         e: React.FormEvent<HTMLSelectElement>,
@@ -43,8 +85,58 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
 
         localStorage.setItem( "sanity-rules-filter", e.currentTarget.value)
         this.setState({
-            sswRulesFilter: +e.currentTarget.value,
+            sswRulesFilter: e.currentTarget.value,
         });
+    }
+
+    _getAlphaStrikeValues = async (): Promise<void> => {
+        if( this.isFetchingMUL ) {
+            console.log("_getAlphaStrikeValues already fetching cancelled call")
+            return;
+        }
+        let appSettings =  this.props.appGlobals.appSettings;
+        let rulesLevel = this.state.sswRulesFilter;
+
+        for( let mechIndex = this.needsASValue.length -1; mechIndex >= 0; mechIndex-- ) {
+            this.isFetchingMUL = true
+            let mechName = this.needsASValue[mechIndex];
+
+
+            console.log("_getAlphaStrikeValues mechName", mechName);
+            let data: IASMULUnit[] = await getMULASSearchResults(
+                mechName,
+                rulesLevel,
+                "",
+                0,
+                "bm",
+                !navigator.onLine,
+                true,
+            );
+            if( data.length === 1 ) {
+                appSettings.asValues[mechName] = data[0].BFPointValue;
+                this.needsASValue.splice(mechIndex, 1 );
+
+            } else {
+                console.log( mechName, data.length )
+                for( let mech of data ) {
+                    if( mech.Variant && mech.Variant.toLowerCase().trim() === mechName.toLowerCase().trim() ) {
+                        appSettings.asValues[mechName] = data[0].BFPointValue;
+                        this.needsASValue.splice(mechIndex, 1 );
+                        break;
+                    }
+                }
+            }
+            this.props.appGlobals.saveAppSettings( appSettings );
+
+
+        }
+
+        this.isFetchingMUL = false;
+        this.setState({
+            updated: true,
+        })
+
+
     }
 
     viewHTML = (
@@ -82,6 +174,7 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
     let totalMechs = 0;
     let bv2Discrpancies = 0;
     let cbillDiscrpancies = 0;
+    let bfValueDiscrpancies = 0;
     let importErrors = 0;
 
       return (
@@ -108,18 +201,35 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
             onChange={this.updateSSWRulesFilter}
             value={this.state.sswRulesFilter}
         >
-            <option value={-1}>{getSSWRulesLevelLabel(-1)}</option>
-            <option value={0}>{getSSWRulesLevelLabel(0)}</option>
-            <option value={1}>{getSSWRulesLevelLabel(1)}</option>
-            <option value={2}>{getSSWRulesLevelLabel(2)}</option>
+            <option value={"all"}>{getSSWRulesLevelLabel(-1)}</option>
+            <option value={"introductory"}>{getSSWRulesLevelLabel(0)}</option>
+            <option value={"standard"}>{getSSWRulesLevelLabel(1)}</option>
+            <option value={"advanced"}>{getSSWRulesLevelLabel(2)}</option>
         </select>
         </label>
     </div>
-    <div className="col">
+    <div className="col text-center">
 
+    <button
+            className="btn btn-primary"
+            onClick={this.fetchMULData}
+            disabled={this.isFetchingMUL}
+        >
+            Fetch MUL Data
+        </button>
+
+        {this.isFetchingMUL ? (
+            <FaSync color="green" />
+        ) : null}
     </div>
-    <div className="col">
-
+    <div className="col text-right">
+        <button
+            className="btn btn-danger"
+            onClick={this.clearMULCache}
+            disabled={this.isFetchingMUL}
+        >
+            Clear MUL Cache
+        </button>
     </div>
 </div>
        <table className="table">
@@ -131,27 +241,32 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                    <th>SSW Rules Level</th>
                    <th>Cbills</th>
                    <th>BV2</th>
+                   <th>AS Value</th>
                    <th>Import Errors</th>
                </tr>
            </thead>
-           {sswMechs.map( (mech, mechIndex) => {
+           {this.props.appGlobals.sswMechObjects.map( (tempMech, mechIndex) => {
 
-               let sswData = getSSWXMLBasicInfo( mech );
+               let sswData =  tempMech.basicSSWInfo
                if( sswData ) {
-                if( this.state.sswRulesFilter > -1 && sswData.rules_level_ssw !== this.state.sswRulesFilter ) {
+                if(
+                    !isSSWRulesLevel(sswData.rules_level_ssw, this.state.sswRulesFilter)
+                ) {
                     return <React.Fragment key={mechIndex}></React.Fragment>
                 }
-                let tempMech = new BattleMech();
-                tempMech.importSSWXML( mech );
+
 
                 let tech = sswData.tech_base;
 
                 if( tempMech ) {
                     let SSWCbills = sswData.cbill_cost;
                     let SSWBV2 = sswData.bv2;
+                    let MULASValue = 0;
 
                     let tempMechCBills = tempMech.getCBillCostNumeric(true);
                     let tempMechBV2 = tempMech.getBattleValue();
+
+                    let tempMechBFValue = tempMech.getAlphaStrikeValue();
 
                     totalMechs++;
 
@@ -165,6 +280,28 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                         bv2Discrpancies++;
                     }
 
+                    // IS only using .model instead of .getName() - for some reason MUL API is removing or ignoring the space - even converting space to %20
+                    if( typeof(this.props.appGlobals.appSettings.asValues[ tempMech.model ]) !== "undefined" || this.props.appGlobals.appSettings.asValues[ tempMech.getName() ] === -1) {
+                        MULASValue = this.props.appGlobals.appSettings.asValues[ tempMech.model ]
+                        if( MULASValue !== tempMechBFValue ) {
+                            bfValueDiscrpancies++;
+                        }
+                        if( MULASValue === -1 ) {
+                            if( this.needsASValue.indexOf( tempMech.model ) === -1) {
+                                console.log("Adding to needsASValue due to -1 value", tempMech.model)
+                                // IS only using .model instead of .getName() - for some reason MUL API is removing or ignoring the space - even converting space to %20
+                                this.needsASValue.push( tempMech.model )
+                            }
+                        }
+                    } else {
+
+                        if( this.needsASValue.indexOf( tempMech.model ) === -1) {
+                            console.log("Adding to needsASValue", tempMech.model)
+                            // IS only using .model instead of .getName() - for some reason MUL API is removing or ignoring the space - even converting space to %20
+                            this.needsASValue.push( tempMech.model )
+                        }
+                    }
+
                     let modelName = "";
                     if( sswData ) {
                         modelName = sswData.model + " " + sswData.name
@@ -173,8 +310,6 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                     if( tempMech && tempMech.sswImportErrors && tempMech.sswImportErrors.length > 0 ) {
                         importErrors++;
                     }
-
-
 
                     return (
                             <tbody key={mechIndex}>
@@ -235,6 +370,27 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                                     )}
                                     </td>
                                     <td>
+                                    {MULASValue === 0 ? (
+                                        <div>
+                                            ?? Couldn't obtain MUL Value
+                                        </div>
+                                    ) : (
+                                        <>
+                                            {MULASValue !== tempMechBFValue ? (
+                                            <div>
+                                                <FaTimesCircle className="color-red" />&nbsp;PV doesn't match:
+                                                SSW: {addCommas(MULASValue)} != JBT: {addCommas(tempMechBFValue)}
+                                            </div>
+                                            ) : (
+                                                <div>
+                                                    <FaCheckCircle className="color-green" />&nbsp;PV matches: {addCommas(tempMechBFValue)}
+                                                </div>
+                                            )}
+                                        </>
+                                    )}
+
+                                    </td>
+                                    <td>
 
                                 {tempMech.sswImportErrors.length > 0 ? (
                                 <>
@@ -251,6 +407,7 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                                 ) :
                                 null}
                                     </td>
+
                                 </tr>
                             </tbody>
                     )
@@ -275,9 +432,13 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                    <th>
                        BV2 Errors: {bv2Discrpancies} ({Math.round( bv2Discrpancies / totalMechs * 10000 ) / 100} %)
                    </th>
+                   <th>
+                        MUL AS Value Errors: {bfValueDiscrpancies} ({Math.round( bfValueDiscrpancies / totalMechs * 10000 ) / 100} %)
+                    </th>
                     <th>
                         Import Errors: {importErrors} ({Math.round( importErrors / totalMechs * 10000 ) / 100} %)
                     </th>
+
                </tr>
 
            </tfoot>
@@ -295,5 +456,8 @@ interface ISSWSanityCheckState {
     viewHTML: string;
     mechName: string;
     tableName: string;
-    sswRulesFilter: number;
+    sswRulesFilter: string;
+    updated: boolean;
+    // asCards: IASMULUnit[];
+
 }
