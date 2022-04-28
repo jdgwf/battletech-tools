@@ -34,7 +34,7 @@ export default class StarBar extends React.Component<IStarBarProps, IStarBarStat
             <div
                 className="stat-bar"
                 style={statBarStyle}
-                title={this.props.title}
+                title={this.props.title + ": " + this.props.currentNumber + " (" + Math.round(this.props.currentPercentage) + "%)"}
             >
                 <div
                     className="stat-bar-current"
@@ -50,6 +50,7 @@ interface IStarBarProps {
     color?: string;
     background?: string;
     currentPercentage: number;
+    currentNumber: number;
     height: number;
     title?: string;
 }

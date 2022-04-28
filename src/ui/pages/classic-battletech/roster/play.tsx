@@ -1,9 +1,11 @@
 import React from 'react';
-import { CrosshairArrow, HotSurface } from 'react-game-icons';
+import { CrosshairArrow, HotSurface, MagnifyingGlass } from 'react-game-icons';
 import { FaArrowCircleDown, FaArrowCircleLeft, FaArrowCircleRight, FaCheckSquare, FaDice, FaGift, FaQuestionCircle, FaShoePrints, FaSquare, FaTable } from "react-icons/fa";
+import { FiRefreshCcw } from 'react-icons/fi';
 import { GiBattleAxe, GiMissileSwarm } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
 import { BattleMech, IGATOR, ITargetToHit } from "../../../../classes/battlemech";
+import { BattleMechGroup } from '../../../../classes/battlemech-group';
 import { CONST_HIGHLIGHT_COLOR } from '../../../../configVars';
 import { IEquipmentItem } from '../../../../data/data-interfaces';
 import { getClusterHitsPerRoll, getLocationName, getTargetToHitFromWeapon } from '../../../../utils';
@@ -63,6 +65,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             takeDamageLocationRear: false,
             takeDamageLocation: "",
             takeDamageCritical: false,
+
+            zoomSheet: false,
         };
 
         this.props.appGlobals.makeDocumentTitle("Playing CBT Force");
@@ -175,7 +179,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
     }
 
     setNumberRolledClusters = (
-      e: React.FormEvent<HTMLTableCellElement>,
+      e: React.FormEvent<HTMLTableCellElement | HTMLButtonElement>,
       nv: number,
     ) => {
       if( e && e.preventDefault ) {
@@ -216,7 +220,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
 
       this.setState({
-        hitLocationChartDialog: false
+        hitLocationChartDialog: false,
+
       })
     }
 
@@ -242,6 +247,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       this.setState({
         damagePerClusterGATOR: null,
         damagePerCluster: -1,
+        damageRolledClusters: -1,
         damageClusters: -1,
         damagePerClusterUnit: null,
         damagePerClusterEQIndex: -1,
@@ -601,6 +607,36 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
 
     }
+
+
+    resetGroup = (
+      e: React.FormEvent<HTMLButtonElement>,
+      group: BattleMechGroup,
+    ): void => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+
+
+      this.props.appGlobals.openConfirmDialog(
+        "Confirmation",
+        "Are you sure you want to reset all the units to full status?",
+        "Yes",
+        "No, Thank you",
+        () => {
+          for( let unit of group.members ) {
+            if( unit && unit.resetDamage ) {
+              unit.resetDamage();
+            }
+
+          }
+          if( this.props.appGlobals.currentCBTForce )
+            this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
+        }
+      )
+
+    }
+
 
 
     openSetCriticalDialog = (
@@ -979,6 +1015,26 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
     }
 
+    closeZoomSheet = (
+      e: React.FormEvent<HTMLButtonElement>,
+    ) => {
+      if( e && e.preventDefault ) e.preventDefault();
+
+      this.setState({
+        zoomSheet: false,
+      })
+    }
+
+    openZoomSheet = (
+      e: React.FormEvent<HTMLButtonElement>,
+    ) => {
+      if( e && e.preventDefault ) e.preventDefault();
+
+      this.setState({
+        zoomSheet: true,
+      })
+    }
+
     render = (): React.ReactFragment => {
       if(!this.props.appGlobals.currentCBTForce) {
         return <></>;
@@ -986,7 +1042,33 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       let selectedMech: BattleMech | null = this.props.appGlobals.currentCBTForce.getSelectedMech();
       return (
         <>
-
+{this.state.zoomSheet && selectedMech ? (
+  <StandardModal
+  show={true}
+  className="modal modal-xxl no-content-padding"
+  onClose={this.closeZoomSheet}
+  title={"Viewing Record Sheet for " + selectedMech.getName()}
+  >
+    <div className="svg-height-100perc">
+    <BattleMechSVG
+      mechData={selectedMech}
+      inPlay={true}
+      bgColor={selectedMech.isWrecked() ? "#666" : ""}
+      //@ts-ignore
+      openSetCriticalDialog={() => this.openSetCriticalDialog(selectedMech)}
+      //@ts-ignore
+      openSetTargetDialog={() => this.openSetTargetDialog(selectedMech)}
+      //@ts-ignore
+      openTakeDamageDialog={() => this.openTakeDamageDialog(selectedMech)}
+      //@ts-ignore
+      openSetMovementDialog={() => this.openSetMovementDialog(selectedMech)}
+      onChange={this.onChange}
+      viewGATOR={this.viewGATOR}
+      currentPhase={this.props.appGlobals.currentCBTForce.phase}
+    />
+    </div>
+  </StandardModal>
+) : null}
   <StandardModal
   show={this.state.hitLocationChartDialog}
   className="modal even-modaler"
@@ -1014,33 +1096,33 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               <FaArrowCircleDown /> # Shots
             </div>
           </th>
-          <th>2</th>
-          <th>3</th>
-          <th>4</th>
-          <th>5</th>
-          <th>6</th>
-          <th>7</th>
-          <th>8</th>
-          <th>9</th>
-          <th>10</th>
-          <th>11</th>
-          <th>12</th>
+          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(2, this.state.damageClusters))}>2</button></th>
+          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(3, this.state.damageClusters))}>3</button></th>
+          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(4, this.state.damageClusters))}>4</button></th>
+          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(5, this.state.damageClusters))}>5</button></th>
+          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(6, this.state.damageClusters))}>6</button></th>
+          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(7, this.state.damageClusters))}>7</button></th>
+          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(8, this.state.damageClusters))}>8</button></th>
+          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(9, this.state.damageClusters))}>9</button></th>
+          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary"  onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(10, this.state.damageClusters))}>10</button></th>
+          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary"  onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(11, this.state.damageClusters))}>11</button></th>
+          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary"  onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(12, this.state.damageClusters))}>12</button></th>
         </tr>
       </thead>
         <tbody>
           <tr>
             <td>#{this.state.damageClusters}</td>
-            <td className={this.state.damageRolledClusters === getClusterHitsPerRoll(2, this.state.damageClusters) ? "selected-cell cursor-pointer" : "cursor-pointer"} onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(2, this.state.damageClusters))}>{getClusterHitsPerRoll(2, this.state.damageClusters)}</td> {/* 2 */}
-            <td className={this.state.damageRolledClusters === getClusterHitsPerRoll(3, this.state.damageClusters) ? "selected-cell cursor-pointer" : "cursor-pointer"} onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(3, this.state.damageClusters))}>{getClusterHitsPerRoll(3, this.state.damageClusters)}</td> {/* 3 */}
-            <td className={this.state.damageRolledClusters === getClusterHitsPerRoll(4, this.state.damageClusters) ? "selected-cell cursor-pointer" : "cursor-pointer"} onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(4, this.state.damageClusters))}>{getClusterHitsPerRoll(4, this.state.damageClusters)}</td> {/* 4 */}
-            <td className={this.state.damageRolledClusters === getClusterHitsPerRoll(5, this.state.damageClusters) ? "selected-cell cursor-pointer" : "cursor-pointer"} onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(5, this.state.damageClusters))}>{getClusterHitsPerRoll(5, this.state.damageClusters)}</td> {/* 5 */}
-            <td className={this.state.damageRolledClusters === getClusterHitsPerRoll(6, this.state.damageClusters) ? "selected-cell cursor-pointer" : "cursor-pointer"} onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(6, this.state.damageClusters))}>{getClusterHitsPerRoll(6, this.state.damageClusters)}</td> {/* 6 */}
-            <td className={this.state.damageRolledClusters === getClusterHitsPerRoll(7, this.state.damageClusters) ? "selected-cell cursor-pointer" : "cursor-pointer"} onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(7, this.state.damageClusters))}>{getClusterHitsPerRoll(7, this.state.damageClusters)}</td> {/* 7 */}
-            <td className={this.state.damageRolledClusters === getClusterHitsPerRoll(8, this.state.damageClusters) ? "selected-cell cursor-pointer" : "cursor-pointer"} onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(8, this.state.damageClusters))}>{getClusterHitsPerRoll(8, this.state.damageClusters)}</td> {/* 8 */}
-            <td className={this.state.damageRolledClusters === getClusterHitsPerRoll(9, this.state.damageClusters) ? "selected-cell cursor-pointer" : "cursor-pointer"} onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(9, this.state.damageClusters))}>{getClusterHitsPerRoll(9, this.state.damageClusters)}</td> {/* 9 */}
-            <td className={this.state.damageRolledClusters === getClusterHitsPerRoll(10, this.state.damageClusters) ? "selected-cell cursor-pointer" : "cursor-pointer"} onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(10, this.state.damageClusters))}>{getClusterHitsPerRoll(10, this.state.damageClusters)}</td> {/* 10 */}
-            <td className={this.state.damageRolledClusters === getClusterHitsPerRoll(11, this.state.damageClusters) ? "selected-cell cursor-pointer" : "cursor-pointer"} onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(11, this.state.damageClusters))}>{getClusterHitsPerRoll(11, this.state.damageClusters)}</td> {/* 11 */}
-            <td className={this.state.damageRolledClusters === getClusterHitsPerRoll(12, this.state.damageClusters) ? "selected-cell cursor-pointer" : "cursor-pointer"} onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(12, this.state.damageClusters))}>{getClusterHitsPerRoll(12, this.state.damageClusters)}</td> {/* 12 */}
+            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(2, this.state.damageClusters))}>{getClusterHitsPerRoll(2, this.state.damageClusters)}</button></td> {/* 2 */}
+            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(3, this.state.damageClusters))}>{getClusterHitsPerRoll(3, this.state.damageClusters)}</button></td> {/* 3 */}
+            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(4, this.state.damageClusters))}>{getClusterHitsPerRoll(4, this.state.damageClusters)}</button></td> {/* 4 */}
+            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(5, this.state.damageClusters))}>{getClusterHitsPerRoll(5, this.state.damageClusters)}</button></td> {/* 5 */}
+            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(6, this.state.damageClusters))}>{getClusterHitsPerRoll(6, this.state.damageClusters)}</button></td> {/* 6 */}
+            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(7, this.state.damageClusters))}>{getClusterHitsPerRoll(7, this.state.damageClusters)}</button></td> {/* 7 */}
+            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(8, this.state.damageClusters))}>{getClusterHitsPerRoll(8, this.state.damageClusters)}</button></td> {/* 8 */}
+            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(9, this.state.damageClusters))}>{getClusterHitsPerRoll(9, this.state.damageClusters)}</button></td> {/* 9 */}
+            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary"  onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(10, this.state.damageClusters))}>{getClusterHitsPerRoll(10, this.state.damageClusters)}</button></td> {/* 10 */}
+            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary"  onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(11, this.state.damageClusters))}>{getClusterHitsPerRoll(11, this.state.damageClusters)}</button></td> {/* 11 */}
+            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary"  onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(12, this.state.damageClusters))}>{getClusterHitsPerRoll(12, this.state.damageClusters)}</button></td> {/* 12 */}
           </tr>
         </tbody>
 
@@ -1050,8 +1132,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       <>
         <h4>Step 2: Walk through each cluster hit and assign damage.</h4>
         <p>Click on a location to assign damage</p>
-        <div className="flex">
-          <div className="grow">
+        <div className="row">
+          <div className="col-md-6">
             <table className="table text-center">
               <thead>
                 <tr>
@@ -1102,11 +1184,20 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
             </table>
           </div>
-          <div>
+          <div className="col-md-6">
+                {//@ts-ignore
+                 this.state.damagePerClusterUnit.equipmentList[this.state.damagePerClusterEQIndex].damageClusterHits.length < this.state.damageRolledClusters ? (
+                  <div>
             <ToHitTable
               onClick={(loc, crit) => this.addDamageCluster( loc, crit, this.state.damagePerClusterUnit, this.state.damagePerClusterEQIndex)}
             />
           </div>
+                 ): (
+                   <div className="text-center">
+                      No more cluster hits need to be assigned
+                     </div>
+                 )}
+            </div>
         </div>
       </>
     ) : null}
@@ -2304,6 +2395,13 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
 <div className="selected-mech">
           {selectedMech ? (
+            <>
+              <button
+                className="btn btn-primary btn-sm full-width"
+                onClick={this.openZoomSheet}
+              >
+                <MagnifyingGlass /> Zoom
+              </button>
               <BattleMechSVG
                 mechData={selectedMech}
                 inPlay={true}
@@ -2320,6 +2418,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                 viewGATOR={this.viewGATOR}
                 currentPhase={this.props.appGlobals.currentCBTForce.phase}
               />
+            </>
           ) : (
             <div className="text-center">
               <TextSection>
@@ -2341,7 +2440,18 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             return (
               <React.Fragment key={groupIndex}>
               <div>
-                  <div className="lance-name">{group.getName(groupIndex)}</div>
+                  <div className="lance-name overflow-hidden">
+                    {group.getName(groupIndex)}
+                    {group.isUnderStrength() ? (
+                      <button
+                        className="pull-right btn-primary btn-xs"
+                        title={"Click here to reset the damage for this " + group.groupLabel + ". You'll be prompted for confirmation."}
+                        onClick={(e) => this.resetGroup( e, group )}
+                      >
+                        <FiRefreshCcw />
+                      </button>
+                    ) : null}
+                  </div>
                   <ul className="mech-list">
                   {group.members.map( (unit, unitIndex) => {
                     let dieBG = "#009";
@@ -2410,9 +2520,10 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 ) : (
                               <div className="bars">
                                 <StatBar
-                                  color="black"
+                                  color="blue"
                                   background="#aaa"
                                   currentPercentage={unit.getArmorPercentage()}
+                                  currentNumber={unit.getCurrentArmor()}
                                   height={8}
                                   title="Current Armor Status"
                                 />
@@ -2420,6 +2531,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                                   color="white"
                                   background="#aaa"
                                   currentPercentage={unit.getStructurePercentage()}
+                                  currentNumber={unit.getCurrentStructure()}
                                   height={8}
                                   title="Current Internal Structure Status"
                                 />
@@ -2427,6 +2539,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                                   color="red"
                                   background="#aaa"
                                   currentPercentage={unit.getHeatPercentage()}
+                                  currentNumber={unit.currentHeat}
                                   height={8}
                                   title={"Current Heat Status: " + unit.currentHeat}
                                 />
@@ -2517,6 +2630,8 @@ interface IPlayState {
   damagePerClusterGATOR: IGATOR | null;
   damagePerClusterEQIndex: number;
   damagePerClusterUnit: BattleMech | null;
+
+  zoomSheet: boolean;
 }
 
 interface ICombinedTargetData {

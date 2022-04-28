@@ -29,7 +29,7 @@ export default class QuadArmorCircles extends React.Component<IQuadArmorCirclesP
         return (
             <>
 
-{this.props.inPlay ?
+{this.props.inPlay && (this.props.currentPhase === 2 ||  this.props.currentPhase === 3 )?
     <TakeDamageButtonSVG
         x={this.armorBoxLeft + 25}
         y={this.armorBoxTop + 325}
@@ -556,6 +556,7 @@ interface IQuadArmorCirclesProps {
 
     mechData: BattleMech;
     inPlay?: boolean;
+    currentPhase?: number;
 
     armorBoxTop: number;
     armorBoxLeft: number;

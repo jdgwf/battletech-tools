@@ -56,6 +56,15 @@ export default class AlphaStrikeGroup {
         return this.members.length;
     }
 
+	public isUnderStrength(): boolean {
+		for( let member of this.members ) {
+			if( member.isUnderStrength() ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
     public getTotalPoints(): number {
         let returnValue: number = 0;
 

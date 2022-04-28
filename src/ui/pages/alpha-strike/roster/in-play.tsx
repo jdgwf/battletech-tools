@@ -109,13 +109,16 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
               <React.Fragment key={groupIndex}>
               <div className="text-section lr-margin">
                 <h2>
-                  <button
-                    className="pull-right btn-primary btn-sm"
-                    title={"Click here to reset the damage for this " + group.groupLabel + ". You'll be prompted for confirmation."}
-                    onClick={(e) => this.resetGroup( e, group )}
-                  >
-                    <FiRefreshCcw />&nbsp;Reset
-                  </button>
+                  {group.isUnderStrength() ? (
+                    <button
+                      className="pull-right btn-primary btn-sm"
+                      title={"Click here to reset the damage for this " + group.groupLabel + ". You'll be prompted for confirmation."}
+                      onClick={(e) => this.resetGroup( e, group )}
+                    >
+                      <FiRefreshCcw />&nbsp;Reset
+                    </button>
+                  ) : null}
+
                   {group.getName(groupIndex + 1)}
                 </h2>
                 <div className="section-content">

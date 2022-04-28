@@ -6,6 +6,7 @@ import { IAppGlobals } from '../../../app-router';
 import InputField from '../../../components/form_elements/input_field';
 import SanitizedHTML from '../../../components/sanitized-html';
 import StandardModal from '../../../components/standard-modal';
+import StatBar from '../../../components/stat-bar';
 import BattleMechSVG from '../../../components/svg/battlemech-svg';
 import BattleMechAddMechDialog from './_addMechDialog';
 // import InPlay from './in-play';
@@ -445,6 +446,40 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
                     </td>
 
                 </tr>
+                <tr>
+                    <td colSpan={7}>
+                        {mechObj.isUnderStrength() ? (
+                            <div className="text-center color-bright-red"><strong>This Mech is Damaged</strong></div>
+                        ): <div className="text-center">This Mech is Undamaged</div>}
+                    <div className="bars">
+                        <StatBar
+                            color="blue"
+                            background="#aaa"
+                            currentPercentage={mechObj.getArmorPercentage()}
+                            currentNumber={mechObj.getCurrentArmor()}
+                            height={8}
+                            title="Current Armor Status"
+                        />
+                        <StatBar
+                            color="white"
+                            background="#aaa"
+                            currentPercentage={mechObj.getStructurePercentage()}
+                            currentNumber={mechObj.getCurrentStructure()}
+                            height={8}
+                            title="Current Internal Structure Status"
+                        />
+                        <StatBar
+                            color="red"
+                            background="#aaa"
+                            currentPercentage={mechObj.getHeatPercentage()}
+                            currentNumber={mechObj.currentHeat}
+                            height={8}
+                            title={"Current Heat Status: " + mechObj.currentHeat}
+                        />
+                        </div>
+                    </td>
+                </tr>
+
                 </tbody>
             )
         })}

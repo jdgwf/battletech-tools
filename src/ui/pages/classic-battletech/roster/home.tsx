@@ -170,8 +170,9 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
           <div className="alert alert-danger">
             <h4 className="text-center">In Development</h4>
             <p>This area will be the equivalent of the Roster Maker in Alpha Strike. If anything seems to work, it likely doesn't. Use at your owm risk!</p>
-            <p><strong>Update 2022 Apr 3</strong>: With the exception of the Play/Print buttons this <em>MIGHT</em> work. I'll work on the Print button first, then onward to the intense Play button (since I'll have to code the electronic record sheet functions)</p>
-            <p className="text-center">Feel free to file an <a target="github" href="https://github.com/jdgwf/battletech-tools/issues">Issue</a> for anything but the Play/Print areas just in case my test cases aren't lining up with yours.</p>
+            <p><strong>Update 2022 Apr 28</strong>: The Print Force area should be working great. The Play Mode is making huge srides and getting closer! Initial tests are working for all phases, but it's still heavily under testing. I've not got to the Mechwarrior hits yet. There are quite a few interface bugs which are bothering me. </p>
+            <del><p><strong>Update 2022 Apr 3</strong>: With the exception of the Play/Print buttons this <em>MIGHT</em> work. I'll work on the Print button first, then onward to the intense Play button (since I'll have to code the electronic record sheet functions)</p></del>
+            <p className="text-center">Feel free to file an <a target="github" href="https://github.com/jdgwf/battletech-tools/issues">Issue</a> for anything here - I'll likely already be aware of it, but if you've got an idea for play-flow let me know. I've tried to make it so that everything is just a step-by-step process as you roll the dice and move your models.</p>
           </div>
           {this.props.appGlobals.currentCBTForce && this.props.appGlobals.currentCBTForce.getTotalUnits() > 0 ? (
             <div className="row">

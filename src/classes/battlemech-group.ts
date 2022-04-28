@@ -28,6 +28,14 @@ export class BattleMechGroup {
 
 	}
 
+	public isUnderStrength(): boolean {
+		for( let member of this.members ) {
+			if( member.isUnderStrength() ) {
+				return true;
+			}
+		}
+		return false;
+	}
 	public getName(
 		indexNumber: number,
 		forFavorites: boolean = false,

@@ -5215,6 +5215,135 @@ export class BattleMech {
         this._omnimech = !this._omnimech;
     }
 
+    public isUnderStrength(): boolean {
+
+        if(
+            this.getArmorPercentage() !== 100
+            ||
+            this.getStructurePercentage() !== 100
+            ||
+            this.currentHeat > 0
+        ) {
+            return true;
+        }
+
+        if(
+            this.engineHits() > 0
+            ||
+            this.gyroHits() > 0
+            ||
+            this.sensorHits() > 0
+            ||
+            this.lifeSupportHits() > 0
+        ) {
+            return true;
+        }
+
+        for( let area of Object.keys(this._criticals) )  {
+            for( let crit of this._criticals[area] ) {
+                if( crit && crit.damaged ) {
+                    return true;
+                }
+            }
+        }
+
+        if( this.pilot.wounds > 0 )
+            return true;
+
+
+        return false;
+    }
+
+    public resetDamage(): void {
+        for( let area of Object.keys(this._criticals) )  {
+            for( let crit of this._criticals[area] ) {
+                if( crit && crit.damaged ) {
+                    crit.damaged = false;
+                }
+            }
+        }
+
+        for( let crit of this._criticalAllocationTable )  {
+            if( crit && crit.damaged ) {
+                crit.damaged = false;
+            }
+
+        }
+
+        for( let dotIndex in this._armorBubbles.head ) {
+            this._armorBubbles.head[dotIndex] = true;
+        }
+
+        for( let dotIndex in this._armorBubbles.centerTorso ) {
+            this._armorBubbles.centerTorso[dotIndex] = true;
+        }
+        for( let dotIndex in this._armorBubbles.rightTorso ) {
+            this._armorBubbles.rightTorso[dotIndex] = true;
+        }
+        for( let dotIndex in this._armorBubbles.leftTorso ) {
+            this._armorBubbles.leftTorso[dotIndex] = true;
+        }
+
+        for( let dotIndex in this._armorBubbles.centerTorsoRear ) {
+            this._armorBubbles.centerTorsoRear[dotIndex] = true;
+        }
+        for( let dotIndex in this._armorBubbles.rightTorsoRear ) {
+            this._armorBubbles.rightTorsoRear[dotIndex] = true;
+        }
+        for( let dotIndex in this._armorBubbles.leftTorsoRear ) {
+            this._armorBubbles.leftTorsoRear[dotIndex] = true;
+        }
+
+        for( let dotIndex in this._armorBubbles.rightArm ) {
+            this._armorBubbles.rightArm[dotIndex] = true;
+        }
+        for( let dotIndex in this._armorBubbles.leftArm ) {
+            this._armorBubbles.leftArm[dotIndex] = true;
+        }
+
+        for( let dotIndex in this._armorBubbles.rightLeg ) {
+            this._armorBubbles.rightLeg[dotIndex] = true;
+        }
+        for( let dotIndex in this._armorBubbles.leftLeg ) {
+            this._armorBubbles.leftLeg[dotIndex] = true;
+        }
+
+
+
+        for( let dotIndex in this._structureBubbles.head ) {
+            this._structureBubbles.head[dotIndex] = true;
+        }
+
+        for( let dotIndex in this._structureBubbles.centerTorso ) {
+            this._structureBubbles.centerTorso[dotIndex] = true;
+        }
+        for( let dotIndex in this._structureBubbles.rightTorso ) {
+            this._structureBubbles.rightTorso[dotIndex] = true;
+        }
+        for( let dotIndex in this._structureBubbles.leftTorso ) {
+            this._structureBubbles.leftTorso[dotIndex] = true;
+        }
+
+        for( let dotIndex in this._structureBubbles.rightArm ) {
+            this._structureBubbles.rightArm[dotIndex] = true;
+        }
+        for( let dotIndex in this._structureBubbles.leftArm ) {
+            this._structureBubbles.leftArm[dotIndex] = true;
+        }
+
+        for( let dotIndex in this._structureBubbles.rightLeg ) {
+            this._structureBubbles.rightLeg[dotIndex] = true;
+        }
+        for( let dotIndex in this._structureBubbles.leftLeg ) {
+            this._structureBubbles.leftLeg[dotIndex] = true;
+        }
+
+        this.currentHeat = 0;
+
+        this.pilot.wounds = 0;
+    }
+
+
     public get isOmnimech(): boolean {
         return this._omnimech;
     }

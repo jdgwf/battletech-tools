@@ -28,7 +28,7 @@ export default class BipedArmorCircles extends React.Component<IBipedArmorCircle
     render = (): React.ReactFragment => {
         return (
             <>
-{this.props.inPlay ?
+{this.props.inPlay && (this.props.currentPhase === 2 ||  this.props.currentPhase === 3 ) ?
     <TakeDamageButtonSVG
         x={this.armorBoxLeft + this.props.armorBoxWidth / 2 - 75}
         y={this.armorBoxTop + 700}
@@ -549,10 +549,12 @@ interface IBipedArmorCirclesProps {
 
     mechData: BattleMech;
     inPlay?: boolean;
+    currentPhase?: number;
 
     armorBoxTop: number;
     armorBoxLeft: number;
     armorBoxWidth: number;
+
 
     onChange?( mech: BattleMech ): void;
     openTakeDamageDialog?(): void;

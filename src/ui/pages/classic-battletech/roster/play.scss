@@ -102,6 +102,12 @@ body {
         }
     }
 
+    .svg-height-100perc > svg {
+        height: 100% !important;
+        width: auto !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+    }
 }
 
 @media (min-width: 744px) {

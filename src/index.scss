@@ -297,6 +297,7 @@ input[type=number] {
   // &.modal-lg {
 
   // }
+  padding-left: 0 !important;
   &.modal-xl {
     width: 100%;
     max-width: 100%;
@@ -306,6 +307,27 @@ input[type=number] {
       margin: 1rem auto;
       .modal-content {
         min-height: 95vh;
+      }
+    }
+  }
+  &.modal-xxl {
+    width: 100%;
+    max-width: 100%;
+    .modal-dialog {
+      max-width: 100vw;
+      width: 100vw;
+      margin: 0;
+      .modal-content {
+        min-height: 100h;
+      }
+    }
+  }
+  &.no-content-padding {
+    .modal-dialog {
+      .modal-content {
+        .modal-body {
+          padding: 0 !important;
+        }
       }
     }
   }

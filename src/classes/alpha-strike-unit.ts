@@ -592,6 +592,7 @@ export class AlphaStrikeUnit {
         return !this.active;
     }
 
+
     public getWeaponHits(): number {
         let rv = 0;
         if( this.engineHits ) {
