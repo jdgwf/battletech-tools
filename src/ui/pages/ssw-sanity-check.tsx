@@ -241,7 +241,10 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                    <th>SSW Rules Level</th>
                    <th>Cbills</th>
                    <th>BV2</th>
-                   <th>AS Value</th>
+                   <th>
+                       MUL AS Value
+                    <div className="small-text">You'll have to Fetch MUL data to cache</div>
+                   </th>
                    <th>Import Errors</th>
                </tr>
            </thead>
@@ -379,7 +382,14 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                                             {MULASValue !== tempMechBFValue ? (
                                             <div>
                                                 <FaTimesCircle className="color-red" />&nbsp;PV doesn't match:
-                                                SSW: {addCommas(MULASValue)} != JBT: {addCommas(tempMechBFValue)}
+                                                MUL: {addCommas(MULASValue)} != JBT: {addCommas(tempMechBFValue)}
+
+                                                <button
+                                                    className="btn btn-primary full-width btn-xs"
+                                                    onClick={(e) => this.viewHTML( e, tempMech.calcLogAS, modelName, "BV2")}
+                                                >
+                                                    View Summary
+                                                </button>
                                             </div>
                                             ) : (
                                                 <div>

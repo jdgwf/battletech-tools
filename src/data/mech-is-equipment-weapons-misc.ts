@@ -256,7 +256,7 @@ export const mechISEquipmentMisc: IEquipmentItem[] = [
         battleValue: 61,
         battleValueOneShot: 0,
         heat: 0,
-        weight: 0,
+        weight: 1.5,
         range: {
             min: 0,
             short: 0,
@@ -265,12 +265,12 @@ export const mechISEquipmentMisc: IEquipmentItem[] = [
             extreme: 0
         },
         space: {
-            battlemech: 0,
+            battlemech: 2,
             protomech: 0,
-            combatVehicle: 0,
-            supportVehicle: 0,
-            aerospaceFighter: 0,
-            smallCraft: 0,
+            combatVehicle: 1,
+            supportVehicle: 2,
+            aerospaceFighter: 1,
+            smallCraft: 1,
             dropShip: 0
         },
         ammoPerTon: 0,
@@ -304,7 +304,8 @@ export const mechISEquipmentMisc: IEquipmentItem[] = [
         criticals: 0,
         available: false,
         isAmmo: false,
-        isEquipment: true
+        isEquipment: true,
+        battleValueDefensive: true
     },
     {
         uuid: "",

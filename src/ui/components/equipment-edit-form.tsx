@@ -243,6 +243,32 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         this.props.onChange( item );
     }
 
+    updateBattleValueDefensive = (
+        e: React.FormEvent<HTMLInputElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item = this.props.editingItem;
+
+        item.battleValueDefensive = e.currentTarget.checked;
+
+        this.props.onChange( item );
+    }
+
+    updateExplosive = (
+        e: React.FormEvent<HTMLInputElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item = this.props.editingItem;
+
+        item.explosive = e.currentTarget.checked;
+
+        this.props.onChange( item );
+    }
+
     updateIsUltra = (
         e: React.FormEvent<HTMLInputElement>,
     ) => {
@@ -567,6 +593,12 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                             checked={this.props.editingItem.isAmmo && this.props.editingItem.isAmmo ? true : false}
                             label="Is Ammo (not an attack or equipment)"
                         />
+                        <InputCheckbox
+                            onChange={this.updateExplosive}
+                            checked={this.props.editingItem.explosive && this.props.editingItem.explosive ? true : false}
+                            label="Is Explosive"
+                        />
+
                         {!this.props.editingItem.isAmmo && !this.props.editingItem.isEquipment ? (
                             <>
                             <DamageInput
@@ -653,6 +685,11 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                     onChange={this.updateBattleValue}
                     value={this.props.editingItem.battleValue}
                     label="Battle Value"
+                />
+                <InputCheckbox
+                    label='BV Is Calculated in Defensive'
+                    onChange={this.updateBattleValueDefensive}
+                    checked={this.props.editingItem.battleValueDefensive ? true : false}
                 />
                 {/* <InputNumeric
                     step={1}

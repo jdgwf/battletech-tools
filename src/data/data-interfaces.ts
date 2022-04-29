@@ -112,6 +112,7 @@ export interface IEquipmentItem {
     bvHeat?: number;
     damage?: number | IDamagePerRange;
     damagePerShot?: boolean;
+    damageBonus?: number;
     rangeAero?: string;
     heatPerShot?: boolean;
     damageAero?: number;
@@ -126,6 +127,7 @@ export interface IEquipmentItem {
     extinct: number;
     reintroduced: number;
     battleValue?: number;
+    battleValueDefensive?: boolean;
     battleValueOneShot?: number;
     heat: number;
     heatAero: number;

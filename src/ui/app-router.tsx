@@ -204,7 +204,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                 for( let sswXML of sswMechs ) {
                     let basicSSWInfo = getSSWXMLBasicInfo( sswXML );
 
-                    if( basicSSWInfo && basicSSWInfo.rules_level_ssw === 0 ) {
+                    if( basicSSWInfo && basicSSWInfo.rules_level_ssw < 3 ) {
                         let bmObj = new BattleMech();
                         bmObj.importSSWXML( sswXML );
                         bmObj.basicSSWInfo = basicSSWInfo;

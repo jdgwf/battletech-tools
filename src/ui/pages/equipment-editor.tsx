@@ -15,6 +15,7 @@ import './equipment-editor.scss';
 import EquipmentEditForm from '../components/equipment-edit-form';
 import { addCommas } from "../../utils/addCommas";
 import { exportCleanJSON } from "../../utils/exportCleanJSON";
+import { ExplosiveMaterials, MineExplosion } from "react-game-icons";
 
 export default class EquipmentEditor extends React.Component<IEquipmentEditorProps, IEquipmentEditorState> {
     fileDataList: Record<string, IEquipmentItem[]> = {
@@ -470,6 +471,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
             <th className="min-width text-center no-wrap">Heat</th>
             <th className="min-width text-center no-wrap">BV</th>
             <th className="min-width text-center no-wrap">CBills</th>
+            <th className="min-width text-center no-wrap">Explosive</th>
 
             <th className="min-width text-center no-wrap">Active</th>
 
@@ -580,13 +582,24 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                     <br />
                 </td>
                 <td className="text-center no-wrap ">
-                    {item.battleValue}<br />
+                    {item.battleValue}
+                    {item.battleValueDefensive ? (
+                        <sup title="Battle Value is Calculated as Defensive">D</sup>
+                    ) : null}
+                    <br />
                 </td>
 
                 <td className="text-center no-wrap ">
                     {addCommas(item.cbills)}<br />
                 </td>
 
+                <td className="text-center no-wrap ">
+                    <div className="text-center explosive-tag">
+                    {item.explosive ? (
+                        <MineExplosion />
+                    ) : null}
+                    </div>
+                </td>
                 <td className="text-center no-wrap ">
                     {item.introduced}-{item.extinct > 0 ? item.extinct : "current"}<br />
                     {item.reintroduced > 0 ? (

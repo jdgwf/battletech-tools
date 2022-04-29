@@ -715,7 +715,6 @@ export class BattleMech {
         }
 
         // Adjust IS for Engine Type
-        // console.log( "this._engineType", this._engineType );
         switch (this._engineType.tag ) {
             case "light":
                 this._calcLogBV += "Total Internal Structure = 0.75 x I.S. BV for Light Engine: " + totalInternalStructurePoints + " x 0.5 = " + (totalInternalStructurePoints * .5) + "<br />";
@@ -4007,18 +4006,24 @@ export class BattleMech {
 
     }
 
-    private _sortCriticalAllocationTableByUUID() {
+    private _sortCriticalAllocationTableByTagThenUUID() {
         this._criticalAllocationTable.sort(
             (
                 a: ICriticalSlot,
                 b: ICriticalSlot,
             ) => {
-                if( a.uuid > b.uuid ) {
+                if( a.tag > b.tag ) {
                     return -1;
-                } else if( a.uuid < b.uuid ) {
+                } else if( a.tag < b.tag ) {
                     return 1;
                 } else {
-                    return 0;
+                    if( a.uuid > b.uuid ) {
+                        return -1;
+                    } else if( a.uuid < b.uuid ) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
                 }
             }
         )
@@ -4214,17 +4219,18 @@ export class BattleMech {
         let armorObj = this.getArmorObj();
         if( this.getTech().tag === "clan" ) {
             if( armorObj.crits.clan > 0) {
-                if( armorObj.critLocs) {
-                    for( let nameLoc in armorObj.critLocs) {
-                        this._addCriticalItem(
-                            armorObj.tag, // item_tag
-                            armorObj.name, // item_nickname
-                            armorObj.critLocs[nameLoc], // criticalCount
-                            nameLoc, // location
-                            // slot
-                        );
-                    }
-                } else {
+                // if( armorObj.critLocs) {
+                //     for( let nameLoc in armorObj.critLocs) {
+                //         this._addCriticalItem(
+                //             armorObj.tag, // item_tag
+                //             armorObj.name, // item_nickname
+                //             armorObj.critLocs[nameLoc], // criticalCount
+                //             nameLoc, // location
+                //             null,// slot
+                //             true, // movable
+                //         );
+                //     }
+                // } else {
                     for( let aCounter = 0; aCounter < armorObj.crits.clan; aCounter++) {
                         this._unallocatedCriticals.push({
                             uuid: generateUUID(),
@@ -4237,21 +4243,26 @@ export class BattleMech {
                             movable: true
                         });
                     }
-                }
+                // }
             }
         } else {
             if( armorObj.crits.is > 0) {
-                if( armorObj.critLocs) {
-                    for( let nameLoc in armorObj.critLocs) {
-                        this._addCriticalItem(
-                            armorObj.tag, // item_tag
-                            armorObj.name, // item_nickname
-                            armorObj.critLocs[nameLoc], // criticalCount
-                            nameLoc // location
-                            // slot
-                        );
-                    }
-                } else {
+                // if( armorObj.critLocs ) {
+                //     // console.log("Allocating Armor to first available slot", this.getName(), dontAllocateArmorCrits, armorObj.tag, )
+                //     for( let nameLoc in armorObj.critLocs) {
+                //         for( let count = 0; count < armorObj.critLocs[nameLoc]; count++) {
+                //             this._addCriticalItem(
+                //                 armorObj.tag, // item_tag
+                //                 armorObj.name, // item_nickname
+                //                 1, // criticalCount
+                //                 nameLoc, // location
+                //                 null,// slot
+                //                 true, // movable
+                //             );
+                //         }
+                //     }
+                // } else {
+                    // console.log("Adding Armor to unallocated", this.getName(), dontAllocateArmorCrits, armorObj.tag, )
                     for( let aCounter = 0; aCounter < armorObj.crits.is; aCounter++) {
                         this._unallocatedCriticals.push({
                             uuid: generateUUID(),
@@ -4264,7 +4275,7 @@ export class BattleMech {
                             movable: true,
                         });
                     }
-                }
+                // }
             }
         }
 
@@ -4350,7 +4361,7 @@ export class BattleMech {
         // console.log( "_calc this._criticalAllocationTable", this._criticalAllocationTable);
 
         let criticalTally: Record<string, number> = {};
-        this._sortCriticalAllocationTableByUUID();
+        this._sortCriticalAllocationTableByTagThenUUID();
         for( let item of this._criticalAllocationTable) {
             let removeFromUnallocated = false;
             // console.log( "criticalAllocationTable item", this.getName(), item.tag, item.loc, item.crits, item.size, item.uuid );
@@ -4366,7 +4377,7 @@ export class BattleMech {
             if( criticalTally[ item.uuid ] >= item.crits )
                 removeFromUnallocated = true;
 
-            // console.log("X", this.getName(), item.uuid, item.tag, item.loc, item.crits, item.size);
+
             this._allocateCritical(
                 item.tag,
                 item.rear,
@@ -4378,16 +4389,7 @@ export class BattleMech {
             )
         }
 
-        // remove location tag for remaining unallocated
-        // for( let item of this._unallocatedCriticals) {
-        //     if( item.obj) {
-        //         item.obj.location = "";
-        //         item.obj.allocationLocation = "";
-        //         item.obj.allocationIndex = -1;
-        //     }
-        // }
 
-        // console.log( "this._criticals", this.getName(), this._criticals )
     }
 
     public hasHandActuator(
@@ -6180,7 +6182,7 @@ export class BattleMech {
         for( let item of equipmentList ) {
             if(
                 item.name.toLowerCase().trim() === equipmentName.toLowerCase().trim()
-                ||
+                    ||
                 (item.alternateName && item.alternateName.toLowerCase().trim() === equipmentName.toLowerCase().trim() )
             ) {
 
@@ -6821,7 +6823,7 @@ export class BattleMech {
         rear: boolean,
     ): string {
 
-        if( loc === "la" ) {
+        if( loc === "la"  ) {
             if( rear )
                 return "ltr";
             else
@@ -6998,6 +7000,8 @@ export class BattleMech {
                     }
                 }
             }
+            // if( this.getName().indexOf("ASN-") > -1 )
+            //     console.log( "_updateCriticalAllocationTable", this.getName(), this._criticalAllocationTable);
         }
 
         // this._calc();
@@ -7050,6 +7054,7 @@ export class BattleMech {
         if( toLocation === "rll" ) {
             toLocation = "ll"
         }
+
         // console.log( " moveCritical",
         //     this.getName(),
         //     fromLocation,
@@ -7115,7 +7120,7 @@ export class BattleMech {
                 }
 
                 if( fromItem && fromLocationObj) {
-
+                    let success = false;
                     for( let splitIndex in split_location ) {
 
                         let split = split_location[splitIndex];
@@ -7138,8 +7143,9 @@ export class BattleMech {
                             toLocation = "ll"
                         }
 
+
                         if( toLocation === "hd" ) {
-                            this._moveItemToArea(
+                            success = this._moveItemToArea(
                                 fromLocationObj,
                                 fromItem,
                                 fromIndex,
@@ -7150,7 +7156,7 @@ export class BattleMech {
                                 +splitIndex >= split_location.length - 1
                             );
                         } else if( toLocation === "ct" ) {
-                            this._moveItemToArea(
+                            success = this._moveItemToArea(
                                 fromLocationObj,
                                 fromItem,
                                 fromIndex,
@@ -7162,7 +7168,7 @@ export class BattleMech {
                             );
                         } else if( toLocation === "rt" ) {
                             // console.log("rt", toSize, +splitIndex , split_location.length - 1, +splitIndex >= split_location.length - 1)
-                            this._moveItemToArea(
+                            success = this._moveItemToArea(
                                 fromLocationObj,
                                 fromItem,
                                 fromIndex,
@@ -7173,7 +7179,7 @@ export class BattleMech {
                                 +splitIndex >= split_location.length - 1
                             );
                         } else if( toLocation === "rl" ) {
-                            this._moveItemToArea(
+                            success = this._moveItemToArea(
                                 fromLocationObj,
                                 fromItem,
                                 fromIndex,
@@ -7185,7 +7191,7 @@ export class BattleMech {
                             );
                         } else if( toLocation === "ra" ) {
                             // console.log("ra", toSize, +splitIndex , split_location.length - 1, +splitIndex >= split_location.length - 1)
-                            this._moveItemToArea(
+                            success = this._moveItemToArea(
                                 fromLocationObj,
                                 fromItem,
                                 fromIndex,
@@ -7196,7 +7202,7 @@ export class BattleMech {
                                 +splitIndex >= split_location.length - 1
                             );
                         } else if( toLocation === "lt" ) {
-                            this._moveItemToArea(
+                            success = this._moveItemToArea(
                                 fromLocationObj,
                                 fromItem,
                                 fromIndex,
@@ -7207,7 +7213,7 @@ export class BattleMech {
                                 +splitIndex >= split_location.length - 1
                             );
                         } else if( toLocation === "ll" ) {
-                            this._moveItemToArea(
+                            success = this._moveItemToArea(
                                 fromLocationObj,
                                 fromItem,
                                 fromIndex,
@@ -7218,7 +7224,7 @@ export class BattleMech {
                                 +splitIndex >= split_location.length - 1
                             );
                         } else if( toLocation === "la" ) {
-                            this._moveItemToArea(
+                            success = this._moveItemToArea(
                                 fromLocationObj,
                                 fromItem,
                                 fromIndex,
@@ -7231,7 +7237,7 @@ export class BattleMech {
                         }
                 }
 
-                return true;
+                return success;
             }
         } else {
 
@@ -7286,9 +7292,10 @@ export class BattleMech {
             }
 
             if( fromItem && fromLocationObj) {
-                if( fromLocationObj[0]) {
+                // console.log("X", this.getName(), fromLocationObj[fromIndex].uuid,fromItem, fromLocation, toLocation, fromIndex, toIndex );
+                if( fromLocationObj[fromIndex]) {
                     this._setEquipmentAllocation(
-                        fromLocationObj[0].uuid,
+                        fromLocationObj[fromIndex].uuid,
                         toIndex,
                         toLocation
                     )
@@ -7369,7 +7376,7 @@ export class BattleMech {
                             );
                 }
             }
-            console.warn("moveCritical()", "No to/from objects", fromLocation, toLocation, fromItem, fromLocationObj )
+            // console.warn("moveCritical()", "No to/from objects", fromLocation, toLocation, fromItem, fromLocationObj )
         }
 
 
@@ -7388,6 +7395,7 @@ export class BattleMech {
             }
         }
     }
+
 
     private _moveItemToArea(
         fromLocation: ICriticalSlot[] | null[],
@@ -7409,7 +7417,7 @@ export class BattleMech {
             uuid: fromItem.uuid,
             name: "placeholder",
             placeholder: true,
-            tag: "",
+            tag: fromItem.tag,
             crits: 1,
             rear: false,
             obj: null,
@@ -7488,17 +7496,19 @@ export class BattleMech {
                 }
             }
 
+
             fromItem.loc = toLocTag;
             fromItem.slot = toIndex;
             toLocation[toIndex] = JSON.parse(JSON.stringify(fromItem));
-            // toLocation[toIndex].crits = toSize;
+
             toLocation[toIndex].size = toSize;
             for( let phC = 1; phC < toSize; phC++) {
                 toLocation[toIndex + phC] = placeholder;
             }
 
+
             if( removeFrom ) {
-                // console.log("removeFrom", toSize)
+
                 fromLocation[fromIndex] = null;
                 let nextCounter = 1;
                 let theItem = fromLocation[fromIndex + nextCounter];
@@ -7514,12 +7524,8 @@ export class BattleMech {
                 this._removeUUIDFromUnallocated( toLocation[toIndex].uuid )
             }
 
-            // for( let item of this._equipmentList ) {
-            //     if( item.uuid === fromItem.uuid ) {
-            //         item.location = toLocTag;
-            //     }
-            // }
             this._updateCriticalAllocationTable();
+
             return true;
 
         }
@@ -7694,7 +7700,7 @@ export class BattleMech {
             if( this._equipmentList[ eqC ] && this._equipmentList[ eqC ].variableSize ) {
 
                 let currentItem = this._equipmentList[ eqC ];
-                // console.log( " currentItem",  currentItem);
+
                 if(currentItem.criticalsDivisor) {
                     currentItem.criticals = Math.ceil( this.getTonnage() / currentItem.criticalsDivisor );
                 }
@@ -7707,6 +7713,9 @@ export class BattleMech {
                     currentItem.damage = Math.ceil( this.getTonnage() / currentItem.damageDivisor );
                 }
 
+                if( currentItem.damageBonus && typeof(currentItem.damage) === "number") {
+                    currentItem.damage += currentItem.damageBonus;
+                }
                 if( currentItem.criticalsDivisor ) {
                     currentItem.space.battlemech = Math.ceil( this.getTonnage() / currentItem.criticalsDivisor );
                 }
@@ -7718,7 +7727,6 @@ export class BattleMech {
                 if( currentItem.costPerItemTon ) {
                     currentItem.cbills = currentItem.costPerItemTon * currentItem.weight;
                 }
-                // console.log( " currentItem",  currentItem);
             }
         }
     }
@@ -7818,9 +7826,6 @@ export class BattleMech {
         let centerTorsoArmor = Math.floor(internalStructure.centerTorso * 1.75 * percentage);
         let centerTorsoArmorRear = Math.floor(internalStructure.centerTorso * .25 * percentage);
 
-        // console.log("centerTorsoArmor", centerTorsoArmor)
-        // console.log("totalArmor", totalArmor)
-        // console.log("maximumArmor", maximumArmor)
         if( totalArmor > armArmor) {
             let headArmor = armArmor;
             if( headArmor > 9)
@@ -8062,7 +8067,7 @@ export class BattleMech {
 
         }
 
-        if( loc === "la" ) {
+        if( loc === "la"  ) {
 
             for( let critIndex in this._criticals.leftArm ) {
 
@@ -8533,14 +8538,14 @@ export class BattleMech {
         importString: string
     ): void {
         importString = importString.trim();
-        // console.log( "importString", importString);
+
         let lines = importString.split( "\n" );
-        // console.log( "lines", lines);
+
         let inEquipmentList = false;
         let equipmentList: IEquipmentItem[] = [];
 
         for( let line of lines ) {
-            // console.log( "line", line);
+
             if( line.toLowerCase().startsWith( "technology base:" )) {
 
                 line = line.replace(/technology base:/ig, '').trim();
@@ -8582,7 +8587,7 @@ export class BattleMech {
                 if( line && line.indexOf( " " ) > - 1 ) {
                     line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split( " " );
-                    // console.log( "armor splitLine", splitLine)
+
                     if( splitLine.length > 1 && !isNaN(+splitLine[0]) ) {
 
                         this.setAdditionalHeatSinks(+splitLine[0] - 10 )
@@ -8596,7 +8601,7 @@ export class BattleMech {
                 if( line && line.indexOf( " " ) > - 1 ) {
                     line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split( " " );
-                    // console.log( "armor splitLine", splitLine)
+
                     if( splitLine.length > 1 && !isNaN(+splitLine[0]) ) {
 
                         this.setAdditionalHeatSinks(+splitLine[0] - 10 )
@@ -8611,7 +8616,7 @@ export class BattleMech {
                 if( line && line.indexOf( " " ) > - 1 ) {
                     line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split( " " );
-                    // console.log( "heat sinks splitLine", splitLine)
+
                     if( splitLine.length > 1 && !isNaN(+splitLine[0]) ) {
 
                         this.setAdditionalHeatSinks(+splitLine[0] - 10 )
@@ -8621,18 +8626,13 @@ export class BattleMech {
                 }
             }
 
-            // if( line.toLowerCase().startsWith( "engine: " )) {
-            //     line = line.replace(/engine:/ig, '').trim();
-            //     if( line ) {
-            //         this.setModel( line )
-            //     }
-            // }
+
             if( line.toLowerCase().startsWith( "armor factor: " )) {
                 line = line.replace(/armor factor:/ig, '').trim();
                 if( line && line.indexOf( " " ) > - 1 ) {
                     line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split( " " );
-                    // console.log( "armor splitLine", splitLine)
+
                     if( splitLine.length > 1 && +splitLine[1] > 0) {
                         this.setArmorWeight( +splitLine[1] )
                     }
@@ -8646,7 +8646,7 @@ export class BattleMech {
                 if( line && line.indexOf( " " ) > - 1 ) {
                     line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split( " " );
-                    // console.log( "head", splitLine)
+
                     if( splitLine.length > 1 && +splitLine[1] > 0) {
                         this.setHeadArmor( +splitLine[1] )
                     }
@@ -8659,7 +8659,7 @@ export class BattleMech {
                 if( line && line.indexOf( " " ) > - 1 ) {
                     line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split( " " );
-                    // console.log( "center torso", splitLine)
+
                     if( splitLine.length > 1 && +splitLine[1] > 0) {
                         this.setCenterTorsoArmor( +splitLine[1] )
                     }
@@ -8670,9 +8670,7 @@ export class BattleMech {
             if( line.toLowerCase().startsWith( "center torso" ) && line.toLowerCase().indexOf( "(rear)" ) > -1 ) {
 
                 line = line.replace(/center torso \(rear\)/ig, '').trim();
-                // console.log( "CTR", line)
-                // line = line.replace(/ {2}/ig, ' ').trim();
-                // console.log( "center torso (rear)", +line)
+
                 if( +line > 0) {
                     this.setCenterTorsoRearArmor( +line )
                 }
@@ -8684,7 +8682,7 @@ export class BattleMech {
                 if( line && line.indexOf( " " ) > - 1 ) {
                     line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split( " " );
-                    // console.log( "r/l torso", splitLine)
+
                     if( splitLine.length > 1 && +splitLine[1] > 0) {
                         this.setRightTorsoArmor( +splitLine[1] )
                         this.setLeftTorsoArmor( +splitLine[1] )
@@ -8708,7 +8706,7 @@ export class BattleMech {
                 if( line && line.indexOf( " " ) > - 1 ) {
                     line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split( " " );
-                    // console.log( "r/l torso", splitLine)
+
                     if( splitLine.length > 1 && +splitLine[1] > 0) {
                         this.setLeftLegArmor( +splitLine[1] )
                         this.setRightLegArmor( +splitLine[1] )
@@ -8722,7 +8720,7 @@ export class BattleMech {
                 if( line && line.indexOf( " " ) > - 1 ) {
                     line = line.replace(/ {2}/ig, ' ').trim();
                     let splitLine = line.split( " " );
-                    // console.log( "r/l torso", splitLine)
+
                     if( splitLine.length > 1 && +splitLine[1] > 0) {
                         this.setLeftArmArmor( +splitLine[1] )
                         this.setRightArmArmor( +splitLine[1] )
@@ -8740,7 +8738,7 @@ export class BattleMech {
                 // remove double-spaces
                 line = line.replace(/ {2}/ig, ' ').trim();
                 let lineSplit = line.split(' ');
-                // console.log( "Equipment Parse?", lineSplit);
+
                 let equipmentLine = {
                     name: "",
                     location: "",
@@ -8756,7 +8754,7 @@ export class BattleMech {
                         &&
                     !isNaN( +lineSplit[ lineSplit.length - 2] )
                 ) {
-                    // console.log( "lineSplit", lineSplit);
+
                     equipmentLine.weight = +lineSplit[ lineSplit.length - 1];
                     equipmentLine.criticals = +lineSplit[ lineSplit.length - 2];
                     equipmentLine.location = lineSplit[ lineSplit.length - 3];
@@ -8775,7 +8773,7 @@ export class BattleMech {
                         equipmentLine.weight = equipmentLine.weight /  count;
                     }
 
-                    // console.log( "equipmentLine", equipmentLine);
+
                     if(
                         equipmentLine.name.trim()
                         &&
@@ -8785,7 +8783,6 @@ export class BattleMech {
                         &&
                         equipmentLine.location.trim()
                     ) {
-                        // console.log( "eq", equipmentLine.name.trim().toLowerCase())
 
                         if( equipmentLine.name.trim().toLowerCase().startsWith( "jump jet" ) ) {
 
@@ -8795,7 +8792,6 @@ export class BattleMech {
 
                                         if( this._unallocatedCriticals[critIndex] && this._unallocatedCriticals[critIndex].name.trim().toLowerCase().indexOf( "jump jet" ) > 1) {
 
-                                            // console.log( "JJ", equipmentLine.name, equipmentLine.weight, equipmentLine.location.trim().toLowerCase())
                                             this.moveCritical(
                                                 "un",
                                                 +critIndex,
@@ -8811,7 +8807,6 @@ export class BattleMech {
 
                         } else {
 
-                            // console.log( "finding eq.name", equipmentLine, equipmentList.length)
                             for( let eqIndex in equipmentList ) {
                                 let eq = equipmentList[eqIndex];
 
@@ -8821,11 +8816,9 @@ export class BattleMech {
                                         ||
                                         eq.name.toLowerCase().trim() + "s" === equipmentLine.name.trim().toLowerCase()
                                     )
-                                    //     &&
-                                    // eq.available
+
                                 ) {
 
-                                    // console.log( "adding eq.name", eq)
                                     for( let count = 0; count < equipmentLine.number; count++) {
 
 
@@ -8878,7 +8871,7 @@ export class BattleMech {
     public getEquipmentList(
         equipmentListTag: string
     ): IEquipmentItem[] {
-        // console.log( "getEquipmentList" , equipmentListTag)
+
         let equipmentList: IEquipmentItem[] = [];
         if( equipmentListTag === "is" ) {
             equipmentList = getISEquipmentList();
@@ -9274,7 +9267,7 @@ export class BattleMech {
 
                 if( item.splitlocation ) {
                     for( let split of item.splitlocation ) {
-                        // console.log("split", split)
+
                         newItem.split_location.push(
                             {
                                 loc: split["#text"].toLowerCase(),
@@ -9283,17 +9276,50 @@ export class BattleMech {
                             }
                         )
                     }
-                    // console.log("newItem.split_location", newItem.split_location);
                 }
             }
         }
     }
+
+    public getCriticalsForLocation(
+        shortLoc: string
+    ): ICriticalSlot[] {
+        shortLoc = shortLoc.toLowerCase().trim();
+        if( shortLoc === "hd" ) {
+            return this._criticals.head;
+        }
+
+        if( shortLoc === "ct" ) {
+            return this._criticals.centerTorso;
+        }
+        if( shortLoc === "lt" ) {
+            return this._criticals.leftTorso;
+        }
+        if( shortLoc === "rt" ) {
+            return this._criticals.rightTorso;
+        }
+
+        if( shortLoc === "ra" ) {
+            return this._criticals.rightArm;
+        }
+        if( shortLoc === "la" ) {
+            return this._criticals.leftArm;
+        }
+
+        if( shortLoc === "rl" ) {
+            return this._criticals.rightLeg;
+        }
+        if( shortLoc === "ll" ) {
+            return this._criticals.leftLeg;
+        }
+
+
+        return [];
+    }
     public importSSWXML(
         ssw_xml: string
     ): void {
-        // var result = convertXML.xml2json(ssw_xml, {compact: true, spaces: 4});
 
-        // console.log( result );
         this._sswImportErrors = [];
 
 
@@ -9435,58 +9461,36 @@ export class BattleMech {
 
                     this.setArmorCount( totalArmor );
 
+
                     if( typeof(  jObj.mech.armor.location ) === "object" ) {
                         this._calcCriticals();
 
-                        try {
-                            for( let loc of jObj.mech.armor.location ) {
-                                let foundIndex = -1;
 
-
-                                    for( let critItemIndex in this._unallocatedCriticals ) {
-                                        if( this._unallocatedCriticals[critItemIndex] && this._unallocatedCriticals[critItemIndex].tag === this.getArmorType() ) {
-                                            foundIndex = +critItemIndex;
-                                            break;
-                                        }
-                                    }
-
-
-                                if( foundIndex > -1 ) {
-                                    this.moveCritical(
-                                        "un",
-                                        foundIndex,
-                                        loc["#text"] ? loc["#text"].toLowerCase().trim() : "un",
-                                        loc["@_index"] ? +loc["@_index"] : -1,
-                                    );
-                                } else {
-                                    // console.log("inport armor", foundIndex, loc,  +loc["@_index"] )
-                                }
-
-                            }
-                        }
-
-                        catch {
+                        for( let loc of jObj.mech.armor.location ) {
                             let foundIndex = -1;
 
 
                             for( let critItemIndex in this._unallocatedCriticals ) {
-                                if( this._unallocatedCriticals[critItemIndex] && this._unallocatedCriticals[critItemIndex].tag === "heat-sink" ) {
+                                if(
+                                    this._unallocatedCriticals[critItemIndex]
+                                    && this._unallocatedCriticals[critItemIndex].tag === this.getArmorType()
+                                ) {
                                     foundIndex = +critItemIndex;
                                     break;
                                 }
                             }
 
+                            this.moveCritical(
+                                "un",
+                                foundIndex,
+                                loc["#text"] ? loc["#text"].toLowerCase().trim() : "un",
+                                loc["@_index"] ? +loc["@_index"] : -1,
 
-                            if( foundIndex > -1 ) {
-                                this.moveCritical(
-                                    "un",
-                                    foundIndex,
-                                    jObj.mech.baseloadout.heatsinks.location["#text"] ? jObj.mech.baseloadout.heatsinks.location["#text"].toLowerCase().trim() : "un",
-                                    jObj.mech.baseloadout.heatsinks.location["@_index"] ? +jObj.mech.baseloadout.heatsinks.location["@_index"] : -1,
-                                );
-                            }
+                            )
                         }
+
                     }
+
 
                 }
             }
@@ -9503,9 +9507,6 @@ export class BattleMech {
             if( jObj.mech.baseloadout ) {
 
 
-                // if( jObj.mech.baseloadout.battleforce ) {
-
-                // }
                 if( jObj.mech.baseloadout.clancase ) {
 
                 }
@@ -9528,14 +9529,29 @@ export class BattleMech {
                             }
                         }
 
-                        // console.log("item", item.name, item.tag, foundIndex, this._unallocatedCriticals)
-                        this.moveCritical(
+
+                        let success = this.moveCritical(
                             "un",
                             foundIndex,
                             item.allocationLocation ? item.allocationLocation : "un",
                             item.allocationIndex ? item.allocationIndex : -1,
                             item.split_location,
                         );
+
+                        if( !success ) {
+                            console.warn(
+                                "unsuccessful crit allocation",
+                                this.getName(),
+                                item.name,
+                                item.tag,
+                                foundIndex,
+                                item.allocationLocation,
+                                item.allocationIndex,
+                                item.criticals,
+                                this._unallocatedCriticals,
+
+                            )
+                        }
                         item.location = item.allocationLocation;
                     }
 
@@ -9602,8 +9618,6 @@ export class BattleMech {
                                         loc["#text"] ? loc["#text"].toLowerCase().trim() : "un",
                                         loc["@_index"] ? +loc["@_index"] : -1,
                                     );
-                                } else {
-                                    // console.log("inport hs 1", foundIndex, loc,  +loc["@_index"] )
                                 }
 
 
@@ -9629,8 +9643,6 @@ export class BattleMech {
                                     jObj.mech.baseloadout.heatsinks.location["#text"] ? jObj.mech.baseloadout.heatsinks.location["#text"].toLowerCase().trim() : "un",
                                     jObj.mech.baseloadout.heatsinks.location["@_index"] ? +jObj.mech.baseloadout.heatsinks.location["@_index"] : -1,
                                 );
-                            }else {
-                                // console.log("inport hs2", foundIndex, jObj.mech.baseloadout.heatsinks.location,  +jObj.mech.baseloadout.heatsinks.location["@_index"] )
                             }
 
                         }
@@ -9680,11 +9692,10 @@ export class BattleMech {
 
                 }
             }
-            // this._updateCriticalAllocationTable();
-            // console.log("this._criticals 1", this._criticals);
+
             this._calc();
             this.calcAlphaStrike();
-            // console.log("this._criticals 2", this._criticals);
+
             if( this._unallocatedCriticals && this._unallocatedCriticals.length > 0 ) {
                 this.sswImportErrors.push("Unallocated Criticals: " + this._unallocatedCriticals.length);
                 for( let crit of this._unallocatedCriticals ) {
