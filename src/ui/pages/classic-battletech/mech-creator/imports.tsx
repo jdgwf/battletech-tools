@@ -295,7 +295,7 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                       >
                           <div className="alert alert-info">
 
-                            <p>This is now working perfectly in a limited fashion!</p>
+                            <p>This is now working perfectly in a limited fashion! Be sure to only semi-trust the units with a <FaCheckCircle title="This import looks good to add!" className="color-green" /> beside their name</p>
 
                             <p>Since we're still short on base equipment for Clans, right now only the TRO3039 is loadable. Don't worry we'll get it taken care of as this app develops. TRO 3050/3055 is the next target!</p>
 
