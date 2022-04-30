@@ -31,7 +31,7 @@ export default class Pilot {
                 this.piloting = importObj.piloting;
             }
             if( importObj.gunnery ) {
-                this.piloting = importObj.piloting;
+                this.gunnery = importObj.gunnery;
             }
             if( importObj.piloting ) {
                 this.piloting = importObj.piloting;
