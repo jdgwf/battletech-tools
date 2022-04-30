@@ -8,6 +8,9 @@ export class AppSettings {
     equipmentFilter: string = "";
     installEquipCategory: string = "";
 
+    mechRulesFilter: number = 0;
+    mechNameFilter: string = "";
+
     storageLocation: ESaveDataMode = ESaveDataMode.localStorage;
 
     alphasStrikeCachedSearchResults: IASMULUnit[] = [];
@@ -75,6 +78,12 @@ export class AppSettings {
             if ( typeof( io.asValues ) !== "undefined" ) {
                 this.asValues = io.asValues;
             }
+            if ( typeof( io.mechNameFilter ) !== "undefined" ) {
+                this.mechNameFilter = io.mechNameFilter;
+            }
+            if ( typeof( io.mechRulesFilter ) !== "undefined" ) {
+                this.mechRulesFilter = io.mechRulesFilter;
+            }
         }
     }
 
@@ -93,6 +102,9 @@ export class AppSettings {
             alphaStrikeSearchTech: this.alphaStrikeSearchTech,
             alphaStrikeMeasurementsInHexes: this.alphaStrikeMeasurementsInHexes,
             asValues: this.asValues,
+
+            mechRulesFilter: this.mechRulesFilter,
+            mechNameFilter: this.mechNameFilter,
         }
     }
 }
@@ -113,4 +125,7 @@ export interface IAppSettingsExport {
 
     equipmentEditorFile: string;
     asValues: Record<string, number>;
+
+    mechRulesFilter: number
+    mechNameFilter: string
 }

@@ -1,23 +1,39 @@
 export function getSSWRulesLevelLabel(
     num: number,
+    short: boolean = false,
 ): string {
 
     if( num === - 1 ) {
         return "All"
     }
     if( num === 0 ) {
+        if( short )
+        return "Intro"
+        else
         return "Introductory"
     }
     if( num === 1 ) {
+        if( short )
+        return "Std"
+        else
         return "Tournament Legal (Standard)"
     }
     if( num === 2 ) {
+        if( short )
+        return "Adv"
+        else
         return "Advanced"
     }
     if( num === 3 ) {
+        if( short )
+        return "Ex["
+        else
         return "Experimental"
     }
     if( num === 4 ) {
+        if( short )
+        return "Era"
+        else
         return "Era Specific"
     }
 
