@@ -182,6 +182,8 @@ export interface ITargetToHit {
     movement: number;
     otherMods: number;
     jumped: boolean;
+    primary: boolean;
+    inRearArc: boolean;
 }
 
 export interface IGATOR {
@@ -209,6 +211,8 @@ export class BattleMech {
         movement: 0,
         otherMods: 0,
         jumped: false,
+        primary: true,
+        inRearArc: false,
     };
     private _targetBToHit: ITargetToHit = {
         name: "",
@@ -217,6 +221,8 @@ export class BattleMech {
         movement: 0,
         otherMods: 0,
         jumped: false,
+        primary: false,
+        inRearArc: false,
     };
     private _targetCToHit: ITargetToHit = {
         name: "",
@@ -225,6 +231,8 @@ export class BattleMech {
         movement: 0,
         otherMods: 0,
         jumped: false,
+        primary: false,
+        inRearArc: false,
     };
 
     private _sswImportErrors: string[] = [];

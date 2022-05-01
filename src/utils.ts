@@ -408,6 +408,17 @@ export function getTargetToHitFromWeapon(
 
                 otherModifiersExplanation.push( "Weapon Accuracy Modifier" );
             }
+            if( !target.primary) {
+                if( target.inRearArc ) {
+                    otherModifiersExplanation.push( "Secondary Target In Rear Arc (+2)");
+                    gator.otherModifiers += 2;
+                    gator.finalToHit += 2;
+                } else {
+                    otherModifiersExplanation.push( "Secondary Target In Rear Arc (+1)");
+                    gator.otherModifiers += 1;
+                    gator.finalToHit += 1;
+                }
+            }
             gator.otherModifiersExplanation = otherModifiersExplanation.join(", ")
 
             // R

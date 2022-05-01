@@ -416,6 +416,38 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       })
     }
 
+    updatePrimary = (
+      e: React.FormEvent<HTMLInputElement>,
+      target: string
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+      let targetData = this.state.targetData;
+      let targetWeaponSelection = this.state.targetWeaponSelection;
+      if( targetData ) {
+        if( target === "a" ) {
+          targetData.a.primary = true;
+          targetData.b.primary = false;
+          targetData.c.primary = false;
+        } else if( target === "b" ) {
+          targetData.a.primary = false;
+          targetData.b.primary = true;
+          targetData.c.primary = false;
+        } else if( target === "c" ) {
+          targetData.a.primary = false;
+          targetData.b.primary = false;
+          targetData.c.primary = true;
+        }
+      }
+
+
+      this.setState({
+        targetData: targetData,
+        targetWeaponSelection: targetWeaponSelection,
+      })
+    }
+
     updateTargetActive = (
       e: React.FormEvent<HTMLInputElement>,
       target: string
@@ -452,6 +484,35 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           }
         }
       }
+
+      this.setState({
+        targetData: targetData,
+        targetWeaponSelection: targetWeaponSelection,
+      })
+    }
+
+    updateRearArc = (
+      e: React.FormEvent<HTMLInputElement>,
+      target: string
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+      let targetData = this.state.targetData;
+      let targetWeaponSelection = this.state.targetWeaponSelection;
+      if( targetData ) {
+        if( target === "a" ) {
+          targetData.a.inRearArc = e.currentTarget.checked;
+
+        } else if( target === "b" ) {
+          targetData.b.inRearArc = e.currentTarget.checked;
+
+        } else if( target === "c" ) {
+          targetData.c.inRearArc = e.currentTarget.checked;
+
+        }
+      }
+
 
       this.setState({
         targetData: targetData,
@@ -1654,6 +1715,19 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               value={this.state.targetData.a.name}
               onChange={(e) => this.updateTargetName(e, "a")}
             />
+            <InputCheckbox
+              label="Primary"
+              checked={this.state.targetData.a.primary}
+              description="Secondary targets are -1 to hit, or -2 in rear arc"
+              onChange={(e) => this.updatePrimary(e, "a")}
+            />
+            <InputCheckbox
+              label="Rear Arc"
+              checked={this.state.targetData.a.inRearArc}
+              description="Secondary targets are -1 to hit, or -2 in rear arc"
+              onChange={(e) => this.updateRearArc(e, "a")}
+            />
+
           </div>
           <div className="col">
 
@@ -1702,12 +1776,25 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               checked={this.state.targetData.b.active}
               onChange={(e) => this.updateTargetActive(e, "b")}
             />
-            <InputField
+                        <InputField
               label="Label"
               description='Just a casual name for the target, or the make, something to help remind you which is A, B, or C'
               value={this.state.targetData.b.name}
               onChange={(e) => this.updateTargetName(e, "b")}
             />
+            <InputCheckbox
+              label="Primary"
+              checked={this.state.targetData.b.primary}
+              description="Secondary targets are -1 to hit, or -2 in rear arc"
+              onChange={(e) => this.updatePrimary(e, "b")}
+            />
+            <InputCheckbox
+              label="Rear Arc"
+              checked={this.state.targetData.b.inRearArc}
+              description="Secondary targets are -1 to hit, or -2 in rear arc"
+              onChange={(e) => this.updateRearArc(e, "b")}
+            />
+
           </div>
           <div className="col">
 
@@ -1757,11 +1844,24 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               checked={this.state.targetData.c.active}
               onChange={(e) => this.updateTargetActive(e, "c")}
             />
+
             <InputField
               label="Label"
               description='Just a casual name for the target, or the make, something to help remind you which is A, B, or C'
               value={this.state.targetData.c.name}
               onChange={(e) => this.updateTargetName(e, "c")}
+            />
+            <InputCheckbox
+              label="Primary"
+              checked={this.state.targetData.c.primary}
+              description="Secondary targets are -1 to hit, or -2 in rear arc"
+              onChange={(e) => this.updatePrimary(e, "c")}
+            />
+            <InputCheckbox
+              label="Rear Arc"
+              checked={this.state.targetData.c.inRearArc}
+              description="Secondary targets are -1 to hit, or -2 in rear arc"
+              onChange={(e) => this.updateRearArc(e, "c")}
             />
           </div>
           <div className="col">
