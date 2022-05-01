@@ -189,6 +189,7 @@ export interface ITargetToHit {
 export interface IGATOR {
     weaponName?: string;
     targetName?: string;
+    targetObj?: ITargetToHit | null;
     explanation?: string;
     target?: string;
     rangeExplanation?: string;

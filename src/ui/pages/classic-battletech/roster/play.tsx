@@ -1317,6 +1317,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                       let attackGATOR = getTargetToHitFromWeapon(
                           unit,
                           attackIndex,
+
                       )
                       if( !attack.isAmmo && !attack.isEquipment && attackGATOR.target ) {
 
@@ -1349,16 +1350,35 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                                 <>{attackGATOR.targetName}<div className="small-text">{attackGATOR.target}</div></>
                               ) : (
                                 <>{attackGATOR.target}</>
-                              )}</td>
+                              )}
+                              {attackGATOR.targetObj && attackGATOR.targetObj.primary ? (
+                                <div className='small-text'>(primary)</div>
+                              ) : (
+                                <>
+                                {attackGATOR.targetObj && attackGATOR.targetObj.inRearArc ?
+                                <div className='small-text'>(secondary rear target)</div>
+                                :
+                                <div className='small-text'>(secondary)</div>}
+                                </>
+                              )}
+
+
+                              </td>
 
                               <td className={attackDamaged ? "bright-red-strike-through" : ""}>{attackGATOR.gunnerySkill}</td>
                               <td className={attackDamaged ? "bright-red-strike-through" : ""}>{attackGATOR.attackerMovementModifier}</td>
                               <td className={attackDamaged ? "bright-red-strike-through" : ""}>{attackGATOR.targetMovementModifier}</td>
                               <td className={attackDamaged ? "bright-red-strike-through" : ""}>{attackGATOR.otherModifiers}</td>
                               <td className={attackDamaged ? "bright-red-strike-through" : ""}>{attackGATOR.rangeModifier}</td>
-                              <td className={attackDamaged ? "bright-red-strike-through" : ""}><strong>{attackGATOR.finalToHit}+</strong></td>
+                              {attackGATOR.finalToHit >= 2 && attackGATOR.finalToHit <= 12 ? (
+                                <td title={attackGATOR.explanation} className={attackDamaged ? "bright-red-strike-through" : ""}><strong>{attackGATOR.finalToHit}+</strong></td>
+                              ) : (
+                                <td title={attackGATOR.explanation} className={attackDamaged ? "bright-red-strike-through" : ""}>N/S</td>
+                              )}
+
 
                               <td className={attackDamaged ? "bright-red-strike-through min-width no-wrap" : "min-width no-wrap"}>
+                              {attackGATOR.finalToHit >= 2 && attackGATOR.finalToHit <= 12 ? (
                                 <div className="flex">
                                   {clusterChartButton ? (
 
@@ -1377,10 +1397,11 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                                     {attackDamageSecondLine}
                                   </div>
                                 </div>
+                              ) : "N/S"}
                               </td>
 
                               <td className="min-width no-wrap">
-
+                              {attackGATOR.finalToHit >= 2 && attackGATOR.finalToHit <= 12 ? ( <>
                                 {attackDamaged ? (
                                   <div className="color-bright-red">Damaged</div>
                                 ) : (
@@ -1405,7 +1426,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                                   </button>
                                   </>
                                 )}
-
+                                </>
+) : "N/S"}
                               </td>
 
                             </tr>
@@ -1977,10 +1999,13 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                           ) : null}
                         </select>
                         {targetGATOR && targetGATOR.finalToHit > 0 ? (
-                          <>
+                          <span>
                           To Hit: {targetGATOR.finalToHit}+
-                          </>
-                        ) : null}
+                          </span>
+                        ) : <span>
+                        To Hit: N/S
+                        </span>}
+
                       </td>
                       <td>{item.name}</td>
                       <td className=" min-width no-wrap text-center">{item.heat}</td>
@@ -1989,6 +2014,11 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                       <td className=" min-width no-wrap text-center">{item.range.medium}</td>
                       <td className=" min-width no-wrap text-center">{item.range.long}</td>
                     </tr>
+                    {targetGATOR && targetGATOR.explanation ? <tr>
+                      <td colSpan={7} className="text-center small-text">
+                        {targetGATOR.explanation}
+                      </td>
+                    </tr> : null}
                   </tbody>
                 )
               }

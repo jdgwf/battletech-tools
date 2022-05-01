@@ -358,7 +358,7 @@ export function getTargetToHitFromWeapon(
         }
 
         if( target ) {
-
+            gator.targetObj = target;
             gator.targetName = target.name;
 
             gator.target = "Target " + targetLetter.toUpperCase();
@@ -496,6 +496,15 @@ export function getTargetToHitFromWeapon(
         }
 
         gator.explanation = "This roll has a " + percentageToHit.toString() + "% chance of success"
+
+        if( target && target.inRearArc && !equipmentList[index].rear) {
+            gator.explanation = "The target is in rear arc, and weapon is not rear-firing";
+            gator.finalToHit = 0;
+        }
+        if( target && !target.inRearArc && equipmentList[index].rear) {
+            gator.explanation = "The target is in front arc, and weapon is rear-firing";
+            gator.finalToHit = 0;
+        }
     }
 
     return gator;
