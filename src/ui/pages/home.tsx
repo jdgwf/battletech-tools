@@ -19,18 +19,13 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
       return (
         <UIPage current="home" appGlobals={this.props.appGlobals}>
 
-          {/* <div className="alert alert-success">
-            <p>Yes! We're back. Sorry about that. I was hoping that the official BattleTech app would cover most of the functionality of this app, but, alas, it didn't. So we're back!</p>
-            <p>I'll try to keep the <Link to="dev-status">Development Status</Link> page up to date, but it's easy to forget with all my other projects</p>
-            <div className="text-right"><span title="Commanding Officer, Commanding Officer 😉😘">XOXO</span> - Jeff</div>
-          </div> */}
           <div className="row">
             <div className="col-md">
               <TextSection
                 label="Jeff's BattleTech Tools"
                 >
-                  <p>The purpose of this Progressive Web Application (PWA) is to make an easily-accessible set of tools to make both the Classic BatleTech (CBT) and Alpha Strike (AS) games faster and more efficient. Here you'll find tools for:</p>
-                  <p>Although this app may be used on many devices, I've really focused on using an iPad or an iPad mini device. A laptop will work absolutely amazingly as well (especially if you have a tablet mode!), but you may find the interface a little busy for most phones. </p>
+                  <p>The purpose of this Progressive Web Application (PWA) is to make an easily-accessible set of tools to make both the Classic BattleTech (CBT) and Alpha Strike (AS) games faster and more efficient. Here you'll find tools for:</p>
+                  <p>Although this app may be used on many devices, I've really focused on using an iPad, iPad mini, or other tablet sized devices. A laptop will work absolutely amazingly as well (especially if you have a tablet mode!), but you may find the interface a little busy for most phones. </p>
                   <ul className='styleless'>
                     <li>
                       <h3><Link to="alpha-strike/roster">Alpha Strike Roster</Link></h3>

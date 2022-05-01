@@ -614,7 +614,7 @@ export class BattleMech {
             else
                 incomingDamageObjects.short = 0;
         } else if( +incomingDamageObjects.short < .5) {
-            incomingDamageObjects.shortMimimum = true;
+            incomingDamageObjects.shortMinimal = true;
             incomingDamageObjects.short= 0;
         } else {
             incomingDamageObjects.short = Math.round(+incomingDamageObjects.short);
@@ -626,7 +626,7 @@ export class BattleMech {
             else
                 incomingDamageObjects.medium = 0;
         } else if( +incomingDamageObjects.medium < .5) {
-            incomingDamageObjects.mediumMimimum = true;
+            incomingDamageObjects.mediumMinimal = true;
             incomingDamageObjects.medium = 0;
         } else {
             incomingDamageObjects.medium = Math.round(+incomingDamageObjects.medium);
@@ -639,7 +639,7 @@ export class BattleMech {
                 incomingDamageObjects.long = 0;
         } else if( +incomingDamageObjects.long < .5) {
             incomingDamageObjects.long = 0;
-            incomingDamageObjects.longMimimum = true;
+            incomingDamageObjects.longMinimal = true;
         } else {
             incomingDamageObjects.long = Math.round(+incomingDamageObjects.long);
         }
@@ -651,7 +651,7 @@ export class BattleMech {
                 incomingDamageObjects.extreme = 0;
         } else if( +incomingDamageObjects.extreme < .5) {
             incomingDamageObjects.extreme = 0;
-            incomingDamageObjects.extremeMimimum= true;
+            incomingDamageObjects.extremeMinimal= true;
         } else {
             incomingDamageObjects.extreme = Math.round(+incomingDamageObjects.extreme);
         }
@@ -2046,10 +2046,10 @@ export class BattleMech {
         this._alphaStrikeForceStats.damage.medium = 0;
         this._alphaStrikeForceStats.damage.long = 0;
         this._alphaStrikeForceStats.damage.extreme = 0;
-        this._alphaStrikeForceStats.damage.shortMimimum = false;
-        this._alphaStrikeForceStats.damage.mediumMimimum = false
-        this._alphaStrikeForceStats.damage.longMimimum = false
-        this._alphaStrikeForceStats.damage.extremeMimimum = false
+        this._alphaStrikeForceStats.damage.shortMinimal = false;
+        this._alphaStrikeForceStats.damage.mediumMinimal = false
+        this._alphaStrikeForceStats.damage.longMinimal = false
+        this._alphaStrikeForceStats.damage.extremeMinimal = false
         this._alphaStrikeForceStats.armor = 0;
         this._alphaStrikeForceStats.structure = 0;
         this._alphaStrikeForceStats.skill = 4;

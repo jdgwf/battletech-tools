@@ -5,10 +5,10 @@ export interface IAlphaStrikeDamage {
     medium: number;
     long: number;
     extreme: number;
-    shortMimimum?: boolean;
-    mediumMimimum?: boolean;
-    longMimimum?: boolean;
-    extremeMimimum?: boolean;
+    shortMinimal?: boolean;
+    mediumMinimal?: boolean;
+    longMinimal?: boolean;
+    extremeMinimal?: boolean;
 }
 
 export interface IMoveNumber {
@@ -175,10 +175,10 @@ export class AlphaStrikeUnit {
             medium: 0,
             long: 0,
             extreme: 0,
-            shortMimimum: false,
-            mediumMimimum: false,
-            longMimimum: false,
-            extremeMimimum: false,
+            shortMinimal: false,
+            mediumMinimal: false,
+            longMinimal: false,
+            extremeMinimal: false,
         };
 
     public move: IMoveNumber[] = [];
@@ -200,10 +200,10 @@ export class AlphaStrikeUnit {
         medium: 0,
         long: 0,
         extreme: 0,
-        shortMimimum: false,
-        mediumMimimum: false,
-        longMimimum: false,
-        extremeMimimum: false,
+        shortMinimal: false,
+        mediumMinimal: false,
+        longMinimal: false,
+        extremeMinimal: false,
     };
 
     public currentArmor: boolean[] = [];
@@ -283,16 +283,16 @@ export class AlphaStrikeUnit {
             }
 
             if( incomingMechData.BFDamageShortMinimumTEMPORARY ) {
-                this.damage.shortMimimum = true;
+                this.damage.shortMinimal = true;
             }
             if( incomingMechData.BFDamageMediumMinimumTEMPORARY ) {
-                this.damage.mediumMimimum = true;
+                this.damage.mediumMinimal = true;
             }
             if( incomingMechData.BFDamageLongMinimumTEMPORARY ) {
-                this.damage.longMimimum = true;
+                this.damage.longMinimal = true;
             }
             if( incomingMechData.BFDamageExtremeMinimumTEMPORARY ) {
-                this.damage.extremeMimimum = true;
+                this.damage.extremeMinimal = true;
             }
 
             if( incomingMechData.BFAbilities )
@@ -860,10 +860,10 @@ export class AlphaStrikeUnit {
             medium: mediumDamage,
             long: longDamage,
             extreme: extremeDamage,
-            shortMimimum: this.damage.shortMimimum ? true : false,
-            mediumMimimum: this.damage.mediumMimimum ? true : false,
-            longMimimum: this.damage.longMimimum ? true : false,
-            extremeMimimum: this.damage.extremeMimimum ? true : false,
+            shortMinimal: this.damage.shortMinimal ? true : false,
+            mediumMinimal: this.damage.mediumMinimal ? true : false,
+            longMinimal: this.damage.longMinimal ? true : false,
+            extremeMinimal: this.damage.extremeMinimal ? true : false,
         };
 
 

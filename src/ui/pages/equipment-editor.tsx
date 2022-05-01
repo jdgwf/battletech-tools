@@ -1,21 +1,21 @@
-import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import React from 'react';
+import { MineExplosion } from "react-game-icons";
+import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import { IEquipmentItem } from "../../data/data-interfaces";
 import { mechClanEquipmentEnergy } from '../../data/mech-clan-equipment-weapons-energy';
 import { mechISEquipmentBallistic } from '../../data/mech-is-equipment-weapons-ballistic';
 import { mechISEquipmentEnergy } from "../../data/mech-is-equipment-weapons-energy";
-import { mechISEquipmentMissiles } from '../../data/mech-is-equipment-weapons-missiles';
 import { mechISEquipmentMisc } from '../../data/mech-is-equipment-weapons-misc';
-
+import { mechISEquipmentMissiles } from '../../data/mech-is-equipment-weapons-missiles';
 import { getAeroRangeLabel, sortEquipment } from '../../utils';
+import { addCommas } from "../../utils/addCommas";
+import { exportCleanJSON } from "../../utils/exportCleanJSON";
 import { IAppGlobals } from '../app-router';
+import EquipmentEditForm from '../components/equipment-edit-form';
 import StandardModal from '../components/standard-modal';
 import UIPage from '../components/ui-page';
 import './equipment-editor.scss';
-import EquipmentEditForm from '../components/equipment-edit-form';
-import { addCommas } from "../../utils/addCommas";
-import { exportCleanJSON } from "../../utils/exportCleanJSON";
-import { ExplosiveMaterials, MineExplosion } from "react-game-icons";
+
 
 export default class EquipmentEditor extends React.Component<IEquipmentEditorProps, IEquipmentEditorState> {
     fileDataList: Record<string, IEquipmentItem[]> = {
