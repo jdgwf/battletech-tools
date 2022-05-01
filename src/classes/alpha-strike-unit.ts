@@ -970,7 +970,14 @@ export class AlphaStrikeUnit {
                 tmpTMM = 5;
             }
 
-            if( this.move[moveC].type === "j" ) {
+            // if( this.move[moveC].type === "j" ) {
+            //     tmpTMM++;
+            // }
+            if( this.move[moveC].type === "j" && (
+                this.abilities.toUpperCase().indexOf("JMPS") > -1
+                || this.abilities.toUpperCase().indexOf("JMPW") > -1
+            )
+            ) {
                 tmpTMM++;
             }
 

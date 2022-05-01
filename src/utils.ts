@@ -35,7 +35,7 @@ export async function getMULASSearchResults(
 
     let rulesNumbersURI: string[] = [];
 
-    console.log("mechRules", mechRules, searchTerm)
+    // console.log("mechRules", mechRules, searchTerm)
 
 
     if( mechRules.toLowerCase() === "introductory" ) {
