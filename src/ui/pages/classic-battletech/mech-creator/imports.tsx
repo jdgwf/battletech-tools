@@ -3,6 +3,7 @@ import React from 'react';
 import { FaArrowCircleLeft, FaCheckCircle, FaEye, FaPlusCircle, FaTimesCircle } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { BattleMech } from "../../../../classes/battlemech";
+import { sortByMechName } from '../../../../utils/sortByMechName';
 import { getSSWRulesLevelLabel } from '../../../../utils/sswUtils';
 import { IAppGlobals } from '../../../app-router';
 import InputField from '../../../components/form_elements/input_field';
@@ -368,7 +369,7 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                         </tbody>
                     ) : (
                       <>
-                      {this.props.appGlobals.sswMechObjects.filter( this._filterSSWMechs ).map( (bmObj, bmIndex) => {
+                      {this.props.appGlobals.sswMechObjects.sort( sortByMechName ).filter( this._filterSSWMechs ).map( (bmObj, bmIndex) => {
 
 
 let perfectImport = true;

@@ -3,6 +3,7 @@ import { FaCheckCircle, FaSync, FaTimesCircle } from "react-icons/fa";
 import { IASMULUnit } from '../../classes/alpha-strike-unit';
 import { getMULASSearchResults } from '../../utils';
 import { addCommas } from "../../utils/addCommas";
+import { sortByMechName } from '../../utils/sortByMechName';
 import { getSSWRulesLevelLabel, isSSWRulesLevel } from '../../utils/sswUtils';
 import { IAppGlobals } from '../app-router';
 import SanitizedHTML from '../components/sanitized-html';
@@ -248,7 +249,7 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                    <th>Import Errors</th>
                </tr>
            </thead>
-           {this.props.appGlobals.sswMechObjects.map( (tempMech, mechIndex) => {
+           {this.props.appGlobals.sswMechObjects.sort( sortByMechName ).map( (tempMech, mechIndex) => {
 
                let sswData =  tempMech.basicSSWInfo
                if( sswData ) {
