@@ -13,6 +13,7 @@ import { mechTypeOptions } from "../data/mech-type-options";
 import { btTechOptions } from "../data/tech-options";
 import { getHexDistanceFromModifier, getISEquipmentList, getMovementModifier } from "../utils";
 import { addCommas } from "../utils/addCommas";
+import { adjustAlphaStrikeDamage, calculateAlphaStrikeValue, IAlphaStrikeExport } from "../utils/calculateAlphaStrikeValue";
 import { generateUUID } from "../utils/generateUUID";
 import { ISSWBasicInfo } from "../utils/getSSWXMLBasicInfo";
 import { AlphaStrikeUnit, IAlphaStrikeDamage, IASMULUnit } from "./alpha-strike-unit";
@@ -149,31 +150,6 @@ export interface IBattleMechExport {
     walkSpeed: number;
 }
 
-interface IAlphaStrikeExport {
-    mechCreatorUUID: string;
-    name: string;
-    move: number;
-    type: string;
-    customName: string;
-    role: string;
-    jumpMove: number;
-    pv: number;
-    damage: IAlphaStrikeDamage;
-    armor: number;
-    structure: number;
-    size: number;
-    skill: number;
-    overheat: number;
-    notes: string;
-    tmm: number;
-    sizeClass: number;
-    sizeClassName: string;
-    ov: number;
-    specialUnitAbilities: string[],
-    longHeat: number;
-    longOverheat: number;
-    abilityCodes: string[],
-}
 
 export interface ITargetToHit {
     name: string;
@@ -559,105 +535,6 @@ export class BattleMech {
         return rv;
     }
 
-    private _getHighestDamage(incomingDamageObjects: IAlphaStrikeDamage): number {
-        let returnValue = 0;
-
-       if(
-            incomingDamageObjects &&
-            incomingDamageObjects.short.toString() !== "-" &&
-            incomingDamageObjects.short.toString() !== "0*"
-        ) {
-            if( +incomingDamageObjects.short > returnValue) {
-                returnValue = +incomingDamageObjects.short;
-            }
-        }
-        if(
-            incomingDamageObjects &&
-            incomingDamageObjects.medium.toString() !== "-" &&
-            incomingDamageObjects.medium.toString() !== "0*"
-        ) {
-            if( +incomingDamageObjects.medium > returnValue) {
-                returnValue = +incomingDamageObjects.medium;
-            }
-        }
-        if(
-            incomingDamageObjects &&
-            incomingDamageObjects.long.toString() !== "-" &&
-            incomingDamageObjects.long.toString() !== "0*"
-        ) {
-            if( +incomingDamageObjects.long > returnValue) {
-                returnValue = +incomingDamageObjects.long;
-            }
-        }
-
-        if(
-            incomingDamageObjects &&
-            incomingDamageObjects.extreme.toString() !== "-" &&
-            incomingDamageObjects.extreme.toString() !== "0*"
-        ) {
-            if( +incomingDamageObjects.extreme > returnValue) {
-                returnValue = +incomingDamageObjects.extreme;
-            }
-        }
-
-        return returnValue;
-    }
-
-    private _adjustASDamage(
-        incomingDamageObjects: IAlphaStrikeDamage,
-        useZeros: boolean = false,
-    ) {
-
-        if( incomingDamageObjects.short.toString() === "0" ) {
-            if( useZeros)
-                incomingDamageObjects.short = 0;
-            else
-                incomingDamageObjects.short = 0;
-        } else if( +incomingDamageObjects.short < .5) {
-            incomingDamageObjects.shortMinimal = true;
-            incomingDamageObjects.short= 0;
-        } else {
-            incomingDamageObjects.short = Math.round(+incomingDamageObjects.short);
-        }
-
-        if( incomingDamageObjects.medium.toString() === "0" ) {
-            if( useZeros)
-                incomingDamageObjects.medium = 0;
-            else
-                incomingDamageObjects.medium = 0;
-        } else if( +incomingDamageObjects.medium < .5) {
-            incomingDamageObjects.mediumMinimal = true;
-            incomingDamageObjects.medium = 0;
-        } else {
-            incomingDamageObjects.medium = Math.round(+incomingDamageObjects.medium);
-        }
-
-        if( incomingDamageObjects.long.toString() === "0" ) {
-            if( useZeros)
-                incomingDamageObjects.long = 0;
-            else
-                incomingDamageObjects.long = 0;
-        } else if( +incomingDamageObjects.long < .5) {
-            incomingDamageObjects.long = 0;
-            incomingDamageObjects.longMinimal = true;
-        } else {
-            incomingDamageObjects.long = Math.round(+incomingDamageObjects.long);
-        }
-
-        if( incomingDamageObjects.extreme.toString() === "0" ) {
-            if( useZeros)
-                incomingDamageObjects.extreme = 0;
-            else
-                incomingDamageObjects.extreme = 0;
-        } else if( +incomingDamageObjects.extreme < .5) {
-            incomingDamageObjects.extreme = 0;
-            incomingDamageObjects.extremeMinimal= true;
-        } else {
-            incomingDamageObjects.extreme = Math.round(+incomingDamageObjects.extreme);
-        }
-
-        return incomingDamageObjects;
-    }
 
     public hasCASE(
         loc: string
@@ -2732,7 +2609,7 @@ export class BattleMech {
         // this._alphaStrikeForceStats.damage.extreme = this._alphaStrikeForceStats.damage.extreme.toFixed(0) /1;
 
         // console.log( "alphaStrikeForceStats.damage", this._alphaStrikeForceStats.damage);
-        this._alphaStrikeForceStats.damage = this._adjustASDamage(this._alphaStrikeForceStats.damage, true);
+        this._alphaStrikeForceStats.damage = adjustAlphaStrikeDamage(this._alphaStrikeForceStats.damage, true);
         // console.log( "alphaStrikeForceStats.damage", this._alphaStrikeForceStats.damage);
 
         // Determine Overheat Values - p116 AS Companion
@@ -2779,270 +2656,27 @@ export class BattleMech {
         this._alphaStrikeForceStats.overheat = final_overheat_value;
         this._alphaStrikeForceStats.longOverheat = final_long_overheat_value;
 
-        /* *********************************
-         *
-         * Alpha Strike Point Value ASC - p138
-         *
-         * ******************************** */
-
-        this._alphaStrikeForceStats.pv = 0;
-        this._calcLogAS += "<div class=\"text-center\"><strong> - Calculating Point Value - </strong></div>\n";
-        /* *********************************
-         * Step 1: Determine Unit’s Offensive Value ASC - p138
-         * ******************************** */
-
-        this._calcLogAS += "<strong>Step 1: Determine Unit’s Offensive Value ASC - p138</strong><br />\n";
-        let offensive_value = 0;
-        // Attack Damage Factor
-        if( this._alphaStrikeForceStats.damage.short.toString() !== "0*" && this._alphaStrikeForceStats.damage.short.toString() !== "-" )
-            offensive_value += +this._alphaStrikeForceStats.damage.short;
-        if( this._alphaStrikeForceStats.damage.medium.toString() !== "0*" && this._alphaStrikeForceStats.damage.medium.toString() !== "-" )
-            offensive_value += +this._alphaStrikeForceStats.damage.medium;
-            if( this._alphaStrikeForceStats.damage.medium.toString() !== "0*" && this._alphaStrikeForceStats.damage.medium.toString() !== "-" )
-            offensive_value += +this._alphaStrikeForceStats.damage.medium;
-        if( this._alphaStrikeForceStats.damage.long.toString() !== "0*" && this._alphaStrikeForceStats.damage.long.toString() !== "-" )
-            offensive_value += +this._alphaStrikeForceStats.damage.long;
-        if( this._alphaStrikeForceStats.damage.extreme.toString() !== "0*" && this._alphaStrikeForceStats.damage.extreme.toString() !== "-" )
-            offensive_value += +this._alphaStrikeForceStats.damage.extreme;
-
-        this._calcLogAS += "Attack Damage Factor: " + offensive_value + " ( " + this._alphaStrikeForceStats.damage.short + " + " + this._alphaStrikeForceStats.damage.medium + " + " + this._alphaStrikeForceStats.damage.long + " + " + this._alphaStrikeForceStats.damage.medium + " + " + this._alphaStrikeForceStats.damage.extreme + " )<br />\n";
-
-        // Unit Size Factor
-        // offensive_value += this._alphaStrikeForceStats.sizeClass / 2;
-        // this._calcLogAS += "Unit Size Factor: " + (this._alphaStrikeForceStats.sizeClass / 2) + " ( " + this._alphaStrikeForceStats.sizeClass + " / 2))<br />\n";
-
-        // Overheat Factor
-        let overHeatFactor = 0;
-        if( this._alphaStrikeForceStats.ov > 1) {
-            offensive_value += 1;
-            offensive_value += (this._alphaStrikeForceStats.ov - 1) / 2;
-            overHeatFactor += 1;
-            overHeatFactor += (this._alphaStrikeForceStats.ov - 1) / 2;
-        } else {
-            offensive_value += this._alphaStrikeForceStats.ov;
-            overHeatFactor += this._alphaStrikeForceStats.ov;
-
-        }
-
-        this._calcLogAS += "Overheat Factor: " + overHeatFactor + "<br />\n";
-
         // Offensive Special Ability Factor
         // TODO
 
-        /* *********************************
-         * Step 1a: Apply Blanket Offensive Modifiers ASC - p139
-         * ******************************** */
-        this._calcLogAS += "<strong>Step 1a: Apply Blanket Offensive Modifiers ASC - p139</strong><br />\n";
-        // TODO
-
-        /* *********************************
-         * Step 2: Determine Unit’s Defensive Value ASC - p139
-         * ******************************** */
-        this._calcLogAS += "<strong>Step 2: Determine Unit’s Defensive Value ASC - p139</strong><br />\n";
-        let defensive_value = 0;
-
-        // Movement Factor:
-        let movementDefenseValue = 0;
-        let bestMovement = 0;
-        if( this._alphaStrikeForceStats.move > this._alphaStrikeForceStats.jumpMove) {
-            movementDefenseValue += this._alphaStrikeForceStats.move * .25;
-            bestMovement = this._alphaStrikeForceStats.move;
-        } else {
-            movementDefenseValue += this._alphaStrikeForceStats.jumpMove * .25;
-            bestMovement = this._alphaStrikeForceStats.move;
-        }
-        defensive_value += movementDefenseValue;
-
-        if( this._alphaStrikeForceStats.jumpMove > 0) {
-            movementDefenseValue += .5;
-            this._calcLogAS += "Movement Factor: " + movementDefenseValue + " ( " + bestMovement + " * .25 + .5)<br />\n";
-        } else {
-            this._calcLogAS += "Movement Factor: " + movementDefenseValue + " ( " + bestMovement + " * .25)<br />\n";
-        }
-
-        if (
-            +rearDamage.short > 0 ||
-            +rearDamage.medium > 0 ||
-            +rearDamage.long > 0
-        ) {
-            this._alphaStrikeForceStats.abilityCodes.push( "Rear" );
-        }
-
-        let highestDamage = 0;
-
-        for (let aC = 0; aC < this._alphaStrikeForceStats.abilityCodes.length; aC++) {
-
-            // Replace Heat with Heat X/X/X
-            if( this._alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "heat" ) {
-                heatDamage = this._adjustASDamage(heatDamage);
-                this._alphaStrikeForceStats.abilityCodes[aC] = "Heat " + heatDamage.short + "/" + heatDamage.medium + "/" + heatDamage.long;
-                highestDamage = this._getHighestDamage(heatDamage);
-                offensive_value += highestDamage;
-                if (heatDamage.medium.toString() !== "-" && +heatDamage.medium > 0)
-                    offensive_value += .5;
-
-                this._calcLogAS += "<strong>Adding</strong> Heat Ability: " + heatDamage.short + "/" + heatDamage.medium + "/" + heatDamage.long + "<br />\n";
-                this._calcLogAS += "Adding Heat Damage Factor to PV: " + highestDamage + "<br />\n";
-                if (heatDamage.medium.toString() !== "-" && +heatDamage.medium > 0)
-                    this._calcLogAS += "Adding Heat Medium Damage Bonus to PV: 0,5<br />\n";
-            }
-
-            // Replace LRM with LRM X/X/X
-            if( this._alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "lrm" ) {
-                lrmDamage = this._adjustASDamage(lrmDamage);
-                this._alphaStrikeForceStats.abilityCodes[aC] = "LRM " + lrmDamage.short + "/" + lrmDamage.medium + "/" + lrmDamage.long;
-                this._calcLogAS += "<strong>Adding</strong> LRM Ability: " + lrmDamage.short + "/" + lrmDamage.medium + "/" + lrmDamage.long + "<br />\n";
-
-            }
-
-            // Replace Flak with Flak X/X/X
-            if( this._alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "flak" ) {
-                flakDamage = this._adjustASDamage(flakDamage);
-                this._alphaStrikeForceStats.abilityCodes[aC] = "Flak " + flakDamage.short + "/" + flakDamage.medium + "/" + flakDamage.long;
-                this._calcLogAS += "<strong>Adding</strong> Flak Ability: " + flakDamage.short + "/" + flakDamage.medium + "/" + flakDamage.long + "<br />\n";
-            }
-
-            // Replace AC with AC X/X/X
-            if( this._alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "ac" ) {
-                acDamage = this._adjustASDamage(acDamage);
-                this._alphaStrikeForceStats.abilityCodes[aC] = "AC " + acDamage.short + "/" + acDamage.medium + "/" + acDamage.long;
-                this._calcLogAS += "<strong>Adding</strong> AC Ability: " + acDamage.short + "/" + acDamage.medium + "/" + acDamage.long + "<br />\n";
-            }
-
-            // Replace SRM with SRM X/X/X
-            if( this._alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "srm" ) {
-                srmDamage = this._adjustASDamage(srmDamage);
-                this._alphaStrikeForceStats.abilityCodes[aC] = "SRM " + srmDamage.short + "/" + srmDamage.medium + "/" + srmDamage.long;
-                this._calcLogAS += "<strong>Adding</strong> SRM Ability: " + srmDamage.short + "/" + srmDamage.medium + "/" + srmDamage.long + "<br />\n";
-            }
-
-            // Replace Missile with Missile X/X/X
-            if( this._alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "missile" || this._alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "msl" ) {
-                mslDamage = this._adjustASDamage(mslDamage);
-                this._alphaStrikeForceStats.abilityCodes[aC] = "MSL " + mslDamage.short + "/" + mslDamage.medium + "/" + mslDamage.long;
-                this._calcLogAS += "<strong>Adding</strong> Missile Ability: " + mslDamage.short + "/" + mslDamage.medium + "/" + mslDamage.long + "<br />\n";
-            }
-
-            // Replace Rear with Rear X/X/X
-            if( this._alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "rear" ) {
-                rearDamage = this._adjustASDamage(rearDamage);
-                this._alphaStrikeForceStats.abilityCodes[aC] = "Rear " + rearDamage.short + "/" + rearDamage.medium + "/" + rearDamage.long;
-                this._calcLogAS += "<strong>Adding</strong> Rear Ability: " + rearDamage.short + "/" + rearDamage.medium + "/" + rearDamage.long + "<br />\n";
-            }
-
-            // Replace IndirectFire with IF X
-            if( this._alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "indirect fire" || this._alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "if" ) {
-                rearDamage = this._adjustASDamage(rearDamage);
-                this._alphaStrikeForceStats.abilityCodes[aC] = "IF " + indirectFireRating;
-                this._calcLogAS += "<strong>Adding</strong> IF Ability: " + indirectFireRating + "<br />\n";
-                offensive_value += highestDamage;
-                this._calcLogAS += "Adding IF Rating to PV: " + indirectFireRating + "<br />\n";
-
-            }
-
-        }
-
-        // Defensive Special Abilities Factor
-        // TODO
-
-        // Defensive Interaction Rating
-        // TODO
-
-        /* *********************************
-         * Step 2a: Calculating Defensive Interaction Rating (DIR) ASC - p141
-         * ******************************* */
-        this._calcLogAS += "<strong>Step 2a: Calculating Defensive Interaction Rating (DIR) ASC - p141</strong><br />\n";
-        let bmDIR = 0;
-        // Armor Factor
-        this._calcLogAS += "Armor Factor: " + (this._alphaStrikeForceStats.armor * 2) + " ( " + this._alphaStrikeForceStats.armor + " * 2)<br />\n";
-        bmDIR += this._alphaStrikeForceStats.armor * 2; // No need to do other types of armor, since this is BM only.
-
-        // Structure Factor
-        this._calcLogAS += "Structure Factor: " + (this._alphaStrikeForceStats.structure * 1) + " ( " + this._alphaStrikeForceStats.structure + " * 1)<br />\n";
-        bmDIR += this._alphaStrikeForceStats.structure * 1; // TODO IndustrialMechs
-
-        // Defense Factor
-
-        if (bestMovement > 34) {
-            this._calcLogAS += "Defense Factor: +5 (movement 35\"+)<br />\n";
-            bmDIR += 5;
-        } else if (bestMovement > 18) {
-            this._calcLogAS += "Defense Factor: +4 (movement 19\"-34\"+)<br />\n";
-            bmDIR += 4;
-        } else if (bestMovement > 12) {
-            this._calcLogAS += "Defense Factor: +3 (movement 13\"-18\"+)<br />\n";
-            bmDIR += 3;
-        } else if (bestMovement > 8) {
-            this._calcLogAS += "Defense Factor: +2 (movement 9\"-12\"+)<br />\n";
-            bmDIR += 2;
-        } else if (bestMovement > 4) {
-            this._calcLogAS += "Defense Factor: +1 (movement 4\"-8\"+)<br />\n";
-            bmDIR += 1;
-        } else {
-            this._calcLogAS += "Defense Factor: +0 (movement 0\"-4\"+)<br />\n";
-            bmDIR += 0;
-        }
-
-        bmDIR += defensive_value;
-        this._calcLogAS += "Adding Defense Value from Step 2 above: " + defensive_value + "<br />\n";
-        // Calculate the DIR
-        this._calcLogAS += "Total DIR: " + bmDIR + "<br />\n";
-
-        /* *********************************
-         * Step 3: Determine Unit’s Final Point Value ASC - p141
-         *
-         * ******************************* */
-        this._calcLogAS += "<strong>Step 3: Determine Unit’s Final Point Value ASC - p141</strong><br />\n";
-        let baseFinalValue = offensive_value + bmDIR;
-        this._calcLogAS += "Base Point Value: " + baseFinalValue + " ( " + offensive_value + " + " + bmDIR + " )<br />\n";
-
-        let finalValue = baseFinalValue;
-        if (
-            bestMovement >= 6 &&
-            bestMovement <= 10 &&
-            +this._alphaStrikeForceStats.damage.medium === 0 &&
-            +this._alphaStrikeForceStats.damage.long === 0 &&
-            +this._alphaStrikeForceStats.damage.extreme === 0
-        ) {
-            this._calcLogAS += "Unit has 6 to 10\" of Move, but only delivers damage at Short range. Point Value * .75<br />\n";
-            this._calcLogAS += "Modified Point Value: " + baseFinalValue * .75 + " ( " + offensive_value + " + " + bmDIR + " )<br />\n";
-            finalValue = baseFinalValue * .75;
-        }
-
-        if (
-            bestMovement >= 2 &&
-            bestMovement <= 5 &&
-            +this._alphaStrikeForceStats.damage.medium === 0 &&
-            +this._alphaStrikeForceStats.damage.long === 0 &&
-            +this._alphaStrikeForceStats.damage.extreme === 0
-        ) {
-            this._calcLogAS += "Unit has 2 to 5\" of Move, but only delivers damage at Short range. Point Value * .5<br />\n";
-            this._calcLogAS += "Modified Point Value: " + baseFinalValue * .5 + " ( " + offensive_value + " + " + bmDIR + " )<br />\n";
-            finalValue = baseFinalValue * .5;
-        }
-
-        if (
-            bestMovement >= 2 &&
-            bestMovement <= 5 &&
-            +this._alphaStrikeForceStats.damage.long === 0 &&
-            +this._alphaStrikeForceStats.damage.extreme === 0
-        ) {
-            this._calcLogAS += "Unit has 2 to 5\" of Move, but only delivers damage at Short and Medium ranges. Point Value * .75<br />\n";
-            this._calcLogAS += "Modified Point Value: " + baseFinalValue * .75 + " ( " + offensive_value + " + " + bmDIR + " )<br />\n";
-            finalValue = baseFinalValue * .75;
-        }
-
-        this._calcLogAS += "Final Point Value: " + finalValue + "<br />\n";
-
-        /* *********************************
-         * Step 3a: Add Force Bonuses ASC - p141
-         * ******************************* */
-        this._calcLogAS += "<strong>Step 3a: Add Force Bonuses ASC - p141</strong><br />\n";
-        // TODO
-        this._calcLogAS += "<strong class=\"color-red\">TODO<br />\n";
-
         this._alphaStrikeForceStats.name = this._model;
         this._alphaStrikeForceStats.type = "BM";
+
+        let alphaStrikeCalculation = calculateAlphaStrikeValue(
+            this._alphaStrikeForceStats,
+            rearDamage,
+            heatDamage,
+            lrmDamage,
+            flakDamage,
+            acDamage,
+            srmDamage,
+            mslDamage,
+            indirectFireRating,
+        );
+
+        this._calcLogAS += alphaStrikeCalculation.calcLogs;
+        let finalValue = alphaStrikeCalculation.finalValue;
+        this._alphaStrikeForceStats = alphaStrikeCalculation.alphaStrikeForceStats;
 
         this._alphaStrikeValue = Math.round(finalValue); // + " (WIP)";
         let asMechData: IASMULUnit = {
