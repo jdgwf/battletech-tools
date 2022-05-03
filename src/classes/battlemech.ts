@@ -2429,13 +2429,21 @@ export class BattleMech {
                             flakDamage.extreme += +this._equipmentList[weapon_counter].alphaStrike.rangeExtreme;
                         }
 
-                        if (this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "srm" ) {
+                        // console.log("XX", this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase())
+                        if (
+                            this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "indirect fire"
+                            ||
+                            this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "if"
+                            ||
+                            this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase().startsWith( "if " )
+                        ) {
+                            // console.log("indrect fire hit", this.getName(), +this._equipmentList[weapon_counter].alphaStrike.rangeLong);
                             //@ts-ignore
                             indirectFireRating += +this._equipmentList[weapon_counter].alphaStrike.rangeLong;
 
                         }
 
-                        if (this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "indirect fire" || this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "if" ) {
+                        if (this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "indirect fire" || this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "srm" ) {
                             //@ts-ignore
                             srmDamage.short += this._equipmentList[weapon_counter].alphaStrike.rangeShort;
                             //@ts-ignore
@@ -2463,6 +2471,8 @@ export class BattleMech {
             }
         }
 
+
+        indirectFireRating = Math.round(indirectFireRating);
         // this._calcLogAS += "this._alphaStrikeForceStats.damage.short 1 - " + this._alphaStrikeForceStats.damage.short + "<br />";
         // this._calcLogAS += "this._alphaStrikeForceStats.damage.medium 1 - " + this._alphaStrikeForceStats.damage.medium + "<br />";
 

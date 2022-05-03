@@ -220,7 +220,7 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
         </button>
 
         {this.isFetchingMUL ? (
-            <FaSync color="green" />
+            <FaSync className="spin" color="green" />
         ) : null}
     </div>
     <div className="col text-right">

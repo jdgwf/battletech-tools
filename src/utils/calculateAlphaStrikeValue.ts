@@ -77,7 +77,7 @@ export function calculateAlphaStrikeValue(
         + _alphaStrikeForceStats.damage.short + " + "
         + _alphaStrikeForceStats.damage.medium + " + "
          + _alphaStrikeForceStats.damage.long + " + "
-         + _alphaStrikeForceStats.damage.medium + " + "
+         + _alphaStrikeForceStats.damage.medium // + " + "
         // + _alphaStrikeForceStats.damage.extreme
         + " )<br />\n";
 
@@ -117,7 +117,7 @@ export function calculateAlphaStrikeValue(
          * Step 2: Determine Unit’s Defensive Value ASC - p139
          * ******************************** */
         _calcLogAS += "<strong>Step 2: Determine Unit’s Defensive Value ASC - p139</strong><br />\n";
-        let defensive_value = 0;
+        // let movementFactor = 0;
 
         // Movement Factor:
         let movementDefenseValue = 0;
@@ -129,7 +129,7 @@ export function calculateAlphaStrikeValue(
             movementDefenseValue += _alphaStrikeForceStats.jumpMove * .25;
             bestMovement = _alphaStrikeForceStats.move;
         }
-        defensive_value += movementDefenseValue;
+        // movementFactor += movementDefenseValue;
 
         if( _alphaStrikeForceStats.jumpMove > 0) {
             movementDefenseValue += .5;
@@ -209,11 +209,15 @@ export function calculateAlphaStrikeValue(
             }
 
             // Replace IndirectFire with IF X
-            if( _alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "indirect fire" || _alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "if" ) {
+            if(
+                _alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "indirect fire"
+                ||
+                _alphaStrikeForceStats.abilityCodes[aC].toLowerCase() === "if"
+            ) {
                 rearDamage = adjustAlphaStrikeDamage(rearDamage);
                 _alphaStrikeForceStats.abilityCodes[aC] = "IF " + indirectFireRating;
                 _calcLogAS += "<strong>Adding</strong> IF Ability: " + indirectFireRating + "<br />\n";
-                offensive_value += highestDamage;
+                offensive_value += indirectFireRating;
                 _calcLogAS += "Adding IF Rating to PV: " + indirectFireRating + "<br />\n";
 
             }
@@ -246,29 +250,32 @@ export function calculateAlphaStrikeValue(
         // TODO other types of units
 
         // Defense Factor
-
+        let defensiveFactor = 0;
         if (bestMovement > 34) {
-            _calcLogAS += "Defense Factor: +5 (movement 35\"+)<br />\n";
-            bmDIR += 5;
+            _calcLogAS += "Base Defense Factor: +5 (movement 35\"+)<br />\n";
+            defensiveFactor += 5;
         } else if (bestMovement > 18) {
-            _calcLogAS += "Defense Factor: +4 (movement 19\"-34\")<br />\n";
-            bmDIR += 4;
+            _calcLogAS += "Base Defense Factor: +4 (movement 19\"-34\")<br />\n";
+            defensiveFactor += 4;
         } else if (bestMovement > 12) {
-            _calcLogAS += "Defense Factor: +3 (movement 13\"-18\")<br />\n";
-            bmDIR += 3;
+            _calcLogAS += "Base Defense Factor: +3 (movement 13\"-18\")<br />\n";
+            defensiveFactor += 3;
         } else if (bestMovement > 8) {
-            _calcLogAS += "Defense Factor: +2 (movement 9\"-12\")<br />\n";
-            bmDIR += 2;
+            _calcLogAS += "Base Defense Factor: +2 (movement 9\"-12\")<br />\n";
+            defensiveFactor += 2;
         } else if (bestMovement > 4) {
-            _calcLogAS += "Defense Factor: +1 (movement 4\"-8\")<br />\n";
-            bmDIR += 1;
+            _calcLogAS += "Base Defense Factor: +1 (movement 4\"-8\")<br />\n";
+            defensiveFactor += 1;
         } else {
-            _calcLogAS += "Defense Factor: +0 (movement 0\"-4\")<br />\n";
-            bmDIR += 0;
+            _calcLogAS += "Base Defense Factor: +0 (movement 0\"-4\")<br />\n";
+            defensiveFactor += 0;
         }
 
-        bmDIR += defensive_value + 1;
-        _calcLogAS += "Adding Defense Value from Step 2 above: " + (defensive_value) + "/" + (defensive_value  + 1) + "<br />\n";
+
+        if( defensiveFactor < 0 )
+        defensiveFactor = 0;
+        bmDIR += defensiveFactor;
+        _calcLogAS += "Adding Defense Value from Step 2 above: " + (defensiveFactor) + "<br />\n";
         // Calculate the DIR
         _calcLogAS += "Total DIR: " + bmDIR + "<br />\n";
 
@@ -276,8 +283,8 @@ export function calculateAlphaStrikeValue(
          * Step 3: Determine Unit’s Final Point Value ASC - p141
          * ******************************* */
         _calcLogAS += "<strong>Step 3: Determine Unit’s Final Point Value ASC - p141</strong><br />\n";
-        let baseFinalValue = offensive_value + bmDIR;
-        _calcLogAS += "Base Point Value: " + baseFinalValue + " ( " + offensive_value + " + " + bmDIR + " )<br />\n";
+        let baseFinalValue = offensive_value + bmDIR + movementDefenseValue;
+        _calcLogAS += "Base Point Value: " + baseFinalValue + " ( " + offensive_value + " + " + bmDIR + " + "  + movementDefenseValue + ")<br />\n";
 
         let finalValue = baseFinalValue;
         if (
