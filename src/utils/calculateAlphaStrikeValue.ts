@@ -69,14 +69,28 @@ export function calculateAlphaStrikeValue(
             offensive_value += +_alphaStrikeForceStats.damage.medium;
         if( _alphaStrikeForceStats.damage.long.toString() !== "0*" && _alphaStrikeForceStats.damage.long.toString() !== "-" )
             offensive_value += +_alphaStrikeForceStats.damage.long;
-        if( _alphaStrikeForceStats.damage.extreme.toString() !== "0*" && _alphaStrikeForceStats.damage.extreme.toString() !== "-" )
-            offensive_value += +_alphaStrikeForceStats.damage.extreme;
+        // if( _alphaStrikeForceStats.damage.extreme.toString() !== "0*" && _alphaStrikeForceStats.damage.extreme.toString() !== "-" )
+        //     offensive_value += +_alphaStrikeForceStats.damage.extreme;
 
-        _calcLogAS += "Attack Damage Factor: " + offensive_value + " ( " + _alphaStrikeForceStats.damage.short + " + " + _alphaStrikeForceStats.damage.medium + " + " + _alphaStrikeForceStats.damage.long + " + " + _alphaStrikeForceStats.damage.medium + " + " + _alphaStrikeForceStats.damage.extreme + " )<br />\n";
+        _calcLogAS += "Attack Damage Factor: "
+        + offensive_value + " ( "
+        + _alphaStrikeForceStats.damage.short + " + "
+        + _alphaStrikeForceStats.damage.medium + " + "
+         + _alphaStrikeForceStats.damage.long + " + "
+         + _alphaStrikeForceStats.damage.medium + " + "
+        // + _alphaStrikeForceStats.damage.extreme
+        + " )<br />\n";
 
         // Unit Size Factor
-        // offensive_value += _alphaStrikeForceStats.sizeClass / 2;
-        // _calcLogAS += "Unit Size Factor: " + (_alphaStrikeForceStats.sizeClass / 2) + " ( " + _alphaStrikeForceStats.sizeClass + " / 2))<br />\n";
+        if(
+            _alphaStrikeForceStats.type.toLowerCase().trim() === "bm"
+            ||
+            _alphaStrikeForceStats.type.toLowerCase().trim() === "pm"
+
+        )  {
+            offensive_value += _alphaStrikeForceStats.sizeClass / 2;
+            _calcLogAS += "Unit Size Factor: " + (_alphaStrikeForceStats.sizeClass / 2) + " ( " + _alphaStrikeForceStats.sizeClass + " / 2)<br />\n";
+        }
 
         // Overheat Factor
         let overHeatFactor = 0;
@@ -92,7 +106,6 @@ export function calculateAlphaStrikeValue(
         }
 
         _calcLogAS += "Overheat Factor: " + overHeatFactor + "<br />\n";
-
 
         /* *********************************
          * Step 1a: Apply Blanket Offensive Modifiers ASC - p139
@@ -221,12 +234,16 @@ export function calculateAlphaStrikeValue(
         // Armor Factor
         if( _alphaStrikeForceStats.type.toLowerCase().trim() === "bm") {
             _calcLogAS += "Armor Factor: " + (_alphaStrikeForceStats.armor * 2) + " ( " + _alphaStrikeForceStats.armor + " * 2)<br />\n";
-            bmDIR += _alphaStrikeForceStats.armor * 2; // No need to do other types of armor, since this is BM only.
+            bmDIR += _alphaStrikeForceStats.armor * 2;
         }
+        // TODO other types of units
 
         // Structure Factor
-        _calcLogAS += "Structure Factor: " + (_alphaStrikeForceStats.structure * 1) + " ( " + _alphaStrikeForceStats.structure + " * 1)<br />\n";
-        bmDIR += _alphaStrikeForceStats.structure * 1; // TODO IndustrialMechs
+        if( _alphaStrikeForceStats.type.toLowerCase().trim() === "bm") {
+            _calcLogAS += "Structure Factor: " + (_alphaStrikeForceStats.structure * 1) + " ( " + _alphaStrikeForceStats.structure + " * 1)<br />\n";
+            bmDIR += _alphaStrikeForceStats.structure * 1;
+        }
+        // TODO other types of units
 
         // Defense Factor
 
@@ -251,13 +268,12 @@ export function calculateAlphaStrikeValue(
         }
 
         bmDIR += defensive_value + 1;
-        _calcLogAS += "Adding Defense Value from Step 2 above: " + defensive_value + "<br />\n";
+        _calcLogAS += "Adding Defense Value from Step 2 above: " + (defensive_value) + "/" + (defensive_value  + 1) + "<br />\n";
         // Calculate the DIR
         _calcLogAS += "Total DIR: " + bmDIR + "<br />\n";
 
         /* *********************************
          * Step 3: Determine Unit’s Final Point Value ASC - p141
-         *
          * ******************************* */
         _calcLogAS += "<strong>Step 3: Determine Unit’s Final Point Value ASC - p141</strong><br />\n";
         let baseFinalValue = offensive_value + bmDIR;
@@ -272,7 +288,7 @@ export function calculateAlphaStrikeValue(
             +_alphaStrikeForceStats.damage.extreme === 0
         ) {
             _calcLogAS += "Unit has 6 to 10\" of Move, but only delivers damage at Short range. Point Value * .75<br />\n";
-            _calcLogAS += "Modified Point Value: " + baseFinalValue * .75 + " ( " + offensive_value + " + " + bmDIR + " )<br />\n";
+            _calcLogAS += "Modified Point Value: " + (baseFinalValue * .75) + " ( " + offensive_value + " + " + bmDIR + " )<br />\n";
             finalValue = baseFinalValue * .75;
         }
 
@@ -284,7 +300,7 @@ export function calculateAlphaStrikeValue(
             +_alphaStrikeForceStats.damage.extreme === 0
         ) {
             _calcLogAS += "Unit has 2 to 5\" of Move, but only delivers damage at Short range. Point Value * .5<br />\n";
-            _calcLogAS += "Modified Point Value: " + baseFinalValue * .5 + " ( " + offensive_value + " + " + bmDIR + " )<br />\n";
+            _calcLogAS += "Modified Point Value: " + (baseFinalValue * .5) + " ( " + offensive_value + " + " + bmDIR + " )<br />\n";
             finalValue = baseFinalValue * .5;
         }
 
@@ -295,7 +311,7 @@ export function calculateAlphaStrikeValue(
             +_alphaStrikeForceStats.damage.extreme === 0
         ) {
             _calcLogAS += "Unit has 2 to 5\" of Move, but only delivers damage at Short and Medium ranges. Point Value * .75<br />\n";
-            _calcLogAS += "Modified Point Value: " + baseFinalValue * .75 + " ( " + offensive_value + " + " + bmDIR + " )<br />\n";
+            _calcLogAS += "Modified Point Value: " + (baseFinalValue * .75) + " ( " + offensive_value + " + " + bmDIR + " )<br />\n";
             finalValue = baseFinalValue * .75;
         }
 
