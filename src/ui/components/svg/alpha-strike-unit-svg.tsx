@@ -205,7 +205,6 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
     }
 
     _splitAbilities = ( val: string ): string[] => {
-        val = "ENE, REAR 1/1/0, CASE,IF2,LRM1/2/2,REAR1/1/-,SNARC,ENE, REAR 1/1/0, CASE,IF2,LRM1/2/2,REAR1/1/-,SNARC"
         let words = val.split(",");
         let rv: string[] = [];
         let line = "";
