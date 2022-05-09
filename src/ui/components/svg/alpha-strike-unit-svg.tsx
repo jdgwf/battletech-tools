@@ -204,6 +204,25 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         return dots;
     }
 
+    _splitAbilities = ( val: string ): string[] => {
+        val = "ENE, REAR 1/1/0, CASE,IF2,LRM1/2/2,REAR1/1/-,SNARC,ENE, REAR 1/1/0, CASE,IF2,LRM1/2/2,REAR1/1/-,SNARC"
+        let words = val.split(",");
+        let rv: string[] = [];
+        let line = "";
+
+        for( let word of words ) {
+            word = word.trim();
+            if( line.length + word.length + 1 > 55 ) {
+                rv.push( line );
+                line = "";
+            }
+            line += word + ",";
+        }
+        rv.push( line );
+
+        return rv;
+    }
+
     render = (): React.ReactFragment => {
         if( !this.props.asUnit ) {
             return <></>
@@ -215,6 +234,9 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         if (this.props.showExtreme && this.props.asUnit.damage.extreme > 0 ){
             damageColWidth=110;
         }
+
+        let abilitiesSplit: string[] = this._splitAbilities(this.props.asUnit.abilities);
+
         return (
 
             <>
@@ -508,7 +530,14 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
                 <rect x="20" y="510" width="960" height="60" fill="rgb(0,0,0)" rx="18" ry="18"></rect>
                 <rect x="25" y="515" width="950" height="50" fill="rgba( 255,255,255,.8)" rx="15" ry="15"></rect>
-                <text x="30" y="550" textAnchor="left" fontFamily="sans-serif" fontSize="25">SPECIAL: {this.props.asUnit.abilities}</text>
+                <text x="30" y="540" textAnchor="left" fontFamily="sans-serif" fontSize="25">SPECIAL: {abilitiesSplit[0]}</text>
+                {abilitiesSplit.map( (line, lineIndex) => {
+
+                    if( lineIndex > 0 )
+                    return (
+                        <text x="150" y="561" key={lineIndex} textAnchor="left" fontFamily="sans-serif" fontSize="25">{line}</text>
+                    )
+                })}
 
                 {/* Critical Hits */}
                 {!this.props.asUnit.isInfantry ? (
