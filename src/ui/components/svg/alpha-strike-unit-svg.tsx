@@ -205,17 +205,25 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
     }
 
     _splitAbilities = ( val: string ): string[] => {
+        val = val.trim();
         let words = val.split(",");
         let rv: string[] = [];
         let line = "";
 
+
+
         for( let word of words ) {
             word = word.trim();
-            if( line.length + word.length + 1 > 55 ) {
-                rv.push( line );
-                line = "";
+            if( word ) {
+                if( line.length + word.length + 1 > 55 ) {
+                    rv.push( line );
+                    line = "";
+                }
+                if( line.trim() ) {
+                    line += ","
+                }
+                line += word;
             }
-            line += word + ",";
         }
         rv.push( line );
 
