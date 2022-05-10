@@ -1,8 +1,8 @@
-import { FaDice, FaDownload, FaFileImport, FaPrint, FaTrash } from "react-icons/fa";
+import { FaDice, FaDownload, FaFileImport, FaPlusCircle, FaPrint, FaTrash } from "react-icons/fa";
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AlphaStrikeGroup, { IASGroupExport } from '../../../../classes/alpha-strike-group';
-import { AlphaStrikeUnit } from '../../../../classes/alpha-strike-unit';
+import { AlphaStrikeUnit, IASMULUnit } from '../../../../classes/alpha-strike-unit';
 import { makeURLSlug } from '../../../../utils/makeURLSlug';
 import { IAppGlobals } from '../../../app-router';
 import StandardModal from '../../../components/standard-modal';
@@ -12,6 +12,9 @@ import './home.scss';
 import AlphaStrikeAddUnitsView from './_AddUnitsPage';
 import CurrentForceList from './_CurrentForceList';
 import AlphaStrikeUnitEditViewModal from './_showAlphaStrikeUnit';
+import { CONST_FORCE_PACKS, IForcePack } from "../../../../data/force-packs-mechs";
+import { joinListWithEndLabel } from "../../../../utils/joinListWithEndLabel";
+import { getMULASSearchResults } from "../../../../utils";
 
 export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, IHomeState> {
 
@@ -28,6 +31,177 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
         }
 
         this.props.appGlobals.makeDocumentTitle("Alpha Strike Roster");
+
+    }
+
+    addForcePack = async (
+      e: React.FormEvent<HTMLButtonElement>,
+      pack: IForcePack,
+    ) => {
+      if( e && e.preventDefault ) e.preventDefault();
+
+      let currentASForce = this.props.appGlobals.currentASForce;
+      if( currentASForce) {
+        let newGroup = new AlphaStrikeGroup();
+        newGroup.groupLabel = pack.groupLabel;
+
+        newGroup.customName = pack.name;
+
+        for( let member of pack.members ) {
+          let data: IASMULUnit[] = await getMULASSearchResults(
+            member,
+            "intro+standard",
+            pack.tech === "clan" ? "clan" : "inner sphere",
+            0, // clan invasion
+            "", // Type Filter
+            !navigator.onLine,
+          );
+
+
+          data.sort( (
+            a: IASMULUnit,
+            b: IASMULUnit
+          ): number => {
+
+              if(
+                a.Name && b.Name &&
+                a.Name.toLowerCase().indexOf(" prime") > -1
+                &&
+                b.Name.toLowerCase().indexOf(" prime") === -1
+              ) {
+                return -1;
+              }if(
+                a.Name && b.Name &&
+                a.Name.toLowerCase().indexOf(" prime") === -1
+                &&
+                b.Name.toLowerCase().indexOf(" prime") > -1
+              ) {
+                return 1;
+              } else {
+                if( a.Name && b.Name &&a.Name.toLowerCase().trim() > b.Name.toLowerCase().trim() ) {
+                  return -1;
+                } else if(a.Name && b.Name && a.Name.toLowerCase().trim() > b.Name.toLowerCase().trim() ) {
+                  return 1;
+                } else {
+                  return 0
+                }
+              }
+
+
+
+
+              return 0;
+
+            }
+          )
+
+          let foundPrmary = false;
+
+          if( data.length === 1 ) {
+            newGroup.members.push(
+              new AlphaStrikeUnit( data[0] )
+            )
+            foundPrmary = true;
+          }
+
+          // look for Intro first...
+          for( let item of data ) {
+            if( item.Rules.toLowerCase().trim() === "introductory" ) {
+              if( item.Name && item.Name.toLowerCase().indexOf(" prime") > -1 ) {
+                // console.log("Adding intro rules unit via prime in name", item.Name, item.RS)
+                newGroup.members.push(
+                  new AlphaStrikeUnit( item )
+                )
+                foundPrmary = true;
+                break;
+              }
+              if( item.RS && item.RS.toLowerCase().indexOf("rs3039") > -1 ) {
+                // console.log("Adding intro rules unit via rs3039", item.Name, item.RS)
+                newGroup.members.push(
+                  new AlphaStrikeUnit( item )
+                )
+                foundPrmary = true;
+                break;
+              }
+
+              if( item.RS && item.RS.toLowerCase().indexOf("rs3050") > -1 ) {
+
+                // console.log("Adding intro rules unit via rs3050", item.Name, item.RS)
+
+                newGroup.members.push(
+                  new AlphaStrikeUnit( item )
+                )
+                foundPrmary = true;
+                break;
+              }
+            }
+
+          }
+
+          if(!foundPrmary) {
+            // console.log("data", data)
+            for( let item of data ) {
+              if( item.Name && item.Name.toLowerCase().indexOf(" prime") > -1 ) {
+                // console.log("Adding unit via prime in name", item.Name, item.RS)
+                newGroup.members.push(
+                  new AlphaStrikeUnit( item )
+                )
+                foundPrmary = true;
+                break;
+              }
+
+              if( item.RS && item.RS.toLowerCase().indexOf("rs3039") > -1 ) {
+                // console.log("Adding unit via rs3039", item.Name, item.RS)
+                newGroup.members.push(
+                  new AlphaStrikeUnit( item )
+                )
+                foundPrmary = true;
+                break;
+              }
+
+              if( item.RS && item.RS.toLowerCase().indexOf("rs3050") > -1 ) {
+
+                // console.log("Adding unit via rs3050", item, item.Name, item.RS)
+
+                newGroup.members.push(
+                  new AlphaStrikeUnit( item )
+                )
+                foundPrmary = true;
+                break;
+              }
+              if( item.RS && item.RS.toLowerCase().indexOf("rg") === 0 ) {
+
+                // console.log("Adding unit via rg*", item, item.Name, item.RS)
+
+                newGroup.members.push(
+                  new AlphaStrikeUnit( item )
+                )
+                foundPrmary = true;
+                break;
+              }
+
+            }
+          }
+
+
+
+          if(!foundPrmary) {
+            console.log("data", data);
+          }
+
+        }
+
+
+        if( newGroup.members.length > 0 ) {
+          currentASForce.groups.push( newGroup );
+          this.props.appGlobals.saveCurrentASForce( currentASForce );
+          this.setState({
+            updated: true,
+          })
+        }
+
+      }
+
 
     }
 
@@ -77,7 +251,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
     }
 
     selectFile = async (e: React.FormEvent<HTMLInputElement>): Promise<void> => {
-      e.preventDefault();
+      if( e && e.preventDefault ) e.preventDefault();
       if( e.currentTarget.files && e.currentTarget.files.length > 0 ) {
         let foundFile = e.currentTarget.files[0];
         // console.log( "test", foundFIle );
@@ -286,6 +460,27 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
 </TextSection>
 ): null}
+
+<TextSection
+label="Quickly add a ForcePack"
+>
+  <ul className="styleless">
+  {CONST_FORCE_PACKS.map( (pack, packindex) => {
+    return (
+      <li key={packindex} className="overflow-hidden">
+        <button
+          className="btn btn-md btn-primary pull-left margin-right"
+          onClick={(e) => this.addForcePack( e, pack)}
+        >
+          <FaPlusCircle />
+        </button>
+        {pack.name}<br />
+        <div className="small-text">{joinListWithEndLabel(pack.members, "and")}</div>
+      </li>
+    )
+  })}
+  </ul>
+</TextSection>
 
 <TextSection
 label='Import to your AS Favorites'

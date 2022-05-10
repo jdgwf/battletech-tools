@@ -540,10 +540,13 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 <text x="30" y="540" textAnchor="left" fontFamily="sans-serif" fontSize="25">SPECIAL: {abilitiesSplit[0]}</text>
                 {abilitiesSplit.map( (line, lineIndex) => {
 
-                    if( lineIndex > 0 )
-                    return (
-                        <text x="150" y="561" key={lineIndex} textAnchor="left" fontFamily="sans-serif" fontSize="25">{line}</text>
-                    )
+                    if( lineIndex > 0 ) {
+                        return (
+                            <text x="150" y="561" key={lineIndex} textAnchor="left" fontFamily="sans-serif" fontSize="25">{line}</text>
+                        )
+                    } else {
+                        return <React.Fragment key={lineIndex}></React.Fragment>
+                    }
                 })}
 
                 {/* Critical Hits */}

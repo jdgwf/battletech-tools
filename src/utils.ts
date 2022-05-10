@@ -47,6 +47,10 @@ export async function getMULASSearchResults(
     if( mechRules.toLowerCase() === "advanced" ) {
         rulesNumbersURI.push( "&Rules=5" );
     }
+    if( mechRules.toLowerCase() === "intro+standard" ) {
+        rulesNumbersURI.push( "&Rules=55" );
+        rulesNumbersURI.push( "&Rules=4" );
+    }
     if( mechRules.toLowerCase() === "experimental" ) {
         rulesNumbersURI.push( "&Rules=6" );
     }

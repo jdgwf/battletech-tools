@@ -608,6 +608,9 @@ body {
     &.no-margin {
       margin: 0;
     }
+    &.margin-right {
+      margin-right: 1rem !important;
+    }
     &.btn-xs {
       font-size: 0.7rem;
       line-height: 1;
