@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { FaBars, FaEye, FaPlus } from "react-icons/fa";
+import AlphaStrikeGroup from '../../../../classes/alpha-strike-group';
 import { AlphaStrikeUnit, IASMULUnit } from '../../../../classes/alpha-strike-unit';
 import { BattleMech } from '../../../../classes/battlemech';
 import { getMULASSearchResults } from '../../../../utils';
@@ -115,6 +116,9 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
     addToGroup = ( mulUnit: AlphaStrikeUnit,  groupIndex: number = 0  ): void => {
       if( this.props.appGlobals.currentASForce ) {
+        if( this.props.appGlobals.currentASForce.groups.length === 0 ) {
+          this.props.appGlobals.currentASForce.groups.push(new AlphaStrikeGroup());
+        }
         this.props.appGlobals.currentASForce.addToGroup( mulUnit, groupIndex );
         this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
         this.setState({

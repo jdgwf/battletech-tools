@@ -233,9 +233,6 @@ export class AlphaStrikeUnit {
             this.originalStats = incomingMechData;
 
             if( typeof(incomingMechData.BFPointValue) !== "undefined") {
-                // RAW Data From MUL
-
-                // this.classification = incomingMechData["Marauder"];
             this.costCR = +incomingMechData.Cost;
 
             this.variant = incomingMechData.Variant;
@@ -245,7 +242,6 @@ export class AlphaStrikeUnit {
             if( incomingMechData.mechCreatorUUID ) {
                 this.mechCreatorUUID = incomingMechData.mechCreatorUUID;
             }
-
 
             this.tro = incomingMechData.TRO;
 

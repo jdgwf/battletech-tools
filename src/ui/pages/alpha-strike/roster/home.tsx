@@ -86,20 +86,15 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                   return 0
                 }
               }
-
-
-
-
-              return 0;
-
             }
           )
 
           let foundPrmary = false;
 
           if( data.length === 1 ) {
+            let newUnit = new AlphaStrikeUnit( data[0] );
             newGroup.members.push(
-              new AlphaStrikeUnit( data[0] )
+              newUnit
             )
             foundPrmary = true;
           }
@@ -109,16 +104,23 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
             if( item.Rules.toLowerCase().trim() === "introductory" ) {
               if( item.Name && item.Name.toLowerCase().indexOf(" prime") > -1 ) {
                 // console.log("Adding intro rules unit via prime in name", item.Name, item.RS)
+                let newUnit = new AlphaStrikeUnit( item );
+
+                if( pack.tech === "clan" ) newUnit.setSkill(3);
+
                 newGroup.members.push(
-                  new AlphaStrikeUnit( item )
+                  newUnit
                 )
+
                 foundPrmary = true;
                 break;
               }
               if( item.RS && item.RS.toLowerCase().indexOf("rs3039") > -1 ) {
                 // console.log("Adding intro rules unit via rs3039", item.Name, item.RS)
+                let newUnit = new AlphaStrikeUnit( item );
+                if( pack.tech === "clan" ) newUnit.setSkill(3);
                 newGroup.members.push(
-                  new AlphaStrikeUnit( item )
+                  newUnit
                 )
                 foundPrmary = true;
                 break;
@@ -127,9 +129,10 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
               if( item.RS && item.RS.toLowerCase().indexOf("rs3050") > -1 ) {
 
                 // console.log("Adding intro rules unit via rs3050", item.Name, item.RS)
-
+                let newUnit = new AlphaStrikeUnit( item );
+                if( pack.tech === "clan" ) newUnit.setSkill(3);
                 newGroup.members.push(
-                  new AlphaStrikeUnit( item )
+                  newUnit
                 )
                 foundPrmary = true;
                 break;
@@ -143,8 +146,10 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
             for( let item of data ) {
               if( item.Name && item.Name.toLowerCase().indexOf(" prime") > -1 ) {
                 // console.log("Adding unit via prime in name", item.Name, item.RS)
+                let newUnit = new AlphaStrikeUnit( item );
+                if( pack.tech === "clan" ) newUnit.setSkill(3);
                 newGroup.members.push(
-                  new AlphaStrikeUnit( item )
+                  newUnit
                 )
                 foundPrmary = true;
                 break;
@@ -152,8 +157,10 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
               if( item.RS && item.RS.toLowerCase().indexOf("rs3039") > -1 ) {
                 // console.log("Adding unit via rs3039", item.Name, item.RS)
+                let newUnit = new AlphaStrikeUnit( item );
+                if( pack.tech === "clan" ) newUnit.setSkill(3);
                 newGroup.members.push(
-                  new AlphaStrikeUnit( item )
+                  newUnit
                 )
                 foundPrmary = true;
                 break;
@@ -162,9 +169,10 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
               if( item.RS && item.RS.toLowerCase().indexOf("rs3050") > -1 ) {
 
                 // console.log("Adding unit via rs3050", item, item.Name, item.RS)
-
+                let newUnit = new AlphaStrikeUnit( item );
+                if( pack.tech === "clan" ) newUnit.setSkill(3);
                 newGroup.members.push(
-                  new AlphaStrikeUnit( item )
+                  newUnit
                 )
                 foundPrmary = true;
                 break;
@@ -172,9 +180,10 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
               if( item.RS && item.RS.toLowerCase().indexOf("rg") === 0 ) {
 
                 // console.log("Adding unit via rg*", item, item.Name, item.RS)
-
+                let newUnit = new AlphaStrikeUnit( item );
+                if( pack.tech === "clan" ) newUnit.setSkill(3);
                 newGroup.members.push(
-                  new AlphaStrikeUnit( item )
+                  newUnit
                 )
                 foundPrmary = true;
                 break;
