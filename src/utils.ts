@@ -114,7 +114,7 @@ export async function getMULASSearchResults(
         if( searchTerm && searchTerm.trim() ) {
             url += "&Name=" + replaceAll(searchTerm, " ", "%20", false, false, true);
         }
-        console.log("url", url)
+        // console.log("url", url)
 
         if( searchTerm.length >= 3 || overrideSearchLimitLength ) {
             await fetch(url)

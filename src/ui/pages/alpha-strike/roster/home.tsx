@@ -103,7 +103,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
             }
           )
 
-          console.log( "data", data)
+          // console.log( "data", data)
 
           let foundPrmary = false;
 

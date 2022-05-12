@@ -104,6 +104,9 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                       <li>
                         Add remaining Clan Equipment,
                       </li>
+                      <li>
+                        Fix imported Alpha Strike values to help guarantee proper exports.
+                      </li>
 
                     </ul>
 
@@ -115,10 +118,11 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
           >
               <h3>Currents TODOs</h3>
               <ul>
-                <li>Apply Heat, and manual adjustments</li>
-                <li>Take Damage Dialog</li>
-                <li>Critical Hit Management</li>
+                <li><del>Apply Heat, and manual adjustments</del></li>
+                <li><del>Take Damage Dialog</del></li>
+                <li><del>Critical Hit Management</del></li>
                 <li>MechWarrior hits</li>
+                <li>Cleanup, and workflow enhancement testing during multiple games</li>
               </ul>
             </TextSection>
 
