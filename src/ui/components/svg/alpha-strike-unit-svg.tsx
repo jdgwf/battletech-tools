@@ -33,13 +33,13 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
     }
 
-    toggleTakeDamage = () => {
+    private _toggleTakeDamage = () => {
         this.setState({
             showTakeDamage: !this.state.showTakeDamage,
         })
     }
 
-    takeDamage = ( damageTaken: number ): void => {
+    private _takeDamage = ( damageTaken: number ): void => {
         if( this.props.inPlay && this.props.asUnit ) {
             this.props.asUnit.takeDamage( damageTaken );
             this.props.asUnit.calcCurrentVals();
@@ -50,7 +50,9 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         })
     }
 
-    toggleArmorOrStructure( target: string, indexNumber: number ) {
+    private _toggleArmorOrStructure = ( target: string, indexNumber: number ) => {
+
+
         if( this.props.inPlay && this.props.asUnit ) {
             if( target === "armor" ) {
                 if( this.props.asUnit.currentArmor.length > indexNumber) {
@@ -69,7 +71,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         }
     }
 
-    toggleEngineHit(  indexNumber: number ) {
+    private _toggleEngineHit = (  indexNumber: number ) => {
         if( this.props.inPlay && this.props.asUnit ) {
 
             if( this.props.asUnit.engineHits.length > indexNumber) {
@@ -80,14 +82,15 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         }
     }
 
-    setHeat( newValue: number ) {
+    private _setHeat = ( newValue: number ) => {
         if( this.props.inPlay && this.props.asUnit ) {
             this.props.asUnit.currentHeat = newValue;
             this.props.asUnit.calcCurrentVals();
             this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
         }
     }
-    toggleWeaponHit(indexNumber: number ) {
+
+    private _toggleWeaponHit = (indexNumber: number ): void =>  {
         if( this.props.inPlay && this.props.asUnit ) {
 
             if( this.props.asUnit.weaponHits.length > indexNumber) {
@@ -98,7 +101,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         }
     }
 
-    toggleVehicle910(indexNumber: number ) {
+    private _toggleVehicle910 = (indexNumber: number ): void =>  {
         if( this.props.inPlay && this.props.asUnit ) {
 
             if( this.props.asUnit.vehicleMotive910.length > indexNumber) {
@@ -109,7 +112,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         }
     }
 
-    toggleVehicle11(indexNumber: number ) {
+    private _toggleVehicle11 = (indexNumber: number ): void =>  {
         if( this.props.inPlay && this.props.asUnit ) {
 
             if( this.props.asUnit.vehicleMotive11.length > indexNumber) {
@@ -120,7 +123,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         }
     }
 
-    toggleVehicle12() {
+    private _toggleVehicle12 = (): void => {
         if( this.props.inPlay && this.props.asUnit ) {
 
             this.props.asUnit.vehicleMotive12 = !this.props.asUnit.vehicleMotive12;
@@ -130,7 +133,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         }
     }
 
-    toggleFireControlHit( indexNumber: number ) {
+    private _toggleFireControlHit = (indexNumber: number ): void => {
         if( this.props.inPlay && this.props.asUnit ) {
 
             if( this.props.asUnit.fireControlHits.length > indexNumber) {
@@ -141,7 +144,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         }
     }
 
-    toggleMPHit( indexNumber: number ) {
+    private _toggleMPHit = (indexNumber: number ): void => {
         if( this.props.inPlay && this.props.asUnit ) {
 
             if( this.props.asUnit.mpControlHits.length > indexNumber) {
@@ -152,7 +155,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         }
     }
 
-    makeArmorDots(
+    private _makeArmorDots = (
         count: number,
         xLoc: number,
         yLoc: number,
@@ -160,7 +163,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         strokeColor: string = "rgb(0,0,0)",
         radius: number = 0,
         target: string = "armor",
-    ): JSX.Element[] {
+    ): JSX.Element[] => {
         let dots: JSX.Element[] = []
 
         if( radius === 0 ) {
@@ -177,7 +180,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                         cy={yLoc}
                         r={radius + 3}
                         fill={strokeColor}
-                        onClick={() => this.toggleArmorOrStructure( target, currentCount )}
+                        onClick={() => this._toggleArmorOrStructure( target, currentCount )}
                     />
                     {target === "armor" ? (
                         <circle className={this.props.inPlay ? "cursor-pointer" : ""}
@@ -185,7 +188,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                             cy={yLoc}
                             r={radius}
                             fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentArmor.length > currentCount && this.props.asUnit.currentArmor[currentCount] ? this.activeDotColor : fillColor}
-                            onClick={() => this.toggleArmorOrStructure( target, currentCount )}
+                            onClick={() => this._toggleArmorOrStructure( target, currentCount )}
                         />
                     ) : (
                         <circle className={this.props.inPlay ? "cursor-pointer" : ""}
@@ -193,7 +196,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                             cy={yLoc}
                             r={radius}
                             fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentStructure.length > currentCount && this.props.asUnit.currentStructure[currentCount] ? this.activeDotColor : fillColor}
-                            onClick={() => this.toggleArmorOrStructure( target, currentCount )}
+                            onClick={() => this._toggleArmorOrStructure( target, currentCount )}
                         />
                     )}
 
@@ -204,7 +207,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         return dots;
     }
 
-    _splitAbilities = ( val: string ): string[] => {
+    private _splitAbilities = ( val: string ): string[] => {
         val = val.trim();
         let words = val.split(",");
         let rv: string[] = [];
@@ -366,7 +369,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
                 {/* 0 Heat */}
                 <rect
-                    onClick={() => this.setHeat(0)}
+                    onClick={() => this._setHeat(0)}
                     className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""}
                     x="325"
                     y="330"
@@ -375,18 +378,18 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 0 ? "rgb(0,200,0)" : "rgb(102,102,102)"}
                 ></rect>
                 <circle
-                    onClick={() => this.setHeat(0)}
+                    onClick={() => this._setHeat(0)}
                     className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""}
                     cx="325"
                     cy="355"
                     r="25"
                     fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 0 ? "rgb(0,200,0)" : "rgb(102,102,102)"}
                 ></circle>
-                <text onClick={() => this.setHeat(0)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="315" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>0</text>
+                <text onClick={() => this._setHeat(0)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="315" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>0</text>
 
                 {/* 1 Heat */}
                 <rect
-                    onClick={() => this.setHeat(1)}
+                    onClick={() => this._setHeat(1)}
                     className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""}
                     x="355"
                     y="330"
@@ -394,11 +397,11 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     height="50"
                     fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 1 ? "rgb(204, 187, 0)" : "rgb(102,102,102)"}
                 ></rect>
-                <text onClick={() => this.setHeat(1)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="365" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>1</text>
+                <text onClick={() => this._setHeat(1)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="365" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>1</text>
 
                 {/* 2 Heat */}
                 <rect
-                onClick={() => this.setHeat(2)}
+                onClick={() => this._setHeat(2)}
                 className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""}
                     x="405"
                     y="330"
@@ -406,11 +409,11 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     height="50"
                     fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 2 ? "rgb(200,0,0)" : "rgb(102,102,102)"}
                 ></rect>
-                <text onClick={() => this.setHeat(2)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="415" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>2</text>
+                <text onClick={() => this._setHeat(2)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="415" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>2</text>
 
                 {/* 3 Heat */}
                 <rect
-                    onClick={() => this.setHeat(3)}
+                    onClick={() => this._setHeat(3)}
                     className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""}
                     x="455"
                     y="330"
@@ -418,11 +421,11 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     height="50"
                     fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 3 ? "rgb(236,87,16)" : "rgb(102,102,102)"}
                 ></rect>
-                <text onClick={() => this.setHeat(3)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="465" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>3</text>
+                <text onClick={() => this._setHeat(3)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="465" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>3</text>
 
                 {/* Shutdown Heat */}
                 <rect
-                    onClick={() => this.setHeat(4)}
+                    onClick={() => this._setHeat(4)}
                     className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""}
                     x="505"
                     y="330"
@@ -431,14 +434,14 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat > 3 ? "rgb(51,51,51)" : "rgb(102,102,102)"}
                 ></rect>
                 <circle
-                    onClick={() => this.setHeat(4)}
+                    onClick={() => this._setHeat(4)}
                     className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""}
                     cx="530"
                     cy="355"
                     r="25"
                     fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat > 3 ? "rgb(51,51,51)" : "rgb(102,102,102)"}
                 ></circle>
-                <text onClick={() => this.setHeat(4)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="515" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>S</text>
+                <text onClick={() => this._setHeat(4)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="515" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>S</text>
 
                 {/* End Heat Scale Box */}
 
@@ -448,9 +451,9 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
                 {this.props.inPlay ? (
                     <>
-		            <rect onClick={this.toggleTakeDamage} className="cursor-pointer" x="30" y="410" width="40" height="85" fill="rgb(255,0, 0)" rx="15" ry="15" />
-		            <text onClick={this.toggleTakeDamage} className="cursor-pointer" x="60" y="430" fill="rgba(255,255,255)" fontFamily="sans-serif" textAnchor="middle" fontSize={13} transform="rotate(270, 65, 447)">TAKE</text>
-		            <text onClick={this.toggleTakeDamage} className="cursor-pointer" x="70" y="430" fill="rgba(255,255,255)" fontFamily="sans-serif" textAnchor="middle" fontSize={13} transform="rotate(270, 75, 445)">DAMAGE</text>
+		            <rect onClick={this._toggleTakeDamage} className="cursor-pointer" x="30" y="410" width="40" height="85" fill="rgb(255,0, 0)" rx="15" ry="15" />
+		            <text onClick={this._toggleTakeDamage} className="cursor-pointer" x="60" y="430" fill="rgba(255,255,255)" fontFamily="sans-serif" textAnchor="middle" fontSize={13} transform="rotate(270, 65, 447)">TAKE</text>
+		            <text onClick={this._toggleTakeDamage} className="cursor-pointer" x="70" y="430" fill="rgba(255,255,255)" fontFamily="sans-serif" textAnchor="middle" fontSize={13} transform="rotate(270, 75, 445)">DAMAGE</text>
                     </>
                 ): (
                     <></>
@@ -461,34 +464,34 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
                     <text x="185" y="425" textAnchor="center" fontFamily="sans-serif" fontSize="15">Click below to add damage taken</text>
                 <rect x="80" y="435" width="465" height="60" fill="rgb(0,0,0)" rx="30" ry="30"></rect>
-                <rect className="cursor-pointer" onClick={() => this.takeDamage(1)} x="110" y="440" width="25" height="50" fill="rgb(102,102,102)"></rect>
-                <circle className="cursor-pointer" onClick={() => this.takeDamage(1)} cx="110" cy="465" r="25" fill="rgb(102,102,102)"></circle>
-                <text className="cursor-pointer" onClick={() => this.takeDamage(1)} x="100" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>1</text>
+                <rect className="cursor-pointer" onClick={() => this._takeDamage(1)} x="110" y="440" width="25" height="50" fill="rgb(102,102,102)"></rect>
+                <circle className="cursor-pointer" onClick={() => this._takeDamage(1)} cx="110" cy="465" r="25" fill="rgb(102,102,102)"></circle>
+                <text className="cursor-pointer" onClick={() => this._takeDamage(1)} x="100" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>1</text>
 
-                <rect className="cursor-pointer" onClick={() => this.takeDamage(2)} x="140" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
-                <text className="cursor-pointer" onClick={() => this.takeDamage(2)} x="153" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>2</text>
+                <rect className="cursor-pointer" onClick={() => this._takeDamage(2)} x="140" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
+                <text className="cursor-pointer" onClick={() => this._takeDamage(2)} x="153" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>2</text>
 
-                <rect className="cursor-pointer" onClick={() => this.takeDamage(3)} x="190" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
-                <text className="cursor-pointer" onClick={() => this.takeDamage(3)} x="203" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>3</text>
+                <rect className="cursor-pointer" onClick={() => this._takeDamage(3)} x="190" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
+                <text className="cursor-pointer" onClick={() => this._takeDamage(3)} x="203" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>3</text>
 
-                <rect className="cursor-pointer" onClick={() => this.takeDamage(4)} x="240" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
-                <text className="cursor-pointer" onClick={() => this.takeDamage(4)} x="253" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>4</text>
+                <rect className="cursor-pointer" onClick={() => this._takeDamage(4)} x="240" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
+                <text className="cursor-pointer" onClick={() => this._takeDamage(4)} x="253" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>4</text>
 
-                <rect className="cursor-pointer" onClick={() => this.takeDamage(5)} x="290" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
-                <text className="cursor-pointer" onClick={() => this.takeDamage(5)} x="303" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>5</text>
+                <rect className="cursor-pointer" onClick={() => this._takeDamage(5)} x="290" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
+                <text className="cursor-pointer" onClick={() => this._takeDamage(5)} x="303" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>5</text>
 
-                <rect className="cursor-pointer" onClick={() => this.takeDamage(6)} x="340" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
-                <text className="cursor-pointer" onClick={() => this.takeDamage(6)} x="353" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>6</text>
+                <rect className="cursor-pointer" onClick={() => this._takeDamage(6)} x="340" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
+                <text className="cursor-pointer" onClick={() => this._takeDamage(6)} x="353" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>6</text>
 
-                <rect className="cursor-pointer" onClick={() => this.takeDamage(7)} x="390" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
-                <text className="cursor-pointer" onClick={() => this.takeDamage(7)} x="403" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>7</text>
+                <rect className="cursor-pointer" onClick={() => this._takeDamage(7)} x="390" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
+                <text className="cursor-pointer" onClick={() => this._takeDamage(7)} x="403" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>7</text>
 
-                <rect className="cursor-pointer" onClick={() => this.takeDamage(8)} x="440" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
-                <text className="cursor-pointer" onClick={() => this.takeDamage(8)} x="453" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>8</text>
+                <rect className="cursor-pointer" onClick={() => this._takeDamage(8)} x="440" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
+                <text className="cursor-pointer" onClick={() => this._takeDamage(8)} x="453" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>8</text>
 
-                <rect className="cursor-pointer" onClick={() => this.takeDamage(9)} x="490" y="440" width="25" height="50" fill="rgb(102,102,102)"></rect>
-                <circle className="cursor-pointer" onClick={() => this.takeDamage(9)} cx="515" cy="465" r="25" fill="rgb(102,102,102)"></circle>
-                <text className="cursor-pointer" onClick={() => this.takeDamage(9)} x="503" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>9</text>
+                <rect className="cursor-pointer" onClick={() => this._takeDamage(9)} x="490" y="440" width="25" height="50" fill="rgb(102,102,102)"></rect>
+                <circle className="cursor-pointer" onClick={() => this._takeDamage(9)} cx="515" cy="465" r="25" fill="rgb(102,102,102)"></circle>
+                <text className="cursor-pointer" onClick={() => this._takeDamage(9)} x="503" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>9</text>
 
                     </>
                 ) : (
@@ -497,7 +500,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     {/* Armor */}
                     <text x={this.damageLeftBase + 40} y="440" fontFamily="sans-serif" fontSize="25">A: </text>
 
-                    {this.makeArmorDots(
+                    {this._makeArmorDots(
                         this.props.asUnit.armor,
                         90,
                         432,
@@ -510,7 +513,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
                     {/* Structure */}
                     <text x={this.damageLeftBase + 40} y="485" fontFamily="sans-serif" fontSize="25">S: </text>
-                    {this.makeArmorDots(
+                    {this._makeArmorDots(
                         this.props.asUnit.structure,
                         90,
                         477,
@@ -576,7 +579,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                                         r={this.buttonRadius}
                                         fill="rgb(0,0,0)"
                                         className={this.props.inPlay ? "cursor-pointer" : ""}
-                                        onClick={() => this.toggleEngineHit(ehIndex)}
+                                        onClick={() => this._toggleEngineHit(ehIndex)}
                                     ></circle>
                                     <circle
                                         cx={770 + (this.buttonRadius * 2 + 3 ) * ehIndex}
@@ -584,7 +587,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                                         r={this.buttonRadius - 3}
                                         fill={fillColor}
                                         className={this.props.inPlay ? "cursor-pointer" : ""}
-                                        onClick={() => this.toggleEngineHit(ehIndex)}
+                                        onClick={() => this._toggleEngineHit(ehIndex)}
                                     ></circle>
                                 </React.Fragment>
                             )
@@ -611,7 +614,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                                         r={this.buttonRadius}
                                         fill="rgb(0,0,0)"
                                         className={this.props.inPlay ? "cursor-pointer" : ""}
-                                        onClick={() => this.toggleFireControlHit(fcIndex)}
+                                        onClick={() => this._toggleFireControlHit(fcIndex)}
                                     ></circle>
                                     <circle
                                         cx={770 + (this.buttonRadius * 2 + 3 ) * fcIndex}
@@ -619,7 +622,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                                         r={this.buttonRadius - 3}
                                         fill={fillColor}
                                         className={this.props.inPlay ? "cursor-pointer" : ""}
-                                        onClick={() => this.toggleFireControlHit(fcIndex)}
+                                        onClick={() => this._toggleFireControlHit(fcIndex)}
                                     ></circle>
                                 </React.Fragment>
                             )
@@ -643,7 +646,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                                         r={this.buttonRadius}
                                         fill="rgb(0,0,0)"
                                         className={this.props.inPlay ? "cursor-pointer" : ""}
-                                        onClick={() => this.toggleMPHit(mpIndex)}
+                                        onClick={() => this._toggleMPHit(mpIndex)}
                                     ></circle>
                                     <circle
                                         cx={770 + (this.buttonRadius * 2 + 3 ) * mpIndex}
@@ -651,7 +654,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                                         r={this.buttonRadius - 3}
                                         fill={fillColor}
                                         className={this.props.inPlay ? "cursor-pointer" : ""}
-                                        onClick={() => this.toggleMPHit(mpIndex)}
+                                        onClick={() => this._toggleMPHit(mpIndex)}
                                     ></circle>
                                 </React.Fragment>
                             )
@@ -678,7 +681,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                                         r={this.buttonRadius}
                                         fill="rgb(0,0,0)"
                                         className={this.props.inPlay ? "cursor-pointer" : ""}
-                                        onClick={() => this.toggleWeaponHit(whIndex)}
+                                        onClick={() => this._toggleWeaponHit(whIndex)}
                                     ></circle>
                                     <circle
                                         cx={770 + (this.buttonRadius * 2 + 3 ) * whIndex}
@@ -686,7 +689,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                                         r={this.buttonRadius - 3}
                                         fill={fillColor}
                                         className={this.props.inPlay ? "cursor-pointer" : ""}
-                                        onClick={() => this.toggleWeaponHit(whIndex)}
+                                        onClick={() => this._toggleWeaponHit(whIndex)}
                                     ></circle>
                                 </React.Fragment>
                             )
@@ -697,16 +700,16 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 {this.props.asUnit.type.toLowerCase() === 'cv' ||  this.props.asUnit.type.toLowerCase() === 'sv'? (
                     <>
                         <text x="750" y={critLineStart} textAnchor="end" fontFamily="sans-serif" fontSize="20">MOTIVE</text>
-                        <circle onClick={() => this.toggleVehicle910(0)} className="" cx="770" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
-                        <circle onClick={() => this.toggleVehicle910(0)} className="" cx="770" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill={this.props.asUnit.vehicleMotive910[0] ? this.activeDotColor : "rgb(255,255,255)"}></circle>
-                        <circle onClick={() => this.toggleVehicle910(1)} className="" cx="801" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
-                        <circle onClick={() => this.toggleVehicle910(1)} className="" cx="801" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill={this.props.asUnit.vehicleMotive910[1] ? this.activeDotColor : "rgb(255,255,255)"}></circle>
-                        <circle onClick={() => this.toggleVehicle11(0)} className="" cx="847" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
-                        <circle onClick={() => this.toggleVehicle11(0)} className="" cx="847" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill={this.props.asUnit.vehicleMotive11[0] ? this.activeDotColor : "rgb(255,255,255)"}></circle>
-                        <circle onClick={() => this.toggleVehicle11(1)} className="" cx="878" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
-                        <circle onClick={() => this.toggleVehicle11(1)} className="" cx="878" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill={this.props.asUnit.vehicleMotive11[1] ? this.activeDotColor : "rgb(255,255,255)"}></circle>
-                        <circle onClick={() => this.toggleVehicle12()} className="" cx="934" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
-                        <circle onClick={() => this.toggleVehicle12()} className="" cx="934" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill={this.props.asUnit.vehicleMotive12 ? this.activeDotColor : "rgb(255,255,255)"}></circle>
+                        <circle onClick={() => this._toggleVehicle910(0)} className="" cx="770" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
+                        <circle onClick={() => this._toggleVehicle910(0)} className="" cx="770" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill={this.props.asUnit.vehicleMotive910[0] ? this.activeDotColor : "rgb(255,255,255)"}></circle>
+                        <circle onClick={() => this._toggleVehicle910(1)} className="" cx="801" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
+                        <circle onClick={() => this._toggleVehicle910(1)} className="" cx="801" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill={this.props.asUnit.vehicleMotive910[1] ? this.activeDotColor : "rgb(255,255,255)"}></circle>
+                        <circle onClick={() => this._toggleVehicle11(0)} className="" cx="847" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
+                        <circle onClick={() => this._toggleVehicle11(0)} className="" cx="847" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill={this.props.asUnit.vehicleMotive11[0] ? this.activeDotColor : "rgb(255,255,255)"}></circle>
+                        <circle onClick={() => this._toggleVehicle11(1)} className="" cx="878" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
+                        <circle onClick={() => this._toggleVehicle11(1)} className="" cx="878" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill={this.props.asUnit.vehicleMotive11[1] ? this.activeDotColor : "rgb(255,255,255)"}></circle>
+                        <circle onClick={() => this._toggleVehicle12()} className="" cx="934" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
+                        <circle onClick={() => this._toggleVehicle12()} className="" cx="934" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill={this.props.asUnit.vehicleMotive12 ? this.activeDotColor : "rgb(255,255,255)"}></circle>
                         <text x="775" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="8">-2 MV</text>
                         <text x="827" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="8">½ Move &amp; TMM Each</text>
                         <text x="919" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="8">0 MV</text>
@@ -753,7 +756,7 @@ interface IAlphaStrikeUnitSVGProps {
     width?: string;
     asUnit: AlphaStrikeUnit | null;
     inPlay?: boolean;
-    appGlobals: IAppGlobals;
+     appGlobals: IAppGlobals;
     className?: string;
     forPrint?: boolean;
     showExtreme?: boolean;

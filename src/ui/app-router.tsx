@@ -26,6 +26,7 @@ import SettingsRouter from "./pages/settings/_router";
 import SSWSanityCheck from "./pages/ssw-sanity-check";
 let pjson = require('../../package.json');
 
+
 export default class AppRouter extends React.Component<IAppRouterProps, IAppRouterState> {
 
     constructor(props: IAppRouterProps) {
@@ -267,7 +268,9 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
     saveCurrentASForce = ( asForce: AlphaStrikeForce ): void => {
 
         let appGlobals = this.state.appGlobals;
+
         appGlobals.currentASForce = asForce;
+
         this.setState({
             appGlobals: appGlobals,
         });

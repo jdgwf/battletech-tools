@@ -1,3 +1,4 @@
+import { generateUUID } from "../utils/generateUUID";
 import Pilot, { IPilot } from "./pilot";
 
 export interface IAlphaStrikeDamage {
@@ -37,7 +38,7 @@ export interface ASMULTech {
 }
 export interface IASMULUnit {
     mechCreatorUUID: string;
-    FormatedTonnage: string | null;
+    FormatedTonnage: string | null; // typo in MUL
     GroupName: string | null;
     BFAbilities: string | null;
     BFArmor: number;
@@ -123,9 +124,13 @@ export interface IASMULUnit {
     overheat: number;
     basePoints: number;
     currentSkill: number;
+
+    uuid?: string;
 }
 
 export class AlphaStrikeUnit {
+
+    public uuid: string = generateUUID();
     public originalStats: IASMULUnit | null = null;
 
     public mechCreatorUUID: string = "";
@@ -227,8 +232,10 @@ export class AlphaStrikeUnit {
 
     public customName: string = "";
 
-    constructor( incomingMechData: IASMULUnit ) {
+    constructor( incomingMechData: IASMULUnit | null ) {
         this._pilot = new Pilot();
+        if( incomingMechData && incomingMechData.uuid )
+            this.uuid = incomingMechData.uuid;
         if( typeof(incomingMechData) !== "undefined" && incomingMechData !== null ) {
             this.originalStats = incomingMechData;
 
@@ -244,6 +251,8 @@ export class AlphaStrikeUnit {
             }
 
             this.tro = incomingMechData.TRO;
+
+
 
             this.mulID = incomingMechData.Id;
 
@@ -1173,6 +1182,7 @@ export class AlphaStrikeUnit {
         let _vehicleMotive12: boolean = false;
 
 
+
         if( !noInPlayVariables ) {
             _currentArmor = this.currentArmor;
             _currentStructure = this.currentStructure;
@@ -1204,6 +1214,7 @@ export class AlphaStrikeUnit {
             returnValue.vehicleMotive11 = _vehicleMotive11;
             returnValue.vehicleMotive12 = _vehicleMotive12;
 
+            returnValue.uuid = this.uuid;
             return returnValue;
         } else {
             return null;

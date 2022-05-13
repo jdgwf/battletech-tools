@@ -65,18 +65,25 @@ export default class AlphaStrikeForce {
 		this.membersLabel = " (" + this.activeMembers + "/" + this.groups.length + ")";
     }
 
-    public addToGroup( mulUnit: AlphaStrikeUnit,  groupIndex: number = 0 ) {
+    public addToGroup(
+        mulUnit: AlphaStrikeUnit,
+        groupIndex: number = 0
+    ) {
         if( this.groups.length < groupIndex)  {
             groupIndex = this.groups.length
         }
+        if( this.groups.length === 0 ) {
+            this.groups.push(new AlphaStrikeGroup());
+        }
         if( this.groups.length > groupIndex && this.groups[groupIndex]) {
-            let exportData = mulUnit.export();
-            if( exportData ) {
-                let newUnit = new AlphaStrikeUnit( exportData );
-                this.groups[groupIndex].members.push( newUnit  );
+            // let exportData = mulUnit.export();
+
+            // if( exportData ) {
+                // let newUnit = new AlphaStrikeUnit( exportData );
+                this.groups[groupIndex].members.push( mulUnit  );
                 this.groups[groupIndex].sortUnits();
                 this.groups[groupIndex].setAvailableFormationBonuses( formationBonuses.filter(x=>x.IsValid(this.groups[groupIndex])));
-            }
+            // }
         }
 
     }

@@ -23,6 +23,8 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
     }
 
 
+
+
     toggleCardMode = (
       e: React.FormEvent<HTMLSpanElement>
     ): void => {
@@ -133,6 +135,9 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
                   ) : null
                   }
                   {group.members.map( (unit, unitIndex) => {
+                    if( unitIndex === 0 && group.members[unitIndex +1 ])
+                    console.log( "unit1, unit2",  group.members[unitIndex +1 ] ===  group.members[unitIndex])
+                    // let newInstance = new AlphaStrikeUnit( unit.export() );
                     return (
                     <React.Fragment key={unitIndex}>
                       <div className={this.props.appGlobals.appSettings.alphaStrikeInPlayCardMode ? "col-md-6 col-lg-6 col-xl-6" : "col-md-12"}>

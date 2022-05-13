@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FaBars, FaEye, FaPlus } from "react-icons/fa";
-import AlphaStrikeGroup from '../../../../classes/alpha-strike-group';
+import AlphaStrikeForce from '../../../../classes/alpha-strike-force';
 import { AlphaStrikeUnit, IASMULUnit } from '../../../../classes/alpha-strike-unit';
 import { BattleMech } from '../../../../classes/battlemech';
 import { getMULASSearchResults } from '../../../../utils';
@@ -114,18 +114,22 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
     }
 
-    addToGroup = ( mulUnit: AlphaStrikeUnit,  groupIndex: number = 0  ): void => {
+    addToGroup = (
+      mulUnit: AlphaStrikeUnit,
+      groupIndex: number = 0,
+    ): void => {
       if( this.props.appGlobals.currentASForce ) {
-        if( this.props.appGlobals.currentASForce.groups.length === 0 ) {
-          this.props.appGlobals.currentASForce.groups.push(new AlphaStrikeGroup());
-        }
+
         this.props.appGlobals.currentASForce.addToGroup( mulUnit, groupIndex );
+
         this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
         this.setState({
           contextMenuSearch: -1,
-        })
+        });
+
+
       }
-      }
+    }
 
     render = (): React.ReactFragment => {
       if(!this.props.appGlobals.currentASForce) {
@@ -275,7 +279,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
           return (
             <li
               key={asGroupIndex}
-              onClick={() => this.addToGroup( new AlphaStrikeUnit(asUnit), asGroupIndex)}
+              onClick={() => this.addToGroup( new AlphaStrikeUnit(JSON.parse(JSON.stringify(asUnit))), asGroupIndex)}
               title={"Adds this unit to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
             >
               <FaPlus />&nbsp;
@@ -289,7 +293,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
   ) : (
     <button
       className="btn-sm btn btn-primary no-right-margin"
-      onClick={() => this.addToGroup( new AlphaStrikeUnit(asUnit), 0)}
+      onClick={() => this.addToGroup( new AlphaStrikeUnit(JSON.parse(JSON.stringify(asUnit))), 0)}
       title="Add this unit to your current group"
     >
       <FaPlus />
