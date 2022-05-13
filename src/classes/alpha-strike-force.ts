@@ -70,9 +70,13 @@ export default class AlphaStrikeForce {
             groupIndex = this.groups.length
         }
         if( this.groups.length > groupIndex && this.groups[groupIndex]) {
-            this.groups[groupIndex].members.push( mulUnit );
-            this.groups[groupIndex].sortUnits();
-            this.groups[groupIndex].setAvailableFormationBonuses( formationBonuses.filter(x=>x.IsValid(this.groups[groupIndex])));
+            let exportData = mulUnit.export();
+            if( exportData ) {
+                let newUnit = new AlphaStrikeUnit( exportData );
+                this.groups[groupIndex].members.push( newUnit  );
+                this.groups[groupIndex].sortUnits();
+                this.groups[groupIndex].setAvailableFormationBonuses( formationBonuses.filter(x=>x.IsValid(this.groups[groupIndex])));
+            }
         }
 
     }
