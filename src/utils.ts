@@ -101,9 +101,11 @@ export async function getMULASSearchResults(
         // let url = "https://masterunitlist.azurewebsites.net/Unit/QuickList?MinPV=1&MaxPV=999";
         let url = "https://masterunitlist.azurewebsites.net/Unit/QuickList?MinPV=1&MaxPV=999"
 
-
+        // if( eraFilter && eraFilter > 0 ) {
+        //     url += "&Eras=" + eraFilter.toString();
+        // }
         if( eraFilter && eraFilter > 0 ) {
-            url += "&Eras=" + eraFilter.toString();
+            url += "&AvailableEras=" + eraFilter.toString();
         }
 
 
@@ -114,7 +116,6 @@ export async function getMULASSearchResults(
         if( searchTerm && searchTerm.trim() ) {
             url += "&Name=" + replaceAll(searchTerm, " ", "%20", false, false, true);
         }
-        // console.log("url", url)
 
         if( searchTerm.length >= 3 || overrideSearchLimitLength ) {
             await fetch(url)
