@@ -234,9 +234,17 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
           }
 
 
-
           if(!foundPrmary) {
-            console.log("data", data);
+            if( data[0] ) {
+              // try to add the first found...
+              let newUnit = new AlphaStrikeUnit( data[0] );
+              if( pack.tech === "clan" ) newUnit.setSkill(3);
+              newGroup.members.push(
+                newUnit
+              )
+            } else {
+              console.log("No match found for '" + member +"' data", data);
+            }
           }
 
         }
