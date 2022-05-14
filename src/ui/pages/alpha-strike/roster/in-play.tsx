@@ -3,6 +3,7 @@ import { FaArrowCircleLeft, FaList, FaTh } from "react-icons/fa";
 import { FiRefreshCcw } from "react-icons/fi";
 import { Link } from 'react-router-dom';
 import AlphaStrikeGroup from '../../../../classes/alpha-strike-group';
+import { CONST_BATTLETECH_URL } from '../../../../configVars';
 import { IAppGlobals } from '../../../app-router';
 import BattleTechLogo from '../../../components/battletech-logo';
 import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
@@ -91,7 +92,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
 
                 <li className="logo">
                     <a
-                        href="https://battletech.com"
+                        href={CONST_BATTLETECH_URL}
                         rel="noopener noreferrer"
                         target="_blank"
                         title="Click here to go to the official BattleTech website!"

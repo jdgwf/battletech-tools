@@ -69,6 +69,7 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
                               value={this.props.showASUnit.currentSkill}
                               onChange={this.updateUnitSkill}
                             >
+                              <option value={0}>0</option>
                               <option value={1}>1</option>
                               <option value={2}>2</option>
                               <option value={3}>3</option>

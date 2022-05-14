@@ -6,11 +6,12 @@ import { GiBattleAxe, GiMissileSwarm } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
 import { BattleMech, IGATOR, ITargetToHit } from "../../../../classes/battlemech";
 import { BattleMechGroup } from '../../../../classes/battlemech-group';
-import { CONST_HIGHLIGHT_COLOR } from '../../../../configVars';
+import { CONST_BATTLETECH_URL, CONST_HIGHLIGHT_COLOR } from '../../../../configVars';
 import { IEquipmentItem } from '../../../../data/data-interfaces';
 import { getClusterHitsPerRoll, getLocationName, getTargetToHitFromWeapon } from '../../../../utils';
 import { chunkRange } from '../../../../utils/chunkRange';
 import { makeRange } from '../../../../utils/makeRange';
+import { weaponNeedsAmmo } from '../../../../utils/weaponNeedsAmmo';
 import { IAppGlobals } from '../../../app-router';
 import BattleTechLogo from '../../../components/battletech-logo';
 import InputCheckbox from '../../../components/form_elements/input_checkbox';
@@ -107,6 +108,27 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         currentRoll,
       )
 
+    }
+
+    selectAmmoBin = (
+      e: React.FormEvent<HTMLSelectElement>,
+      unit: BattleMech,
+      attackUUID: string,
+    ) => {
+
+      if( e && e.preventDefault ) e.preventDefault();
+
+      if(this.props.appGlobals.currentCBTForce) {
+        let currentCBTForce = this.props.appGlobals.currentCBTForce;
+
+        unit.selectAmmoBin( attackUUID, e.currentTarget.value  );
+        this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
+
+      }
+
+      this.setState({
+        updated: true,
+      })
     }
 
     _takeDamageIfBothFieldsAre = (
@@ -1345,7 +1367,26 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                         return (
                           <tbody key={attackIndex}>
                             <tr>
-                              <td className={attackDamaged ? "bright-red-strike-through" : ""}>{attackGATOR.weaponName}</td>
+                              <td className={attackDamaged ? "bright-red-strike-through" : ""}>
+                                {attackGATOR.weaponName}
+                                {weaponNeedsAmmo( attack )? (
+                                  <label>
+                                    <select
+                                      onChange={(e) => this.selectAmmoBin( e, unit, attack.uuid ? attack.uuid : "" )}
+                                      value={attack.selectedAmmoBinUUID}
+                                    >
+                                      <option value="">-Select Ammo Bin-</option>
+                                      {unit.equipmentList.map( (eq, eqIndex) => {
+                                        if( eq.isAmmo ) {
+                                          return <option key={eqIndex} value={eq.uuid}>{eq.name} {eq.location} {eq.currentAmmo}/{eq.ammoPerTon}</option>
+                                        } else {
+                                          return <React.Fragment key={eqIndex} />
+                                        }
+                                      })}
+                                    </select>
+                                  </label>
+                                ) : null}
+                              </td>
                               <td className={attackDamaged ? "bright-red-strike-through" : ""}>{attackGATOR.targetName ? (
                                 <>{attackGATOR.targetName}<div className="small-text">{attackGATOR.target}</div></>
                               ) : (
@@ -2339,7 +2380,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
                 <li className="logo">
                     <a
-                        href="https://battletech.com"
+                        href={CONST_BATTLETECH_URL}
                         rel="noopener noreferrer"
                         target="_blank"
                         title="Click here to go to the official BattleTech website!"

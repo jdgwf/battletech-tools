@@ -5,6 +5,7 @@ import { IAppGlobals } from '../../../app-router';
 import BattleTechLogo from '../../../components/battletech-logo';
 import './print.scss';
 import BattleMechSVG from "../../../components/svg/battlemech-svg";
+import { CONST_BATTLETECH_URL } from "../../../../configVars";
 
 export default class ClassicBattleTechRosterPrint extends React.Component<IPrintProps, IPrintState> {
     constructor(props: IPrintProps) {
@@ -29,7 +30,7 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                 <li><span title="Click here open the Print Dialog" onClick={() => window.print()} className="current" ><FaPrint /></span></li>
                 <li className="logo">
                     <a
-                        href="https://battletech.com"
+                        href={CONST_BATTLETECH_URL}
                         rel="noopener noreferrer"
                         target="_blank"
                         title="Click here to go to the official BattleTech website!"

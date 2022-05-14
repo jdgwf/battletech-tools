@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { FaBars, FaEye, FaPlus } from "react-icons/fa";
-import AlphaStrikeForce from '../../../../classes/alpha-strike-force';
 import { AlphaStrikeUnit, IASMULUnit } from '../../../../classes/alpha-strike-unit';
 import { BattleMech } from '../../../../classes/battlemech';
 import { getMULASSearchResults } from '../../../../utils';
@@ -100,7 +99,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         !navigator.onLine,
       );
 
-      console.log("updateSearchResults data", data);
+      // console.log("updateSearchResults data", data);
       this.setState({
         searchResults: data,
         contextMenuSearch: -1,

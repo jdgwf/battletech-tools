@@ -184,6 +184,23 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         this.props.onChange( item );
     }
 
+    toggleNeedsAmmo = (
+        e: React.FormEvent<HTMLInputElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item = this.props.editingItem;
+
+        item.isEquipment = false;
+        if( item.needsAmmo  ) {
+            item.needsAmmo = false;
+        } else {
+            item.needsAmmo = true;
+        }
+
+        this.props.onChange( item );
+    }
     toggleIsAmmo = (
         e: React.FormEvent<HTMLInputElement>,
     ) => {
@@ -592,6 +609,11 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                             onChange={this.toggleIsAmmo}
                             checked={this.props.editingItem.isAmmo && this.props.editingItem.isAmmo ? true : false}
                             label="Is Ammo (not an attack or equipment)"
+                        />
+                        <InputCheckbox
+                            onChange={this.toggleNeedsAmmo}
+                            checked={this.props.editingItem.needsAmmo && this.props.editingItem.needsAmmo ? true : false}
+                            label="Needs Ammo"
                         />
                         <InputCheckbox
                             onChange={this.updateExplosive}

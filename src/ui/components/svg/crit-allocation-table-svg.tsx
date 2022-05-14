@@ -49,10 +49,11 @@ export default class CritAllocationTableSVG extends React.Component<ICritAllocat
                         critTable.push( <text key={critC.toString() + "b"} x={this.props.xLoc } y={this.props.yLoc + lineCount * (fontSize + lineBuffer)} textAnchor="start" fontFamily="sans-serif" fill={colorMediumGray} style={{fontWeight: 100}} fontSize={fontSize}>({this.props.critData[ critC ].name})</text> );
                     } else {
 
-                        if( this.props.critData[ critC ].obj && this.props.critData[ critC ].obj.ammo_per_ton )
-                            critTable.push( <text key={critC.toString() + "c"} x={this.props.xLoc } y={this.props.yLoc + lineCount * (fontSize + lineBuffer)} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 500}} fontSize={fontSize}>{this.props.critData[ critC ].name} {this.props.critData[ critC ].obj.ammo_per_ton}</text> );
-                        else
+                        if( this.props.critData[ critC ].obj && this.props.critData[ critC ].obj.ammoPerTon ) {
+                            critTable.push( <text key={critC.toString() + "c"} x={this.props.xLoc } y={this.props.yLoc + lineCount * (fontSize + lineBuffer)} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 500}} fontSize={fontSize}>{this.props.critData[ critC ].name} {this.props.critData[ critC ].obj.currentAmmo}/{this.props.critData[ critC ].obj.ammoPerTon}</text> );
+                        } else {
                             critTable.push( <text key={critC.toString() + "d"} x={this.props.xLoc } y={this.props.yLoc + lineCount * (fontSize + lineBuffer)} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 500}} fontSize={fontSize}>{this.props.critData[ critC ].name}</text> );
+                        }
 
                     }
 

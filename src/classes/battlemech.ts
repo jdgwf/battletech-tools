@@ -1,5 +1,5 @@
 import { battlemechLocations } from "../data/battlemech-locations";
-import { IArmorType, ICritialLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, ISplitLocation } from "../data/data-interfaces";
+import { IArmorType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, ISplitLocation } from "../data/data-interfaces";
 import { btEraOptions } from "../data/era-options";
 import { mechArmorTypes } from "../data/mech-armor-types";
 import { mechClanEquipmentEnergy } from "../data/mech-clan-equipment-weapons-energy";
@@ -91,6 +91,8 @@ interface IBMEquipmentExport {
     resolved?: boolean | undefined;
     damageClusterHits?: IClusterHit[] | undefined;
     split_location?: ISplitLocation[] | undefined;
+    currentAmmo?: number | undefined;
+    selectedAmmoBinUUID?: string | undefined;
 }
 export interface IBattleMechExport {
 
@@ -3783,7 +3785,7 @@ export class BattleMech {
 
         // Engine
 
-        let engineCrits: ICritialLocations = {
+        let engineCrits: ICriticalLocations = {
             ct: 0,
             rt: 0,
             lt: 0,
@@ -5288,6 +5290,7 @@ export class BattleMech {
                     uuid: this._equipmentList[countEQ].uuid,
                     weight: this._equipmentList[countEQ].weight,
                     split_location: this._equipmentList[countEQ].split_location,
+
                 });
             } else {
                 exportObject.equipment.push({
@@ -5304,6 +5307,8 @@ export class BattleMech {
                     resolved: this._equipmentList[countEQ].resolved,
                     damageClusterHits: this._equipmentList[countEQ].damageClusterHits,
                     split_location: this._equipmentList[countEQ].split_location,
+                    currentAmmo: this._equipmentList[countEQ].currentAmmo,
+                    selectedAmmoBinUUID: this._equipmentList[countEQ].selectedAmmoBinUUID,
                 });
             }
 
@@ -5613,6 +5618,8 @@ export class BattleMech {
                         undefined,
                         importItem.weight,
                         importItem.split_location,
+                        importItem.currentAmmo,
+                        importItem.selectedAmmoBinUUID,
                     );
                 }
             }
@@ -5898,6 +5905,8 @@ export class BattleMech {
         damageClusterHits: IClusterHit[] = [],
         weight: number | undefined,
         split_location: ISplitLocation[] | undefined,
+        currentAmmo: number = -1,
+        selectedAmmoBinUUID: string = "",
     ): IEquipmentItem | null {
         if( !uuid ) {
             uuid = generateUUID()
@@ -5919,6 +5928,15 @@ export class BattleMech {
                 equipmentItem.target = target;
                 equipmentItem.split_location = split_location;
                 equipmentItem.resolved = false;
+
+                if( currentAmmo === -1 && equipmentItem.isAmmo ) {
+                    equipmentItem.currentAmmo = equipmentItem.ammoPerTon;
+                } else {
+                    equipmentItem.currentAmmo = currentAmmo;
+                }
+
+                equipmentItem.selectedAmmoBinUUID = selectedAmmoBinUUID;
+
                 if( typeof(weight) !== "undefined" )
                     equipmentItem.weight = weight;
                 equipmentItem.damageClusterHits = []
@@ -8834,13 +8852,50 @@ export class BattleMech {
         }
     }
 
+    public selectAmmoBin(
+        weaponUUID: string,
+        ammoUUID: string,
+    ) {
+        for( let eq of this._equipmentList ) {
+            if( eq.uuid === weaponUUID  ) {
+                eq.selectedAmmoBinUUID = ammoUUID;
+            }
+        }
+    }
     public toggleResolved(
         eq_index: number
     ) {
         if( this._equipmentList.length > eq_index ) {
             this._equipmentList[eq_index].resolved = !this._equipmentList[eq_index].resolved;
+            if( this._equipmentList[eq_index].selectedAmmoBinUUID  ) {
+                if( this._equipmentList[eq_index].resolved )
+                    this._decrementAmmoBin( this._equipmentList[eq_index].selectedAmmoBinUUID );
+                else
+                    this._incrementAmmoBin( this._equipmentList[eq_index].selectedAmmoBinUUID );
+            }
         }
     }
+
+    private _decrementAmmoBin( uuid: string | undefined ) {
+        if( uuid ) {
+            for( let eq of this._equipmentList ) {
+                if( eq.uuid === uuid && eq.isAmmo && typeof(eq.currentAmmo) !== "undefined" && eq.currentAmmo > 0 ) {
+                    eq.currentAmmo--;
+                }
+            }
+        }
+    }
+
+    private _incrementAmmoBin( uuid: string | undefined ) {
+        if( uuid ) {
+            for( let eq of this._equipmentList ) {
+                if( eq.uuid === uuid && eq.isAmmo && typeof(eq.currentAmmo) !== "undefined" && eq.currentAmmo > 0 ) {
+                    eq.currentAmmo++;
+                }
+            }
+        }
+    }
+
     public setDamageClusterHits(
         eq_index: number,
         nv: IClusterHit[]

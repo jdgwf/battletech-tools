@@ -93,6 +93,7 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
                 equipmentList.push( <rect key={ eq_count.toString() + "a"}x={wacCol1 - 5 } y={weapAndEqpTop + 93 + eqLineHeight * eq_count} width={1180} height={eqLineHeight + 4} fill={colorVeryLightGray} /> );
 
             let ammoPerTon = this.props.mechData.equipmentList[ eq_count].ammoPerTon ;
+            let currentAmmo = this.props.mechData.equipmentList[ eq_count].currentAmmo ;
             let isAmmo = this.props.mechData.equipmentList[ eq_count].isAmmo ? true : false ;
             let isEquipment = this.props.mechData.equipmentList[ eq_count].isEquipment ? true : false ;
             let location = this.props.mechData.equipmentList[eq_count].location;
@@ -174,7 +175,7 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
                 rearDesignation = " [R]"
 
             if( ammoPerTon && isAmmo )
-                equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "c"} x={wacCol2 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].name + rearDesignation} {this.props.mechData.equipmentList[ eq_count].ammoPerTon}</text> );
+                equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "c"} x={wacCol2 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].name + rearDesignation} {currentAmmo}/{this.props.mechData.equipmentList[ eq_count].ammoPerTon} </text> );
             else
                 equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "d"} x={wacCol2 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].name + rearDesignation}</text> );
 

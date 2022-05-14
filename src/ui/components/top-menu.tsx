@@ -2,6 +2,7 @@
 import React from 'react';
 import { FaBars } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import { CONST_BATTLETECH_URL } from '../../configVars';
 import { IAppGlobals } from '../app-router';
 import BattleTechLogo from './battletech-logo';
 import './top-menu.scss';
@@ -213,7 +214,7 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
 
                 <li className="logo">
                     <a
-                        href="https://battletech.com"
+                        href={CONST_BATTLETECH_URL}
                         rel="noopener noreferrer"
                         target="_blank"
                         title="Click here to go to the official BattleTech website!"

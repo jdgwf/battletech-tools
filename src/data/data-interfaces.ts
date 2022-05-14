@@ -35,7 +35,7 @@ export interface IEngineOption {
 	}
 }
 
-export interface ICritialLocations {
+export interface ICriticalLocations {
 	hd?: number,
 	ct?: number,
 	ra?: number,
@@ -55,7 +55,7 @@ export interface IEngineType {
 	extinct: number;
 	reintroduced: number;
     criticals: {
-        [key: string]: ICritialLocations;
+        [key: string]: ICriticalLocations;
     },
     rating: number;
     available?: boolean;
@@ -94,6 +94,7 @@ export interface IEquipmentItem {
     isRotary?: boolean;
     isStreak?: boolean;
     isUltra?: boolean;
+    needsAmmo?: boolean;
     uuid?: string;
     resolved?: boolean;
     damageClusterHits?: IClusterHit[];
@@ -109,6 +110,8 @@ export interface IEquipmentItem {
     tag: string;
     sort: string;
     category: string;
+    currentAmmo?: number;
+    selectedAmmoBinUUID?: string;
     bvHeat?: number;
     damage?: number | IDamagePerRange;
     damagePerShot?: boolean;

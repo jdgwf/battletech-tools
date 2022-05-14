@@ -6,7 +6,7 @@ import AlphaStrikeGroup, { IASGroupExport } from "../classes/alpha-strike-group"
 import { BattleMech, IBattleMechExport } from "../classes/battlemech";
 import { BattleMechForce, ICBTForceExport } from "../classes/battlemech-force";
 import { BattleMechGroup, ICBTGroupExport } from "../classes/battlemech-group";
-import { CONFIGSiteTitle } from '../configVars';
+import { CONST_SITE_TITLE } from '../configVars';
 import { sswMechs } from "../data/ssw/sswMechs";
 import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getCurrentCBTForce, getFavoriteASGroups, getFavoriteCBTGroups, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveCurrentCBTForce, saveFavoriteASGroups, saveFavoriteASGroupsObjects, saveFavoriteCBTGroupsObjects } from "../dataSaves";
 import { callAnalytics } from "../jdgAnalytics";
@@ -387,13 +387,13 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         );
 
         if( subTitle ) {
-            document.title = subTitle + " | " + CONFIGSiteTitle;
+            document.title = subTitle + " | " + CONST_SITE_TITLE;
             appGlobals.currentPageTitle = subTitle;
             this.setState({
                 appGlobals: appGlobals,
             })
         } else {
-            document.title = CONFIGSiteTitle;
+            document.title = CONST_SITE_TITLE;
             appGlobals.currentPageTitle = subTitle;
             this.setState({
                 appGlobals: appGlobals,

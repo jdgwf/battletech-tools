@@ -121,7 +121,7 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
             "Marauder MAD-3R",
             "Archer ARC-2R",
             "Valkyrie VLK-QA",
-            "StingStinger STG-3Rer",
+            "Stinger STG-3Rer",
         ],
     },{
         name: "Inner Sphere Battle Lance",

@@ -682,7 +682,7 @@ export class AlphaStrikeUnit {
             } else if( this.basePoints <= 52) {
                 pvDifference = 10;
             } else {
-                pvDifference = 10 + Math.floor( ( this.basePoints - 52) / 5 );
+                pvDifference = 10 + Math.ceil( ( this.basePoints - 52) / 5 );
             }
             this.currentPoints = this.basePoints + ( pvDifference * ( 4 - this.currentSkill ) ) ;
         } else if( this.currentSkill > 4) {
