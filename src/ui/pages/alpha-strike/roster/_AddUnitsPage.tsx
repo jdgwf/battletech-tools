@@ -152,7 +152,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
             <div className="small-text text-center">
                 We integrate with the <a href="http://masterunitlist.info/" target="mul">Master Unit List</a> to make sure that all the stats are as official and as up to date as possible.
             </div>
-{navigator.onLine ? (
+{navigator && navigator.onLine ? (
     <>
 
 <fieldset className="fieldset">

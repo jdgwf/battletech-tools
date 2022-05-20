@@ -525,6 +525,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 <TextSection
 label="Quickly add a ForcePack"
 >
+{navigator && navigator.onLine ? (
   <ul className="styleless">
   {CONST_FORCE_PACKS.map( (pack, packindex) => {
     return (
@@ -541,6 +542,11 @@ label="Quickly add a ForcePack"
     )
   })}
   </ul>
+) : (
+  <div className="alert alert-warning">
+    We're sorry, adding a Force Pack needs access to the Master Unit List for unit stats and requires an Internet connection, please connect to the Internet.
+  </div>
+)}
 </TextSection>
 
 <TextSection
