@@ -2264,8 +2264,10 @@ export class BattleMech {
         }
 
         // Heat Modified Damage, p115 AS companion
-        let total_weapon_heat = 0;
+        let total_weapon_heat_short = 0;
+        let total_weapon_heat_medium = 0;
         let total_weapon_heat_long = 0;
+        // let total_weapon_heat_extreme = 0;
         let has_explosive = false;
 
         let lrmDamage: IAlphaStrikeDamage = {
@@ -2331,14 +2333,18 @@ export class BattleMech {
         let extremeTotalDamageRear = 0;
 
         for (let weapon_counter = 0; weapon_counter < this._equipmentList.length; weapon_counter++) {
+            if (this._equipmentList[weapon_counter].explosive) {
+                has_explosive = true;
+            }
             if (this._equipmentList[weapon_counter].alphaStrike && !this._equipmentList[weapon_counter].isAmmo ) {
                 if (this._equipmentList[weapon_counter].alphaStrike.rangeLong > 0) {
                     total_weapon_heat_long += +this._equipmentList[weapon_counter].alphaStrike.heat;
                 }
+                // if (this._equipmentList[weapon_counter].alphaStrike.rangeExtreme > 0) {
+                //     total_weapon_heat_extreme += +this._equipmentList[weapon_counter].alphaStrike.heat;
+                // }
 
-                if (this._equipmentList[weapon_counter].explosive) {
-                    has_explosive = true;
-                }
+
 
                 if (this._equipmentList[weapon_counter].rear) {
                     this._calcLogAS += "Adding <strong>rear</strong> Weapon " + this._equipmentList[weapon_counter].tag + " - ";
@@ -2362,7 +2368,11 @@ export class BattleMech {
                     this._calcLogAS += this._equipmentList[weapon_counter].alphaStrike.rangeMedium + ", ";
                     this._calcLogAS += this._equipmentList[weapon_counter].alphaStrike.rangeLong + ", ";
                     this._calcLogAS += this._equipmentList[weapon_counter].alphaStrike.rangeExtreme + " )<br />\n";
-                    total_weapon_heat += +this._equipmentList[weapon_counter].alphaStrike.heat;
+
+                    if( this._equipmentList[weapon_counter].alphaStrike.rangeMedium > 0 )
+                        total_weapon_heat_medium += +this._equipmentList[weapon_counter].alphaStrike.heat;
+                    if( this._equipmentList[weapon_counter].alphaStrike.rangeShort > 0 )
+                        total_weapon_heat_short += +this._equipmentList[weapon_counter].alphaStrike.heat;
 
                 }
 
@@ -2388,50 +2398,33 @@ export class BattleMech {
                         }
 
                         if (this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "heat" ) {
-                            //@ts-ignore
                             heatDamage.short += this._equipmentList[weapon_counter].alphaStrike.rangeShort;
-                            //@ts-ignore
                             heatDamage.medium += this._equipmentList[weapon_counter].alphaStrike.rangeMedium;
-                            //@ts-ignore
                             heatDamage.long += this._equipmentList[weapon_counter].alphaStrike.rangeLong;
-                            //@ts-ignore
                             heatDamage.extreme += this._equipmentList[weapon_counter].alphaStrike.rangeExtreme;
                         }
 
                         if (this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "lrm" ) {
-                            //@ts-ignore
                             lrmDamage.short += +this._equipmentList[weapon_counter].alphaStrike.rangeShort;
-                            //@ts-ignore
                             lrmDamage.medium += +this._equipmentList[weapon_counter].alphaStrike.rangeMedium;
-                            //@ts-ignore
                             lrmDamage.long += +this._equipmentList[weapon_counter].alphaStrike.rangeLong;
-                            //@ts-ignore
                             lrmDamage.extreme += +this._equipmentList[weapon_counter].alphaStrike.rangeExtreme;
                         }
 
                         if (this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "ac" ) {
-                            //@ts-ignore
                             acDamage.short += +this._equipmentList[weapon_counter].alphaStrike.rangeShort;
-                            //@ts-ignore
                             acDamage.medium += +this._equipmentList[weapon_counter].alphaStrike.rangeMedium;
-                            //@ts-ignore
                             acDamage.long += +this._equipmentList[weapon_counter].alphaStrike.rangeLong;
-                            //@ts-ignore
                             acDamage.extreme += +this._equipmentList[weapon_counter].alphaStrike.rangeExtreme;
                         }
 
                         if (this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "flak" ) {
-                            //@ts-ignore
                             flakDamage.short += +this._equipmentList[weapon_counter].alphaStrike.rangeShort;
-                            //@ts-ignore
                             flakDamage.medium += +this._equipmentList[weapon_counter].alphaStrike.rangeMedium;
-                            //@ts-ignore
                             flakDamage.long += +this._equipmentList[weapon_counter].alphaStrike.rangeLong;
-                            //@ts-ignore
                             flakDamage.extreme += +this._equipmentList[weapon_counter].alphaStrike.rangeExtreme;
                         }
 
-                        // console.log("XX", this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase())
                         if (
                             this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "indirect fire"
                             ||
@@ -2439,31 +2432,21 @@ export class BattleMech {
                             ||
                             this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase().startsWith( "if " )
                         ) {
-                            // console.log("indrect fire hit", this.getName(), +this._equipmentList[weapon_counter].alphaStrike.rangeLong);
-                            //@ts-ignore
                             indirectFireRating += +this._equipmentList[weapon_counter].alphaStrike.rangeLong;
 
                         }
 
                         if (this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "indirect fire" || this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "srm" ) {
-                            //@ts-ignore
                             srmDamage.short += this._equipmentList[weapon_counter].alphaStrike.rangeShort;
-                            //@ts-ignore
                             srmDamage.medium += this._equipmentList[weapon_counter].alphaStrike.rangeMedium;
-                            //@ts-ignore
                             srmDamage.long += this._equipmentList[weapon_counter].alphaStrike.rangeLong;
-                            //@ts-ignore
                             srmDamage.extreme += this._equipmentList[weapon_counter].alphaStrike.rangeExtreme;
                         }
 
                         if (this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "missile" || this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "msl" ) {
-                            //@ts-ignore
                             mslDamage.short += this._equipmentList[weapon_counter].alphaStrike.rangeShort;
-                            //@ts-ignore
                             mslDamage.medium += this._equipmentList[weapon_counter].alphaStrike.rangeMedium;
-                            //@ts-ignore
                             mslDamage.long += this._equipmentList[weapon_counter].alphaStrike.rangeLong;
-                            //@ts-ignore
                             mslDamage.extreme += this._equipmentList[weapon_counter].alphaStrike.rangeExtreme;
                         }
 
@@ -2474,10 +2457,9 @@ export class BattleMech {
         }
 
 
-        indirectFireRating = Math.round(indirectFireRating);
-        // this._calcLogAS += "this._alphaStrikeForceStats.damage.short 1 - " + this._alphaStrikeForceStats.damage.short + "<br />";
-        // this._calcLogAS += "this._alphaStrikeForceStats.damage.medium 1 - " + this._alphaStrikeForceStats.damage.medium + "<br />";
 
+
+        indirectFireRating = Math.round(indirectFireRating);
 
         let move_heat = 0;
         if (this.getJumpSpeed() > 0) {
@@ -2502,91 +2484,104 @@ export class BattleMech {
 
         heatDissipation += (10 + this._additionalHeatSinks) * this._heatSinkType.dissipation;
 
-        // console.log( "heatDissipation", heatDissipation, typeof( heatDissipation));
-        // console.log( "total_weapon_heat", total_weapon_heat, typeof( total_weapon_heat));
-        // console.log( "total_weapon_heat_long", total_weapon_heat_long, typeof( total_weapon_heat_long));
-        // console.log( "move_heat", move_heat, typeof( move_heat));
+        let max_short_overheat_value =  move_heat + total_weapon_heat_short ;
+        let max_medium_overheat_value =  move_heat + total_weapon_heat_medium ;
+        let max_long_overheat_value =  move_heat + total_weapon_heat_long;
+        // let max_weapon_heat_extreme = move_heat + total_weapon_heat_extreme;
 
-        let max_heat_output = move_heat + total_weapon_heat;
-        let overheat_value =  move_heat + total_weapon_heat - heatDissipation;
-        let long_overheat_value =  move_heat + total_weapon_heat_long - heatDissipation;
+        let max_heat_output =  max_short_overheat_value;
+        if( max_medium_overheat_value > max_heat_output)
+            max_heat_output = max_medium_overheat_value
+        if( max_long_overheat_value > max_heat_output)
+            max_heat_output = max_long_overheat_value
 
-        // console.log( "overheat_value", overheat_value);
-        // console.log( "long_overheat_value", long_overheat_value);
 
-        // let before_heat_rangeShort = this._alphaStrikeForceStats.damage.short.toFixed(0) /1;
-        // let before_heat_rangeMedium = this._alphaStrikeForceStats.damage.medium.toFixed(0) /1;
-        // let before_heat_rangeLong = this._alphaStrikeForceStats.damage.long.toFixed(0) /1;
-        // let before_heat_rangeExtreme = this._alphaStrikeForceStats.damage.extreme.toFixed(0) /1;
+        if( this._alphaStrikeForceStats.damage.short >= .5 && this._alphaStrikeForceStats.damage.short < 1) {
+            this._alphaStrikeForceStats.damage.short = 0;
+            this._alphaStrikeForceStats.damage.shortMinimal = true;
+        } else {
+            this._alphaStrikeForceStats.damage.short = Math.ceil( this._alphaStrikeForceStats.damage.short );
+        }
 
-        // this._alphaStrikeForceStats.heat_damage = this._alphaStrikeForceStats.damage;
+        if( this._alphaStrikeForceStats.damage.medium >= .5 && this._alphaStrikeForceStats.damage.medium < 1) {
+            this._alphaStrikeForceStats.damage.medium = 0;
+            this._alphaStrikeForceStats.damage.mediumMinimal = true;
+        } else {
+            this._alphaStrikeForceStats.damage.medium = Math.ceil( this._alphaStrikeForceStats.damage.medium );
+        }
+        if( this._alphaStrikeForceStats.damage.long >= .5 && this._alphaStrikeForceStats.damage.long < 1) {
+            this._alphaStrikeForceStats.damage.long = 0;
+            this._alphaStrikeForceStats.damage.longMinimal = true;
+        } else {
+            this._alphaStrikeForceStats.damage.long = Math.ceil( this._alphaStrikeForceStats.damage.long );
+        }
+        if( this._alphaStrikeForceStats.damage.extreme >= .5 && this._alphaStrikeForceStats.damage.extreme < 1) {
+            this._alphaStrikeForceStats.damage.extreme = 0;
+            this._alphaStrikeForceStats.damage.extremeMinimal = true;
+        } else {
+            this._alphaStrikeForceStats.damage.extreme = Math.ceil( this._alphaStrikeForceStats.damage.extreme );
+        }
+
+
+
+
+        this._calcLogAS += "<strong>Base Short Damage: " + this._alphaStrikeForceStats.damage.short + "</strong><br />\n";
+        this._calcLogAS += "<strong>Base Medium Damage: " + this._alphaStrikeForceStats.damage.medium + "</strong><br />\n";
+        this._calcLogAS += "<strong>Base Long Damage: " + this._alphaStrikeForceStats.damage.long + "</strong><br />\n";
+        this._calcLogAS += "<strong>Base Extreme Damage: " + this._alphaStrikeForceStats.damage.extreme + "</strong><br />\n";
 
         let final_overheat_value = 0;
-        let heat_damage_medium = 0;
-        if (overheat_value > 3) {
-            this._calcLogAS += "overheat_value is over 3, weapon damages must be adjusted - " + overheat_value + " as per p115<br />";
+
+
+        let weapon_heat_damage_short = Math.ceil((this._alphaStrikeForceStats.damage.short * heatDissipation) / (max_heat_output - 4));
+        let weapon_heat_damage_medium = Math.ceil((this._alphaStrikeForceStats.damage.medium * heatDissipation) / (max_heat_output - 4));
+        let weapon_heat_damage_long = Math.ceil((this._alphaStrikeForceStats.damage.long * heatDissipation) / (max_heat_output - 4));
+        // let weapon_heat_damage_extreme = Math.ceil((this._alphaStrikeForceStats.damage.extreme * heatDissipation) / (max_heat_output - 4));
+
+
+
+        // if( this._alphaStrikeForceStats.damage.short.toString() !== "0*" )
+        this._alphaStrikeForceStats.damage.short = Math.ceil(+this._alphaStrikeForceStats.damage.short);
+
+        // if( this._alphaStrikeForceStats.damage.medium.toString() !== "0*" )
+        this._alphaStrikeForceStats.damage.medium = Math.ceil(+this._alphaStrikeForceStats.damage.medium);
+
+
+        if (weapon_heat_damage_medium !== this._alphaStrikeForceStats.damage.medium || weapon_heat_damage_short !== this._alphaStrikeForceStats.damage.short )  {
+
+
             // Heat Modified Damage, p115 AS companion
-            // let heat_damage_short = 0;
+            this._alphaStrikeForceStats.damage.short = weapon_heat_damage_short;
 
-            // if( this._alphaStrikeForceStats.damage.short.toString() !== "0*" )
-            //     heat_damage_short = Math.ceil((+this._alphaStrikeForceStats.damage.short * heatDissipation) / (max_heat_output - 4));
+            this._alphaStrikeForceStats.damage.medium = weapon_heat_damage_medium;
+            if( this._alphaStrikeForceStats.damage.medium > 0 && weapon_heat_damage_medium !== this._alphaStrikeForceStats.damage.medium  ) {
 
-            // if( this._alphaStrikeForceStats.damage.medium.toString() !== "0*" )
-                heat_damage_medium = Math.ceil((+this._alphaStrikeForceStats.damage.medium * heatDissipation) / (max_heat_output - 4));
+                this._calcLogAS += "total_weapon_heat_medium is over 3, weapon damages must be adjusted - " + weapon_heat_damage_medium + " as per p115<br />";
 
-            // if( this._alphaStrikeForceStats.damage.short.toString() !== "0*" )
-                this._alphaStrikeForceStats.damage.short = Math.ceil(+this._alphaStrikeForceStats.damage.short);
+                final_overheat_value = this._alphaStrikeForceStats.damage.medium - weapon_heat_damage_medium;
 
-            // if( this._alphaStrikeForceStats.damage.medium.toString() !== "0*" )
-                this._alphaStrikeForceStats.damage.medium = Math.ceil(+this._alphaStrikeForceStats.damage.medium);
-            // if( this._alphaStrikeForceStats.damage.short !== "0*" )
-            // this._alphaStrikeForceStats.damage.long = Math.ceil( this._alphaStrikeForceStats.damage.long );
-            // if( this._alphaStrikeForceStats.damage.medium !== "0*" )
-            // this._alphaStrikeForceStats.damage.extreme =  Math.ceil( this._alphaStrikeForceStats.damage.extreme );
 
-            // console.log( "damage.short", this._alphaStrikeForceStats.damage.short );
-            // console.log( "heat_damage_short", heat_damage_short );
-            // console.log( "damage.medium", this._alphaStrikeForceStats.damage.medium );
-            // console.log( "heat_damage_medium", heat_damage_medium );
-
-            if( this._alphaStrikeForceStats.damage.medium.toString() !== "0*" && heat_damage_medium < +this._alphaStrikeForceStats.damage.medium) {
-                final_overheat_value = (+this._alphaStrikeForceStats.damage.medium - heat_damage_medium);
-                this._alphaStrikeForceStats.damage.medium = (+this._alphaStrikeForceStats.damage.medium - final_overheat_value);
-                this._alphaStrikeForceStats.damage.short = (+this._alphaStrikeForceStats.damage.short - final_overheat_value);
+            } else if( this._alphaStrikeForceStats.damage.short !== weapon_heat_damage_short ) {
+                 final_overheat_value = this._alphaStrikeForceStats.damage.short - weapon_heat_damage_short;
             }
 
-        } else {
-
-            // if( this._alphaStrikeForceStats.damage.short.toString() !== "0*" )
-                this._alphaStrikeForceStats.damage.short = Math.ceil(this._alphaStrikeForceStats.damage.short);
-            // if( this._alphaStrikeForceStats.damage.medium.toString() !== "0*" )
-                this._alphaStrikeForceStats.damage.medium = Math.ceil(this._alphaStrikeForceStats.damage.medium);
         }
-        // this._calcLogAS += "this._alphaStrikeForceStats.damage.short - " + this._alphaStrikeForceStats.damage.short + "<br />";
-
-        // this._calcLogAS += "longTotalDamage - " + longTotalDamage + "<br />";
-        // this._calcLogAS += "extremeTotalDamage - " + extremeTotalDamage + "<br />";
-
-        // this._calcLogAS += "this._alphaStrikeForceStats.damage.short 2 - " + this._alphaStrikeForceStats.damage.short + "<br />";
-        // this._calcLogAS += "this._alphaStrikeForceStats.damage.medium 2 - " + this._alphaStrikeForceStats.damage.medium + "<br />";
+        this._alphaStrikeForceStats.damage.short = weapon_heat_damage_short;
+        this._alphaStrikeForceStats.damage.medium = weapon_heat_damage_medium;
 
         let final_long_overheat_value = 0;
         let heat_damage_long = 0;
         let heat_damage_extreme = 0;
 
-        if (long_overheat_value > 4) {
+        if (weapon_heat_damage_long > 4) {
 
             if( this._alphaStrikeForceStats.damage.long.toString() !== "0*" ) {
                 heat_damage_long = +this._alphaStrikeForceStats.damage.long;
                 heat_damage_extreme = +this._alphaStrikeForceStats.damage.extreme;
 
+
                 this._alphaStrikeForceStats.damage.long = Math.ceil((+this._alphaStrikeForceStats.damage.long * heatDissipation) / (total_weapon_heat_long - 4));
                 this._alphaStrikeForceStats.damage.extreme = Math.ceil((+this._alphaStrikeForceStats.damage.long * heatDissipation) / (total_weapon_heat_long - 4));
-
-                // console.log( "damage.long", this._alphaStrikeForceStats.damage.long );
-                // console.log( "heatDissipation", heatDissipation );
-                // console.log( "heat_damage_long", heat_damage_long );
-                // console.log( "total_weapon_heat_long", total_weapon_heat_long );
 
                 if (heat_damage_long > +this._alphaStrikeForceStats.damage.long) {
                     final_long_overheat_value = heat_damage_long - +this._alphaStrikeForceStats.damage.long;
@@ -2594,20 +2589,8 @@ export class BattleMech {
                     this._alphaStrikeForceStats.damage.extreme = (heat_damage_extreme - final_long_overheat_value);
                 }
 
-                // console.log( "final_long_overheat_value", final_long_overheat_value );
-                // console.log( "damage.long", this._alphaStrikeForceStats.damage.long );
 
             }
-        } else {
-            // if( this._alphaStrikeForceStats.damage.short !== "0*" )
-            // this._alphaStrikeForceStats.damage.short = Math.ceil( this._alphaStrikeForceStats.damage.short );
-            // if( this._alphaStrikeForceStats.damage.medium !== "0*" )
-            // this._alphaStrikeForceStats.damage.medium =  Math.ceil( this._alphaStrikeForceStats.damage.medium );
-            if( this._alphaStrikeForceStats.damage.short.toString() !== "0*" )
-                this._alphaStrikeForceStats.damage.long = Math.ceil(+this._alphaStrikeForceStats.damage.long);
-            if( this._alphaStrikeForceStats.damage.medium.toString() !== "0*" )
-                this._alphaStrikeForceStats.damage.extreme = Math.ceil(+this._alphaStrikeForceStats.damage.extreme);
-
         }
 
         if (final_long_overheat_value > 0) {
@@ -2615,51 +2598,29 @@ export class BattleMech {
 
         }
 
-        // this._alphaStrikeForceStats.damage.short = this._alphaStrikeForceStats.damage.short.toFixed(0) /1;
-        // this._alphaStrikeForceStats.damage.medium = this._alphaStrikeForceStats.damage.medium.toFixed(0) /1;
-        // this._alphaStrikeForceStats.damage.long = this._alphaStrikeForceStats.damage.long.toFixed(0) /1;
-        // this._alphaStrikeForceStats.damage.extreme = this._alphaStrikeForceStats.damage.extreme.toFixed(0) /1;
 
-        // console.log( "alphaStrikeForceStats.damage", this._alphaStrikeForceStats.damage);
         this._alphaStrikeForceStats.damage = adjustAlphaStrikeDamage(this._alphaStrikeForceStats.damage, true);
-        // console.log( "alphaStrikeForceStats.damage", this._alphaStrikeForceStats.damage);
 
         // Determine Overheat Values - p116 AS Companion
-        // let final_overheat_value = 0;
-
-        // if( this._alphaStrikeForceStats.damage.medium !== "0*" && before_heat_rangeMedium - this._alphaStrikeForceStats.damage.medium > 0) {
-        // final_overheat_value = before_heat_rangeMedium - this._alphaStrikeForceStats.damage.medium;
-        // } else {
-        // // try short range bracket since the med range is low.
-        // if( this._alphaStrikeForceStats.damage.short !== "0*" )
-        // final_overheat_value = before_heat_rangeShort - this._alphaStrikeForceStats.damage.short;
-        // }
-        // if( final_overheat_value > 4 )
-        // final_overheat_value = 4;
-
-        // Determine Overheat Values - ASC - p116
-        // let final_long_overheat_value = 0;
-        // if( this._alphaStrikeForceStats.damage.long !== "0*" && before_heat_rangeLong - this._alphaStrikeForceStats.damage.long > 0) {
-        // final_long_overheat_value = before_heat_rangeLong - this._alphaStrikeForceStats.damage.long;
-        // }
-
-        if (final_long_overheat_value > 4)
-            final_long_overheat_value = 4;
+        if( final_overheat_value > 4 )
+            final_overheat_value = 4;
 
         this._alphaStrikeForceStats.ov = final_overheat_value;
 
         this._calcLogAS += "Move Heat: " + move_heat + "<br />\n";
-        this._calcLogAS += "Weapon Heat: " + total_weapon_heat + "<br />\n";
+        this._calcLogAS += "Weapon Heat: " + final_overheat_value + "<br />\n";
         this._calcLogAS += "Long Weapon Heat: " + total_weapon_heat_long + "<br />\n";
         this._calcLogAS += "Heat Dissipation: " + heatDissipation + "<br />\n";
 
-        this._calcLogAS += "Overheat Value: " + overheat_value + "<br />\n";
-        this._calcLogAS += "Long Overheat Value: " + long_overheat_value + "<br />\n";
+        this._calcLogAS += "Short Overheat Damage: " + weapon_heat_damage_short + "<br />\n";
+        this._calcLogAS += "Medium Overheat Damage: " + weapon_heat_damage_medium + "<br />\n";
+        this._calcLogAS += "Long Overheat Damage: " + weapon_heat_damage_long + "<br />\n";
+        this._calcLogAS += "Final Overheat Damage: " + final_overheat_value + "<br />\n";
 
-        this._calcLogAS += "<strong>Short Damage: " + this._alphaStrikeForceStats.damage.short + "</strong><br />\n";
-        this._calcLogAS += "<strong>Medium Damage: " + this._alphaStrikeForceStats.damage.medium + "</strong><br />\n";
-        this._calcLogAS += "<strong>Long Damage: " + this._alphaStrikeForceStats.damage.long + "</strong><br />\n";
-        this._calcLogAS += "<strong>Extreme Damage: " + this._alphaStrikeForceStats.damage.extreme + "</strong><br />\n";
+        this._calcLogAS += "<strong>Final Short Damage: " + this._alphaStrikeForceStats.damage.short + "</strong><br />\n";
+        this._calcLogAS += "<strong>Final Medium Damage: " + this._alphaStrikeForceStats.damage.medium + "</strong><br />\n";
+        this._calcLogAS += "<strong>Final Long Damage: " + this._alphaStrikeForceStats.damage.long + "</strong><br />\n";
+        this._calcLogAS += "<strong>Final Extreme Damage: " + this._alphaStrikeForceStats.damage.extreme + "</strong><br />\n";
 
         // Overheat Value is
         this._calcLogAS += "<strong>Final Overheat Value: " + final_overheat_value + "</strong><br />\n";

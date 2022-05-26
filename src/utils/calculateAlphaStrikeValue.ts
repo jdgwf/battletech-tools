@@ -322,6 +322,9 @@ export function calculateAlphaStrikeValue(
             finalValue = baseFinalValue * .75;
         }
 
+
+        finalValue = Math.round(finalValue);
+
         _calcLogAS += "Final Point Value: " + finalValue + "<br />\n";
 
         /* *********************************
