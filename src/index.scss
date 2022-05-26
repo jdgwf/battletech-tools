@@ -942,7 +942,7 @@ body {
   .print-page {
     background: #fff;
     text-align: left;
-    height: 9.74in;
+    max-height: 9.74in;
     width: 7.5in;
     border: solid 2px #333;
     display: block;

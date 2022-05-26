@@ -173,11 +173,13 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
                                 />
                               </Link>
                               <br />
-                              <AlphaStrikeUnitSVG
-                                appGlobals={this.props.appGlobals}
-                                asUnit={this.props.appGlobals.currentBattleMech.getAlphaStrikeForceStats()}
-                                measurementsInHexes={this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes}
-                              />
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/print-as`}>
+                                <AlphaStrikeUnitSVG
+                                  appGlobals={this.props.appGlobals}
+                                  asUnit={this.props.appGlobals.currentBattleMech.getAlphaStrikeForceStats()}
+                                  measurementsInHexes={this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes}
+                                />
+                              </Link>
                             </div>
                           </div>
                           <br />

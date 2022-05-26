@@ -5,6 +5,7 @@ import Error404 from "../../error404";
 import MechCreatorExports from './exports';
 import Home from './home';
 import MechCreatorImports from './imports';
+import MechCreatorPrintAS from './print-as';
 import MechCreatorPrintRS from './print-rs';
 import MechCreatorStep1 from './step1';
 import MechCreatorStep2 from './step2';
@@ -77,6 +78,11 @@ export default class MechCreatorRouter extends React.Component<IMechCreatorRoute
 
                 <Route path={`print-rs`} element={
                     <MechCreatorPrintRS
+                        appGlobals={this.props.appGlobals}
+                    />
+                }/>
+                <Route path={`print-as`} element={
+                    <MechCreatorPrintAS
                         appGlobals={this.props.appGlobals}
                     />
                 }/>
