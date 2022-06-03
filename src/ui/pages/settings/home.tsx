@@ -43,7 +43,7 @@ export default class SettingsHome extends React.Component<ISettingsHomeProps, IS
       })
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
 
       return (
         <UIPage current="settings-home" appGlobals={this.props.appGlobals}>

@@ -38,9 +38,9 @@ export default class PilotHitTrackSVG extends React.Component<IPilotHitTrackSVGP
 
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
 
-        let damageTrack: React.Element[] = [];
+        let damageTrack: JSX.Element[] = [];
 
         let boxWidth = 60;
         let lWidthBuffer = 0;

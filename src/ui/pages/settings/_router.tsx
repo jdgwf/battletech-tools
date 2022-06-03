@@ -7,7 +7,7 @@ import SettingsHome from './home';
 
 export default class SettingsRouter extends React.Component<ISettingsRouterProps, ISettingsRouterState> {
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
         return(
             <Routes>
 

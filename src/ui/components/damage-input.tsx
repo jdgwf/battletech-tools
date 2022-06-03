@@ -227,7 +227,7 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
         this.props.onChange( item );
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
         return (
             <fieldset className="fieldset">
                 <legend>{this.props.label}</legend>

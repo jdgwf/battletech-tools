@@ -8,7 +8,7 @@ import BattleTechLogo from './battletech-logo';
 
 export default class PrintablePage extends React.Component<IPrintablePageProps, IPrintablePageState> {
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
         return (
         <>
           <div className="print-bar">
@@ -48,6 +48,7 @@ export default class PrintablePage extends React.Component<IPrintablePageProps, 
 interface IPrintablePageProps {
     appGlobals: IAppGlobals;
     backTo: string;
+    children?: React.ReactNode | React.ReactNode[];
   }
 
   interface IPrintablePageState {

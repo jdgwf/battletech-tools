@@ -12,7 +12,7 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
 
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
 
         let bgColor = "rgb(255,255,255)";
         let strokeColor = "rgb(0,0,0)";
@@ -51,7 +51,7 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
 
         let pipRadius = width / 7;
 
-        let pips: React.Element[] = [];
+        let pips: JSX.Element[] = [];
 
         switch( numberPips ) {
             case 1:

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 export default class TextAreaField extends React.Component<ITextAreaFieldProps, ITextAreaFieldState> {
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
         return (
             <label className={this.props.className}>
                 <strong>{this.props.label}</strong>:<br />
@@ -44,7 +44,7 @@ interface ITextAreaFieldProps {
     autoFocus?: boolean;
     placeholder?: string;
     readOnly?: boolean;
-
+    children?: React.ReactNode | React.ReactNode[];
 }
 
 interface ITextAreaFieldState {

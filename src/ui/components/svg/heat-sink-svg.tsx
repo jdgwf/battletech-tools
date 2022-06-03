@@ -19,9 +19,9 @@ export default class HeatSinksSVG extends React.Component<IHeatSinksSVGProps, IH
 		}
 	}
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
 
-    let heatSinkDots: React.Element[] = [];
+    let heatSinkDots: JSX.Element[] = [];
 
 	let lineHeight = 27;
 

@@ -3,7 +3,7 @@ import React from 'react';
 
 export default class RecordSheetGroupBoxSVG extends React.Component<IRecordSheetGroupBoxSVGProps, IRecordSheetGroupBoxSVGState> {
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
         let bgColor = "rgb(255,255,255)";
         let strokeColor = "rgb(0,0,0)";
         let theWidth = 100;
@@ -122,7 +122,7 @@ interface IRecordSheetGroupBoxSVGProps {
     title?: string;
     subTitle?: string;
     onClick?(): void;
-
+    children?: React.ReactNode | React.ReactNode[];
 }
 
 interface IRecordSheetGroupBoxSVGState {

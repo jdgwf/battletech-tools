@@ -36,7 +36,7 @@ export default class InputCheckbox extends React.Component<IInputCheckboxProps, 
         }
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
         return (
             <label
                 className={this.props.readOnly ? this.props.className : "checkbox-input " + this.props.className}
@@ -88,6 +88,7 @@ interface IInputCheckboxProps {
     autoFocus?: boolean;
     readOnly?: boolean;
     description?: string;
+    children?: React.ReactNode | React.ReactNode[];
 }
 
 interface IInputCheckboxState {

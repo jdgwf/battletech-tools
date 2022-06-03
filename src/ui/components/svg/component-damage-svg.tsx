@@ -48,7 +48,7 @@ export default class ComponentDamageSVG extends React.Component<IComponentDamage
         //     lineColor = colorGold;
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
 
         // var svg = "";
 

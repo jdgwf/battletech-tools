@@ -16,7 +16,7 @@ export default class ClassicBattleTechHome extends React.Component<IClassicBattl
         this.props.appGlobals.makeDocumentTitle("Classic BattleTech Home");
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
       return (
         <UIPage current="classic-battletech-home" appGlobals={this.props.appGlobals}>
 

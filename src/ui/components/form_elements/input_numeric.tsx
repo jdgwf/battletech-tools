@@ -46,7 +46,7 @@ export default class InputNumeric extends React.Component<IInputNumericProps, II
             this.props.setValue( +event.currentTarget.value )
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
         let label = "";
         if( this.props.label && this.props.label.trim() )
             label = this.props.label;
@@ -182,6 +182,7 @@ interface IInputNumericProps {
     step?: number;
     onFocus?( event: React.FormEvent<HTMLInputElement>): void;
     onBlur?( event: React.FormEvent<HTMLInputElement>): void;
+    children?: React.ReactNode | React.ReactNode[];
 }
 
 interface IInputNumericState {

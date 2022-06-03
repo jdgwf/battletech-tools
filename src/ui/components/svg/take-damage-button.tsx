@@ -8,7 +8,7 @@ export default class TakeDamageButtonSVG extends React.Component<ITakeDamageButt
             this.props.onClick();
         }
     }
-    render = (): React.Element => {
+    render = (): JSX.Element => {
         return (
             <svg
                 x={this.props.x}

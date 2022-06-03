@@ -107,7 +107,7 @@ export default class InputField extends React.Component<IInputFieldProps, IInput
 
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
         let value = "";
         if( this.props.value )
             value = this.props.value;
@@ -255,6 +255,7 @@ interface IInputFieldProps {
     spellCheck?: boolean;
     ddList?: string[];
     childrenAfter?: boolean;
+    children?: React.ReactNode | React.ReactNode[];
 }
 
 interface IInputFieldState {

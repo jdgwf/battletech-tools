@@ -66,7 +66,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
 
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
       if(!this.props.appGlobals.currentASForce) {
         return <></>;
       }

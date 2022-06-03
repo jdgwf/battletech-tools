@@ -170,7 +170,7 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
         })
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
 
     let totalMechs = 0;
     let bv2Discrpancies = 0;

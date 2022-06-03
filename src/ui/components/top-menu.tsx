@@ -24,7 +24,7 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
         this.props.appGlobals.closeMobile();
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
 
     let menuStructure: IMenuDef[] = [
         {

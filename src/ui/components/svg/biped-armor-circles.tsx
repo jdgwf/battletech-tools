@@ -25,7 +25,7 @@ export default class BipedArmorCircles extends React.Component<IBipedArmorCircle
             }
 		}
     }
-    render = (): React.Element => {
+    render = (): JSX.Element => {
         return (
             <>
 {this.props.inPlay && (this.props.currentPhase === 2 ||  this.props.currentPhase === 3 ) ?

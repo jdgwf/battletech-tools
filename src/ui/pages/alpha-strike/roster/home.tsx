@@ -374,7 +374,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
   }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
       return (
         <>
 <AlphaStrikeUnitEditViewModal

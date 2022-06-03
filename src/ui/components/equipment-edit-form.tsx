@@ -437,7 +437,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         this.props.onChange( item );
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
 
         return (
 <div className="form">

@@ -5,7 +5,7 @@ import './mech-creator-side-menu.scss';
 
 export default class MechCreatorSideMenu extends React.Component<IMechCreatorSideMenuProps, IMechCreatorSideMenuState> {
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
       return (
           <>
             <ul className="sidebar-menu">

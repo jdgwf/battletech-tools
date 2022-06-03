@@ -54,7 +54,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 		}
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
 
         let bgColor = "rgb(255,255,255)";
         let strokeColor = "rgb(0,0,0)";
@@ -1687,8 +1687,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         bgColor={bgColor}
         mechData={this.props.mechData}
         inPlay={this.props.inPlay}
-    >
-    </BattleMechHeatEffectsBoxSVG>
+    />
+    
 
     {/* <RecordSheetGroupBoxSVG
         yLoc={1885}
@@ -1696,8 +1696,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         height={575}
         width={205}
         title="Sinks"
-    >
-    </RecordSheetGroupBoxSVG> */}
+    />
+    */}
     <HeatSinksSVG
         yLoc={1885}
         xLoc={1690}
@@ -1706,9 +1706,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         bgColor={bgColor}
         mechData={this.props.mechData}
         inPlay={this.props.inPlay}
-    >
-
-    </HeatSinksSVG>
+    />
 
     <HeatTrackSVG
         xLoc={this.docWidth - 80}

@@ -155,7 +155,7 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
       }
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
       return (
         <>
 {/* <BattleMechEditViewModal

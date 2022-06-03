@@ -11,9 +11,9 @@ export default class BattleMechHeatEffectsBoxSVG extends React.Component<IBattle
         };
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
 
-        let effectsTable: React.Element[] = [];
+        let effectsTable: JSX.Element[] = [];
 
 	// Heat Effects....
 	// let this.props.yLoc = 1885;

@@ -1118,7 +1118,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       })
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
       if(!this.props.appGlobals.currentCBTForce) {
         return <></>;
       }

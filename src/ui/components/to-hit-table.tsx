@@ -19,7 +19,7 @@ export default class ToHitTable extends React.Component<IToHitTableProps, IToHit
             this.props.onClick( loc, critical, rear, currentSide, currentRoll );
         }
     }
-    render = (): React.Element => {
+    render = (): JSX.Element => {
 
         let toHitTable = getBattleMechToHitChart();
 

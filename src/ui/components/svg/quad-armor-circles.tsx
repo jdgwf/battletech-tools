@@ -25,7 +25,7 @@ export default class QuadArmorCircles extends React.Component<IQuadArmorCirclesP
             }
 		}
     }
-    render = (): React.Element => {
+    render = (): JSX.Element => {
         return (
             <>
 

@@ -19,7 +19,7 @@ export default class AlphaStrikeToggleRulerHexes extends React.Component<IAlphaS
 
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
 
         return (
             <span

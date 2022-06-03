@@ -112,11 +112,11 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
         this.props.openEditUnit( showASUnit )
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
       if(!this.props.appGlobals.currentASForce) {
         return <></>
       }
-        let addUnitButton: React.Element = <></>;
+        let addUnitButton: JSX.Element = <></>;
 
         if( this.props.openAddingUnits ) {
             addUnitButton = <button

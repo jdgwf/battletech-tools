@@ -57,7 +57,7 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
         return false;
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
 
         let currentCategory = this.props.appGlobals.appSettings.installEquipCategory;
 

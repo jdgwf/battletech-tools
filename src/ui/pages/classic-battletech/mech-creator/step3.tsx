@@ -37,7 +37,7 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
       }
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
       if(!this.props.appGlobals.currentBattleMech)
         return <></>
       let weightDropDownMax = this.props.appGlobals.currentBattleMech.getRemainingTonnage() + this.props.appGlobals.currentBattleMech.getAdditionalHeatSinks();

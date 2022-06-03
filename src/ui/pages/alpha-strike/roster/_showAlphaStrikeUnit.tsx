@@ -33,7 +33,7 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
         }
       }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
         return (
 <StandardModal
     onClose={this.props.closeShowUnitDialog}

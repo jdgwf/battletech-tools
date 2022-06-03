@@ -144,7 +144,7 @@ export default class BattleMechAddMechDialog extends React.Component<IBattleMech
 
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
         return(
 <>
 {this.state.viewingUnit ? (

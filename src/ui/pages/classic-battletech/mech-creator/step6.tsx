@@ -351,7 +351,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
 
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
       if(!this.props.appGlobals.currentBattleMech)
         return <></>
       return (

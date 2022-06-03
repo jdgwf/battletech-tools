@@ -45,7 +45,7 @@ export default class QuadArmorDiagramSVG extends React.Component<IQuadArmorDiagr
         //     lineColor = colorGold;
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
 
         // var svg = "";
 

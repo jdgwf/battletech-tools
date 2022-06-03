@@ -455,7 +455,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
     }
 
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
         return (
             <>
 

@@ -10,7 +10,7 @@ export default class StarBar extends React.Component<IStarBarProps, IStarBarStat
         };
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
 
         let statBarCurrentStyle: React.CSSProperties = {
             width: this.props.currentPercentage + "%",

@@ -179,7 +179,7 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
       }
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
 
       let restoreFileName = this.restoreFileName + "-" + (new Date()).toLocaleString() + ".json";
       return (

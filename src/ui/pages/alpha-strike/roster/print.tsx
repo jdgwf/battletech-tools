@@ -20,7 +20,7 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
     }
 
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
       if(!this.props.appGlobals.currentASForce) {
         return <></>;
       }

@@ -5,7 +5,7 @@ import './mech-creator-status-bar.scss';
 
 export default class MechCreatorStatusBar extends React.Component<IMechCreatorStatusBarProps, IMechCreatorStatusBarState> {
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
         if(!this.props.appGlobals.currentBattleMech) {
             return <></>
         }

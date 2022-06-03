@@ -233,7 +233,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         return rv;
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
         if( !this.props.asUnit ) {
             return <></>
         }

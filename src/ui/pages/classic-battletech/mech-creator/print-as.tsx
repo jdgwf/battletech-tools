@@ -12,7 +12,7 @@ export default class MechCreatorPrintAS extends React.Component<IPrintASProps, I
         this.props.appGlobals.makeDocumentTitle("'Mech Creator");
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
       if(!this.props.appGlobals.currentBattleMech) {
         return <></>
       }

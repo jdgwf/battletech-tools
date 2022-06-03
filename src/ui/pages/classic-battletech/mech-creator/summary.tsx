@@ -57,7 +57,7 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
       }
     }
 
-    render = (): React.Element => {
+    render = (): JSX.Element => {
       if(!this.props.appGlobals.currentBattleMech)
         return <></>
       return (
