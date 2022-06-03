@@ -231,7 +231,7 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
         }
       }
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
         if(!this.props.appGlobals.currentCBTForce) {
             return ("No BM Force Error");
         }

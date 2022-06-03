@@ -9,7 +9,7 @@ export default class TextSection extends React.Component<ITextSectionProps, ITex
         };
     }
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
 
         return (
 
@@ -32,7 +32,7 @@ export default class TextSection extends React.Component<ITextSectionProps, ITex
 
 interface ITextSectionProps {
     label?: string;
-    labelButton?: React.ReactFragment;
+    labelButton?: React.Element;
     className?: string;
     contentClassName?: string;
 }

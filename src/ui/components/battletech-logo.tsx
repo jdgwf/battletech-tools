@@ -2,7 +2,7 @@ import React from 'react';
 
 export default class BattleTechLogo extends React.Component<IBattleTechLogoProps, IBattleTechLogoState> {
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
         let width = 210;
         let height = 28;
         let xLoc = 0;

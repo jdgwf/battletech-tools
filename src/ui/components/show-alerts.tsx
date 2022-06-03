@@ -22,7 +22,7 @@ export default class ShowAlerts extends React.Component<IShowAlertsProps, IShowA
         }
     }
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
         return (
             <ul className="styleless">
                 {this.props.appGlobals.siteAlerts.activeAlerts.map(

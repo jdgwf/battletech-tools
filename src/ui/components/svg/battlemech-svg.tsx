@@ -54,7 +54,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 		}
     }
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
 
         let bgColor = "rgb(255,255,255)";
         let strokeColor = "rgb(0,0,0)";

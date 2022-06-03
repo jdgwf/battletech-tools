@@ -13,7 +13,7 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
     this.props.appGlobals.makeDocumentTitle("About Jeff's BattleTech Tools");
   }
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
       return (
     <UIPage current="about" appGlobals={this.props.appGlobals}>
 

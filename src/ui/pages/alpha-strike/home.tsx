@@ -15,7 +15,7 @@ export default class AlphaStrikeHome extends React.Component<IAlphaStrikeHomePro
         this.props.appGlobals.makeDocumentTitle("AlphaStrikeHome");
     }
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
       return (
         <UIPage current="alpha-strike-home" appGlobals={this.props.appGlobals}>
 

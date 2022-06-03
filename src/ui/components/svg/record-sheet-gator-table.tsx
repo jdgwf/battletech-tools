@@ -19,7 +19,7 @@ export default class RecordSheetGATORTable extends React.Component<IRecordSheetG
         };
     }
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
 
         return (
             <RecordSheetGroupBoxSVG

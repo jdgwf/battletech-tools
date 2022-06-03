@@ -19,7 +19,7 @@ export default class MechCreatorExports extends React.Component<IHomeProps, IHom
         this.props.appGlobals.makeDocumentTitle("Exports | 'Mech Creator");
     }
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
       if(!this.props.appGlobals.currentBattleMech)
         return <></>
       return (

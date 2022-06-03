@@ -6,7 +6,7 @@ import './unallocated-equipment-list.scss';
 
 export default class UnallocatedEquipmentList extends React.Component<IUnallocatedEquipmentListProps, IUnallocatedEquipmentListState> {
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
         return (
             <ul className="critical-assignment-container">
             {this.props.crits.map( (crit, critIndex) => {

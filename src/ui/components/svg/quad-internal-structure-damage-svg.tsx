@@ -45,7 +45,7 @@ export default class QuadInternalStructureDiagramSVG extends React.Component<IQu
         //     lineColor = colorGold;
     }
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
 
         // var svg = "";
 

@@ -36,7 +36,7 @@ export default class InputCheckbox extends React.Component<IInputCheckboxProps, 
         }
     }
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
         return (
             <label
                 className={this.props.readOnly ? this.props.className : "checkbox-input " + this.props.className}

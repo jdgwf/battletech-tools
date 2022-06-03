@@ -38,7 +38,7 @@ export default class SVGGroupBox extends React.Component<ISVGGroupBoxProps, ISVG
         }
     }
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
         return <div className="fieldset">
             {this.props.children}
         </div>

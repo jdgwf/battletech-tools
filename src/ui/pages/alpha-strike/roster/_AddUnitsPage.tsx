@@ -130,7 +130,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       }
     }
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
       if(!this.props.appGlobals.currentASForce) {
         return <></>
       }

@@ -9,7 +9,7 @@ export default class TargetSelectSVG extends React.Component<ITargetSelectSVGPro
             this.props.onClick( this.props.mechData );
         }
     }
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
         return (
             <svg
                 x={this.props.x}

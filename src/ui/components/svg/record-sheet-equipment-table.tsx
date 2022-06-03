@@ -56,7 +56,7 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
         }
     }
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
 
         let weapAndEqpTop = this.props.yLoc;
         let weapAndEqpLeft = this.props.xLoc;
@@ -71,7 +71,7 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
         let wacCol8 = weapAndEqpLeft + 990;
         let wacCol9 = weapAndEqpLeft + 1100;
 
-        let equipmentList: React.ReactFragment[] = [];
+        let equipmentList: React.Element[] = [];
         let rearDesignation = "";
 
         let colorVeryLightGray = "rgb(200, 200, 200)";

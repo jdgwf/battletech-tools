@@ -26,9 +26,9 @@ export default class HeatTrackSVG extends React.Component<IHeatTrackSVGProps, IH
         }
     }
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
 
-        let heatScale: React.ReactFragment[] = [];
+        let heatScale: React.Element[] = [];
         let boxHeight = 37;
         let boxWidth = 60;
         let normalBG = this.bgColor;

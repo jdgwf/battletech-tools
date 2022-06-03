@@ -375,7 +375,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
 
     }
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
 
       return (
     <UIPage current="equipment-editor" appGlobals={this.props.appGlobals}>

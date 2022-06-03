@@ -203,7 +203,7 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
 
   }
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
 
       if(!this.props.appGlobals.currentBattleMech)
         return <></>

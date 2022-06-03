@@ -107,7 +107,7 @@ export default class InputField extends React.Component<IInputFieldProps, IInput
 
     }
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
         let value = "";
         if( this.props.value )
             value = this.props.value;

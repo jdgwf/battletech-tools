@@ -18,7 +18,7 @@ export default class InPlayCriticalHitTable extends React.Component<IInPlayCriti
         }
     }
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
         let lastCritName = "";
         return(
             <fieldset className="fieldset">
@@ -27,7 +27,7 @@ export default class InPlayCriticalHitTable extends React.Component<IInPlayCriti
                     <tbody>
                 {makeRange(0, this.props.numberCritSlots - 1).map( ( critSlotIndex ) => {
                     let crit: ICriticalSlot | null = null;
-                    let hr: React.ReactFragment | null = null;
+                    let hr: React.Element | null = null;
 
                     if( critSlotIndex === 5 && this.props.numberCritSlots > 6)
                         hr = <tr><td colSpan={4}><hr /></td></tr>

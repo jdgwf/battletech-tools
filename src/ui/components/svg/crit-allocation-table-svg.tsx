@@ -12,7 +12,7 @@ export default class CritAllocationTableSVG extends React.Component<ICritAllocat
         };
     }
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
 
         // let bgColor = "rgb(255,255,255)";
         let strokeColor = "rgb(0,0,0)";
@@ -25,8 +25,8 @@ export default class CritAllocationTableSVG extends React.Component<ICritAllocat
         let boxWidth = 275;
         let lineBuffer = 6;
 
-        let critTable: React.ReactFragment[] = [];
-        let critBackgrounds: React.ReactFragment[] = [];
+        let critTable: React.Element[] = [];
+        let critBackgrounds: React.Element[] = [];
 
         let lineCount = 0;
         let dieNumber = 1;

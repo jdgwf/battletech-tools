@@ -8,7 +8,7 @@ import BattleMechRosterRouter from './roster/_router';
 
 export default class ClassicBattleTechRouter extends React.Component<IClassicBattleTechRouterProps, IClassicBattleTechRouterState> {
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
         return(
             <Routes>
 

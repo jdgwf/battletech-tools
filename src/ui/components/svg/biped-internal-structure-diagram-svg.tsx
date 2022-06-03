@@ -45,7 +45,7 @@ export default class BipedInternalStructureDiagramSVG extends React.Component<IB
         //     lineColor = colorGold;
     }
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
 
         // var svg = "";
 

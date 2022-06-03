@@ -11,7 +11,7 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
         this.props.appGlobals.makeDocumentTitle("Development Status");
     }
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
       return (
         <UIPage current="dev-status" appGlobals={this.props.appGlobals}>
             <h2>Development Status</h2>

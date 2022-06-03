@@ -101,7 +101,7 @@ export default class RangeInput extends React.Component<IRangeInputProps, IRange
         this.props.onChange( item );
     }
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
         return (
             <fieldset className="fieldset">
                 <legend>{this.props.label}</legend>

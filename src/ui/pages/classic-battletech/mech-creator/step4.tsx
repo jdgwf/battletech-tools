@@ -130,7 +130,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
       }
     }
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
       if(!this.props.appGlobals.currentBattleMech) {
         return <></>
       }

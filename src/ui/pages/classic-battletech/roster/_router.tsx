@@ -8,7 +8,7 @@ import PrintSheet from './print';
 
 export default class BattleMechRosterRouter extends React.Component<IBattleMechRosterRouterProps, IBattleMechRosterRouterState> {
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
         return(
             <Routes>
 

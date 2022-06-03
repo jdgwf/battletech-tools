@@ -18,7 +18,7 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
         this.props.appGlobals.makeDocumentTitle("Printing CBT Force");
     }
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
       if(!this.props.appGlobals.currentCBTForce) {
         return <></>;
       }

@@ -7,7 +7,7 @@ import AlphaStrikeRosterRouter from './roster/_router';
 
 export default class AlphaStrikeRouter extends React.Component<IAlphaStrikeRouterProps, IAlphaStrikeRouterState> {
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
         return(
             <Routes>
 

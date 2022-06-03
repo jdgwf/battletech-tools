@@ -5,7 +5,7 @@ import InputCheckbox from './form_elements/input_checkbox';
 
 export default class StandardModal extends React.Component<IStandardModalProps, IStandardModalState> {
 
-    render = (): React.ReactFragment => {
+    render = (): React.Element => {
 
         let labelAdd = "Add";
         if( this.props.labelAdd)
@@ -173,7 +173,7 @@ interface IStandardModalProps {
     topBarCheckboxFunction?(
         e: React.FormEvent<HTMLInputElement>,
     ): void;
-    topButton?: React.ReactFragment;
+    topButton?: React.Element;
 
     saveDisabled?: boolean;
 }
