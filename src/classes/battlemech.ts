@@ -9056,6 +9056,7 @@ export class BattleMech {
                     this.setTech("clan");
                 }
             }
+
             if( jObj.mech.baseloadout ) {
                 if( jObj.mech.baseloadout.actuators ) {
                     if( jObj.mech.baseloadout.actuators["@_lh"] && jObj.mech.baseloadout.actuators["@_lh"].toLowerCase().trim() !== "true" ) {
@@ -9079,8 +9080,8 @@ export class BattleMech {
                         this.addLowerArmActuator( "ra" );
                     }
                 }
-
             }
+
             if( jObj.mech.armor ) {
                 let totalArmor = 0;
                 // It sure would be nice for SSW to have the armor weight in XML file 🙄

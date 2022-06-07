@@ -1,5 +1,6 @@
 import React from 'react';
 import { AlphaStrikeUnit } from '../../../classes/alpha-strike-unit';
+import { IASPilotAbility } from '../../../data/alpha-strike-pilot-abilities';
 import { IAppGlobals } from '../../app-router';
 import BattleTechLogo from '../battletech-logo';
 
@@ -155,6 +156,17 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         }
     }
 
+    private _showAbility = (
+        e: React.MouseEvent<SVGTextElement, MouseEvent>,
+        ability: IASPilotAbility | null,
+    ) => {
+        if( e && e.preventDefault ) e.preventDefault();
+
+        if( this.props.showSpecialAbility && ability ) {
+            this.props.showSpecialAbility( ability );
+        }
+    }
+
     private _makeArmorDots = (
         count: number,
         xLoc: number,
@@ -276,8 +288,18 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     <text x="20" y="50" fontFamily="sans-serif" fontSize="40">{this.props.asUnit.name.toUpperCase()}</text>
                 )}
 
-                {this.props.asUnit.currentPilotAbility ? (
-                    <text x="20" y="97" fontFamily="sans-serif" fontSize="20">Pilot Ability: {this.props.asUnit.currentPilotAbility.ability} ({this.props.asUnit.currentPilotAbility.cost})</text>
+                {this.props.asUnit && this.props.asUnit.currentPilotAbility ? (
+                    <text
+                        x="20"
+                        y="97"
+                        fontFamily="sans-serif"
+                        stroke="rgb(0,200,0)"
+                        fontSize="20"
+                        className={this.props.inPlay && this.props.asUnit && this.props.showSpecialAbility ? "cursor-pointer" : ""}
+                        onClick={(e) => this._showAbility(e, this.props.asUnit ? this.props.asUnit.currentPilotAbility : null)}
+                    >
+                        Pilot Ability: {this.props.asUnit.currentPilotAbility.ability} ({this.props.asUnit.currentPilotAbility.cost})
+                    </text>
                 ) : null}
 
                 <rect x="850" y="9" width="150" height="35" fill="rgb(0,0,0)"></rect>
@@ -768,8 +790,10 @@ interface IAlphaStrikeUnitSVGProps {
     forPrint?: boolean;
     showExtreme?: boolean;
     measurementsInHexes: boolean;
+    showSpecialAbility?( ability: IASPilotAbility ): void;
 }
 
 interface IAlphaStrikeUnitSVGState {
     showTakeDamage: boolean;
+
 }

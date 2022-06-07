@@ -4,8 +4,10 @@ import { FiRefreshCcw } from "react-icons/fi";
 import { Link } from 'react-router-dom';
 import AlphaStrikeGroup from '../../../../classes/alpha-strike-group';
 import { CONST_BATTLETECH_URL } from '../../../../configVars';
+import { IASPilotAbility } from '../../../../data/alpha-strike-pilot-abilities';
 import { IAppGlobals } from '../../../app-router';
 import BattleTechLogo from '../../../components/battletech-logo';
+import StandardModal from '../../../components/standard-modal';
 import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
 import './in-play.scss';
 import AlphaStrikeToggleRulerHexes from "./_toggleRulerHexes";
@@ -18,6 +20,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
 
         this.state = {
             updated: false,
+            showAbility: null,
         };
 
         this.props.appGlobals.makeDocumentTitle("Playing Alpha Strike");
@@ -66,12 +69,38 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
 
     }
 
+    showSpecialAbility = ( ability: IASPilotAbility ): void => {
+      this.setState({
+        showAbility: ability,
+      })
+    };
+
+    closeSpecialAbility = (
+      e: React.FormEvent<HTMLButtonElement>
+    ): void => {
+      if( e && e.preventDefault ) e.preventDefault();
+
+      this.setState({
+        showAbility: null,
+      })
+    }
+
     render = (): JSX.Element => {
       if(!this.props.appGlobals.currentASForce) {
         return <></>;
       }
       return (
         <>
+{this.state.showAbility ? (
+<StandardModal
+  title={this.state.showAbility.ability+ " (" + this.state.showAbility.cost + ")"}
+  show={true}
+  onClose={this.closeSpecialAbility}
+>
+  <p>{this.state.showAbility.summary}</p>
+</StandardModal>
+) : null}
+
           <header className="topmenu">
           <ul className="main-menu">
                 <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/alpha-strike-roster`}><FaArrowCircleLeft /></Link></li>
@@ -148,6 +177,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
                           appGlobals={this.props.appGlobals}
                           className="small-margins"
                           measurementsInHexes={this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes}
+                          showSpecialAbility={this.showSpecialAbility}
                         />
                       </div>
                     </React.Fragment>
@@ -172,5 +202,5 @@ interface IInPlayProps {
 
 interface IInPlayState {
   updated: boolean;
-
+  showAbility: IASPilotAbility | null,
 }
