@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { CONST_BATTLETECH_URL } from '../../../../configVars';
 import { IAppGlobals } from '../../../app-router';
 import BattleTechLogo from '../../../components/battletech-logo';
+import AlphaStrikePilotCardSVG from '../../../components/svg/alpha-strike-pilot-card-svg';
 import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
 import './print.scss';
 import AlphaStrikeToggleRulerHexes from "./_toggleRulerHexes";
@@ -88,6 +89,17 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
                           measurementsInHexes={this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes}
                         />
                       </div>
+                      {unit.currentPilotAbility ? (
+                        <div className={"card"}>
+                        <AlphaStrikePilotCardSVG
+                          pilotAbility={unit.currentPilotAbility}
+                          inPlay={false}
+                          appGlobals={this.props.appGlobals}
+                          className="small-margins"
+                          measurementsInHexes={this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes}
+                        />
+                      </div>
+                      ) : null}
                     </React.Fragment>
                     )
                   })}

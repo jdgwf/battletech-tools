@@ -1,3 +1,4 @@
+import { CONST_AS_PILOT_ABILITIES, IASPilotAbility } from "../data/alpha-strike-pilot-abilities";
 import { generateUUID } from "../utils/generateUUID";
 import Pilot, { IPilot } from "./pilot";
 
@@ -151,7 +152,7 @@ export class AlphaStrikeUnit {
 
     public showDetails: boolean = false;
 
-    public  active: boolean = true;
+    public active: boolean = true;
 
     public tonnage: number = 0;
 
@@ -475,6 +476,31 @@ export class AlphaStrikeUnit {
 
     public get currentSkill(): number {
         return this._pilot.gunnery;
+    }
+
+    public get currentPilotAbilityID(): number {
+
+        if( this._pilot.alphaStrikeAbilities.length > 0 ) {
+            return this._pilot.alphaStrikeAbilities[0];
+        }
+        return 0;
+    }
+
+    public get currentPilotAbility(): IASPilotAbility | null {
+
+        if( this._pilot.alphaStrikeAbilities.length > 0 ) {
+            for( let abi of CONST_AS_PILOT_ABILITIES ) {
+                if( this._pilot.alphaStrikeAbilities[0] === abi.id )
+                    return abi;
+            }
+
+        }
+        return null;
+    }
+
+    public set currentPilotAbilityID( nv: number ) {
+        this._pilot.alphaStrikeAbilities = [nv];
+
     }
 
     public getRawNumber( incomingString: string ): number {

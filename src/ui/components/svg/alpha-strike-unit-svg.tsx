@@ -270,16 +270,23 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 {this.props.asUnit.customName ? (
                     <>
                         <text x="20" y="50" fontFamily="sans-serif" fontSize="40">{this.props.asUnit.customName}</text>
-                        <text x="20" y="80" fontFamily="sans-serif" fontSize="25">{this.props.asUnit.name.toUpperCase()}</text>
+                        <text x="20" y="75" fontFamily="sans-serif" fontSize="25">{this.props.asUnit.name.toUpperCase()}</text>
                     </>
                 ) : (
                     <text x="20" y="50" fontFamily="sans-serif" fontSize="40">{this.props.asUnit.name.toUpperCase()}</text>
                 )}
 
+                {this.props.asUnit.currentPilotAbility ? (
+                    <text x="20" y="97" fontFamily="sans-serif" fontSize="20">Pilot Ability: {this.props.asUnit.currentPilotAbility.ability} ({this.props.asUnit.currentPilotAbility.cost})</text>
+                ) : null}
+
                 <rect x="850" y="9" width="150" height="35" fill="rgb(0,0,0)"></rect>
                 <text x="990" y="35" textAnchor="end" fill="rgb(255,255,255)" stroke="rgb(255,255,255)" fontFamily="sans-serif" fontSize="33">PV: {this.props.asUnit.currentPoints}</text>
-                {this.props.asUnit.currentTMM !== this.props.asUnit.basePoints.toString() ? (
+                {this.props.asUnit.currentPoints !== this.props.asUnit.basePoints ? (
                     <text x="988" y="60" textAnchor="end" fontFamily="sans-serif" fontSize="20">Base PV: {this.props.asUnit.basePoints.toString().toUpperCase()}</text>
+                ) : null}
+                {this.props.asUnit.currentPilotAbility ? (
+                    <text x="988" y={this.props.asUnit.currentPoints !== this.props.asUnit.basePoints ? "80" : "60"} textAnchor="end" fontFamily="sans-serif" fontSize="20">Pilot PV: {this.props.asUnit.currentPilotAbility.cost.toString().toUpperCase()}</text>
                 ) : null}
                 <rect x="20" y="100" width="550" height="105" fill="rgb(0,0,0)" rx="18" ry="18"></rect>
                 <rect x="25" y="105" width="540" height="95" fill="rgba( 255,255,255,.8)" rx="15" ry="15"></rect>

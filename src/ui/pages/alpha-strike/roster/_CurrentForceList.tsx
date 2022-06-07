@@ -313,6 +313,20 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
 
                               </td>
                             </tr>
+                            {asUnit.currentPilotAbility ? (
+                              <tr>
+                                <td>
+                                  &nbsp;
+                                </td>
+                                <td>
+                                  Pilot Ability: {asUnit.currentPilotAbility.ability}
+                                  <br /><span className="small-text">{asUnit.currentPilotAbility.summary}</span>
+                                </td>
+                                <td>
+                                  {asUnit.currentPilotAbility.cost}
+                                </td>
+                              </tr>
+                            ) : null}
                             </tbody>
                           )
                         })}

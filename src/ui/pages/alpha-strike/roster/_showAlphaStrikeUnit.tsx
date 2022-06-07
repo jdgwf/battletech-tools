@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { AlphaStrikeUnit } from '../../../../classes/alpha-strike-unit';
+import { CONST_AS_PILOT_ABILITIES } from '../../../../data/alpha-strike-pilot-abilities';
 import { IAppGlobals } from '../../../app-router';
 import InputField from '../../../components/form_elements/input_field';
 import StandardModal from '../../../components/standard-modal';
@@ -16,22 +17,29 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
     }
 
     updateUnitSkill = (event: React.FormEvent<HTMLSelectElement>): void => {
-        if(this.props.showASUnit) {
-          this.props.showASUnit.setSkill( +event.currentTarget.value );
-          this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
-        }
+      if(this.props.showASUnit) {
+        this.props.showASUnit.setSkill( +event.currentTarget.value );
+        this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
       }
+    }
 
-      renameUnit = (event: React.FormEvent<HTMLInputElement>): void => {
-        if(this.props.showASUnit) {
-          let asUnit = this.props.showASUnit;
-          asUnit.customName = event.currentTarget.value;
-          this.setState({
-            updated: true,
-          })
-          this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
-        }
+    updateUnitPilotAbility = (event: React.FormEvent<HTMLSelectElement>): void => {
+      if(this.props.showASUnit) {
+        this.props.showASUnit.currentPilotAbilityID = +event.currentTarget.value;
+        this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
       }
+    }
+
+    renameUnit = (event: React.FormEvent<HTMLInputElement>): void => {
+      if(this.props.showASUnit) {
+        let asUnit = this.props.showASUnit;
+        asUnit.customName = event.currentTarget.value;
+        this.setState({
+          updated: true,
+        })
+        this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+      }
+    }
 
     render = (): JSX.Element => {
         return (
@@ -51,6 +59,7 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
 >
 <div className="text-center">
 {this.props.editASUnit && this.props.showASUnit ? (
+<>
                       <div className="row">
                         <div className="col-xs-6 col-lg-8 text-left" >
 
@@ -82,6 +91,28 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
                           </label>
                         </div>
                       </div>
+                      <div className="row">
+                        <div className="col-xs-12 col-lg-12 text-left" >
+                          <label>
+                            Pilot Card:&nbsp;
+                            <select
+                              value={this.props.showASUnit.currentPilotAbilityID}
+                              onChange={this.updateUnitPilotAbility}
+                            >
+                              <option value={0}>- None -</option>
+                              {CONST_AS_PILOT_ABILITIES.map( (abi, abiIndex) => {
+                                return (
+                                  <option title={abi.summary} key={abiIndex} value={abi.id}>{abi.ability}  ({abi.cost})</option>
+                                )
+                              })}
+                            </select>
+                            {this.props.showASUnit.currentPilotAbility ? (
+                              <div>{this.props.showASUnit.currentPilotAbility.summary}</div>
+                            ): null}
+                          </label>
+                        </div>
+                      </div>
+</>
                     ) : (
                       <></>
                     )}
