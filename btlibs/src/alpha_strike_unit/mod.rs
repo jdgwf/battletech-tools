@@ -1,5 +1,7 @@
+use wasm_bindgen::prelude::*;
+use uuid::{Uuid};
+
 use crate::pilot::Pilot;
-// mod alpha_strike_abilities;
 mod alpha_strike_damage;
 mod mul_unit;
 mod mul_role;
@@ -9,31 +11,29 @@ mod move_number;
 use alpha_strike_damage::AlphaStrikeDamage;
 use move_number::MoveNumber;
 use mul_unit::MULUnit;
-use mul_tech::MULTech;
-use mul_role::MULRole;
-use mul_type::MULType;
-// use move_number;
 
+#[wasm_bindgen]
+#[derive(Debug, Clone)]
 pub struct AlphaStrikeUnit {
 
-    pub uuid: String,
-    pub original_stats: MULUnit,
+    uuid: String,
+    original_stats: MULUnit,
 
-    pub mech_creator_uuid: String,
+    mech_creator_uuid: String,
 
-    pub classification: String,
+    classification: String,
     pub cost_cr: u32,
 
     pub is_aerospace: bool,
     pub is_infantry: bool,
     pub immobile: bool,
 
-    pub variant: String,
-    pub name: String,
-    pub date_introduced: String,
-    pub era: String,
+    variant: String,
+    name: String,
+    date_introduced: String,
+    era: String,
 
-    pub tro: String,
+    tro: String,
 
     pub show_details: bool,
 
@@ -41,15 +41,15 @@ pub struct AlphaStrikeUnit {
 
     pub tonnage: u32,
 
-    pub r#type: String,
+    unit_type: String,
     pub size: u32,
     pub tmm: u32,
 
-    pub image_url: String,
+    image_url: String,
 
-    pub current_move: String,
-    pub current_move_hexes: String,
-    pub current_tmm: String,
+    current_move: String,
+    current_move_hexes: String,
+    current_tmm: String,
 
     pub armor: u32,
     pub structure: u32,
@@ -63,15 +63,15 @@ pub struct AlphaStrikeUnit {
 
     pub damage: AlphaStrikeDamage,
 
-    pub r#move: Vec<MoveNumber>,
-    pub jump_move: u32,
+    move_value: Vec<MoveNumber>,
+    pub jump_move_value: u32,
 
     pub mul_id: u32,
 
-    pub abilities: String,
+    abilities: String,
 
     pub overheat: u32,
-    pub role: String,
+    role: String,
 
     pub base_points: u32,
     pub current_points: u32,
@@ -79,18 +79,18 @@ pub struct AlphaStrikeUnit {
 
     pub current_damage: AlphaStrikeDamage,
 
-    pub current_armor: Vec<bool>,
-    pub current_structure: Vec<bool>,
-    pub engine_hits: Vec<bool>,
-    pub fire_control_hits: Vec<bool>,
-    pub mp_control_hits: Vec<bool>,
-    pub weapon_hits: Vec<bool>,
+    current_armor: Vec<bool>,
+    current_structure: Vec<bool>,
+    engine_hits: Vec<bool>,
+    fire_control_hits: Vec<bool>,
+    mp_control_hits: Vec<bool>,
+    weapon_hits: Vec<bool>,
 
-    pub vehicle_motive_910: Vec<bool>,
-    pub vehicle_motive_11: Vec<bool>,
-    pub vehicle_motive_12: bool,
+    vehicle_motive_910: Vec<bool>,
+    vehicle_motive_11: Vec<bool>,
+    vehicle_motive_12: bool,
 
     _pilot: Pilot,
 
-    pub custom_name: String,
+    custom_name: String,
 }

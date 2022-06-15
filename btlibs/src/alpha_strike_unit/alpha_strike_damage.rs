@@ -1,3 +1,7 @@
+use wasm_bindgen::prelude::*;
+
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy)]
 pub struct AlphaStrikeDamage {
     short: i32,
     medium: i32,
