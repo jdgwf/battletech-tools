@@ -28,7 +28,6 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
               <strong>Developer and Designer</strong> - <a href="https://twitter.com/JeffreyDGordon/">@JeffreyDGordon</a><br />
               <p>Jeff has been playing BattleTech since 1985 and has been a professional developer since 1996.
               These tools, and several others, including
-              &nbsp;<a target="_blank" rel="noopener noreferrer" href="https://jdgwf.github.io/savage-worlds-web-tools/">the Savage Worlds Web Tools project</a>,
               &nbsp;<a target="_blank" rel="noopener noreferrer" href="https://savaged.us">Savaged.us</a>,
               &nbsp;<a target="_blank" rel="noopener noreferrer" href="https://opend6.net">opend6.net</a>
               &nbsp;and <a target="_blank" rel="noopener noreferrer" href="https://jdgwf.github.io/tournament-tracker/">Tournament Tracker</a>

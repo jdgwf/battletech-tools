@@ -24,6 +24,7 @@ import Error404 from "./pages/error404";
 import Home from "./pages/home";
 import SettingsRouter from "./pages/settings/_router";
 import SSWSanityCheck from "./pages/ssw-sanity-check";
+import init, { add_testing } from "btlibs";
 let pjson = require('../../package.json');
 
 
@@ -45,11 +46,17 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
         // console.log("settingsData", settingsData);
         if( settingsData && settingsData.uiTheme ) {
-
             document.body.className = settingsData.uiTheme;
         } else {
             document.body.className = '';
         }
+
+        init().then(
+            () => {
+                console.log("X wasm add", add_testing( 3, 4));
+            }
+        );
+
 
         let appGlobals: IAppGlobals = {
             sessionUUID: sessionUUID,

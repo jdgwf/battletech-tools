@@ -1,6 +1,6 @@
 {
   "name": "battletech-tools",
-  "version": "0.5.73",
+  "version": "0.5.74",
   "private": true,
   "homepage": "https://jdgwf.github.io/battletech-tools",
   "scripts": {
@@ -10,6 +10,7 @@
     "build-cli": "tsc --build tsconfig-cli.json",
     "predeploy": "npm run  build",
     "deploy": "gh-pages -d build",
+    "build:wasm": "cd btlibs && wasm-pack build --target web --out-dir pkg",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -30,6 +31,7 @@
   },
   "dependencies": {
     "bootstrap": "^5.1.3",
+    "btlibs": "file:btlibs/pkg",
     "eslint-config-react-app": "^7.0.1",
     "fast-xml-parser": "^4.0.8",
     "react": "^18.1.0",
