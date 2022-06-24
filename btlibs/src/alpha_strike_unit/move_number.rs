@@ -10,6 +10,16 @@ pub struct MoveNumber {
 
 #[wasm_bindgen]
 impl MoveNumber {
+
+    #[wasm_bindgen(constructor)]
+    pub fn new() -> MoveNumber {
+        MoveNumber {
+            move_value: 0,
+            current_move: 0,
+            move_type: "".to_string(),
+        }
+    }
+
     #[wasm_bindgen(getter)]
     pub fn move_type( &self ) -> String {
         self.move_type.clone()

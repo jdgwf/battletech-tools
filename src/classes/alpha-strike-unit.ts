@@ -337,8 +337,8 @@ export class AlphaStrikeUnit {
                         type: ""
                     };
 
-                    tmpMoveObj.move = this.getRawNumber( moveArray[moveCount] );
-                    tmpMoveObj.type = this.getRawAlpha( moveArray[moveCount] );
+                    tmpMoveObj.move = this._getRawNumber( moveArray[moveCount] );
+                    tmpMoveObj.type = this._getRawAlpha( moveArray[moveCount] );
 
                     this.move.push( tmpMoveObj );
                 }
@@ -351,8 +351,8 @@ export class AlphaStrikeUnit {
                     type: ""
                 };
 
-                tmpMoveObj.move = this.getRawNumber( tmpMove );
-                tmpMoveObj.type = this.getRawAlpha( tmpMove );
+                tmpMoveObj.move = this._getRawNumber( tmpMove );
+                tmpMoveObj.type = this._getRawAlpha( tmpMove );
 
                 this.move.push( tmpMoveObj );
 
@@ -503,12 +503,12 @@ export class AlphaStrikeUnit {
 
     }
 
-    public getRawNumber( incomingString: string ): number {
+    private _getRawNumber( incomingString: string ): number {
         let myString = incomingString.replace(/\D/g,'');
         return +myString / 1;
     }
 
-    public getRawAlpha( incomingString: string ): string {
+    private _getRawAlpha( incomingString: string ): string {
         let myString = incomingString.replace(/\d/g,'');
         return myString.toLowerCase().trim();
     }

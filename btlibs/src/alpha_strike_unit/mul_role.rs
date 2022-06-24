@@ -14,6 +14,16 @@ pub struct MULRole {
 #[allow(non_snake_case)]
 #[wasm_bindgen]
 impl MULRole {
+    #[wasm_bindgen(constructor)]
+    pub fn new() -> MULRole {
+        MULRole {
+            Id: 0,
+            Image: "".to_string(),
+            Name: "".to_string(),
+            SortOrder: 0,
+        }
+    }
+
     #[wasm_bindgen(getter)]
     pub fn Image( &self ) -> String {
         self.Image.clone()

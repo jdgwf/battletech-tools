@@ -4,16 +4,26 @@ use wasm_bindgen::prelude::*;
 #[derive(Debug, Clone)]
 #[wasm_bindgen]
 pub struct MULTech {
-    Id: u32,
+    pub Id: u32,
     Image: String,
     Name: String,
-    SortOrder: u32,
+    pub SortOrder: u32,
 }
 
 
 #[allow(non_snake_case)]
 #[wasm_bindgen]
 impl MULTech {
+    #[wasm_bindgen(constructor)]
+    pub fn new() -> MULTech {
+        MULTech {
+            Id: 0,
+            Image: "".to_string(),
+            Name: "".to_string(),
+            SortOrder: 0,
+        }
+    }
+
     #[wasm_bindgen(getter)]
     pub fn Image( &self ) -> String {
         self.Image.clone()

@@ -52,8 +52,6 @@ export default class Pilot {
                     break;
                 }
             }
-
-
         }
 
         return rv;
