@@ -1,9 +1,11 @@
 use wasm_bindgen::prelude::*;
 use crate::alpha_strike_unit::alpha_strike_abilities::ASPilotAbility;
-// use crate::alpha_strike_unit::alpha_strike_abilities::get_ability_list;
+extern crate serde;
+extern crate serde_json;
+
 
 #[wasm_bindgen]
-#[derive(Debug, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Pilot {
 
     name: String,

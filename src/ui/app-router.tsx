@@ -24,7 +24,7 @@ import Error404 from "./pages/error404";
 import Home from "./pages/home";
 import SettingsRouter from "./pages/settings/_router";
 import SSWSanityCheck from "./pages/ssw-sanity-check";
-import init, { AlphaStrikeUnit, add_testing } from "btlibs";
+// import init, { AlphaStrikeUnit, add_testing, MULUnit } from "btlibs";
 let pjson = require('../../package.json');
 
 
@@ -50,18 +50,6 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         } else {
             document.body.className = '';
         }
-
-        init().then(
-            () => {
-                console.log("X wasm add", add_testing( 3, 4));
-                let asObj = new AlphaStrikeUnit();
-                asObj.name = "Testing";
-                console.log("X", asObj );
-                console.log("X2", asObj.name );
-                console.log("X3", asObj.custom_name );
-            }
-        );
-
 
         let appGlobals: IAppGlobals = {
             sessionUUID: sessionUUID,
@@ -122,6 +110,39 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         });
 
         this.setData( appSettings, appGlobals );
+/*
+        init().then(
+            async () => {
+                let asImport: IASForceExport | null = await getCurrentASForce(appSettings);
+                if( asImport && asImport.groups ) {
+                    for( let group of asImport.groups ) {
+                        for( let unit of group.units ) {
+                            let asObj = new AlphaStrikeUnit();
+                            console.log("Y", JSON.stringify(unit) );
+                            asObj.import_json( JSON.stringify(unit) );
+
+                            console.log("X", asObj );
+                            console.log("X2", asObj.name );
+                            console.log("X2 ar", asObj.armor );
+                            console.log("X2 st", asObj.structure );
+                            console.log("X3", asObj.custom_name );
+                        }
+                    }
+
+                }
+                // console.log("X wasm add", add_testing( 3, 4));
+                // let asObj = new AlphaStrikeUnit();
+                // asObj.name = "Testing";
+                // asObj.armor = 5;
+                // asObj.structure = 3;
+                // console.log("X", asObj );
+                // console.log("X2", asObj.name );
+                // console.log("X2 ar", asObj.armor );
+                // console.log("X2 st", asObj.structure );
+                // console.log("X3", asObj.custom_name );
+            }
+        );
+*/
     }
 
     setData = async (

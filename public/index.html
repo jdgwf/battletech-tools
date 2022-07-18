@@ -24,7 +24,7 @@
     -->
     <title>Jeff's BattleTech Tools</title>
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/favicons/apple-touch-icon.png">
-		
+
     <link rel="icon" type="image/png" sizes="512x512"  href="%PUBLIC_URL%/favicons/android-chrome-512x512.png">
 		<link rel="icon" type="image/png" sizes="192x192"  href="%PUBLIC_URL%/favicons/android-chrome-192x192.png">
 		<link rel="icon" type="image/png" sizes="150x150" href="%PUBLIC_URL%/favicons/mstile-150x150.png">
@@ -37,7 +37,7 @@
       (function(l) {
         if (l.search) {
 
-          if( l.search.indexOf("?rd=") === 0 ) {
+          if( l.search.indexOf("?rd=") > -1 ) {
             let newPath = "/battletech-tools" + l.search.replace("?rd=%2Fbattletech-tools", "");
             while( newPath.indexOf("%2F") > -1 ) {
               newPath = newPath.replace("%2F", "/");

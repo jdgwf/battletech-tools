@@ -1,6 +1,9 @@
 use wasm_bindgen::prelude::*;
+extern crate serde;
+extern crate serde_json;
 
-#[derive(Debug, Clone)]
+
+#[derive(Debug, Deserialize, Serialize, Clone)]
 #[wasm_bindgen]
 pub struct MoveNumber {
     pub move_value: u32,

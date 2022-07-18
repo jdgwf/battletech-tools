@@ -394,6 +394,7 @@
 // ]
 // }
 
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct ASPilotAbility {
     id: u32,
     ability: String,

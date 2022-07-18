@@ -1,5 +1,9 @@
 use wasm_bindgen::prelude::*;
 use uuid::{Uuid};
+extern crate serde;
+extern crate serde_json;
+extern crate console_error_panic_hook;
+use std::panic;
 
 use crate::pilot::Pilot;
 mod alpha_strike_damage;
@@ -14,7 +18,7 @@ use move_number::MoveNumber;
 use mul_unit::MULUnit;
 
 #[wasm_bindgen]
-#[derive(Debug, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct AlphaStrikeUnit {
 
     uuid: String,
@@ -103,6 +107,95 @@ impl AlphaStrikeUnit {
         if  as_def.uuid() != "".to_string() {
             self.uuid = as_def.uuid();
         }
+
+        self.original_stats = as_def.clone();
+
+        if as_def.BFStructure > 0 {
+            self.structure = as_def.BFStructure;
+        }
+
+        if as_def.structure > 0 {
+            self.structure = as_def.structure;
+        }
+
+        if as_def.BFArmor > 0 {
+            self.armor = as_def.BFArmor;
+        }
+
+        if as_def.armor > 0 {
+            self.armor = as_def.armor;
+        }
+
+
+        if as_def.BFSize > 0 {
+            self.size = as_def.BFSize;
+        }
+
+        if as_def.size > 0 {
+            self.size = as_def.size;
+        }
+
+
+        if as_def.BFDamageShort > 0 {
+            self.damage.short = as_def.BFDamageShort;
+        }
+
+        if as_def.damage.short > 0 {
+            self.damage.short = as_def.damage.short;
+        }
+
+
+        if as_def.BFDamageMedium > 0 {
+            self.damage.medium = as_def.BFDamageMedium;
+        }
+
+        if as_def.damage.medium > 0 {
+            self.damage.medium = as_def.damage.medium;
+        }
+
+
+        if as_def.BFDamageLong > 0 {
+            self.damage.long = as_def.BFDamageLong;
+        }
+
+        if as_def.damage.long > 0 {
+            self.damage.long = as_def.damage.long;
+        }
+
+        if as_def.BFDamageExtreme > 0 {
+            self.damage.extreme = as_def.BFDamageExtreme;
+        }
+
+        if as_def.size > 0 {
+            self.damage.extreme = as_def.damage.extreme;
+        }
+
+        if as_def.BFAbilities().chars().count() > 0 {
+            self.set_abilities( as_def.BFAbilities() );
+        }
+
+        if as_def.abilities().chars().count() > 0 {
+            self.set_abilities( as_def.abilities() );
+        }
+
+        if as_def.Name().chars().count() > 0 {
+            self.set_name( as_def.Name() );
+        }
+
+        if as_def.name().chars().count() > 0 {
+            self.set_name( as_def.name() );
+        }
+
+
+    }
+
+    pub fn import_json(
+        &mut self,
+        json_string: String
+    ) {
+        let parsed: MULUnit = serde_json::from_str(&json_string).unwrap();
+
+        self.import( &parsed );
     }
 
     #[wasm_bindgen(constructor)]

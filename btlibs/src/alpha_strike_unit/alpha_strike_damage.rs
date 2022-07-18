@@ -1,16 +1,18 @@
 use wasm_bindgen::prelude::*;
+extern crate serde;
+extern crate serde_json;
 
 #[wasm_bindgen]
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Serialize, Deserialize, Copy)]
 pub struct AlphaStrikeDamage {
-    short: i32,
-    medium: i32,
-    long: i32,
-    extreme: i32,
-    short_minimal: bool,
-    medium_minimal: bool,
-    long_minimal: bool,
-    extreme_minimal: bool,
+    pub short: u32,
+    pub medium: u32,
+    pub long: u32,
+    pub extreme: u32,
+    pub short_minimal: bool,
+    pub medium_minimal: bool,
+    pub long_minimal: bool,
+    pub extreme_minimal: bool,
 }
 
 impl AlphaStrikeDamage {

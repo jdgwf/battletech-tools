@@ -81,10 +81,10 @@ export interface IASMULUnit {
     Type: ASMULType;
     Variant: string | null;
 
-    BFDamageShortMinimumTEMPORARY?: boolean;
-    BFDamageMediumMinimumTEMPORARY?: boolean;
-    BFDamageLongMinimumTEMPORARY?: boolean;
-    BFDamageExtremeMinimumTEMPORARY?: boolean;
+    BFDamageShortMin?: boolean;
+    BFDamageMediumMin?: boolean;
+    BFDamageLongMin?: boolean;
+    BFDamageExtremeMin?: boolean;
 
     customName?: string;
     // currentSkill?: number;
@@ -240,6 +240,7 @@ export class AlphaStrikeUnit {
         if( typeof(incomingMechData) !== "undefined" && incomingMechData !== null ) {
             this.originalStats = incomingMechData;
 
+            console.log("incomingMechData",  incomingMechData)
             if( typeof(incomingMechData.BFPointValue) !== "undefined") {
             this.costCR = +incomingMechData.Cost;
 
@@ -288,16 +289,16 @@ export class AlphaStrikeUnit {
                 this.damage.extreme = 0;
             }
 
-            if( incomingMechData.BFDamageShortMinimumTEMPORARY ) {
+            if( incomingMechData.BFDamageShortMin ) {
                 this.damage.shortMinimal = true;
             }
-            if( incomingMechData.BFDamageMediumMinimumTEMPORARY ) {
+            if( incomingMechData.BFDamageMediumMin ) {
                 this.damage.mediumMinimal = true;
             }
-            if( incomingMechData.BFDamageLongMinimumTEMPORARY ) {
+            if( incomingMechData.BFDamageLongMin ) {
                 this.damage.longMinimal = true;
             }
-            if( incomingMechData.BFDamageExtremeMinimumTEMPORARY ) {
+            if( incomingMechData.BFDamageExtremeMin ) {
                 this.damage.extremeMinimal = true;
             }
 

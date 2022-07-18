@@ -1,4 +1,7 @@
 use wasm_bindgen::prelude::*;
+extern crate serde;
+extern crate serde_json;
+
 
 use crate::pilot::Pilot;
 use crate::alpha_strike_unit::alpha_strike_damage::AlphaStrikeDamage;
@@ -8,7 +11,7 @@ use crate::alpha_strike_unit::mul_role::MULRole;
 use crate::alpha_strike_unit::mul_type::MULType;
 
 #[allow(non_snake_case)]
-#[derive(Debug, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 #[wasm_bindgen]
 pub struct MULUnit {
     mechCreatorUUID: String,
@@ -16,42 +19,42 @@ pub struct MULUnit {
     FormatedTonnage: String, // typo in MUL
     GroupName: String,
     BFAbilities: String,
-    pub BFArmor: i32,
-    pub BFDamageExtreme: i32,
-    pub BFDamageLong: i32,
-    pub BFDamageMedium: i32,
-    pub BFDamageShort: i32,
+    pub BFArmor: u32,
+    pub BFDamageExtreme: u32,
+    pub BFDamageLong: u32,
+    pub BFDamageMedium: u32,
+    pub BFDamageShort: u32,
     BFMove: String,
-    pub BFOverheat: i32,
-    pub BFPointValue: i32,
-    pub BFSize: i32,
-    pub BFStructure: i32,
-    pub BFTMM: i32,
-    pub BFThreshold: i32,
+    pub BFOverheat: u32,
+    pub BFPointValue: u32,
+    pub BFSize: u32,
+    pub BFStructure: u32,
+    pub BFTMM: u32,
+    pub BFThreshold: u32,
     BFType: String,
-    pub BattleValue: i32,
+    pub BattleValue: u32,
     Class: String,
 
-    pub Cost: i32,
+    pub Cost: u32,
     DateIntroduced: String,
     EraIcon:String,
-    pub EraId: i32,
-    pub EraStart: i32,
-    pub Id: i32,
+    pub EraId: u32,
+    pub EraStart: u32,
+    pub Id: u32,
     ImageUrl: String,
     IsFeatured: bool,
     IsPublished: bool,
     Name: String,
     RS: String,
-    pub RSId: i32,
-    pub Release: i32,
+    pub RSId: u32,
+    pub Release: u32,
     Role: MULRole,
     Rules: String,
-    pub Skill: i32,
+    pub Skill: u32,
     TRO: String,
-    pub TROId: i32,
+    pub TROId: u32,
     Technology: MULTech,
-    pub Tonnage: i32,
+    pub Tonnage: u32,
     Type: MULType,
     Variant: String,
 
@@ -75,30 +78,30 @@ pub struct MULUnit {
 
 
     classification: String,
-    pub costCR: i32,
-    pub mulID: i32,
-    pub currentHeat: i32,
-    damage: AlphaStrikeDamage,
+    pub costCR: u32,
+    pub mulID: u32,
+    pub currentHeat: u32,
+    pub damage: AlphaStrikeDamage,
     variant: String,
     dateIntroduced: String,
     name: String,
-    pub tonnage: i32,
+    pub tonnage: u32,
     tro: String,
     role: String,
-    pub threshold: i32,
+    pub threshold: u32,
     pilot: Pilot,
 
     move_value: Vec<MoveNumber>,
-    pub jumpMove: i32,
-    pub structure: i32,
-    pub armor: i32,
+    pub jumpMove: u32,
+    pub structure: u32,
+    pub armor: u32,
     unit_type: String,
-    pub size: i32,
+    pub size: u32,
     pub showDetails: bool,
     abilities: String,
-    pub overheat: i32,
-    pub basePoints: i32,
-    pub currentSkill: i32,
+    pub overheat: u32,
+    pub basePoints: u32,
+    pub currentSkill: u32,
 
     uuid: String,
 }
@@ -256,6 +259,16 @@ impl MULUnit {
     #[wasm_bindgen(setter)]
     pub fn set_name( &mut self, new_val: String) {
          self.name = new_val;
+    }
+
+
+    #[wasm_bindgen(getter)]
+    pub fn Name( &self ) -> String {
+        self.Name.clone()
+    }
+    #[wasm_bindgen(setter)]
+    pub fn set_Name( &mut self, new_val: String) {
+         self.Name = new_val;
     }
 
     #[wasm_bindgen(getter)]

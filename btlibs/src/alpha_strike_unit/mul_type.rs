@@ -1,7 +1,9 @@
 use wasm_bindgen::prelude::*;
+extern crate serde;
+extern crate serde_json;
 
 #[allow(non_snake_case)]
-#[derive(Debug, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 #[wasm_bindgen]
 pub struct MULType {
     pub Id: u32,
