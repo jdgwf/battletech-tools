@@ -5,6 +5,7 @@ import { BattleMechForce, ICBTForceExport } from "./classes/battlemech-force";
 import { BattleMechGroup, ICBTGroupExport } from "./classes/battlemech-group";
 import { IAppGlobals } from "./ui/app-router";
 import { AppSettings, IAppSettingsExport } from "./ui/classes/app_settings";
+import {Storage} from 'session-storage-sync';
 
 export enum ESaveDataMode {
     localStorage = 0,
@@ -241,7 +242,8 @@ function saveData(
 ): void {
     switch( appSettings.storageLocation ) {
         case ESaveDataMode.localStorage: {
-            localStorage.setItem(keyName, data);
+            let storage = new Storage();
+            storage.session.set(keyName, data);
             break;
         }
         case ESaveDataMode.firebase: {
@@ -262,7 +264,18 @@ async function getData(
 ): Promise<string | null> {
     switch( appSettings.storageLocation ) {
         case ESaveDataMode.localStorage: {
-            return localStorage.getItem(keyName);
+
+            let storage = new Storage();
+            let sessStore = storage.session.get(keyName);
+
+            if(!sessStore ) {
+                console.warn("storage.session empty, attempting localStorage pull", keyName)
+                sessStore = localStorage.getItem( keyName );
+                if( sessStore ) {
+                    saveData( appSettings, keyName, sessStore);
+                }
+            }
+            return sessStore;
         }
         case ESaveDataMode.firebase: {
             return null;
