@@ -5,7 +5,7 @@ import { BattleMechForce, ICBTForceExport } from "./classes/battlemech-force";
 import { BattleMechGroup, ICBTGroupExport } from "./classes/battlemech-group";
 import { IAppGlobals } from "./ui/app-router";
 import { AppSettings, IAppSettingsExport } from "./ui/classes/app_settings";
-import {Storage} from 'session-storage-sync';
+// import {Storage} from 'session-storage-sync';
 
 export enum ESaveDataMode {
     localStorage = 0,
@@ -242,8 +242,14 @@ function saveData(
 ): void {
     switch( appSettings.storageLocation ) {
         case ESaveDataMode.localStorage: {
-            let storage = new Storage();
-            storage.session.set(keyName, data);
+            // let storage = new Storage();
+            //@ts-ignore
+            if( Storage && Storage.sync ) {
+                //@ts-ignore
+                Storage.sync.setItem(keyName, data);
+            } else {
+                localStorage.setItem(keyName, data);
+            }
             break;
         }
         case ESaveDataMode.firebase: {
@@ -264,12 +270,16 @@ async function getData(
 ): Promise<string | null> {
     switch( appSettings.storageLocation ) {
         case ESaveDataMode.localStorage: {
+            let sessStore: string | null = null;
 
-            let storage = new Storage();
-            let sessStore = storage.session.get(keyName);
-
+            //@ts-ignore
+            if( Storage && Storage.sync ) {
+            // let storage = new Storage();
+                //@ts-ignore
+                sessStore = Storage.sync.get(keyName);
+            }
             if(!sessStore ) {
-                console.warn("storage.session empty, attempting localStorage pull", keyName)
+                console.warn("storage.sync empty, attempting localStorage pull", keyName)
                 sessStore = localStorage.getItem( keyName );
                 if( sessStore ) {
                     saveData( appSettings, keyName, sessStore);

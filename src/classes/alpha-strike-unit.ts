@@ -240,7 +240,7 @@ export class AlphaStrikeUnit {
         if( typeof(incomingMechData) !== "undefined" && incomingMechData !== null ) {
             this.originalStats = incomingMechData;
 
-            console.log("incomingMechData",  incomingMechData)
+            // console.log("incomingMechData",  incomingMechData)
             if( typeof(incomingMechData.BFPointValue) !== "undefined") {
             this.costCR = +incomingMechData.Cost;
 
