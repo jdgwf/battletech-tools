@@ -57,29 +57,7 @@ export function getMULTypeLabel(
     if( id === 24 ) {
         return "Support Vehicle ";
     }
-    // if( id === 10 ) {
-    //     return "Star League";
-    // } else if( id === 11 ) {
-    //     return "Early Succession War";
-    // } else  if( id === 255 ) {
-    //     return "Late Succession War - LosTech";
-    // } else if( id === 256 ) {
-    //     return "Late Succession War - renaissance";
-    // } else if( id === 13 ) {
-    //     return "Clan Invasion";
-    // } else if( id === 247 ) {
-    //     return "Civil War";
-    // } else if( id === 14 ) {
-    //     return "Jihad";
-    // } else if( id === 15 ) {
-    //     return "Early Republic";
-    // } else if( id === 254 ) {
-    //     return "Late Republic";
-    // } else if( id === 16 ) {
-    //     return "Dark Ages";
-    // } else if( id === 257 ) {
-    //     return "ilClan";
-    // }
+
     return "n/a";
 }
 
