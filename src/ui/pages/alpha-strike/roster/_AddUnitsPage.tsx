@@ -3,7 +3,7 @@ import { FaBars, FaEye, FaPlus } from "react-icons/fa";
 import { AlphaStrikeUnit, IASMULUnit } from '../../../../classes/alpha-strike-unit';
 import { BattleMech } from '../../../../classes/battlemech';
 import { getMULASSearchResults } from '../../../../utils';
-import { getMULEraIDs, getMULEraLabel } from '../../../../utils/mulUtilities';
+import { getMULEraIDs, getMULEraLabel, getMULTypeIDs, getMULTypeLabel } from '../../../../utils/mulUtilities';
 import { IAppGlobals } from '../../../app-router';
 import InputField from '../../../components/form_elements/input_field';
 import TextSection from '../../../components/text-section';
@@ -87,6 +87,16 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       this.updateSearchResults();
     }
 
+    updateType = ( event: React.FormEvent<HTMLSelectElement> ): void => {
+
+      let appSettings = this.props.appGlobals.appSettings;
+
+      appSettings.alphaStrikeSearchType = +event.currentTarget.value;
+      this.props.appGlobals.saveAppSettings( appSettings );
+
+      this.updateSearchResults();
+    }
+
     updateSearchResults = async (): Promise<void> => {
 
       // console.log("updateSearchResults called")
@@ -95,7 +105,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         this.props.appGlobals.appSettings.alphaStrikeSearchRules,
         this.props.appGlobals.appSettings.alphaStrikeSearchTech,
         this.props.appGlobals.appSettings.alphaStrikeSearchEra,
-        "", // Type Filter
+        this.props.appGlobals.appSettings.alphaStrikeSearchType,
         !navigator.onLine,
       );
 
@@ -195,22 +205,28 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                         <option value="clan">Clan</option>
                       </select>
                     </label>
-                      </div>
-                      <div className="col-md-6 text-center">
-                      {/* <label>
-                      Year:<br />
+
+                    <label>
+                      Type:<br />
                       <select
-                        onChange={this.updateEra}
-                        value={this.props.appGlobals.appSettings.alphaStrikeSearchEra}
+                        onChange={this.updateType}
+                        value={this.props.appGlobals.appSettings.alphaStrikeSearchType}
                       >
                         <option value="">All</option>
-                        {makeRange(3025, 3500, 1).map( (year) => {
-                          return (
-                            <option key={year} value={year}>{year}</option>
-                          )
+                        {getMULTypeIDs().map( (typeID ) => {
+                          return <option key={typeID} value={typeID}>{getMULTypeLabel( typeID )}</option>
                         })}
+                        {/* {btEraOptions.map( (era, eraIndex) => {
+                          return (
+                            <option key={eraIndex} value={era.yearStart}>{era.name}</option>
+                          )
+                        })} */}
                       </select>
-                    </label> */}
+                    </label>
+
+                      </div>
+                      <div className="col-md-6 text-center">
+
                       <label>
                       Era:<br />
                       <select

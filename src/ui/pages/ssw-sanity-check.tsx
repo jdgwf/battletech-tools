@@ -109,7 +109,7 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                 rulesLevel,
                 "",
                 0,
-                "bm",
+                10,
                 !navigator.onLine,
                 true,
             );

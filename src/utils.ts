@@ -26,7 +26,7 @@ export async function getMULASSearchResults(
     mechRules: string,
     techFilter: string,
     eraFilter: number,
-    typeFilter: string,
+    typeFilter: number,
     offLine: boolean,
     overrideSearchLimitLength: boolean = false,
 ): Promise<IASMULUnit[]> {
@@ -76,23 +76,26 @@ export async function getMULASSearchResults(
     }
 
     let typesFilterURI: string[] = [];
-    if( typeFilter.toLowerCase() === "bm" ) {
-        typesFilterURI.push( "&Types=18" );
-    }
-    if( typeFilter.toLowerCase() === "cv" ) {
-        typesFilterURI.push( "&Types=19" );
-    }
-    if( typeFilter.toLowerCase() === "as" ) {
-        typesFilterURI.push( "&Types=17" );
-    }
-    if( typeFilter.toLowerCase() === "in" ) {
-        typesFilterURI.push( "&Types=20" );
-    }
-    if( typeFilter.toLowerCase() === "pr" ) {
-        typesFilterURI.push( "&Types=23" );
-    }
-    if( typeFilter.toLowerCase() === "sv" ) {
-        typesFilterURI.push( "&Types=24" );
+    // if( typeFilter.toLowerCase() === "bm" ) {
+    //     typesFilterURI.push( "&Types=18" );
+    // }
+    // if( typeFilter.toLowerCase() === "cv" ) {
+    //     typesFilterURI.push( "&Types=19" );
+    // }
+    // if( typeFilter.toLowerCase() === "as" ) {
+    //     typesFilterURI.push( "&Types=17" );
+    // }
+    // if( typeFilter.toLowerCase() === "in" ) {
+    //     typesFilterURI.push( "&Types=20" );
+    // }
+    // if( typeFilter.toLowerCase() === "pr" ) {
+    //     typesFilterURI.push( "&Types=23" );
+    // }
+    // if( typeFilter.toLowerCase() === "sv" ) {
+    //     typesFilterURI.push( "&Types=24" );
+    // }
+    if( typeFilter ) {
+        typesFilterURI.push( "&Types=" + typeFilter.toString() );
     }
 
 
