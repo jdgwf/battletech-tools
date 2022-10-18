@@ -90,6 +90,7 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
         });
     }
 
+
     _getAlphaStrikeValues = async (): Promise<void> => {
         if( this.isFetchingMUL ) {
             console.log("_getAlphaStrikeValues already fetching cancelled call")
@@ -112,6 +113,7 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                 10,
                 !navigator.onLine,
                 true,
+                this.props.appGlobals,
             );
             if( data.length === 1 ) {
                 appSettings.asValues[mechName] = data[0].BFPointValue;

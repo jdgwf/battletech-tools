@@ -11,6 +11,7 @@ export interface IAlert {
     extraclass: string;
     autoDismissSeconds: number;
     dismissFunction: Function | null,
+    messageID: string | null,
 }
 
 export default class Alerts {
@@ -78,56 +79,69 @@ export default class Alerts {
         externalURL: string = "",
         link: string = "",
         extraclass: string = "",
+        messageID: string = "",
     ) {
-        this.activeAlerts.push(
-            {
-                level: level,
-                title: title,
-                message: message,
-                messageclass: messageclass,
-                externalURL: externalURL,
-                link: link,
-                dismissable: dismissable,
-                extraclass: extraclass,
-                autoDismissSeconds: autoDismissSeconds,
-                dismissFunction: dismissFunction,
+        let showMessage = true;
+        if( messageID && messageID.trim() ) {
+
+            for( let message of this.activeAlerts ) {
+                if( message.messageID && message.messageID === messageID) {
+                    showMessage= false;
+                }
             }
-        );
-
-        let dismissIndex = this.activeAlerts.length - 1;
-        this._app.refreshGlobalState();
-        if( autoDismissSeconds > 0 ) {
-            window.setTimeout(
-                () => {
-                    let alertID = document.getElementById("alert-index-" + dismissIndex);
-                    if( alertID ) {
-                        alertID.className = alertID.className + 'fade-away';
-                    }
-                },
-                (autoDismissSeconds * 1000) - 250
-
+        }
+        if( showMessage ) {
+            this.activeAlerts.push(
+                {
+                    level: level,
+                    title: title,
+                    message: message,
+                    messageclass: messageclass,
+                    externalURL: externalURL,
+                    link: link,
+                    dismissable: dismissable,
+                    extraclass: extraclass,
+                    autoDismissSeconds: autoDismissSeconds,
+                    dismissFunction: dismissFunction,
+                    messageID: messageID,
+                }
             );
-            window.setTimeout(
-                () => {
-                    let alertID = document.getElementById("alert-bar-index-" + dismissIndex);
-                    if( alertID ) {
-                        alertID.style.width = "0px";
-                    }
-                },
-                100
 
-            );
-            this.cancelTimeout = window.setTimeout(
-                () => {
-                    this.activeAlerts.splice(dismissIndex, 1);
-                    if( dismissFunction ) {
-                        dismissFunction();
-                    }
+            let dismissIndex = this.activeAlerts.length - 1;
+            this._app.refreshGlobalState();
+            if( autoDismissSeconds > 0 ) {
+                window.setTimeout(
+                    () => {
+                        let alertID = document.getElementById("alert-index-" + dismissIndex);
+                        if( alertID ) {
+                            alertID.className = alertID.className + 'fade-away';
+                        }
+                    },
+                    (autoDismissSeconds * 1000) - 250
 
-                    this._app.refreshGlobalState();
-                },
-                autoDismissSeconds * 1000
-            );
+                );
+                window.setTimeout(
+                    () => {
+                        let alertID = document.getElementById("alert-bar-index-" + dismissIndex);
+                        if( alertID ) {
+                            alertID.style.width = "0px";
+                        }
+                    },
+                    100
+
+                );
+                this.cancelTimeout = window.setTimeout(
+                    () => {
+                        this.activeAlerts.splice(dismissIndex, 1);
+                        if( dismissFunction ) {
+                            dismissFunction();
+                        }
+
+                        this._app.refreshGlobalState();
+                    },
+                    autoDismissSeconds * 1000
+                );
+            }
         }
     }
 }

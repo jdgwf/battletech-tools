@@ -107,6 +107,8 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         this.props.appGlobals.appSettings.alphaStrikeSearchEra,
         this.props.appGlobals.appSettings.alphaStrikeSearchType,
         !navigator.onLine,
+        false,
+        this.props.appGlobals,
       );
 
       // console.log("updateSearchResults data", data);

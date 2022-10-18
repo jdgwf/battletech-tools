@@ -6,6 +6,7 @@ import { mechISEquipmentBallistic } from "./data/mech-is-equipment-weapons-balli
 import { mechISEquipmentEnergy } from "./data/mech-is-equipment-weapons-energy";
 import { mechISEquipmentMisc } from "./data/mech-is-equipment-weapons-misc";
 import { mechISEquipmentMissiles } from "./data/mech-is-equipment-weapons-missiles";
+import { IAppGlobals } from "./ui/app-router";
 import { replaceAll } from "./utils/replaceAll";
 
 export function getISEquipmentList(): IEquipmentItem[] {
@@ -29,6 +30,7 @@ export async function getMULASSearchResults(
     typeFilter: number,
     offLine: boolean,
     overrideSearchLimitLength: boolean = false,
+    appGlobals: IAppGlobals | null = null,
 ): Promise<IASMULUnit[]> {
 
     let returnUnits: IASMULUnit[] = [];
@@ -121,7 +123,21 @@ export async function getMULASSearchResults(
             })
             .catch(err => {
                 console.error('MUL Fetch Error: ', err);
-
+                if( appGlobals ) {
+                    appGlobals.siteAlerts.addAlert(
+                        "danger",
+                        "",
+                        "Cannot reach the Master Unit List! You're either offline or the MUL is down :(",
+                        "danger",
+                        true,
+                        null,
+                        10,
+                        "",
+                        "",
+                        "",
+                        "MULDOWN"
+                    )
+                }
             })
         }
 

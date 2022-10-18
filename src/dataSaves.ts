@@ -12,6 +12,18 @@ export enum ESaveDataMode {
     firebase = 1,
 }
 
+export function getSaveDataModes(): number[] {
+    return [0,1];
+}
+
+export function getSaveDataModeName( id: ESaveDataMode ): string {
+
+    if( id === ESaveDataMode.localStorage ) return "localStorage";
+    if( id === ESaveDataMode.firebase) return "Firebase";
+
+    return "n/a";
+}
+
 export interface IFullBackup {
     battleMechSaves: IBattleMechExport[];
     // appSettings: IAppSettingsExport;
@@ -235,21 +247,14 @@ export function restoreFullBackup(
     return restoreMessages;
 }
 
-function saveData(
+async function saveData(
     appSettings: AppSettings,
     keyName: string,
     data: string,
-): void {
+): Promise<void> {
     switch( appSettings.storageLocation ) {
         case ESaveDataMode.localStorage: {
-            // let storage = new Storage();
-            //@ts-ignore
-            if( Storage && Storage.sync ) {
-                //@ts-ignore
-                Storage.sync.setItem(keyName, data);
-            } else {
-                localStorage.setItem(keyName, data);
-            }
+            localStorage.setItem(keyName, data);
             break;
         }
         case ESaveDataMode.firebase: {
@@ -270,22 +275,8 @@ async function getData(
 ): Promise<string | null> {
     switch( appSettings.storageLocation ) {
         case ESaveDataMode.localStorage: {
-            let sessStore: string | null = null;
 
-            //@ts-ignore
-            if( Storage && Storage.sync ) {
-            // let storage = new Storage();
-                //@ts-ignore
-                sessStore = Storage.sync.get(keyName);
-            }
-            if(!sessStore ) {
-                console.warn("storage.sync empty, attempting localStorage pull", keyName)
-                sessStore = localStorage.getItem( keyName );
-                if( sessStore ) {
-                    saveData( appSettings, keyName, sessStore);
-                }
-            }
-            return sessStore;
+            return localStorage.getItem( keyName );;
         }
         case ESaveDataMode.firebase: {
             return null;
