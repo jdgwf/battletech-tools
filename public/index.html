@@ -34,23 +34,26 @@
 
     <script type="text/javascript">
 
-      (function(l) {
-        if (l.search) {
+      let l = window.location;
+      if (l.search) {
 
-          if( l.search.indexOf("?rd=") > -1 ) {
-            let newPath = "/battletech-tools" + l.search.replace("?rd=%2Fbattletech-tools", "");
-            while( newPath.indexOf("%2F") > -1 ) {
-              newPath = newPath.replace("%2F", "/");
-            }
-            window.history.replaceState(
-              null,
-              null,
-              newPath
-            );
+        if( l.search.indexOf("?rd=") > -1 ) {
+          let newPath = "/battletech-tools" + l.search.replace("?rd=%2Fbattletech-tools", "");
+          newPath = newPath.replace("?rd=/battletech-tools", "");
+
+          while( newPath.indexOf("%2F") > -1 ) {
+            newPath = newPath.replace("%2F", "/");
           }
 
+          window.history.replaceState(
+            null,
+            null,
+            newPath
+          );
         }
-      }(window.location))
+      }
+
+
     </script>
   </head>
   <body>
