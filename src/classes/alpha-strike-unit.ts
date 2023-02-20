@@ -164,6 +164,8 @@ export class AlphaStrikeUnit {
 
     public currentMove: string = "";
     public currentMoveHexes: string = "";
+    public currentMoveSprint: string = "";
+    public currentMoveHexesSprint: string = "";
     public currentTMM: string = "";
 
     public armor: number = 0;
@@ -986,6 +988,11 @@ export class AlphaStrikeUnit {
 
             this.currentMove += "" + this.move[moveC].currentMove + "\"" + this.move[moveC].type;
             this.currentMoveHexes += "" + ( this.move[moveC].currentMove / 2) + "⬣" + this.move[moveC].type;
+
+            this.currentMoveSprint = "" + (+this.move[moveC].currentMove * 1.5 ) + "\"";
+            this.currentMoveHexesSprint = "" + ( Math.ceil(( +this.move[moveC].currentMove / 2) * 1.5) )+ "⬣";
+
+
 
             let tmpTMM = 0;
             if( this.move[moveC].move < 5 ) {
