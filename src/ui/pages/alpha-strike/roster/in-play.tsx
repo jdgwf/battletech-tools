@@ -170,7 +170,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
                     // let newInstance = new AlphaStrikeUnit( unit.export() );
                     return (
                     <React.Fragment key={unitIndex}>
-                      <div className={this.props.appGlobals.appSettings.alphaStrikeInPlayCardMode ? "col-md-6 col-lg-6 col-xl-4" : "col-md-12"}>
+                      <div className={this.props.appGlobals.appSettings.alphaStrikeInPlayCardMode ? "col-md-6 col-lg-6 col-xl-3" : "col-md-12"}>
                         <AlphaStrikeUnitSVG
                           asUnit={unit}
                           inPlay={true}
