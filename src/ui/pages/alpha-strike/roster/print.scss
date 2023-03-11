@@ -15,23 +15,28 @@ body {
             border: none !important;
             width: 100%;
             display: block;
+            page-break-after: always;
             padding-top: .25in;
             // &:first-child {
             //     padding-top: 0;
             // }
             .section-content {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
+                // display: flex;
+                // flex-wrap: wrap;
+                text-align: center;
+                // justify-content: center;
                 border: none !important;
                 .lance-bonus {
                     font-size: 1rem;
                 }
                 .card {
                     border: none !important;
+                    display: inline-block;
+                    margin: .5rem;
                     // width: 35%;
-                    max-width: 3.5in;
-                    width: 3.5in;
+                    // max-width: 100%;
+                    // max-height: 45vh;
+                    width: 45%;
                 }
             }
         }
@@ -41,6 +46,7 @@ body {
 @media print {
     @page {
         margin: 0;
+        size: landscape;
 
     }
 
@@ -59,10 +65,14 @@ body {
         position: relative;
         // padding: .25in;
         .print-section {
-            break-inside: avoid;
+            // break-inside: avoid;
 
             .lance-bonus {
                 font-size: .9rem !important;
+            }
+            .card {
+                break-inside: avoid;
+                background-color: #fff !important;
             }
         }
 
