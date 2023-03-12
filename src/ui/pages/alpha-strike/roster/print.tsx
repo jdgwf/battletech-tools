@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaArrowCircleLeft, FaPrint } from "react-icons/fa";
+import { FaArrowCircleLeft, FaGlasses, FaMicroscope, FaPrint, FaRegEye } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { CONST_BATTLETECH_URL } from '../../../../configVars';
 import { IAppGlobals } from '../../../app-router';
@@ -10,8 +10,15 @@ import './print.scss';
 import AlphaStrikeToggleRulerHexes from "./_toggleRulerHexes";
 
 export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps, IPrintState> {
+    bigVersion: boolean = false;
     constructor(props: IPrintProps) {
         super(props);
+
+        let lBigVersion = localStorage.getItem("big_version");
+
+        if( lBigVersion && +lBigVersion > 0 ) {
+          this.bigVersion = true;
+        }
 
         this.state = {
             updated: false,
@@ -21,7 +28,27 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
     }
 
 
+
+    toggleBigVersion = ( e: React.FormEvent<HTMLSpanElement>) => {
+
+      this.bigVersion = !this.bigVersion;
+
+      localStorage.setItem(
+        "big_version",
+        this.bigVersion ? "1" : "0"
+      )
+
+      this.setState({
+        updated: true,
+      })
+    }
+
     render = (): JSX.Element => {
+
+      let printSectionClass = "print-section";
+      if( this.bigVersion ) {
+        printSectionClass += " big-version";
+      }
       if(!this.props.appGlobals.currentASForce) {
         return <></>;
       }
@@ -37,6 +64,12 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
                   />
 
                 </li>
+                {this.bigVersion ? (
+                  <li><span title="Click here to use the regular print version" onClick={this.toggleBigVersion} className="current" ><FaMicroscope /></span></li>
+                ) : (
+                  <li><span title="Click here to use the larger cards print version" onClick={this.toggleBigVersion} className="current" ><FaGlasses /></span></li>
+                )}
+
 
                 <li className="logo">
                     <a
@@ -49,7 +82,9 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
                     </a>
                 </li>
             </ul>
-
+            {this.bigVersion ? (
+              <div className="header-message">Note: In my experience it's best to print these in Landscape.</div>
+            ) : null}
           </header>
           <div className="print-cards">
           {this.props.appGlobals.currentASForce.groups.map( (group, groupIndex) => {
@@ -58,7 +93,7 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
             }
             return (
               <React.Fragment key={groupIndex}>
-              <div className="print-section">
+              <div className={printSectionClass}>
                 <h2>
                   <div className="units-summary">
                   {group.getTotalPoints()} points - {group.getTotalUnits()} units
@@ -120,6 +155,7 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
             </footer>
             {/* <header className="print-header">&nbsp;</header> */}
           </div>
+
 
         </>
       );

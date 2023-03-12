@@ -10,7 +10,6 @@
     "build-cli": "tsc --build tsconfig-cli.json",
     "predeploy": "npm run  build",
     "deploy": "gh-pages -d build",
-    "build:wasm": "cd btlibs && wasm-pack build --target web --out-dir pkg",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

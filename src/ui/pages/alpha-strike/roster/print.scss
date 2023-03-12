@@ -1,9 +1,16 @@
 body {
+    header {
+        .header-message {
+            text-align: center;
+            color: #0f0;
+        }
+    }
     .print-footer { display: none};
     .print-cards {
         h2 {
             text-align: center;
             padding: 0 5%;
+            margin: 0;
             .units-summary {
                 float: right;
                 font-size: 1rem;
@@ -15,12 +22,15 @@ body {
             border: none !important;
             width: 100%;
             display: block;
-            page-break-after: always;
-            padding-top: .25in;
+
             // &:first-child {
             //     padding-top: 0;
             // }
+
             .section-content {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
                 // display: flex;
                 // flex-wrap: wrap;
                 text-align: center;
@@ -31,13 +41,33 @@ body {
                 }
                 .card {
                     border: none !important;
-                    display: inline-block;
-                    margin: 1rem .5rem;
-                    // width: 35%;
-                    // max-width: 100%;
-                    // max-height: 45vh;
-                    width: 45%;
+                    margin: .5rem;
+
+
+                    max-width: 3.5in;
+                    width: 3.5in;
+
                 }
+            }
+            &.big-version {
+                display: block;
+                text-align: center;
+                padding-top: .25in;
+
+                .section-content {
+                    display: block;
+
+                    .card {
+                        // width: 35%;
+                        display: inline-block;
+                        max-width: 100%;
+                        // max-height: 45vh;
+                        margin: 1rem;
+                        width: 45%;
+                    }
+                }
+
+                page-break-after: always;
             }
         }
     }
@@ -46,8 +76,7 @@ body {
 @media print {
     @page {
         margin: 0;
-        size: landscape;
-
+        // size: landscape;
     }
 
     header {
@@ -65,15 +94,49 @@ body {
         position: relative;
         // padding: .25in;
         .print-section {
-            // break-inside: avoid;
+            // page-break-after: always;
+            break-inside: avoid;
+            .section-content {
+                // break-inside: avoid;
+                // page-break-after: always;
 
-            .lance-bonus {
-                font-size: .9rem !important;
+                .lance-bonus {
+                    font-size: .9rem !important;
+                }
+                .card {
+                    break-inside: avoid;
+                    background-color: #fff !important;
+                }
             }
-            .card {
-                break-inside: avoid;
-                background-color: #fff !important;
+            &:last-child {
+                .section-content {
+                    page-break-after: avoid;
+                }
             }
+            &.big-version {
+                @page {
+                    margin: 0;
+                    size: landscape;
+                }
+                break-inside: auto;
+                .section-content {
+                    break-inside: auto;
+                    .lance-bonus {
+                        font-size: .9rem !important;
+                    }
+                    .card {
+                        break-inside: avoid;
+                        background-color: #fff !important;
+                    }
+                }
+                &:last-child {
+                    .section-content {
+                        page-break-after: avoid !important;
+                    }
+                }
+            }
+
+
         }
 
         .print-footer {
