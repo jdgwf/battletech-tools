@@ -83,8 +83,10 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
                 </li>
             </ul>
             {this.bigVersion ? (
-              <div className="header-message">Note: In my experience it's best to print these in Landscape.</div>
-            ) : null}
+              <div className="header-message">Note: In my experience it's best to print these in Landscape. Don't forget to uncheck "headers and footers" to save space and unnecessary spacing.</div>
+            ) : (
+              <div className="header-message">Note: Don't forget to uncheck "headers and footers" to save space and unnecessary spacing.</div>
+            )}
           </header>
           <div className="print-cards">
           {this.props.appGlobals.currentASForce.groups.map( (group, groupIndex) => {
