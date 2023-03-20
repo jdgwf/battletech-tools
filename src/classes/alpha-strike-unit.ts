@@ -1033,6 +1033,10 @@ export class AlphaStrikeUnit {
 
             // Subtract Heat from Current Move
             if( this.move[moveC].type !== "j" ) {
+                if( this.type.toLowerCase().trim() === "bm" ) {
+                    this.currentMoveSprint = "" + (+this.move[moveC].currentMove * 1.5 ) + "\"";
+                    this.currentMoveHexesSprint = "" + ( Math.ceil(( +this.move[moveC].currentMove / 2) * 1.5) )+ "⬣";
+                }
                 if( this.hasTripeStrengthMyomer() ) {
                     switch( this.currentHeat ) {
                         case 1: {
@@ -1062,10 +1066,7 @@ export class AlphaStrikeUnit {
             this.currentMove += "" + this.move[moveC].currentMove + "\"" + this.move[moveC].type;
             this.currentMoveHexes += "" + ( this.move[moveC].currentMove / 2) + "⬣" + this.move[moveC].type;
 
-            if( this.type.toLowerCase().trim() === "bm" ) {
-                this.currentMoveSprint = "" + (+this.move[moveC].currentMove * 1.5 ) + "\"";
-                this.currentMoveHexesSprint = "" + ( Math.ceil(( +this.move[moveC].currentMove / 2) * 1.5) )+ "⬣";
-            }
+
 
 
 
