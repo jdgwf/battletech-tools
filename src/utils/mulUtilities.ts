@@ -64,3 +64,25 @@ export function getMULTypeLabel(
 export function getMULTypeIDs(): number[] {
     return [18, 19, 17, 21, 20, 23, 24 ];
 }
+
+
+export function getMULGroundRoles(): string[] {
+    return [
+        "Ambusher",
+        "Brawler",
+        "Juggernaut",
+        "Missile Boat",
+        "Scout",
+     ];
+}
+
+export function getMULAerospaceRoles(): string[] {
+    return [
+        "Attack",
+        "Dogfighter",
+        "Fast Dogfighter",
+        "Fire Support",
+        "Interceptor",
+        "Transport",
+     ];
+}

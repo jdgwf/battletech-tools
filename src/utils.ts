@@ -26,6 +26,7 @@ export async function getMULASSearchResults(
     searchTerm: string,
     mechRules: string,
     techFilter: string,
+    roleFilter: string,
     eraFilter: number,
     typeFilter: number,
     offLine: boolean,
@@ -61,6 +62,11 @@ export async function getMULASSearchResults(
     }
     if( mechRules.toLowerCase() === "experimental" ) {
         rulesNumbersURI.push( "&Rules=78" );
+    }
+
+    let roleFilterURI: string[] = [];
+    if( roleFilter.trim() ) {
+        roleFilterURI.push( "&Roles=" + replaceAll(roleFilter, " ", "%20", false, false, true) );
     }
 
     let techFilterURI: string[] = [];
@@ -100,12 +106,22 @@ export async function getMULASSearchResults(
         url += rulesNumbersURI.join();
         url += typesFilterURI.join();
         url += techFilterURI.join();
+        url += roleFilterURI.join();
 
         if( searchTerm && searchTerm.trim() ) {
             url += "&Name=" + replaceAll(searchTerm, " ", "%20", false, false, true);
         }
 
-        if( searchTerm.length >= 3 || overrideSearchLimitLength ) {
+        let totalTerms = rulesNumbersURI.length + typesFilterURI.length + techFilterURI.length + roleFilterURI.length;
+
+        console.log("totalTerms", totalTerms);
+        if(
+            searchTerm.length >= 3
+            || overrideSearchLimitLength
+            || (
+                totalTerms > 2
+            )
+        ) {
             await fetch(url)
             .then(async res => {
                 let returnData = await res.json();

@@ -3,7 +3,7 @@ import { FaBars, FaEye, FaPlus } from "react-icons/fa";
 import { AlphaStrikeUnit, IASMULUnit } from '../../../../classes/alpha-strike-unit';
 import { BattleMech } from '../../../../classes/battlemech';
 import { getMULASSearchResults } from '../../../../utils';
-import { getMULEraIDs, getMULEraLabel, getMULTypeIDs, getMULTypeLabel } from '../../../../utils/mulUtilities';
+import { getMULAerospaceRoles, getMULEraIDs, getMULEraLabel, getMULGroundRoles, getMULTypeIDs, getMULTypeLabel } from '../../../../utils/mulUtilities';
 import { IAppGlobals } from '../../../app-router';
 import InputField from '../../../components/form_elements/input_field';
 import TextSection from '../../../components/text-section';
@@ -77,6 +77,16 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       this.updateSearchResults();
     }
 
+    updateRole = ( event: React.FormEvent<HTMLSelectElement> ): void => {
+
+      let appSettings = this.props.appGlobals.appSettings;
+
+      appSettings.alphaStrikeSearchRole = event.currentTarget.value;
+      this.props.appGlobals.saveAppSettings( appSettings );
+
+      this.updateSearchResults();
+    }
+
     updateEra = ( event: React.FormEvent<HTMLSelectElement> ): void => {
 
       let appSettings = this.props.appGlobals.appSettings;
@@ -104,6 +114,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         this.props.appGlobals.appSettings.alphaStrikeSearchTerm,
         this.props.appGlobals.appSettings.alphaStrikeSearchRules,
         this.props.appGlobals.appSettings.alphaStrikeSearchTech,
+        this.props.appGlobals.appSettings.alphaStrikeSearchRole,
         this.props.appGlobals.appSettings.alphaStrikeSearchEra,
         this.props.appGlobals.appSettings.alphaStrikeSearchType,
         !navigator.onLine,
@@ -246,6 +257,28 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                         })} */}
                       </select>
                     </label>
+
+                    <label>
+                      Role:<br />
+                      <select
+                        onChange={this.updateRole}
+                        value={this.props.appGlobals.appSettings.alphaStrikeSearchRole}
+                      >
+                        <option value="">All</option>
+                        <optgroup label="Ground Unit Roles">
+                        {getMULGroundRoles().map( (role, roleIndex ) => {
+                          return <option key={roleIndex} value={role}>{role}</option>
+                        })}
+                        </optgroup>
+                        <optgroup label="Aerospace Roles">
+                        {getMULAerospaceRoles().map( (role, roleIndex ) => {
+                          return <option key={roleIndex} value={role}>{role}</option>
+                        })}
+                        </optgroup>
+
+
+                      </select>
+                    </label>
                       </div>
                     </div>
                   </fieldset>
@@ -265,8 +298,8 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                       </tr>
                       <tr>
                         <th>&nbsp;</th>
-                        <th colSpan={6}>Notes</th>
-
+                        <th colSpan={4}>Notes</th>
+                        <th colSpan={2}>Role</th>
                       </tr>
                     </thead>
 
@@ -335,9 +368,8 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
                             </tr>
                             <tr>
-                              <td>&nbsp;</td>
-                              <td>&nbsp;</td>
-                              <td colSpan={6} className="med-small-text">
+                              <td></td>
+                              <td colSpan={4} className="med-small-text text-left">
                                 <strong title="Armor/Internal Structure values">A/IS</strong>: {asUnit.BFArmor}/{asUnit.BFStructure}
                                 &nbsp;|&nbsp;<strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.BFDamageShort}/{asUnit.BFDamageMedium}/{asUnit.BFDamageLong}
                                 {asUnit.BFOverheat  && asUnit.BFOverheat > 0 ? (
@@ -352,6 +384,9 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                                 ) : null}
 
                               </td>
+                              <td colSpan={3} className="med-small-text text-left">
+                                {asUnit.Role.Name}
+                              </td>
                             </tr>
                             </tbody>
                           )
@@ -362,7 +397,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                       {this.props.appGlobals.appSettings.alphaStrikeSearchTerm.length < 3 ? (
                         <tbody>
                         <tr>
-                          <td className="text-center" colSpan={6}>
+                          <td className="text-center" colSpan={7}>
                             Please type a search term 3 or more characters.
                           </td>
                         </tr>
@@ -370,7 +405,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                       ) : (
                         <tbody>
                         <tr>
-                          <td className="text-center" colSpan={6}>
+                          <td className="text-center" colSpan={7}>
                             Sorry, there are no matches with those parameters. It is a remote possibility that the MUL is down if other searches don't work.
                           </td>
                         </tr>

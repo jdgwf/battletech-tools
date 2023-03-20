@@ -109,6 +109,7 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                 mechName,
                 rulesLevel,
                 "",
+                "", // role
                 0,
                 10,
                 !navigator.onLine,

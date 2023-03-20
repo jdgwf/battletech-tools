@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaArrowCircleLeft, FaGlasses, FaMicroscope, FaPrint, FaRegEye } from "react-icons/fa";
+import { FaArrowCircleLeft, FaGlasses, FaMicroscope, FaPrint } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { CONST_BATTLETECH_URL } from '../../../../configVars';
 import { IAppGlobals } from '../../../app-router';

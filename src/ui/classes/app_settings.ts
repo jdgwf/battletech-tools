@@ -18,6 +18,7 @@ export class AppSettings {
     alphaStrikeInPlayCardMode: boolean = false;
     alphaStrikeSearchRules: string = "";
     alphaStrikeSearchTech: string = "";
+    alphaStrikeSearchRole: string = "";
     alphaStrikeSearchEra: number = 0;
     alphaStrikeSearchType: number = 0;
 
@@ -80,6 +81,10 @@ export class AppSettings {
                 this.alphaStrikeSearchType = io.alphaStrikeSearchType;
             }
 
+            if ( typeof( io.alphaStrikeSearchRole ) !== "undefined" ) {
+                this.alphaStrikeSearchRole = io.alphaStrikeSearchRole;
+            }
+
             if ( typeof( io.asValues ) !== "undefined" ) {
                 this.asValues = io.asValues;
             }
@@ -106,6 +111,7 @@ export class AppSettings {
             alphaStrikeSearchEra: this.alphaStrikeSearchEra,
             alphaStrikeSearchTech: this.alphaStrikeSearchTech,
             alphaStrikeSearchType: this.alphaStrikeSearchType,
+            alphaStrikeSearchRole: this.alphaStrikeSearchRole,
             alphaStrikeMeasurementsInHexes: this.alphaStrikeMeasurementsInHexes,
             asValues: this.asValues,
 
@@ -125,6 +131,7 @@ export interface IAppSettingsExport {
     alphaStrikeSearchTerm: string;
     alphaStrikeSearchRules: string;
     alphaStrikeSearchTech: string;
+    alphaStrikeSearchRole: string;
     alphaStrikeSearchEra: number;
     alphaStrikeSearchType: number;
     alphaStrikeInPlayCardMode: boolean;

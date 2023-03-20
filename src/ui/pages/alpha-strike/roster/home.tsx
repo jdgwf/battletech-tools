@@ -52,6 +52,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
             member,
             "intro+standard",
             pack.tech === "clan" ? "clan" : "inner sphere",
+            "", // Role
             0, // clan invasion
             0, // Type Filter
             !navigator.onLine,
