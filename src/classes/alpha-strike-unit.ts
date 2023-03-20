@@ -595,6 +595,23 @@ export class AlphaStrikeUnit {
         return rv;
     }
 
+    hasTripeStrengthMyomer(): boolean {
+
+        let abilities = this.abilities.toLowerCase().trim();
+        if(
+            abilities.indexOf("tsm,") > - 1
+            ||
+            abilities.indexOf(",tsm") > - 1
+            ||
+            abilities.indexOf(", tsm") > - 1
+            ||
+            abilities.trim() ===  "tsm"
+        ) {
+            return true;
+        }
+        return false;
+    }
+
     public getFireControlHits(): number {
         let rv = 0;
         if( this.engineHits ) {
@@ -977,13 +994,69 @@ export class AlphaStrikeUnit {
         this.immobile = true;
         for( let moveC = 0; moveC < this.move.length; moveC++ ) {
 
+
+
+
+            let tmpTMM = 0;
+
+
+            if( this.hasTripeStrengthMyomer() && this.currentHeat === 1 ) {
+                if( this.move[moveC].currentMove < 5 ) {
+                    tmpTMM = 0;
+                } else if( this.move[moveC].currentMove < 9 ) {
+                    tmpTMM = 1;
+                } else if( this.move[moveC].currentMove < 13 ) {
+                    tmpTMM = 2;
+                } else if( this.move[moveC].currentMove < 19 ) {
+                    tmpTMM = 3;
+                } else if( this.move[moveC].currentMove < 35 ) {
+                    tmpTMM = 4;
+                } else {
+                    tmpTMM = 5;
+                }
+            } else {
+                if( this.move[moveC].move < 5 ) {
+                    tmpTMM = 0;
+                } else if( this.move[moveC].move < 9 ) {
+                    tmpTMM = 1;
+                } else if( this.move[moveC].move < 13 ) {
+                    tmpTMM = 2;
+                } else if( this.move[moveC].move < 19 ) {
+                    tmpTMM = 3;
+                } else if( this.move[moveC].move < 35 ) {
+                    tmpTMM = 4;
+                } else {
+                    tmpTMM = 5;
+                }
+            }
+
+
             // Subtract Heat from Current Move
             if( this.move[moveC].type !== "j" ) {
-                this.move[moveC].currentMove = this.move[moveC].currentMove - this.currentHeat * 2;
-                //can't have minus move, or heat level "4" === shutdown
-                if (this.move[moveC].currentMove < 0 || this.currentHeat === 4){
-                    this.move[moveC].currentMove = 0;
+                if( this.hasTripeStrengthMyomer() ) {
+                    switch( this.currentHeat ) {
+                        case 1: {
+                            this.move[moveC].currentMove += 2;
+                            break;
+                        }
+                        case 2: {
+                            // no effect on movement
+                            break;
+                        }
+                        default: {
+                            this.move[moveC].currentMove = this.move[moveC].currentMove - this.currentHeat * 2;
+
+                            break;
+                        }
+                    }
+                } else {
+                    this.move[moveC].currentMove = this.move[moveC].currentMove - this.currentHeat * 2;
+                    //can't have minus move, or heat level "4" === shutdown
+                    if (this.move[moveC].currentMove < 0 || this.currentHeat === 4){
+                        this.move[moveC].currentMove = 0;
+                    }
                 }
+
             }
 
             this.currentMove += "" + this.move[moveC].currentMove + "\"" + this.move[moveC].type;
@@ -995,22 +1068,6 @@ export class AlphaStrikeUnit {
             }
 
 
-
-
-            let tmpTMM = 0;
-            if( this.move[moveC].move < 5 ) {
-                tmpTMM = 0;
-            } else if( this.move[moveC].move < 9 ) {
-                tmpTMM = 1;
-            } else if( this.move[moveC].move < 13 ) {
-                tmpTMM = 2;
-            } else if( this.move[moveC].move < 19 ) {
-                tmpTMM = 3;
-            } else if( this.move[moveC].move < 35 ) {
-                tmpTMM = 4;
-            } else {
-                tmpTMM = 5;
-            }
 
             // if( this.move[moveC].type === "j" ) {
             //     tmpTMM++;
