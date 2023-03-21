@@ -310,7 +310,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                           return (
                             <tbody key={unitIndex}>
                             <tr>
-                              <td className="text-left min-width no-wrap">
+                              <td rowSpan={2} className="text-left min-width no-wrap">
 
 {this.props.appGlobals.currentASForce && this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
   (
@@ -368,8 +368,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
                             </tr>
                             <tr>
-                              <td></td>
-                              <td colSpan={4} className="med-small-text text-left">
+                              <td colSpan={4} className=" text-left">
                                 <strong title="Armor/Internal Structure values">A/IS</strong>: {asUnit.BFArmor}/{asUnit.BFStructure}
                                 &nbsp;|&nbsp;<strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.BFDamageShort}/{asUnit.BFDamageMedium}/{asUnit.BFDamageLong}
                                 {asUnit.BFOverheat  && asUnit.BFOverheat > 0 ? (
@@ -384,7 +383,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                                 ) : null}
 
                               </td>
-                              <td colSpan={3} className="med-small-text text-left">
+                              <td colSpan={3} className=" text-left">
                                 {asUnit.Role.Name}
                               </td>
                             </tr>

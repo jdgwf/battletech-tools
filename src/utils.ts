@@ -114,7 +114,6 @@ export async function getMULASSearchResults(
 
         let totalTerms = rulesNumbersURI.length + typesFilterURI.length + techFilterURI.length + roleFilterURI.length;
 
-        console.log("totalTerms", totalTerms);
         if(
             searchTerm.length >= 3
             || overrideSearchLimitLength
