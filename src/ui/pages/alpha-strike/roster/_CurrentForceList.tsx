@@ -205,7 +205,7 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                           return (
                             <tbody key={asUnitIndex}>
                             <tr>
-                              <td className="text-left min-width no-wrap">
+                              <td rowSpan={2} valign="middle" style={{verticalAlign: "middle"}}  className="text-left min-width no-wrap">
                                 {this.props.appGlobals.currentASForce && this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
                                 (
                                   <div className="drop-down-menu-container">
@@ -275,14 +275,8 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
 
                             </tr>
                             <tr>
-                              <td className="text-center small-text">
-                              {asUnit.mechCreatorUUID ? (
-                                  <div title="This mech was created with the 'Mech Builder">Custom</div>
-                                ) : (
-                                  <>&nbsp;</>
-                                )}
-                              </td>
-                              <td colSpan={3} className="med-small-text">
+
+                              <td colSpan={1} className="med-small-text">
                               {asUnit.isWrecked() ? (
                                   <div className="pull-right wrecked-tag">
                                       <FaExclamationTriangle /> Wrecked
@@ -311,6 +305,13 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                                   </>
                                 ) : null}
 
+                              </td>
+                              <td className="text-center small-text">
+                              {asUnit.mechCreatorUUID ? (
+                                  <div title="This mech was created with the 'Mech Builder">Custom</div>
+                                ) : (
+                                  <>&nbsp;</>
+                                )}
                               </td>
                             </tr>
                             {asUnit.currentPilotAbility ? (

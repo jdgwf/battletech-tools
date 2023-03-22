@@ -27,10 +27,11 @@ body {
                 float: right;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
-                color-adjust: exact;
+                //color-adjust: exact;
             }
         }
     }
+
     .page {
         height: 11in;
         width: 8.5in;
@@ -43,6 +44,7 @@ body {
             max-width: 8.25in;
         }
     }
+
     .print-table {
         border-top: solid 1px #000;
         border-left: solid 1px #000;

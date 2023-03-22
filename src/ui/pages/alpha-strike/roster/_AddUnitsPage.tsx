@@ -310,7 +310,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                           return (
                             <tbody key={unitIndex}>
                             <tr>
-                              <td rowSpan={2} className="text-left min-width no-wrap">
+                              <td rowSpan={2} valign="middle" style={{verticalAlign: "middle"}} className="text-left min-width no-wrap">
 
 {this.props.appGlobals.currentASForce && this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
   (

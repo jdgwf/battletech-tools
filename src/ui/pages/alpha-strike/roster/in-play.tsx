@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import AlphaStrikeGroup from '../../../../classes/alpha-strike-group';
 import { CONST_BATTLETECH_URL } from '../../../../configVars';
 import { IASPilotAbility } from '../../../../data/alpha-strike-pilot-abilities';
+import { IASSpecialAbility } from '../../../../data/alpha-strike-special-abilities';
 import { IAppGlobals } from '../../../app-router';
 import BattleTechLogo from '../../../components/battletech-logo';
 import StandardModal from '../../../components/standard-modal';
@@ -20,7 +21,8 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
 
         this.state = {
             updated: false,
-            showAbility: null,
+            showPilotAbility: null,
+            showSpecialAbility: null,
         };
 
         this.props.appGlobals.makeDocumentTitle("Playing Alpha Strike");
@@ -69,9 +71,29 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
 
     }
 
-    showSpecialAbility = ( ability: IASPilotAbility ): void => {
+    showPilotAbility = ( ability: IASPilotAbility ): void => {
       this.setState({
-        showAbility: ability,
+        showPilotAbility: ability,
+      })
+    };
+
+    closePilotAbility = (
+      e: React.FormEvent<HTMLButtonElement>
+    ): void => {
+      if( e && e.preventDefault ) e.preventDefault();
+
+      this.setState({
+        showPilotAbility: null,
+      })
+    }
+
+    showSpecialAbility = (
+      e: React.FormEvent<HTMLAnchorElement>,
+      ability: IASSpecialAbility
+    ): void => {
+      e.preventDefault();
+      this.setState({
+        showSpecialAbility: ability,
       })
     };
 
@@ -81,9 +103,10 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
       if( e && e.preventDefault ) e.preventDefault();
 
       this.setState({
-        showAbility: null,
+        showSpecialAbility: null,
       })
     }
+
 
     render = (): JSX.Element => {
       if(!this.props.appGlobals.currentASForce) {
@@ -91,13 +114,23 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
       }
       return (
         <>
-{this.state.showAbility ? (
+{this.state.showPilotAbility ? (
 <StandardModal
-  title={this.state.showAbility.ability+ " (" + this.state.showAbility.cost + ")"}
+  title={this.state.showPilotAbility.ability+ " (" + this.state.showPilotAbility.cost + ")"}
+  show={true}
+  onClose={this.closePilotAbility}
+>
+  <p>{this.state.showPilotAbility.summary}</p>
+</StandardModal>
+) : null}
+
+{this.state.showSpecialAbility ? (
+<StandardModal
+  title={this.state.showSpecialAbility.name}
   show={true}
   onClose={this.closeSpecialAbility}
 >
-  <p>{this.state.showAbility.summary}</p>
+  <p>{this.state.showSpecialAbility.summary}</p>
 </StandardModal>
 ) : null}
 
@@ -116,7 +149,6 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
                   <AlphaStrikeToggleRulerHexes
                     appGlobals={this.props.appGlobals}
                   />
-
                 </li>
 
                 <li className="logo">
@@ -165,8 +197,8 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
                   ) : null
                   }
                   {group.members.map( (unit, unitIndex) => {
-                    if( unitIndex === 0 && group.members[unitIndex +1 ])
-                    console.log( "unit1, unit2",  group.members[unitIndex +1 ] ===  group.members[unitIndex])
+                    // if( unitIndex === 0 && group.members[unitIndex +1 ])
+
                     // let newInstance = new AlphaStrikeUnit( unit.export() );
                     return (
                     <React.Fragment key={unitIndex}>
@@ -178,6 +210,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
                           className="small-margins"
                           measurementsInHexes={this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes}
                           showSpecialAbility={this.showSpecialAbility}
+                          showPilotAbility={this.showPilotAbility}
                         />
                       </div>
                     </React.Fragment>
@@ -202,5 +235,6 @@ interface IInPlayProps {
 
 interface IInPlayState {
   updated: boolean;
-  showAbility: IASPilotAbility | null,
+  showPilotAbility: IASPilotAbility | null,
+  showSpecialAbility: IASSpecialAbility | null
 }

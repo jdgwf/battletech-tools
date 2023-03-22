@@ -10,15 +10,28 @@ export default class SanitizedHTML extends React.Component<ISanitizedHTMLProps, 
     render = (): JSX.Element => {
 
         if( this.props.raw ) {
-            return (
-                <span
-                    dangerouslySetInnerHTML={
-                        {
-                            __html: this.props.html
+            if( this.props.svg ) {
+                return (
+                    <text
+                        dangerouslySetInnerHTML={
+                            {
+                                __html: this.props.html
+                            }
                         }
-                    }
-                ></span>
-            )
+                    ></text>
+                )
+            } else {
+                return (
+                    <span
+                        dangerouslySetInnerHTML={
+                            {
+                                __html: this.props.html
+                            }
+                        }
+                    ></span>
+                )
+            }
+
         } else {
             return (
                 <span
@@ -73,6 +86,7 @@ export default class SanitizedHTML extends React.Component<ISanitizedHTMLProps, 
 interface ISanitizedHTMLProps {
     html: string;
     raw?: boolean;
+    svg?: boolean;
 }
 
 interface ISanitizedHTMLState {

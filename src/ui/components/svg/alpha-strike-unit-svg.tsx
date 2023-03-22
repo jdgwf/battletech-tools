@@ -1,6 +1,7 @@
 import React from 'react';
 import { AlphaStrikeUnit } from '../../../classes/alpha-strike-unit';
 import { IASPilotAbility } from '../../../data/alpha-strike-pilot-abilities';
+import { IASSpecialAbility } from '../../../data/alpha-strike-special-abilities';
 import { IAppGlobals } from '../../app-router';
 import BattleTechLogo from '../battletech-logo';
 
@@ -156,14 +157,14 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         }
     }
 
-    private _showAbility = (
+    private _showPilotyAbility = (
         e: React.MouseEvent<SVGTextElement, MouseEvent>,
         ability: IASPilotAbility | null,
     ) => {
         if( e && e.preventDefault ) e.preventDefault();
 
-        if( this.props.showSpecialAbility && ability ) {
-            this.props.showSpecialAbility( ability );
+        if( this.props.showPilotAbility && ability ) {
+            this.props.showPilotAbility( ability );
         }
     }
 
@@ -219,25 +220,26 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         return dots;
     }
 
-    private _splitAbilities = ( val: string ): string[] => {
+    private _splitAbilities = ( val: string ): string[][] => {
         val = val.trim();
         let words = val.split(",");
-        let rv: string[] = [];
-        let line = "";
+        let rv: string[][] = [];
+        let line: string[] = [];
+
 
 
 
         for( let word of words ) {
+
             word = word.trim();
             if( word ) {
                 if( line.length + word.length + 1 > 55 ) {
                     rv.push( line );
-                    line = "";
+                    line = [];
                 }
-                if( line.trim() ) {
-                    line += ","
-                }
-                line += word;
+
+                line.push(word);
+
             }
         }
         rv.push( line );
@@ -257,7 +259,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
             damageColWidth=110;
         }
 
-        let abilitiesSplit: string[] = this._splitAbilities(this.props.asUnit.abilities);
+        let abilitiesSplit: string[][] = this._splitAbilities(this.props.asUnit.abilities);
 
         return (
 
@@ -296,7 +298,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                         stroke="rgb(0,200,0)"
                         fontSize="20"
                         className={this.props.inPlay && this.props.asUnit && this.props.showSpecialAbility ? "cursor-pointer" : ""}
-                        onClick={(e) => this._showAbility(e, this.props.asUnit ? this.props.asUnit.currentPilotAbility : null)}
+                        onClick={(e) => this._showPilotyAbility(e, this.props.asUnit ? this.props.asUnit.currentPilotAbility : null)}
                     >
                         Pilot Ability: {this.props.asUnit.currentPilotAbility.ability} ({this.props.asUnit.currentPilotAbility.cost})
                     </text>
@@ -571,20 +573,83 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 )}
 
                 {/* End Armor and Structure Box */}
-
+                abilitiesSplit
                 <rect x="20" y="510" width="960" height="60" fill="rgb(0,0,0)" rx="18" ry="18"></rect>
                 <rect x="25" y="515" width="950" height="50" fill="rgba( 255,255,255,.8)" rx="15" ry="15"></rect>
-                <text x="30" y="540" textAnchor="left" fontFamily="sans-serif" fontSize="25">SPECIAL: {abilitiesSplit[0]}</text>
+                <text x="30" y="540" textAnchor="left" fontFamily="sans-serif" fontSize="25">SPECIAL:
                 {abilitiesSplit.map( (line, lineIndex) => {
-
-                    if( lineIndex > 0 ) {
+                    if( lineIndex === 0 ) {
                         return (
-                            <text x="150" y="561" key={lineIndex} textAnchor="left" fontFamily="sans-serif" fontSize="25">{line}</text>
+                            <>
+                            {line.map( (word, wordIndex) => {
+                                let comma = <></>;
+                                if( line.length - 1 !== wordIndex ) {
+                                    comma = <>,&nbsp;</>;
+                                }
+
+                                if( this.props.asUnit && this.props.inPlay ) {
+                                    let ability = this.props.asUnit.getSpecialAbility(word);
+                                    if( ability !== null ) {
+                                        return (
+                                            //@ts-ignore
+                                            <React.Fragment key={wordIndex}><a onClick={(e) => this.props.showSpecialAbility(e, ability)} title={"Click here to view the description for " + word} href="/">{word}</a>{comma}</React.Fragment>
+                                        )
+                                    } else {
+                                        return (
+                                            <React.Fragment key={wordIndex}>{word}{comma}</React.Fragment>
+                                        )
+                                    }
+
+                                } else {
+                                    return (
+                                        <React.Fragment key={wordIndex}>{word}{comma}</React.Fragment>
+                                    )
+                                }
+
+                            })}
+                            </>
                         )
                     } else {
                         return <React.Fragment key={lineIndex}></React.Fragment>
                     }
                 })}
+                </text>
+
+                {abilitiesSplit.map( (line, lineIndex) => {
+                    if( lineIndex > 0 ) {
+                        return (
+                            <text x="150" y="561" key={lineIndex} textAnchor="left" fontFamily="sans-serif" fontSize="25">
+                            {line.map( (word, wordIndex) => {
+                                let comma = <></>;
+                                if( line.length - 1 !== wordIndex ) {
+                                    comma = <>,&nbsp;</>;
+                                }
+                                if( this.props.showSpecialAbility && this.props.asUnit && this.props.inPlay ) {
+                                    let ability = this.props.asUnit.getSpecialAbility(word);
+                                    if( ability ) {
+                                        return (
+                                            //@ts-ignore
+                                            <React.Fragment key={wordIndex}><a onClick={(e) => this.props.showSpecialAbility(e, ability)} title={"Click here to view the description for " + word} href="/">{word}</a>{comma}</React.Fragment>
+                                        )
+                                    } else {
+                                        return (
+                                            <React.Fragment key={wordIndex}>{word}{comma}</React.Fragment>
+                                        )
+                                    }
+
+                                } else {
+                                    return (
+                                        <React.Fragment key={wordIndex}>{word}{comma}</React.Fragment>
+                                    )
+                                }
+                            })}
+                            </text>
+                        )
+                    } else {
+                        return <React.Fragment key={lineIndex}></React.Fragment>
+                    }
+                })}
+
 
                 {/* Critical Hits */}
                 {!this.props.asUnit.isInfantry ? (
@@ -790,12 +855,16 @@ interface IAlphaStrikeUnitSVGProps {
     width?: string;
     asUnit: AlphaStrikeUnit | null;
     inPlay?: boolean;
-     appGlobals: IAppGlobals;
+    appGlobals: IAppGlobals;
     className?: string;
     forPrint?: boolean;
     showExtreme?: boolean;
     measurementsInHexes: boolean;
-    showSpecialAbility?( ability: IASPilotAbility ): void;
+    showPilotAbility?( ability: IASPilotAbility ): void;
+    showSpecialAbility?(
+        e: React.FormEvent<HTMLAnchorElement>,
+        ability: IASSpecialAbility
+      ): void
 }
 
 interface IAlphaStrikeUnitSVGState {

@@ -1,4 +1,5 @@
 import { CONST_AS_PILOT_ABILITIES, IASPilotAbility } from "../data/alpha-strike-pilot-abilities";
+import { CONST_AS_SPECIAL_ABILITIES, IASSpecialAbility } from "../data/alpha-strike-special-abilities";
 import { generateUUID } from "../utils/generateUUID";
 import Pilot, { IPilot } from "./pilot";
 
@@ -1191,6 +1192,19 @@ export class AlphaStrikeUnit {
         if( currentEngineHits > 1 )
             this.active = false;
 
+
+    }
+
+    public getSpecialAbility( tag: string ): IASSpecialAbility | null {
+        if( this.abilities ) {
+            for( let def of CONST_AS_SPECIAL_ABILITIES ) {
+                if( tag.toLowerCase().trim() === def.tag.toLowerCase().trim() ) {
+                    return def;
+                }
+            }
+
+        }
+        return null;
     }
 
     public setHeat( newHeatValue: number ) {
