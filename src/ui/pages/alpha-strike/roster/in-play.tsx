@@ -126,11 +126,15 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
 
 {this.state.showSpecialAbility ? (
 <StandardModal
-  title={this.state.showSpecialAbility.name}
+  title={this.state.showSpecialAbility.rawTag + ": " + this.state.showSpecialAbility.name}
   show={true}
   onClose={this.closeSpecialAbility}
 >
-  <p>{this.state.showSpecialAbility.summary}</p>
+  {this.state.showSpecialAbility.summary.map( (line, lineIndex) => {
+    return (
+      <p key={lineIndex}>{line}</p>
+    )
+  })}
 </StandardModal>
 ) : null}
 

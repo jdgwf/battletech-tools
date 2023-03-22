@@ -443,7 +443,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     y="330"
                     width="45"
                     height="50"
-                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 2 ? "rgb(200,0,0)" : "rgb(102,102,102)"}
+                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 2 ? "rgb(236,87,16)" : "rgb(102,102,102)"}
                 ></rect>
                 <text onClick={() => this._setHeat(2)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="415" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>2</text>
 
@@ -455,7 +455,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     y="330"
                     width="45"
                     height="50"
-                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 3 ? "rgb(236,87,16)" : "rgb(102,102,102)"}
+                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 3 ? "rgb(200,0,0)" : "rgb(102,102,102)"}
                 ></rect>
                 <text onClick={() => this._setHeat(3)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="465" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>3</text>
 
@@ -467,7 +467,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     y="330"
                     width="25"
                     height="50"
-                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat > 3 ? "rgb(51,51,51)" : "rgb(102,102,102)"}
+                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat > 3 ? "rgb(255,10,10)" : "rgb(102,102,102)"}
                 ></rect>
                 <circle
                     onClick={() => this._setHeat(4)}
@@ -475,7 +475,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     cx="530"
                     cy="355"
                     r="25"
-                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat > 3 ? "rgb(51,51,51)" : "rgb(102,102,102)"}
+                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat > 3 ? "rgb(255,10,10)" : "rgb(102,102,102)"}
                 ></circle>
                 <text onClick={() => this._setHeat(4)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="515" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>S</text>
 
@@ -573,10 +573,10 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 )}
 
                 {/* End Armor and Structure Box */}
-                abilitiesSplit
+
                 <rect x="20" y="510" width="960" height="60" fill="rgb(0,0,0)" rx="18" ry="18"></rect>
                 <rect x="25" y="515" width="950" height="50" fill="rgba( 255,255,255,.8)" rx="15" ry="15"></rect>
-                <text x="30" y="540" textAnchor="left" fontFamily="sans-serif" fontSize="25">SPECIAL:
+                <text x="30" y="540" textAnchor="left" fontFamily="sans-serif" fontSize="25">SPECIAL:&nbsp;
                 {abilitiesSplit.map( (line, lineIndex) => {
                     if( lineIndex === 0 ) {
                         return (

@@ -367,6 +367,11 @@ export class AlphaStrikeUnit {
             this.currentHeat = 0;
             this.currentPoints = this.basePoints / 1;
 
+
+            if( incomingMechData.currentHeat ) {
+                this.currentHeat = incomingMechData.currentHeat;
+            }
+
             if( incomingMechData.currentSkill ) {
                 this._pilot.gunnery = incomingMechData.currentSkill;
                 this._pilot.piloting = incomingMechData.currentSkill + 1;
@@ -1033,7 +1038,7 @@ export class AlphaStrikeUnit {
 
 
             // Subtract Heat from Current Move
-            if( this.move[moveC].type !== "j" ) {
+            if( this.move[moveC].type !== "j" || this.move.length === 1 ) {
                 if( this.type.toLowerCase().trim() === "bm" ) {
                     this.currentMoveSprint = "" + (+this.move[moveC].currentMove * 1.5 ) + "\"";
                     this.currentMoveHexesSprint = "" + ( Math.ceil(( +this.move[moveC].currentMove / 2) * 1.5) )+ "⬣";
@@ -1053,6 +1058,9 @@ export class AlphaStrikeUnit {
 
                             break;
                         }
+                    }
+                    if (this.move[moveC].currentMove < 0 || this.currentHeat === 4){
+                        this.move[moveC].currentMove = 0;
                     }
                 } else {
                     this.move[moveC].currentMove = this.move[moveC].currentMove - this.currentHeat * 2;
@@ -1199,7 +1207,22 @@ export class AlphaStrikeUnit {
         if( this.abilities ) {
             for( let def of CONST_AS_SPECIAL_ABILITIES ) {
                 if( tag.toLowerCase().trim() === def.tag.toLowerCase().trim() ) {
-                    return def;
+                    let newDef = JSON.parse(JSON.stringify(def));
+                    newDef.rawTag = tag;
+                    return newDef;
+                }
+                if(def.tag.indexOf("#") > 0) {
+                    let baseTag = def.tag.substring(0, def.tag.indexOf("#") ).toLowerCase();
+                    if( tag.toLowerCase().startsWith(baseTag) ) {
+                        let tmp = tag.toLowerCase().replace(baseTag, "");
+                        if( tmp.length > 0 ) {
+                            if( !Number.isNaN(Number(tmp[0])) ) {
+                                let newDef = JSON.parse(JSON.stringify(def));
+                                newDef.rawTag = tag;
+                                return newDef;
+                            }
+                        }
+                    }
                 }
             }
 
@@ -1290,10 +1313,13 @@ export class AlphaStrikeUnit {
         let _vehicleMotive11: boolean[] = [];
         let _vehicleMotive12: boolean = false;
 
+        let _currentHeat = 0;
 
 
         if( !noInPlayVariables ) {
             _currentArmor = this.currentArmor;
+            _currentHeat = this.currentHeat;
+
             _currentStructure = this.currentStructure;
             _engineHits = this.engineHits;
             _fireControlHits = this.fireControlHits;
@@ -1323,6 +1349,7 @@ export class AlphaStrikeUnit {
             returnValue.vehicleMotive11 = _vehicleMotive11;
             returnValue.vehicleMotive12 = _vehicleMotive12;
 
+            returnValue.currentHeat = _currentHeat;
             returnValue.uuid = this.uuid;
             return returnValue;
         } else {
