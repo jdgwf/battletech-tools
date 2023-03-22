@@ -157,7 +157,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         }
     }
 
-    private _showPilotyAbility = (
+    private _showPilotAbility = (
         e: React.MouseEvent<SVGTextElement, MouseEvent>,
         ability: IASPilotAbility | null,
     ) => {
@@ -298,7 +298,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                         stroke="rgb(0,200,0)"
                         fontSize="20"
                         className={this.props.inPlay && this.props.asUnit && this.props.showSpecialAbility ? "cursor-pointer" : ""}
-                        onClick={(e) => this._showPilotyAbility(e, this.props.asUnit ? this.props.asUnit.currentPilotAbility : null)}
+                        onClick={(e) => this._showPilotAbility(e, this.props.asUnit ? this.props.asUnit.currentPilotAbility : null)}
                     >
                         Pilot Ability: {this.props.asUnit.currentPilotAbility.ability} ({this.props.asUnit.currentPilotAbility.cost})
                     </text>
@@ -327,11 +327,16 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 ) : (
                     <text x="540" y="140" fontFamily="sans-serif" textAnchor="end" fontSize="25">MV: {this.props.asUnit.currentMove.trim()}</text>
                 )}
-                {this.props.measurementsInHexes ? (
-                    <text x="540" y="155" fontFamily="sans-serif" textAnchor="end" fontSize="15">Sprint: {this.props.asUnit.currentMoveHexesSprint.trim()}</text>
-                ) : (
-                    <text x="540" y="155" fontFamily="sans-serif" textAnchor="end" fontSize="15">Sprint: {this.props.asUnit.currentMoveSprint.trim()}</text>
-                )}
+                {this.props.asUnit.isGroundUnit() ? (
+                    <>
+                        {this.props.measurementsInHexes ? (
+                            <text x="540" y="155" fontFamily="sans-serif" textAnchor="end" fontSize="15">Sprint: {this.props.asUnit.currentMoveHexesSprint.trim()}</text>
+                        ) : (
+                            <text x="540" y="155" fontFamily="sans-serif" textAnchor="end" fontSize="15">Sprint: {this.props.asUnit.currentMoveSprint.trim()}</text>
+                        )}
+                    </>
+                )  : null}
+
 
                 <text x="30" y="180" fontFamily="sans-serif" fontSize="25">ROLE: {this.props.asUnit.role.toUpperCase()}</text>
                 <text x="540" y="180" fontFamily="sans-serif" textAnchor="end" fontSize="25">SKILL: {this.props.asUnit.currentSkill}</text>

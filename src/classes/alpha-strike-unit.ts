@@ -1039,10 +1039,10 @@ export class AlphaStrikeUnit {
 
             // Subtract Heat from Current Move
             if( this.move[moveC].type !== "j" || this.move.length === 1 ) {
-                if( this.type.toLowerCase().trim() === "bm" ) {
+                // if( this.type.toLowerCase().trim() === "bm" ) {
                     this.currentMoveSprint = "" + (+this.move[moveC].currentMove * 1.5 ) + "\"";
                     this.currentMoveHexesSprint = "" + ( Math.ceil(( +this.move[moveC].currentMove / 2) * 1.5) )+ "⬣";
-                }
+                // }
                 if( this.hasTripeStrengthMyomer() ) {
                     switch( this.currentHeat ) {
                         case 1: {
@@ -1202,7 +1202,31 @@ export class AlphaStrikeUnit {
 
 
     }
-
+/**
+   * Returns a boolean if the unit is a ground unit. This is used for
+   * calculating whether or not the unit can sprint
+   *
+   * @beta
+   */
+    public isGroundUnit(): boolean {
+        if(
+            this.type === "AF"
+            ||
+            this.type === "DA"
+            ||
+            this.type === "DS"
+            ||
+            this.type === "SC"
+        ) {
+            return false;
+        }
+        for( let moveC = 0; moveC < this.move.length; moveC++  ){
+            if(this.move[moveC].type.toLowerCase() === "v" ) {
+                return false;
+            }
+        }
+        return true;
+    }
     public getSpecialAbility( tag: string ): IASSpecialAbility | null {
         if( this.abilities ) {
             for( let def of CONST_AS_SPECIAL_ABILITIES ) {
@@ -1210,6 +1234,15 @@ export class AlphaStrikeUnit {
                     let newDef = JSON.parse(JSON.stringify(def));
                     newDef.rawTag = tag;
                     return newDef;
+                }
+                if(def.tag.indexOf("%") > 0) {
+                    let baseTag = def.tag.substring(0, def.tag.indexOf("%") ).toLowerCase();
+
+                    if( tag.toLowerCase().startsWith(baseTag) ) {
+                        let newDef = JSON.parse(JSON.stringify(def));
+                        newDef.rawTag = tag;
+                        return newDef;
+                    }
                 }
                 if(def.tag.indexOf("#") > 0) {
                     let baseTag = def.tag.substring(0, def.tag.indexOf("#") ).toLowerCase();

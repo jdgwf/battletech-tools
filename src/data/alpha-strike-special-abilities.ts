@@ -497,7 +497,7 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
         type: ESpecialAbilityType.Optional,
     },
     {
-        tag: "ART*-#",
+        tag: "ART%-#",
         name: "Artillery",
         summary: [
             "This special ability lets a unit make an artillery attack, with an abbreviation for each type of artillery replacing the “X” in the ability’s acronym."
