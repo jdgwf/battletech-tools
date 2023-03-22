@@ -64,7 +64,7 @@ export default class AlphaStrikePilotCardSVG extends React.Component<IAlphaStrik
             return <></>
         }
 
-        let desc = this._splitAbilities( this.props.pilotAbility.summary);
+        let desc = this._splitAbilities( this.props.pilotAbility.summary.join("\n"));
 
         return (
 

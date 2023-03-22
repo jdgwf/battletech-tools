@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import AlphaStrikeGroup from '../../../../classes/alpha-strike-group';
 import { CONST_BATTLETECH_URL } from '../../../../configVars';
 import { IASPilotAbility } from '../../../../data/alpha-strike-pilot-abilities';
-import { IASSpecialAbility } from '../../../../data/alpha-strike-special-abilities';
+import { getSpecialAbilityTypeName, IASSpecialAbility } from '../../../../data/alpha-strike-special-abilities';
 import { IAppGlobals } from '../../../app-router';
 import BattleTechLogo from '../../../components/battletech-logo';
 import StandardModal from '../../../components/standard-modal';
@@ -120,7 +120,12 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
   show={true}
   onClose={this.closePilotAbility}
 >
-  <p>{this.state.showPilotAbility.summary}</p>
+  <div className='text-center'><em>Pilot Special Ability</em> - <span title="Alpha Strike Commander's Edition">p{this.state.showPilotAbility.asce_page}</span></div>
+  {this.state.showPilotAbility.summary.map( (line, lineIndex) => {
+    return (
+      <p key={lineIndex}>{line}</p>
+    )
+  })}
 </StandardModal>
 ) : null}
 
@@ -130,6 +135,8 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
   show={true}
   onClose={this.closeSpecialAbility}
 >
+  <div className='text-center'><em>{getSpecialAbilityTypeName(this.state.showSpecialAbility.type)}</em> - <span title="Alpha Strike Commander's Edition">p{this.state.showSpecialAbility.asce_page}</span></div>
+
   {this.state.showSpecialAbility.summary.map( (line, lineIndex) => {
     return (
       <p key={lineIndex}>{line}</p>

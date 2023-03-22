@@ -102,7 +102,7 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
                               <option value={0}>- None -</option>
                               {CONST_AS_PILOT_ABILITIES.map( (abi, abiIndex) => {
                                 return (
-                                  <option title={abi.summary} key={abiIndex} value={abi.id}>{abi.ability}  ({abi.cost})</option>
+                                  <option title={abi.summary.join("\n")} key={abiIndex} value={abi.id}>{abi.ability}  ({abi.cost})</option>
                                 )
                               })}
                             </select>
