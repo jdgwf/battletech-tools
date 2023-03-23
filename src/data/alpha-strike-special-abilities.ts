@@ -725,6 +725,160 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
         asce_page: 85,
         type: ESpecialAbilityType.Optional,
     }
+    ,
+    {
+        tag: "SEAL",
+        name: "Environmental Sealing",
+        summary: [
+            "A unit with this special ability may operate in hostile environments (including underwater, vacuum, and so forth) . Aerospace units, ProtoMechs, combat vehicles, and support vehicles built as submarines are automatically treated as if they have this ability ."
+        ],
+        asce_page: 85,
+        type: ESpecialAbilityType.Optional,
+    },
+    {
+        tag: "FF",
+        name: "Firefighter",
+        summary: [
+            "Firefighter units may put out fires within 2” of their position . This action requires a 2D6 roll of 8+, made in place of a weapon attack . Reduce this target number by 1 for each turn the unit spends fighting a fire, and for each additional unit engaged in fighting the same fire (to a maximum target number modifier of –3) ."
+        ],
+        asce_page: 85,
+        type: ESpecialAbilityType.Optional,
+    },
+    {
+        tag: "FD",
+        name: "Flight Deck",
+        summary: [
+            "A unit with this special ability can be used as a landing area by an aerospace fighter, conventional fighter, small craft, fixed-wing support vehicle, airship support vehicle, or VTOL unit ."
+        ],
+        asce_page: 85,
+        type: ESpecialAbilityType.Optional,
+    },
+    {
+        tag: "GLD",
+        name: "Glider Protomech",
+        summary: [
+            "A ProtoMech unit with this special ability has been built with a special low-level flight capability similar to a Wing-in-Ground Effect vehicle . Rules for using Glider ProtoMechs in game play may be found on page 177 ."
+        ],
+        asce_page: 85,
+        type: ESpecialAbilityType.Optional,
+    },
+    {
+        tag: "HELI",
+        name: "Helipad",
+        summary: [
+            "A unit with this special ability can be used as a landing area by a unit with VTOL movement ."
+        ],
+        asce_page: 85,
+        type: ESpecialAbilityType.Optional,
+    },
+    {
+        tag: "HPG",
+        name: "Hyperpulse Generator",
+        summary: [
+            "This unit is equipped with a mobile HPG."
+        ],
+        asce_page: 85,
+        type: ESpecialAbilityType.Optional,
+    },
+    {
+        tag: "IRA",
+        name: "Impact Resistant Armor",
+        summary: [
+            "Originally developed for use in dueling arenas, where melee attacks are often as common as weapons fire, impact-resistant armor provides increased protection in physical combat . When a unit with this special sustains damage as a result of a physical attack (including those delivered using a MEL special, or self-inflicted damage from a Death from Above attack), the damage sustained by the unit is reduced by 1 point, to a minimum of 1 point .",
+            "In addition to this, all critical hit rolls and hull breach checks made against this unit apply a +1 modifier to the roll result . For critical hits, treat any modified result over 12 as an Engine Hit critical ."
+        ],
+        asce_page: 86,
+        type: ESpecialAbilityType.Optional,
+    },
+    {
+        tag: "IATM#/#/#",
+        name: "Improved ATM",
+        summary: [
+            "Units with the IATM#/#/# special may conduct missile attacks using Improved ATM munitions . These alternate munitions are:",
+            "Indirect Fire: This represents an IATM firing standard long- range missiles, which enables the unit to execute an attack as if it has an IF value equivalent to its IATM Long-range value (i .e ., an IATM2/2/2 special can also act as an IF2 special) .",
+            "Magnetic Pulse: Using this alternate munition attack, the unit’s normal attack is reduced by 1 point at Short range . But if this attack hits a target in the Short range bracket, the target suffers a loss of 2 inches of Move, as well as a –1 Target Number modifier for all weapon attacks, throughout the following turn . (Multiple magnetic pulse hits will not stack these modifiers .)",
+            "Improved Inferno: Using this alternate munition attack, the unit’s normal attack is reduced by 1 point at both Short and Medium range . But if this attack hits a target in those range brackets, the target also suffers the effects of a HT#/#/# special attack equal to the numerical value of the unit’s IATM#/#/# special at those ranges, to a maximum of 2 points at any range bracket (i .e ., IATM3/1/- will transate to a HT2/1/- effect) ."
+        ],
+        asce_page: 86,
+        type: ESpecialAbilityType.Optional,
+    },
+    {
+        tag: "INARC#",
+        name: "Improved NARC Missile Beacon",
+        summary: [
+            "A unit with the INARC# special ability may make an extra weapon attack using its iNarc missile beacon device . A unit hit by an iNarc beacon will not suffer damage from the iNarc itself, but will suffer 1 additional point of damage from any Indirect Fire (IF), LRM, or SRM attacks for the rest of the game—unless the unit is within a friendly ECM bubble . The iNarc beacon launcher is usable up to the Medium range bracket .",
+            "Instead of their normal attack, iNarc launchers may fire specialty ammo (see Alternate Munitions, p . 142) .",
+            "The numerical value of this ability indicates the number of extra iNarc beacon attacks the unit can deliver in a single turn ."
+        ],
+        asce_page: 86,
+        type: ESpecialAbilityType.Optional,
+    },
+    {
+        tag: "LAM (#G/#A)",
+        name: "Land-Air BattleMech",
+        summary: [
+            "A BattleMech with this special has been built to convert between BattleMech, AirMech, and aerospace fighter modes of operation . The rules for Land-Air BattleMechs (LAMs), may be found on page 177 ."
+        ],
+        asce_page: 86,
+        type: ESpecialAbilityType.Optional,
+    },
+    {
+        tag: "LG",
+        name: "Large",
+        summary: [
+            "Large units cover a 2” AoE template area . Large units block LOS ."
+        ],
+        asce_page: 86,
+        type: ESpecialAbilityType.Optional,
+    },
+    {
+        tag: "LTAG",
+        name: "Light Target Acquisition Gear",
+        summary: [
+            "A unit with Light TAG can “paint” targets for artillery homing rounds (see Artillery Attacks, p . 47) in the same way as a unit with standard target acquisition gear (TAG) . Light TAG may only be used in the Short range bracket ."
+        ],
+        asce_page: 86,
+        type: ESpecialAbilityType.Optional,
+    },
+    {
+        tag: "LRM#/#/#",
+        name: "Long Range Missiles",
+        summary: [
+            "This unit mounts a significant number of long-range missile launchers and may fire them together as an alternative weapon attack instead of a standard weapon attack . This ability enables the unit to use alternate LRM ammo for modified effects (see Alternate Munitions, p . 143) ."
+        ],
+        asce_page: 86,
+        type: ESpecialAbilityType.Optional,
+    },
+    {
+        tag: "MAG",
+        name: "MagLev",
+        summary: [
+            "A variation of the Rail (RAIL) special ability (see Rail, p . 88), units with magnetic levitation (maglev) systems may only travel along rail terrain designated for maglev units ."
+        ],
+        asce_page: 86,
+        type: ESpecialAbilityType.Optional,
+    },
+    {
+        tag: "MCS",
+        name: "Magnetic Clamp System",
+        summary: [
+            "ProtoMechs with magnetic clamps may ride on a BattleMech as if they were a battle armor infantry unit with the XMEC special (see p . 78) . No more than 2 ProtoMechs with the MCS special (or 1 with the UCS special) may ride on a single transporting ’Mech at the same time .",
+            "When transporting ProtoMechs via the MCS or UCS special, the transport ’Mech will lose 2 inches of Move, per ProtoMech, so long as the ProtoMechs remain attached to it ."
+        ],
+        asce_page: 87,
+        type: ESpecialAbilityType.Optional,
+    },
+    {
+        tag: "UCS",
+        name: "Magnetic Clamp System",
+        summary: [
+            "ProtoMechs with magnetic clamps may ride on a BattleMech as if they were a battle armor infantry unit with the XMEC special (see p . 78) . No more than 2 ProtoMechs with the MCS special (or 1 with the UCS special) may ride on a single transporting ’Mech at the same time .",
+            "When transporting ProtoMechs via the MCS or UCS special, the transport ’Mech will lose 2 inches of Move, per ProtoMech, so long as the ProtoMechs remain attached to it ."
+        ],
+        asce_page: 87,
+        type: ESpecialAbilityType.Optional,
+    }
+
 ]
 export interface IASSpecialAbility {
     tag: string;
