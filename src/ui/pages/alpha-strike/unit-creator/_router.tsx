@@ -2,17 +2,17 @@ import * as React from 'react';
 import { Route, Routes } from "react-router-dom";
 import { IAppGlobals } from '../../../app-router';
 import Error404 from "../../error404";
-import AlphaStrikeUnitEditorHome from './home';
+import AlphaStrikeUnitCreatorHome from './home';
 
 
-export default class AlphaStrikeUnitEditorRouter extends React.Component<IAlphaStrikeUnitEditorRouterProps, IAlphaStrikeUnitEditorRouterState> {
+export default class AlphaStrikeUnitCreatorRouter extends React.Component<IAlphaStrikeUnitCreatorRouterProps, IAlphaStrikeUnitCreatorRouterState> {
 
     render = (): JSX.Element => {
         return(
             <Routes>
 
                 <Route path={``} element={
-                    <AlphaStrikeUnitEditorHome
+                    <AlphaStrikeUnitCreatorHome
                         appGlobals={this.props.appGlobals}
                     />
                 }/>
@@ -39,10 +39,10 @@ export default class AlphaStrikeUnitEditorRouter extends React.Component<IAlphaS
     }
 }
 
-interface IAlphaStrikeUnitEditorRouterProps {
+interface IAlphaStrikeUnitCreatorRouterProps {
     appGlobals: IAppGlobals;
 }
 
-interface IAlphaStrikeUnitEditorRouterState {
+interface IAlphaStrikeUnitCreatorRouterState {
 
 }

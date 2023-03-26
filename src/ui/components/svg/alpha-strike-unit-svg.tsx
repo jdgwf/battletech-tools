@@ -44,7 +44,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
     private _takeDamage = ( damageTaken: number ): void => {
         if( this.props.inPlay && this.props.asUnit ) {
             this.props.asUnit.takeDamage( damageTaken );
-            this.props.asUnit.calcCurrentVals();
+            this.props.asUnit.calcCurrentValues();
             this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
         }
         this.setState({
@@ -59,14 +59,14 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
             if( target === "armor" ) {
                 if( this.props.asUnit.currentArmor.length > indexNumber) {
                     this.props.asUnit.currentArmor[indexNumber] = !this.props.asUnit.currentArmor[indexNumber];
-                    this.props.asUnit.calcCurrentVals();
+                    this.props.asUnit.calcCurrentValues();
                     this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
                 }
 
             } else {
                 if( this.props.asUnit.currentStructure.length > indexNumber) {
                     this.props.asUnit.currentStructure[indexNumber] = !this.props.asUnit.currentStructure[indexNumber];
-                    this.props.asUnit.calcCurrentVals();
+                    this.props.asUnit.calcCurrentValues();
                     this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
                 }
             }
@@ -78,7 +78,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
             if( this.props.asUnit.engineHits.length > indexNumber) {
                 this.props.asUnit.engineHits[indexNumber] = !this.props.asUnit.engineHits[indexNumber];
-                this.props.asUnit.calcCurrentVals();
+                this.props.asUnit.calcCurrentValues();
                 this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
             }
         }
@@ -87,7 +87,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
     private _setHeat = ( newValue: number ) => {
         if( this.props.inPlay && this.props.asUnit ) {
             this.props.asUnit.currentHeat = newValue;
-            this.props.asUnit.calcCurrentVals();
+            this.props.asUnit.calcCurrentValues();
             this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
         }
     }
@@ -97,7 +97,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
             if( this.props.asUnit.weaponHits.length > indexNumber) {
                 this.props.asUnit.weaponHits[indexNumber] = !this.props.asUnit.weaponHits[indexNumber];
-                this.props.asUnit.calcCurrentVals();
+                this.props.asUnit.calcCurrentValues();
                 this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
             }
         }
@@ -108,7 +108,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
             if( this.props.asUnit.vehicleMotive910.length > indexNumber) {
                 this.props.asUnit.vehicleMotive910[indexNumber] = !this.props.asUnit.vehicleMotive910[indexNumber];
-                this.props.asUnit.calcCurrentVals();
+                this.props.asUnit.calcCurrentValues();
                 this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
             }
         }
@@ -119,7 +119,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
             if( this.props.asUnit.vehicleMotive11.length > indexNumber) {
                 this.props.asUnit.vehicleMotive11[indexNumber] = !this.props.asUnit.vehicleMotive11[indexNumber];
-                this.props.asUnit.calcCurrentVals();
+                this.props.asUnit.calcCurrentValues();
                 this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
             }
         }
@@ -129,7 +129,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         if( this.props.inPlay && this.props.asUnit ) {
 
             this.props.asUnit.vehicleMotive12 = !this.props.asUnit.vehicleMotive12;
-            this.props.asUnit.calcCurrentVals();
+            this.props.asUnit.calcCurrentValues();
             this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
 
         }
@@ -140,7 +140,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
             if( this.props.asUnit.fireControlHits.length > indexNumber) {
                 this.props.asUnit.fireControlHits[indexNumber] = !this.props.asUnit.fireControlHits[indexNumber];
-                this.props.asUnit.calcCurrentVals();
+                this.props.asUnit.calcCurrentValues();
                 this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
             }
         }
@@ -151,7 +151,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
             if( this.props.asUnit.mpControlHits.length > indexNumber) {
                 this.props.asUnit.mpControlHits[indexNumber] = !this.props.asUnit.mpControlHits[indexNumber];
-                this.props.asUnit.calcCurrentVals();
+                this.props.asUnit.calcCurrentValues();
                 this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
             }
         }

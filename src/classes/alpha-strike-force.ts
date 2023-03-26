@@ -55,7 +55,7 @@ export default class AlphaStrikeForce {
         this.forcePoints = 0;
         for( var memCountGroup = 0; memCountGroup < this.groups.length; memCountGroup++ ) {
             for( var memCount = 0; memCount < this.groups.length; memCount++ ) {
-                this.groups[memCountGroup].members[memCount].calcCurrentVals();
+                this.groups[memCountGroup].members[memCount].calcCurrentValues();
                 if( this.groups[memCountGroup].members[memCount].active )
                     this.activeMembers++;
                 this.forcePoints += this.groups[memCountGroup].members[memCount].currentPoints / 1;

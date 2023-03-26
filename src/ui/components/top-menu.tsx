@@ -119,11 +119,11 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                     url: "/alpha-strike/roster",
                     tag: "alpha-strike-roster",
                 },
-                // {
-                //     label: "Unit Editor",
-                //     url: "/alpha-strike/unit-editor",
-                //     tag: "alpha-strike-unit-editor",
-                // }
+                {
+                    label: "Unit Creator",
+                    url: "/alpha-strike/unit-creator",
+                    tag: "alpha-strike-unit-creator",
+                }
             ]
 
         });
