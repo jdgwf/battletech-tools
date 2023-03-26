@@ -254,6 +254,7 @@ export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomePro
                                         value={this.state.editingASUnit.type}
                                     >
                                         <option value="BM">BattleMech</option>
+                                        <option value="PM">ProtoMech</option>
                                         <option value="CV">Combat Vehicle</option>
                                         <option value="AS">Aerospace</option>
                                     </select>

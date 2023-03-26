@@ -1,6 +1,6 @@
 import { CONST_AS_PILOT_ABILITIES, IASPilotAbility } from "../data/alpha-strike-pilot-abilities";
 import { CONST_AS_SPECIAL_ABILITIES, IASSpecialAbility } from "../data/alpha-strike-special-abilities";
-import { calculateAlphaStrikeValue, IAlphaStrikeExport } from "../utils/calculateAlphaStrikeValue";
+import { IAlphaStrikeExport } from "../utils/calculateAlphaStrikeValue";
 import { generateUUID } from "../utils/generateUUID";
 import Pilot, { IPilot } from "./pilot";
 
@@ -1477,24 +1477,19 @@ export class AlphaStrikeUnit {
         _calcLogAS += "<strong>Step 1: Determine Unit’s Offensive Value ASC - p138</strong><br />\n";
         let offensive_value = 0;
         // Attack Damage Factor
-        if( this.damage.short.toString() !== "0*" && this.damage.short.toString() !== "-" )
-            offensive_value += +this.damage.short;
-        if( this.damage.medium.toString() !== "0*" && this.damage.medium.toString() !== "-" )
-            offensive_value += +this.damage.medium;
-        if( this.damage.medium.toString() !== "0*" && this.damage.medium.toString() !== "-" )
-            offensive_value += +this.damage.medium;
-        if( this.damage.long.toString() !== "0*" && this.damage.long.toString() !== "-" )
-            offensive_value += +this.damage.long;
-        // if( this.damage.extreme.toString() !== "0*" && this.damage.extreme.toString() !== "-" )
-        //     offensive_value += +this.damage.extreme;
+        offensive_value += this.damage.short;
+        offensive_value += this.damage.medium;
+        offensive_value += this.damage.medium;
+        offensive_value += this.damage.long;
+        offensive_value += this.damage.extreme;
 
         _calcLogAS += "Attack Damage Factor: "
-        + offensive_value + " ( "
-        + this.damage.short + " + "
-        + this.damage.medium + " + "
-         + this.damage.long + " + "
-         + this.damage.medium // + " + "
-        // + this.damage.extreme
+        + offensive_value.toString() + " ( "
+        + this.damage.short.toString() + " + "
+        + this.damage.medium.toString() + " + "
+         + this.damage.long.toString() + " + "
+         + this.damage.medium.toString() + " + "
+         + this.damage.extreme.toString()
         + " )<br />\n";
 
         // Unit Size Factor
@@ -1502,7 +1497,6 @@ export class AlphaStrikeUnit {
             this.type.toLowerCase().trim() === "bm"
             ||
             this.type.toLowerCase().trim() === "pm"
-
         )  {
             offensive_value += this.size / 2;
             _calcLogAS += "Unit Size Factor: " + (this.size / 2) + " ( " + this.size + " / 2)<br />\n";
@@ -1542,7 +1536,6 @@ export class AlphaStrikeUnit {
             }
         }
 
-
         // Movement Factor:
         let movementDefenseValue = 0;
         let bestMovement = 0;
@@ -1571,7 +1564,7 @@ export class AlphaStrikeUnit {
 
         let highestDamage = 0;
 
-        // for (let aC = 0; aC < this.abilityCodes.length; aC++) {
+        for (let aC = 0; aC < this.abilities.length; aC++) {
 
         //     // Replace Heat with Heat X/X/X
         //     if( this.abilityCodes[aC].toLowerCase() === "heat" ) {
@@ -1645,7 +1638,7 @@ export class AlphaStrikeUnit {
 
         //     }
 
-        // }
+        }
 
         // Defensive Special Abilities Factor
         // TODO

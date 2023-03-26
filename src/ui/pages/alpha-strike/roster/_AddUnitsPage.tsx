@@ -332,7 +332,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
               onClick={() => {
                 let unitObj = new AlphaStrikeUnit();
                 unitObj.importMUL( JSON.parse(JSON.stringify(asUnit)) );
-                this.props.openViewUnit( unitObj )
+                this.addToGroup( unitObj, asGroupIndex)
               }}
               title={"Adds this unit to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
             >
@@ -350,7 +350,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       onClick={() => {
         let unitObj = new AlphaStrikeUnit();
         unitObj.importMUL( JSON.parse(JSON.stringify(asUnit)) );
-        this.props.openViewUnit( unitObj )
+        this.addToGroup( unitObj, 0)
       }}
       title="Add this unit to your current group"
     >
