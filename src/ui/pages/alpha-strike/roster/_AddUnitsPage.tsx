@@ -329,7 +329,11 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
           return (
             <li
               key={asGroupIndex}
-              onClick={() => this.addToGroup( new AlphaStrikeUnit(JSON.parse(JSON.stringify(asUnit))), asGroupIndex)}
+              onClick={() => {
+                let unitObj = new AlphaStrikeUnit();
+                unitObj.importMUL( JSON.parse(JSON.stringify(asUnit)) );
+                this.props.openViewUnit( unitObj )
+              }}
               title={"Adds this unit to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
             >
               <FaPlus />&nbsp;
@@ -343,7 +347,11 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
   ) : (
     <button
       className="btn-sm btn btn-primary no-right-margin"
-      onClick={() => this.addToGroup( new AlphaStrikeUnit(JSON.parse(JSON.stringify(asUnit))), 0)}
+      onClick={() => {
+        let unitObj = new AlphaStrikeUnit();
+        unitObj.importMUL( JSON.parse(JSON.stringify(asUnit)) );
+        this.props.openViewUnit( unitObj )
+      }}
       title="Add this unit to your current group"
     >
       <FaPlus />
@@ -352,7 +360,11 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
   <button
     className="btn btn-primary btn-sm"
-    onClick={() => this.props.openViewUnit( new AlphaStrikeUnit(asUnit))}
+    onClick={() => {
+      let unitObj = new AlphaStrikeUnit();
+      unitObj.importMUL( asUnit );
+      this.props.openViewUnit( unitObj )
+    }}
     title="View this unit's Alpha Strike Card"
   >
     <FaEye />
@@ -523,9 +535,9 @@ title="View this unit's Alpha Strike Card"
                        &nbsp;|&nbsp;<strong title="Overheat Value">OHV</strong>: {asUnit.overheat}
                       </>
                     ) : null}
-                    {asUnit.abilities && asUnit.abilities.trim() ? (
+                    {asUnit.abilities.length > 0 ? (
                       <>
-                        &nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities}
+                        &nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities.join(", ")}
                       </>
                     ) : null}
 

@@ -299,9 +299,9 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                                    &nbsp;|&nbsp;<strong title="Overheat Value">OHV</strong>: {asUnit.overheat}
                                   </>
                                 ) : null}
-                                {asUnit.abilities && asUnit.abilities.trim() ? (
+                                {asUnit.abilities && asUnit.abilities.length > 0 ? (
                                   <>
-                                   &nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities}
+                                   &nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities.join(", ")}
                                   </>
                                 ) : null}
 

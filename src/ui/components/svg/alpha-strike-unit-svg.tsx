@@ -182,14 +182,26 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         if( radius === 0 ) {
             radius = this.buttonRadius - 5;
         }
-
+        let currentLeftCount = 0;
         for( let currentCount = 0; currentCount < count; currentCount++ ) {
+
+            if( currentCount > 15 ) {
+
+                if( currentCount === 16) {
+                    yLoc += (radius * 2 + 9);
+                    currentLeftCount = 0;
+                } else {
+                    currentLeftCount++;
+                }
+            } else {
+                currentLeftCount = currentCount;
+            }
             dots.push(
                 <React.Fragment
                     key={currentCount}
                 >
                     <circle className={this.props.inPlay ? "cursor-pointer" : ""}
-                        cx={this.damageLeftBase + xLoc + (currentCount * (radius * 2 + 9)) }
+                        cx={this.damageLeftBase + xLoc + (currentLeftCount * (radius * 2 + 9)) }
                         cy={yLoc}
                         r={radius + 3}
                         fill={strokeColor}
@@ -197,7 +209,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     />
                     {target === "armor" ? (
                         <circle className={this.props.inPlay ? "cursor-pointer" : ""}
-                            cx={this.damageLeftBase + xLoc + (currentCount * (radius * 2 + 9)) }
+                            cx={this.damageLeftBase + xLoc + (currentLeftCount * (radius * 2 + 9)) }
                             cy={yLoc}
                             r={radius}
                             fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentArmor.length > currentCount && this.props.asUnit.currentArmor[currentCount] ? this.activeDotColor : fillColor}
@@ -205,7 +217,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                         />
                     ) : (
                         <circle className={this.props.inPlay ? "cursor-pointer" : ""}
-                            cx={this.damageLeftBase + xLoc + (currentCount * (radius * 2 + 9)) }
+                            cx={this.damageLeftBase + xLoc + (currentLeftCount * (radius * 2 + 9)) }
                             cy={yLoc}
                             r={radius}
                             fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentStructure.length > currentCount && this.props.asUnit.currentStructure[currentCount] ? this.activeDotColor : fillColor}
@@ -259,7 +271,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
             damageColWidth=110;
         }
 
-        let abilitiesSplit: string[][] = this._splitAbilities(this.props.asUnit.abilities);
+        let abilitiesSplit: string[][] = this._splitAbilities(this.props.asUnit.abilities.join( ", "));
 
         return (
 
@@ -275,8 +287,8 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     <rect x="10" y="10" style={{zIndex: -1}} width="980" height="580" fill="rgb(255,255,255)"></rect>
                 )}
 
-                {this.props.asUnit.ImageUrl ? (
-                    <image x="440" y="10" href={this.props.asUnit.ImageUrl} width="550" height="500"></image>
+                {this.props.asUnit.imageURL ? (
+                    <image x="440" y="10" href={this.props.asUnit.imageURL} width="550" height="500"></image>
                 ) : (
                     <></>
                 )}
@@ -544,7 +556,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     {this._makeArmorDots(
                         this.props.asUnit.armor,
                         90,
-                        432,
+                        this.props.asUnit.armor > 16 ? 420 : 432,
                         "rgb(255,255,255)",
                         "rgb(0,0,0)",
                         0,
@@ -585,7 +597,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 {abilitiesSplit.map( (line, lineIndex) => {
                     if( lineIndex === 0 ) {
                         return (
-                            <>
+                            <React.Fragment key={lineIndex}>
                             {line.map( (word, wordIndex) => {
                                 let comma = <></>;
                                 if( line.length - 1 !== wordIndex ) {
@@ -612,7 +624,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                                 }
 
                             })}
-                            </>
+                            </React.Fragment>
                         )
                     } else {
                         return <React.Fragment key={lineIndex}></React.Fragment>

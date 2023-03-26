@@ -39,7 +39,7 @@ export interface ASMULTech {
     SortOrder: number;
 }
 export interface IASMULUnit {
-    mechCreatorUUID: string;
+    // mechCreatorUUID: string;
     FormatedTonnage: string | null; // typo in MUL
     GroupName: string | null;
     BFAbilities: string | null;
@@ -86,9 +86,13 @@ export interface IASMULUnit {
     BFDamageMediumMin?: boolean;
     BFDamageLongMin?: boolean;
     BFDamageExtremeMin?: boolean;
+}
+
+export interface IAlphaStrikeUnitExport {
+    mechCreatorUUID: string;
+
 
     customName?: string;
-    // currentSkill?: number;
 
     currentArmor?: boolean[];
     currentStructure?: boolean[];
@@ -114,6 +118,7 @@ export interface IASMULUnit {
     role: string;
     threshold: number;
     pilot: IPilot;
+    imageURL: string;
 
     move: IMoveNumber[];
     jumpMove: number;
@@ -122,12 +127,12 @@ export interface IASMULUnit {
     type: string;
     size: number;
     showDetails: boolean;
-    abilities: string;
+    abilities: string | string[];
     overheat: number;
     basePoints: number;
     currentSkill: number;
 
-    uuid?: string;
+    uuid: string;
 }
 
 export class AlphaStrikeUnit {
@@ -144,7 +149,7 @@ export class AlphaStrikeUnit {
     public isInfantry: boolean = false;
     public immobile: boolean = false;
 
-    public variant: string | null = "";
+    public variant: string = "";
     public name: string = "";
     public dateIntroduced: string = "";
     public era: string = "";
@@ -157,11 +162,11 @@ export class AlphaStrikeUnit {
 
     public tonnage: number = 0;
 
-    public type: string = "BattleMech";
+    public type: string = "BM";
     public size: number = 0;
     public tmm: number = 0;
 
-    public ImageUrl: string = "";
+    public imageURL: string = "";
 
     public currentMove: string = "";
     public currentMoveHexes: string = "";
@@ -170,7 +175,7 @@ export class AlphaStrikeUnit {
     public currentTMM: string = "";
 
     public armor: number = 0;
-    public structure: number = 0;
+    public structure: number = 1;
 
     public threshold: number = 0;
 
@@ -195,7 +200,7 @@ export class AlphaStrikeUnit {
 
     public mulID: number = 0;
 
-    public abilities: string = "";
+    public abilities: string[] = [];
 
     public overheat: number = 0;
     public role = "";
@@ -236,24 +241,27 @@ export class AlphaStrikeUnit {
 
     public customName: string = "";
 
-    constructor( incomingMechData: IASMULUnit | null ) {
+    constructor( ) {
         this._pilot = new Pilot();
-        if( incomingMechData && incomingMechData.uuid )
-            this.uuid = incomingMechData.uuid;
-        if( typeof(incomingMechData) !== "undefined" && incomingMechData !== null ) {
-            this.originalStats = incomingMechData;
+    }
 
-            // console.log("incomingMechData",  incomingMechData)
-            if( typeof(incomingMechData.BFPointValue) !== "undefined") {
+    public setPilotSkill( nv: number ) {
+        this._pilot.gunnery = nv;
+    }
+
+    public importMUL( incomingMechData: IASMULUnit ) {
+
+        if( typeof(incomingMechData) !== "undefined" && incomingMechData !== null ) {
+
             this.costCR = +incomingMechData.Cost;
 
-            this.variant = incomingMechData.Variant;
+            this.variant = incomingMechData.Variant ? incomingMechData.Variant : "";
             this.name = incomingMechData.Name;
             this.dateIntroduced = incomingMechData.DateIntroduced;
 
-            if( incomingMechData.mechCreatorUUID ) {
-                this.mechCreatorUUID = incomingMechData.mechCreatorUUID;
-            }
+            // if( incomingMechData.mechCreatorUUID ) {
+            //     this.mechCreatorUUID = incomingMechData.mechCreatorUUID;
+            // }
 
             this.tro = incomingMechData.TRO;
 
@@ -305,21 +313,24 @@ export class AlphaStrikeUnit {
                 this.damage.extremeMinimal = true;
             }
 
-            if( incomingMechData.BFAbilities )
-            this.abilities = incomingMechData.BFAbilities;
-            if (!this.abilities){
-                this.abilities = "";
+            if( incomingMechData.BFAbilities && incomingMechData.BFAbilities.trim() ) {
+                this.abilities = incomingMechData.BFAbilities.split(",");
+                if (!this.abilities){
+                    this.abilities = [];
+                } else {
+                    for( let abi of this.abilities ) {
+                        abi = abi.trim();
+                    }
+                }
             }
 
             this.overheat = +incomingMechData.BFOverheat;
 
             this.basePoints = +incomingMechData.BFPointValue;
 
-            if( incomingMechData.customName ) {
-                this.customName = incomingMechData.customName;
-            }
 
-            this.ImageUrl = incomingMechData.ImageUrl;
+
+            this.imageURL = incomingMechData.ImageUrl;
 
             let tmpMove = incomingMechData.BFMove;
             this.move = [];
@@ -361,125 +372,126 @@ export class AlphaStrikeUnit {
                 this.move.push( tmpMoveObj );
 
             }
+            this.calcCurrentVals();
+        }
 
+    }
 
+    public importUnit( incomingMechData: IAlphaStrikeUnitExport ) {
+        if( incomingMechData && incomingMechData.uuid )
+            this.uuid = incomingMechData.uuid;
+        if( typeof(incomingMechData) !== "undefined" && incomingMechData !== null ) {
 
-            this.currentHeat = 0;
-            this.currentPoints = this.basePoints / 1;
+            // Internally Processed Data
 
+            if( incomingMechData.classification )
+                this.classification = incomingMechData.classification;
+            this.costCR = incomingMechData.costCR / 1;
 
-            if( incomingMechData.currentHeat ) {
-                this.currentHeat = incomingMechData.currentHeat;
-            }
+            this.mulID = incomingMechData.mulID / 1;
 
-            if( incomingMechData.currentSkill ) {
-                this._pilot.gunnery = incomingMechData.currentSkill;
-                this._pilot.piloting = incomingMechData.currentSkill + 1;
-            }
+            this.imageURL = incomingMechData.imageURL;
 
+            this.currentHeat = incomingMechData.currentHeat;
+
+            this.variant = incomingMechData.variant;
+            this.name = incomingMechData.name;
+            this.dateIntroduced = incomingMechData.dateIntroduced;
+
+            this.tro = incomingMechData.tro;
+
+            this.role =  incomingMechData.role;
+
+            this.tonnage = incomingMechData.tonnage / 1;
+
+            this.threshold = incomingMechData.threshold / 1;
+
+            this.type = incomingMechData.type;
+            this.size = incomingMechData.size / 1;
+
+            this.armor = incomingMechData.armor / 1;
+            this.structure = incomingMechData.structure / 1;
+
+            this.move = incomingMechData.move;
+            this.jumpMove = +incomingMechData.jumpMove;
+
+            this.damage = {
+                    short: incomingMechData.damage.short,
+                    medium: incomingMechData.damage.medium,
+                    long: incomingMechData.damage.long,
+                    extreme: incomingMechData.damage.extreme,
+                };
+
+            if( !this.damage.extreme )
+                this.damage.extreme = 0;
+
+            this.move = incomingMechData.move;
+
+            if( typeof(incomingMechData.abilities) === "string" ) {
+                this.abilities = incomingMechData.abilities.split(",");
+                for( let abi of this.abilities ) {
+                    abi = abi.trim();
+                }
             } else {
-                // Internally Processed Data
-
-                if( incomingMechData.classification )
-                    this.classification = incomingMechData.classification;
-                this.costCR = incomingMechData.costCR / 1;
-
-                this.mulID = incomingMechData.mulID / 1;
-
-                this.ImageUrl = incomingMechData.ImageUrl;
-
-                this.currentHeat = incomingMechData.currentHeat;
-
-                this.variant = incomingMechData.variant;
-                this.name = incomingMechData.name;
-                this.dateIntroduced = incomingMechData.dateIntroduced;
-
-                this.tro = incomingMechData.tro;
-
-                this.role =  incomingMechData.role;
-
-                this.tonnage = incomingMechData.tonnage / 1;
-
-                this.threshold = incomingMechData.threshold / 1;
-
-                this.type = incomingMechData.type;
-                this.size = incomingMechData.size / 1;
-
-                this.armor = incomingMechData.armor / 1;
-                this.structure = incomingMechData.structure / 1;
-
-                this.move = incomingMechData.move;
-                this.jumpMove = +incomingMechData.jumpMove;
-
-                this.damage = {
-                        short: incomingMechData.damage.short,
-                        medium: incomingMechData.damage.medium,
-                        long: incomingMechData.damage.long,
-                        extreme: incomingMechData.damage.extreme,
-                    };
-
-                if( !this.damage.extreme )
-                    this.damage.extreme = 0;
-
-                this.move = incomingMechData.move;
-
                 this.abilities = incomingMechData.abilities;
-
-                this.showDetails = incomingMechData.showDetails;
-
-                this.overheat = incomingMechData.overheat / 1;
-
-                this.basePoints = incomingMechData.basePoints / 1;
-
-
-                if( incomingMechData.pilot)
-                    this._pilot.import(incomingMechData.pilot);
-
-                if( incomingMechData.currentSkill && incomingMechData.currentSkill > 0  )
-                    this._pilot.gunnery = incomingMechData.currentSkill;
-
-
-                this.currentPoints = this.basePoints;
             }
 
-            if( incomingMechData.currentArmor ) {
-                this.currentArmor = incomingMechData.currentArmor;
-            }
 
-            if( incomingMechData.currentStructure ) {
-                this.currentStructure = incomingMechData.currentStructure;
-            }
+            this.showDetails = incomingMechData.showDetails;
 
-            if( incomingMechData.engineHits )
-            this.engineHits = incomingMechData.engineHits;
+            this.overheat = incomingMechData.overheat / 1;
 
-            if( incomingMechData.fireControlHits )
-                this.fireControlHits = incomingMechData.fireControlHits;
-
-            if( incomingMechData.vehicleMotive910 ) {
-                this.vehicleMotive910 = incomingMechData.vehicleMotive910;
-            }
-            if( incomingMechData.vehicleMotive11 ) {
-                this.vehicleMotive11 = incomingMechData.vehicleMotive11;
-            }
-            if( incomingMechData.vehicleMotive12 ) {
-                this.vehicleMotive12 = incomingMechData.vehicleMotive12;
-            }
-
-            if( incomingMechData.mpControlHits )
-            this.mpControlHits = incomingMechData.mpControlHits;
-
-            if( incomingMechData.weaponHits )
-                this.weaponHits = incomingMechData.weaponHits;
-
-              if( incomingMechData.customName )
-                this.customName = incomingMechData.customName;
+            this.basePoints = incomingMechData.basePoints / 1;
 
 
             if( incomingMechData.pilot)
                 this._pilot.import(incomingMechData.pilot);
 
+            if( incomingMechData.currentSkill && incomingMechData.currentSkill > 0  )
+                this._pilot.gunnery = incomingMechData.currentSkill;
+
+
+            this.currentPoints = this.basePoints;
         }
+
+        if( incomingMechData.currentArmor ) {
+            this.currentArmor = incomingMechData.currentArmor;
+        }
+
+        if( incomingMechData.currentStructure ) {
+            this.currentStructure = incomingMechData.currentStructure;
+        }
+
+        if( incomingMechData.engineHits )
+        this.engineHits = incomingMechData.engineHits;
+
+        if( incomingMechData.fireControlHits )
+            this.fireControlHits = incomingMechData.fireControlHits;
+
+        if( incomingMechData.vehicleMotive910 ) {
+            this.vehicleMotive910 = incomingMechData.vehicleMotive910;
+        }
+        if( incomingMechData.vehicleMotive11 ) {
+            this.vehicleMotive11 = incomingMechData.vehicleMotive11;
+        }
+        if( incomingMechData.vehicleMotive12 ) {
+            this.vehicleMotive12 = incomingMechData.vehicleMotive12;
+        }
+
+        if( incomingMechData.mpControlHits )
+        this.mpControlHits = incomingMechData.mpControlHits;
+
+        if( incomingMechData.weaponHits )
+            this.weaponHits = incomingMechData.weaponHits;
+
+            if( incomingMechData.customName )
+            this.customName = incomingMechData.customName;
+
+
+        if( incomingMechData.pilot)
+            this._pilot.import(incomingMechData.pilot);
+
+
         this.calcCurrentVals();
     }
 
@@ -603,21 +615,18 @@ export class AlphaStrikeUnit {
 
     hasTripeStrengthMyomer(): boolean {
 
-        let abilities = this.abilities.toLowerCase().trim();
-        if(
-            abilities.indexOf("tsm,") > - 1
-            ||
-            abilities.indexOf(",tsm") > - 1
-            ||
-            abilities.indexOf(", tsm") > - 1
-            ||
-            abilities.trim() ===  "tsm"
-        ) {
-            return true;
+        return this.hasAbility("tsm");
+
+    }
+
+    public hasAbility( ability: string ): boolean {
+        for( let abi of this.abilities ) {
+            if( abi.toLowerCase().trim() === ability.toLowerCase().trim()) {
+                return true;
+            }
         }
         return false;
     }
-
     public getFireControlHits(): number {
         let rv = 0;
         if( this.engineHits ) {
@@ -1083,8 +1092,7 @@ export class AlphaStrikeUnit {
             //     tmpTMM++;
             // }
             if( this.move[moveC].type === "j" && (
-                this.abilities.toUpperCase().indexOf("JMPS") > -1
-                || this.abilities.toUpperCase().indexOf("JMPW") > -1
+                this.hasAbility("JMPS") || this.hasAbility("JMPW")
             )
             ) {
                 tmpTMM++;
@@ -1202,12 +1210,12 @@ export class AlphaStrikeUnit {
 
 
     }
-/**
-   * Returns a boolean if the unit is a ground unit. This is used for
-   * calculating whether or not the unit can sprint
-   *
-   * @beta
-   */
+    /**
+    * Returns a boolean if the unit is a ground unit. This is used for
+    * calculating whether or not the unit can sprint
+    *
+    * @beta
+    */
     public isGroundUnit(): boolean {
         if(
             this.type === "AF"
@@ -1227,6 +1235,7 @@ export class AlphaStrikeUnit {
         }
         return true;
     }
+
     public getSpecialAbility( tag: string ): IASSpecialAbility | null {
         if( this.abilities ) {
             for( let def of CONST_AS_SPECIAL_ABILITIES ) {
@@ -1330,9 +1339,19 @@ export class AlphaStrikeUnit {
     //     return createSVGAlphaStrike( this, inPlay, itemIDField );
     // }
 
-    export(
+    public setArmor( nv: number ) {
+        this.armor = nv;
+
+    }
+    public setStructure( nv: number ) {
+        this.armor = nv;
+
+
+    }
+
+    public export(
         noInPlayVariables: boolean = false,
-    ): IASMULUnit | null {
+    ): IAlphaStrikeUnitExport {
         // In Play Variables
 
         let _currentArmor: boolean[] = [];
@@ -1363,31 +1382,73 @@ export class AlphaStrikeUnit {
             _vehicleMotive12 = this.vehicleMotive12;
         }
 
-        if( this.originalStats ) {
-            let returnValue: IASMULUnit = this.originalStats;
-            returnValue.customName = this.customName;
-            returnValue.mechCreatorUUID = this.mechCreatorUUID;
-            returnValue.currentSkill = this.currentSkill;
-            returnValue.pilot = this._pilot.export();
+        let rv:  IAlphaStrikeUnitExport = {
+            mechCreatorUUID:  this.mechCreatorUUID,
+            customName: this.customName,
+            currentArmor: _currentArmor,
+            currentStructure: _currentStructure,
+            engineHits: _engineHits,
+            fireControlHits: _fireControlHits,
+            mpControlHits: _mpControlHits,
+            weaponHits: _weaponHits,
+            vehicleMotive910:  _vehicleMotive910,
+            vehicleMotive11:  _vehicleMotive11,
+            vehicleMotive12:  _vehicleMotive12,
+            classification:  this.classification,
+            costCR:  this.costCR,
+            mulID:  this.mulID,
+            currentHeat:  _currentHeat,
+            damage:  this.damage,
+            variant:  this.variant,
+            dateIntroduced:  this.dateIntroduced,
+            name:  this.name,
+            tonnage:  this.tonnage,
+            tro:  this.tro,
+            role:  this.role,
+            threshold:  this.threshold,
+            pilot:  this._pilot,
+            imageURL:  this.imageURL,
+            move:  this.move,
+            jumpMove:  this.jumpMove,
+            structure:  this.structure,
+            armor:  this.armor,
+            type:  this.type,
+            size:  this.size,
+            showDetails:  this.showDetails,
+            abilities:  this.abilities,
+            overheat:  this.overheat,
+            basePoints:  this.basePoints,
+            currentSkill:  this.currentSkill,
+            uuid: this.uuid,
+        };
 
-            // In Play Variables
-            returnValue.currentArmor = _currentArmor;
-            returnValue.currentStructure = _currentStructure;
-            returnValue.engineHits = _engineHits;
-            returnValue.fireControlHits = _fireControlHits;
-            returnValue.mpControlHits = _mpControlHits;
-            returnValue.weaponHits = _weaponHits;
 
-            returnValue.vehicleMotive910 = _vehicleMotive910;
-            returnValue.vehicleMotive11 = _vehicleMotive11;
-            returnValue.vehicleMotive12 = _vehicleMotive12;
+        // if( this.originalStats ) {
+        //     let returnValue: IASMULUnit = this.originalStats;
+        //     returnValue.customName = this.customName;
+        //     returnValue.mechCreatorUUID = this.mechCreatorUUID;
+        //     returnValue.currentSkill = this.currentSkill;
+        //     returnValue.pilot = this._pilot.export();
 
-            returnValue.currentHeat = _currentHeat;
-            returnValue.uuid = this.uuid;
-            return returnValue;
-        } else {
-            return null;
-        }
+        //     // In Play Variables
+        //     returnValue.currentArmor = _currentArmor;
+        //     returnValue.currentStructure = _currentStructure;
+        //     returnValue.engineHits = _engineHits;
+        //     returnValue.fireControlHits = _fireControlHits;
+        //     returnValue.mpControlHits = _mpControlHits;
+        //     returnValue.weaponHits = _weaponHits;
+
+        //     returnValue.vehicleMotive910 = _vehicleMotive910;
+        //     returnValue.vehicleMotive11 = _vehicleMotive11;
+        //     returnValue.vehicleMotive12 = _vehicleMotive12;
+
+        //     returnValue.currentHeat = _currentHeat;
+        //     returnValue.uuid = this.uuid;
+        //     return returnValue;
+        // } else {
+        //     return null;
+        // }
+        return rv;
     }
 
 }

@@ -2653,7 +2653,6 @@ export class BattleMech {
 
         this._alphaStrikeValue = Math.round(finalValue); // + " (WIP)";
         let asMechData: IASMULUnit = {
-            mechCreatorUUID: this._uuid,
             FormatedTonnage: this._tonnage.toString(),
             GroupName: "",
             BFAbilities: "",             // "";
@@ -2710,35 +2709,35 @@ export class BattleMech {
             },            // ASMULType;
             Variant: "",             // string;
 
-            classification: "",
-            costCR: 0,
-            mulID: 0,
-            currentHeat: 0,
-            damage: {
-                short: 0,
-                medium: 0,
-                long: 0,
-                extreme: 0,
-            },
-            variant: "",
-            dateIntroduced: "",
-            name: "",
-            tonnage: 0,
-            tro: "",
-            role: "",
-            threshold: 0,
-            move: [],
-            jumpMove: 0,
-            structure: 0,
-            armor: 0,
-            type: "",
-            size: 0,
-            showDetails: false,
-            abilities: "",
-            overheat: 0,
-            basePoints: 0,
-            currentSkill: 0,
-            pilot: this._pilot.export(),
+            // // classification: "",
+            // costCR: 0,
+            // mulID: 0,
+            // currentHeat: 0,
+            // damage: {
+            //     short: 0,
+            //     medium: 0,
+            //     long: 0,
+            //     extreme: 0,
+            // },
+            // variant: "",
+            // dateIntroduced: "",
+            // name: "",
+            // tonnage: 0,
+            // tro: "",
+            // role: "",
+            // threshold: 0,
+            // move: [],
+            // jumpMove: 0,
+            // structure: 0,
+            // armor: 0,
+            // type: "",
+            // size: 0,
+            // showDetails: false,
+            // abilities: "",
+            // overheat: 0,
+            // basePoints: 0,
+            // currentSkill: 0,
+            // pilot: this._pilot.export(),
         };
         asMechData["BFPointValue"] = Math.round(finalValue);
 
@@ -2760,8 +2759,6 @@ export class BattleMech {
 
         asMechData["BFOverheat"] = this._alphaStrikeForceStats.overheat;
 
-        asMechData["customName"] = this._alphaStrikeForceStats.customName;
-        asMechData["currentSkill"] = this._pilot.gunnery;
 
         if( this._alphaStrikeForceStats.jumpMove) {
             asMechData["BFMove"] = this._alphaStrikeForceStats.move.toString() + "\"/" + this._alphaStrikeForceStats.jumpMove + "\"J";
@@ -2772,7 +2769,13 @@ export class BattleMech {
         this._alphaStrikeForceStats.abilityCodes.sort();
         asMechData["BFAbilities"] = this._alphaStrikeForceStats.abilityCodes.join( ", " ).toUpperCase();
 
-        return new AlphaStrikeUnit(asMechData);
+        let unitObj = new AlphaStrikeUnit();
+
+        unitObj.customName = this._alphaStrikeForceStats.customName;
+        unitObj.setPilotSkill( this._pilot.gunnery );
+        unitObj.importMUL( asMechData )
+        unitObj.mechCreatorUUID = this._uuid;
+        return unitObj;
 
     }
 

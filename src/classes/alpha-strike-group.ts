@@ -1,10 +1,11 @@
 import { formationBonuses, IFormationBonus } from '../data/formation-bonuses';
 import { generateUUID } from '../utils/generateUUID';
-import { AlphaStrikeUnit, IASMULUnit } from './alpha-strike-unit';
+import { AlphaStrikeUnit, IAlphaStrikeUnitExport, IASMULUnit } from './alpha-strike-unit';
 
 export interface IASGroupExport {
 	name: string;
-	units: IASMULUnit[];
+	units?: IASMULUnit[];
+	members: IAlphaStrikeUnitExport[]
 	uuid: string;
 	lastUpdated: Date;
 	location?: string;
@@ -127,7 +128,7 @@ export default class AlphaStrikeGroup {
 	): IASGroupExport {
         let returnValue: IASGroupExport = {
 			name: this.customName,
-			units: [],
+			members: [],
             uuid: this.uuid,
 			lastUpdated: new Date(),
 			formationBonus: this.formationBonus ? this.formationBonus.Name : "None",
@@ -138,7 +139,7 @@ export default class AlphaStrikeGroup {
 			let exportUnit = unit.export(noInPlayVariables);
 
 			if( exportUnit ) {
-				returnValue.units.push( exportUnit );
+				returnValue.members.push( exportUnit );
 			}
 		}
 
@@ -153,9 +154,19 @@ export default class AlphaStrikeGroup {
     public import(importObj: IASGroupExport) {
 
 		this.customName = importObj.name;
-		for( let unit of importObj.units) {
-			let theUnit = new AlphaStrikeUnit( unit );
-			this.members.push( theUnit );
+		if( importObj.members ) {
+			for( let unit of importObj.members) {
+				let theUnit = new AlphaStrikeUnit();
+				theUnit.importUnit( unit )
+				this.members.push( theUnit );
+			}
+		}
+		if( importObj.units ) {
+			for( let unit of importObj.units) {
+				let theUnit = new AlphaStrikeUnit();
+				theUnit.importMUL( unit )
+				this.members.push( theUnit );
+			}
 		}
         if( importObj.uuid ) {
             this.uuid = importObj.uuid;

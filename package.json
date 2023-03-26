@@ -1,6 +1,6 @@
 {
   "name": "battletech-tools",
-  "version": "0.5.99",
+  "version": "0.6.1",
   "private": true,
   "homepage": "https://jdgwf.github.io/battletech-tools",
   "scripts": {
