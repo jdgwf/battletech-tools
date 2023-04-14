@@ -164,7 +164,25 @@ class StrikerCavalryLance extends FormationBonusBase implements IFormationBonus 
         result = result && (Math.ceil(group.members.length*.50)<=(this.RoleCount(group, "Striker")+this.RoleCount(group, "Skirmisher")));
         // faster than 10 or Jump capable greater than 8
 
-        result = result && !(group.members.filter(x=>(x.move.filter(y=>y.type==="j"&&y.move<8).length>0)||(x.move.filter(y=>y.move<10&& y.type!=="j").length>0)));
+        result = result
+            && (
+                group.members.filter(
+                    x=>(
+                        x.move.filter(
+                            y=>y.type==="j"
+                        &&
+                            y.move >= 8).length > 0
+                        )
+                    ||
+                        (
+                        x.move.filter(
+                            y=>y.move >= 10
+                        &&
+                            y.type!=="j").length > 0
+                        )
+                ).length > 0
+            );
+
 
         return result;
     }

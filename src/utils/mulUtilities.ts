@@ -73,6 +73,9 @@ export function getMULGroundRoles(): string[] {
         "Juggernaut",
         "Missile Boat",
         "Scout",
+        "Skirmisher",
+        "Sniper",
+        "Striker",
      ];
 }
 
