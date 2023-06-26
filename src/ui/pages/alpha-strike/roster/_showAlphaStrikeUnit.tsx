@@ -30,6 +30,20 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
       }
     }
 
+    updateUnitPilotAbility2 = (event: React.FormEvent<HTMLSelectElement>): void => {
+      if(this.props.showASUnit) {
+        this.props.showASUnit.currentPilotAbilityID2 = +event.currentTarget.value;
+        this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+      }
+    }
+
+    updateUnitPilotAbility3 = (event: React.FormEvent<HTMLSelectElement>): void => {
+      if(this.props.showASUnit) {
+        this.props.showASUnit.currentPilotAbilityID3 = +event.currentTarget.value;
+        this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+      }
+    }
+
     renameUnit = (event: React.FormEvent<HTMLInputElement>): void => {
       if(this.props.showASUnit) {
         let asUnit = this.props.showASUnit;
@@ -93,8 +107,12 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
                       </div>
                       <div className="row">
                         <div className="col-xs-12 col-lg-12 text-left" >
-                          <label>
-                            Pilot Card:&nbsp;
+                          {this.props.showASUnit.currentSkill <= 4 ?
+                          (
+                            <>
+                            {/* Regular Skill Level */}
+                        <label>
+                            Pilot Card (Regulars):&nbsp;
                             <select
                               value={this.props.showASUnit.currentPilotAbilityID}
                               onChange={this.updateUnitPilotAbility}
@@ -110,6 +128,63 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
                               <div>{this.props.showASUnit.currentPilotAbility.summary}</div>
                             ): null}
                           </label>
+
+{/* Veteran or Elite Skill Level */}
+                          {this.props.showASUnit.currentSkill <= 3 ?
+                          (
+                            <>
+                        <label>
+                            Pilot Card #2 (Veterans and Elites):&nbsp;
+                            <select
+                              value={this.props.showASUnit.currentPilotAbilityID2}
+                              onChange={this.updateUnitPilotAbility2}
+                            >
+                              <option value={0}>- None -</option>
+                              {CONST_AS_PILOT_ABILITIES.map( (abi, abiIndex) => {
+                                return (
+                                  <option title={abi.summary.join("\n")} key={abiIndex} value={abi.id}>{abi.ability}  ({abi.cost})</option>
+                                )
+                              })}
+                            </select>
+                            {this.props.showASUnit.currentPilotAbility ? (
+                              <div>{this.props.showASUnit.currentPilotAbility.summary}</div>
+                            ): null}
+                          </label>
+
+                          {/* Heroic or Legendary Skill Level */}
+                          {this.props.showASUnit.currentSkill <= 1 ?
+                          (
+                            <>
+                            <label>
+                                Pilot Card #3 (Heroes and Legends):&nbsp;
+                                <select
+                                  value={this.props.showASUnit.currentPilotAbilityID3}
+                                  onChange={this.updateUnitPilotAbility3}
+                                >
+                                  <option value={0}>- None -</option>
+                                  {CONST_AS_PILOT_ABILITIES.map( (abi, abiIndex) => {
+                                    return (
+                                      <option title={abi.summary.join("\n")} key={abiIndex} value={abi.id}>{abi.ability}  ({abi.cost})</option>
+                                    )
+                                  })}
+                                </select>
+                                {this.props.showASUnit.currentPilotAbility ? (
+                                  <div>{this.props.showASUnit.currentPilotAbility.summary}</div>
+                                ): null}
+                              </label>
+
+
+                                </>
+                              ) : null}
+
+                            </>
+                          ) : null}
+                            </>
+                          ) : "Pilot Cards are not available for Green Units."}
+
+
+                          <div className="text-right"><strong>Total Pilot Card Points: {this.props.showASUnit.getTotalPilotAbilityPoints()}</strong></div>
+                          <br />
                         </div>
                       </div>
 </>

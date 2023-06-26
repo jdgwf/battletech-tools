@@ -7,6 +7,7 @@ import { unitGroupNames } from '../../../../data/group-names';
 import { IAppGlobals } from '../../../app-router';
 import InputField from '../../../components/form_elements/input_field';
 import TextSection from '../../../components/text-section';
+import { IASPilotAbility } from '../../../../data/alpha-strike-pilot-abilities';
 
 export default class CurrentForceList extends React.Component<ICurrentForceListProps, ICurrentForceListState> {
 
@@ -314,20 +315,28 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                                 )}
                               </td>
                             </tr>
-                            {asUnit.currentPilotAbility ? (
-                              <tr>
-                                <td>
-                                  &nbsp;
-                                </td>
-                                <td>
-                                  Pilot Ability: {asUnit.currentPilotAbility.ability}
-                                  <br /><span className="small-text">{asUnit.currentPilotAbility.summary}</span>
-                                </td>
-                                <td>
-                                  {asUnit.currentPilotAbility.cost}
-                                </td>
-                              </tr>
-                            ) : null}
+                            {asUnit.getPilotAbilities().map( (abi: IASPilotAbility | null, abiIndex) => {
+                              return (
+                                <React.Fragment key={abiIndex}>
+                                {abi ? (
+                                  <tr>
+                                    <td>
+                                      &nbsp;
+                                    </td>
+                                    <td>
+                                      Pilot Ability: {abi.ability}
+                                      <br /><span className="small-text">{abi.summary}</span>
+                                    </td>
+                                    <td>
+                                      {abi.cost}
+                                    </td>
+                                  </tr>
+
+                                ) : null}
+                                </React.Fragment>
+                              )
+                            })}
+
                             </tbody>
                           )
                         })}

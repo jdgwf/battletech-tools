@@ -514,6 +514,22 @@ export class AlphaStrikeUnit {
         return 0;
     }
 
+    public get currentPilotAbilityID2(): number {
+
+        if( this._pilot.alphaStrikeAbilities.length > 1 ) {
+            return this._pilot.alphaStrikeAbilities[1];
+        }
+        return 0;
+    }
+
+    public get currentPilotAbilityID3(): number {
+
+        if( this._pilot.alphaStrikeAbilities.length > 2 ) {
+            return this._pilot.alphaStrikeAbilities[2];
+        }
+        return 0;
+    }
+
     public get currentPilotAbility(): IASPilotAbility | null {
 
         if( this._pilot.alphaStrikeAbilities.length > 0 ) {
@@ -526,10 +542,60 @@ export class AlphaStrikeUnit {
         return null;
     }
 
+    public getPilotAbilities(): any[] {
+        let rv: any[] = [];
+
+
+
+        for( let id of this._pilot.alphaStrikeAbilities ) {
+            let found = false;
+            for( let card of CONST_AS_PILOT_ABILITIES ) {
+                if( id === card.id ) {
+                    rv.push(card);
+                    found = true;
+                    break;
+                }
+            }
+            if(!found ) rv.push( null );
+        }
+
+
+        return rv;
+    }
+
+    public getTotalPilotAbilityPoints(): number {
+        let rv = 0;
+
+        for( let id of this._pilot.alphaStrikeAbilities ) {
+            for( let card of CONST_AS_PILOT_ABILITIES ) {
+                if( id === card.id ) {
+                    rv += card.cost;
+                }
+            }
+        }
+
+
+        return rv;
+    }
+
     public set currentPilotAbilityID( nv: number ) {
         this._pilot.alphaStrikeAbilities = [nv];
 
     }
+    public set currentPilotAbilityID2( nv: number ) {
+        while( this._pilot.alphaStrikeAbilities.length < 2 )
+            this._pilot.alphaStrikeAbilities.push(0);
+        this._pilot.alphaStrikeAbilities[1] = nv;
+
+    }
+
+    public set currentPilotAbilityID3( nv: number ) {
+        while( this._pilot.alphaStrikeAbilities.length < 3 )
+            this._pilot.alphaStrikeAbilities.push(0);
+        this._pilot.alphaStrikeAbilities[2] = nv;
+
+    }
+
 
     private _getRawNumber( incomingString: string ): number {
         let myString = incomingString.replace(/\D/g,'');
@@ -696,6 +762,18 @@ export class AlphaStrikeUnit {
 
     public calcCurrentValues() {
 
+
+        while( this._pilot.alphaStrikeAbilities.length < 3 ) this._pilot.alphaStrikeAbilities.push(0);
+        if( this.currentSkill > 4 ) {
+            this._pilot.alphaStrikeAbilities[0] = 0;
+            this._pilot.alphaStrikeAbilities[1] = 0;
+            this._pilot.alphaStrikeAbilities[2] = 0;
+        } else if( this.currentSkill > 3 ) {
+            this._pilot.alphaStrikeAbilities[1] = 0;
+            this._pilot.alphaStrikeAbilities[2] = 0;
+        } else if( this.currentSkill > 1 ) {
+            this._pilot.alphaStrikeAbilities[2] = 0;
+        }
         if(
             (this.type && this.type.trim().toLowerCase() === "sv")
                 ||
@@ -1562,7 +1640,7 @@ export class AlphaStrikeUnit {
         //     this.abilityCodes.push( "Rear" );
         // }
 
-        let highestDamage = 0;
+        // let highestDamage = 0;
 
         for (let aC = 0; aC < this.abilities.length; aC++) {
 

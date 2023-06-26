@@ -71,8 +71,8 @@ export default class AlphaStrikeGroup {
 
 		for( let unit of this.members ) {
 			returnValue += unit.currentPoints;
-			if( unit.currentPilotAbility ) {
-				returnValue += unit.currentPilotAbility.cost;
+			for( let abi of unit.getPilotAbilities() ) {
+				if( abi ) returnValue += abi.cost;
 			}
 		}
 
