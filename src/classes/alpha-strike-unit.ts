@@ -563,6 +563,22 @@ export class AlphaStrikeUnit {
         return rv;
     }
 
+    getPilotAbilityList(): string[] {
+        let rv: string[] = [];
+
+        for( let id of this._pilot.alphaStrikeAbilities ) {
+            for( let card of CONST_AS_PILOT_ABILITIES ) {
+                if( id === card.id ) {
+                    rv.push(card.ability + " (" + card.cost + ")");
+                    break;
+                }
+            }
+        }
+
+
+        return rv;
+    }
+
     public getTotalPilotAbilityPoints(): number {
         let rv = 0;
 

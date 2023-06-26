@@ -273,6 +273,8 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
         let abilitiesSplit: string[][] = this._splitAbilities(this.props.asUnit.abilities.join( ", "));
 
+        let pilotAbilitiesList = this.props.asUnit.getPilotAbilityList();
+
         return (
 
             <>
@@ -302,7 +304,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     <text x="20" y="50" fontFamily="sans-serif" fontSize="40">{this.props.asUnit.name.toUpperCase()}</text>
                 )}
 
-                {this.props.asUnit && this.props.asUnit.currentPilotAbility ? (
+                {/* {this.props.asUnit && this.props.asUnit.currentPilotAbility ? (
                     <text
                         x="20"
                         y="97"
@@ -313,6 +315,24 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                         onClick={(e) => this._showPilotAbility(e, this.props.asUnit ? this.props.asUnit.currentPilotAbility : null)}
                     >
                         Pilot Ability: {this.props.asUnit.currentPilotAbility.ability} ({this.props.asUnit.currentPilotAbility.cost})
+                    </text>
+                ) : null} */}
+                {pilotAbilitiesList.length > 0 ? (
+                    <text
+                        x="20"
+                        y="97"
+                        fontFamily="sans-serif"
+                        stroke="rgb(0,200,0)"
+                        fontSize="20"
+                        className={this.props.inPlay && this.props.asUnit && this.props.showSpecialAbility ? "cursor-pointer" : ""}
+                        onClick={(e) => this._showPilotAbility(e, this.props.asUnit ? this.props.asUnit.currentPilotAbility : null)}
+                    >
+                        {pilotAbilitiesList.length > 1 ? (
+                            <>Pilot Abilities: </>
+                        ) : (
+                            <>Pilot Ability: </>
+                        )}
+                        &nbsp;{pilotAbilitiesList.join(". ")}
                     </text>
                 ) : null}
 
