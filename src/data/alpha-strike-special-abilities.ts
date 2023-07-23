@@ -101,7 +101,7 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
         type: ESpecialAbilityType.Standard,
     },
     {
-        tag: "CARGO#",
+        tag: "CAR#",
         name: "Cargo",
         summary: [
             "An infantry unit with the Cargo special ability can be carried by a unit with infantry transport space (noted by the IT# special ability). For these units, the number in the ability notation indicates the amount of cargo space it needs to be transported. For example, a squad of Elemental battle armor has a CAR5 special ability, and so would need a unit with IT5 (or higher) to transport it."
@@ -131,12 +131,12 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
         tag: "ECM",
         name: "Electronic Countermeasures",
         summary: [
-            "In Alpha Strike, an ECM suite’s area of effect covers a 12-inch radius from the unit that has this special ability. Electronics (including active probes and C3 computers) used by units friendly to the ECM-equipped unit will not be affected by this item, nor will an ECM suite affect other scanning and targeting devices (such as basic or advanced fire control, or TAG).",
+            "In Alpha Strike, an ECM suite’s area of effect covers a 12-inch radius from the unit that has this special ability. Electronics (including active probes and C³ computers) used by units friendly to the ECM-equipped unit will not be affected by this item, nor will an ECM suite affect other scanning and targeting devices (such as basic or advanced fire control, or TAG).",
             "Against hostile electronics, ECM has the following effects:",
             "ECM vs. Active Probes, Drones, Narc, and iNarc Systems:",
             "Active probes, drones, and the Narc/iNarc systems are all covered in the Optional Rules chapter (see p. 136), and will detail the effects of ECM against those systems.",
-            "ECM vs. C3 Networks: ECM disrupts most enemy C3 networks, preventing their function depending upon the type of C3 network. If a C3 master unit is isolated from the network because it ventures inside the ECM bubble, the C3 master’s entire network is effectively shut off and loses C3 abilities. If the LOS between the C3 master unit and one or more of the units in its network passes through a hostile ECM radius, only those networked units “cut off ” from the C3 master will lose the benefits of C3. (See C3 Networks, p. 80).",
-            "If a C3i-equipped unit is caught within the ECM bubble, or draws its LOS to all partner C3i units through an ECM bubble, only that unit is isolated from the network and loses all C3i abilities.",
+            "ECM vs. C³ Networks: ECM disrupts most enemy C³ networks, preventing their function depending upon the type of C³ network. If a C³ master unit is isolated from the network because it ventures inside the ECM bubble, the C³ master’s entire network is effectively shut off and loses C³ abilities. If the LOS between the C³ master unit and one or more of the units in its network passes through a hostile ECM radius, only those networked units “cut off ” from the C³ master will lose the benefits of C³. (See C³ Networks, p. 80).",
+            "If a C³i-equipped unit is caught within the ECM bubble, or draws its LOS to all partner C³i units through an ECM bubble, only that unit is isolated from the network and loses all C³i abilities.",
         ],
         asce_page: 77,
         type: ESpecialAbilityType.Standard,
@@ -198,7 +198,7 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
         type: ESpecialAbilityType.Standard,
     },
     {
-        tag: "HEAT#/#/#/#",
+        tag: "HT#/#/#",
         name: "Heat",
         summary: [
             "Units with this ability apply heat to the target’s Heat scale during the End Phase of the turn in which they deliver a successful weapon attack. If the target is a unit type that does not use a Heat Scale, the heat this ability would normally produce is added to the normal attack damage instead (see Applying Damage, p. 49).",
@@ -353,7 +353,7 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
         type: ESpecialAbilityType.Standard,
     },
     {
-        tag: "SUBS#/#/#/#",
+        tag: "SUBS#",
         name: "Strong Submersible Movement",
         summary: [
             "This unit has particularly overpowered, strong submersible movement compared to their non-submersible movement. Strong submersible movement adds the # to their TMM when using submersible movement.",
@@ -362,7 +362,7 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
         type: ESpecialAbilityType.Standard,
     },
     {
-        tag: "SUBW#/#/#/#",
+        tag: "SUBW#",
         name: "Weak Submersible Movement",
         summary: [
             "This unit has particularly underpowered, weak submersible movement compared to their non-submersible movement. Weak submersible movement subtracts the # from their TMM when using submersible movement.",
@@ -403,64 +403,82 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
         type: ESpecialAbilityType.Standard,
     },
     {
-        tag: "C3BSS",
-        name: "C3 Boosted System",
+        tag: "UMU",
+        name: "Underwater Maneuvering Units",
         summary: [
-            "The C3 boosted system works identically to a standard C3 system, and links one master unit (noted by C3BSM) with up to three slaves (noted by C3BSS). These boosted C3 units are unaffected by most ECM effects. Only a hostile Angel ECM will affect a boosted C3 network in the same way as other ECMs affect standard C3 systems."
+            "A unit with the UMU special ability uses the submersible movement rules when it is submerged in water instead of the normal underwater movement rules (see Submersible Movement, p 36)"
+        ],
+        asce_page: 80,
+        type: ESpecialAbilityType.Standard,
+    },
+    {
+        tag: "WAT",
+        name: "Watchdog",
+        summary: [
+            "A unit with this special ability possesses the Watchdog Composite Electronic Warfare System For purposes of Alpha Strike, it is treated as if it has both the Light Active Probe (LPRB; see p 82) and ECM special abilities."
+        ],
+        asce_page: 80,
+        type: ESpecialAbilityType.Standard,
+    },
+    {
+        tag: "C3BSS",
+        name: "C³ Boosted System",
+        summary: [
+            "The C³ boosted system works identically to a standard C³ system, and links one master unit (noted by C3BSM) with up to three slaves (noted by C3BSS). These boosted C³ units are unaffected by most ECM effects. Only a hostile Angel ECM will affect a boosted C³ network in the same way as other ECMs affect standard C³ systems."
         ],
         asce_page: 80,
         type: ESpecialAbilityType.Standard,
     },
     {
         tag: "C3BSM#",
-        name: "C3 Boosted System",
+        name: "C³ Boosted System",
         summary: [
-            "The C3 boosted system works identically to a standard C3 system, and links one master unit (noted by C3BSM) with up to three slaves (noted by C3BSS). These boosted C3 units are unaffected by most ECM effects. Only a hostile Angel ECM will affect a boosted C3 network in the same way as other ECMs affect standard C3 systems."
+            "The C³ boosted system works identically to a standard C³ system, and links one master unit (noted by C3BSM) with up to three slaves (noted by C3BSS). These boosted C³ units are unaffected by most ECM effects. Only a hostile Angel ECM will affect a boosted C³ network in the same way as other ECMs affect standard C³ systems."
         ],
         asce_page: 80,
         type: ESpecialAbilityType.Standard,
     },
     {
         tag: "C3EM#",
-        name: "C3 Emergency Master Computer",
+        name: "C³ Emergency Master Computer",
         summary: [
-            "A C3EM system is an emergency backup for a standard C3 Master system, and activates only during the End Phase of any turn in which the network’s normal C3 master cannot be contacted (either due to destruction or ECM interference). The emergency master runs for 2 consecutive turns (not counting the turn in which it activates), shutting down in the End Phase of the second turn. "
+            "A C³EM system is an emergency backup for a standard C³ Master system, and activates only during the End Phase of any turn in which the network’s normal C³ master cannot be contacted (either due to destruction or ECM interference). The emergency master runs for 2 consecutive turns (not counting the turn in which it activates), shutting down in the End Phase of the second turn. "
         ],
         asce_page: 82,
         type: ESpecialAbilityType.Standard,
     },
     {
         tag: "C3M#",
-        name: "C3 Master Computer",
+        name: "C³ Master Computer",
         summary: [
-            "The C3 master computer enables up to four units to share targeting information and receive the benefits of the C3 network. One unit in a four-member C3 network must have the C3M system to act as the “master”. The other three units in the network must have C3 equipment of their own to be part of that “master’s” network. These member units can use either their own master computers, or C3 slaves to accomplish this."
+            "The C³ master computer enables up to four units to share targeting information and receive the benefits of the C³ network. One unit in a four-member C³ network must have the C³M system to act as the “master”. The other three units in the network must have C³ equipment of their own to be part of that “master’s” network. These member units can use either their own master computers, or C³ slaves to accomplish this."
         ],
         asce_page: 82,
         type: ESpecialAbilityType.Standard,
     },
     {
         tag: "C3RS",
-        name: "C3 Remote Sensor",
+        name: "C³ Remote Sensor",
         summary: [
-            "A unit with this ability can deploy up to 4 remote sensors per game that will act as a stationary C3 Slave Computer (C3S) for one turn. Deploying the remote sensor requires a successful “attack” against a point on the map within the deploying unit’s Short range bracket (this attack receives a –4 Target Number modifier, cannot be made against another unit, and delivers no damage; if the attack misses, the remote sensor will fail to activate)."
+            "A unit with this ability can deploy up to 4 remote sensors per game that will act as a stationary C³ Slave Computer (C³S) for one turn. Deploying the remote sensor requires a successful “attack” against a point on the map within the deploying unit’s Short range bracket (this attack receives a –4 Target Number modifier, cannot be made against another unit, and delivers no damage; if the attack misses, the remote sensor will fail to activate)."
         ],
         asce_page: 82,
         type: ESpecialAbilityType.Standard,
     },
     {
         tag: "C3S",
-        name: "C3 Slave Computer",
+        name: "C³ Slave Computer",
         summary: [
-            "A unit equipped with a C3 slave can link into a C3 network as described under the C3 Master Computer rules (see above). To be part of a network, C3 slaves must connect to a “master” unit (either a C3M or C3BSM)."
+            "A unit equipped with a C³ slave can link into a C³ network as described under the C³ Master Computer rules (see above). To be part of a network, C³ slaves must connect to a “master” unit (either a C³M or C³BSM)."
         ],
         asce_page: 82,
         type: ESpecialAbilityType.Standard,
     },
     {
         tag: "C3I",
-        name: "C3 Improved Computer",
+        name: "C³ Improved Computer",
         summary: [
-            "The C3i computer enables up to six units to be part of a C3 network, rather than 4, and requires no C3 master computer to function. Because they have no master, C3i networks cannot be shut down by the loss or ECM interference over one network member. This also means the C3i network cannot branch off to other networks, and works more like a closed system unto itself."
+            "The C³i computer enables up to six units to be part of a C³ network, rather than 4, and requires no C³ master computer to function. Because they have no master, C³i networks cannot be shut down by the loss or ECM interference over one network member. This also means the C³i network cannot branch off to other networks, and works more like a closed system unto itself."
         ],
         asce_page: 82,
         type: ESpecialAbilityType.Standard,
@@ -775,7 +793,14 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
         tag: "HPG",
         name: "Hyperpulse Generator",
         summary: [
-            "This unit is equipped with a mobile HPG."
+            "The hyperpulse generator is a transmission device used to send communications signals through hyperspace Rare and expensive in the extreme, it is almost never seen on the battlefield, and many factions in the BattleTech universe consider attacking or willfully endangering such devices a crime against humanity Nevertheless, some mobile versions of the HPG do exist, and thus can make an appearance in battle under extreme circumstances.",
+            "If a unit equipped with a mobile HPG (noted by the HPG special) is operating inside an atmosphere, it may use the device to send a signal once every 6 turns Doing so, however, draws incredible amounts of power and produces an immense electromagnetic pulse that affects all units in the general vicinity—including the HPG-carrying unit itself These effects can vary with the operating unit.",
+            "Aerospace units operating in space may use an HPG in any turn they wish, but will generate no significant game effects when doing so.",
+            "Charging and Firing: Charging and firing an HPG requires two full, consecutive Combat Phases to perform, during which time the HPG unit cannot move or use any weaponry If the unit is an extremely large unit in the process of being boarded or repelling a boarding action, its marines and other infantry defenses may continue to function normally, but all mounted weaponry is inert At the end of the second Combat Phase, the HPG fires, instantly shutting down the firing unit for 1 turn (The unit reactivates in the End Phase of the following turn )",
+            "HPG Effects Radius: As long as there is an atmosphere (or, if the Atmospheric Density rules are in effect per page 61, an atmosphere of Thin or greater density), the HPG pulse will affect all units within a radius of 16 inches if the firing unit is not a Mobile Structure, a DropShip, a building, or a Support Vehicle of Size Class 3+ If the firing unit is a Mobile Structure, a DropShip, a building, or a Support Vehicle of Size Class 3+, the pulse will affect all units on or above the play area.",
+            "HPG Effects: The HPG pulse inflicts a +4 Target Number modifier on all non-conventional infantry units within the area of effect for a period of 6 Combat Phases after the firing takes place This effect persists even if an affected unit subsequently moves outside of the initial effect radius This modifier will apply only to weapon attacks and most special ability attacks during this time, however; physical attacks (including those using the MEL special) will remain unaffected, as will any special Control Roll target numbers",
+            "Receiving HPG Signals: Technically, the receiving of an HPG signal is far beyond the scope of these rules, but should an event happen within an atmosphere, there will be no significant game effects in Alpha Strike play\n",
+            "Note: Where the signal from an HPG goes is irrelevant to Alpha Strike game play As an HPG is a hyperspace-capable communications system intended to send signals up to 50 light years at a shot, anywhere the message is sent will simply be too far beyond the scope of the game at hand to have any relevance An HPG cannot be used to directly attack a target unit; the pulse is merely a secondary effect."
         ],
         asce_page: 85,
         type: ESpecialAbilityType.Optional,
@@ -814,7 +839,7 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
         type: ESpecialAbilityType.Optional,
     },
     {
-        tag: "LAM (#G/#A)",
+        tag: "LAM (#\"g/#a)",
         name: "Land-Air BattleMech",
         summary: [
             "A BattleMech with this special has been built to convert between BattleMech, AirMech, and aerospace fighter modes of operation . The rules for Land-Air BattleMechs (LAMs), may be found on page 177 ."
@@ -841,7 +866,7 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
         type: ESpecialAbilityType.Optional,
     },
     {
-        tag: "LRM#/#/#",
+        tag: "LRM#/#/#/#",
         name: "Long Range Missiles",
         summary: [
             "This unit mounts a significant number of long-range missile launchers and may fire them together as an alternative weapon attack instead of a standard weapon attack . This ability enables the unit to use alternate LRM ammo for modified effects (see Alternate Munitions, p . 143) ."
@@ -877,6 +902,553 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
         ],
         asce_page: 87,
         type: ESpecialAbilityType.Optional,
+    },
+    {
+        tag: "MT#",
+        name: "’Mech Transport",
+        summary: [
+            "A unit with this special ability can transport, deploy, and drop the indicated number of ’Mechs This ability usually applies to DropShips, and is always used in conjunction with the Door special ability (see Transporting Non-Infantry Units, and Dropping Troops, pp.39 and 160, respectively)."
+        ],
+        asce_page: 87,
+        type: ESpecialAbilityType.Optional,
+    },
+    {
+        tag: "MDS#",
+        name: "Mine Dispenser",
+        summary: [
+            "This ability allows a unit to create minefields in areas through which it travels (see Minefields, p 168) Record this ability as MDS# where # is the number of mine dispensers mounted on the unit Each mine dispenser deploys a density 1 minefield once per scenario Multiple deployments in the same location increase the density of the minefield by 1 each, to a maximum density of 5."
+        ],
+        asce_page: 87,
+        type: ESpecialAbilityType.Optional,
+    },
+    {
+        tag: "MSW",
+        name: "Minesweeper",
+        summary: [
+            "A unit with minesweeper automatically clears any minefields it is in base contact with at the end of the Movement Phase (see Minefields, p. 168). During the minesweeper's Combat Phase, it may not execute any attacks, but must roll 2D6 to clear the minefield, applying a +4 modifier to the result if the minesweeping unit is not infantry. If the result is 10 or better, the minefield is cleared and removed from the map. If the result is 5 or less, the minefield detonates for its full effects. Any other roll result means the minefield is not cleared."
+        ],
+        asce_page: 87,
+        type: ESpecialAbilityType.Optional,
+    },
+    {
+        tag: "MASH#",
+        name: "Mobile Army Surgical Hospital",
+        summary: [
+            "A unit with MASH equipment can tend to wounded warriors, and helps to recover their enjuries between battle. During game play, a unit with MASH equipment can accommodate infantry units as if it has an Infantry Transport (IT#) special equal to half its MASH# value, rounded up. (For example, a unit with a MASH6 special can act as a unit with the IT3 special.)",
+            "Between battles, MASH-equipped units provide a bonus to \"repairing\" infantry units."
+        ],
+        asce_page: 87,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "MFB",
+        name: "Mobile Field Base",
+        summary: [
+            "A unit with a mobile field base is one that is equipped to handle technical servicing, maintenance, and even battlefield repairs on other units. During game play, a mobile field base has no direct effect, but between battles, its presence enables bonuses to repairing other combat units."
+        ],
+        asce_page: 87,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "MHQ#",
+        name: "Mobile Headquarters",
+        summary: [
+            "The standard MHQ is equipped with a wide array of special equipment to coordinate engagements over a large area. This ability provides different bonuses depending on the numerical rating (see Battlefield Intelligence, p. 154)."
+        ],
+        asce_page: 87,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "MTN",
+        name: "Mountain Troops",
+        summary: [
+            "Infantry units with this special ability may climb 2 inches per 2 inches moved forward in a turn."
+        ],
+        asce_page: 87,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "CNARC#",
+        name: "NARC Missile Beacon",
+        summary: [
+            "A unit with the CNARC# or SNARC# special ability may make an extra weapon attack using its Narc missile beacon device. A unit hit by a Narc beacon will not suffer damage from the Narc itself, but will suffer 1 additional point of damage from any Indirect Fire (IF), LRM, or SRM attacks for the rest of the game—unless the unit is within a friendly ECM bubble. Standard Narc beacon launchers (indicated by SNARC) have a maximum range of Medium, while Compact Narc beacon launchers (CNARC) have a maximum range of Short.",
+            "Instead of their normal attack, Narc launchers may fire specialty ammo (see Alternate Munitions, p. 143).",
+            "The numerical value of this ability indicates the number of extra Narc beacon attacks the unit can deliver in a single turn."
+        ],
+        asce_page: 87,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "SNARC#",
+        name: "NARC Missile Beacon",
+        summary: [
+            "A unit with the CNARC# or SNARC# special ability may make an extra weapon attack using its Narc missile beacon device. A unit hit by a Narc beacon will not suffer damage from the Narc itself, but will suffer 1 additional point of damage from any Indirect Fire (IF), LRM, or SRM attacks for the rest of the game—unless the unit is within a friendly ECM bubble. Standard Narc beacon launchers (indicated by SNARC) have a maximum range of Medium, while Compact Narc beacon launchers (CNARC) have a maximum range of Short.",
+            "Instead of their normal attack, Narc launchers may fire specialty ammo (see Alternate Munitions, p. 143).",
+            "The numerical value of this ability indicates the number of extra Narc beacon attacks the unit can deliver in a single turn."
+        ],
+        asce_page: 87,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "NC3",
+        name: "Naval C³",
+        summary: [
+            "This special represents an advanced large-scale version of the C³ network system, developed for spacecraft. Up to 6 large craft units may link into a single NC³ network. In aerospace combat (including capital-scale combat), all units in a NC³ network receive a –1 Target Number modifier. Naval C³ networks are immune to ECM, but not to the SDS Jammer (JAM) system."
+        ],
+        asce_page: 87,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "NOVA",
+        name: "NOVA Composite EW System",
+        summary: [
+            "A unit with the NOVA special mounts a special electronics warfare system that not only provides the abilities of the ECM and PRB specials, but also acts as a C³i network that can link up to 3 units (see p. 80). Unlike a normal C³i system, the Nova cannot be disrupted by ECM, LECM, and WAT specials; it can only be disrupted by a hostile unit with the NOVA special."
+        ],
+        asce_page: 87,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "PAR",
+        name: "Paratroops",
+        summary: [
+            "These units may dismount from airborne transport units (including aerospace units) just like jump infantry."
+        ],
+        asce_page: 87,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "PNT#",
+        name: "Point Defense",
+        summary: [
+            "Unless it is shut down, a unit protected by a point defense system automatically engages any missiles that attack it. Unlike an anti-missile system (AMS), the point defense system may engage Arrow IV, capital, or sub-capital missiles as well as missile attacks delivered using the IF, SRM, and LRM specials.",
+            "Point defense has a 360-degree arc of fire, and is always successful, so no Attack Roll is required. Point defense generates a number of “defensive damage points” equal to the ability’s numerical rating. Thus, a unit with a PNT6 special would generate 6 points of “defensive damage” per turn. This damage is distributed among incoming missiles at the controlling player’s discretion.",
+            "If an incoming missile delivers no damage to begin with, any amount of defensive damage from a point defense ability will destroy the incoming missile before it can attack.",
+            "For all other incoming missiles, 1 point of defensive damage will apply a +1 Target Number modifier to the missile’s attack roll, and reduce the incoming attack’s damage value by half (rounded down, to a minimum of 0 points). If 2 or more points of defensive damage are assigned to an incoming missile attack, the attack is eliminated entirely."
+        ],
+        asce_page: 87,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "PT#",
+        name: "ProtoMech Transport",
+        summary: [
+            "A unit with this special ability can transport, deploy, and drop the indicated number of ProtoMechs. This ability usually applies to DropShips, and is always used in conjunction with the Door special ability (see Transporting Non-Infantry Units and Dropping Troops, pp. 39, 160, respectively)."
+        ],
+        asce_page: 88,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "CASEP",
+        name: "Prototype CASE",
+        summary: [
+            "When a unit with prototype CASE (CASEP) suffers an Ammo Explosion critical hit, the attacker rolls 1D6. On a 3 or higher, the critical hit is ignored. On a result of 2 or less, the unit suffers an explosion and is destroyed."
+        ],
+        asce_page: 88,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "TSMX",
+        name: "Prototype Triple-Strength Myomer",
+        summary: [
+            "Units with the prototype form of triple-strength myomer TSMX deliver 1 additional point of damage to all successful physical attacks they execute, regardless of the unit’s current heat level. If the External Cargo rules are in play (see p. 163), a unit with TSMX also doubles its lifting capacity.",
+            "Unlike standard and industrial TSM, prototype TSM does not provide a movement boost. More importantly, prototype TSM is susceptible to Anti-TSM Warheads alternate munitions (see p. 143)."
+        ],
+        asce_page: 88,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "QV",
+        name: "QuadVee",
+        summary: [
+            "A ’Mech unit with this special ability has been constructed as a QuadVee. The rules for these units may be found on page 178."
+        ],
+        asce_page: 88,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "RHS",
+        name: "Radical Heat Sink System",
+        summary: [
+            "A unit with the radical heat sink system (RHS) can perform a special coolant flush action in any End Phase where its Heat Scale is 1 point or higher. This coolant flush will reduce the unit’s heat level by 1 point (to a minimum of 0), but the controlling player must then roll 1D6. If the roll result is 1, the RHS special must be marked off, and the unit fails to reduce its heat level for that turn. A radical heat sink system that has been marked off in this fashion is no longer usable for the remainder of the scenario."
+        ],
+        asce_page: 88,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "RAIL",
+        name: "Rail",
+        summary: [
+            "A unit with the Rail special can only move along rails."
+        ],
+        asce_page: 88,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "RCA",
+        name: "Reactive Armor",
+        summary: [
+            "A unit with reactive armor is resistant to damage from explosive ordnance, particularly those delivered by artillery and missile weaponry. If a unit with this special is struck by damage from any area-effect attack, or by any attacking using the ART, BOMB, MSL, or FLK specials, reduce the damage from these attacks by half before applying it (rounding down). For any attack against a unit with reactive armor by a unit with the IF, LRM, or SRM specials, reduce the amount of attack’s damage by half of the LRM or SRM special’s value at the appropriate range (rounding up). If reactive armor reduces damage below 1 point, treat the attack as delivering 1 point.",
+            "Note that this damage reducing effect even covers general attacks by units that possess such abilities, so if a unit that can deliver 4 points of damage at Short range attacks a target with reactive armor, and the attacker has the SRM 2/2 special, the damage delivered is 3 points (4 points total – (2 ÷ 2) = 3)."
+        ],
+        asce_page: 88,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "RCN",
+        name: "Recon",
+        summary: [
+            "The recon ability works in conjunction with the Mobile Headquarters (MHQ#) ability (see Battlefield Intelligence, p. 154)."
+        ],
+        asce_page: 88,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "REL",
+        name: "Re-engineered Lasers",
+        summary: [
+            "A unit that carries re-engineered lasers is able to offset many of the benefits presented by several types of specialty armors, such as reflective. When a unit with this ability successfully attacks a unit featuring reflective armor (RFA special), ignore that armor’s damage-reducing effects. Furthermore, if a unit with this ability successfully attacks a unit that features the critical-resistant (CR) special, replace the target’s normal –2 modifier for any critical hit rolls with –1."
+        ],
+        asce_page: 88,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "RFA",
+        name: "Reflective Armor",
+        summary: [
+            "A unit with reflective armor is resistant to damage from energy weapons, including flamers, but is much more susceptible to physical attacks, area-effect weapons, and armor-penetrating hits. If a unit with this special is struck by an air-to-ground strafing attack, or by a weapon attack by a unit with the ENE special, or by an attack using the HT special, reduce this damage (or heat) by half before applying it. (Round this damage down, to a minimum of 1 point of damage or heat applied from that attack type.)",
+            "If, on the other hand, a unit with this ability suffers damage from any physical attack, an area-effect attack, or by any attack using the ART, BOMB, or MSL specials, double the damage applied by that attack.",
+            "For all other attacks against a unit with reflective armor, reduce the total damage applied by 1 point (to a minimum of 1 point).",
+            "Note that this damage reducing (and increasing) effect even covers general attacks by such units that possess such abilities, so if a unit that can deliver 4 points of damage at Short range attacks a target ’Mech with reflective armor, and the attacker also has the HT2 special, the attack will deliver 3 points of damage (4 – 1 = 3), plus 1 point of heat (HT2 ÷ 2 = 1)."
+        ],
+        asce_page: 88,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "RSD#",
+        name: "Remote Sensor Dispenser",
+        summary: [
+            "A unit with this ability may deploy 1 remote sensor per turn per Remote Sensor Dispenser. (The number of dispensers the unit is carrying is indicated in the special ability’s abbreviation.) When deployed, sensors are stationary and rest on the surface of the underlying terrain. A remote sensor has no armor to speak of, and is automatically destroyed in the End Phase of any turn that ends with an opposing unit in base-to-base contact with them.",
+            "Alternatively, the sensor may be destroyed if it takes 1 point of damage. Attacks against a sensor apply a –2 Target Number modifier. Each type of sensor may also be carried as a bomb (taking 1 bomb slot) by any unit that possesses the BOMB# special ability. Once deployed, remote sensors may be used to spot for indirect or artillery attacks, as if they were a friendly unit, but they apply an additional +3 Target Number modifier.",
+            "Remote Sensors can also reveal units (see Hidden Units, p. 168), unless they are affected by hostile ECM systems, including Angel ECM (AECM) and standard ECM (ECM), which will overwhelm their abilities."
+        ],
+        asce_page: 88,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "RAMS",
+        name: "RISC Advanced Point Defense System",
+        summary: [
+            "A unit equipped with a RISC advanced point defense system may use this special ability to reduce incoming missile fire against itself as a standard anti-missile system (see Anti-Missile System, p. 76), or it may use the system to reduce the missile damage to any other friendly unit within 2 inches of its position by 1 point.",
+            "The use of the RAMS special to defend its own unit or a friendly unit must be made when the missile attack is resolved; a RAMS ability used to defend its own unit cannot be used to defend a friendly unit (and vice versa) in the same turn."
+        ],
+        asce_page: 89,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "ECS",
+        name: "RISC Emergency Coolant System",
+        summary: [
+            "The RISC emergency coolant system is a more powerful variation on the radical heat sink system (RHS special), but its effects in the event of a system failure can be much more dire. Like the RHS special, this system is activated in the End Phase of the turn, but will only do so if the unit has reached a Heat Scale of 4 (Shutdown). Also like the RHS, the system requires a 1D6 check to determine if it suffers a failure when attempting to flush coolant through its unit.",
+            "If the 1D6 roll result is 2 or higher, the ECS reduces the unit’s Heat Scale by 2 points. If the result of the 1D6 roll is 1, the ECS special must be marked off and, just like the RHS, it will fail to reduce the unit’s heat level. In addition to this, the ECS’s failure will also inflict one Engine Hit critical on the unit itself. The ECS remains inoperable for the remainder of the scenario once it is marked off."
+        ],
+        asce_page: 89,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "DJ",
+        name: "RISC Viral Jammers - Decoy Jammers",
+        summary: [
+            "RISC Viral Jammers are active electronic warfare systems designed to counter opposing electronics within the user’s general vicinity. Available in two forms—the anti-ECM decoy jammer (DJ) or the communications-disrupting homing jammer (HJ)—a viral jammer may be activated at the start of the unit’s Movement Phase, and will have the effects outlined below for its jammer type against all units that are within 34 inches of the jamming unit and have an LOS to it at the end of their Movement Phase. Note that this jamming will affect friendly and opposing units alike.",
+            "Once engaged, a RISC viral jammer remains active for 5 turns and cannot be shut off before then except through the destruction or shutdown of the operating unit. Once a jammer is disabled in any way (or its 5 turns of operation elapse), its negative effects on opposing electronics will dissipate, and the jammer’s special ability is marked off the unit’s stat card.",
+            "Decoy Jammers (DJ): Once a decoy jammer is activated, all units within LOS of the jamming unit and a range of 34 inches or less must roll 2D6. If this roll result is 9 or higher, the unit is unaffected by the jammer. Otherwise, any AECM, ECM, LECM, STL, or WAT specials the unit possesses will be rendered inoperative for the duration of the jammer’s effect."
+        ],
+        asce_page: 89,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "HJ",
+        name: "RISC Viral Jammers - Homing Jammer",
+        summary: [
+            "RISC Viral Jammers are active electronic warfare systems designed to counter opposing electronics within the user’s general vicinity. Available in two forms—the anti-ECM decoy jammer (DJ) or the communications-disrupting homing jammer (HJ)—a viral jammer may be activated at the start of the unit’s Movement Phase, and will have the effects outlined below for its jammer type against all units that are within 34 inches of the jamming unit and have an LOS to it at the end of their Movement Phase. Note that this jamming will affect friendly and opposing units alike.",
+            "Once engaged, a RISC viral jammer remains active for 5 turns and cannot be shut off before then except through the destruction or shutdown of the operating unit. Once a jammer is disabled in any way (or its 5 turns of operation elapse), its negative effects on opposing electronics will dissipate, and the jammer’s special ability is marked off the unit’s stat card.",
+            "Homing Jammer (HJ): Once a homing jammer is activated, all units within LOS of the jamming unit and a range of 34 inches or less must roll 2D6. On a result of 9 or more, the units will function normally. Otherwise, the affected unit may not use any TAG, C³ systems of any kind (including C³BSM, C³BSS, C³EM, C³I, C³M, C³RS, or C³S), or the NOVA special for the duration of the jammer’s effect. In addition, if the unit features an IATM, LRM, CNARC, SNARC, or SRM special, all attacks made that include these weapons’ damage or effects will suffer a +1 Target Number modifier."
+        ],
+        asce_page: 89,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "RBT",
+        name: "Robotic Drone",
+        summary: [
+            "Units with this special are driven by autonomous programming that enables them to function as a drone that does not require remote human direction. The rules covering how robotic units work may be found on page 175."
+        ],
+        asce_page: 89,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "SAW",
+        name: "Saw",
+        summary: [
+            "A unit with this special ability may forego its attack to clear an area of woods (see Terrain Conversion, p. 173)."
+        ],
+        asce_page: 89,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "SDCS",
+        name: "SDS Drone Control System",
+        summary: [
+            "Units with this special have an extremely sophisticated and highly adaptive robotic control system not seen since the fall of the original Star League. This enables the unit to operate as a superior form of robotic drone, per the rules found on page 175."
+        ],
+        asce_page: 89,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "JAM",
+        name: "SDS Jammer",
+        summary: [
+            "A unit with this special cancels the –1 Target Number modifier provided by an opposing unit with the ATAC or Naval C³ specials. This effect only works when the unit that would benefit from the enemy ATAC or NC³ is within the jamming unit’s Extreme range weapon bracket (or closer)."
+        ],
+        asce_page: 89,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "SRCH",
+        name: "Searchlight",
+        summary: [
+            "Units equipped with a searchlight ignore the Target Number modifiers for combat in darkness (see Darkness, p. 62)."
+        ],
+        asce_page: 90,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "SRM#/#",
+        name: "Short Range Missiles",
+        summary: [
+            "This unit mounts a significant number of short-range missile launchers and may fire them together as an alternative weapon attack instead of a standard weapon attack. This ability enables the unit to use alternate SRM ammo for modified effects (see Alternate Munitions, p. 143)."
+        ],
+        asce_page: 90,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "ST#",
+        name: "Small Craft Transport",
+        summary: [
+            "A unit with this special ability can transport/launch, and recover the indicated number of Small Craft. This ability usually applies to DropShips, and is always used in conjunction with the Door special ability (see Transporting Non-Infantry Units, p. 39)."
+        ],
+        asce_page: 90,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "SDS-C #/#/#/#",
+        name: "Space Defense System",
+        summary: [
+            "Any non-DropShip unit or installation with SDS weapons is a unit that carries large weapons designed almost exclusively for use against WarShips. These capital or sub-capital weapons are generally too large to use effectively in ground combat, and are generally reserved to target incoming DropShips and WarShips, though SDS missiles (SDS-CM) may also be employed as artillery.",
+            "In the limited instances where these weapons may be used, consult the Capital and Sub-Capital Weapons rules (see p. 156)."
+        ],
+        asce_page: 90,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "SDS-CM #/#/#/#",
+        name: "Space Defense System",
+        summary: [
+            "Any non-DropShip unit or installation with SDS weapons is a unit that carries large weapons designed almost exclusively for use against WarShips. These capital or sub-capital weapons are generally too large to use effectively in ground combat, and are generally reserved to target incoming DropShips and WarShips, though SDS missiles (SDS-CM) may also be employed as artillery.",
+            "In the limited instances where these weapons may be used, consult the Capital and Sub-Capital Weapons rules (see p. 156)."
+        ],
+        asce_page: 90,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "SDS-SC #/#/#/#",
+        name: "Space Defense System",
+        summary: [
+            "Any non-DropShip unit or installation with SDS weapons is a unit that carries large weapons designed almost exclusively for use against WarShips. These capital or sub-capital weapons are generally too large to use effectively in ground combat, and are generally reserved to target incoming DropShips and WarShips, though SDS missiles (SDS-CM) may also be employed as artillery.",
+            "In the limited instances where these weapons may be used, consult the Capital and Sub-Capital Weapons rules (see p. 156)."
+        ],
+        asce_page: 90,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "SOA",
+        name: "Space Operations Adaptation",
+        summary: [
+            "A unit with this special ability can operate in vacuum (see p. 61), but is not capable of spaceflight on its own."
+        ],
+        asce_page: 90,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "SCAP",
+        name: "Sub-capital",
+        summary: [
+            "Sub-capital weapons are smaller-scale versions of the capital weapons used on WarShips and SDS batteries. Their use is still almost exclusively limited to combat between units in orbital space and beyond, and so is beyond the general scope of the ground war game presented in this book.",
+            "Nevertheless, in certain limited instances where they may be used, consult the Capital and Sub-Capital Weapons rules (see p. 156)."
+        ],
+        asce_page: 90,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "SLG",
+        name: "Super Large",
+        summary: [
+            "Super Large units occupy a 6” AoE template sized area or larger. Super Large units block LOS."
+        ],
+        asce_page: 90,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "TAG",
+        name: "Target Acquisition Gear",
+        summary: [
+            "TAG is used to designate targets for homing artillery attacks. A unit with this ability may designate targets in the Short and Medium range brackets (see Artillery Attacks, p. 47)."
+        ],
+        asce_page: 90,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "MTAS#",
+        name: "’Mech Taser",
+        summary: [
+            "A unit with the MTAS# special is carrying a ’Mech Taser; a unit with the BTAS# special carries a battle armor Taser.",
+            "For MTAS special abilities, the # in this special indicates the quantity of Taser weapons mounted by the unit in question, each of which may attempt one attack per turn against any targets that lie in the unit’s firing arc and within its Short range bracket.",
+            "For BTAS special abilities, the # in this special represents the maximum number of Taser attacks the unit can make for the entire scenario.",
+            "All Taser attacks are resolved separately, and may be made in addition to the unit’s normal weapon or physical attacks.",
+            "The Taser attack itself delivers no damage, but a successful hit will cause either interference or shutdown any target that is not conventional infantry, a DropShip, or possesses the LG, VLG, or SLG ability. Conventional infantry, DropShips, and units with the LG, VLG, or SLG abilities ignore the Taser effects entirely.",
+            "When a Taser attack hits a target that can be affected by it, the attacker rolls 2D6, applying a –2 if using a BTAS special, a –2 if the target is a BattleMech, and a +2 modifier if the target is battle armor infantry. On an 8+, the target is shut down for 1 turn. On a 7 or less, the target suffers interference effects that apply a +1 Target Number modifier to all of its attack and Control rolls the unit makes for 1 turn (additional Taser hits do not add to this effect). Taser effects wear off in the End Phase of the turn after a Taser’s successful attack."
+        ],
+        asce_page: 90,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "BTAS#",
+        name: "Battle Armor Taser",
+        summary: [
+            "A unit with the MTAS# special is carrying a ’Mech Taser; a unit with the BTAS# special carries a battle armor Taser.",
+            "For MTAS special abilities, the # in this special indicates the quantity of Taser weapons mounted by the unit in question, each of which may attempt one attack per turn against any targets that lie in the unit’s firing arc and within its Short range bracket.",
+            "For BTAS special abilities, the # in this special represents the maximum number of Taser attacks the unit can make for the entire scenario.",
+            "All Taser attacks are resolved separately, and may be made in addition to the unit’s normal weapon or physical attacks.",
+            "The Taser attack itself delivers no damage, but a successful hit will cause either interference or shutdown any target that is not conventional infantry, a DropShip, or possesses the LG, VLG, or SLG ability. Conventional infantry, DropShips, and units with the LG, VLG, or SLG abilities ignore the Taser effects entirely.",
+            "When a Taser attack hits a target that can be affected by it, the attacker rolls 2D6, applying a –2 if using a BTAS special, a –2 if the target is a BattleMech, and a +2 modifier if the target is battle armor infantry. On an 8+, the target is shut down for 1 turn. On a 7 or less, the target suffers interference effects that apply a +1 Target Number modifier to all of its attack and Control rolls the unit makes for 1 turn (additional Taser hits do not add to this effect). Taser effects wear off in the End Phase of the turn after a Taser’s successful attack."
+        ],
+        asce_page: 90,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "TSEMP#",
+        name: "Tight-stream Electromagnetic Pulse Weapons",
+        summary: [
+            "A unit with this special ability carries tight-stream EMP weapons (TSEMPs), which function much like an energy-based version of the taser (see above).",
+            "As with taser weapons, the numerical value for this special ability indicates the number of TSEMP weapon attacks the unit may attempt per turn. If this numerical value is preceded by a “-O”, then the unit is only carrying one-shot TSEMPs, and the number instead indicates how many TSEMP attacks it may attempt for the entire scenario.",
+            "TSEMP attacks may only be attempted in the unit’s Combat Phase, and may only be directed against targets within the unit’s Short or Medium range brackets on the ground map.",
+            "A successful TSEMP attack will have no effect against conventional infantry unit, DropShips, or any other units that possess the VLG or SLG specials. For all other unit types, a successful TSEMP attack must be followed by a second 2D6 roll, applying a –1 roll modifier if the target is a BattleMech or aerospace unit, a –2 if the target has the LG special, and a +2 if the target is a support vehicle unit.",
+            "If the modified roll result is 8 or higher, the target shuts down for 1 turn. On a 7 or less, the target instead suffers a +1 target modifier for all attacks and Control Rolls required of it for 1 turn. Multiple TSEMP attacks against the same target will not increase these modifiers, but each attack each should make its effects roll as long as the target has not been shut down. TSEMP effects against a target automatically wear off in the End Phase of the following turn."
+        ],
+        asce_page: 90,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "HTC",
+        name: "Trailer Hitch",
+        summary: [
+            "A vehicle unit with this special has the ability to tow other wheeled or tracked units and trailers. The rules for towing may be found under External Cargo, page 163."
+        ],
+        asce_page: 90,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "TRN",
+        name: "Trenchworks/Fieldworks Engineers",
+        summary: [
+            "Each turn these infantry units may convert an area under a 2” AoE template into a fortified area. Attacks against infantry units in a fortified area suffer an additional +2 Target Number modifier. Heat, Inferno, and area effect weapons ignore this modifier."
+        ],
+        asce_page: 91,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "TSI",
+        name: "Triple-strength Implants",
+        summary: [
+            "Infantry with this special have been augmented with triple-strength myomer implants. While most gameplay effects are covered under Augmented Warriors (see p. 140), these units are also susceptible to the effects of anti-TSM munitions (see p. 143)."
+        ],
+        asce_page: 91,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "VRT",
+        name: "Variable-range Targeting",
+        summary: [
+            "Units equipped with variable-range targeting may switch between short-range, long-range or standard targeting during the End Phase of any turn (see Targeting and Tracking Systems, p. 173)."
+        ],
+        asce_page: 91,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "VTM#",
+        name: "Medium Vehicle Transport",
+        summary: [
+            "Vehicles differ from other units in that the type of bay necessary for transport differs by vehicle weight. The Vehicle Transport special ability also indicates the maximum weight class of vehicle a given bay can accommodate, as defined below:",
+            "Medium Vehicle Transport (VTM#) bays can handle units of Size class 1 and 2 that do not have the Large (LG), Very Large (VLG), or Super Large (SLG) specials.",
+            "Heavy Vehicle Transport (VTH) bays can hold units of Size class 1 through 4 that do not have the Large (LG), Very Large (VLG) or Super Large (SLG) specials.",
+            "Super-Heavy Vehicle Transport (VTS) bays can accommodate units of Size class 1 through 4, including those that have the Large (LG) special, but not the Very Large (VLG) or Super Large (SLG) specials.",
+            "Full rules regarding how to drop and deploy non-infantry units from a transport are presented elsewhere in this chapter. For air vehicles (including VTOLs and airship units), see Aerospace Unit Transports, page 142. For other non-infantry transports, see Transporting Non-Infantry Units, page 39. The Dropping Troops rules (see p. 160) may also be used for some vehicle units."
+        ],
+        asce_page: 91,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "VTH#",
+        name: "Heavy Vehicle Transport",
+        summary: [
+            "Vehicles differ from other units in that the type of bay necessary for transport differs by vehicle weight. The Vehicle Transport special ability also indicates the maximum weight class of vehicle a given bay can accommodate, as defined below:",
+            "Medium Vehicle Transport (VTM#) bays can handle units of Size class 1 and 2 that do not have the Large (LG), Very Large (VLG), or Super Large (SLG) specials.",
+            "Heavy Vehicle Transport (VTH) bays can hold units of Size class 1 through 4 that do not have the Large (LG), Very Large (VLG) or Super Large (SLG) specials.",
+            "Super-Heavy Vehicle Transport (VTS) bays can accommodate units of Size class 1 through 4, including those that have the Large (LG) special, but not the Very Large (VLG) or Super Large (SLG) specials.",
+            "Full rules regarding how to drop and deploy non-infantry units from a transport are presented elsewhere in this chapter. For air vehicles (including VTOLs and airship units), see Aerospace Unit Transports, page 142. For other non-infantry transports, see Transporting Non-Infantry Units, page 39. The Dropping Troops rules (see p. 160) may also be used for some vehicle units."
+        ],
+        asce_page: 91,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "VTS#",
+        name: "Super-Heavy Vehicle Transport",
+        summary: [
+            "Vehicles differ from other units in that the type of bay necessary for transport differs by vehicle weight. The Vehicle Transport special ability also indicates the maximum weight class of vehicle a given bay can accommodate, as defined below:",
+            "Medium Vehicle Transport (VTM#) bays can handle units of Size class 1 and 2 that do not have the Large (LG), Very Large (VLG), or Super Large (SLG) specials.",
+            "Heavy Vehicle Transport (VTH) bays can hold units of Size class 1 through 4 that do not have the Large (LG), Very Large (VLG) or Super Large (SLG) specials.",
+            "Super-Heavy Vehicle Transport (VTS) bays can accommodate units of Size class 1 through 4, including those that have the Large (LG) special, but not the Very Large (VLG) or Super Large (SLG) specials.",
+            "Full rules regarding how to drop and deploy non-infantry units from a transport are presented elsewhere in this chapter. For air vehicles (including VTOLs and airship units), see Aerospace Unit Transports, page 142. For other non-infantry transports, see Transporting Non-Infantry Units, page 39. The Dropping Troops rules (see p. 160) may also be used for some vehicle units."
+        ],
+        asce_page: 91,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "VLG",
+        name: "Very Large",
+        summary: [
+            "A unit with this ability fully occupies a 4” diameter area. Very Large units block LOS."
+        ],
+        asce_page: 91,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "VSTOL",
+        name: "Very-short Takeoff and Landing",
+        summary: [
+            "This ability allows a unit to lift off and land in a shorter amount of space than regular aerodyne units (see Aerospace Units on the Ground Map, pp. 141-142)."
+        ],
+        asce_page: 91,
+        type: ESpecialAbilityType.Optional
+    },
+    {
+        tag: "VR",
+        name: "Virtual Reality Piloting Pod",
+        summary: [
+            "A unit controlled with a virtual reality piloting pod has replaced its normal cockpit with an internalized bay sealed deep inside its chassis. Though this early-Clan Invasion experiment promised to better safeguard MechWarriors from harm, it proved dangerously susceptible to electronic interference and made safe egress from a doomed machine nearly impossible.",
+            "A unit with this special applies a –1 target modifier to any special Control Rolls required of the unit (such as those to avoid skidding or becoming stuck in bog-down terrain, but the unit becomes unable to use the Ejection rules (see p. 161). Furthermore, if the unit begins its Combat Phase within an area affected by hostile ECM of any type (such as those generated by LECM, ECM, and WAT specials), the unit may not attempt any ranged weapon attacks, and suffers a +2 Target Number modifier for any physical attacks it attempts."
+        ],
+        asce_page: 91,
+        type: ESpecialAbilityType.Optional
     }
 
 ]
