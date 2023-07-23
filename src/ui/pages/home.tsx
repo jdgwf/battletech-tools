@@ -86,6 +86,12 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
             >
                   <ul className="news">
                   <li>
+                  <h4>
+                      <strong>2023 July 23</strong> - New Special Abilities
+                    </h4>
+                    Many thanks to <a href="https://github.com/Stew-rt">Stew-rt</a> for adding a slew of special abilities in my time of busy crazy kicking cancer's ass time for me (3 more Chemo session - woot!). This is why Open Source rocks! Thank you again, Stew-rt!
+                  </li>
+                  <li>
                     <h4>
                       <strong>2022 June 8</strong> - MUL Elemental and Infantry Size fixes &amp; Pilot Abilities
                     </h4>
