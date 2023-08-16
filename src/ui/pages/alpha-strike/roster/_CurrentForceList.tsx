@@ -293,6 +293,7 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                                 )}
 
                                 <strong title="This is the Pilot's Skill">Pilot Skill</strong>: {asUnit.currentSkill}
+                                &nbsp;|&nbsp;<strong title="Move">MV</strong>: {asUnit.currentMove}
                                 &nbsp;|&nbsp;<strong title="Armor/Internal Structure values">A/IS</strong>: {asUnit.armor}/{asUnit.structure}
                                 &nbsp;|&nbsp;<strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
                                 {asUnit.overheat  && asUnit.overheat > 0 ? (
