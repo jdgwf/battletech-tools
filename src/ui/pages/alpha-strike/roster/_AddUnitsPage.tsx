@@ -129,11 +129,11 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
             ? 'BFPointValue'
             : 'Name';
 
-        /* sort by PV */
+        /* primary sort */
         if (a[primarySort] < b[primarySort]) return -1;
         else if (a[primarySort] > b[primarySort]) return 1;
 
-        /* fallback sort by name */
+        /* fallback sort to break primary sort ties */
         if (a[secondarySort] < b[secondarySort]) return -1;
         else if (a[secondarySort] > b[secondarySort]) return 1;
 
