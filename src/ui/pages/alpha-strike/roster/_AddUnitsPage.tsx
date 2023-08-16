@@ -18,6 +18,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
             searchResults: this.props.appGlobals.appSettings.alphasStrikeCachedSearchResults,
             contextMenuSearch: -1,
             contextMenuSavedBattleMechs: -1,
+            searchSort: 'Name',
         }
 
         this.updateSearchResults();
@@ -122,12 +123,28 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         this.props.appGlobals,
       );
 
-      // console.log("updateSearchResults data", data);
+      data.sort((a: IASMULUnit, b: IASMULUnit): number => {
+        const primarySort = this.state.searchSort;
+        const secondarySort = this.state.searchSort === 'Name'
+            ? 'BFPointValue'
+            : 'Name';
+
+        /* sort by PV */
+        if (a[primarySort] < b[primarySort]) return -1;
+        else if (a[primarySort] > b[primarySort]) return 1;
+
+        /* fallback sort by name */
+        if (a[secondarySort] < b[secondarySort]) return -1;
+        else if (a[secondarySort] > b[secondarySort]) return 1;
+
+        return 0;
+    });
+
+    //   console.log("updateSearchResults data", data);
       this.setState({
         searchResults: data,
         contextMenuSearch: -1,
-
-      })
+      });
 
       let appSettings = this.props.appGlobals.appSettings;
 
@@ -151,6 +168,11 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
 
       }
+    }
+
+    handleSort = ({ target: { value } }: any) => {
+        this.setState({ searchSort: value });
+        this.updateSearchResults();
     }
 
     render = (): JSX.Element => {
@@ -284,6 +306,31 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                   </fieldset>
 
                 <h3 className="text-center">Search Results ({this.state.searchResults.length})</h3>
+                <div className="search-sort-wrapper">
+                    Sort:
+                    <span>
+                        <input
+                            id="search-sort-name"
+                            type="radio"
+                            name="searchSort"
+                            value="Name"
+                            checked={this.state.searchSort === 'Name'}
+                            onChange={this.handleSort}
+                        />
+                        <label htmlFor="search-sort-name">Name</label>
+                    </span>
+                    <span>
+                        <input
+                            id="search-sort-pv"
+                            type="radio"
+                            name="searchSort"
+                            value="BFPointValue"
+                            checked={this.state.searchSort === 'BFPointValue'}
+                            onChange={this.handleSort}
+                        />
+                        <label htmlFor="search-sort-pv">PV</label>
+                    </span>
+                </div>
                   <div className="table-wrapper">
                     <table className="table">
                       <thead>
@@ -568,4 +615,5 @@ interface IAlphaStrikeAddUnitsViewState {
     searchResults: IASMULUnit[];
     contextMenuSearch: number;
     contextMenuSavedBattleMechs: number;
+    searchSort: 'Name' | 'BFPointValue';
 }

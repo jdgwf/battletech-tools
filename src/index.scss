@@ -337,6 +337,19 @@ input[type=number] {
   opacity: 0.8;
 }
 
+.search-sort-wrapper {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 0.5rem;
+
+    span {
+        display: flex;
+        align-items: center;
+
+        label { padding-left: 1rem; }
+    }
+}
+
 .table-wrapper {
   overflow-x: auto;
 }
