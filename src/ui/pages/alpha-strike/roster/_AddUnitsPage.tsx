@@ -429,7 +429,8 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                               </tr>
                               <tr>
                                 <td colSpan={4} className=" text-left">
-                                  <strong title="Armor/Internal Structure values">A/IS</strong>: {asUnit.BFArmor}/{asUnit.BFStructure}
+                                  <strong title="Move">MV</strong>: {asUnit.BFMove}
+                                  &nbsp;|&nbsp;<strong title="Armor/Internal Structure values">A/IS</strong>: {asUnit.BFArmor}/{asUnit.BFStructure}
                                   &nbsp;|&nbsp;<strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.BFDamageShort}/{asUnit.BFDamageMedium}/{asUnit.BFDamageLong}
                                   {asUnit.BFOverheat  && asUnit.BFOverheat > 0 ? (
                                     <>
