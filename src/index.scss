@@ -271,9 +271,12 @@ input[type=number] {
     padding: 0 0.5rem 5rem 0.5rem;
     transition: left .5s;
     width: 100%;
+    overflow-x: hidden;
   }
 
   &.show-mobile {
+    height: 100vh;
+    overflow: hidden;
     .mobile-menu {
       left: 0;
     }
@@ -357,7 +360,9 @@ input[type=number] {
 .table {
   border-top: solid 1px $colorWhite;
   thead, tfoot {
-    background: $headerFooterBackground;
+    th, td {
+      background: $headerFooterBackground;
+    }
   }
 
   tfoot, tbody, thead {
@@ -375,14 +380,16 @@ input[type=number] {
   tbody {
     border-bottom: solid 1px $colorWhite !important;
     border-top: none !important;
-  }
 
-  tbody:nth-child(odd) {
-    tr {
+    tr td {
+      background: #222;
+    }
+
+    &:nth-child(odd) tr td {
       background: #444;
-
     }
   }
+
 
   thead, tbody, tfoot {
     tr {
@@ -409,7 +416,7 @@ input[type=number] {
   }
 
   &.tighter-padding {
-    tbody, thead, tfooter {
+    tbody, thead, tfoot {
       tr {
         td, th {
           padding: .125rem .25rem;
