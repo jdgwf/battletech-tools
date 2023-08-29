@@ -268,7 +268,7 @@ input[type=number] {
     position: absolute;
     left: 0;
     top: 5rem;
-    padding: 0 2rem 5rem 2rem;
+    padding: 0 0.5rem 5rem 0.5rem;
     transition: left .5s;
     width: 100%;
   }
@@ -335,6 +335,23 @@ input[type=number] {
 
 .modal-backdrop.show {
   opacity: 0.8;
+}
+
+.search-sort-wrapper {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 0.5rem;
+
+    span {
+        display: flex;
+        align-items: center;
+
+        label { padding-left: 1rem; }
+    }
+}
+
+.table-wrapper {
+  overflow-x: auto;
 }
 
 .table {
@@ -1392,7 +1409,8 @@ body.retro {
       left: 0 !important;
       margin: 0 !important;
       top: 0 !important;
-  }
+      padding: 0 2rem 5rem 2rem !important;
+   }
 }
 
 @media (min-width: 2000px ) {

@@ -18,6 +18,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
             searchResults: this.props.appGlobals.appSettings.alphasStrikeCachedSearchResults,
             contextMenuSearch: -1,
             contextMenuSavedBattleMechs: -1,
+            searchSort: 'Name',
         }
 
         this.updateSearchResults();
@@ -122,12 +123,28 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         this.props.appGlobals,
       );
 
-      // console.log("updateSearchResults data", data);
+      data.sort((a: IASMULUnit, b: IASMULUnit): number => {
+        const primarySort = this.state.searchSort;
+        const secondarySort = this.state.searchSort === 'Name'
+            ? 'BFPointValue'
+            : 'Name';
+
+        /* primary sort */
+        if (a[primarySort] < b[primarySort]) return -1;
+        else if (a[primarySort] > b[primarySort]) return 1;
+
+        /* fallback sort to break primary sort ties */
+        if (a[secondarySort] < b[secondarySort]) return -1;
+        else if (a[secondarySort] > b[secondarySort]) return 1;
+
+        return 0;
+    });
+
+    //   console.log("updateSearchResults data", data);
       this.setState({
         searchResults: data,
         contextMenuSearch: -1,
-
-      })
+      });
 
       let appSettings = this.props.appGlobals.appSettings;
 
@@ -151,6 +168,11 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
 
       }
+    }
+
+    handleSort = ({ target: { value } }: any) => {
+        this.setState({ searchSort: value });
+        this.updateSearchResults();
     }
 
     render = (): JSX.Element => {
@@ -284,148 +306,176 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                   </fieldset>
 
                 <h3 className="text-center">Search Results ({this.state.searchResults.length})</h3>
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th>&nbsp;</th>
-                        <th>Name</th>
-                        <th>Rules</th>
-                        <th>Tech</th>
-                        <th>Era</th>
-                        <th>Type</th>
-                        <th>Points</th>
+                <div className="search-sort-wrapper">
+                    Sort:
+                    <span>
+                        <input
+                            id="search-sort-name"
+                            type="radio"
+                            name="searchSort"
+                            value="Name"
+                            checked={this.state.searchSort === 'Name'}
+                            onChange={this.handleSort}
+                        />
+                        <label htmlFor="search-sort-name">Name</label>
+                    </span>
+                    <span>
+                        <input
+                            id="search-sort-pv"
+                            type="radio"
+                            name="searchSort"
+                            value="BFPointValue"
+                            checked={this.state.searchSort === 'BFPointValue'}
+                            onChange={this.handleSort}
+                        />
+                        <label htmlFor="search-sort-pv">PV</label>
+                    </span>
+                </div>
+                  <div className="table-wrapper">
+                    <table className="table">
+                      <thead>
+                        <tr>
+                          <th>&nbsp;</th>
+                          <th>Name</th>
+                          <th>Rules</th>
+                          <th>Tech</th>
+                          <th>Era</th>
+                          <th>Type</th>
+                          <th>Points</th>
 
-                      </tr>
-                      <tr>
-                        <th>&nbsp;</th>
-                        <th colSpan={4}>Notes</th>
-                        <th colSpan={2}>Role</th>
-                      </tr>
-                    </thead>
+                        </tr>
+                        <tr>
+                          <th>&nbsp;</th>
+                          <th colSpan={4}>Notes</th>
+                          <th colSpan={2}>Role</th>
+                        </tr>
+                      </thead>
 
-                    {this.state.searchResults.length > 0 ? (
-                      <>
-                        {this.state.searchResults.map( (asUnit: IASMULUnit, unitIndex: number) => {
+                      {this.state.searchResults.length > 0 ? (
+                        <>
+                          {this.state.searchResults.map( (asUnit: IASMULUnit, unitIndex: number) => {
 
-                          return (
-                            <tbody key={unitIndex}>
-                            <tr>
-                              <td rowSpan={2} valign="middle" style={{verticalAlign: "middle"}} className="text-left min-width no-wrap">
+                            return (
+                              <tbody key={unitIndex}>
+                              <tr>
+                                <td rowSpan={2} valign="middle" style={{verticalAlign: "middle"}} className="text-left min-width no-wrap">
 
-{this.props.appGlobals.currentASForce && this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
-  (
-    <div className="drop-down-menu-container">
+  {this.props.appGlobals.currentASForce && this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
+    (
+      <div className="drop-down-menu-container">
+        <button
+          className="btn-sm btn btn-primary"
+          onClick={() => this.toggleContextMenuSearch(unitIndex)}
+          title="Open the context menu for this unit"
+        >
+          <FaBars />
+        </button>
+        <ul
+          className={this.state.contextMenuSearch === unitIndex ? "styleless dd-menu active" : "styleless dd-menu"}
+        >
+          {this.props.appGlobals.currentASForce.groups.map( (asGroup, asGroupIndex) => {
+            return (
+              <li
+                key={asGroupIndex}
+                onClick={() => {
+                  let unitObj = new AlphaStrikeUnit();
+                  unitObj.importMUL( JSON.parse(JSON.stringify(asUnit)) );
+                  this.addToGroup( unitObj, asGroupIndex)
+                }}
+                title={"Adds this unit to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
+              >
+                <FaPlus />&nbsp;
+                Add to {asGroup.getName(asGroupIndex + 1)}
+              </li>
+            )
+          })}
+
+        </ul>
+      </div>
+    ) : (
       <button
-        className="btn-sm btn btn-primary"
-        onClick={() => this.toggleContextMenuSearch(unitIndex)}
-        title="Open the context menu for this unit"
+        className="btn-sm btn btn-primary no-right-margin"
+        onClick={() => {
+          let unitObj = new AlphaStrikeUnit();
+          unitObj.importMUL( JSON.parse(JSON.stringify(asUnit)) );
+          this.addToGroup( unitObj, 0)
+        }}
+        title="Add this unit to your current group"
       >
-        <FaBars />
+        <FaPlus />
       </button>
-      <ul
-        className={this.state.contextMenuSearch === unitIndex ? "styleless dd-menu active" : "styleless dd-menu"}
-      >
-        {this.props.appGlobals.currentASForce.groups.map( (asGroup, asGroupIndex) => {
-          return (
-            <li
-              key={asGroupIndex}
-              onClick={() => {
-                let unitObj = new AlphaStrikeUnit();
-                unitObj.importMUL( JSON.parse(JSON.stringify(asUnit)) );
-                this.addToGroup( unitObj, asGroupIndex)
-              }}
-              title={"Adds this unit to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
-            >
-              <FaPlus />&nbsp;
-              Add to {asGroup.getName(asGroupIndex + 1)}
-            </li>
-          )
-        })}
+  )}
 
-      </ul>
-    </div>
-  ) : (
     <button
-      className="btn-sm btn btn-primary no-right-margin"
+      className="btn btn-primary btn-sm"
       onClick={() => {
         let unitObj = new AlphaStrikeUnit();
-        unitObj.importMUL( JSON.parse(JSON.stringify(asUnit)) );
-        this.addToGroup( unitObj, 0)
+        unitObj.importMUL( asUnit );
+        this.props.openViewUnit( unitObj )
       }}
-      title="Add this unit to your current group"
+      title="View this unit's Alpha Strike Card"
     >
-      <FaPlus />
+      <FaEye />
     </button>
-)}
+  </td>
+                                <td>{asUnit.Name}</td>
 
-  <button
-    className="btn btn-primary btn-sm"
-    onClick={() => {
-      let unitObj = new AlphaStrikeUnit();
-      unitObj.importMUL( asUnit );
-      this.props.openViewUnit( unitObj )
-    }}
-    title="View this unit's Alpha Strike Card"
-  >
-    <FaEye />
-  </button>
-</td>
-                              <td>{asUnit.Name}</td>
+                                <td>{asUnit.Rules}</td>
+                                <td>{asUnit.Technology.Name}</td>
+                                <td>{getMULEraLabel(asUnit.EraId)}</td>
+                                <td>{asUnit.BFType}</td>
+                                <td>{asUnit.BFPointValue}</td>
 
-                              <td>{asUnit.Rules}</td>
-                              <td>{asUnit.Technology.Name}</td>
-                              <td>{getMULEraLabel(asUnit.EraId)}</td>
-                              <td>{asUnit.BFType}</td>
-                              <td>{asUnit.BFPointValue}</td>
+                              </tr>
+                              <tr>
+                                <td colSpan={4} className=" text-left">
+                                  <strong title="Move">MV</strong>: {asUnit.BFMove}
+                                  &nbsp;|&nbsp;<strong title="Armor/Internal Structure values">A/IS</strong>: {asUnit.BFArmor}/{asUnit.BFStructure}
+                                  &nbsp;|&nbsp;<strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.BFDamageShort}/{asUnit.BFDamageMedium}/{asUnit.BFDamageLong}
+                                  {asUnit.BFOverheat  && asUnit.BFOverheat > 0 ? (
+                                    <>
+                                    &nbsp;|&nbsp;<strong title="Overheat Value">OHV</strong>: {asUnit.BFOverheat}
+                                    </>
+                                  ) : null}
+                                  {asUnit.BFAbilities && asUnit.BFAbilities.trim() ? (
+                                    <>
+                                      &nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.BFAbilities}
+                                    </>
+                                  ) : null}
 
-                            </tr>
-                            <tr>
-                              <td colSpan={4} className=" text-left">
-                                <strong title="Armor/Internal Structure values">A/IS</strong>: {asUnit.BFArmor}/{asUnit.BFStructure}
-                                &nbsp;|&nbsp;<strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.BFDamageShort}/{asUnit.BFDamageMedium}/{asUnit.BFDamageLong}
-                                {asUnit.BFOverheat  && asUnit.BFOverheat > 0 ? (
-                                  <>
-                                   &nbsp;|&nbsp;<strong title="Overheat Value">OHV</strong>: {asUnit.BFOverheat}
-                                  </>
-                                ) : null}
-                                {asUnit.BFAbilities && asUnit.BFAbilities.trim() ? (
-                                  <>
-                                    &nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.BFAbilities}
-                                  </>
-                                ) : null}
-
-                              </td>
-                              <td colSpan={3} className=" text-left">
-                                {asUnit.Role.Name}
-                              </td>
-                            </tr>
-                            </tbody>
-                          )
-                        })}
-                      </>
-                    ) : (
-                      <>
-                      {this.props.appGlobals.appSettings.alphaStrikeSearchTerm.length < 3 ? (
-                        <tbody>
-                        <tr>
-                          <td className="text-center" colSpan={7}>
-                            Please type a search term 3 or more characters.
-                          </td>
-                        </tr>
-                        </tbody>
+                                </td>
+                                <td colSpan={3} className=" text-left">
+                                  {asUnit.Role.Name}
+                                </td>
+                              </tr>
+                              </tbody>
+                            )
+                          })}
+                        </>
                       ) : (
-                        <tbody>
-                        <tr>
-                          <td className="text-center" colSpan={7}>
-                            Sorry, there are no matches with those parameters. It is a remote possibility that the MUL is down if other searches don't work.
-                          </td>
-                        </tr>
-                        </tbody>
+                        <>
+                        {this.props.appGlobals.appSettings.alphaStrikeSearchTerm.length < 3 ? (
+                          <tbody>
+                          <tr>
+                            <td className="text-center" colSpan={7}>
+                              Please type a search term 3 or more characters.
+                            </td>
+                          </tr>
+                          </tbody>
+                        ) : (
+                          <tbody>
+                          <tr>
+                            <td className="text-center" colSpan={7}>
+                              Sorry, there are no matches with those parameters. It is a remote possibility that the MUL is down if other searches don't work.
+                            </td>
+                          </tr>
+                          </tbody>
+                        )}
+                        </>
                       )}
-                      </>
-                    )}
 
-                  </table>
+                    </table>
+                  </div>
     </>
 ) : (
     <div className="alert alert-warning">
@@ -566,4 +616,5 @@ interface IAlphaStrikeAddUnitsViewState {
     searchResults: IASMULUnit[];
     contextMenuSearch: number;
     contextMenuSavedBattleMechs: number;
+    searchSort: 'Name' | 'BFPointValue';
 }
