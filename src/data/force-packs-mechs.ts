@@ -106,11 +106,11 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
         groupLabel: "Star",
         tech: "clan",
         members: [
-            "Elemental Battle Armor [Laser]",
-            "Elemental Battle Armor [Laser]",
-            "Elemental Battle Armor [Laser]",
-            "Elemental Battle Armor [Laser]",
-            "Elemental Battle Armor [Laser]",
+            "Elemental Battle Armor [Laser] (sqd5)",
+            "Elemental Battle Armor [Laser] (sqd5)",
+            "Elemental Battle Armor [Laser] (sqd5)",
+            "Elemental Battle Armor [Laser] (sqd5)",
+            "Elemental Battle Armor [Laser] (sqd5)",
         ],
     },
     {
