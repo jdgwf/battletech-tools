@@ -44,7 +44,7 @@ export async function getMULASSearchResults(
     if( mechRules.toLowerCase() === "introductory" ) {
         rulesNumbersURI.push( "&Rules=55" );
     }
-    if( mechRules.toLowerCase().indexOf("standard") > -1 ) {
+    if( mechRules.toLowerCase() === "standard" ) {
         rulesNumbersURI.push( "&Rules=4" );
     }
     if( mechRules.toLowerCase() === "advanced" ) {
@@ -60,7 +60,7 @@ export async function getMULASSearchResults(
     if( mechRules.toLowerCase() === "era specific" ) {
         rulesNumbersURI.push( "&Rules=56" );
     }
-    if( mechRules.toLowerCase() === "experimental" ) {
+    if( mechRules.toLowerCase() === "unknown" ) {//unknown
         rulesNumbersURI.push( "&Rules=78" );
     }
 
@@ -104,7 +104,7 @@ export async function getMULASSearchResults(
         }
 
 
-        url += rulesNumbersURI.join();
+        url += rulesNumbersURI.join("");
         url += typesFilterURI.join();
         url += techFilterURI.join();
         url += roleFilterURI.join();
