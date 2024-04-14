@@ -31,3 +31,6 @@ package-lock.json
 /SSW-Master/*
 /SSW-Equipment
 /SSW-Equipment/*
+
+.vscode
+.vscode/*
