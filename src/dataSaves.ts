@@ -292,6 +292,9 @@ export function saveBattleMechSaves(
     appSettings: AppSettings,
     newValue: IBattleMechExport[]
 ) {
+    for( let itemIndex in newValue ) {
+        newValue[itemIndex].lastUpdated = new Date();
+    }
     saveData(appSettings, "battleMechSaves", JSON.stringify(newValue) );
 }
 
@@ -320,6 +323,8 @@ export function saveCurrentCBTForce(
     appSettings: AppSettings,
     newValue: ICBTForceExport,
 ) {
+
+
     saveData(appSettings, "currentCBTForce", JSON.stringify(newValue) );
 }
 
@@ -327,6 +332,8 @@ export function saveCurrentASForce(
     appSettings: AppSettings,
     newValue: IASForceExport,
 ) {
+    newValue.lastUpdated = new Date();
+
     saveData(appSettings, "currentASForce", JSON.stringify(newValue) );
 }
 
@@ -394,6 +401,10 @@ export function saveFavoriteASGroups(
     appSettings: AppSettings,
     newValue: IASGroupExport[]
 ) {
+
+    for( let itemIndex in newValue ) {
+        newValue[itemIndex].lastUpdated = new Date();
+    }
     saveData(appSettings, "favoriteASGroups", JSON.stringify(newValue) );
 }
 
@@ -405,6 +416,11 @@ export function saveFavoriteASGroupsObjects(
     for( let unit of newValue ) {
         rv.push( unit.export() );
     }
+
+    for( let itemIndex in newValue ) {
+        newValue[itemIndex].lastUpdated = new Date();
+    }
+
     saveData(appSettings, "favoriteASGroups", JSON.stringify(rv) );
 }
 
@@ -436,6 +452,10 @@ export function saveFavoriteCBTGroupsObjects(
     let rv: ICBTGroupExport[] = [];
     for( let unit of newValue ) {
         rv.push( unit.export() );
+    }
+
+    for( let itemIndex in newValue ) {
+        newValue[itemIndex].lastUpdated = new Date();
     }
     saveData(appSettings, "favoriteCBTGroups", JSON.stringify(rv) );
 }

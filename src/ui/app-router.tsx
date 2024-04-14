@@ -295,6 +295,8 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             appGlobals: appGlobals,
         });
 
+        mech.lastUpdated = new Date();
+
         saveCurrentBattleMech( appGlobals.appSettings, mech.exportJSON() );
     }
 

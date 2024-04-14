@@ -223,6 +223,7 @@ export class BattleMech {
     // in play variables
     public selectedMech: boolean = false;
 
+    public lastUpdated = new Date();
     public currentMovementMode: string = "n";
     public currentToHitMovementModifier: number = 0;
     public currentTargetModifier: number = 0;
@@ -456,6 +457,7 @@ export class BattleMech {
     }
 
     public reset() {
+        this.lastUpdated = new Date();
         this.setTonnage(20);
         this.setWalkSpeed(0);
         this.setWalkSpeed(0);
@@ -5214,7 +5216,7 @@ export class BattleMech {
             introductoryRules: this._introductoryRules,
             is_type: this.getInternalStructureType(),
             jumpSpeed: this._jumpSpeed,
-            lastUpdated: new Date(),
+            lastUpdated: this.lastUpdated,
             mechType: this._mechType.tag,
             mirrorArmorAllocations: this._mirrorArmorAllocations,
             nickname: this._nickname,
@@ -5424,7 +5426,9 @@ export class BattleMech {
         if( importObject && importObject.targetCToHit ) {
             this._targetCToHit = importObject.targetCToHit;
         }
-
+        if( importObject && importObject.lastUpdated ) {
+            this.lastUpdated = new Date(importObject.lastUpdated);
+        }
         if( importObject && importObject.currentMovementMode ) {
             this.currentMovementMode = importObject.currentMovementMode;
         }
