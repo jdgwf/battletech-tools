@@ -1108,6 +1108,20 @@ export class AlphaStrikeUnit {
         this.currentMoveHexes = "";
 
         this.immobile = true;
+        if( this.move[0].type === "j" ) {
+            this.move = [
+                {
+                    move: this.move[0].move,
+                    currentMove: this.move[0].currentMove,
+                    type: "",
+                },
+                {
+                    move: this.move[0].move,
+                    currentMove: this.move[0].currentMove,
+                    type: this.move[0].type,
+                }
+            ]
+        }
         for( let moveC = 0; moveC < this.move.length; moveC++ ) {
 
 
@@ -1147,11 +1161,11 @@ export class AlphaStrikeUnit {
             }
 
 
+
             // Subtract Heat from Current Move
             if( this.move[moveC].type !== "j" || this.move.length === 1 ) {
                 // if( this.type.toLowerCase().trim() === "bm" ) {
-                    this.currentMoveSprint = "" + (+this.move[moveC].currentMove * 1.5 ) + "\"";
-                    this.currentMoveHexesSprint = "" + ( Math.ceil(( +this.move[moveC].currentMove / 2) * 1.5) )+ "⬣";
+
                 // }
                 if( this.hasTripeStrengthMyomer() ) {
                     switch( this.currentHeat ) {
@@ -1173,17 +1187,22 @@ export class AlphaStrikeUnit {
                         this.move[moveC].currentMove = 0;
                     }
                 } else {
-                    this.move[moveC].currentMove = this.move[moveC].currentMove - this.currentHeat * 2;
-                    //can't have minus move, or heat level "4" === shutdown
-                    if (this.move[moveC].currentMove < 0 || this.currentHeat === 4){
-                        this.move[moveC].currentMove = 0;
-                    }
+                    // if( this.move[moveC].type != "j" ) {
+                        this.move[moveC].currentMove = this.move[moveC].currentMove - this.currentHeat * 2;
+                        //can't have minus move, or heat level "4" === shutdown
+                        if (this.move[moveC].currentMove < 0 || this.currentHeat === 4){
+                            this.move[moveC].currentMove = 0;
+                        }
+                    // }
                 }
 
             }
 
-            this.currentMove += "" + this.move[moveC].currentMove + "\"" + this.move[moveC].type;
-            this.currentMoveHexes += "" + ( this.move[moveC].currentMove / 2) + "⬣" + this.move[moveC].type;
+            this.currentMoveSprint = "" + (+this.move[0].currentMove * 1.5 ) + "\"";
+            this.currentMoveHexesSprint = "" + ( Math.ceil(( +this.move[0].currentMove / 2) * 1.5) )+ "⬣";
+
+            this.currentMove += this.move[moveC].currentMove.toString() + "\"" + this.move[moveC].type;
+            this.currentMoveHexes += ( this.move[moveC].currentMove / 2).toString() + "⬣" + this.move[moveC].type;
 
 
 
@@ -1257,7 +1276,7 @@ export class AlphaStrikeUnit {
                 this.immobile = true;
             } else {
                 // -1 TMM at OV2 or OV3 (ASC pg. 52)
-                if( this.currentHeat > 1 ){
+                if( this.currentHeat > 1 && this.move[moveC].type !== "j" ){
                     tmpTMM -= 1;
                     if( tmpTMM < 0 ) {
                         tmpTMM = 0;
@@ -1275,15 +1294,20 @@ export class AlphaStrikeUnit {
             if( this.move[moveC].currentMove > 0 )
             this.immobile = false;
 
-            this.currentTMM += tmpTMM.toString(); //  + this.move[moveC].type;
+            if( tmpTMM.toString() + "/" !== this.currentTMM )
+                this.currentTMM += tmpTMM.toString() + this.move[moveC].type.toLowerCase();
+
+
 
             if( moveC !== this.move.length - 1 ) {
-            this.currentTMM += "/";
-            this.currentMove += "/";
-            this.currentMoveHexes += "/";
+                this.currentTMM += "/";
+                this.currentMove += "/";
+                this.currentMoveHexes += "/";
             }
 
         }
+        if( this.currentTMM.endsWith("/"))
+            this.currentTMM = this.currentTMM.substring( 0, this.currentTMM.length - 1);
 
         // Calculate To-Hits with Criticals
         this.currentToHitShort = this.currentSkill + this.currentHeat + currentFCHits * 2; // + currentEngineHits;

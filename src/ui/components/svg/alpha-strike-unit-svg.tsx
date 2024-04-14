@@ -349,7 +349,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 <text x="30" y="140" fontFamily="sans-serif" fontSize="25">TP: {this.props.asUnit.type}</text>
                 <text x="150" y="140" fontFamily="sans-serif" fontSize="25">SZ: {this.props.asUnit.size}</text>
                 {!this.props.asUnit.isAerospace ? (
-                    <text x="235" y="140" fontFamily="sans-serif" fontSize="25">TMM: {this.props.asUnit.currentTMM.toUpperCase()}</text>
+                    <text x="235" y="140" fontFamily="sans-serif" fontSize="25">TMM: {this.props.asUnit.currentTMM}</text>
                 ) : (
                     <></>
                 )}
